@@ -32,7 +32,7 @@ $config->setRiskyAllowed(true)
         'single_line_throw' => false,
         'single_line_comment_spacing' => false,
         'phpdoc_to_comment' => [
-            'ignored_tags' => ['todo', 'var', 'see', 'phpstan-ignore-next-line'],
+            'ignored_tags' => ['todo', 'var', 'see', 'phpstan-ignore-next-line', 'phpstan-use'],
         ],
     ])
     ->setFinder($finder);

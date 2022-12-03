@@ -18,7 +18,7 @@ parameters:
         - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/Resources/phpcr-migrations/*
     symfony:
-        container_xml_path: %rootDir%/../../../Tests/Application/var/cache/admin/dev/Sulu_Bundle_ArticleBundle_Tests_Application_KernelDevDebugContainer.xml
+        container_xml_path: %currentWorkingDirectory%/Tests/Application/var/cache/admin/dev/phpcr_storage/Sulu_Bundle_ArticleBundle_Tests_Application_KernelDevDebugContainer.xml
         console_application_loader: Tests/phpstan/console-application.php
     doctrine:
         objectManagerLoader: Tests/phpstan/object-manager.php

@@ -3,15 +3,14 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <mapped-superclass
-        name="Sulu\Bundle\ArticleBundle\Domain\Model\Article"
+        name="Sulu\Article\Domain\Model\Article"
         table="ar_articles"
-        repository-class="Sulu\Component\Persistence\Repository\ORM\EntityRepository"
     >
-        <id name="id" type="string" column="id">
+        <id name="uuid" type="string" column="uuid">
             <generator strategy="NONE"/>
         </id>
 
-        <one-to-many field="dimensionContents" target-entity="Sulu\Bundle\ArticleBundle\Domain\Model\ArticleDimensionContentInterface" mapped-by="article">
+        <one-to-many field="dimensionContents" target-entity="Sulu\Article\Domain\Model\ArticleDimensionContentInterface" mapped-by="article">
             <cascade>
                 <cascade-persist/>
             </cascade>

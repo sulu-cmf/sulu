@@ -9,15 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\ArticleBundle\Infrastructure\Sulu\Admin;
+namespace Sulu\Article\Infrastructure\Sulu\Admin;
 
+use Sulu\Article\Domain\Model\ArticleInterface;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
-use Sulu\Bundle\ArticleBundle\Domain\Model\ArticleInterface;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Admin\ContentViewBuilderFactoryInterface;
 use Sulu\Component\Localization\Manager\LocalizationManagerInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
@@ -32,13 +32,13 @@ use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
  */
 class ArticleAdmin extends Admin
 {
-    const SECURITY_CONTEXT = 'sulu.article.articles';
+    public const SECURITY_CONTEXT = 'sulu.article.articles';
 
-    const LIST_VIEW = 'sulu_article.article.list';
+    public const LIST_VIEW = 'sulu_article.article.list';
 
-    const ADD_TABS_VIEW = 'sulu_article.article.add_tabs';
+    public const ADD_TABS_VIEW = 'sulu_article.article.add_tabs';
 
-    const EDIT_TABS_VIEW = 'sulu_article.article.edit_tabs';
+    public const EDIT_TABS_VIEW = 'sulu_article.article.edit_tabs';
 
     /**
      * @var ViewBuilderFactoryInterface
@@ -124,7 +124,7 @@ class ArticleAdmin extends Admin
                     ->setBackView(static::LIST_VIEW)
             );
             $viewCollection->add(
-                $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_TABS_VIEW, '/' . $resourceKey . '/:locale/:id')
+                $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_TABS_VIEW, '/' . $resourceKey . '/:locale/:id') // TODO should be uuid
                     ->setResourceKey($resourceKey)
                     ->addLocales($locales)
                     ->setBackView(static::LIST_VIEW)

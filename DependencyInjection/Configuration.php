@@ -23,9 +23,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    public const ARTICLE_STORAGE_PHPCR = 'phpcr';
-    public const ARTICLE_STORAGE_EXPERIMENTAL = 'experimental';
-
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sulu_article');
@@ -33,27 +30,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->enumNode('storage')
-                    ->values([self::ARTICLE_STORAGE_PHPCR, self::ARTICLE_STORAGE_EXPERIMENTAL])
-                    ->defaultValue(self::ARTICLE_STORAGE_PHPCR)
-                ->end()
-                ->arrayNode('objects')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('article')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('model')->defaultValue(Article::class)->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('article_content')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('model')->defaultValue(ArticleDimensionContent::class)->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
                 ->scalarNode('index_name')->end()
                 ->arrayNode('hosts')
                     ->prototype('scalar')->end()

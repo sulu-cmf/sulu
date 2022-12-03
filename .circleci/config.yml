@@ -6,7 +6,7 @@ jobs:
             DATABASE_URL: mysql://root@127.0.0.1:3306/su_articles_test?serverVersion=5.7
             ARTICLE_TEST_CASE: extend
         docker:
-            - image: circleci/php:7.3-node-browsers
+            - image: circleci/php:8.1-node-browsers
             - image: circleci/mysql:5.7
               environment:
                   MYSQL_ALLOW_EMPTY_PASSWORD: true

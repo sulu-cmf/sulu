@@ -11,14 +11,16 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\ArticleBundle\Domain\Model;
+namespace Sulu\Article\Domain\Model;
 
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\AuthorTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateTrait;
+//use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowTrait;
 
 /**
@@ -26,14 +28,15 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowTrait;
  */
 class ArticleDimensionContent implements ArticleDimensionContentInterface
 {
+    use AuthorTrait;
     use DimensionContentTrait;
     use ExcerptTrait;
     use RoutableTrait;
     use SeoTrait;
     use TemplateTrait {
-        getTemplateData as parentGetTemplateData;
         setTemplateData as parentSetTemplateData;
     }
+    //use WebspaceTrait;
     use WorkflowTrait;
 
     /**
@@ -69,23 +72,12 @@ class ArticleDimensionContent implements ArticleDimensionContentInterface
         return $this->title;
     }
 
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function getTemplateData(): array
-    {
-        $data = $this->parentGetTemplateData();
-        $data['title'] = $this->getTitle();
-
-        return $data;
-    }
-
     public function setTemplateData(array $templateData): void
     {
-        $this->setTitle($templateData['title']);
-        unset($templateData['title']);
+        if (\array_key_exists('title', $templateData)) {
+            $this->title = $templateData['title'];
+        }
+
         $this->parentSetTemplateData($templateData);
     }
 

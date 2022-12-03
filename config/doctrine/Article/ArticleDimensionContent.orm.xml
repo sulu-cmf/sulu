@@ -2,18 +2,20 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Sulu\Bundle\ArticleBundle\Domain\Model\ArticleDimensionContent"
-            table="ar_articles_dimension_contents">
+    <mapped-superclass
+        name="Sulu\Article\Domain\Model\ArticleDimensionContent"
+        table="ar_article_dimension_contents"
+    >
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
 
         <field name="title" type="string" column="title" length="64" nullable="true"/>
 
-        <many-to-one field="article" target-entity="Sulu\Bundle\ArticleBundle\Domain\Model\ArticleInterface" inversed-by="dimensionContents">
+        <many-to-one field="article" target-entity="Sulu\Article\Domain\Model\ArticleInterface" inversed-by="dimensionContents">
             <join-columns>
-                <join-column name="articleId" referenced-column-name="id" on-delete="CASCADE" nullable="false"/>
+                <join-column name="articleUuid" referenced-column-name="uuid" on-delete="CASCADE" nullable="false"/>
             </join-columns>
         </many-to-one>
-    </entity>
+    </mapped-superclass>
 </doctrine-mapping>

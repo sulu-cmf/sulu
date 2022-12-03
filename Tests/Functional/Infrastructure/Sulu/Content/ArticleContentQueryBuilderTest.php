@@ -65,7 +65,7 @@ class ArticleContentQueryBuilderTest extends SuluTestCase
         $this->documentManager = $this->getContainer()->get('sulu_document_manager.document_manager');
         $this->structureManager = $this->getContainer()->get('sulu.content.structure_manager');
         $this->extensionManager = $this->getContainer()->get('sulu_page.extension.manager');
-        $this->contentQuery = $this->getContainer()->get('sulu_article_test.query_executor');
+        $this->contentQuery = $this->getContainer()->get('sulu.content.query_executor');
 
         $this->languageNamespace = $this->getContainer()->getParameter('sulu.content.language.namespace');
     }

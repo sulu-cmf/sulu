@@ -1,0 +1,35 @@
+sulu_article.get_articles:
+    path: /articles.{_format}
+    methods: GET
+    controller: sulu_article.admin_article_controller::cgetAction
+    format: json
+
+sulu_article.get_article:
+    path: /articles/{id}.{_format}
+    methods: GET
+    controller: sulu_article.admin_article_controller::getAction
+    format: json
+
+sulu_article.post_article:
+    path: /articles.{_format}
+    methods: POST
+    controller: sulu_article.admin_article_controller::postAction
+    format: json
+
+sulu_article.put_article:
+    path: /articles/{id}.{_format}
+    methods: PUT
+    controller: sulu_article.admin_article_controller::putAction
+    format: json
+
+sulu_article.delete_article:
+    path: /articles/{id}.{_format}
+    methods: DELETE
+    controller: sulu_article.admin_article_controller::deleteAction
+    format: json
+
+sulu_article.post_article_trigger:
+    path: /articles/{id}.{_format}
+    methods: POST
+    controller: sulu_article.admin_article_controller::postTriggerAction
+    format: json

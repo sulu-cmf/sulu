@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\ArticleBundle\Domain\Model;
+namespace Sulu\Article\Domain\Model;
 
 use Ramsey\Uuid\Uuid;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityTrait;
@@ -21,23 +21,31 @@ use Sulu\Component\Persistence\Model\AuditableTrait;
  */
 class Article implements ArticleInterface
 {
+    /**
+     * @phpstan-use ContentRichEntityTrait<ArticleDimensionContent>
+     */
     use ContentRichEntityTrait;
     use AuditableTrait;
 
     /**
      * @var string
      */
-    protected $id;
+    protected $uuid;
 
     public function __construct(
-        ?string $id = null
+        ?string $uuid = null
     ) {
-        $this->id = $id ?: Uuid::uuid4()->toString();
+        $this->uuid = $uuid ?: Uuid::uuid4()->toString();
     }
 
-    public function getId(): string
+    public function getId(): string // TODO should be replaced by uuid
     {
-        return $this->id;
+        return $this->uuid;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
     }
 
     /**
