@@ -18,6 +18,9 @@ use Sulu\Article\Domain\Model\ArticleInterface;
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
 use Sulu\Article\Infrastructure\Doctrine\Repository\ArticleRepository;
 use Sulu\Article\Infrastructure\Sulu\Admin\ArticleAdmin;
+use Sulu\Article\Infrastructure\Sulu\Content\ArticleLinkProvider;
+use Sulu\Article\Infrastructure\Sulu\Content\ArticleSitemapProvider;
+use Sulu\Article\Infrastructure\Sulu\Content\ArticleTeaserProvider;
 use Sulu\Article\UserInterface\Controller\Admin\ArticleController;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Preview\ContentObjectProvider;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
@@ -189,6 +192,40 @@ final class SuluArticleBundle extends AbstractBundle
             ])
             ->tag('sulu.context', ['context' => 'admin'])
             ->tag('sulu_preview.object_provider', ['provider-key' => 'articles']);
+
+        // Content
+        $services->set('sulu_article.article_sitemap_provider')
+            ->class(ArticleSitemapProvider::class)
+            ->args([
+                new Reference('doctrine.orm.entity_manager'),
+                new Reference('sulu_core.webspace.webspace_manager'),
+                '%kernel.environment%',
+                ArticleInterface::class,
+                '%sulu.model.route.class%',
+                ArticleInterface::RESOURCE_KEY,
+            ])
+            ->tag('sulu.sitemap.provider');
+
+        $services->set('sulu_article.article_teaser_provider')
+            ->class(ArticleTeaserProvider::class)
+            ->args([
+                new Reference('sulu_content.content_manager'), // TODO teaser provider should not build on manager
+                new Reference('doctrine.orm.entity_manager'),
+                new Reference('sulu_content.content_metadata_inspector'),
+                new Reference('sulu_page.structure.factory'),
+                new Reference('translator'),
+                '%sulu_document_manager.show_drafts%',
+            ])
+            ->tag('sulu.teaser.provider', ['alias' => ArticleInterface::RESOURCE_KEY]);
+
+        $services->set('sulu_article.article_link_provider')
+            ->class(ArticleLinkProvider::class)
+            ->args([
+                new Reference('sulu_content.content_manager'), // TODO link provider should not build on manager
+                new Reference('sulu_page.structure.factory'),
+                new Reference('doctrine.orm.entity_manager'),
+            ])
+            ->tag('sulu.link.provider', ['alias' => ArticleInterface::RESOURCE_KEY]);
     }
 
     /**

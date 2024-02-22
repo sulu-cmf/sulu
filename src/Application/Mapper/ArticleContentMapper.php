@@ -20,7 +20,7 @@ use Webmozart\Assert\Assert;
  *
  * @internal This class should be instantiated inside a project.
  *           Use the message to create or modify an article.
- *           Or the inject all the mappers into a custom service.
+ *           Or inject all the mappers into a custom service.
  *           Create an own Mapper to extend the mapper with
  *           custom logic.
  */
