@@ -23,8 +23,12 @@ use Sulu\Article\Infrastructure\Sulu\Content\ArticleSitemapProvider;
 use Sulu\Article\Infrastructure\Sulu\Content\ArticleTeaserProvider;
 use Sulu\Article\UserInterface\Controller\Admin\ArticleController;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Preview\ContentObjectProvider;
+use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Search\ContentSearchMetadataProvider;
+use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\SmartContent\Provider\ContentDataProvider;
+use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\SmartContent\Repository\ContentDataProviderRepository;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Sulu\Bundle\PersistenceBundle\PersistenceBundleTrait;
+use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -193,7 +197,7 @@ final class SuluArticleBundle extends AbstractBundle
             ->tag('sulu.context', ['context' => 'admin'])
             ->tag('sulu_preview.object_provider', ['provider-key' => 'articles']);
 
-        // Content
+        // Content services
         $services->set('sulu_article.article_sitemap_provider')
             ->class(ArticleSitemapProvider::class)
             ->args([
@@ -226,6 +230,41 @@ final class SuluArticleBundle extends AbstractBundle
                 new Reference('doctrine.orm.entity_manager'),
             ])
             ->tag('sulu.link.provider', ['alias' => ArticleInterface::RESOURCE_KEY]);
+
+        // Smart Content services
+        $services->set('sulu_article.article_data_provider_repository')
+            ->class(ContentDataProviderRepository::class) // TODO this should not be handled via Content Bundle instead own service which uses the ArticleRepository
+            ->args([
+                new Reference('sulu_content.content_manager'),
+                new Reference('doctrine.orm.entity_manager'),
+                '%sulu_document_manager.show_drafts%',
+                ArticleInterface::class,
+            ]);
+
+        $services->set('sulu_article.article_reference_store')
+            ->class(ReferenceStore::class)
+            ->tag('sulu_website.reference_store', ['alias' => ArticleInterface::RESOURCE_KEY]);
+
+        $services->set('sulu_article.article_data_provider')
+            ->class(ContentDataProvider::class) // TODO this should not be handled via Content Bundle instead own service which uses the ArticleRepository
+            ->args([
+                new Reference('sulu_article.article_data_provider_repository'),
+                new Reference('sulu_core.array_serializer'),
+                new Reference('sulu_content.content_manager'),
+                new Reference('sulu_article.article_reference_store'),
+            ])
+            ->tag('sulu.smart_content.data_provider', ['alias' => ArticleInterface::RESOURCE_KEY]);
+
+        // Search integration
+        $services->set('sulu_article.article_search_metadata_provider')
+            ->class(ContentSearchMetadataProvider::class) // TODO this should not be handled via Content Bundle instead own service which uses the ArticleRepository
+            ->args([
+                new Reference('sulu_content.content_metadata_inspector'),
+                new Reference('massive_search.factory_default'),
+                new Reference('sulu_page.structure.factory'),
+                ArticleInterface::class,
+            ])
+            ->tag('massive_search.metadata.provider');
     }
 
     /**
