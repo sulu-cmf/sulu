@@ -21,7 +21,7 @@ class ArticleBridge extends StructureBridge implements RoutableStructureInterfac
     /**
      * @var string
      */
-    private $webspaceKey = null;
+    private $webspaceKey;
 
     /**
      * @var string

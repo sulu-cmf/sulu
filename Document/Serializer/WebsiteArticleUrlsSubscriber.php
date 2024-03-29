@@ -67,9 +67,9 @@ class WebsiteArticleUrlsSubscriber implements EventSubscriberInterface
         RequestStack $requestStack,
         RouteRepositoryInterface $routeRepository,
         WebspaceManagerInterface $webspaceManager,
-        DocumentInspector $documentInspector = null,
-        DocumentRegistry $documentRegistry = null,
-        NodeManager $nodeManager = null
+        ?DocumentInspector $documentInspector = null,
+        ?DocumentRegistry $documentRegistry = null,
+        ?NodeManager $nodeManager = null
     ) {
         $this->requestStack = $requestStack;
         $this->routeRepository = $routeRepository;

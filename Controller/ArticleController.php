@@ -333,8 +333,8 @@ class ArticleController extends AbstractRestController implements ClassResourceI
             $search->addQuery(new MatchAllQuery());
         }
 
-        if (null !== $this->restHelper->getSortColumn() &&
-            $sortField = $this->getSortFieldName($this->restHelper->getSortColumn())
+        if (null !== $this->restHelper->getSortColumn()
+            && $sortField = $this->getSortFieldName($this->restHelper->getSortColumn())
         ) {
             $search->addSort(
                 new FieldSort($sortField, $this->restHelper->getSortOrder())

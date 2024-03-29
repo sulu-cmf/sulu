@@ -27,6 +27,7 @@ jobs:
                       sudo docker-php-ext-install pdo_mysql gd
                   parallel: true
             - run: echo -e "memory_limit=2G" | sudo tee /usr/local/etc/php/php.ini > /dev/null
+            - run: /usr/local/bin/composer remove php-cs-fixer/shim --dev --no-update
             - run: /usr/local/bin/composer require "elasticsearch/elasticsearch:~7.5.2" --no-update
             - restore_cache:
                   keys:

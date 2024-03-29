@@ -98,8 +98,8 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         ArticleResourceItemFactory $articleResourceItemFactory,
         string $articleDocumentClass,
         int $defaultLimit,
-        MetadataProviderInterface $formMetadataProvider = null,
-        TokenStorageInterface $tokenStorage = null,
+        ?MetadataProviderInterface $formMetadataProvider = null,
+        ?TokenStorageInterface $tokenStorage = null,
         bool $hasAudienceTargeting = false
     ) {
         $this->searchManager = $searchManager;

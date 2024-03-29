@@ -267,11 +267,9 @@ interface ArticleViewDocumentInterface
     /**
      * Set authored date.
      *
-     * @param \DateTime $authored
-     *
      * @return $this
      */
-    public function setAuthored(\DateTime $authored = null);
+    public function setAuthored(?\DateTime $authored = null);
 
     /**
      * Returns author full name.
@@ -331,11 +329,9 @@ interface ArticleViewDocumentInterface
     /**
      * Set published.
      *
-     * @param \DateTime $published
-     *
      * @return $this
      */
-    public function setPublished(\DateTime $published = null);
+    public function setPublished(?\DateTime $published = null);
 
     /**
      * Get published state.

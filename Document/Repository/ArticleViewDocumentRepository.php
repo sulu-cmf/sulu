@@ -76,7 +76,7 @@ class ArticleViewDocumentRepository
     public function findRecent(
         ?string $excludeUuid = null,
         int $limit = self::DEFAULT_LIMIT,
-        array $types = null,
+        ?array $types = null,
         ?string $locale = null,
         ?string $webspaceKey = null
     ): DocumentIterator {
@@ -97,7 +97,7 @@ class ArticleViewDocumentRepository
     public function findSimilar(
         string $uuid,
         int $limit = self::DEFAULT_LIMIT,
-        array $types = null,
+        ?array $types = null,
         ?string $locale = null,
         ?string $webspaceKey = null
     ): DocumentIterator {

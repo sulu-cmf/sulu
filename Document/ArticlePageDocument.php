@@ -145,8 +145,6 @@ class ArticlePageDocument implements UuidBehavior,
 
     /**
      * Returns pageTitle.
-     *
-     * @return string
      */
     public function getPageTitle(): ?string
     {

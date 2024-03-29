@@ -506,11 +506,6 @@ parameters:
 			path: DependencyInjection/StructureValidatorCompilerPass.php
 
 		-
-			message: "#^Call to function array_key_exists\\(\\) with 'SuluAutomationBundle' and array\\{FrameworkBundle\\: string, TwigBundle\\: string, SuluCoreBundle\\: string, DoctrineBundle\\: string, DoctrinePHPCRBundle\\: string, PhpcrMigrationsBundle\\: string, StofDoctrineExtensionsBundle\\: string, JMSSerializerBundle\\: string, \\.\\.\\.\\} will always evaluate to false\\.$#"
-			count: 1
-			path: DependencyInjection/SuluArticleExtension.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\ArticleBundle\\\\DependencyInjection\\\\SuluArticleExtension\\:\\:appendDefaultAuthor\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: DependencyInjection/SuluArticleExtension.php

@@ -489,7 +489,7 @@ class ArticleViewDocument implements ArticleViewDocumentInterface
         return $this->authored;
     }
 
-    public function setAuthored(\DateTime $authored = null)
+    public function setAuthored(?\DateTime $authored = null)
     {
         $this->authored = $authored;
 
@@ -537,7 +537,7 @@ class ArticleViewDocument implements ArticleViewDocumentInterface
         return $this->published;
     }
 
-    public function setPublished(\DateTime $published = null)
+    public function setPublished(?\DateTime $published = null)
     {
         $this->published = $published;
 

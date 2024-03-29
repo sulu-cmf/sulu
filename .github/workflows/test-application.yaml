@@ -82,6 +82,18 @@ jobs:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           ELASTICSEARCH_HOST: '127.0.0.1:9200'
 
+                    - php-version: '8.3'
+                      elasticsearch-version: '7.11.1'
+                      elasticsearch-package-constraint: '~7.11.0'
+                      phpcr-transport: jackrabbit
+                      dependency-versions: 'highest'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      tools: 'composer:v2'
+                      phpstan: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
+
         services:
             mysql:
                 image: mysql:5.7
@@ -124,6 +136,9 @@ jobs:
                   tools: ${{ matrix.tools }}
                   coverage: none
 
+            - name: Remove not required tooling
+              run: composer remove php-cs-fixer/shim --dev --no-interaction --no-update
+
             - name: Require elasticsearch dependency
               run: composer require --dev elasticsearch/elasticsearch:"${{ matrix.elasticsearch-package-constraint }}" --no-interaction --no-update
 
@@ -155,7 +170,7 @@ jobs:
             - name: Install and configure PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.1
+                  php-version: 8.3
                   extensions: 'ctype, iconv, mysql, imagick'
                   tools: 'composer:v2'
                   coverage: none

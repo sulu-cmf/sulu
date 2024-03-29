@@ -28,7 +28,7 @@ final class ElasticSearchFieldDescriptorBuilder
     /**
      * @var string
      */
-    private $sortField = null;
+    private $sortField;
 
     /**
      * @var string
@@ -55,7 +55,7 @@ final class ElasticSearchFieldDescriptorBuilder
      */
     private $searchField = '';
 
-    public function __construct(string $name, string $translation = null)
+    public function __construct(string $name, ?string $translation = null)
     {
         $this->name = $name;
         $this->translation = $translation;

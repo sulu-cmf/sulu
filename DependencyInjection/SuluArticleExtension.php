@@ -295,6 +295,7 @@ class SuluArticleExtension extends Extension implements PrependExtensionInterfac
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
+        /** @var array<string, string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');
         if (\array_key_exists('SuluAutomationBundle', $bundles)) {
             $loader->load('automation.xml');
