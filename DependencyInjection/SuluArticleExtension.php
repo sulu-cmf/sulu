@@ -306,6 +306,9 @@ class SuluArticleExtension extends Extension implements PrependExtensionInterfac
         if (\array_key_exists('SuluHeadlessBundle', $bundles)) {
             $loader->load('services_headless.xml');
         }
+        if (\array_key_exists('SuluReferenceBundle', $bundles)) {
+            $loader->load('services_reference.xml');
+        }
 
         $this->appendDefaultAuthor($config, $container);
         $this->appendArticlePageConfig($container);
