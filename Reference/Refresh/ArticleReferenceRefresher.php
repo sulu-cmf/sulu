@@ -46,7 +46,7 @@ class ArticleReferenceRefresher implements ReferenceRefresherInterface
 
     public function refresh(): \Generator
     {
-        $sql2 = \sprintf("SELECT jcr:uuid FROM [nt:unstructured] as document WHERE document.[jcr:mixinTypes] = 'sulu:%s' AND isdescendantnode(document, '/cmf/%s')", 'article', 'articles');
+        $sql2 = \sprintf("SELECT [jcr:uuid] FROM [nt:unstructured] as document WHERE document.[jcr:mixinTypes] = 'sulu:%s' AND isdescendantnode(document, '/cmf/%s')", 'article', 'articles');
 
         $queryManager = $this->session->getWorkspace()->getQueryManager();
         $query = $queryManager->createQuery($sql2, 'JCR-SQL2');
