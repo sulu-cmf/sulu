@@ -72,7 +72,7 @@ class MarkupListenerTest extends TestCase
             $this->response->reveal()
         );
 
-        $this->listener = new MarkupListener(['html' => $this->markupParser->reveal()], ['text/html' => 'html']);
+        $this->listener = new MarkupListener(['html' => $this->markupParser->reveal()]);
     }
 
     public function testReplaceMarkup(): void

@@ -17,6 +17,10 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Collects all parsers for markup.
+ *
+ * @internal
+ *
+ * @deprecated since version 2.6 and will be removed in 3.0. Use tagged_iterator instead.
  */
 class ParserCompilerPass implements CompilerPassInterface
 {
