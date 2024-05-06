@@ -2421,11 +2421,6 @@ parameters:
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Rule/ReferrerRule.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AudienceTargetingBundle\\\\Rule\\\\RuleCollection\\:\\:__construct\\(\\) has parameter \\$rules with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AudienceTargetingBundle/Rule/RuleCollection.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\AudienceTargetingBundle\\\\Rule\\\\RuleInterface\\:\\:evaluate\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Rule/RuleInterface.php

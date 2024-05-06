@@ -22,11 +22,11 @@ class RuleCollection implements RuleCollectionInterface
     private $rules;
 
     /**
-     * @param iterable<RuleInterface> $rules
+     * @param iterable<string, RuleInterface> $rules
      */
     public function __construct(iterable $rules)
     {
-        $this->rules = \iterator_to_array($rules);
+        $this->rules = [...$rules];
     }
 
     public function getRule($name)

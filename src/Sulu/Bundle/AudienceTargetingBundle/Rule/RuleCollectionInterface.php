@@ -27,7 +27,7 @@ interface RuleCollectionInterface
     /**
      * Returns all available rules.
      *
-     * @return RuleInterface[]
+     * @return array<string, RuleInterface>
      */
     public function getRules();
 }
