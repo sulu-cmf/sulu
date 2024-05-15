@@ -51,7 +51,7 @@
         </service>
 
         <service id="sulu_preview.preview_object_provider_registry" class="Sulu\Bundle\PreviewBundle\Preview\Object\PreviewObjectProviderRegistry">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu_preview.object_provider" index-by="provider-key" />
         </service>
 
         <service id="sulu_preview.preview_link_repository" class="Sulu\Bundle\PreviewBundle\Infrastructure\Doctrine\Repository\PreviewLinkRepository">

@@ -19,10 +19,16 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 class ResourceLocatorStrategyPool implements ResourceLocatorStrategyPoolInterface
 {
     /**
-     * @param ResourceLocatorStrategyInterface[] $strategies
+     * @var array<string, ResourceLocatorStrategyInterface>
      */
-    public function __construct(private array $strategies, private WebspaceManagerInterface $webspaceManager)
+    private $strategies;
+
+    /**
+     * @param iterable<string, ResourceLocatorStrategyInterface> $strategies
+     */
+    public function __construct(iterable $strategies, private WebspaceManagerInterface $webspaceManager)
     {
+        $this->strategies = [...$strategies];
     }
 
     public function getStrategy($name)

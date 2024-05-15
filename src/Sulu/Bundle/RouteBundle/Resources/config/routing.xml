@@ -10,7 +10,7 @@
     <services>
         <!-- route-defaults -->
         <service id="sulu_route.routing.defaults_provider" class="Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProvider">
-            <argument type="collection">%sulu_route.routing.defaults_provider%</argument>
+            <argument type="tagged_iterator" tag="sulu_route.defaults_provider" />
         </service>
 
         <!-- router -->

@@ -24,11 +24,11 @@ class RequestAnalyzer implements RequestAnalyzerInterface
     public const SULU_ATTRIBUTE = '_sulu';
 
     /**
-     * @param RequestProcessorInterface[] $requestProcessors
+     * @param iterable<RequestProcessorInterface> $requestProcessors
      */
     public function __construct(
         private RequestStack $requestStack,
-        private array $requestProcessors
+        private iterable $requestProcessors
     ) {
     }
 

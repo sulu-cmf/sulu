@@ -17,6 +17,10 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Collects services by tag and inject it via constructor argument.
+ *
+ * @internal
+ *
+ * @deprecated since version 2.6 use a tagged_iterator instead
  */
 class TaggedServiceCollectorCompilerPass implements CompilerPassInterface
 {

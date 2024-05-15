@@ -5,7 +5,7 @@
         <!-- provider -->
         <service id="sulu_page.teaser.provider_pool"
                  class="Sulu\Bundle\PageBundle\Teaser\Provider\TeaserProviderPool">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu.teaser.provider" index-by="alias" />
         </service>
 
         <!-- content provider -->

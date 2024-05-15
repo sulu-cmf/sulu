@@ -15,7 +15,6 @@ use Sulu\Bundle\PersistenceBundle\PersistenceBundleTrait;
 use Sulu\Bundle\WebsiteBundle\DependencyInjection\Compiler\DeregisterDefaultRouteListenerCompilerPass;
 use Sulu\Bundle\WebsiteBundle\Entity\AnalyticsInterface;
 use Sulu\Component\Route\RouteDefaultOptionsCompilerPass;
-use Sulu\Component\Symfony\CompilerPass\TaggedServiceCollectorCompilerPass;
 use Sulu\Component\Util\SuluVersionPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -38,15 +37,6 @@ class SuluWebsiteBundle extends Bundle
         $container->addCompilerPass(new DeregisterDefaultRouteListenerCompilerPass());
         $container->addCompilerPass(
             new RouteDefaultOptionsCompilerPass('sulu_website.provider.content', 7)
-        );
-
-        $container->addCompilerPass(
-            new TaggedServiceCollectorCompilerPass(
-                'sulu_website.reference_store_pool',
-                'sulu_website.reference_store',
-                0,
-                'alias'
-            )
         );
 
         $this->buildPersistence(
