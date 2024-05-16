@@ -1,0 +1,35 @@
+sulu_page.get_pages:
+    path: /pages.{_format}
+    methods: GET
+    controller: Sulu\Page\UserInterface\Controller\Admin\PageController::cgetAction
+    format: json
+
+sulu_page.get_page:
+    path: /pages/{id}.{_format}
+    methods: GET
+    controller: Sulu\Page\UserInterface\Controller\Admin\PageController::getAction
+    format: json
+
+sulu_page.post_page:
+    path: /pages.{_format}
+    methods: POST
+    controller: Sulu\Page\UserInterface\Controller\Admin\PageController::postAction
+    format: json
+
+sulu_page.put_page:
+    path: /pages/{id}.{_format}
+    methods: PUT
+    controller: Sulu\Page\UserInterface\Controller\Admin\PageController::putAction
+    format: json
+
+sulu_page.delete_page:
+    path: /pages/{id}.{_format}
+    methods: DELETE
+    controller: Sulu\Page\UserInterface\Controller\Admin\PageController::deleteAction
+    format: json
+
+sulu_page.post_page_trigger:
+    path: /pages/{id}.{_format}
+    methods: POST
+    controller: Sulu\Page\UserInterface\Controller\Admin\PageController::postTriggerAction
+    format: json

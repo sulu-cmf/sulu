@@ -37,7 +37,7 @@ class SuluPageExtension extends Extension implements PrependExtensionInterface
                 [
                     'lists' => [
                         'directories' => [
-                            __DIR__ . '/../Resources/config/lists',
+                            //__DIR__ . '/../Resources/config/lists',
                         ],
                     ],
                     'forms' => [
