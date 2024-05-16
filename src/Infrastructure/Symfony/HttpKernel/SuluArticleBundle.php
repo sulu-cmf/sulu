@@ -22,6 +22,7 @@ use Sulu\Article\Infrastructure\Sulu\Content\ArticleLinkProvider;
 use Sulu\Article\Infrastructure\Sulu\Content\ArticleSelectionContentType;
 use Sulu\Article\Infrastructure\Sulu\Content\ArticleSitemapProvider;
 use Sulu\Article\Infrastructure\Sulu\Content\ArticleTeaserProvider;
+use Sulu\Article\Infrastructure\Sulu\Content\SingleArticleSelectionContentType;
 use Sulu\Article\UserInterface\Controller\Admin\ArticleController;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Preview\ContentObjectProvider;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Search\ContentSearchMetadataProvider;
@@ -48,13 +49,6 @@ final class SuluArticleBundle extends AbstractBundle
 {
     use PersistenceExtensionTrait;
     use PersistenceBundleTrait;
-
-    public const ALIAS = 'sulu_next_article';
-    public const NAME = 'SuluNextArticleBundle';
-
-    protected string $extensionAlias = self::ALIAS;
-
-    protected $name = self::NAME;
 
     /**
      * @internal this method is not part of the public API and should only be called by the Symfony framework classes
@@ -245,6 +239,15 @@ final class SuluArticleBundle extends AbstractBundle
         $services->set('sulu_article.article_reference_store')
             ->class(ReferenceStore::class)
             ->tag('sulu_website.reference_store', ['alias' => ArticleInterface::RESOURCE_KEY]);
+
+        $services->set('sulu_article.content_types.single_article_selection')
+            ->class(SingleArticleSelectionContentType::class)
+            ->args([
+                new Reference('sulu_article.article_repository'),
+                new Reference('sulu_content.content_manager'),
+                new Reference('sulu_article.article_reference_store')
+            ])
+            ->tag('sulu.content.type', ['alias' => 'single_article_selection']);
 
         $services->set('sulu_article.content_types.article_selection')
             ->class(ArticleSelectionContentType::class)
