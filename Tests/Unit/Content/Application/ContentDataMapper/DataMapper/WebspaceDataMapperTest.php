@@ -90,7 +90,7 @@ class WebspaceDataMapperTest extends TestCase
 
         $webspace = new Webspace();
         $webspace->setKey('default-webspace');
-        $this->webspaceCollection->setWebspaces([$webspace]);
+        $this->webspaceCollection->setWebspaces(['default-webspace' => $webspace]);
 
         $authorMapper = $this->createWebspaceDataMapperInstance();
         $authorMapper->map($unlocalizedDimensionContent, $localizedDimensionContent, $data);

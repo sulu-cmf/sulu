@@ -49,8 +49,8 @@ class WebspaceSelectTest extends TestCase
         $webspaceB->setKey('webspace-b');
         $webspaceB->setName('Webspace B');
         $webspaceCollection = new WebspaceCollection([
-            $webspaceA,
-            $webspaceB,
+            'webspace-a' => $webspaceA,
+            'webspace-b' => $webspaceB,
         ]);
 
         $this->webspaceManager->getWebspaceCollection()

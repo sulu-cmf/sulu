@@ -167,7 +167,7 @@ class ContentSitemapProviderTest extends SuluTestCase
     /**
      * @param SitemapUrl[] $sitemapEntries
      *
-     * @return array<string, mixed>
+     * @return array<mixed>
      */
     private function mapSitemapEntries(array $sitemapEntries): array
     {

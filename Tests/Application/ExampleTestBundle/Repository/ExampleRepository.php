@@ -185,7 +185,7 @@ class ExampleRepository
 
         $queryBuilder->select('COUNT(DISTINCT example.id)');
 
-        return (int) $queryBuilder->getQuery()->getSingleScalarResult(); // @phpstan-ignore-line
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**

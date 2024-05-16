@@ -52,6 +52,12 @@ jobs:
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
 
+                    - php-version: '8.3'
+                      coverage: false
+                      dependency-versions: 'highest'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
         services:
             mysql:
                 image: mysql:5.7
@@ -113,7 +119,7 @@ jobs:
             - name: Install and configure PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.0
+                  php-version: 8.3
                   extensions: ctype, iconv, mysql
 
             - name: Install composer dependencies

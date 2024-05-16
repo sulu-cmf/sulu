@@ -163,7 +163,7 @@ class ContentSitemapProvider implements SitemapProviderInterface
     {
         $queryBuilder = $this->createRoutesQueryBuilder();
         try {
-            $amount = $queryBuilder
+            $amount = (int) $queryBuilder
                 ->select('COUNT(' . self::ROUTE_ALIAS . ')')
                 ->getQuery()
                 ->getSingleScalarResult();
