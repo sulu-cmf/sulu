@@ -51,6 +51,13 @@ class MediaViewObject
     protected $formats = '{}';
 
     /**
+     * @var string|null
+     *
+     * @Property(type="keyword")
+     */
+    public $mimeType;
+
+    /**
      * @var string
      *
      * @Property(type="keyword")
@@ -67,6 +74,7 @@ class MediaViewObject
         $this->id = $media->getId();
         $this->title = $media->getTitle();
         $this->setFormats($media->getFormats());
+        $this->mimeType = $media->getMimeType();
         $this->url = $media->getUrl();
         $this->copyright = $media->getCopyright();
 
