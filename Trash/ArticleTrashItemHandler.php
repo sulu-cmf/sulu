@@ -98,12 +98,14 @@ final class ArticleTrashItemHandler implements
             $structureData = $localizedArticle->getStructure()->toArray();
 
             $articleTitles[$locale] = $localizedArticle->getTitle();
+            $lastModified = $localizedArticle->getLastModified() ? $localizedArticle->getLastModified()->format('c') : null;
 
             $data['locales'][] = [
                 'title' => $localizedArticle->getTitle(),
                 'locale' => $locale,
                 'creator' => $localizedArticle->getCreator(),
                 'created' => $localizedArticle->getCreated()->format('c'),
+                'lastModified' => $lastModified,
                 'author' => $localizedArticle->getAuthor(),
                 'authored' => $localizedArticle->getAuthored()->format('c'),
                 'structureType' => $localizedArticle->getStructureType(),
@@ -145,6 +147,23 @@ final class ArticleTrashItemHandler implements
             }
         }
 
+        /** @var array{
+         *     title: string,
+         *     locale: string,
+         *     creator: ?int,
+         *     created: string,
+         *     lastModified: ?string,
+         *     author: ?int,
+         *     authored: string,
+         *     structureType: string,
+         *     structureData: mixed,
+         *     extensionsData: mixed,
+         *     shadowLocaleEnabled: bool,
+         *     shadowLocale: ?string,
+         *     mainWebspace: ?string,
+         *     additionalWebspaces: ?array<string>,
+         * } $localeData
+         */
         foreach ($sortedLocales as $localeData) {
             $locale = $localeData['locale'];
 
@@ -157,11 +176,13 @@ final class ArticleTrashItemHandler implements
                 $localizedArticle->setParent($this->documentManager->find($data['parentUuid']));
                 $localizedArticle->setUuid($uuid);
             }
+            $lastModified = \array_key_exists('lastModified', $localeData) && $localeData['lastModified'] ? new \DateTime($localeData['lastModified']) : null;
 
             $localizedArticle->setTitle($localeData['title']);
             $localizedArticle->setLocale($locale);
             $localizedArticle->setCreator($localeData['creator']);
             $localizedArticle->setCreated(new \DateTime($localeData['created']));
+            $localizedArticle->setLastModified($lastModified);
             $localizedArticle->setAuthor($localeData['author']);
             $localizedArticle->setAuthored(new \DateTime($localeData['authored']));
             $localizedArticle->setStructureType($localeData['structureType']);

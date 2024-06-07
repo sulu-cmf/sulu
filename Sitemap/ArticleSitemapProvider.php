@@ -110,7 +110,7 @@ class ArticleSitemapProvider implements SitemapProviderInterface
             $this->findUrl($articleView, $scheme, $host, $webspaceKey),
             $articleView->getLocale(),
             null,
-            $articleView->getChanged()
+            $articleView->getLastModified() ?? $articleView->getChanged()
         );
     }
 

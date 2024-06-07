@@ -46,6 +46,13 @@ class ArticleDocumentType extends AbstractStructureBehaviorType
             ]
         );
 
+        $builder->add(
+            'lastModified',
+            DateTimeType::class,
+            [
+                'widget' => 'single_text',
+            ]
+        );
         $builder->add('author', TextType::class);
         $builder->add(
             'authored',

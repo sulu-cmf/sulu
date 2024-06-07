@@ -15,6 +15,8 @@
     "sulu_article.published": "Published",
     "sulu_article.not_published": "Not Published",
     "sulu_article.route": "Route",
+    "sulu_article.last_modified_enabled": "Enable last modified date",
+    "sulu_article.last_modified_date": "Last modified date",
     "sulu_activity.resource.articles": "Article",
     "sulu_activity.resource.articles.translation": "Translation",
     "sulu_activity.description.articles.created": "{userFullName} has created the article \"{resourceTitle}\"",

@@ -66,6 +66,9 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
             ->setPublic(true);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getKernelParameters(): array
     {
         $parameters = parent::getKernelParameters();

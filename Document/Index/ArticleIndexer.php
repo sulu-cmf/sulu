@@ -187,6 +187,7 @@ class ArticleIndexer implements IndexerInterface
         $this->setParentPageUuid($document, $article);
         $article->setChanged($document->getChanged());
         $article->setCreated($document->getCreated());
+        $article->setLastModified($document->getLastModified());
         $article->setAuthored($document->getAuthored());
         if ($document->getAuthor() && $author = $this->contactRepository->find($document->getAuthor())) {
             $article->setAuthorId($author->getId());

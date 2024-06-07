@@ -2431,77 +2431,7 @@ parameters:
 			path: Trash/ArticleTrashItemHandler.php
 
 		-
-			message: "#^Cannot access offset 'additionalWebspaces' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'author' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'authored' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'created' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'creator' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'extensionsData' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'locale' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'mainWebspace' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'shadowLocale' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
 			message: "#^Cannot access offset 'shadowLocaleEnabled' on mixed\\.$#"
-			count: 2
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'structureData' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'structureType' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Cannot access offset 'title' on mixed\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$additionalWebspaces of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setAdditionalWebspaces\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$author of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setAuthor\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: Trash/ArticleTrashItemHandler.php
 
@@ -2511,62 +2441,12 @@ parameters:
 			path: Trash/ArticleTrashItemHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$datetime of class DateTime constructor expects string, mixed given\\.$#"
-			count: 2
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
 			message: "#^Parameter \\#1 \\$extensions of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setExtensionsData\\(\\) expects array\\<array\\>\\|Sulu\\\\Component\\\\Content\\\\Document\\\\Extension\\\\ExtensionContainer, mixed given\\.$#"
 			count: 1
 			path: Trash/ArticleTrashItemHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$locale of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$mainWebspace of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setMainWebspace\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$shadowLocale of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setShadowLocale\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$shadowLocaleEnabled of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setShadowLocaleEnabled\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$structureType of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setStructureType\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$title of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setTitle\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#1 \\$userId of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticleDocument\\:\\:setCreator\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
 			message: "#^Parameter \\#2 \\$locale of class Sulu\\\\Bundle\\\\ArticleBundle\\\\Domain\\\\Event\\\\ArticleTranslationRestoredEvent constructor expects string, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Component\\\\DocumentManager\\\\DocumentManagerInterface\\:\\:find\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: Trash/ArticleTrashItemHandler.php
-
-		-
-			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Component\\\\DocumentManager\\\\DocumentManagerInterface\\:\\:persist\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: Trash/ArticleTrashItemHandler.php
 

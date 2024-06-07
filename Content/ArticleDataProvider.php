@@ -137,6 +137,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
                     ['column' => 'created', 'title' => 'sulu_admin.created'],
                     ['column' => 'title.raw', 'title' => 'sulu_admin.title'],
                     ['column' => 'author_full_name.raw', 'title' => 'sulu_admin.author'],
+                    ['column' => 'last_modified_or_authored', 'title' => 'sulu_article.last_modified_or_authored'],
                 ]
             );
 
