@@ -459,6 +459,8 @@ class ArticleIndexer implements IndexerInterface
         $search = $repository->createSearch();
         $search->addQuery(new TermQuery('localization_state.state', 'ghost'), BoolQuery::MUST);
         $search->addQuery(new TermQuery('localization_state.locale', $locale), BoolQuery::MUST);
+        $search->addQuery(new TermQuery('locale', $locale), BoolQuery::MUST_NOT);
+        $search->addQuery(new TermQuery('uuid', $document->getUuid()), BoolQuery::MUST);
 
         /** @var array<array{locale: string}> $searchResult */
         $searchResult = $repository->findArray($search);
