@@ -119,7 +119,7 @@ class ArticleDocument implements UuidBehavior,
     protected $originalLocale;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $structureType;
 

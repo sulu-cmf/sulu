@@ -1661,11 +1661,6 @@ parameters:
 			path: Document/Subscriber/ArticleSubscriber.php
 
 		-
-			message: "#^Parameter \\#1 \\$structureType of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\ArticlePageDocument\\:\\:setStructureType\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: Document/Subscriber/ArticleSubscriber.php
-
-		-
 			message: "#^Parameter \\#3 \\$originalPages of method Sulu\\\\Bundle\\\\ArticleBundle\\\\Document\\\\Subscriber\\\\ArticleSubscriber\\:\\:loadPageDataForShadow\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: Document/Subscriber/ArticleSubscriber.php

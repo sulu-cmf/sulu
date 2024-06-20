@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\ArticleBundle\Tests\Functional\Reference\Refresh;
+namespace Sulu\Bundle\ArticleBundle\Tests\Functional\Reference\Provider;
 
-use Sulu\Bundle\ArticleBundle\Reference\Refresh\ArticleReferenceRefresher;
-use Sulu\Bundle\ArticleBundle\Tests\TestExtendBundle\Document\ArticleDocument;
+use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
+use Sulu\Bundle\ArticleBundle\Reference\Provider\ArticleReferenceProvider;
 use Sulu\Bundle\MediaBundle\Entity\Collection;
 use Sulu\Bundle\MediaBundle\Entity\CollectionType;
 use Sulu\Bundle\MediaBundle\Entity\Media;
@@ -21,14 +21,15 @@ use Sulu\Bundle\ReferenceBundle\Application\Refresh\ReferenceRefresherInterface;
 use Sulu\Bundle\ReferenceBundle\Domain\Model\Reference;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
+use Sulu\Component\HttpKernel\SuluKernel;
 use Sulu\Component\Persistence\Repository\ORM\EntityRepository;
 
-class ArticleReferenceRefresherTest extends SuluTestCase
+class ArticleReferenceProviderTest extends SuluTestCase
 {
     /**
-     * @var ArticleReferenceRefresher
+     * @var ArticleReferenceProvider
      */
-    private $articleReferenceRefresher;
+    private $articleReferenceProvider;
 
     /**
      * @var DocumentManagerInterface
@@ -49,44 +50,19 @@ class ArticleReferenceRefresherTest extends SuluTestCase
             return;
         }
 
-        $this->articleReferenceRefresher = $this->getContainer()->get('sulu_article.article_reference_refresher');
+        $this->articleReferenceProvider = $this->getContainer()->get('sulu_article.reference_provider');
         $this->documentManager = $this->getContainer()->get('sulu_document_manager.document_manager');
         $this->referenceRepository = $this->getContainer()->get('sulu.repository.reference');
     }
 
-    public function testRefreshWithoutReferences(): void
-    {
-        if (!\interface_exists(ReferenceRefresherInterface::class)) {
-            $this->markTestSkipped('References did not exist in Sulu <2.6.');
-        }
-
-        /** @var ArticleDocument $article */
-        $article = $this->documentManager->create('article');
-        $article->setTitle('Example article');
-        $article->setStructureType('default_image');
-        $this->documentManager->persist($article, 'en');
-        $this->documentManager->publish($article, 'en');
-        $this->documentManager->flush();
-
-        $count = 0;
-        foreach ($this->articleReferenceRefresher->refresh() as $document) {
-            ++$count;
-        }
-        // flush the references
-        $this->getEntityManager()->flush();
-        $this->assertSame(3, $count);
-
-        self::assertCount(0, $this->referenceRepository->findAll());
-    }
-
-    public function testRefresh(): void
+    public function testUpdateReferences(): void
     {
         if (!\interface_exists(ReferenceRefresherInterface::class)) {
             $this->markTestSkipped('References did not exist in Sulu <2.6.');
         }
 
         $media = $this->createMedia();
-        /** @var ArticleDocument $article */
+        /** @var \Sulu\Bundle\ArticleBundle\Tests\TestExtendBundle\Document\ArticleDocument $article */
         $article = $this->documentManager->create('article');
         $article->setTitle('Example article');
         $article->setStructureType('default_image');
@@ -95,38 +71,52 @@ class ArticleReferenceRefresherTest extends SuluTestCase
         $this->documentManager->publish($article, 'en');
         $this->documentManager->flush();
 
-        $count = 0;
-        foreach ($this->articleReferenceRefresher->refresh() as $document) {
-            ++$count;
-        }
-        // flush the references
+        $this->articleReferenceProvider->updateReferences($article, 'en', 'test');
         $this->getEntityManager()->flush();
-        $this->assertSame(3, $count);
 
         /** @var Reference[] $references */
-        $references = $this->referenceRepository->findBy([
-            'referenceResourceKey' => 'articles',
-            'referenceResourceId' => $article->getUuid(),
-            'referenceLocale' => 'en',
+        $references = $this->referenceRepository->findBy(['referenceContext' => 'test']);
+        $this->assertCount(1, $references);
+        self::assertSame((string) $media->getId(), $references[0]->getResourceId());
+    }
+
+    public function testUpdateUnpublishedReferences(): void
+    {
+        if (!\interface_exists(ReferenceRefresherInterface::class)) {
+            $this->markTestSkipped('References did not exist in Sulu <2.6.');
+        }
+
+        $media = $this->createMedia();
+        /** @var \Sulu\Bundle\ArticleBundle\Tests\TestExtendBundle\Document\ArticleDocument $article */
+        $article = $this->documentManager->create('article');
+        $article->setTitle('Example article');
+        $article->setStructureType('default_image');
+        $article->getStructure()->bind(['image' => ['id' => $media->getId()]]);
+        $this->documentManager->persist($article, 'en');
+        $this->documentManager->publish($article, 'en');
+        $this->documentManager->flush();
+
+        $this->documentManager->unpublish($article, 'en');
+        $this->documentManager->flush();
+        $this->documentManager->clear();
+
+        static::ensureKernelShutdown();
+        static::bootKernel(['sulu.context' => SuluKernel::CONTEXT_WEBSITE]);
+        // refresh services from new kernel
+        $this->articleReferenceProvider = $this->getContainer()->get('sulu_article.reference_provider');
+        $this->documentManager = $this->getContainer()->get('sulu_document_manager.document_manager');
+        $this->referenceRepository = $this->getContainer()->get('sulu.repository.reference');
+
+        /** @var ArticleDocument $article */
+        $article = $this->documentManager->find($article->getUuid(), 'en', [
+            'load_ghost_content' => false,
         ]);
 
-        self::assertCount(2, $references);
+        $this->articleReferenceProvider->updateReferences($article, 'en', 'test');
+        $this->getEntityManager()->flush();
 
-        self::assertSame('image', $references[0]->getReferenceProperty());
-        self::assertSame((string) $media->getId(), $references[0]->getResourceId());
-        self::assertSame('media', $references[0]->getResourceKey());
-        self::assertSame($article->getUuid(), $references[0]->getReferenceResourceId());
-        self::assertSame('articles', $references[0]->getReferenceResourceKey());
-        self::assertSame('en', $references[0]->getReferenceLocale());
-        self::assertSame('website', $references[0]->getReferenceContext());
-
-        self::assertSame('image', $references[1]->getReferenceProperty());
-        self::assertSame((string) $media->getId(), $references[1]->getResourceId());
-        self::assertSame('media', $references[1]->getResourceKey());
-        self::assertSame($article->getUuid(), $references[1]->getReferenceResourceId());
-        self::assertSame('articles', $references[1]->getReferenceResourceKey());
-        self::assertSame('en', $references[1]->getReferenceLocale());
-        self::assertSame('admin', $references[1]->getReferenceContext());
+        $references = $this->referenceRepository->findBy(['referenceContext' => 'test']);
+        $this->assertCount(0, $references);
     }
 
     private function createMedia(): Media

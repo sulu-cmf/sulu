@@ -301,7 +301,7 @@ class RoutableSubscriber implements EventSubscriberInterface
     private function updateRoute(RoutablePageBehavior $document): void
     {
         $locale = $this->documentInspector->getLocale($document);
-        $propertyName = $this->getRoutePathPropertyName($document->getStructureType(), $locale);
+        $propertyName = $this->getRoutePathPropertyName((string) $document->getStructureType(), $locale);
 
         $route = $this->chainRouteGenerator->generate($document);
         $document->setRoutePath($route->getPath());
@@ -340,7 +340,7 @@ class RoutableSubscriber implements EventSubscriberInterface
             $child->setRoutePath($childRoute->getPath());
             $childNode = $this->documentInspector->getNode($child);
 
-            $propertyName = $this->getRoutePathPropertyName($child->getStructureType(), $locale);
+            $propertyName = $this->getRoutePathPropertyName((string) $child->getStructureType(), $locale);
             $childNode->setProperty($propertyName, $childRoute->getPath());
 
             $routes[] = $childRoute->getPath();
