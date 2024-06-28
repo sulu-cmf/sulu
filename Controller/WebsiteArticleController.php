@@ -24,6 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Twig\Environment;
 
 /**
@@ -61,6 +62,10 @@ class WebsiteArticleController extends AbstractController
 
         $requestFormat = $request->getRequestFormat();
         $viewTemplate = $view . '.' . $requestFormat . '.twig';
+
+        if (!$this->container->get('twig')->getLoader()->exists($viewTemplate)) {
+            throw new NotAcceptableHttpException(\sprintf('Page does not exist in "%s" format.', $requestFormat));
+        }
 
         $content = $this->resolveArticle($object, $pageNumber);
 
