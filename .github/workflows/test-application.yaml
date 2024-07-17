@@ -74,6 +74,11 @@ jobs:
                   coverage: pcov
                   tools: 'composer:v2'
 
+            - name: Remove Lint Tools
+              # These tools are not required to run tests, so we are removing them to improve dependency resolving and
+              # testing lowest versions.
+              run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
+
             - name: Install composer dependencies
               uses: ramsey/composer-install@v2
               with:

@@ -5,7 +5,7 @@
     <services>
         <service id="sulu_content.metadata_loader" class="Sulu\Bundle\ContentBundle\Content\Infrastructure\Doctrine\MetadataLoader">
             <!-- Priority 100 as the MetadataLoader need to be before the ResolveTargetEntityListener of Doctrine -->
-            <tag name="doctrine.event_subscriber" priority="100"/>
+            <tag name="doctrine.event_listener" event="loadClassMetadata" priority="100"/>
         </service>
 
         <service id="sulu_content.route_remover" class="Sulu\Bundle\ContentBundle\Content\Infrastructure\Doctrine\RouteRemover">

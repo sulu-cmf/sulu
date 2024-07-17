@@ -13,10 +13,8 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\ContentBundle\Content\Infrastructure\Doctrine;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
@@ -35,15 +33,8 @@ use Sulu\Bundle\TagBundle\Tag\TagInterface;
 /**
  * @internal
  */
-final class MetadataLoader implements EventSubscriber
+final class MetadataLoader
 {
-    public function getSubscribedEvents()
-    {
-        return [
-            Events::loadClassMetadata,
-        ];
-    }
-
     public function loadClassMetadata(LoadClassMetadataEventArgs $event): void
     {
         /** @var ClassMetadataInfo<object> $metadata */
