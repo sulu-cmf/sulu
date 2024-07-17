@@ -413,7 +413,9 @@ class ArticleContentQueryBuilderTest extends SuluTestCase
         if (!$isShadow) {
             /* @var ArticleDocument $document */
             try {
-                $document = $this->documentManager->find($uuid, $locale, ['load_ghost_content' => false]);
+                $document = $uuid
+                    ? $this->documentManager->find($uuid, $locale, ['load_ghost_content' => false])
+                    : $this->documentManager->create('article');
             } catch (DocumentNotFoundException $e) {
                 $document = $this->documentManager->create('article');
             }

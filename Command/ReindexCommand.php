@@ -31,6 +31,11 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 class ReindexCommand extends Command
 {
     /**
+     * @var string
+     */
+    protected static $defaultName = 'sulu:article:reindex';
+
+    /**
      * @var WebspaceManagerInterface
      */
     private $webspaceManager;
@@ -68,7 +73,7 @@ class ReindexCommand extends Command
         IndexerInterface $liveIndexer,
         string $suluContext
     ) {
-        parent::__construct('sulu:article:reindex');
+        parent::__construct(static::$defaultName);
         $this->webspaceManager = $webspaceManager;
         $this->propertyEncoder = $propertyEncoder;
         $this->documentManager = $documentManager;
@@ -77,7 +82,7 @@ class ReindexCommand extends Command
         $this->suluContext = $suluContext;
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->setDescription('Rebuild elastic-search index for articles');
         $this->setHelp('This command will load all articles and index them to elastic-search indexes.');
@@ -85,7 +90,7 @@ class ReindexCommand extends Command
         $this->addOption('clear', null, InputOption::VALUE_NONE, 'Clear all articles of index before reindex');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $startTime = \microtime(true);
 
