@@ -95,8 +95,10 @@ class DimensionContentCollection implements \IteratorAggregate, DimensionContent
         return $this->dimensionAttributes;
     }
 
-    #[\ReturnTypeWillChange]
-    public function getIterator()
+    /**
+     * @return \Traversable<T>
+     */
+    public function getIterator(): \Traversable
     {
         return $this->dimensionContents;
     }

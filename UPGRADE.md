@@ -1,5 +1,11 @@
 # Upgrade
 
+## 0.8.0
+
+### Require PHP 8.1
+
+The SuluContentBundle now requires atleast PHP 8.0.
+
 ## 0.7.0
 
 ### Route property name forced to `url`
