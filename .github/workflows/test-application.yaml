@@ -96,7 +96,7 @@ jobs:
 
                     - php-version: '8.4'
                       composer-options: '--ignore-platform-reqs'
-                      elasticsearch-version: '7.17.2'
+                      elasticsearch-version: '8.14.3'
                       elasticsearch-package-constraint: '~7.17.0'
                       phpcr-transport: doctrinedbal
                       dependency-versions: 'highest'
