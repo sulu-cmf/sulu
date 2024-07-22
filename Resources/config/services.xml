@@ -191,5 +191,10 @@
         </service>
 
         <service id="Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface" alias="sulu_content.content_manager"/>
+
+        <!-- StructureResolver -->
+        <service id="Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Structure\DecoratedStructureResolver" decorates="sulu_website.resolver.structure">
+            <argument type="service" id=".inner"/>
+        </service>
     </services>
 </container>
