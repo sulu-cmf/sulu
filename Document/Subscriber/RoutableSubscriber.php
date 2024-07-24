@@ -43,6 +43,8 @@ class RoutableSubscriber implements EventSubscriberInterface
 {
     public const ROUTE_FIELD = 'routePath';
 
+    public const ROUTE_FIELD_NAME = self::ROUTE_FIELD . 'Name';
+
     public const ROUTES_PROPERTY = 'suluRoutes';
 
     public const TAG_NAME = 'sulu_article.article_route';
@@ -301,13 +303,14 @@ class RoutableSubscriber implements EventSubscriberInterface
     private function updateRoute(RoutablePageBehavior $document): void
     {
         $locale = $this->documentInspector->getLocale($document);
-        $propertyName = $this->getRoutePathPropertyName($document->getStructureType(), $locale);
+        $propertyName = $this->getRoutePathPropertyName((string) $document->getStructureType(), $locale);
 
         $route = $this->chainRouteGenerator->generate($document);
         $document->setRoutePath($route->getPath());
 
         $node = $this->documentInspector->getNode($document);
         $node->setProperty($propertyName, $route->getPath());
+        $node->setProperty($this->propertyEncoder->localizedContentName(self::ROUTE_FIELD_NAME, (string) $locale), $propertyName);
     }
 
     private function updateChildRoutes(ChildrenBehavior $document): void
@@ -340,7 +343,7 @@ class RoutableSubscriber implements EventSubscriberInterface
             $child->setRoutePath($childRoute->getPath());
             $childNode = $this->documentInspector->getNode($child);
 
-            $propertyName = $this->getRoutePathPropertyName($child->getStructureType(), $locale);
+            $propertyName = $this->getRoutePathPropertyName((string) $child->getStructureType(), $locale);
             $childNode->setProperty($propertyName, $childRoute->getPath());
 
             $routes[] = $childRoute->getPath();

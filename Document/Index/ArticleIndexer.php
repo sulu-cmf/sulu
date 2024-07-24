@@ -187,6 +187,7 @@ class ArticleIndexer implements IndexerInterface
         $this->setParentPageUuid($document, $article);
         $article->setChanged($document->getChanged());
         $article->setCreated($document->getCreated());
+        $article->setLastModified($document->getLastModified());
         $article->setAuthored($document->getAuthored());
         if ($document->getAuthor() && $author = $this->contactRepository->find($document->getAuthor())) {
             $article->setAuthorId($author->getId());
@@ -458,6 +459,8 @@ class ArticleIndexer implements IndexerInterface
         $search = $repository->createSearch();
         $search->addQuery(new TermQuery('localization_state.state', 'ghost'), BoolQuery::MUST);
         $search->addQuery(new TermQuery('localization_state.locale', $locale), BoolQuery::MUST);
+        $search->addQuery(new TermQuery('locale', $locale), BoolQuery::MUST_NOT);
+        $search->addQuery(new TermQuery('uuid', $document->getUuid()), BoolQuery::MUST);
 
         /** @var array<array{locale: string}> $searchResult */
         $searchResult = $repository->findArray($search);

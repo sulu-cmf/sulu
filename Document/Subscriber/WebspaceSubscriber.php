@@ -20,6 +20,7 @@ use Sulu\Component\Content\Document\LocalizationState;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Sulu\Component\DocumentManager\Event\AbstractMappingEvent;
 use Sulu\Component\DocumentManager\Events;
+use Sulu\Component\DocumentManager\Exception\DocumentNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -103,10 +104,14 @@ class WebspaceSubscriber implements EventSubscriberInterface
         if ($parentPageUuid) {
             // we know now it's a `page_tree_route` route
             // so load the parent and find out the webspace
-            $parentDocument = $this->documentManager->find($parentPageUuid, $event->getLocale());
-            $mainWebspace = $this->documentInspector->getWebspace($parentDocument);
-            $document->setMainWebspace($mainWebspace);
-            $document->setAdditionalWebspaces([]);
+            try {
+                $parentDocument = $this->documentManager->find($parentPageUuid, $event->getLocale());
+                $mainWebspace = $this->documentInspector->getWebspace($parentDocument);
+                $document->setMainWebspace($mainWebspace);
+                $document->setAdditionalWebspaces([]);
+            } catch (DocumentNotFoundException $exception) {
+                // Do nothing, because when the parent page was deleted it should still work while restoring.
+            }
         }
 
         $mainWebspace = $document->getMainWebspace();

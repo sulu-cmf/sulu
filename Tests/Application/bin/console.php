@@ -33,7 +33,7 @@ if ($debug) {
     if (\class_exists(Debug::class)) {
         Debug::enable();
     } else {
-        \Symfony\Component\Debug\Debug::enable();
+        Symfony\Component\Debug\Debug::enable();
     }
 }
 

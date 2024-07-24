@@ -111,6 +111,14 @@ class ArticleResourceItem implements ResourceItemInterface
     }
 
     /**
+     * Returns lastModified.
+     */
+    public function getLastModified(): ?\DateTime
+    {
+        return $this->article->getLastModified();
+    }
+
+    /**
      * Returns authored.
      */
     public function getAuthored(): \DateTime

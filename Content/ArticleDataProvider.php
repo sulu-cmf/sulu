@@ -85,6 +85,11 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
      */
     private $tokenStorage;
 
+    /**
+     * @var bool
+     */
+    private $hasAudienceTargeting;
+
     public function __construct(
         Manager $searchManager,
         DocumentManagerInterface $documentManager,
@@ -93,8 +98,9 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         ArticleResourceItemFactory $articleResourceItemFactory,
         string $articleDocumentClass,
         int $defaultLimit,
-        MetadataProviderInterface $formMetadataProvider = null,
-        TokenStorageInterface $tokenStorage = null
+        ?MetadataProviderInterface $formMetadataProvider = null,
+        ?TokenStorageInterface $tokenStorage = null,
+        bool $hasAudienceTargeting = false
     ) {
         $this->searchManager = $searchManager;
         $this->documentManager = $documentManager;
@@ -105,6 +111,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         $this->defaultLimit = $defaultLimit;
         $this->formMetadataProvider = $formMetadataProvider;
         $this->tokenStorage = $tokenStorage;
+        $this->hasAudienceTargeting = $hasAudienceTargeting;
     }
 
     public function getConfiguration()
@@ -130,11 +137,16 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
                     ['column' => 'created', 'title' => 'sulu_admin.created'],
                     ['column' => 'title.raw', 'title' => 'sulu_admin.title'],
                     ['column' => 'author_full_name.raw', 'title' => 'sulu_admin.author'],
+                    ['column' => 'last_modified_or_authored', 'title' => 'sulu_article.last_modified_or_authored'],
                 ]
             );
 
         if (\method_exists($builder, 'enableTypes')) {
             $builder->enableTypes($this->getTypes());
+        }
+
+        if ($this->hasAudienceTargeting) {
+            $builder->enableAudienceTargeting();
         }
 
         return $builder;
@@ -165,6 +177,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         $filters['types'] = $this->getTypesProperty($propertyParameter);
         $filters['excluded'] = $this->getExcludedFilter($filters, $propertyParameter);
 
+        /** @var string|null $locale */
         $locale = $options['locale'];
         $webspaceKey = $this->getWebspaceKey($propertyParameter, $options);
         $queryResult = $this->getSearchResult($filters, $limit, $page, $pageSize, $locale, $webspaceKey);
@@ -195,6 +208,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         $filters['types'] = $this->getTypesProperty($propertyParameter);
         $filters['excluded'] = $this->getExcludedFilter($filters, $propertyParameter);
 
+        /** @var string|null $locale */
         $locale = $options['locale'];
         $webspaceKey = $this->getWebspaceKey($propertyParameter, $options);
         $queryResult = $this->getSearchResult($filters, $limit, $page, $pageSize, $locale, $webspaceKey);
@@ -296,6 +310,14 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
             $segmentQuery->add($noSegmentQuery, BoolQuery::SHOULD);
 
             $search->addQuery($segmentQuery);
+        }
+
+        $targetGroup = $filters['targetGroupId'] ?? null;
+
+        if ($targetGroup) {
+            $targetGroupQuery = new BoolQuery();
+            $targetGroupQuery->add(new TermQuery('excerpt.audience_targeting_groups', $targetGroup), BoolQuery::MUST);
+            $search->addQuery($targetGroupQuery);
         }
 
         return $repository->findDocuments($search);

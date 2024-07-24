@@ -158,10 +158,12 @@ class ArticlePageSubscriber implements EventSubscriberInterface
         }
 
         $document->getParent()->setWorkflowStage(WorkflowStage::TEST);
+        /** @var array<string, mixed> $options */
+        $options = $event instanceof PersistEvent ? $event->getOptions() : [];
         $this->documentManager->persist(
             $document->getParent(),
             $this->documentInspector->getLocale($document),
-            $event instanceof PersistEvent ? $event->getOptions() : []
+            $options
         );
     }
 

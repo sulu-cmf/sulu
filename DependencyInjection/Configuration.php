@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
     public const ARTICLE_STORAGE_PHPCR = 'phpcr';
     public const ARTICLE_STORAGE_EXPERIMENTAL = 'experimental';
 
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sulu_article');
         $rootNode = $treeBuilder->getRootNode();

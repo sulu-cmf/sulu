@@ -35,7 +35,9 @@ class PageTreeArticleDataProvider extends ArticleDataProvider
             return null;
         }
 
-        $document = $this->documentManager->find($datasource, $options['locale']);
+        /** @var string|null $locale */
+        $locale = $options['locale'];
+        $document = $this->documentManager->find($datasource, $locale);
 
         if (!$document instanceof BasePageDocument) {
             return null;

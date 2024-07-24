@@ -19,6 +19,7 @@ use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
 use Sulu\Bundle\ArticleBundle\Document\ArticlePageDocument;
 use Sulu\Bundle\ArticleBundle\Metadata\StructureTagTrait;
 use Sulu\Bundle\PreviewBundle\Preview\Object\PreviewObjectProviderInterface;
+use Sulu\Component\Content\Document\Extension\ExtensionContainer;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -94,6 +95,11 @@ class ArticleObjectProvider implements PreviewObjectProviderInterface
         $structure = $object->getStructure();
         foreach ($data as $property => $value) {
             try {
+                if ('ext' === $property) {
+                    $object->setExtensionsData(new ExtensionContainer($value));
+                    continue;
+                }
+
                 $propertyAccess->setValue($structure, $property, $value);
             } catch (\InvalidArgumentException $e) {
                 // @ignoreException

@@ -21,6 +21,9 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class ArticleExportCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'sulu:article:export';
 
     /**
@@ -30,12 +33,12 @@ class ArticleExportCommand extends Command
 
     public function __construct(ArticleExportInterface $articleExporter)
     {
-        parent::__construct();
+        parent::__construct(static::$defaultName);
 
         $this->articleExporter = $articleExporter;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('target', InputArgument::REQUIRED, 'export.xliff')
             ->addArgument('locale', InputArgument::REQUIRED)
@@ -43,7 +46,7 @@ class ArticleExportCommand extends Command
             ->setDescription('Export article translations from given language into xliff file for translating into a new language.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $target = $input->getArgument('target');
         if (0 === !\strpos($target, '/')) {

@@ -15,6 +15,7 @@ use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
 use Sulu\Bundle\ArticleBundle\Document\ArticlePageDocument;
 use Sulu\Bundle\ArticleBundle\Document\Form\ArticleDocumentType;
 use Sulu\Bundle\ArticleBundle\Document\Form\ArticlePageDocumentType;
+use Sulu\Bundle\ArticleBundle\Document\LocalizedLastModifiedBehavior;
 use Sulu\Bundle\ArticleBundle\Document\Structure\ArticleBridge;
 use Sulu\Bundle\ArticleBundle\Document\Structure\ArticlePageBridge;
 use Sulu\Bundle\ArticleBundle\Domain\Model\ArticleInterface;
@@ -72,7 +73,9 @@ class SuluArticleExtension extends Extension implements PrependExtensionInterfac
                     ],
                     'forms' => [
                         'directories' => [
-                            __DIR__ . '/../Resources/config/forms',
+                            \class_exists(LocalizedLastModifiedBehavior::class)
+                                ? __DIR__ . '/../Resources/config/forms'
+                                : __DIR__ . '/../Resources/config/forms_sulu_25_or_lower',
                         ],
                     ],
                     'resources' => [

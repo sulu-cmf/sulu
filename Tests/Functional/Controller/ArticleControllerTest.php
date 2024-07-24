@@ -880,6 +880,28 @@ class ArticleControllerTest extends SuluTestCase
         $this->assertEquals($articles[1]['title'], $response['_embedded']['articles'][1]['title']);
     }
 
+    public function testCGetSearchFieldRoutePath()
+    {
+        $routePathData = [
+            'suffix' => '/test-route',
+        ];
+        $article = $this->postPageTreeRoute($routePathData, 'Article Name');
+
+        $this->client->jsonRequest(
+            'GET',
+            '/api/articles?locale=de&page=1&limit=10&fields=id,title,creatorFullName,changerFullName,authorFullName,routePath&search=test-route&flat=true'
+        );
+
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
+
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertEquals(1, $response['total']);
+        $this->assertCount(1, $response['_embedded']['articles']);
+        $this->assertEquals($article['id'], $response['_embedded']['articles'][0]['id']);
+        $this->assertEquals($article['title'], $response['_embedded']['articles'][0]['title']);
+    }
+
     public function testCGetSearchCaseInsensitive()
     {
         $this->testPost('Sulu');

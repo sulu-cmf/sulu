@@ -370,9 +370,6 @@ class ArticlePageControllerTest extends SuluTestCase
     }
 
     /**
-     * @param $uuid
-     * @param $locale
-     *
      * @return ArticleViewDocumentInterface
      */
     private function findViewDocument($uuid, $locale)

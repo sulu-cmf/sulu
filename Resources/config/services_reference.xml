@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sulu_article.reference_provider" class="Sulu\Bundle\ArticleBundle\Reference\Provider\ArticleReferenceProvider">
+            <argument type="service" id="sulu.content.type_manager"/>
+            <argument type="service" id="sulu.content.structure_manager"/>
+            <argument type="service" id="sulu_page.extension.manager"/>
+            <argument type="service" id="sulu_reference.reference_repository"/>
+
+            <tag name="sulu_document_manager.reference_provider" />
+        </service>
+
+        <service id="sulu_article.article_reference_refresher" class="Sulu\Bundle\ArticleBundle\Reference\Refresh\ArticleReferenceRefresher">
+            <argument type="service" id="sulu_document_manager.default_session"/>
+            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
+            <argument type="service" id="sulu_document_manager.document_manager"/>
+            <argument type="service" id="sulu_article.reference_provider"/>
+            <argument>%sulu.context%</argument>
+
+            <tag name="sulu_reference.refresher"/>
+        </service>
+    </services>
+</container>

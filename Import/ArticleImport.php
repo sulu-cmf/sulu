@@ -93,7 +93,7 @@ class ArticleImport extends Import implements ArticleImportInterface
         ExtensionManagerInterface $extensionManager,
         ImportManagerInterface $importManager,
         FormatImportInterface $xliff12,
-        LoggerInterface $logger = null
+        ?LoggerInterface $logger = null
     ) {
         parent::__construct($importManager, $legacyPropertyFactory, ['1.2.xliff' => $xliff12]);
 
@@ -108,7 +108,7 @@ class ArticleImport extends Import implements ArticleImportInterface
     public function import(
         string $locale,
         string $filePath,
-        OutputInterface $output = null,
+        ?OutputInterface $output = null,
         string $format = '1.2.xliff',
         bool $overrideSettings = false
     ): ImportResult {

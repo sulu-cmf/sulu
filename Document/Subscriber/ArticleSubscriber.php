@@ -127,7 +127,7 @@ class ArticleSubscriber implements EventSubscriberInterface
             Events::FLUSH => [['handleFlush', -2048], ['handleFlushLive', -2048]],
             Events::COPY => ['handleCopy'],
             Events::METADATA_LOAD => ['handleMetadataLoad'],
-            EVENTS::REMOVE_LOCALE => [['handleRemoveLocale', -500], ['handleRemoveLocaleLive', -500]],
+            Events::REMOVE_LOCALE => [['handleRemoveLocale', -500], ['handleRemoveLocaleLive', -500]],
         ];
     }
 

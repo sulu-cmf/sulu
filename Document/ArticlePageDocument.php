@@ -76,7 +76,7 @@ class ArticlePageDocument implements UuidBehavior,
     protected $originalLocale;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $structureType;
 
@@ -145,8 +145,6 @@ class ArticlePageDocument implements UuidBehavior,
 
     /**
      * Returns pageTitle.
-     *
-     * @return string
      */
     public function getPageTitle(): ?string
     {

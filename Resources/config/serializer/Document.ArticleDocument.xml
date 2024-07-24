@@ -25,6 +25,8 @@
         <property name="published" type="DateTime" groups="website,defaultArticle,smallArticle,preview"/>
         <property name="author" type="integer" groups="website,defaultArticle,preview"/>
         <property name="authored" type="DateTime" groups="website,defaultArticle,smallArticle,preview"/>
+        <virtual-property method="getLastModifiedEnabled" name="lastModifiedEnabled" serialized-name="lastModifiedEnabled" groups="defaultArticle,smallArticle,preview"/>
+        <property name="lastModified" type="DateTime" groups="website,defaultArticle,smallArticle,preview"/>
         <property name="extensions" type="Sulu\Component\Content\Document\Extension\ExtensionContainer" serialized-name="ext" groups="defaultArticle,preview"/>
 
         <property name="shadowLocale" type="string" serialized-name="shadowBaseLanguage" groups="defaultArticle"/>

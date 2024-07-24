@@ -25,6 +25,9 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class ArticleImportCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'sulu:article:import';
 
     /**
@@ -37,15 +40,15 @@ class ArticleImportCommand extends Command
      */
     private $logger;
 
-    public function __construct(ArticleImportInterface $articleImporter, LoggerInterface $logger = null)
+    public function __construct(ArticleImportInterface $articleImporter, ?LoggerInterface $logger = null)
     {
-        parent::__construct();
+        parent::__construct(static::$defaultName);
 
         $this->articleImporter = $articleImporter;
         $this->logger = $logger ?: new NullLogger();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('file', InputArgument::REQUIRED, 'export.xliff')
             ->addArgument('locale', InputArgument::REQUIRED)
@@ -55,7 +58,7 @@ class ArticleImportCommand extends Command
             ->setDescription('Import article translations from xliff file into a specific language.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $filePath = $input->getArgument('file');
         if (0 === !\strpos($filePath, '/')) {

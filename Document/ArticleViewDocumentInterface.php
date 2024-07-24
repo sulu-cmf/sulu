@@ -258,6 +258,22 @@ interface ArticleViewDocumentInterface
     public function setSeo(SeoViewObject $seo);
 
     /**
+     * Returns lastModified.
+     *
+     * @return \DateTime|null
+     */
+    public function getLastModified();
+
+    /**
+     * Set lastModified date.
+     *
+     * @param \DateTime|null $lastModified
+     *
+     * @return $this
+     */
+    public function setLastModified($lastModified);
+
+    /**
      * Returns authored.
      *
      * @return \DateTime
@@ -267,11 +283,21 @@ interface ArticleViewDocumentInterface
     /**
      * Set authored date.
      *
-     * @param \DateTime $authored
-     *
      * @return $this
      */
-    public function setAuthored(\DateTime $authored = null);
+    public function setAuthored(?\DateTime $authored = null);
+
+    /**
+     * Returns lastModified or authored date.
+     *
+     * @return \DateTime|null
+     */
+    public function getLastModifiedOrAuthored();
+
+    /**
+     * @return $this
+     */
+    public function updateLastModifiedOrAuthored();
 
     /**
      * Returns author full name.
@@ -331,11 +357,9 @@ interface ArticleViewDocumentInterface
     /**
      * Set published.
      *
-     * @param \DateTime $published
-     *
      * @return $this
      */
-    public function setPublished(\DateTime $published = null);
+    public function setPublished(?\DateTime $published = null);
 
     /**
      * Get published state.

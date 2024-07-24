@@ -90,6 +90,13 @@ class ExcerptViewObject
     public $segments;
 
     /**
+     * @var int[]
+     *
+     * @Property(type="integer")
+     */
+    public $audienceTargetingGroups;
+
+    /**
      * @var MediaViewObject[]|Collection
      *
      * @Embedded(class="Sulu\Bundle\ArticleBundle\Document\MediaViewObject", multiple=true)

@@ -159,6 +159,7 @@ class RoutableSubscriberTest extends TestCase
 
         $this->metadataFactory->getStructureMetadata('article', 'default')->willReturn($metadata->reveal());
         $this->propertyEncoder->localizedSystemName('routePath', 'de')->willReturn('i18n:de-routePath');
+        $this->propertyEncoder->localizedContentName('routePathName', 'de')->willReturn('i18n:de-routePathName');
 
         $children = [
             $this->prophesize(RoutablePageBehavior::class),
@@ -200,8 +201,11 @@ class RoutableSubscriberTest extends TestCase
         $children[2]->setRoutePath('/test-3')->shouldBeCalled();
 
         $nodes[0]->setProperty('i18n:de-routePath', '/test-1')->shouldBeCalled();
+        $nodes[0]->setProperty('i18n:de-routePathName', 'i18n:de-routePath')->shouldBeCalled();
         $nodes[1]->setProperty('i18n:de-routePath', '/test-2')->shouldBeCalled();
+        $nodes[1]->setProperty('i18n:de-routePathName', 'i18n:de-routePath')->shouldBeCalled();
         $nodes[2]->setProperty('i18n:de-routePath', '/test-3')->shouldBeCalled();
+        $nodes[2]->setProperty('i18n:de-routePathName', 'i18n:de-routePath')->shouldBeCalled();
 
         $this->routableSubscriber->handlePersist($event->reveal());
     }
@@ -360,6 +364,7 @@ class RoutableSubscriberTest extends TestCase
 
         $this->metadataFactory->getStructureMetadata('article', 'default')->willReturn($metadata->reveal());
         $this->propertyEncoder->localizedSystemName('routePath', 'de')->willReturn('i18n:de-routePath');
+        $this->propertyEncoder->localizedContentName('routePathName', 'de')->willReturn('i18n:de-routePathName');
 
         $children = [
             $this->prophesize(RoutablePageBehavior::class),
@@ -401,8 +406,11 @@ class RoutableSubscriberTest extends TestCase
         $children[2]->setRoutePath('/test-3')->shouldBeCalled();
 
         $nodes[0]->setProperty('i18n:de-routePath', '/test-1')->shouldBeCalled();
+        $nodes[0]->setProperty('i18n:de-routePathName', 'i18n:de-routePath')->shouldBeCalled();
         $nodes[1]->setProperty('i18n:de-routePath', '/test-2')->shouldBeCalled();
+        $nodes[1]->setProperty('i18n:de-routePathName', 'i18n:de-routePath')->shouldBeCalled();
         $nodes[2]->setProperty('i18n:de-routePath', '/test-3')->shouldBeCalled();
+        $nodes[2]->setProperty('i18n:de-routePathName', 'i18n:de-routePath')->shouldBeCalled();
 
         $this->routableSubscriber->handleReorder($event->reveal());
     }

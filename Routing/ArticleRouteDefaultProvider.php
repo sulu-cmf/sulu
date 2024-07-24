@@ -151,8 +151,8 @@ class ArticleRouteDefaultProvider implements RouteDefaultsProviderInterface
         }
 
         $webspace = $this->requestAnalyzer->getWebspace();
-        if (!$webspace ||
-            (
+        if (!$webspace
+            || (
                 $this->webspaceResolver->resolveMainWebspace($object) !== $webspace->getKey()
                 && !\in_array($webspace->getKey(), $this->webspaceResolver->resolveAdditionalWebspaces($object))
             )

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>default_with_page_tree_route</key>
+
+    <view>::default_with_page_tree_route</view>
+    <controller>SuluWebsiteBundle:Default:index</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <tag name="sulu_article.type" type="blog"/>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true"/>
+
+        <property name="routePath" type="page_tree_route">
+            <tag name="sulu_article.article_route"/>
+        </property>
+
+        <property name="article" type="text_area"/>
+    </properties>
+</template>

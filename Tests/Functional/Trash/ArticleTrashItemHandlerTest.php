@@ -14,6 +14,7 @@ namespace Sulu\Bundle\ArticleBundle\Tests\Functional\Trash;
 use Sulu\Bundle\ArticleBundle\Controller\ArticleController;
 use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
 use Sulu\Bundle\ArticleBundle\Trash\ArticleTrashItemHandler;
+use Sulu\Bundle\PageBundle\Document\PageDocument;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Bundle\TrashBundle\SuluTrashBundle;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
@@ -209,5 +210,108 @@ class ArticleTrashItemHandlerTest extends SuluTestCase
         static::assertSame('target locale article content', $restoredArticleEn->getStructure()->toArray()['article']);
         static::assertSame('en', $restoredArticleEn->getOriginalLocale());
         static::assertSame('de', $restoredArticleEn->getShadowLocale());
+    }
+
+    public function testStoreAndRestorePageTreeRoute(): void
+    {
+        /** @var PageDocument $page */
+        $page = $this->documentManager->create('page');
+        $page->setTitle('test parent page');
+        $page->setStructureType('default');
+        $page->setResourceSegment('/test-parent-page');
+
+        $this->documentManager->persist($page, 'de', ['parent_path' => '/cmf/sulu_io/contents']);
+        $this->documentManager->publish($page, 'de');
+        $this->documentManager->flush();
+
+        /** @var ArticleDocument $article1De */
+        $article1De = $this->documentManager->create(ArticleController::DOCUMENT_TYPE);
+        $article1De->setParent($this->documentManager->find('/cmf/sulu_io/contents', 'de'));
+        $article1De->setTitle('test-title-de');
+        $article1De->setLocale('de');
+        $article1De->setStructureType('default_with_page_tree_route');
+        $article1De->setRoutePath($page->getStructure()->getProperty('url')->getValue() . '/test-title-de');
+        $article1De->getStructure()->bind([
+            'routePath' => [
+                'page' => [
+                    'uuid' => $page->getUuid(),
+                    'path' => $page->getStructure()->getProperty('url')->getValue(),
+                ],
+                'path' => $page->getStructure()->getProperty('url')->getValue() . '/test-title-de',
+                'suffix' => '/test-title-de',
+            ],
+        ]);
+        $article1De->setMainWebspace('sulu_io');
+        $this->documentManager->persist($article1De, 'de');
+
+        $this->documentManager->flush();
+        $originalArticleUuid = $article1De->getUuid();
+
+        $trashItem = $this->articleTrashItemHandler->store($article1De);
+        $this->documentManager->remove($article1De);
+        $this->documentManager->flush();
+        $this->documentManager->clear();
+
+        static::assertSame($originalArticleUuid, $trashItem->getResourceId());
+        static::assertSame('test-title-de', $trashItem->getResourceTitle());
+
+        /** @var ArticleDocument $restoredArticle */
+        $restoredArticle = $this->articleTrashItemHandler->restore($trashItem);
+        static::assertSame($originalArticleUuid, $restoredArticle->getUuid());
+
+        /** @var ArticleDocument $restoredArticleDe */
+        $restoredArticleDe = $this->documentManager->find($originalArticleUuid, 'de');
+        static::assertSame($originalArticleUuid, $restoredArticleDe->getUuid());
+        static::assertSame('test-title-de', $restoredArticleDe->getTitle());
+        static::assertSame('/test-parent-page/test-title-de', $restoredArticleDe->getRoutePath());
+        static::assertSame('de', $restoredArticleDe->getLocale());
+        static::assertSame('default_with_page_tree_route', $restoredArticleDe->getStructureType());
+        static::assertSame('sulu_io', $restoredArticleDe->getMainWebspace());
+    }
+
+    public function testStoreAndRestorePageTreeRouteNoValidParent(): void
+    {
+        /** @var ArticleDocument $article1De */
+        $article1De = $this->documentManager->create(ArticleController::DOCUMENT_TYPE);
+        $article1De->setParent($this->documentManager->find('/cmf/sulu_io/contents', 'de'));
+        $article1De->setTitle('test-title-de');
+        $article1De->setLocale('de');
+        $article1De->setStructureType('default_with_page_tree_route');
+        $article1De->getStructure()->bind([
+            'routePath' => [
+                'page' => [
+                    'uuid' => 'not-existing-uuid',
+                    'path' => '/not-existing-path',
+                ],
+                'path' => '/not-existing-path/test-title-de',
+                'suffix' => '/test-title-de',
+            ],
+        ]);
+        $article1De->setMainWebspace('sulu_io');
+        $this->documentManager->persist($article1De, 'de');
+
+        $this->documentManager->flush();
+        $originalArticleUuid = $article1De->getUuid();
+
+        $trashItem = $this->articleTrashItemHandler->store($article1De);
+        $this->documentManager->remove($article1De);
+        $this->documentManager->flush();
+        $this->documentManager->clear();
+
+        static::assertSame($originalArticleUuid, $trashItem->getResourceId());
+        static::assertSame('test-title-de', $trashItem->getResourceTitle());
+
+        /** @var ArticleDocument $restoredArticle */
+        $restoredArticle = $this->articleTrashItemHandler->restore($trashItem);
+        static::assertSame($originalArticleUuid, $restoredArticle->getUuid());
+
+        /** @var ArticleDocument $restoredArticleDe */
+        $restoredArticleDe = $this->documentManager->find($originalArticleUuid, 'de');
+        static::assertSame($originalArticleUuid, $restoredArticleDe->getUuid());
+        static::assertSame('test-title-de', $restoredArticleDe->getTitle());
+        static::assertSame('/not-existing-path/test-title-de', $restoredArticleDe->getRoutePath());
+        static::assertSame('de', $restoredArticleDe->getLocale());
+        static::assertSame('default_with_page_tree_route', $restoredArticleDe->getStructureType());
+        static::assertSame('sulu_io', $restoredArticleDe->getMainWebspace());
     }
 }

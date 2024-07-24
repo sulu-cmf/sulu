@@ -56,7 +56,8 @@ class ArticleDocument implements UuidBehavior,
     ChildrenBehavior,
     ArticleInterface,
     ShadowLocaleBehavior,
-    WebspaceBehavior
+    WebspaceBehavior,
+    LocalizedLastModifiedBehavior
 {
     public const RESOURCE_KEY = 'articles';
 
@@ -118,7 +119,7 @@ class ArticleDocument implements UuidBehavior,
     protected $originalLocale;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $structureType;
 
@@ -146,6 +147,11 @@ class ArticleDocument implements UuidBehavior,
      * @var \DateTime
      */
     protected $changed;
+
+    /**
+     * @var \DateTime|null
+     */
+    protected $lastModified;
 
     /**
      * @var int
@@ -425,6 +431,32 @@ class ArticleDocument implements UuidBehavior,
     public function getAuthored()
     {
         return $this->authored;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getLastModifiedEnabled()
+    {
+        return null !== $this->lastModified;
+    }
+
+    /**
+     * @param \DateTime|null $lastModified
+     *
+     * @return void
+     */
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
     }
 
     public function setAuthored($authored)

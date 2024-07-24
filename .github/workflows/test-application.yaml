@@ -78,6 +78,31 @@ jobs:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           ELASTICSEARCH_HOST: '127.0.0.1:9200'
 
+                    - php-version: '8.3'
+                      elasticsearch-version: '7.17.2'
+                      elasticsearch-package-constraint: '~7.17.0'
+                      phpcr-transport: doctrinedbal
+                      dependency-versions: 'highest'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      tools: 'composer:v2'
+                      phpstan: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
+
+                    - php-version: '8.4'
+                      composer-options: '--ignore-platform-reqs'
+                      elasticsearch-version: '8.14.3'
+                      elasticsearch-package-constraint: '~7.17.0'
+                      phpcr-transport: doctrinedbal
+                      dependency-versions: 'highest'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      tools: 'composer:v2'
+                      phpstan: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
+
         services:
             mysql:
                 image: mysql:5.7
@@ -88,7 +113,7 @@ jobs:
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
             jackrabbit:
-                image: sulu/jackrabbit:2.20-standalone
+                image: sulu/jackrabbit:2.20-tomcat-filesystem
                 env:
                     DATABASE_HOST: mysql
                     DATABASE_PORT: 3306
@@ -110,7 +135,7 @@ jobs:
 
         steps:
             - name: Checkout project
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Install and configure PHP
               uses: shivammathur/setup-php@v2
@@ -120,11 +145,16 @@ jobs:
                   tools: ${{ matrix.tools }}
                   coverage: none
 
+            - name: Remove Lint Tools
+              # These tools are not required to run tests, so we are removing them to improve dependency resolving and
+              # testing lowest versions.
+              run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
+
             - name: Require elasticsearch dependency
               run: composer require --dev elasticsearch/elasticsearch:"${{ matrix.elasticsearch-package-constraint }}" --no-interaction --no-update
 
             - name: Install composer dependencies
-              uses: ramsey/composer-install@v1
+              uses: ramsey/composer-install@v2
               with:
                   dependency-versions: ${{matrix.dependency-versions}}
                   composer-options: ${{ matrix.composer-options }}
@@ -146,12 +176,12 @@ jobs:
 
         steps:
             - name: Checkout project
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Install and configure PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.1
+                  php-version: 8.3
                   extensions: 'ctype, iconv, mysql, imagick'
                   tools: 'composer:v2'
                   coverage: none
@@ -160,7 +190,7 @@ jobs:
               run: composer require --dev elasticsearch/elasticsearch:"~7.11.0" --no-interaction --no-update
 
             - name: Install composer dependencies
-              uses: ramsey/composer-install@v1
+              uses: ramsey/composer-install@v2
               with:
                   dependency-versions: ${{matrix.dependency-versions}}
                   composer-options: ${{ matrix.composer-options }}

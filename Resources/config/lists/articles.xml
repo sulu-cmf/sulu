@@ -111,5 +111,10 @@
                 </params>
             </filter>
         </property>
+        <property
+            name="routePath"
+            visibility="no"
+            translation="sulu_article.route"
+        />
     </properties>
 </list>

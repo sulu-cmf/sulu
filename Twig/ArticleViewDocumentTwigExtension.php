@@ -93,7 +93,7 @@ class ArticleViewDocumentTwigExtension extends AbstractExtension
      */
     public function loadRecent(
         int $limit = ArticleViewDocumentRepository::DEFAULT_LIMIT,
-        array $types = null,
+        ?array $types = null,
         ?string $locale = null,
         bool $ignoreWebspaces = false
     ): array {
@@ -131,13 +131,13 @@ class ArticleViewDocumentTwigExtension extends AbstractExtension
     /**
      * Loads similar articles with given parameters.
      *
-     * @throws ArticleInRequestNotFoundException
-     *
      * @return ArticleResourceItem[]
+     *
+     * @throws ArticleInRequestNotFoundException
      */
     public function loadSimilar(
         int $limit = ArticleViewDocumentRepository::DEFAULT_LIMIT,
-        array $types = null,
+        ?array $types = null,
         ?string $locale = null,
         bool $ignoreWebspaces = false
     ): array {

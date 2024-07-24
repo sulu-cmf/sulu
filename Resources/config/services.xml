@@ -349,6 +349,7 @@
             <argument type="string">%sulu_article.smart_content.default_limit%</argument>
             <argument type="service" id="sulu_admin.form_metadata_provider" on-invalid="null"/>
             <argument type="service" id="security.token_storage" on-invalid="null"/>
+            <argument type="expression">container.hasParameter('sulu_audience_targeting.enabled')</argument>
 
             <tag name="sulu.smart_content.data_provider" alias="articles"/>
         </service>

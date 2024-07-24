@@ -55,15 +55,15 @@ class ArticleSelectionContentTypeTest extends TestCase
             Argument::that(
                 function(IdsQuery $query) use ($ids) {
                     return $query->toArray() === [
-                            'ids' => [
-                                'values' => \array_map(
-                                    function($id) {
-                                        return $id . '-de';
-                                    },
-                                    $ids
-                                ),
-                            ],
-                        ];
+                        'ids' => [
+                            'values' => \array_map(
+                                function($id) {
+                                    return $id . '-de';
+                                },
+                                $ids
+                            ),
+                        ],
+                    ];
                 }
             )
         )->shouldBeCalled();

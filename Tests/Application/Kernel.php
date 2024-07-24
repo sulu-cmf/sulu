@@ -67,7 +67,7 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
         return $bundles;
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         parent::registerContainerConfiguration($loader);
 
@@ -96,6 +96,9 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
             ->setPublic(true);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getKernelParameters(): array
     {
         $parameters = parent::getKernelParameters();

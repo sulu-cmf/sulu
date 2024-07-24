@@ -9,6 +9,7 @@
         <property name="changerFullName" type="string" expose="true"/>
         <property name="created" type="DateTime" expose="true"/>
         <property name="changed" type="DateTime" expose="true"/>
+        <property name="lastModified" type="DateTime" expose="true"/>
         <property name="authored" type="DateTime" expose="true"/>
         <property name="published" type="DateTime" expose="true"/>
         <property name="publishedState" type="boolean" expose="true"/>

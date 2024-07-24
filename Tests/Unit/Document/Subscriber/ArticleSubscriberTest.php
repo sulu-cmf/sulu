@@ -508,7 +508,7 @@ class ArticleSubscriberTest extends TestCase
             $this->document->reveal()
         )->willReturn(LocalizationState::SHADOW);
 
-        $propertyNameEN = 'i18n:' . 'en' . '-' . ArticleSubscriber::PAGES_PROPERTY;
+        $propertyNameEN = 'i18n:en-' . ArticleSubscriber::PAGES_PROPERTY;
         $this->propertyEncoder->localizedSystemName(ArticleSubscriber::PAGES_PROPERTY, 'en')
             ->willReturn($propertyNameEN);
 

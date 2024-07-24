@@ -109,7 +109,8 @@ class ArticleSitemapProvider implements SitemapProviderInterface
         return new SitemapUrl(
             $this->findUrl($articleView, $scheme, $host, $webspaceKey),
             $articleView->getLocale(),
-            $articleView->getChanged()
+            null,
+            $articleView->getLastModified() ?? $articleView->getChanged()
         );
     }
 

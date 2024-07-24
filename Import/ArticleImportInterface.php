@@ -18,7 +18,7 @@ interface ArticleImportInterface
     public function import(
         string $locale,
         string $filePath,
-        OutputInterface $output = null,
+        ?OutputInterface $output = null,
         string $format = '1.2.xliff',
         bool $overrideSettings = false
     ): ImportResult;
