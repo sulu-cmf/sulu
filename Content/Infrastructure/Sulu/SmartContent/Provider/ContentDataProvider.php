@@ -121,7 +121,7 @@ class ContentDataProvider extends BaseDataProvider
      *
      * @param T $dimensionContent
      *
-     * @return mixed
+     * @return string|int
      */
     protected function getIdForItem($dimensionContent)
     {
@@ -154,7 +154,7 @@ class ContentDataProvider extends BaseDataProvider
     /**
      * @template T of DimensionContentInterface
      *
-     * @param mixed $id
+     * @param string|int $id
      * @param T $dimensionContent
      * @param mixed[] $data
      */

@@ -51,6 +51,7 @@ class SuluContentExtension extends Extension implements PrependExtensionInterfac
         $loader->load('normalizer.xml');
         $loader->load('services.xml');
         $loader->load('form-visitor.xml');
+        $loader->load('controller.xml');
 
         if ($container->hasParameter('kernel.bundles')) {
             // TODO FIXME add test here
