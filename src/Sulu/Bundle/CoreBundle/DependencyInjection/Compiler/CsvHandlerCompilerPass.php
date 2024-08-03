@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Sulu.
  *
@@ -28,7 +30,7 @@ class CsvHandlerCompilerPass implements CompilerPassInterface
                 return;
             }
 
-            $id = $container->getAlias($id);
+            $id = (string) $container->getAlias($id);
         }
 
         $definition = $container->getDefinition($id);

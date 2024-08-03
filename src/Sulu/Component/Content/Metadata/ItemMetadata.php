@@ -66,12 +66,12 @@ abstract class ItemMetadata
     protected $children = [];
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $disabledCondition = null;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $visibleCondition = null;
 

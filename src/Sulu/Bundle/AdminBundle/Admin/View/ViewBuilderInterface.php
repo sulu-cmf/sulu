@@ -17,6 +17,9 @@ interface ViewBuilderInterface
 
     public function setType(string $type): self;
 
+    /**
+     * @param mixed $value
+     */
     public function setOption(string $key, $value): self;
 
     public function setAttributeDefault(string $key, string $value): self;
