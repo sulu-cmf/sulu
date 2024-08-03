@@ -30,6 +30,9 @@ trait ViewBuilderTrait
         return $this;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function setOption(string $key, $value): ViewBuilderInterface
     {
         $this->view->setOption($key, $value);

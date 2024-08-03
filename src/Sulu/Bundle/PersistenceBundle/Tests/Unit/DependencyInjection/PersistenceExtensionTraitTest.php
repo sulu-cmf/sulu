@@ -19,7 +19,7 @@ class PersistenceExtensionTraitTest extends AbstractContainerBuilderTestCase
 {
     public function testPersistenceExtensionTrait(): void
     {
-        $repository = new class() {
+        $repository = new class {
         };
 
         $extension = new UsingPersistenceExtensionTrait();
@@ -76,7 +76,7 @@ class PersistenceExtensionTraitTest extends AbstractContainerBuilderTestCase
 
     public function testPersistenceExtensionTraitWithAccessControlQueryEnhancer(): void
     {
-        $repository = new class() {
+        $repository = new class {
             public function setAccessControlQueryEnhancer($accessControlQueryEnhancer): void
             {
             }

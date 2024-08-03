@@ -72,7 +72,7 @@ class AdminController
         private array $locales,
         private array $translations,
         private string $fallbackLocale,
-        private string $collaborationInterval,
+        private int $collaborationInterval,
         ?bool $collaborationEnabled = null,
         private ?string $passwordPattern = null,
         private ?string $passwordInfoTranslationKey = null
@@ -83,6 +83,9 @@ class AdminController
         $this->collaborationEnabled = $collaborationEnabled ?? true;
     }
 
+    /**
+     * @return Response
+     */
     public function indexAction()
     {
         $endpoints = [
