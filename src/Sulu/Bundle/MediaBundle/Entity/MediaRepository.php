@@ -19,19 +19,13 @@ use Sulu\Bundle\SecurityBundle\AccessControl\AccessControlQueryEnhancer;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 use Sulu\Component\Persistence\Repository\ORM\EntityRepository;
 use Sulu\Component\Security\Authentication\UserInterface;
-use Sulu\Component\Security\Authorization\AccessControl\SecuredEntityRepositoryTrait;
 
 /**
  * @extends EntityRepository<MediaInterface>
  */
 class MediaRepository extends EntityRepository implements MediaRepositoryInterface
 {
-    use SecuredEntityRepositoryTrait;
-
-    /**
-     * @var AccessControlQueryEnhancer|null
-     */
-    private $accessControlQueryEnhancer;
+    private AccessControlQueryEnhancer $accessControlQueryEnhancer;
 
     public function findMediaById($id, $asArray = false)
     {
@@ -204,23 +198,13 @@ class MediaRepository extends EntityRepository implements MediaRepositoryInterfa
         $queryBuilder->addOrderBy($orderBy, $orderSort);
 
         if (null !== $permission) {
-            if ($this->accessControlQueryEnhancer) {
-                $this->accessControlQueryEnhancer->enhance(
-                    $queryBuilder,
-                    $user,
-                    $permission,
-                    Collection::class,
-                    'collection'
-                );
-            } else {
-                $this->addAccessControl(
-                    $queryBuilder,
-                    $user,
-                    $permission,
-                    Collection::class,
-                    'collection'
-                );
-            }
+            $this->accessControlQueryEnhancer->enhance(
+                $queryBuilder,
+                $user,
+                $permission,
+                Collection::class,
+                'collection'
+            );
         }
 
         /** @var MediaInterface[] */

@@ -36,7 +36,6 @@ use Sulu\Component\Rest\ListBuilder\Expression\ExpressionInterface;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\Filter\FilterTypeRegistry;
 use Sulu\Component\Security\Authentication\UserInterface;
-use Sulu\Component\Security\Authorization\AccessControl\SecuredEntityRepositoryTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -44,7 +43,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class DoctrineListBuilder extends AbstractListBuilder
 {
-    use SecuredEntityRepositoryTrait;
     use EncodeAliasTrait;
 
     /**
@@ -120,7 +118,7 @@ class DoctrineListBuilder extends AbstractListBuilder
         FilterTypeRegistry $filterTypeRegistry,
         private EventDispatcherInterface $eventDispatcher,
         private array $permissions,
-        private ?AccessControlQueryEnhancer $accessControlQueryEnhancer = null
+        private AccessControlQueryEnhancer $accessControlQueryEnhancer
     ) {
         parent::__construct($filterTypeRegistry);
         $this->idField = new DoctrineFieldDescriptor(
@@ -557,7 +555,7 @@ class DoctrineListBuilder extends AbstractListBuilder
         $queryBuilder = $this->createQueryBuilder($addJoins)->select($select);
 
         if ($this->user && $this->permission && \array_key_exists($this->permission, $this->permissions)) {
-            if ($this->accessControlQueryEnhancer && $this->permissionCheckWithDynamicEntityClass) {
+            if ($this->permissionCheckWithDynamicEntityClass) {
                 $this->accessControlQueryEnhancer->enhanceWithDynamicEntityClass(
                     $queryBuilder,
                     $this->user,
@@ -567,16 +565,8 @@ class DoctrineListBuilder extends AbstractListBuilder
                     $this->securedEntityClassField,
                     $this->securedEntityIdField
                 );
-            } elseif ($this->accessControlQueryEnhancer) {
-                $this->accessControlQueryEnhancer->enhance(
-                    $queryBuilder,
-                    $this->user,
-                    $this->permissions[$this->permission],
-                    $this->securedEntityName,
-                    $this->encodeAlias($this->securedEntityName)
-                );
             } else {
-                $this->addAccessControl(
+                $this->accessControlQueryEnhancer->enhance(
                     $queryBuilder,
                     $this->user,
                     $this->permissions[$this->permission],

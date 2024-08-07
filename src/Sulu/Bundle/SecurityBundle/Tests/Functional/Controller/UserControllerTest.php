@@ -866,9 +866,10 @@ class UserControllerTest extends SuluTestCase
             $response->userRoles[0]->role->name,
             $response->userRoles[1]->role->name,
         ];
+        $existingNames = \implode(',', $names);
 
-        $this->assertContains('Role1', $names);
-        $this->assertContains('Role2', $names);
+        $this->assertContains('Role1', $names, 'Expected Role1 to be present. Found: ' . $existingNames);
+        $this->assertContains('Role2', $names, 'Expected Role2 to be present. Found: ' . $existingNames);
     }
 
     public function testGetUserAndRolesByContactNotExisting(): void

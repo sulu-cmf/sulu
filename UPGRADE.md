@@ -29,6 +29,10 @@ Removed unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
 
+Removed traits:
+
+- `Sulu\Component\Security\Authorization\AccessControl\SecuredEntityRepositoryTrait`
+
 ### Piwik replaced with Matomo script
 
 The script provided by Sulu for the piwik implementation has been updated to use mataomo path so the script is now pointing to matomo.php instead of the piwik.php file.
