@@ -384,32 +384,6 @@ class CategoryManager implements CategoryManagerInterface
         return (\array_key_exists($key, $data) && null !== $data[$key]) ? $data[$key] : $default;
     }
 
-    public function find($parent = null, $depth = null, $sortBy = null, $sortOrder = null)
-    {
-        @trigger_deprecation(
-            'sulu/sulu',
-            '1.4',
-            __METHOD__ . '() is deprecated and will be removed in 2.0. Use findChildrenByParentId() instead.'
-        );
-
-        if ($parent && !$this->categoryRepository->isCategoryId($parent)) {
-            throw new CategoryIdNotFoundException($parent);
-        }
-
-        return $this->categoryRepository->findCategories($parent, $depth, $sortBy, $sortOrder);
-    }
-
-    public function findChildren($key, $sortBy = null, $sortOrder = null)
-    {
-        @trigger_deprecation(
-            'sulu/sulu',
-            '1.4',
-            __METHOD__ . '() is deprecated and will be removed in 2.0. Use findChildrenByParentKey() instead.'
-        );
-
-        return $this->categoryRepository->findChildren($key, $sortBy, $sortOrder);
-    }
-
     private function getCategoryTranslation(CategoryInterface $category): ?CategoryTranslationInterface
     {
         return $category->findTranslationByLocale($category->getDefaultLocale()) ?: null;

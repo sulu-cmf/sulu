@@ -53,18 +53,6 @@ class FormOverlayListViewBuilder implements FormOverlayListViewBuilderInterface
         return $this;
     }
 
-    /**
-     * @deprecated The usage of the "setRequestParameters" method in the FormOverlayListViewBuilder is deprecated. Please use "addRequestParameters" instead.
-     */
-    public function setRequestParameters(array $requestParameters): FormOverlayListViewBuilderInterface
-    {
-        @trigger_deprecation('sulu/sulu', '2.1', 'The usage of the "setRequestParameters" method in the FormOverlayListViewBuilder is deprecated. Please use "addRequestParameters" instead.');
-
-        $this->setRequestParametersToView($this->view, $requestParameters);
-
-        return $this;
-    }
-
     public function setTitle(string $title): FormOverlayListViewBuilderInterface
     {
         $this->setTitleToView($this->view, $title);
