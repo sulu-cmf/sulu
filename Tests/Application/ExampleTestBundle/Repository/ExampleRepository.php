@@ -207,7 +207,7 @@ class ExampleRepository
      * @param array{
      *     id?: 'asc'|'desc',
      *     title?: 'asc'|'desc',
-     * } $sortBy
+     * } $sortBys
      * @param array{
      *     example_admin?: bool,
      *     example_website?: bool,
@@ -216,9 +216,9 @@ class ExampleRepository
      *
      * @return \Generator<Example>
      */
-    public function findBy(array $filters = [], array $sortBy = [], array $selects = []): \Generator
+    public function findBy(array $filters = [], array $sortBys = [], array $selects = []): \Generator
     {
-        $queryBuilder = $this->createQueryBuilder($filters, $sortBy, $selects);
+        $queryBuilder = $this->createQueryBuilder($filters, $sortBys, $selects);
 
         // TODO optimize hydration with toIterable()
         /** @var iterable<Example> $examples */
@@ -258,14 +258,14 @@ class ExampleRepository
      * @param array{
      *     id?: 'asc'|'desc',
      *     title?: 'asc'|'desc',
-     * } $sortBy
+     * } $sortBys
      * @param array{
      *     example_admin?: bool,
      *     example_website?: bool,
      *     with-example-content?: bool|array<string, mixed>,
      * } $selects
      */
-    private function createQueryBuilder(array $filters, array $sortBy = [], array $selects = []): QueryBuilder
+    private function createQueryBuilder(array $filters, array $sortBys = [], array $selects = []): QueryBuilder
     {
         foreach ($selects as $selectGroup => $value) {
             if (!$value) {
@@ -307,13 +307,18 @@ class ExampleRepository
             $queryBuilder->setFirstResult($offset);
         }
 
-        if (\array_key_exists('locale', $filters) // should also work with locale = null
-            && \array_key_exists('stage', $filters)) {
+        if ((
+            \array_key_exists('locale', $filters) // should also work with locale = null
+            && \array_key_exists('stage', $filters)
+        )
+        || ([] === $filters && [] !== $sortBys) // if no filters are set, but sortBy is set
+        ) {
             $this->dimensionContentQueryEnhancer->addFilters(
                 $queryBuilder,
                 'example',
                 ExampleDimensionContent::class,
-                $filters
+                $filters,
+                $sortBys
             );
         }
 

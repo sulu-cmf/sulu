@@ -79,12 +79,18 @@ class DimensionContentQueryEnhancer
      *     templateKeys?: string[],
      *     loadGhost?: bool,
      * } $filters
+     * @param array{
+     *     title?: 'asc'|'desc',
+     *     authored?: 'asc'|'desc',
+     *     workflowPublished?: 'asc'|'desc',
+     * } $sortBys
      */
     public function addFilters(
         QueryBuilder $queryBuilder,
         string $contentRichEntityAlias,
         string $dimensionContentClassName,
-        array $filters
+        array $filters,
+        array $sortBys
     ): void {
         $effectiveAttributes = $dimensionContentClassName::getEffectiveDimensionAttributes($filters);
 
@@ -92,7 +98,7 @@ class DimensionContentQueryEnhancer
             $dimensionContentClassName,
             'filterDimensionContent',
             Join::WITH,
-            'filterDimensionContent.' . $contentRichEntityAlias . ' = ' . $contentRichEntityAlias . ''
+            'filterDimensionContent.' . $contentRichEntityAlias . ' = ' . $contentRichEntityAlias
         );
 
         foreach ($effectiveAttributes as $key => $value) {
@@ -181,6 +187,15 @@ class DimensionContentQueryEnhancer
                 $queryBuilder->andWhere('filterDimensionContent.templateKey IN (:templateKeys)')
                     ->setParameter('templateKeys', $templateKeys);
             }
+        }
+
+        // Sort by
+        foreach ($sortBys as $field => $order) {
+            if (!\in_array($field, ['title', 'authored', 'workflowPublished'], true)) {
+                continue;
+            }
+
+            $queryBuilder->addOrderBy('filterDimensionContent.' . $field, $order);
         }
     }
 

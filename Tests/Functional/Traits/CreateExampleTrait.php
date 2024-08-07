@@ -15,6 +15,7 @@ namespace Sulu\Bundle\ContentBundle\Tests\Functional\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
+use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
@@ -40,6 +41,10 @@ trait CreateExampleTrait
      *     templateData?: mixed[],
      *     excerptCategories?: CategoryInterface[],
      *     excerptTags?: TagInterface[],
+     *     author?: ?ContactInterface,
+     *     authored?: ?\DateTimeImmutable,
+     *     workflowPlace?: ?string,
+     *     workflowPublished?: ?\DateTimeImmutable,
      * } $data
      */
     public function createExampleContent(Example $example, array $data = []): void
@@ -56,6 +61,10 @@ trait CreateExampleTrait
         $localizedDimensionContent = $example->createDimensionContent();
         $localizedDimensionContent->setLocale($locale);
         $localizedDimensionContent->setStage($stage);
+        $localizedDimensionContent->setAuthor($data['author'] ?? null);
+        $localizedDimensionContent->setAuthored($data['authored'] ?? null);
+        $localizedDimensionContent->setWorkflowPlace($data['workflowPlace'] ?? null);
+        $localizedDimensionContent->setWorkflowPublished($data['workflowPublished'] ?? null);
 
         $templateKey = $data['templateKey'] ?? null;
         if ($templateKey) {
