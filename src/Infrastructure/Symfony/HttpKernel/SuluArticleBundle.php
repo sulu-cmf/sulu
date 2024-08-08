@@ -100,9 +100,6 @@ final class SuluArticleBundle extends AbstractBundle
         $builder->registerForAutoconfiguration(ArticleMapperInterface::class)
             ->addTag('sulu_article.article_mapper');
 
-        // Message Bus
-        $services->alias('sulu_article.message_bus', 'sulu_message_bus');
-
         // Message Handler services
         $services->set('sulu_article.create_article_handler')
             ->class(CreateArticleMessageHandler::class)
@@ -179,7 +176,7 @@ final class SuluArticleBundle extends AbstractBundle
             ->public()
             ->args([
                 new Reference('sulu_article.article_repository'),
-                new Reference('sulu_article.message_bus'),
+                new Reference('sulu_message_bus'),
                 new Reference('serializer'),
                 // additional services to be removed when no longer needed
                 new Reference('sulu_content.content_manager'),
