@@ -135,7 +135,7 @@ final class ArticleController
             \array_merge(
                 [
                     'uuid' => $id,
-                    'load_ghost_content' => true,
+                    'loadGhost' => true,
                 ],
                 $dimensionAttributes,
             ),

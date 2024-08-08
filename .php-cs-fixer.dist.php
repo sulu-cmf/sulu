@@ -10,8 +10,13 @@ with this source code in the file LICENSE.
 EOF;
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude(['Tests/Application/var/cache'])
-    ->in(__DIR__);
+    ->in([
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ])
+    ->exclude([
+        'Application/var/',
+    ]);
 
 $config = new PhpCsFixer\Config();
 $config->setRiskyAllowed(true)

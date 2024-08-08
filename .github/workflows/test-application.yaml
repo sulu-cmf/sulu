@@ -9,105 +9,47 @@ on:
 
 jobs:
     test:
-        name: "PHP ${{ matrix.php-version }} (elasticsearch ${{ matrix.elasticsearch-version }}, ${{ matrix.phpcr-transport }}, ${{ matrix.dependency-versions }})"
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.dependency-versions }}, Coverage ${{ matrix.coverage }})'
         runs-on: ubuntu-latest
 
         env:
-            DATABASE_URL: mysql://root:root@127.0.0.1:3306/sulu_test?serverVersion=5.7
-            PHPCR_TRANSPORT: ${{ matrix.phpcr-transport }}
+            APP_ENV: test
+            DATABASE_URL: mysql://root:root@127.0.0.1:3306/su_content_test?serverVersion=8.0.29&charset=utf8mb4&collation=utf8mb4_unicode_ci
             COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         strategy:
             fail-fast: false
             matrix:
                 include:
-                    - php-version: '8.0'
-                      elasticsearch-version: '7.11.1'
-                      elasticsearch-package-constraint: '~7.11.0'
-                      phpcr-transport: jackrabbit
+                    - php-version: '8.2'
                       dependency-versions: 'lowest'
                       php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
-                      env:
-                          SYMFONY_DEPRECATIONS_HELPER: weak
-                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
-
-                    - php-version: '8.1'
-                      elasticsearch-version: '7.11.1'
-                      elasticsearch-package-constraint: '~7.11.0'
-                      phpcr-transport: doctrinedbal
-                      dependency-versions: 'highest'
-                      php-extensions: 'ctype, iconv, mysql, imagick'
-                      tools: 'composer:v2'
-                      env:
-                          SYMFONY_DEPRECATIONS_HELPER: weak
-                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
 
                     - php-version: '8.2'
-                      elasticsearch-version: '7.11.1'
-                      elasticsearch-package-constraint: '~7.11.0'
-                      phpcr-transport: jackrabbit
                       dependency-versions: 'highest'
                       php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
-                      env:
-                          SYMFONY_DEPRECATIONS_HELPER: weak
-                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
 
                     - php-version: '8.3'
-                      elasticsearch-version: '7.17.2'
-                      elasticsearch-package-constraint: '~7.17.0'
-                      phpcr-transport: doctrinedbal
                       dependency-versions: 'highest'
                       php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
-                      phpstan: false
-                      env:
-                          SYMFONY_DEPRECATIONS_HELPER: weak
-                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
 
                     - php-version: '8.4'
                       composer-options: '--ignore-platform-reqs'
-                      elasticsearch-version: '8.14.3'
-                      elasticsearch-package-constraint: '~7.17.0'
-                      phpcr-transport: doctrinedbal
                       dependency-versions: 'highest'
                       php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
-                      phpstan: false
-                      env:
-                          SYMFONY_DEPRECATIONS_HELPER: weak
-                          ELASTICSEARCH_HOST: '127.0.0.1:9200'
 
         services:
             mysql:
-                image: mysql:5.7
+                image: mysql:8.0
                 env:
                     MYSQL_ROOT_PASSWORD: root
                 ports:
                     - 3306:3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
-
-            jackrabbit:
-                image: sulu/jackrabbit:2.20-tomcat-filesystem
-                env:
-                    DATABASE_HOST: mysql
-                    DATABASE_PORT: 3306
-                    DATABASE_NAME: sulu_test_jackrabbit
-                    DATABASE_USER: root
-                    DATABASE_PASS: root
-                    LOG_LEVEL: WARN
-                ports:
-                    - 8080:8080
-
-            elasticsearch:
-                image: docker.elastic.co/elasticsearch/elasticsearch:${{ matrix.elasticsearch-version }}
-                ports:
-                    - 9200:9200
-                env:
-                    discovery.type: 'single-node'
-                    xpack.security.enabled: 'false'
-                options: --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=5
 
         steps:
             - name: Checkout project
@@ -126,9 +68,6 @@ jobs:
               # testing lowest versions.
               run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
 
-            - name: Require elasticsearch dependency
-              run: composer require --dev elasticsearch/elasticsearch:"${{ matrix.elasticsearch-package-constraint }}" --no-interaction --no-update
-
             - name: Install composer dependencies
               uses: ramsey/composer-install@v2
               with:
@@ -137,11 +76,9 @@ jobs:
 
             - name: Bootstrap test environment
               run: composer bootstrap-test-environment
-              env: ${{ matrix.env }}
 
             - name: Execute test cases
               run: time composer test
-              env: ${{ matrix.env }}
 
     lint:
         name: "PHP Lint"
@@ -161,9 +98,6 @@ jobs:
                   extensions: 'ctype, iconv, mysql, imagick'
                   tools: 'composer:v2'
                   coverage: none
-
-            - name: Require elasticsearch dependency
-              run: composer require --dev elasticsearch/elasticsearch:"~7.11.0" --no-interaction --no-update
 
             - name: Install composer dependencies
               uses: ramsey/composer-install@v2

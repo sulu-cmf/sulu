@@ -16,8 +16,9 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateInterface;
-// use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
 
 /**
@@ -25,7 +26,7 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
  *
  * @extends DimensionContentInterface<ArticleInterface>
  */
-interface ArticleDimensionContentInterface extends DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, /*WebspaceInterface,*/ AuthorInterface
+interface ArticleDimensionContentInterface extends DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, ShadowInterface, WebspaceInterface, AuthorInterface
 {
     public function getTitle(): ?string;
 }

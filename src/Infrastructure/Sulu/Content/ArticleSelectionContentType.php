@@ -68,7 +68,7 @@ class ArticleSelectionContentType extends SimpleContentType implements PreResolv
         return \array_values($result);
     }
 
-    public function preResolve(PropertyInterface $property)
+    public function preResolve(PropertyInterface $property): void
     {
         $uuids = $property->getValue();
         if (!\is_array($uuids)) {

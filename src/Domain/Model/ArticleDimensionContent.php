@@ -19,8 +19,10 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateTrait;
 //use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowTrait;
 
 /**
@@ -33,10 +35,11 @@ class ArticleDimensionContent implements ArticleDimensionContentInterface
     use ExcerptTrait;
     use RoutableTrait;
     use SeoTrait;
+    use ShadowTrait;
     use TemplateTrait {
         setTemplateData as parentSetTemplateData;
     }
-    //use WebspaceTrait;
+    use WebspaceTrait;
     use WorkflowTrait;
 
     /**
@@ -74,7 +77,9 @@ class ArticleDimensionContent implements ArticleDimensionContentInterface
 
     public function setTemplateData(array $templateData): void
     {
-        if (\array_key_exists('title', $templateData)) {
+        if (\array_key_exists('title', $templateData)
+            && \is_string($templateData['title'])
+        ) {
             $this->title = $templateData['title'];
         }
 

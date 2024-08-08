@@ -27,6 +27,8 @@ class SingleArticleSelectionContentType extends SimpleContentType implements Pre
 
     private ContentManagerInterface $contentManager;
 
+    private ReferenceStoreInterface $referenceStore;
+
     public function __construct(
         ArticleRepositoryInterface $articleRepository,
         ContentManagerInterface $contentManager,
@@ -67,7 +69,7 @@ class SingleArticleSelectionContentType extends SimpleContentType implements Pre
         return $this->contentManager->normalize($dimensionContent);
     }
 
-    public function preResolve(PropertyInterface $property)
+    public function preResolve(PropertyInterface $property): void
     {
         $uuid = $property->getValue();
         if (null === $uuid) {

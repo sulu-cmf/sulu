@@ -11,12 +11,15 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-use Sulu\Bundle\ArticleBundle\Tests\Application\Kernel;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Sulu\Article\Tests\Application\Kernel;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 require \dirname(__DIR__) . '/Application/config/bootstrap.php';
 
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG'], Kernel::CONTEXT_ADMIN);
 $kernel->boot();
 
-return new Application($kernel);
+/** @var ContainerInterface $container */
+$container = $kernel->getContainer();
+
+return $container->get('doctrine')->getManager();

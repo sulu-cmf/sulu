@@ -63,7 +63,7 @@ final class SuluArticleBundle extends AbstractBundle
      */
     public function configure(DefinitionConfigurator $definition): void
     {
-        $definition->rootNode()
+        $definition->rootNode() // @phpstan-ignore-line
             ->children()
                 ->arrayNode('objects')
                     ->addDefaultsIfNotSet()
@@ -86,11 +86,13 @@ final class SuluArticleBundle extends AbstractBundle
     }
 
     /**
+     * @param array<string, mixed> $config
+     *
      * @internal this method is not part of the public API and should only be called by the Symfony framework classes
      */
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $this->configurePersistence($config['objects'], $builder);
+        $this->configurePersistence($config['objects'], $builder); // @phpstan-ignore-line
 
         $services = $container->services();
 

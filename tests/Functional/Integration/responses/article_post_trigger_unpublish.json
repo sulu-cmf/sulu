@@ -1,0 +1,43 @@
+{
+    "author": null,
+    "authored": "2020-05-08T00:00:00+00:00",
+    "availableLocales": [
+        "en"
+    ],
+    "contentLocales": [
+        "en"
+    ],
+    "description": null,
+    "excerptCategories": [],
+    "excerptDescription": "Excerpt Description",
+    "excerptIcon": null,
+    "excerptImage": null,
+    "excerptMore": "Excerpt More",
+    "excerptTags": [
+        "Tag 1",
+        "Tag 2"
+    ],
+    "excerptTitle": "Excerpt Title",
+    "ghostLocale": "en",
+    "id": "@string@",
+    "image": null,
+    "locale": "en",
+    "published": null,
+    "publishedState": false,
+    "seoCanonicalUrl": "https:\/\/sulu.io\/",
+    "seoDescription": "Seo Description",
+    "seoHideInSitemap": true,
+    "seoKeywords": "Seo Keyword 1, Seo Keyword 2",
+    "seoNoFollow": true,
+    "seoNoIndex": true,
+    "seoTitle": "Seo Title",
+    "shadowLocale": null,
+    "shadowLocales": [],
+    "shadowOn": false,
+    "stage": "draft",
+    "template": "article",
+    "title": "Test Article",
+    "url": "\/my-article",
+    "workflowPlace": "unpublished",
+    "mainWebspace": "sulu-io"
+}

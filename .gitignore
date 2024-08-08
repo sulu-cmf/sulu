@@ -28,14 +28,8 @@ php-cs-fixer
 .DS_Store
 
 # Frontend Caches
-bower_components/
-.tmp/
-.sass-cache/
 node_modules/
 npm-debug.log
 
 # tests
-.env.*.local
-/Tests/Application/config/parameters.yml
-/Tests/Application/var
-/Tests/Functional/Import/export.test.xliff
+/tests/Application/var

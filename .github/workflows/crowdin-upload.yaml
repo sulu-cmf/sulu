@@ -11,7 +11,7 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name: Copy translation file
-              run: cp Resources/translations/admin.en.json admin.en.json
+              run: cp translations/admin.en.json admin.en.json
             - name: Download Crowdin CLI
               run: curl "https://downloads.crowdin.com/cli/v3/crowdin-cli.zip" --output crowdin-cli.zip && unzip crowdin-cli.zip
             - name: Upload translations to crowdin

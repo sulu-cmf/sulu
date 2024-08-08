@@ -1,0 +1,15 @@
+version: 2
+
+jobs:
+    build:
+        docker:
+            - image: circleci/php:7.3-node-browsers
+        steps:
+            - checkout
+            - run:
+                  name: Install OS dependencies (mysql, gd)
+                  command: |
+                      sudo apt-get install -y libpng-dev
+                      sudo docker-php-ext-install pdo_mysql gd
+                  parallel: true
+            - run: echo "Circle CI is not longer used on 3.0 can be removed when support for 2.x is removed"

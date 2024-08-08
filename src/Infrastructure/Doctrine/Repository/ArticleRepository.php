@@ -132,7 +132,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 
         $queryBuilder->select('COUNT(DISTINCT article.uuid)');
 
-        return (int) $queryBuilder->getQuery()->getSingleScalarResult(); // @phpstan-ignore-line
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -162,7 +162,7 @@ class ArticleRepository implements ArticleRepositoryInterface
             $queryBuilder->addSelect(\explode(' ', $orderBy->getParts()[0])[0]);
         }
 
-        /** @var iterable $identifiers */
+        /** @var iterable<string> $identifiers */
         $identifiers = $queryBuilder->getQuery()->getResult();
 
         return $identifiers;

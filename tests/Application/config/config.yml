@@ -12,3 +12,7 @@ framework:
     messenger:
         transports:
         routing:
+
+twig:
+    paths:
+        - '%kernel.project_dir%/templates'

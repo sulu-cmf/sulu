@@ -9,29 +9,24 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\ArticleBundle\Tests\Application;
+namespace Sulu\Article\Tests\Application;
 
-use ONGR\ElasticsearchBundle\ONGRElasticsearchBundle;
-use Sulu\Bundle\ArticleBundle\SuluArticleBundle;
-use Sulu\Bundle\ArticleBundle\Tests\TestExtendBundle\TestExtendBundle;
+use Sulu\Article\Infrastructure\Symfony\HttpKernel\SuluArticleBundle;
 use Sulu\Bundle\ContentBundle\SuluContentBundle;
-use Sulu\Bundle\HeadlessBundle\SuluHeadlessBundle;
 use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Sulu\Messenger\Infrastructure\Symfony\HttpKernel\SuluMessengerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * AppKernel for functional tests.
  */
-class Kernel extends SuluTestKernel implements CompilerPassInterface
+class Kernel extends SuluTestKernel
 {
     /**
      * @var string|null
      */
-    private $config = 'phpcr_storage';
+    private $config = 'default';
 
     public function __construct(string $environment, bool $debug, string $suluContext = SuluKernel::CONTEXT_ADMIN)
     {
@@ -44,7 +39,7 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
 
     public function registerBundles(): iterable
     {
-        $bundles = parent::registerBundles();
+        $bundles = [...parent::registerBundles()];
         $bundles[] = new SuluArticleBundle();
         $bundles[] = new SuluContentBundle();
         $bundles[] = new SuluMessengerBundle();
@@ -57,7 +52,10 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
         parent::registerContainerConfiguration($loader);
 
         $loader->load(__DIR__ . '/config/config.yml');
-        $loader->load(__DIR__ . '/config/config_' . $this->config . '.yml');
+
+        if (\file_exists(__DIR__ . '/config/config_' . $this->config . '.yml')) {
+            $loader->load(__DIR__ . '/config/config_' . $this->config . '.yml');
+        }
     }
 
     /**

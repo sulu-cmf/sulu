@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true"
-         bootstrap="Tests/test-bootstrap.php"
+         bootstrap="tests/test-bootstrap.php"
 >
     <testsuites>
         <!-- Run Unit Tests before Functional Tests for better Developer Experience -->
         <testsuite name="Unit">
-            <directory>Tests/Unit</directory>
+            <directory>tests/Unit</directory>
         </testsuite>
 
         <testsuite name="Functional">
-            <directory>Tests/Functional</directory>
+            <directory>tests/Functional</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory>.</directory>
-            <exclude>
-                <directory>Resources/</directory>
-                <directory>Tests/</directory>
-                <directory>vendor/</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+    <source>
+        <include>
+            <directory>src/</directory>
+        </include>
+    </source>
 
     <php>
         <ini name="error_reporting" value="-1" />
+        <ini name="date.timezone" value="UTC" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="APP_ENV" value="test" force="true"/>
-        <server name="KERNEL_CLASS" value="Sulu\Bundle\ArticleBundle\Tests\Application\Kernel"/>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+        <server name="KERNEL_CLASS" value="Sulu\Article\Tests\Application\Kernel"/>
     </php>
 </phpunit>

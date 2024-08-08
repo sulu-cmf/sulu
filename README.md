@@ -49,11 +49,10 @@ Execute the following [composer](https://getcomposer.org/) commands to add the b
 project:
 
 ```bash
-composer require "elasticsearch/elasticsearch:7.9.*" # should match version of your elasticsearch installation
 composer require sulu/article-bundle
 ```
 
-Afterwards, visit the [bundle documentation](Resources/doc) to
+Afterwards, visit the [bundle documentation](docs) to
 find out **how to set up and configure the SuluArticleBundle** to your specific needs.
 
 
@@ -65,18 +64,6 @@ Like Sulu pages, articles are **configured via templates** and can include addit
 Moreover, articles support the same **drafting, publishing and versioning functionality** as provided by pages.
 In contrast to Sulu pages, articles are **managed in a flat list** instead of a tree structure. Furthermore, unlike
 the Sulu page tree, the article bundle is **optimized for managing a big number of articles**.
-
-
-### Elasticsearch dependency
-
-The SuluArticleBundle was originally developed to be used in the publishing industry. To satisfy the initial
-requirements regarding performance and scalability, a **view layer stored in an Elasticsearch index** was utilized.
-Because of this, there is **no way to use the bundle without Elasticsearch** at the moment. It is planned to
-remove this hard dependency in the next major version.
-
-If you cannot or do not want to make Elasticsearch a dependency of your project, you can **use Sulu pages for
-certain use cases** instead of the SuluArticleBundle. However, be aware that the article list provides a better
-performance and is more comfortable to use with a large number of entities.
 
 
 ## ❤️&nbsp; Support and Contributions
