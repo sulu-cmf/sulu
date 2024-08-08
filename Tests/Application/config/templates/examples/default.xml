@@ -6,7 +6,7 @@
     <key>default</key>
 
     <view>@ExampleTest/examples/default</view>
-    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <controller>Sulu\Bundle\ContentBundle\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>

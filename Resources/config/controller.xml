@@ -8,12 +8,11 @@
                  public="true">
             <tag name="container.service_subscriber" />
             <tag name="controller.service_arguments" />
-            <tag name="sulu.context" context="website" />
             <call method="setContainer">
                 <argument type="service" id="Psr\Container\ContainerInterface" />
             </call>
         </service>
 
-        <service id="Sulu\Bundle\ContentBundle\Content\UserInterface\Controller\Website\ContentController" alias="sulu_content.content_controller" />
+        <service id="Sulu\Bundle\ContentBundle\Content\UserInterface\Controller\Website\ContentController" alias="sulu_content.content_controller" public="true" />
     </services>
 </container>

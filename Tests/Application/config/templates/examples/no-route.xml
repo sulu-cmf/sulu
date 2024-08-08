@@ -6,7 +6,7 @@
     <key>no-route</key>
 
     <view>@ExampleTest/examples/example-2</view>
-    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <controller>Sulu\Bundle\ContentBundle\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>
