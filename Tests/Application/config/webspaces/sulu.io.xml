@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <webspace xmlns="http://schemas.sulu.io/webspace/webspace"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
 
     <name>Sulu CMF</name>
-    <key>sulu_io</key>
+    <key>sulu-io</key>
+
+    <security>
+        <system>Website</system>
+    </security>
 
     <localizations>
         <localization language="de" default="true"/>
         <localization language="en"/>
-        <localization language="fr"/>
     </localizations>
 
     <theme>default</theme>
 
     <default-templates>
-        <default-template type="homepage">overview</default-template>
-        <default-template type="page">overview</default-template>
+        <default-template type="homepage">default</default-template>
+        <default-template type="page">default</default-template>
     </default-templates>
+
+    <templates>
+        <template type="search">search/search</template>
+    </templates>
 
     <navigation>
         <contexts>
@@ -37,17 +44,20 @@
             <environments>
                 <environment type="prod">
                     <urls>
-                        <url language="de">sulu_io.localhost</url>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
                     </urls>
                 </environment>
                 <environment type="dev">
                     <urls>
-                        <url language="de">sulu_io.localhost</url>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
                     </urls>
                 </environment>
                 <environment type="test">
                     <urls>
-                        <url language="de">sulu_io.localhost</url>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
                     </urls>
                 </environment>
             </environments>

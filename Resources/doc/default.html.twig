@@ -1,9 +1,0 @@
-{% extends "base.html.twig" %}
-
-{% block content %}
-    <h1>{{ content.title }}</h1>
-
-    <div>
-        {{ content.article|default()|raw }}
-    </div>
-{% endblock %}

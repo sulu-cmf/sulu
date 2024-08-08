@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<serializer>
-    <class name="Sulu\Bundle\ArticleBundle\Document\LocalizationStateViewObject" exclusion-policy="ALL">
-        <property name="state" type="string" expose="true"/>
-        <property name="locale" type="string" expose="true"/>
-    </class>
-</serializer>

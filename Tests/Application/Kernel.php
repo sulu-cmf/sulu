@@ -46,20 +46,8 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
     {
         $bundles = parent::registerBundles();
         $bundles[] = new SuluArticleBundle();
-
-        if ('phpcr_storage' === $this->config) {
-            $bundles[] = new ONGRElasticsearchBundle();
-            $bundles[] = new SuluHeadlessBundle();
-        }
-
-        if ('experimental_storage' === $this->config) {
-            $bundles[] = new SuluContentBundle();
-            $bundles[] = new SuluMessengerBundle();
-        }
-
-        if ('extend' === \getenv('ARTICLE_TEST_CASE')) {
-            $bundles[] = new TestExtendBundle();
-        }
+        $bundles[] = new SuluContentBundle();
+        $bundles[] = new SuluMessengerBundle();
 
         return $bundles;
     }
@@ -68,33 +56,8 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
     {
         parent::registerContainerConfiguration($loader);
 
-        if ('jackrabbit' === \getenv('PHPCR_TRANSPORT')) {
-            $loader->load(__DIR__ . '/config/versioning.yml');
-        }
-
         $loader->load(__DIR__ . '/config/config.yml');
         $loader->load(__DIR__ . '/config/config_' . $this->config . '.yml');
-
-        if ('phpcr_storage' === $this->config) {
-            $type = 'default';
-            if (\getenv('ARTICLE_TEST_CASE')) {
-                $type = \getenv('ARTICLE_TEST_CASE');
-            }
-
-            $loader->load(__DIR__ . '/config/config_' . $type . '.yml');
-        }
-    }
-
-    public function process(ContainerBuilder $container)
-    {
-        if ('phpcr_storage' === $this->config) {
-            // Make some services which were inlined in optimization
-            $container->getDefinition('sulu_article.content.page_tree_data_provider')
-                ->setPublic(true);
-
-            $container->getDefinition('sulu_article.elastic_search.article_indexer')
-                ->setPublic(true);
-        }
     }
 
     /**
@@ -103,9 +66,6 @@ class Kernel extends SuluTestKernel implements CompilerPassInterface
     protected function getKernelParameters(): array
     {
         $parameters = parent::getKernelParameters();
-
-        $gedmoReflection = new \ReflectionClass(\Gedmo\Exception::class);
-        $parameters['gedmo_directory'] = \dirname($gedmoReflection->getFileName());
 
         return $parameters;
     }

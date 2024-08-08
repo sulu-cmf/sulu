@@ -1,10 +1,14 @@
-# Doctrine Configuration
-doctrine:
-    orm:
-        mappings:
-            gedmo_tree:
-                type: xml
-                prefix: Gedmo\Tree\Entity
-                dir: "%gedmo_directory%/Tree/Entity"
-                alias: GedmoTree
-                is_bundle: false
+sulu_article: {}
+
+sulu_core:
+    content:
+        structure:
+            default_type:
+                article: 'article'
+
+framework:
+    # symfony recipe default configuration:
+    workflows: null
+    messenger:
+        transports:
+        routing:
