@@ -231,11 +231,13 @@ final class ArticleController
                 (string) $request->query->get('src'),
                 (string) $request->query->get('dest')
             );
+
             /** @see Sulu\Article\Application\MessageHandler\CopyLocaleArticleMessageHandler */
             /** @var null */
             return $this->handle(new Envelope($message, [new EnableFlushStamp()]));
         } else {
             $message = new ApplyWorkflowTransitionArticleMessage(['uuid' => $uuid], $this->getLocale($request), $action);
+
             /** @see Sulu\Article\Application\MessageHandler\ApplyWorkflowTransitionArticleMessageHandler */
             /** @var null */
             return $this->handle(new Envelope($message, [new EnableFlushStamp()]));

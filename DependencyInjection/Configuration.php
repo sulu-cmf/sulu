@@ -14,7 +14,6 @@ namespace Sulu\Bundle\ArticleBundle\DependencyInjection;
 use Sulu\Bundle\ArticleBundle\Document\ArticlePageViewObject;
 use Sulu\Bundle\ArticleBundle\Document\ArticleViewDocument;
 use Sulu\Bundle\ArticleBundle\Domain\Model\Article;
-use Sulu\Bundle\ArticleBundle\Domain\Model\ArticleDimensionContent;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 

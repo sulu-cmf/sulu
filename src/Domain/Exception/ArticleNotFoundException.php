@@ -28,7 +28,7 @@ class ArticleNotFoundException extends \Exception
     /**
      * @param array<string, mixed> $filters
      */
-    public function __construct(array $filters, int $code = 0, \Throwable $previous = null)
+    public function __construct(array $filters, int $code = 0, ?\Throwable $previous = null)
     {
         $this->model = ArticleInterface::class;
 

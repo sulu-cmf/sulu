@@ -113,6 +113,31 @@ interface ArticleRepositoryInterface
      *     tagNames?: string[],
      *     tagOperator?: 'AND'|'OR',
      *     templateKeys?: string[],
+     *     page?: int,
+     *     limit?: int,
+     * } $filters
+     * @param array{
+     *     id?: 'asc'|'desc',
+     *     title?: 'asc'|'desc',
+     * } $sortBy
+     *
+     * @return iterable<string>
+     */
+    public function findIdentifiersBy(array $filters = [], array $sortBy = []): iterable;
+
+    /**
+     * @param array{
+     *     uuid?: string,
+     *     uuids?: string[],
+     *     locale?: string,
+     *     stage?: string,
+     *     categoryIds?: int[],
+     *     categoryKeys?: string[],
+     *     categoryOperator?: 'AND'|'OR',
+     *     tagIds?: int[],
+     *     tagNames?: string[],
+     *     tagOperator?: 'AND'|'OR',
+     *     templateKeys?: string[],
      * } $filters
      */
     public function countBy(array $filters = []): int;

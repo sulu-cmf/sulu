@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Article\Infrastructure\Sulu\Content;
 
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
-use Sulu\Bundle\ArticleBundle\Document\ArticleViewDocumentInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
@@ -19,10 +27,9 @@ class ArticleSelectionContentType extends SimpleContentType implements PreResolv
 
     public function __construct(
         ArticleRepositoryInterface $articleRepository,
-        ContentManagerInterface    $contentManager,
-        ReferenceStoreInterface    $referenceStore
-    )
-    {
+        ContentManagerInterface $contentManager,
+        ReferenceStoreInterface $referenceStore
+    ) {
         parent::__construct('Article', []);
         $this->referenceStore = $referenceStore;
         $this->contentManager = $contentManager;
@@ -50,7 +57,6 @@ class ArticleSelectionContentType extends SimpleContentType implements PreResolv
                 ArticleRepositoryInterface::GROUP_SELECT_ARTICLE_WEBSITE => true,
             ]);
 
-
         $result = [];
         foreach ($article as $article) {
             $dimensionContent = $this->contentManager->resolve($article, $dimensionAttributes);
@@ -60,7 +66,6 @@ class ArticleSelectionContentType extends SimpleContentType implements PreResolv
         \ksort($result);
 
         return \array_values($result);
-
     }
 
     public function preResolve(PropertyInterface $property)

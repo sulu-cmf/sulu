@@ -328,7 +328,6 @@ class SuluArticleExtension extends Extension implements PrependExtensionInterfac
         $storage = $config['storage'];
         $container->setParameter('sulu_article.article_storage', $storage);
 
-
         $container->setParameter('sulu_article.default_main_webspace', $config['default_main_webspace']);
         $container->setParameter('sulu_article.default_additional_webspaces', $config['default_additional_webspaces']);
         $container->setParameter('sulu_article.types', $config['types']);

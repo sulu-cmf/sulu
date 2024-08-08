@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Article\Infrastructure\Symfony\HttpKernel;
 
 use Sulu\Article\Application\Mapper\ArticleContentMapper;
@@ -18,6 +27,7 @@ use Sulu\Article\Domain\Model\ArticleInterface;
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
 use Sulu\Article\Infrastructure\Doctrine\Repository\ArticleRepository;
 use Sulu\Article\Infrastructure\Sulu\Admin\ArticleAdmin;
+use Sulu\Article\Infrastructure\Sulu\Content\ArticleDataProvider;
 use Sulu\Article\Infrastructure\Sulu\Content\ArticleLinkProvider;
 use Sulu\Article\Infrastructure\Sulu\Content\ArticleSelectionContentType;
 use Sulu\Article\Infrastructure\Sulu\Content\ArticleSitemapProvider;
@@ -26,8 +36,6 @@ use Sulu\Article\Infrastructure\Sulu\Content\SingleArticleSelectionContentType;
 use Sulu\Article\UserInterface\Controller\Admin\ArticleController;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Preview\ContentObjectProvider;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Search\ContentSearchMetadataProvider;
-use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\SmartContent\Provider\ContentDataProvider;
-use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\SmartContent\Repository\ContentDataProviderRepository;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Sulu\Bundle\PersistenceBundle\PersistenceBundleTrait;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore;
@@ -224,17 +232,7 @@ final class SuluArticleBundle extends AbstractBundle
                 new Reference('sulu_page.structure.factory'),
                 new Reference('doctrine.orm.entity_manager'),
             ])
-            ->tag('sulu.link.provider', ['alias' => ArticleInterface::RESOURCE_KEY]);
-
-        // Smart Content services
-        $services->set('sulu_article.article_data_provider_repository')
-            ->class(ContentDataProviderRepository::class) // TODO this should not be handled via Content Bundle instead own service which uses the ArticleRepository
-            ->args([
-                new Reference('sulu_content.content_manager'),
-                new Reference('doctrine.orm.entity_manager'),
-                '%sulu_document_manager.show_drafts%',
-                ArticleInterface::class,
-            ]);
+            ->tag('sulu.link.provider', ['alias' => 'article']);
 
         $services->set('sulu_article.article_reference_store')
             ->class(ReferenceStore::class)
@@ -245,7 +243,7 @@ final class SuluArticleBundle extends AbstractBundle
             ->args([
                 new Reference('sulu_article.article_repository'),
                 new Reference('sulu_content.content_manager'),
-                new Reference('sulu_article.article_reference_store')
+                new Reference('sulu_article.article_reference_store'),
             ])
             ->tag('sulu.content.type', ['alias' => 'single_article_selection']);
 
@@ -254,17 +252,18 @@ final class SuluArticleBundle extends AbstractBundle
             ->args([
                 new Reference('sulu_article.article_repository'),
                 new Reference('sulu_content.content_manager'),
-                new Reference('sulu_article.article_reference_store')
+                new Reference('sulu_article.article_reference_store'),
             ])
             ->tag('sulu.content.type', ['alias' => 'article_selection']);
 
+        // Smart Content services
         $services->set('sulu_article.article_data_provider')
-            ->class(ContentDataProvider::class) // TODO this should not be handled via Content Bundle instead own service which uses the ArticleRepository
+            ->class(ArticleDataProvider::class) // TODO this should not be handled via Content Bundle instead own service which uses the ArticleRepository
             ->args([
-                new Reference('sulu_article.article_data_provider_repository'),
-                new Reference('sulu_core.array_serializer'),
+                new Reference('sulu_article.article_repository'),
                 new Reference('sulu_content.content_manager'),
                 new Reference('sulu_article.article_reference_store'),
+                '%sulu_document_manager.show_drafts%',
             ])
             ->tag('sulu.smart_content.data_provider', ['alias' => ArticleInterface::RESOURCE_KEY]);
 

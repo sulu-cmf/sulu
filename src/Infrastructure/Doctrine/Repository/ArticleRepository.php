@@ -14,6 +14,7 @@ namespace Sulu\Article\Infrastructure\Doctrine\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\ORM\QueryBuilder;
 use Sulu\Article\Domain\Exception\ArticleNotFoundException;
 use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
@@ -149,6 +150,24 @@ class ArticleRepository implements ArticleRepositoryInterface
         }
     }
 
+    public function findIdentifiersBy(array $filters = [], array $sortBy = []): iterable
+    {
+        $queryBuilder = $this->createQueryBuilder($filters, $sortBy);
+
+        $queryBuilder->select('DISTINCT article.uuid');
+
+        // we need to select the fields which are used in the order by clause
+        /** @var OrderBy $orderBy */
+        foreach ($queryBuilder->getDQLPart('orderBy') as $orderBy) {
+            $queryBuilder->addSelect(\explode(' ', $orderBy->getParts()[0])[0]);
+        }
+
+        /** @var iterable $identifiers */
+        $identifiers = $queryBuilder->getQuery()->getResult();
+
+        return $identifiers;
+    }
+
     public function add(ArticleInterface $article): void
     {
         $this->entityManager->persist($article);
@@ -228,17 +247,29 @@ class ArticleRepository implements ArticleRepositoryInterface
             $queryBuilder->setFirstResult($offset);
         }
 
-        if (\array_key_exists('locale', $filters) // should also work with locale = null
-            && \array_key_exists('stage', $filters)) {
+        if (
+            (\array_key_exists('locale', $filters)       // should also work with locale = null
+            && \array_key_exists('stage', $filters))
+            || ([] === $filters && [] !== $sortBy)      // if no filters are set, but sortBy is set, we need to set the sorting
+        ) {
             $this->dimensionContentQueryEnhancer->addFilters(
                 $queryBuilder,
                 'article',
                 $this->articleDimensionContentClassName,
-                $filters
+                $filters,
+                $sortBy
             );
         }
 
-        // TODO add sortBys
+        if ([] !== $sortBy) {
+            foreach ($sortBy as $field => $order) {
+                if ('uuid' === $field) {
+                    $queryBuilder->addOrderBy('article.uuid', $order);
+                } elseif ('created' === $field) {
+                    $queryBuilder->addOrderBy('article.created', $order);
+                }
+            }
+        }
 
         // selects
         if ($selects[self::SELECT_ARTICLE_CONTENT] ?? null) {

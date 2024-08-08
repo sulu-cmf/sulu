@@ -2,6 +2,16 @@
 
 ## 3.x
 
+### Article user settings updated
+
+Due to the refactoring of the new content bundle storage, the user settings for articles must be erased to avoid conflicts.
+
+Execute the following SQL query to delete the user settings:
+```mysql
+DELETE FROM `se_user_settings`
+       WHERE `se_user_settings`.`settingsKey` LIKE '%article%'
+```
+
 ### Elasticsearch Bundle need to be required
 
 The SuluArticleBundle defines not longer its dependency to `handcraftedinthealps/elasticsearch-bundle` because

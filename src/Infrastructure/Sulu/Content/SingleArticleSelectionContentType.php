@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Article\Infrastructure\Sulu\Content;
 
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
@@ -20,10 +29,9 @@ class SingleArticleSelectionContentType extends SimpleContentType implements Pre
 
     public function __construct(
         ArticleRepositoryInterface $articleRepository,
-        ContentManagerInterface    $contentManager,
-        ReferenceStoreInterface    $referenceStore,
-    )
-    {
+        ContentManagerInterface $contentManager,
+        ReferenceStoreInterface $referenceStore,
+    ) {
         parent::__construct('Article');
 
         $this->articleRepository = $articleRepository;
@@ -54,8 +62,8 @@ class SingleArticleSelectionContentType extends SimpleContentType implements Pre
                 ArticleRepositoryInterface::GROUP_SELECT_ARTICLE_WEBSITE => true,
             ]);
 
-
         $dimensionContent = $this->contentManager->resolve($article, $dimensionAttributes);
+
         return $this->contentManager->normalize($dimensionContent);
     }
 
@@ -69,4 +77,3 @@ class SingleArticleSelectionContentType extends SimpleContentType implements Pre
         $this->referenceStore->add($uuid);
     }
 }
-
