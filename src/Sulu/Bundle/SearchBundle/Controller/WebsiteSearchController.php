@@ -37,15 +37,8 @@ class WebsiteSearchController
         private ParameterResolverInterface $parameterResolver,
         private Environment $twig,
         private array $indexes = [],
-        private ?TemplateAttributeResolverInterface $templateAttributeResolver = null
+        private TemplateAttributeResolverInterface $templateAttributeResolver
     ) {
-        if (null === $this->templateAttributeResolver) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.4',
-                'Instantiating the WebsiteSearchController class without the $templateAttributeResolver argument is deprecated.'
-            );
-        }
     }
 
     /**

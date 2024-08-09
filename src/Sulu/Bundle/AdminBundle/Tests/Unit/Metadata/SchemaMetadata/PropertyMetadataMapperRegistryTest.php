@@ -88,7 +88,7 @@ class PropertyMetadataMapperRegistryTest extends TestCase
 
     private function createNotFoundException(): NotFoundExceptionInterface
     {
-        return new class() extends \InvalidArgumentException implements NotFoundExceptionInterface {
+        return new class extends \InvalidArgumentException implements NotFoundExceptionInterface {
         };
     }
 }

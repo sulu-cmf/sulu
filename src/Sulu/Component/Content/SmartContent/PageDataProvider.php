@@ -59,16 +59,12 @@ class PageDataProvider implements DataProviderInterface, DataProviderAliasInterf
         private $showDrafts,
         private $permissions,
         private bool $hasAudienceTargeting = false,
-        private ?MetadataProviderInterface $formMetadataProvider = null,
+        private MetadataProviderInterface $formMetadataProvider,
         private ?TokenStorageInterface $tokenStorage = null,
         private array $enabledTwigAttributes = [
             'path' => true,
         ]
     ) {
-        if (!$this->formMetadataProvider) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'The usage of the "PageDataProvider" without setting the "FormMetadataProvider" is deprecated. Please inject the "FormMetadataProvider".');
-        }
-
         if ($this->enabledTwigAttributes['path'] ?? true) {
             @trigger_deprecation('sulu/sulu', '2.3', 'Enabling the "path" parameter is deprecated.');
         }

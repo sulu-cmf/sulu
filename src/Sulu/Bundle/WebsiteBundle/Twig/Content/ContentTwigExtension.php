@@ -89,10 +89,10 @@ class ContentTwigExtension extends AbstractExtension implements ContentTwigExten
         StructureResolverInterface $structureResolver,
         SessionManagerInterface $sessionManager,
         RequestAnalyzerInterface $requestAnalyzer,
-        ?LoggerInterface $logger = null,
-        $securityChecker = null,
-        ?WebspaceManagerInterface $webspaceManager = null,
-        ?RequestStack $requestStack = null,
+        LoggerInterface $logger,
+        SecurityCheckerInterface $securityChecker,
+        WebspaceManagerInterface $webspaceManager,
+        RequestStack $requestStack,
         array $enabledTwigAttributes = [
             'urls' => true,
         ]
@@ -102,22 +102,9 @@ class ContentTwigExtension extends AbstractExtension implements ContentTwigExten
         $this->sessionManager = $sessionManager;
         $this->requestAnalyzer = $requestAnalyzer;
         $this->logger = $logger ?: new NullLogger();
-
-        if ($securityChecker instanceof RequestStack) {
-            @trigger_deprecation('sulu/sulu', '2.2', 'Instantiating the "ContentTwigExtension" without the "$securityChecker" and "$webspaceManager" parameter is deprecated');
-
-            $requestStack = $securityChecker;
-            $securityChecker = null;
-        }
-
         $this->securityChecker = $securityChecker;
         $this->webspaceManager = $webspaceManager;
         $this->requestStack = $requestStack;
-
-        if (null === $this->requestStack) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'Instantiating the "ContentTwigExtension" without the "$requestStack" parameter is deprecated');
-        }
-
         $this->enabledTwigAttributes = $enabledTwigAttributes;
     }
 

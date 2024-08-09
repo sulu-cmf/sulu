@@ -11,7 +11,6 @@
 
 namespace Sulu\Component\PHPCR;
 
-use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
@@ -19,18 +18,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  */
 class PathCleanup implements PathCleanupInterface
 {
-    /**
-     * replacers for cleanup.
-     *
-     * @var array
-     */
-    protected $replacers = [];
-
-    /**
-     * @var SluggerInterface
-     */
-    private $slugger;
-
     /**
      * valid pattern for path
      * example: /products/machines
@@ -43,35 +30,25 @@ class PathCleanup implements PathCleanupInterface
      */
     private $pattern = '/^(\/[a-z0-9][a-z0-9-_]*)+$/';
 
-    public function __construct(array $replacers, ?SluggerInterface $slugger = null)
-    {
-        if (null === $slugger) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.1',
-                'Initializing the PathCleanup without a slugger is deprecated.'
-            );
-            $slugger = new AsciiSlugger();
-        }
-
+    public function __construct(
+        private array $replacers,
+        private SluggerInterface $slugger
+    ) {
         if (\method_exists($slugger, 'withEmoji')) { // BC Layer <= Symfony 6.3
             if (
                 !\method_exists(\Symfony\Component\String\AbstractUnicodeString::class, 'localeUpper') // BC Layer <= Symfony 7.0
-                || \class_exists(\Symfony\Component\Emoji\EmojiTransliterator::class) // Symfony >= 7.1 requires symfony/emoji
+                    || \class_exists(\Symfony\Component\Emoji\EmojiTransliterator::class) // Symfony >= 7.1 requires symfony/emoji
             ) {
                 $slugger = $slugger->withEmoji();
             }
         }
-
-        $this->replacers = $replacers;
-        $this->slugger = $slugger;
     }
 
     /**
      * returns a clean string.
      *
      * @param string $dirty dirty string to cleanup
-     * @param string $languageCode
+     * @param string|null $languageCode
      *
      * @return string clean string
      */

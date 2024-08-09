@@ -71,18 +71,10 @@ class MediaController extends AbstractMediaController implements
         private FieldDescriptorFactoryInterface $fieldDescriptorFactory,
         private string $mediaClass,
         private string $collectionClass,
-        private ?MediaListBuilderFactory $mediaListBuilderFactory = null,
-        private ?MediaListRepresentationFactory $mediaListRepresentationFactory = null
+        private MediaListBuilderFactory $mediaListBuilderFactory,
+        private MediaListRepresentationFactory $mediaListRepresentationFactory
     ) {
         parent::__construct($viewHandler, $tokenStorage);
-
-        if (null === $this->mediaListBuilderFactory || null === $this->mediaListRepresentationFactory) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.3',
-                'Instantiating MediaController without the $mediaListBuilderFactory or $mediaListRepresentationFactory argument is deprecated.'
-            );
-        }
     }
 
     /**
@@ -136,100 +128,33 @@ class MediaController extends AbstractMediaController implements
      */
     public function cgetAction(Request $request)
     {
-        if (null === $this->mediaListBuilderFactory || null === $this->mediaListRepresentationFactory) {
-            $listRepresentation = $this->getListRepresentation($request);
-        } else {
-            /** @var UserInterface $user */
-            $user = $this->getUser();
-            $types = \array_filter(\explode(',', $request->get('types')));
-            $collectionId = $request->get('collection');
-            $collectionId = $collectionId ? (int) $collectionId : null;
-            $locale = $this->getRequestParameter($request, 'locale', true);
+        /** @var UserInterface $user */
+        $user = $this->getUser();
+        $types = \array_filter(\explode(',', $request->get('types')));
+        $collectionId = $request->get('collection');
+        $collectionId = $collectionId ? (int) $collectionId : null;
+        $locale = $this->getRequestParameter($request, 'locale', true);
 
-            $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors('media');
-            $listBuilder = $this->mediaListBuilderFactory->getListBuilder(
-                $fieldDescriptors,
-                $user,
-                $types,
-                !$request->get('sortBy'),
-                $collectionId
-            );
+        $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors('media');
+        $listBuilder = $this->mediaListBuilderFactory->getListBuilder(
+            $fieldDescriptors,
+            $user,
+            $types,
+            !$request->get('sortBy'),
+            $collectionId
+        );
 
-            $listRepresentation = $this->mediaListRepresentationFactory->getListRepresentation(
-                $listBuilder,
-                $locale,
-                MediaInterface::RESOURCE_KEY,
-                'sulu_media.cget_media',
-                $request->query->all()
-            );
-        }
+        $listRepresentation = $this->mediaListRepresentationFactory->getListRepresentation(
+            $listBuilder,
+            $locale,
+            MediaInterface::RESOURCE_KEY,
+            'sulu_media.cget_media',
+            $request->query->all()
+        );
 
         $view = $this->view($listRepresentation, 200);
 
         return $this->handleView($view);
-    }
-
-    /**
-     * @deprecated
-     */
-    private function getListRepresentation(Request $request): ListRepresentation
-    {
-        $locale = $this->getRequestParameter($request, 'locale', true);
-        $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors('media');
-        $types = \array_filter(\explode(',', $request->get('types')));
-        $listBuilder = $this->getListBuilder($request, $fieldDescriptors, $types);
-        $listBuilder->setParameter('locale', $locale);
-        $listResponse = $listBuilder->execute();
-
-        for ($i = 0, $length = \count($listResponse); $i < $length; ++$i) {
-            $format = $this->formatManager->getFormats(
-                $listResponse[$i]['previewImageId'] ?? $listResponse[$i]['id'],
-                $listResponse[$i]['previewImageName'] ?? $listResponse[$i]['name'],
-                $listResponse[$i]['previewImageVersion'] ?? $listResponse[$i]['version'],
-                $listResponse[$i]['previewImageSubVersion'] ?? $listResponse[$i]['subVersion'],
-                $listResponse[$i]['previewImageMimeType'] ?? $listResponse[$i]['mimeType']
-            );
-
-            if (0 < \count($format)) {
-                $listResponse[$i]['thumbnails'] = $format;
-            }
-
-            $listResponse[$i]['url'] = $this->mediaManager->getUrl(
-                $listResponse[$i]['id'],
-                $listResponse[$i]['name'],
-                $listResponse[$i]['version']
-            );
-
-            $listResponse[$i]['adminUrl'] = $this->mediaManager->getAdminUrl(
-                $listResponse[$i]['id'],
-                $listResponse[$i]['name'],
-                $listResponse[$i]['version']
-            );
-
-            if ($locale !== $listResponse[$i]['locale']) {
-                $listResponse[$i]['ghostLocale'] = $listResponse[$i]['locale'];
-            }
-        }
-
-        $ids = $listBuilder->getIds();
-        if (null != $ids) {
-            $result = [];
-            foreach ($listResponse as $item) {
-                $result[\array_search($item['id'], $ids)] = $item;
-            }
-            \ksort($result);
-            $listResponse = \array_values($result);
-        }
-
-        return new ListRepresentation(
-            $listResponse,
-            MediaInterface::RESOURCE_KEY,
-            'sulu_media.cget_media',
-            $request->query->all(),
-            $listBuilder->getCurrentPage(),
-            $listBuilder->getLimit(),
-            $listBuilder->count()
-        );
     }
 
     /**

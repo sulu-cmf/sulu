@@ -158,7 +158,7 @@ class ContentTwigExtensionTest extends TestCase
             $this->logger->reveal(),
             $this->securityChecker->reveal(),
             $this->webspaceManager->reveal(),
-            null,
+            $this->prophesize(RequestStack::class)->reveal(),
             []
         );
     }

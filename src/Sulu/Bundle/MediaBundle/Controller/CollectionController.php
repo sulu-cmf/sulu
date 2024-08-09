@@ -16,7 +16,6 @@ use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\MediaBundle\Admin\MediaAdmin;
 use Sulu\Bundle\MediaBundle\Api\RootCollection;
 use Sulu\Bundle\MediaBundle\Collection\Manager\CollectionManagerInterface;
-use Sulu\Bundle\MediaBundle\Entity\Collection as CollectionEntity;
 use Sulu\Bundle\MediaBundle\Entity\CollectionInterface;
 use Sulu\Bundle\MediaBundle\Media\Exception\CollectionNotFoundException;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
@@ -66,30 +65,9 @@ class CollectionController extends AbstractRestController implements ClassResour
         private CollectionManagerInterface $collectionManager,
         private array $defaultCollectionType,
         private array $permissions,
-        private ?string $collectionClass = null
+        private string $collectionClass
     ) {
         parent::__construct($viewHandler, $tokenStorage);
-
-        $this->listRestHelper = $listRestHelper;
-        $this->securityChecker = $securityChecker;
-        $this->translator = $translator;
-        $this->systemCollectionManager = $systemCollectionManager;
-        $this->collectionManager = $collectionManager;
-        $this->defaultCollectionType = $defaultCollectionType;
-        $this->permissions = $permissions;
-        $this->collectionClass = $collectionClass;
-
-        if (!$this->collectionClass) {
-            $this->collectionClass = CollectionEntity::class;
-
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.1',
-                \sprintf(
-                    'Omitting the "collectionClass" argument is deprecated and will not longer work in Sulu 3.0.'
-                )
-            );
-        }
     }
 
     /**

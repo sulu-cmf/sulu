@@ -46,7 +46,7 @@ class MailerListenerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->markupParser = new class() implements MarkupParserInterface {
+        $this->markupParser = new class implements MarkupParserInterface {
             public function parse($content, $locale)
             {
                 // a simple dummy html markup parser for sulu links

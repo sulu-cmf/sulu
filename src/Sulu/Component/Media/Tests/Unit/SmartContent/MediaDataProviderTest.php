@@ -108,7 +108,10 @@ class MediaDataProviderTest extends TestCase
             $this->referenceStore->reveal(),
             $this->security->reveal(),
             $this->requestAnalyzer->reveal(),
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->prophesize(EntityManagerInterface::class)->reveal(),
+            $this->prophesize(TranslatorInterface::class)->reveal(),
         );
     }
 

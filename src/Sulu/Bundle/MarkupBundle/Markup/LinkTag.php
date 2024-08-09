@@ -27,16 +27,9 @@ class LinkTag implements TagInterface
     public function __construct(
         private LinkProviderPoolInterface $linkProviderPool,
         private bool $isPreview = false,
-        private ?UrlHelper $urlHelper = null,
+        private UrlHelper $urlHelper,
         private ?string $providerAttribute = null
     ) {
-        if (null === $this->urlHelper) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.3',
-                'Instantiating the LinkTag class without the $urlHelper argument is deprecated.'
-            );
-        }
     }
 
     public function parseAll(array $attributesByTag, $locale)
@@ -56,10 +49,7 @@ class LinkTag implements TagInterface
             if ($uuid && \array_key_exists($provider . '-' . $uuid, $contents)) {
                 $item = $contents[$provider . '-' . $uuid];
 
-                $url = $item->getUrl();
-                if ($this->urlHelper) {
-                    $url = $this->urlHelper->getAbsoluteUrl($url);
-                }
+                $url = $this->urlHelper->getAbsoluteUrl($item->getUrl());
 
                 if ($query) {
                     $url .= '?' . $query;

@@ -24,6 +24,27 @@ Removed unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
 
+Making constructor arguments non-optional:
+- `Sulu\Component\PHPCR\PathCleanup::slugger`
+- `Sulu\Bundle\MarkupBundle\Markup\LinkTag::urlHelper`
+- `Sulu\Component\Content\SmartContent\PageDataProvider::formMetadataProvider`
+- `Sulu\Component\Media\SmartContent\MediaDataProvider::entityManager`
+- `Sulu\Component\Media\SmartContent\MediaDataProvider::translator`
+- `Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataProvider::fallbackLocale`
+- `Sulu\Bundle\AdminBundle\Controller\AdminController::collaborationEnabled`
+- `Sulu\Bundle\WebsiteBundle\Twig\Content\ContentTwigExtension`
+- `Sulu\Bundle\WebsiteBundle\Routing\PortalLoader::fileLocator`
+- `Sulu\Bundle\SearchBundle\Controller\WebsiteSearchController::templateAttributeResolver`
+- `Sulu\Component\Content\Compat\Structure\LegacyPropertyFactory::structureFactory`
+- `Sulu\Bundle\SnippetBundle\Content\SnippetDataProvider::formMetadataProvider`
+- `Sulu\Bundle\SnippetBundle\Content\SnippetContent::snippetAreaReferenceStore`
+- `Sulu\Bundle\SnippetBundle\Content\SingleSnippetSelection::snippetAreaReferenceStore`
+- `Sulu\Bundle\MediaBundle\Controller\MediaController::mediaListBuilderFactory`
+- `Sulu\Bundle\MediaBundle\Controller\MediaController::mediaListRepresentationFactory`
+- `Sulu\Bundle\MediaBundle\Controller\CollectionController::collectionClass`
+- `Sulu\Bundle\RouteBundle\Controller\RouteController::conflictResolver`
+- `Sulu\Bundle\RouteBundle\Controller\RouteController::domainEventCollector`
+
 ## 2.6.4
 
 ### Stricter Image Format Url Handling

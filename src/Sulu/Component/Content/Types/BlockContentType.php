@@ -36,6 +36,7 @@ class BlockContentType extends ComplexContentType implements ContentTypeExportIn
 {
     /**
      * @param string $languageNamespace
+     * @param BlockVisitorInterface[] $blockVisitors
      */
     public function __construct(
         private ContentTypeManagerInterface $contentTypeManager,
@@ -48,16 +49,8 @@ class BlockContentType extends ComplexContentType implements ContentTypeExportIn
          * @deprecated This property is not needed anymore and will be removed in Sulu 3.0
          */
         private ?TargetGroupStoreInterface $targetGroupStore = null,
-        /**
-         * @var BlockVisitorInterface[]
-         */
-        private ?iterable $blockVisitors = null
+        private iterable $blockVisitors
     ) {
-        if (null === $this->blockVisitors) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'Instantiating BlockContentType without the $blockVisitors argument is deprecated.');
-
-            $this->blockVisitors = [];
-        }
     }
 
     public function read(

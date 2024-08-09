@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\WebsiteBundle\Routing;
 
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\FileLoader;
 use Symfony\Component\Routing\Route;
@@ -33,14 +32,8 @@ class PortalLoader extends FileLoader
 
     public function __construct(
         WebspaceManagerInterface $webspaceManager,
-        ?FileLocatorInterface $fileLocator = null
+        FileLocatorInterface $fileLocator
     ) {
-        if (!$fileLocator) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'Initializing "' . __CLASS__ . '" without file locator is deprecated.');
-
-            $fileLocator = new FileLocator();
-        }
-
         parent::__construct($fileLocator);
 
         $this->webspaceManager = $webspaceManager;
