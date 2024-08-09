@@ -108,6 +108,9 @@
         "test": [
             "@phpunit"
         ],
+        "fix": [
+            "@php-cs-fix"
+        ],
         "phpunit": "@php vendor/bin/phpunit",
         "test-with-coverage": "@phpunit --coverage-php Tests/reports/coverage.php --coverage-html Tests/reports/html --log-junit Tests/reports/unit/junit.xml --coverage-clover Tests/reports/clover.xml",
         "check-coverage": [
