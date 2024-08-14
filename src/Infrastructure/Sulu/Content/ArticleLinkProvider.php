@@ -47,4 +47,9 @@ class ArticleLinkProvider extends ContentLinkProvider
             ->setIcon('su-document')
             ->getLinkConfiguration();
     }
+
+    protected function getEntityIdField(): string
+    {
+        return 'uuid';
+    }
 }
