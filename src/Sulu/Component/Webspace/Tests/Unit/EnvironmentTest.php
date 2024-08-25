@@ -38,7 +38,7 @@ class EnvironmentTest extends TestCase
         ];
 
         // Testing that the environment of the url is overridden when adding it to the environment object
-        $url = new Url('sulu.io', 'I should be overwritten');
+        $url = new Url('sulu.io');
 
         $environment = new Environment($expected['type']);
 
@@ -100,7 +100,7 @@ class EnvironmentTest extends TestCase
      */
     private static function getUrl($isMain = false)
     {
-        $url = new Url('test', 'test');
+        $url = new Url('test');
         $url->setMain($isMain);
 
         return $url;

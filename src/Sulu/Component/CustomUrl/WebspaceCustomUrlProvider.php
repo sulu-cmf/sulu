@@ -29,7 +29,7 @@ class WebspaceCustomUrlProvider implements WebspaceUrlProviderInterface
     {
         $urls = [];
         foreach ($this->customUrlManager->findUrls($webspace->getKey()) as $customUrl) {
-            $urls[] = new Url($customUrl, $environment);
+            $urls[] = new Url($customUrl);
         }
 
         return $urls;

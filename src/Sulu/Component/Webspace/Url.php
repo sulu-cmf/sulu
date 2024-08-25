@@ -58,6 +58,9 @@ class Url implements ArrayableInterface
         private $url = null,
         private $environment = null
     ) {
+        if (null !== $environment) {
+            @trigger_deprecation('sulu/sulu', '2.5', 'Passing an environment to the URL is deprecated.');
+        }
     }
 
     /**
@@ -184,9 +187,13 @@ class Url implements ArrayableInterface
      * Returns the environment.
      *
      * @return string
+     *
+     * @deprecated use Portal::getEnvironment() instead
      */
     public function getEnvironment()
     {
+        @trigger_deprecation('sulu/sulu', '2.5', 'getting and setting the environment on the url is deprecated use the portals environment.');
+
         return $this->environment;
     }
 
@@ -194,9 +201,12 @@ class Url implements ArrayableInterface
      * Sets the environment.
      *
      * @param string $environment
+     *
+     * @deprecated
      */
     public function setEnvironment($environment)
     {
+        @trigger_deprecation('sulu/sulu', '2.5', 'getting and setting the environment on the url is deprecated use the portals environment.');
         $this->environment = $environment;
     }
 

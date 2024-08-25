@@ -7,9 +7,10 @@
 The image formats URL requires an exact filename match to retrieve the correct image format. 
 Old versions will be redirected to the new version and any non-matching filenames will now return a 404 error.
 
-### Setting the Webspace `Environment` in the constructor
+### Cleaning up the environment use in the webspaces
 
-The call to `Environment::setType()` should be replaced with a call to the constructor with the correct environment.
+The call to `Environment::setType()` should be replaced with a call to the constructor with the correct environment. 
+Using the `Url::getEnvironment()` and `Url::setEnvironment()` functions is deprecated. Use the environment of the `Portal` instead.
 
 ## 2.6.3
 

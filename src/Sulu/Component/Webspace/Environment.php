@@ -39,8 +39,9 @@ class Environment
      */
     private $mainUrl;
 
-    public function __construct(?string $type = null) {
-        if ($type === null) {
+    public function __construct(?string $type = null)
+    {
+        if (null === $type) {
             @trigger_deprecation('sulu/sulu', '2.5', 'Not passing the type of the environment is deprecated.');
         } else {
             $this->type = $type;
@@ -51,6 +52,8 @@ class Environment
      * Sets the type of the environment.
      *
      * @param string $type
+     *
+     * @deprecated
      */
     public function setType($type)
     {

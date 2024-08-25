@@ -42,6 +42,7 @@ final class DebugEventDispatcherTest extends TestCase
             private $logOutput = [];
 
             /**
+             * @param mixed $level
              * @param array<mixed> $context
              * @param string|\Stringable $message
              */

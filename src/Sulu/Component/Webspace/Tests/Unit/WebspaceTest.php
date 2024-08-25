@@ -185,7 +185,7 @@ class WebspaceTest extends TestCase
         $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
-        $url = new Url('sulu.lo', 'prod');
+        $url = new Url('sulu.lo');
         $url->setLanguage('de');
         $url->setCountry('');
         $environment->addUrl($url);
@@ -205,7 +205,7 @@ class WebspaceTest extends TestCase
         $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
-        $url = new Url('sulu.lo', 'prod');
+        $url = new Url('sulu.lo');
         $url->setLanguage('de');
         $url->setCountry('at');
         $environment->addUrl($url);
@@ -225,12 +225,12 @@ class WebspaceTest extends TestCase
         $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
-        $urlDe = new Url('sulu.de', 'prod');
+        $urlDe = new Url('sulu.de');
         $urlDe->setLanguage('de');
         $urlDe->setCountry('');
         $environment->addUrl($urlDe);
 
-        $urlAt = new Url('sulu.at', 'prod');
+        $urlAt = new Url('sulu.at');
         $urlAt->setLanguage('de');
         $urlAt->setCountry('at');
         $environment->addUrl($urlAt);
