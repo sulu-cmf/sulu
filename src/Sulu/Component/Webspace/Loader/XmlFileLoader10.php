@@ -492,8 +492,7 @@ class XmlFileLoader10 extends BaseXmlFileLoader
     {
         foreach ($this->xpath->query('x:environments/x:environment', $portalNode) as $environmentNode) {
             /** @var \DOMNode $environmentNode */
-            $environment = new Environment();
-            $environment->setType($environmentNode->attributes->getNamedItem('type')->nodeValue);
+            $environment = new Environment($environmentNode->attributes->getNamedItem('type')->nodeValue);
 
             $this->generateUrls($environmentNode, $environment);
             $this->generateCustomUrls($environmentNode, $environment);

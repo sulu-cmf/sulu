@@ -38,8 +38,7 @@ class WebspaceCollectionTest extends TestCase
         $portal->setName('Portal1');
         $portal->setKey('portal1');
 
-        $environment = new Environment();
-        $environment->setType('prod');
+        $environment = new Environment('prod');
         $url = new Url();
         $url->setUrl('www.portal1.com');
         $url->setLanguage('en');

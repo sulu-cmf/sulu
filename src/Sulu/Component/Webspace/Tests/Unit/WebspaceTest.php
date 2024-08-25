@@ -148,8 +148,7 @@ class WebspaceTest extends TestCase
         $portal = new Portal();
         $webspace->addPortal($portal);
 
-        $environment = new Environment();
-        $environment->setType('prod');
+        $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
         $url = new Url('sulu.lo');
@@ -166,8 +165,7 @@ class WebspaceTest extends TestCase
         $portal = new Portal();
         $webspace->addPortal($portal);
 
-        $environment = new Environment();
-        $environment->setType('prod');
+        $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
         $url = new Url('{host}');
@@ -184,8 +182,7 @@ class WebspaceTest extends TestCase
         $portal = new Portal();
         $webspace->addPortal($portal);
 
-        $environment = new Environment();
-        $environment->setType('prod');
+        $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
         $url = new Url('sulu.lo', 'prod');
@@ -205,8 +202,7 @@ class WebspaceTest extends TestCase
         $portal = new Portal();
         $webspace->addPortal($portal);
 
-        $environment = new Environment();
-        $environment->setType('prod');
+        $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
         $url = new Url('sulu.lo', 'prod');
@@ -226,8 +222,7 @@ class WebspaceTest extends TestCase
         $portal = new Portal();
         $webspace->addPortal($portal);
 
-        $environment = new Environment();
-        $environment->setType('prod');
+        $environment = new Environment('prod');
         $portal->addEnvironment($environment);
 
         $urlDe = new Url('sulu.de', 'prod');
