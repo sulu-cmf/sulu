@@ -131,7 +131,7 @@ class ResettingControllerTest extends SuluTestCase
         $this->assertEquals($expectedEmailData['sender'], $message->getFrom()[0]->getAddress());
         $this->assertEquals($user->getEmail(), $message->getTo()[0]->getAddress());
         $this->assertEquals($expectedEmailData['subject'], $message->getSubject());
-        $this->assertEquals($expectedEmailData['body'], $htmlBody);
+        $this->assertEquals($expectedEmailData['body'], $message->getHtmlBody());
     }
 
     public function testSendEmailActionWithUsername(): void
@@ -178,7 +178,7 @@ class ResettingControllerTest extends SuluTestCase
         $this->assertEquals($expectedEmailData['sender'], $message->getFrom()[0]->getAddress());
         $this->assertEquals($user->getEmail(), $message->getTo()[0]->getAddress());
         $this->assertEquals($expectedEmailData['subject'], $message->getSubject());
-        $this->assertEquals($expectedEmailData['body'], $htmlBody);
+        $this->assertEquals($expectedEmailData['body'], $message->getHtmlBody());
     }
 
     public function testSendEmailActionWithUserWithoutEmail(): void
@@ -225,7 +225,7 @@ class ResettingControllerTest extends SuluTestCase
         $this->assertEquals($expectedEmailData['sender'], $message->getFrom()[0]->getAddress());
         $this->assertEquals('installation.email@sulu.test', $message->getTo()[0]->getAddress());
         $this->assertEquals($expectedEmailData['subject'], $message->getSubject());
-        $this->assertEquals($expectedEmailData['body'], $htmlBody);
+        $this->assertEquals($expectedEmailData['body'], $message->getHtmlBody());
     }
 
     public function testResendEmailActionTooMuch(): void
@@ -527,6 +527,17 @@ class ResettingControllerTest extends SuluTestCase
             'body' => \trim($body),
             'sender' => $sender ? $sender : 'no-reply@' . $client->getRequest()->getHost(),
         ];
+    }
+
+    protected function extractForgotPasswordToken(Email $message): string
+    {
+        $htmlBody = $message->getHtmlBody();
+        $this->assertIsString($htmlBody);
+
+        $this->assertEquals(1, \preg_match('/forgotPasswordToken=(.*)/', $htmlBody, $regexMatches));
+        $this->assertArrayHasKey(1, $regexMatches);
+
+        return $regexMatches[1];
     }
 
     protected function createRole($system): Role
