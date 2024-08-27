@@ -35,7 +35,7 @@ final class DebugEventDispatcherTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->logger = new class extends AbstractLogger {
+        $this->logger = new class() extends AbstractLogger {
             /**
              * @var array<string|\Stringable>
              */
@@ -74,7 +74,7 @@ final class DebugEventDispatcherTest extends TestCase
 
     public function testDebugLogWritten(): void
     {
-        $this->dispatcher->dispatch(new class extends AbstractDocumentEvent {
+        $this->dispatcher->dispatch(new class() extends AbstractDocumentEvent {
             public function __construct()
             {
                 parent::__construct(new \stdClass());
