@@ -72,7 +72,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
 
     public function resolveDataItems(array $filters, array $propertyParameter, array $options = [], $limit = null, $page = 1, $pageSize = null)
     {
-        [$filters, $sortBy] = $this->resolveFilters($filters, $page, $options['locale']);
+        [$filters, $sortBy] = $this->resolveFilters($filters, $propertyParameter, $page, $options['locale']);
 
         $dimensionAttributes = [
             'locale' => $options['locale'],
@@ -105,7 +105,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
 
     public function resolveResourceItems(array $filters, array $propertyParameter, array $options = [], $limit = null, $page = 1, $pageSize = null): DataProviderResult
     {
-        [$filters, $sortBy] = $this->resolveFilters($filters, $page, $options['locale']);
+        [$filters, $sortBy] = $this->resolveFilters($filters, $propertyParameter, $page, $options['locale']);
 
         $dimensionAttributes = [
             'locale' => $options['locale'],
@@ -134,7 +134,11 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         return new DataProviderResult($result, $hasNextPage);
     }
 
-    protected function resolveFilters(array $filters, int $page, string $locale): array
+    /**
+     * @param array<string, PropertyParameter> $propertyParameter
+     */
+    protected function resolveFilters(
+        array $filters, array $propertyParameter, int $page, string $locale): array
     {
         $filter = [
             'locale' => $locale,
@@ -152,8 +156,8 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         if (isset($filters['tagOperator'])) {
             $filter['tagOperator'] = $filters['tagOperator'];
         }
-        if (isset($filters['limitResult'])) {
-            $filter['limit'] = (int) $filters['limitResult'];
+        if (isset($filters['limitResult']) || isset($propertyParameter['max_per_page'])) {
+            $filter['limit'] = (int) ($filters['limitResult'] ?? $propertyParameter['max_per_page']->getValue());
         }
         $filter['page'] = $page;
 
