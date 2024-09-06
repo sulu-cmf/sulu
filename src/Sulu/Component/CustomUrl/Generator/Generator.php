@@ -27,15 +27,16 @@ class Generator implements GeneratorInterface
     {
     }
 
-    public function generate(string $baseDomain, array $domainParts, ?Localization $locale = null)
+    public function generate(string $baseDomain, array $domainParts, ?Localization $locale = null): string
     {
         $domain = $baseDomain;
 
         foreach ($domainParts as $domainPart) {
+            /** @var string $domain */
             $domain = \preg_replace('/\*/', $domainPart, $domain, 1);
         }
 
-        if (\strpos($domain, '*') > -1) {
+        if (\str_contains($domain, '*')) {
             throw new MissingDomainPartException($baseDomain, $domainParts, $domain);
         }
 

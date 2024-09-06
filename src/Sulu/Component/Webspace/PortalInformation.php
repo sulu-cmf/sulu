@@ -320,7 +320,7 @@ class PortalInformation implements ArrayableInterface
     /**
      * Returns the webspace for this PortalInformation.
      *
-     * @return Webspace
+     * @return Webspace|null
      */
     public function getWebspace()
     {

@@ -16,7 +16,6 @@ use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Sulu\Component\CustomUrl\Generator\MissingDomainPartException;
 use Sulu\Component\CustomUrl\Manager\RouteNotRemovableException;
 use Sulu\Component\CustomUrl\Manager\TitleAlreadyExistsException;
-use Sulu\Component\DocumentManager\Exception\DocumentNotFoundException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -42,7 +41,7 @@ class SuluCustomUrlExtension extends Extension implements PrependExtensionInterf
         $loader->load('document.xml');
         $loader->load('routing.xml');
 
-        if (\array_key_exists('SuluTrashBundle', $bundles)) {
+        if ($container->hasExtension('sulu_trash')) {
             $loader->load('services_trash.xml');
         }
 
@@ -73,6 +72,7 @@ class SuluCustomUrlExtension extends Extension implements PrependExtensionInterf
                 ]
             );
         }
+
         if ($container->hasExtension('sulu_admin')) {
             $container->prependExtensionConfig(
                 'sulu_admin',
@@ -110,7 +110,6 @@ class SuluCustomUrlExtension extends Extension implements PrependExtensionInterf
                 [
                     'exception' => [
                         'codes' => [
-                            DocumentNotFoundException::class => 404,
                             TitleAlreadyExistsException::class => 400,
                             MissingDomainPartException::class => 400,
                             RouteNotRemovableException::class => 420, // Policy Not Fulfilled

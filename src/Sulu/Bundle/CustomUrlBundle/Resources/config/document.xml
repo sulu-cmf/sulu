@@ -5,18 +5,17 @@
 
     <services>
         <service id="Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface"
-            class="Sulu\Component\CustomUrl\Repository\CustomUrlRepository"
-            lazy="false">
+            class="Sulu\Component\CustomUrl\Repository\CustomUrlRepository">
             <argument type="service" id="doctrine" />
             <argument type="service" id="sulu_page.content_repository" />
             <argument type="service" id="sulu_custom_urls.domain_generator" />
+            <argument type="service" id="sulu_core.webspace.webspace_manager" />
         </service>
 
         <service id="sulu_custom_urls.repository" alias="Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface" />
 
         <service id="sulu_custom_urls.manager" class="Sulu\Component\CustomUrl\Manager\CustomUrlManager">
             <argument type="service" id="sulu_custom_urls.repository"/>
-            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
             <argument type="string">%kernel.environment%</argument>
             <argument type="service" id="sulu_document_manager.document_domain_event_collector"/>
             <argument type="service" id="property_accessor" />
@@ -48,7 +47,6 @@
                  public="true">
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="sulu_custom_urls.manager"/>
-            <argument type="service" id="sulu_document_manager.document_manager"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="sulu_custom_urls.repository"/>
 
@@ -56,7 +54,7 @@
         </service>
 
         <service id="sulu_custom_urls.custom_url_route_controller"
-                 class="Sulu\Bundle\CustomUrlBundle\Controller\CustomUrlHistoryController"
+                 class="Sulu\Bundle\CustomUrlBundle\Controller\CustomUrlRouteController"
                  public="true">
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>

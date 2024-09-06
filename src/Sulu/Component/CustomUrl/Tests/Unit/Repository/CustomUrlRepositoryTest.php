@@ -11,10 +11,74 @@
 
 namespace Sulu\Component\CustomUrl\Tests\Unit\Repository;
 
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Component\Content\Repository\ContentRepositoryInterface;
+use Sulu\Component\CustomUrl\Generator\GeneratorInterface;
+use Sulu\Component\CustomUrl\Repository\CustomUrlRepository;
+use Sulu\Component\Webspace\CustomUrl;
+use Sulu\Component\Webspace\Environment;
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Sulu\Component\Webspace\Portal;
+use Sulu\Component\Webspace\Webspace;
 
 class CustomUrlRepositoryTest extends TestCase
 {
+    use ProphecyTrait;
+
+    /**
+     * @var ObjectProphecy<ContentRepositoryInterface>
+     */
+    private ObjectProphecy $contentRepository;
+
+    /**
+     * @var ObjectProphecy<GeneratorInterface>
+     */
+    private ObjectProphecy $customUrlGenerator;
+
+    /**
+     * @var ObjectProphecy<WebspaceManagerInterface>
+     */
+    private ObjectProphecy $webspaceManager;
+
+    private CustomUrlRepository $customUrlRepository;
+
+    public function setUp(): void
+    {
+        $this->contentRepository = $this->prophesize(ContentRepositoryInterface::class);
+        $this->customUrlGenerator = $this->prophesize(GeneratorInterface::class);
+        $this->webspaceManager = $this->prophesize(WebspaceManagerInterface::class);
+
+        $this->customUrlRepository = new CustomUrlRepository(
+            $this->prophesize(ManagerRegistry::class)->reveal(),
+            $this->contentRepository->reveal(),
+            $this->customUrlGenerator->reveal(),
+            $this->webspaceManager->reveal()
+        );
+    }
+
+    //public function testFindByWebspace(): void
+    //{
+        //$environment = new Environment();
+        //$environment->setType('test');
+        //$environment->addCustomUrl(new CustomUrl('*.sulu.io'));
+        //$environment->addCustomUrl(new CustomUrl('sulu.io/*'));
+
+        //$portal = new Portal();
+        //$portal->addEnvironment($environment);
+
+        //$webspace = new Webspace();
+        //$webspace->addPortal($portal);
+
+        //$this->webspaceManager->findWebspaceByKey('sulu_io')->shouldBeCalled()->willReturn($webspace);
+
+        //$result = $this->customUrlRepository->findByWebspaceKey('sulu_io');
+
+        //$this->assertEquals([['title' => 'Test-1'], ['title' => 'Test-2']], $result);
+    //}
+
     //public function testFindUrls(): void
     //{
     //$this->pathBuilder->build(['%base%', 'sulu_io', '%custom_urls%', '%custom_urls_items%'])

@@ -34,6 +34,9 @@ class CustomUrl implements AuditableInterface
 
     private string $baseDomain;
 
+    /**
+     * @var array<string>
+     */
     private array $domainParts = [];
 
     private string $targetDocument;
@@ -48,7 +51,9 @@ class CustomUrl implements AuditableInterface
 
     private bool $noIndex = false;
 
-    /** @var Collection<CustomUrlRoute> */
+    /**
+     * @var Collection<array-key, CustomUrlRoute>
+     */
     private Collection $routes;
 
     public function __construct()
@@ -183,7 +188,7 @@ class CustomUrl implements AuditableInterface
     }
 
     /**
-     * @return Collection<CustomUrlRoute>
+     * @return Collection<array-key, CustomUrlRoute>
      */
     public function getRoutes(): Collection
     {

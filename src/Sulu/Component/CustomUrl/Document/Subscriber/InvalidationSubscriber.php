@@ -65,7 +65,7 @@ class InvalidationSubscriber implements EventSubscriberInterface
                 $this->invalidateCustomUrlDocument($customUrlDocument);
             }
         } elseif ($document instanceof RouteDocument) {
-            $this->cacheManager->invalidatePath($this->getUrlWithScheme($document->getPath()));
+            $this->invalidateDocument($document->getTargetDocument());
         } elseif ($document instanceof CustomUrl) {
             $this->invalidateCustomUrlDocument($document);
         } else {
@@ -75,14 +75,14 @@ class InvalidationSubscriber implements EventSubscriberInterface
 
     private function invalidateCustomUrlDocument(CustomUrl $customUrl): void
     {
-        foreach ($customUrl->getRoutes() as $route => $routeDocument) {
-            $this->cacheManager->invalidatePath($this->getUrlWithScheme($route));
+        foreach ($customUrl->getRoutes() as $route) {
+            $this->cacheManager->invalidatePath($this->getUrlWithScheme($route->getPath()));
         }
     }
 
     private function invalidateCustomUrl(CustomUrlRoute $customUrlRoute): void
     {
-        $this->cacheManager->invalidatePath($this->getUrlWithScheme($customUrlRoute));
+        $this->cacheManager->invalidatePath($this->getUrlWithScheme($customUrlRoute->getPath()));
     }
 
     private function getUrlWithScheme(string $url): string

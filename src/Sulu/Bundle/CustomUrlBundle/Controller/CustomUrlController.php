@@ -16,8 +16,7 @@ use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
 use Sulu\Bundle\CustomUrlBundle\Admin\CustomUrlAdmin;
 use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 use Sulu\Component\CustomUrl\Manager\CustomUrlManagerInterface;
-use Sulu\Component\CustomUrl\Repository\CustomUrlRepository;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
+use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
@@ -25,6 +24,7 @@ use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Webmozart\Assert\Assert;
 
 /**
  * @RouteResource("custom-urls")
@@ -36,9 +36,8 @@ class CustomUrlController extends AbstractRestController implements SecuredContr
     public function __construct(
         ViewHandlerInterface $viewHandler,
         private CustomUrlManagerInterface $customUrlManager,
-        private DocumentManagerInterface $documentManager,
         private RequestStack $requestStack,
-        private CustomUrlRepository $customUrlRepository,
+        private CustomUrlRepositoryInterface $customUrlRepository,
     ) {
         parent::__construct($viewHandler);
     }
@@ -64,9 +63,9 @@ class CustomUrlController extends AbstractRestController implements SecuredContr
         // throw helpful error message if targetLocale is not set
         $this->getRequestParameter($request, 'targetLocale', true);
 
-        $document = $this->customUrlManager->create($webspace, $request->request->all());
+        $customUrl = $this->customUrlManager->create($webspace, $request->request->all());
 
-        return $this->handleView($this->view($document));
+        return $this->handleView($this->view($customUrl));
     }
 
     public function putAction(string $webspace, int $id, Request $request): Response
@@ -74,7 +73,12 @@ class CustomUrlController extends AbstractRestController implements SecuredContr
         $requestData = $request->request->all();
         unset($requestData['creator'], $requestData['changer'], $requestData['created'], $requestData['updated']);
 
-        $customUrl = $this->customUrlManager->save($id, $requestData);
+        $customUrl = $this->customUrlRepository->find($id);
+        if (null === $customUrl) {
+            return $this->handleView($this->view($customUrl, Response::HTTP_NOT_FOUND));
+        }
+
+        $this->customUrlManager->save($customUrl, $requestData);
 
         return $this->handleView($this->view($customUrl));
     }
@@ -88,7 +92,13 @@ class CustomUrlController extends AbstractRestController implements SecuredContr
 
     public function cdeleteAction(string $webspace, Request $request): Response
     {
-        $ids = \array_filter(\explode(',', $request->get('ids', '')));
+        $ids = [];
+        foreach (\explode(',', $request->attributes->getString('ids', '')) as $id) {
+            if ('' === $id) {
+                continue;
+            }
+            $ids[] = (int) $id;
+        }
 
         $this->customUrlManager->deleteByIds($ids);
 
@@ -98,8 +108,9 @@ class CustomUrlController extends AbstractRestController implements SecuredContr
     public function getSecurityContext(): string
     {
         $request = $this->requestStack->getCurrentRequest();
+        Assert::notNull($request, 'Unable to get from request stack');
 
-        return CustomUrlAdmin::getCustomUrlSecurityContext($request->attributes->get('webspace'));
+        return CustomUrlAdmin::getCustomUrlSecurityContext($request->attributes->getString('webspace'));
     }
 
     public function getLocale(Request $request): ?string

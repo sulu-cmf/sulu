@@ -13,7 +13,6 @@
             <argument type="service" id="sulu_custom_urls.domain_generator"/>
             <argument type="service" id="sulu_core.webspace.webspace_manager"/>
             <argument type="collection" />
-            <argument type="service" id="sulu_document_manager.path_builder"/>
             <argument type="string">%kernel.environment%</argument>
             <argument type="service" id="Sulu\Component\CustomUrl\Routing\CustomUrlDefaultsProvider" />
 

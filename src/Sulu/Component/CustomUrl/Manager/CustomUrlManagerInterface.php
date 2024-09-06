@@ -23,15 +23,13 @@ interface CustomUrlManagerInterface
      */
     public function create(string $webspaceKey, array $data): CustomUrl;
 
-    public function findByWebspaceKey(string $webspaceKey): RowsIterator;
-
     /**
      * @param array<string, mixed> $data
      */
-    public function save(string $id, array $data): CustomUrl;
+    public function save(CustomUrl $customUrl, array $data): void;
 
     /**
-     * @param array<string> $ids
+     * @param array<int> $ids
      */
     public function deleteByIds(array $ids): void;
 }

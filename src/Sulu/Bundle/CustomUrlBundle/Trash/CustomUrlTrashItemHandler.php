@@ -17,7 +17,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\CustomUrlBundle\Admin\CustomUrlAdmin;
 use Sulu\Bundle\CustomUrlBundle\Domain\Event\CustomUrlRestoredEvent;
 use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
-use Sulu\Bundle\DocumentManagerBundle\Bridge\DocumentInspector;
 use Sulu\Bundle\DocumentManagerBundle\Collector\DocumentDomainEventCollectorInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;
@@ -25,7 +24,6 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\RestoreTrashItemHandler
 use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerInterface;
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Webmozart\Assert\Assert;
 
 final class CustomUrlTrashItemHandler implements
@@ -35,8 +33,6 @@ final class CustomUrlTrashItemHandler implements
 {
     public function __construct(
         private TrashItemRepositoryInterface $trashItemRepository,
-        private DocumentManagerInterface $documentManager,
-        private DocumentInspector $documentInspector,
         private DocumentDomainEventCollectorInterface $documentDomainEventCollector,
         private EntityManagerInterface $entityManager,
     ) {

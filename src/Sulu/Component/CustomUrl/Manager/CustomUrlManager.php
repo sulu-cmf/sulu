@@ -20,16 +20,12 @@ use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrlRoute;
 use Sulu\Bundle\DocumentManagerBundle\Collector\DocumentDomainEventCollectorInterface;
 use Sulu\Component\CustomUrl\Generator\GeneratorInterface;
 use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
-use Sulu\Component\CustomUrl\Repository\RowsIterator;
-use Sulu\Component\Webspace\CustomUrl as WebspaceCustomUrl;
-use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class CustomUrlManager implements CustomUrlManagerInterface
 {
     public function __construct(
         private CustomUrlRepositoryInterface $customUrlRepository,
-        private WebspaceManagerInterface $webspaceManager,
         private string $environment,
         private DocumentDomainEventCollectorInterface $documentDomainEventCollector,
         private PropertyAccessor $propertyAccess,
@@ -53,30 +49,14 @@ class CustomUrlManager implements CustomUrlManagerInterface
         return $customUrl;
     }
 
-    public function findByWebspaceKey(string $webspaceKey): RowsIterator
+    public function save(CustomUrlEntity $customUrl, array $data): void
     {
-        $webspace = $this->webspaceManager->findWebspaceByKey($webspaceKey);
-
-        return $this->customUrlRepository->findByWebspaceAndBaseDomains(
-            $webspaceKey,
-            baseDomains: \array_map(
-                fn (WebspaceCustomUrl $customUrl): string => $customUrl->getUrl(),
-                $webspace->getCustomUrls($this->environment),
-            )
-        );
-    }
-
-    public function save(string $id, array $data): CustomUrlEntity
-    {
-        $customUrl = $this->customUrlRepository->find($id);
         $this->bind($customUrl, $data);
 
         $this->addHistoryEntry($customUrl);
         $this->entityManager->flush();
 
         $this->documentDomainEventCollector->collect(new CustomUrlModifiedEvent($customUrl, $data));
-
-        return $customUrl;
     }
 
     public function deleteByIds(array $ids): void

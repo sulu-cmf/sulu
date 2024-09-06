@@ -14,7 +14,6 @@ namespace Sulu\Component\CustomUrl\Routing;
 use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 use Sulu\Component\CustomUrl\Generator\GeneratorInterface;
 use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
-use Sulu\Component\DocumentManager\PathBuilder;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Webspace\Analyzer\Attributes\RequestAttributes;
 use Sulu\Component\Webspace\Analyzer\RequestAnalyzer;
@@ -40,7 +39,6 @@ class CustomUrlRouteProvider implements RouteProviderInterface
         private GeneratorInterface $generator,
         private WebspaceManagerInterface $webspaceManager,
         private array $defaultOptions,
-        private PathBuilder $pathBuilder,
         private string $environment,
         private CustomUrlDefaultsProvider $customUrlDefaultsProvider
     ) {
@@ -70,12 +68,12 @@ class CustomUrlRouteProvider implements RouteProviderInterface
         $defaults = $this->customUrlDefaultsProvider->provideDefault($request, $customUrl);
 
         if ($customUrl->isRedirect()) {
-            $defaults = array_merge(
+            $defaults = \array_merge(
                 $defaults,
-                $this->customUrlDefaultsProvider->provideForRedirect( $request, $customUrl)
+                $this->customUrlDefaultsProvider->provideForRedirect($request, $customUrl)
             );
         } else {
-            $defaults = array_merge(
+            $defaults = \array_merge(
                 $defaults,
                 $this->customUrlDefaultsProvider->provideForForward($request, $customUrl),
             );
@@ -84,7 +82,7 @@ class CustomUrlRouteProvider implements RouteProviderInterface
         // Forwarding the route to the normal request handling
         $collection = new RouteCollection();
         $collection->add(
-            'Custom Url: '.$customUrl->getTitle(),
+            'Custom Url: ' . $customUrl->getTitle(),
             new Route(
                 path: $this->decodePathInfo($request->getPathInfo()),
                 defaults: $defaults,
@@ -121,7 +119,7 @@ class CustomUrlRouteProvider implements RouteProviderInterface
         $localization = Localization::createFromString($customUrl->getTargetLocale());
 
         // TODO: Fix this
-        $attributes = $request->attributes->get(RequestAnalyzer::SULU_ATTRIBUTE)->merge(New RequestAttributes([
+        $attributes = $request->attributes->get(RequestAnalyzer::SULU_ATTRIBUTE)->merge(new RequestAttributes([
             'portalInformation' => $portalInformation,
             'localization' => $localization,
             'locale' => $localization->getLocale(),
@@ -134,14 +132,9 @@ class CustomUrlRouteProvider implements RouteProviderInterface
         return $customUrl;
     }
 
-
     /**
      * Server encodes the url and symfony does not encode it
      * Symfony decodes this data here https://github.com/symfony/symfony/blob/3.3/src/Symfony/Component/Routing/Matcher/UrlMatcher.php#L91.
-     *
-     * @param string $pathInfo
-     *
-     * @return string
      */
     private function decodePathInfo(string $pathInfo): string
     {

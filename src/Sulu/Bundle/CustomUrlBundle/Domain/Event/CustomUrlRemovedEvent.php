@@ -35,7 +35,7 @@ class CustomUrlRemovedEvent extends DomainEvent
 
     public function getResourceId(): string
     {
-        return $this->customUrl->getId();
+        return (string) $this->customUrl->getId();
     }
 
     public function getResourceWebspaceKey(): ?string
@@ -50,6 +50,6 @@ class CustomUrlRemovedEvent extends DomainEvent
 
     public function getResourceSecurityContext(): ?string
     {
-        return CustomUrlAdmin::getCustomUrlSecurityContext($this->webspaceKey);
+        return CustomUrlAdmin::getCustomUrlSecurityContext($this->customUrl->getWebspace());
     }
 }

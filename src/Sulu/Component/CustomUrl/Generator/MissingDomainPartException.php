@@ -18,6 +18,9 @@ use Sulu\Component\Rest\Exception\RestException;
  */
 class MissingDomainPartException extends RestException
 {
+    /**
+     * @var array<string>
+     */
     public function __construct(
         private string $baseDomain,
         private array $domainParts,

@@ -22,10 +22,12 @@ use Sulu\Component\DocumentManager\Behavior\Mapping\UuidBehavior;
  */
 interface CustomUrlRepositoryInterface extends ObjectRepository
 {
+    public function findByWebspaceKey(string $webspaceKey): RowsIterator;
+
     /**
      * @param array<string> $baseDomains
      */
-    public function findByWebspaceAndBaseDomains(string $webspace, array $baseDomains = []): RowsIterator;
+    public function findByWebspaceAndBaseDomains(string $webspaceKey, array $baseDomains = []): RowsIterator;
 
     /**
      * @return array<CustomUrl>

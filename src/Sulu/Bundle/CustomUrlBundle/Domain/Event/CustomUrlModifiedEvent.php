@@ -14,7 +14,6 @@ namespace Sulu\Bundle\CustomUrlBundle\Domain\Event;
 use Sulu\Bundle\ActivityBundle\Domain\Event\DomainEvent;
 use Sulu\Bundle\CustomUrlBundle\Admin\CustomUrlAdmin;
 use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
 
 class CustomUrlModifiedEvent extends DomainEvent
 {
@@ -28,7 +27,7 @@ class CustomUrlModifiedEvent extends DomainEvent
         parent::__construct();
     }
 
-    public function getCustomUrlDocument(): CustomUrlDocument
+    public function getCustomUrlDocument(): CustomUrl
     {
         return $this->customUrl;
     }
@@ -65,6 +64,6 @@ class CustomUrlModifiedEvent extends DomainEvent
 
     public function getResourceSecurityContext(): ?string
     {
-        return CustomUrlAdmin::getCustomUrlSecurityContext($this->webspaceKey);
+        return CustomUrlAdmin::getCustomUrlSecurityContext($this->customUrl->getWebspace());
     }
 }

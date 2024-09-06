@@ -64,6 +64,6 @@ class CustomUrlRestoredEvent extends DomainEvent
 
     public function getResourceSecurityContext(): ?string
     {
-        return CustomUrlAdmin::getCustomUrlSecurityContext($this->webspaceKey);
+        return CustomUrlAdmin::getCustomUrlSecurityContext($this->customUrl->getWebspace());
     }
 }

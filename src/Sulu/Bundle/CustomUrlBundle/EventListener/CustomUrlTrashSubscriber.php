@@ -54,7 +54,7 @@ final class CustomUrlTrashSubscriber implements EventSubscriberInterface
     {
         $document = $event->getDocument();
 
-        if (!$document instanceof CustomUrlDocument) {
+        if (!$document instanceof CustomUrl) {
             return;
         }
 

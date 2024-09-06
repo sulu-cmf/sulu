@@ -17,21 +17,26 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
 use Sulu\Bundle\CustomUrlBundle\Admin\CustomUrlAdmin;
 use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrlRoute;
+use Sulu\Component\Persistence\Repository\ORM\EntityRepository;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Webmozart\Assert\Assert;
 
 /**
  * @RouteResource("route")
  */
-class CustomUrlHistoryController extends AbstractRestController implements SecuredControllerInterface
+class CustomUrlRouteController extends AbstractRestController implements SecuredControllerInterface
 {
-    private static $relationName = 'custom_url_routes';
+    private static string $relationName = 'custom_url_routes';
 
-    private ObjectRepository $customUrlHistoryRepository;
+    /**
+     * @var ObjectRepository<EntityRepository<CustomUrlRoute>>
+     */
+    private ObjectRepository $customUrlRouteRepository;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -39,14 +44,14 @@ class CustomUrlHistoryController extends AbstractRestController implements Secur
         private RequestStack $requestStack
     ) {
         parent::__construct($viewHandler);
-        $this->customUrlHistoryRepository = $this->entityManager->getRepository(CustomUrlRoute::class);
+        $this->customUrlRouteRepository = $this->entityManager->getRepository(CustomUrlRoute::class);
     }
 
     public function cgetAction(string $webspace, string $id, Request $request): Response
     {
         // Get all routes for the current CustomUrl, but skip the newest (because that's the currently in use route)
-        /** @var array<CustomUrlRoute> $historyRoutes */
-        $historicRoutes = $this->customUrlHistoryRepository->findBy(
+        /** @var array<CustomUrlRoute> $historicRoutes */
+        $historicRoutes = $this->customUrlRouteRepository->findBy(
             criteria: ['customUrl' => $id],
             orderBy: ['created' => 'DESC'],
             offset: 1
@@ -68,9 +73,15 @@ class CustomUrlHistoryController extends AbstractRestController implements Secur
 
     public function cdeleteAction(string $webspace, string $id, Request $request): Response
     {
-        $ids = \array_filter(\explode(',', $request->get('ids', '')));
+        $ids = [];
+        foreach (\explode(',', $request->attributes->getString('ids', '')) as $id) {
+            if ('' === $id) {
+                continue;
+            }
+            $ids[] = (int) $id;
+        }
 
-        $entitiesToRemove = $this->customUrlHistoryRepository->findBy(['id' => $ids]);
+        $entitiesToRemove = $this->customUrlRouteRepository->findBy(['id' => $ids]);
         foreach ($entitiesToRemove as $entity) {
             $this->entityManager->remove($entity);
         }
@@ -82,8 +93,9 @@ class CustomUrlHistoryController extends AbstractRestController implements Secur
     public function getSecurityContext(): string
     {
         $request = $this->requestStack->getCurrentRequest();
+        Assert::notNull($request, 'Unable to get from request stack');
 
-        return CustomUrlAdmin::getCustomUrlSecurityContext($request->attributes->get('webspace'));
+        return CustomUrlAdmin::getCustomUrlSecurityContext($request->attributes->getString('webspace'));
     }
 
     public function getLocale(Request $request): ?string

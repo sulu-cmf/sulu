@@ -11,55 +11,31 @@
 
 namespace Sulu\Bundle\CustomUrlBundle\Tests\Functional\Trash;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 use Sulu\Bundle\CustomUrlBundle\Trash\CustomUrlTrashItemHandler;
-use Sulu\Bundle\PageBundle\Document\HomeDocument;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
 use Sulu\Component\DocumentManager\Document\UnknownDocument;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
-use Sulu\Component\DocumentManager\PathBuilder;
 
 class CustomUrlTrashItemHandlerTest extends SuluTestCase
 {
-    /**
-     * @var DocumentManagerInterface
-     */
-    private $documentManager;
+    private EntityManagerInterface $entityManager;
 
-    /**
-     * @var CustomUrlTrashItemHandler
-     */
-    private $customUrlTrashItemHandler;
-
-    /**
-     * @var PathBuilder
-     */
-    private $pathBuilder;
+    private CustomUrlTrashItemHandler $customUrlTrashItemHandler;
 
     public function setUp(): void
     {
         static::purgeDatabase();
-        static::initPhpcr();
 
-        $this->documentManager = static::getContainer()->get('sulu_document_manager.document_manager');
+        $this->entityManager = static::getContainer()->get(EntityManagerInterface::class);
         $this->customUrlTrashItemHandler = static::getContainer()->get('sulu_custom_urls.custom_url_trash_item_handler');
-        $this->pathBuilder = static::getContainer()->get('sulu_document_manager.path_builder');
     }
 
     public function testStoreAndRestore(): void
     {
-        /** @var HomeDocument $homepageDocument */
-        $homepageDocument = $this->documentManager->find('/cmf/sulu_io/contents');
-
-        /** @var UnknownDocument $customUrlItemsDocument */
-        $customUrlItemsDocument = $this->documentManager->find(
-            $this->pathBuilder->build(['%base%', 'sulu_io', '%custom_urls%', '%custom_urls_items%'])
-        );
-
-        /** @var CustomUrlDocument $customUrl1 */
-        $customUrl1 = $this->documentManager->create('custom_url');
+        $customUrl1 = new CustomUrl();
         $customUrl1->setTitle('test-title-1');
-        $customUrl1->setParent($customUrlItemsDocument);
         $customUrl1->setCreator(101);
         $customUrl1->setCreated(new \DateTime('1999-04-20'));
         $customUrl1->setBaseDomain('sulu-test.localhost/*/*');
@@ -68,22 +44,10 @@ class CustomUrlTrashItemHandlerTest extends SuluTestCase
         $customUrl1->setRedirect(false);
         $customUrl1->setNoFollow(true);
         $customUrl1->setNoIndex(false);
-        $customUrl1->setTargetDocument($homepageDocument);
+        $customUrl1->setTargetDocument('23232323');
         $customUrl1->setTargetLocale('de');
         $customUrl1->setPublished(true);
-        $this->documentManager->persist($customUrl1, CustomUrlDocument::DOCUMENT_LOCALE);
-
-        /** @var CustomUrlDocument $customUrl2 */
-        $customUrl2 = $this->documentManager->create('custom_url');
-        $customUrl2->setTitle('test-title-2');
-        $customUrl2->setBaseDomain('sulu-test.localhost/*/*');
-        $customUrl2->setDomainParts(['abcde', 'fghij']);
-        $customUrl2->setTargetDocument($homepageDocument);
-        $customUrl2->setTargetLocale('de');
-        $this->documentManager->persist($customUrl1, CustomUrlDocument::DOCUMENT_LOCALE);
-
-        $this->documentManager->flush();
-        $originalCustomUrlUuid = $customUrl1->getUuid();
+        $this->entityManager->persist($customUrl1);
 
         $trashItem = $this->customUrlTrashItemHandler->store($customUrl1);
         $this->documentManager->remove($customUrl1);

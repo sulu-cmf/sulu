@@ -14,31 +14,47 @@ namespace Sulu\Component\CustomUrl\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
-use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrlRoute;
+use Sulu\Component\Webspace\CustomUrl as WebspaceCustomUrl;
 use Sulu\Component\Content\Document\Behavior\WebspaceBehavior;
 use Sulu\Component\Content\Repository\ContentRepositoryInterface;
 use Sulu\Component\Content\Repository\Mapping\MappingBuilder;
 use Sulu\Component\CustomUrl\Generator\GeneratorInterface;
 use Sulu\Component\DocumentManager\Behavior\Mapping\UuidBehavior;
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
+/** @extends ServiceEntityRepository<CustomUrl> */
 class CustomUrlRepository extends ServiceEntityRepository implements CustomUrlRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,
         private readonly ContentRepositoryInterface $contentRepository,
         private readonly GeneratorInterface $customUrlGenerator,
+        private readonly WebspaceManagerInterface $webspaceManager,
     ) {
         parent::__construct($registry, CustomUrl::class);
+    }
+
+    public function findByWebspaceKey(string $webspaceKey): RowsIterator
+    {
+        $webspace = $this->webspaceManager->findWebspaceByKey($webspaceKey);
+
+        return $this->findByWebspaceAndBaseDomains(
+            $webspaceKey,
+            baseDomains: \array_map(
+                fn (WebspaceCustomUrl $customUrl): string => $customUrl->getUrl(),
+                $webspace->getCustomUrls($this->environment),
+            )
+        );
     }
 
     /**
      * @param string[] $baseDomains
      */
-    public function findByWebspaceAndBaseDomains(string $webspace, array $baseDomains = []): RowsIterator
+    public function findByWebspaceAndBaseDomains(string $webspaceKey, array $baseDomains = []): RowsIterator
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->andWhere('c.webspace = :webspace')
-            ->setParameter('webspace', $webspace)
+            ->setParameter('webspace', $webspaceKey)
         ;
 
         if ([] !== $baseDomains) {
@@ -59,6 +75,7 @@ class CustomUrlRepository extends ServiceEntityRepository implements CustomUrlRe
 
         return new RowsIterator($result, $targets, $this->customUrlGenerator);
     }
+
     public function findNewestPublishedByUrl(string $url, string $webspace, ?string $locale = null): ?CustomUrl
     {
         return $this->createQueryBuilder('c')

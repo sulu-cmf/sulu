@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Sulu\Component\CustomUrl\Routing;
 
 use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
@@ -21,7 +30,6 @@ class CustomUrlDefaultsProvider
         private WebspaceManagerInterface $webspaceManager
     ) {
     }
-
 
     public function provideDefault(Request $request, CustomUrl $customUrl): array
     {
@@ -46,7 +54,7 @@ class CustomUrlDefaultsProvider
         return [
             '_seo' => $seo,
             '_webspace' => $this->webspaceManager->findWebspaceByKey($customUrl->getWebspace()),
-            '_environment' => 'dev'
+            '_environment' => 'dev',
         ];
     }
 
@@ -74,7 +82,7 @@ class CustomUrlDefaultsProvider
         $queryStringSuffix = $queryString ? '?' . $queryString : '';
 
         return [
-            '_controller' => SuluRedirectController::class. '::redirectAction',
+            '_controller' => SuluRedirectController::class . '::redirectAction',
             'url' => $url . $requestFormatSuffix . $queryStringSuffix,
         ];
     }
@@ -84,12 +92,12 @@ class CustomUrlDefaultsProvider
         $document = $this->documentManager->find($customUrl->getTargetDocument());
 
         //if ($document->getNodeType() === Structure::NODE_TYPE_EXTERNAL_LINK) {
-            //return [
-                //'_controller' => [SuluRedirectController, 'redirectAction'],
-                //'url' => $document->getResourceLocator(),
-            //];
+        //return [
+        //'_controller' => [SuluRedirectController, 'redirectAction'],
+        //'url' => $document->getResourceLocator(),
+        //];
         //} else if ($document->getNodeType() === Structure::NODE_TYPE_INTERNAL_LINK) {
-            //$structure = $document->getInternalLinkContent();
+        //$structure = $document->getInternalLinkContent();
         //} else {
         //}
 
@@ -105,5 +113,4 @@ class CustomUrlDefaultsProvider
             '_structure' => $structureBridge,
         ];
     }
-
 }

@@ -25,6 +25,7 @@ use Sulu\Bundle\PageBundle\Document\PageDocument;
 use Sulu\Component\CustomUrl\Generator\Generator;
 use Sulu\Component\CustomUrl\Manager\CustomUrlManager;
 use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
+use Sulu\Component\CustomUrl\Repository\RowsIterator;
 use Sulu\Component\Webspace\CustomUrl;
 use Sulu\Component\Webspace\Environment;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
@@ -77,28 +78,6 @@ class CustomUrlManagerTest extends TestCase
         );
     }
 
-    public function testFindList(): void
-    {
-        $this->customUrlRepository->findByWebspaceAndBaseDomains('sulu_io', ['*.sulu.io', 'sulu.io/*'])
-            ->willReturn([['title' => 'Test-1'], ['title' => 'Test-2']]);
-
-        $environment = new Environment();
-        $environment->addCustomUrl(new CustomUrl('*.sulu.io'));
-        $environment->addCustomUrl(new CustomUrl('sulu.io/*'));
-
-        $portal = new Portal();
-        $portal->setEnvironments([$this->environment]);
-
-        $webspace = new Webspace();
-        $webspace->addPortal($portal);
-
-        $this->webspaceManager->findWebspaceByKey('sulu_io')->willReturn($webspace->reveal());
-
-        $result = $this->customUrlManager->findByWebspaceKey('sulu_io');
-
-        $this->assertEquals([['title' => 'Test-1'], ['title' => 'Test-2']], $result);
-    }
-
     public function testCreate(): void
     {
         $this->entityManager->persist(Argument::type(CustomUrlEntity::class))->shouldBeCalled();
@@ -138,10 +117,6 @@ class CustomUrlManagerTest extends TestCase
     public function testSave(): void
     {
         $customUrl = $this->prophesize(CustomUrlEntity::class);
-        $this->customUrlRepository->find('312-312-312')->shouldBeCalled()->willReturn($customUrl);
-
-        $targetDocument = $this->prophesize(PageDocument::class);
-
         $customUrl->setTitle('Test')->shouldBeCalled();
         $customUrl->setPublished(true)->shouldBeCalled();
         $customUrl->setRedirect(true)->shouldBeCalled();
@@ -156,11 +131,12 @@ class CustomUrlManagerTest extends TestCase
             }))
             ->shouldBeCalled()
         ;
+
         $customUrl->getBaseDomain()->willReturn('*.sulu.io/*');
         $customUrl->getDomainParts()->willReturn(['test-1', 'some-part']);
 
         $this->customUrlManager->save(
-            '312-312-312',
+            $customUrl->reveal(),
             [
                 'title' => 'Test',
                 'published' => true,

@@ -13,10 +13,13 @@
         <field name="created" type="datetime" />
         <field name="changed" type="datetime" />
 
-        <many-to-one field="customUrl" target-entity="Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl" inversed-by="routes" />
+        <many-to-one field="customUrl" target-entity="Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl" inversed-by="routes">
+            <join-column name="customUrl" referenced-column-name="id" nullable="false" />
+         </many-to-one>
 
         <indices>
             <index name="routeUniqueInRouting" columns="customUrl,path" unique="true" />
+            <index name="routes" columns="path" />
         </indices>
     </mapped-superclass>
 </doctrine-mapping>

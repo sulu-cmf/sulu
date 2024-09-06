@@ -17,7 +17,6 @@ use Sulu\Bundle\ActivityBundle\Domain\Model\ActivityInterface;
 use Sulu\Bundle\DocumentManagerBundle\Slugifier\Urlizer;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class CustomUrlControllerTest extends SuluTestCase
 {
@@ -30,11 +29,6 @@ class CustomUrlControllerTest extends SuluTestCase
      * @var ObjectRepository<TrashItemInterface>
      */
     private $trashItemRepository;
-
-    /**
-     * @var KernelBrowser
-     */
-    private $client;
 
     public function setUp(): void
     {
