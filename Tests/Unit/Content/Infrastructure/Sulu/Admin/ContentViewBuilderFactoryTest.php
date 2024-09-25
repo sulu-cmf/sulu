@@ -446,7 +446,7 @@ class ContentViewBuilderFactoryTest extends TestCase
 
         $contentMetadataInspector = $this->prophesize(ContentMetadataInspectorInterface::class);
         $contentMetadataInspector->getDimensionContentClass(Example::class)
-            ->willReturn(\get_class($dimensionContentObject));
+            ->willReturn($dimensionContentObject::class);
 
         $contentViewBuilder = $this->createContentViewBuilder($contentMetadataInspector->reveal(), $securityChecker->reveal());
 

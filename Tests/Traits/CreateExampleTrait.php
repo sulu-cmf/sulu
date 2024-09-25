@@ -152,7 +152,7 @@ trait CreateExampleTrait
                     $draftTemplateData = $draftLocalizedDimension->getTemplateData();
                     $route->setPath($draftTemplateData['url']);
                     $route->setEntityId($example->getId()); // @phpstan-ignore-line
-                    $route->setEntityClass(\get_class($example));
+                    $route->setEntityClass($example::class);
 
                     $entityManager->persist($route);
                 }

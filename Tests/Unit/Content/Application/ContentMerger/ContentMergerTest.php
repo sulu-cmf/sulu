@@ -79,7 +79,7 @@ class ContentMergerTest extends TestCase
         ], [
             'locale' => 'en',
             'stage' => 'draft',
-        ], \get_class($dimensionContent1));
+        ], $dimensionContent1::class);
 
         $this->assertSame(
             $mergedDimensionContent->reveal(),

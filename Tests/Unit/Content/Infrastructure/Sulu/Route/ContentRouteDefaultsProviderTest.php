@@ -67,7 +67,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
 
         $contentRichEntity = new Example();
 
-        $this->assertTrue($contentRouteDefaultsProvider->supports(\get_class($contentRichEntity)));
+        $this->assertTrue($contentRouteDefaultsProvider->supports($contentRichEntity::class));
         $this->assertFalse($contentRouteDefaultsProvider->supports(\stdClass::class));
     }
 

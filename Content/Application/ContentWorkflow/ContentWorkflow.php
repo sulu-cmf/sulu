@@ -94,7 +94,7 @@ class ContentWorkflow implements ContentWorkflowInterface
         }
 
         if (!$localizedDimensionContent instanceof WorkflowInterface) {
-            throw new \RuntimeException(\sprintf('Expected "%s" but "%s" given.', WorkflowInterface::class, \get_class($localizedDimensionContent)));
+            throw new \RuntimeException(\sprintf('Expected "%s" but "%s" given.', WorkflowInterface::class, $localizedDimensionContent::class));
         }
 
         $workflow = $this->workflowRegistry->get(

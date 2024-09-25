@@ -67,7 +67,7 @@ class RouteRemover implements EventSubscriber
             return; // @codeCoverageIgnore
         }
 
-        $dimensionContentClass = $this->contentMetadataInspector->getDimensionContentClass(\get_class($object));
+        $dimensionContentClass = $this->contentMetadataInspector->getDimensionContentClass($object::class);
         $resourceKey = $dimensionContentClass::getResourceKey();
 
         $entityClass = null;

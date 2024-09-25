@@ -112,7 +112,7 @@ class ContentPublishTaskHandlerTest extends TestCase
     {
         $entity = new Example();
 
-        $this->assertTrue($this->handler->supports(\get_class($entity)));
+        $this->assertTrue($this->handler->supports($entity::class));
         $this->assertFalse($this->handler->supports(PageDocument::class));
     }
 

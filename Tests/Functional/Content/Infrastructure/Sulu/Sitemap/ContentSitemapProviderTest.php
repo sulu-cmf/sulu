@@ -146,7 +146,7 @@ class ContentSitemapProviderTest extends SuluTestCase
         $sitemap = $this->contentSitemapProvider->createSitemap(static::SCHEME, static::HOST);
 
         $this->assertNotNull($sitemap);
-        $this->assertSame(Sitemap::class, \get_class($sitemap));
+        $this->assertSame(Sitemap::class, $sitemap::class);
         $this->assertSame($this->contentSitemapProvider->getAlias(), $sitemap->getAlias());
         $this->assertSame($this->contentSitemapProvider->getMaxPage(static::SCHEME, static::HOST), $sitemap->getMaxPage());
     }

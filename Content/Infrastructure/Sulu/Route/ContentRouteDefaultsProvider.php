@@ -80,7 +80,7 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
         }
 
         if (!$entity instanceof TemplateInterface) {
-            throw new \RuntimeException(\sprintf('Expected to get "%s" from ContentResolver but "%s" given.', TemplateInterface::class, \get_class($entity)));
+            throw new \RuntimeException(\sprintf('Expected to get "%s" from ContentResolver but "%s" given.', TemplateInterface::class, $entity::class));
         }
 
         try {
@@ -156,7 +156,7 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
             );
 
             if (!$resolvedDimensionContent instanceof TemplateInterface) {
-                throw new \RuntimeException(\sprintf('Expected to get "%s" from ContentResolver but "%s" given.', TemplateInterface::class, \get_class($resolvedDimensionContent)));
+                throw new \RuntimeException(\sprintf('Expected to get "%s" from ContentResolver but "%s" given.', TemplateInterface::class, $resolvedDimensionContent::class));
             }
 
             return $resolvedDimensionContent;
