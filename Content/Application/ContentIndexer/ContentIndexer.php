@@ -16,7 +16,7 @@ namespace Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer;
 use Massive\Bundle\SearchBundle\Search\QueryHit;
 use Massive\Bundle\SearchBundle\Search\SearchManager;
 use Massive\Bundle\SearchBundle\Search\SearchManagerInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -29,17 +29,17 @@ class ContentIndexer implements ContentIndexerInterface
     private $searchManager;
 
     /**
-     * @var ContentResolverInterface
+     * @var ContentAggregatorInterface
      */
-    private $contentResolver;
+    private $contentAggregator;
 
     /**
      * @param SearchManager $searchManager
      */
-    public function __construct(SearchManagerInterface $searchManager, ContentResolverInterface $contentResolver)
+    public function __construct(SearchManagerInterface $searchManager, ContentAggregatorInterface $contentAggregator)
     {
         $this->searchManager = $searchManager;
-        $this->contentResolver = $contentResolver;
+        $this->contentAggregator = $contentAggregator;
     }
 
     public function index(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface
@@ -109,7 +109,7 @@ class ContentIndexer implements ContentIndexerInterface
             throw new ContentNotFoundException($contentRichEntity, $dimensionAttributes);
         }
 
-        $dimensionContent = $this->contentResolver->resolve($contentRichEntity, $dimensionAttributes);
+        $dimensionContent = $this->contentAggregator->aggregate($contentRichEntity, $dimensionAttributes);
 
         if ($locale !== $dimensionContent->getLocale()
             || $stage !== $dimensionContent->getStage()) {

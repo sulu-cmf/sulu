@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\ContentBundle\Content\Application\ContentCopier;
 
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentMerger\ContentMergerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentNormalizer\ContentNormalizerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentCollectionInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -24,9 +24,9 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 class ContentCopier implements ContentCopierInterface
 {
     /**
-     * @var ContentResolverInterface
+     * @var ContentAggregatorInterface
      */
-    private $contentResolver;
+    private $contentAggregator;
 
     /**
      * @var ContentMergerInterface
@@ -44,12 +44,12 @@ class ContentCopier implements ContentCopierInterface
     private $contentNormalizer;
 
     public function __construct(
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         ContentMergerInterface $contentMerger,
         ContentPersisterInterface $contentPersister,
         ContentNormalizerInterface $contentNormalizer
     ) {
-        $this->contentResolver = $contentResolver;
+        $this->contentAggregator = $contentAggregator;
         $this->contentMerger = $contentMerger;
         $this->contentPersister = $contentPersister;
         $this->contentNormalizer = $contentNormalizer;
@@ -62,7 +62,7 @@ class ContentCopier implements ContentCopierInterface
         array $targetDimensionAttributes,
         array $options = []
     ): DimensionContentInterface {
-        $sourceDimensionContent = $this->contentResolver->resolve($sourceContentRichEntity, $sourceDimensionAttributes);
+        $sourceDimensionContent = $this->contentAggregator->aggregate($sourceContentRichEntity, $sourceDimensionAttributes);
 
         return $this->copyFromDimensionContent($sourceDimensionContent, $targetContentRichEntity, $targetDimensionAttributes, $options);
     }

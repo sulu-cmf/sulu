@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\ContentBundle\Content\Application\ContentResolver;
+namespace Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator;
 
 use Sulu\Bundle\ContentBundle\Content\Application\ContentMerger\ContentMergerInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Exception\ContentNotFoundException;
@@ -19,7 +19,7 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Repository\DimensionContentRepositoryInterface;
 
-class ContentResolver implements ContentResolverInterface
+class ContentAggregator implements ContentAggregatorInterface
 {
     /**
      * @var DimensionContentRepositoryInterface
@@ -39,7 +39,7 @@ class ContentResolver implements ContentResolverInterface
         $this->contentMerger = $contentMerger;
     }
 
-    public function resolve(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface
+    public function aggregate(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface
     {
         $dimensionContentCollection = $this->dimensionContentRepository->load($contentRichEntity, $dimensionAttributes);
 

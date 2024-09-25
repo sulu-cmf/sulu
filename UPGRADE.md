@@ -1,10 +1,33 @@
 # Upgrade
 
+## 0.9.0
+
+### ContentResolver renamed to ContentAggregator
+
+The ContentResolver was renamed to ContentAggregator to better reflect its purpose. The service and the interface
+were renamed from `ContentResolver` and `ContentResolverInterface` to `ContentAggregator` and `ContentAggregatorInterface`.
+
+The service has been renamed from `sulu_content.content_resolver` to `sulu_content.content_aggregator`.
+
+Furthermore, the method `resolve` was renamed to `aggregate`.
+
+**Before**
+
+```php
+public function resolve(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface;
+```
+
+**After**
+
+```php
+public function aggregate(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface;
+```
+
 ## 0.8.0
 
-### Require PHP 8.1
+### Require PHP 8.0
 
-The SuluContentBundle now requires atleast PHP 8.0.
+The SuluContentBundle now requires at least PHP 8.0.
 
 ## 0.7.0
 

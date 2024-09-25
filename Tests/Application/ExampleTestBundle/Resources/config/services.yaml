@@ -100,7 +100,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@sulu_content.content_metadata_inspector'
-            - '@sulu_content.content_resolver'
+            - '@sulu_content.content_aggregator'
             - '%sulu.context%'
             - Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\Example
         tags:
@@ -120,7 +120,7 @@ services:
         class: Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Preview\ContentObjectProvider
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@sulu_content.content_resolver'
+            - '@sulu_content.content_aggregator'
             - '@sulu_content.content_data_mapper'
             - Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\Example
         tags:

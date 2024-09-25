@@ -15,8 +15,8 @@ namespace Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Search;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Massive\Bundle\SearchBundle\Search\Reindex\LocalizedReindexProviderInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentMetadataInspector\ContentMetadataInspectorInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -40,9 +40,9 @@ class ContentReindexProvider implements LocalizedReindexProviderInterface
     private $contentMetadataInspector;
 
     /**
-     * @var ContentResolverInterface
+     * @var ContentAggregatorInterface
      */
-    private $contentResolver;
+    private $contentAggregator;
 
     /**
      * @var string
@@ -65,13 +65,13 @@ class ContentReindexProvider implements LocalizedReindexProviderInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         ContentMetadataInspectorInterface $contentMetadataInspector,
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         string $context,
         string $contentRichEntityClass
     ) {
         $this->entityManager = $entityManager;
         $this->contentMetadataInspector = $contentMetadataInspector;
-        $this->contentResolver = $contentResolver;
+        $this->contentAggregator = $contentAggregator;
         $this->context = $context;
         $this->contentRichEntityClass = $contentRichEntityClass;
     }
@@ -151,7 +151,7 @@ class ContentReindexProvider implements LocalizedReindexProviderInterface
         $stage = $this->getWorkflowStage();
 
         try {
-            $dimensionContent = $this->contentResolver->resolve(
+            $dimensionContent = $this->contentAggregator->aggregate(
                 $object,
                 [
                     'locale' => $locale,

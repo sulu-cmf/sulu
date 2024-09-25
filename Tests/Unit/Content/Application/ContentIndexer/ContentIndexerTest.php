@@ -20,9 +20,9 @@ use Massive\Bundle\SearchBundle\Search\SearchManagerInterface;
 use Massive\Bundle\SearchBundle\Search\SearchQueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexer;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -33,28 +33,28 @@ class ContentIndexerTest extends TestCase
 
     protected function createContentIndexerInstance(
         SearchManagerInterface $searchManager,
-        ContentResolverInterface $contentResolver
+        ContentAggregatorInterface $contentAggregator
     ): ContentIndexerInterface {
         /** @var SearchManager $searchManager */
 
-        return new ContentIndexer($searchManager, $contentResolver);
+        return new ContentIndexer($searchManager, $contentAggregator);
     }
 
     public function testIndex(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $contentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $dimensionAttributes = ['locale' => 'en', 'stage' => DimensionContentInterface::STAGE_DRAFT];
         $dimensionContent = $this->prophesize(DimensionContentInterface::class);
         $dimensionContent->isMerged()->willReturn(true);
-        $contentResolver->resolve($contentRichEntity->reveal(), $dimensionAttributes)
+        $contentAggregator->aggregate($contentRichEntity->reveal(), $dimensionAttributes)
             ->willReturn($dimensionContent->reveal());
         $dimensionContent->getLocale()->willReturn('en');
         $dimensionContent->getStage()->willReturn(DimensionContentInterface::STAGE_DRAFT);
@@ -70,16 +70,16 @@ class ContentIndexerTest extends TestCase
     public function testIndexContentNotFound(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $contentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $dimensionAttributes = ['locale' => 'en', 'stage' => DimensionContentInterface::STAGE_DRAFT];
-        $contentResolver->resolve($contentRichEntity->reveal(), $dimensionAttributes)
+        $contentAggregator->aggregate($contentRichEntity->reveal(), $dimensionAttributes)
             ->willThrow(ContentNotFoundException::class);
 
         $this->expectException(ContentNotFoundException::class);
@@ -90,17 +90,17 @@ class ContentIndexerTest extends TestCase
     public function testIndexWrongLocale(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $contentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $dimensionAttributes = ['locale' => 'en', 'stage' => DimensionContentInterface::STAGE_DRAFT];
         $dimensionContent = $this->prophesize(DimensionContentInterface::class);
-        $contentResolver->resolve($contentRichEntity->reveal(), $dimensionAttributes)
+        $contentAggregator->aggregate($contentRichEntity->reveal(), $dimensionAttributes)
             ->willReturn($dimensionContent->reveal());
         $dimensionContent->getLocale()->willReturn(null);
         $dimensionContent->getStage()->willReturn(DimensionContentInterface::STAGE_DRAFT);
@@ -113,11 +113,11 @@ class ContentIndexerTest extends TestCase
     public function testIndexInvalidDimensionAttributes(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $contentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
@@ -131,11 +131,11 @@ class ContentIndexerTest extends TestCase
     public function testDeindex(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $resourceKey = 'examples';
@@ -171,11 +171,11 @@ class ContentIndexerTest extends TestCase
     public function testDeindexLive(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $resourceKey = 'examples';
@@ -211,11 +211,11 @@ class ContentIndexerTest extends TestCase
     public function testDeindexNoStage(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $resourceKey = 'examples';
@@ -257,11 +257,11 @@ class ContentIndexerTest extends TestCase
     public function testDeindexNoLocale(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $resourceKey = 'examples';
@@ -305,11 +305,11 @@ class ContentIndexerTest extends TestCase
     public function testDeindexWithoutDimensionAttributes(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
-            $contentResolver->reveal()
+            $contentAggregator->reveal()
         );
 
         $resourceKey = 'examples';
@@ -359,7 +359,7 @@ class ContentIndexerTest extends TestCase
     public function testIndexDimensionContent(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentResolver = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
@@ -377,7 +377,7 @@ class ContentIndexerTest extends TestCase
     public function testIndexDimensionContentNotMerged(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentResolver = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
@@ -395,7 +395,7 @@ class ContentIndexerTest extends TestCase
     public function testDeindexDimensionContent(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentResolver = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),
@@ -414,7 +414,7 @@ class ContentIndexerTest extends TestCase
     public function testDeindexDimensionContentNotMerged(): void
     {
         $searchManager = $this->prophesize(SearchManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentResolver = $this->prophesize(ContentAggregatorInterface::class);
 
         $contentIndexer = $this->createContentIndexerInstance(
             $searchManager->reveal(),

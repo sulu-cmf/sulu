@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\ContentBundle\Content\Application\ContentManager;
 
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentCopier\ContentCopierInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentNormalizer\ContentNormalizerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentWorkflow\ContentWorkflowInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -25,9 +25,9 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 class ContentManager implements ContentManagerInterface
 {
     /**
-     * @var ContentResolverInterface
+     * @var ContentAggregatorInterface
      */
-    private $contentResolver;
+    private $contentAggregator;
 
     /**
      * @var ContentPersisterInterface
@@ -55,14 +55,14 @@ class ContentManager implements ContentManagerInterface
     private $contentIndexer;
 
     public function __construct(
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         ContentPersisterInterface $contentPersister,
         ContentNormalizerInterface $contentNormalizer,
         ContentCopierInterface $contentCopier,
         ContentWorkflowInterface $contentWorkflow,
         ContentIndexerInterface $contentIndexer
     ) {
-        $this->contentResolver = $contentResolver;
+        $this->contentAggregator = $contentAggregator;
         $this->contentPersister = $contentPersister;
         $this->contentNormalizer = $contentNormalizer;
         $this->contentCopier = $contentCopier;
@@ -72,7 +72,7 @@ class ContentManager implements ContentManagerInterface
 
     public function resolve(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface
     {
-        return $this->contentResolver->resolve($contentRichEntity, $dimensionAttributes);
+        return $this->contentAggregator->aggregate($contentRichEntity, $dimensionAttributes);
     }
 
     public function persist(ContentRichEntityInterface $contentRichEntity, array $data, array $dimensionAttributes): DimensionContentInterface

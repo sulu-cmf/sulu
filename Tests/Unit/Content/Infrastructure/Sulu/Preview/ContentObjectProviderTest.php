@@ -21,8 +21,8 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentDataMapper\ContentDataMapperInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -45,9 +45,9 @@ class ContentObjectProviderTest extends TestCase
     private $entityManager;
 
     /**
-     * @var ObjectProphecy<ContentResolverInterface>
+     * @var ObjectProphecy<ContentAggregatorInterface>
      */
-    private $contentResolver;
+    private $contentAggregator;
 
     /**
      * @var ObjectProphecy<ContentDataMapperInterface>
@@ -62,12 +62,12 @@ class ContentObjectProviderTest extends TestCase
     protected function setUp(): void
     {
         $this->entityManager = $this->prophesize(EntityManagerInterface::class);
-        $this->contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $this->contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $this->contentDataMapper = $this->prophesize(ContentDataMapperInterface::class);
 
         $this->contentObjectProvider = new ContentObjectProvider(
             $this->entityManager->reveal(),
-            $this->contentResolver->reveal(),
+            $this->contentAggregator->reveal(),
             $this->contentDataMapper->reveal(),
             Example::class,
             ExampleAdmin::SECURITY_CONTEXT
@@ -106,7 +106,7 @@ class ContentObjectProviderTest extends TestCase
 
         $dimensionContent = $this->prophesize(DimensionContentInterface::class);
 
-        $this->contentResolver->resolve(
+        $this->contentAggregator->aggregate(
             $entity->reveal(),
             Argument::type('array')
         )->willReturn($dimensionContent->reveal())->shouldBeCalledTimes(1);
@@ -150,7 +150,7 @@ class ContentObjectProviderTest extends TestCase
         $dimensionContent->willImplement(ShadowInterface::class);
         $dimensionContent->getShadowLocale()->willReturn('en')->shouldBeCalledTimes(2);
 
-        $this->contentResolver->resolve(
+        $this->contentAggregator->aggregate(
             $entity->reveal(),
             [
                 'locale' => 'de',
@@ -160,7 +160,7 @@ class ContentObjectProviderTest extends TestCase
 
         $dimensionContent = $this->prophesize(DimensionContentInterface::class);
         $dimensionContent->getLocale()->willReturn('en');
-        $this->contentResolver->resolve(
+        $this->contentAggregator->aggregate(
             $entity->reveal(),
             [
                 'locale' => 'en',
@@ -212,7 +212,7 @@ class ContentObjectProviderTest extends TestCase
 
         $query->getSingleResult()->willReturn($entity->reveal())->shouldBeCalledTimes(1);
 
-        $this->contentResolver->resolve(
+        $this->contentAggregator->aggregate(
             $entity->reveal(),
             Argument::type('array')
         )->willThrow(ContentNotFoundException::class)->shouldBeCalledTimes(1);
@@ -336,7 +336,7 @@ class ContentObjectProviderTest extends TestCase
 
         $dimensionContent = new ExampleDimensionContent(new Example());
 
-        $this->contentResolver->resolve(
+        $this->contentAggregator->aggregate(
             $entity->reveal(),
             Argument::type('array')
         )->willReturn($dimensionContent)->shouldBeCalledTimes(1);

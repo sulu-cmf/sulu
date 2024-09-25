@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Sulu\Bundle\ContentBundle\Tests\Unit\Content\Application\ContentManager;
 
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentCopier\ContentCopierInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManager;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentNormalizer\ContentNormalizerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentWorkflow\ContentWorkflowInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -30,7 +30,7 @@ class ContentManagerTest extends TestCase
     use \Prophecy\PhpUnit\ProphecyTrait;
 
     protected function createContentManagerInstance(
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         ContentPersisterInterface $contentPersister,
         ContentNormalizerInterface $contentNormalizer,
         ContentCopierInterface $contentCopier,
@@ -38,7 +38,7 @@ class ContentManagerTest extends TestCase
         ContentIndexerInterface $contentIndexer
     ): ContentManagerInterface {
         return new ContentManager(
-            $contentResolver,
+            $contentAggregator,
             $contentPersister,
             $contentNormalizer,
             $contentCopier,
@@ -53,7 +53,7 @@ class ContentManagerTest extends TestCase
         $contentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $dimensionAttributes = ['locale' => 'de', 'stage' => 'draft'];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -61,7 +61,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),
@@ -69,7 +69,7 @@ class ContentManagerTest extends TestCase
             $contentIndexer->reveal()
         );
 
-        $contentResolver->resolve($contentRichEntity->reveal(), $dimensionAttributes)
+        $contentAggregator->aggregate($contentRichEntity->reveal(), $dimensionAttributes)
             ->willReturn($dimensionContent->reveal())
             ->shouldBeCalled();
 
@@ -86,7 +86,7 @@ class ContentManagerTest extends TestCase
         $data = ['data' => 'value'];
         $dimensionAttributes = ['locale' => 'de', 'stage' => 'draft'];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -94,7 +94,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),
@@ -116,7 +116,7 @@ class ContentManagerTest extends TestCase
     {
         $dimensionContent = $this->prophesize(DimensionContentInterface::class);
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -124,7 +124,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),
@@ -151,7 +151,7 @@ class ContentManagerTest extends TestCase
         $targetContentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $targetDimensionAttributes = ['locale' => 'de'];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -159,7 +159,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),
@@ -195,7 +195,7 @@ class ContentManagerTest extends TestCase
         $dimensionAttributes = ['locale' => 'en'];
         $transitionName = 'review';
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -203,7 +203,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),
@@ -236,7 +236,7 @@ class ContentManagerTest extends TestCase
         $contentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $dimensionAttributes = ['locale' => 'en', 'stage' => DimensionContentInterface::STAGE_LIVE];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -244,7 +244,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),
@@ -274,7 +274,7 @@ class ContentManagerTest extends TestCase
         $resourceId = '123';
         $dimensionAttributes = ['locale' => 'en', 'stage' => DimensionContentInterface::STAGE_LIVE];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -282,7 +282,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),
@@ -303,7 +303,7 @@ class ContentManagerTest extends TestCase
         $resourceKey = 'examples';
         $resourceId = '123';
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
         $contentCopier = $this->prophesize(ContentCopierInterface::class);
@@ -311,7 +311,7 @@ class ContentManagerTest extends TestCase
         $contentIndexer = $this->prophesize(ContentIndexerInterface::class);
 
         $contentManager = $this->createContentManagerInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal(),
             $contentCopier->reveal(),

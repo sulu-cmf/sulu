@@ -15,7 +15,7 @@ namespace Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Route;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -34,9 +34,9 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
     protected $entityManager;
 
     /**
-     * @var ContentResolverInterface
+     * @var ContentAggregatorInterface
      */
-    protected $contentResolver;
+    protected $contentAggregator;
 
     /**
      * @var ContentStructureBridgeFactory
@@ -50,12 +50,12 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         ContentStructureBridgeFactory $contentStructureBridgeFactory,
         CacheLifetimeResolverInterface $cacheLifetimeResolver
     ) {
         $this->entityManager = $entityManager;
-        $this->contentResolver = $contentResolver;
+        $this->contentAggregator = $contentAggregator;
         $this->contentStructureBridgeFactory = $contentStructureBridgeFactory;
         $this->cacheLifetimeResolver = $cacheLifetimeResolver;
     }
@@ -147,7 +147,7 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
             //      to support other dimension attributes here
             //      we should maybe get dimension Attributes from request attributes set by a request listener
             //      e.g. $request->attributes->get('_sulu_content_dimension_attributes');
-            $resolvedDimensionContent = $this->contentResolver->resolve(
+            $resolvedDimensionContent = $this->contentAggregator->aggregate(
                 $contentRichEntity,
                 [
                     'locale' => $locale,

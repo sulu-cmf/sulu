@@ -19,9 +19,9 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Bundle\AdminBundle\Admin\View\FormViewBuilderInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\PreviewFormViewBuilderInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactory;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentDataMapper\ContentDataMapperInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentMetadataInspector\ContentMetadataInspectorInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\AuthorInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -89,13 +89,13 @@ class ContentViewBuilderFactoryTest extends TestCase
      */
     protected function createContentObjectProvider(
         EntityManagerInterface $entityManager,
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         ContentDataMapperInterface $contentDataMapper,
         string $entityClass
     ): ContentObjectProvider {
         return new ContentObjectProvider(
             $entityManager,
-            $contentResolver,
+            $contentAggregator,
             $contentDataMapper,
             $entityClass
         );
@@ -172,12 +172,12 @@ class ContentViewBuilderFactoryTest extends TestCase
         $contentMetadataInspector->getDimensionContentClass(Example::class)
             ->willReturn(ExampleDimensionContent::class);
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentDataMapper = $this->prophesize(ContentDataMapperInterface::class);
 
         $contentObjectProvider = $this->createContentObjectProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentDataMapper->reveal(),
             Example::class
         );

@@ -19,7 +19,7 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -39,13 +39,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
 
     protected function getContentRouteDefaultsProvider(
         EntityManagerInterface $entityManager,
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         ContentStructureBridgeFactory $contentStructureBridgeFactory,
         CacheLifetimeResolverInterface $cacheLifetimeResolver
     ): ContentRouteDefaultsProvider {
         return new ContentRouteDefaultsProvider(
             $entityManager,
-            $contentResolver,
+            $contentAggregator,
             $contentStructureBridgeFactory,
             $cacheLifetimeResolver
         );
@@ -54,13 +54,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testSupports(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -74,13 +74,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testIsPublished(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -101,7 +101,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity);
 
-        $contentResolver->resolve(
+        $contentAggregator->aggregate(
             $contentRichEntity,
             ['locale' => 'en', 'stage' => 'live']
         )->willReturn($resolvedDimensionContent);
@@ -112,13 +112,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testIsPublishedEntityNotFound(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -134,7 +134,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willThrow(new NoResultException());
 
-        $contentResolver->resolve(Argument::cetera())->shouldNotBeCalled();
+        $contentAggregator->aggregate(Argument::cetera())->shouldNotBeCalled();
 
         $this->assertFalse($contentRouteDefaultsProvider->isPublished(Example::class, '123-123-123', 'en'));
     }
@@ -142,13 +142,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testIsPublishedContentNotFound(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -166,7 +166,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity);
 
-        $contentResolver->resolve(
+        $contentAggregator->aggregate(
             $contentRichEntity,
             ['locale' => 'en', 'stage' => 'live']
         )->willThrow(new ContentNotFoundException($contentRichEntity, ['locale' => 'en', 'stage' => 'live']));
@@ -177,13 +177,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testIsPublishedWithLocalizedDimension(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -203,7 +203,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity);
 
-        $contentResolver->resolve($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
+        $contentAggregator->aggregate($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
             ->willReturn($resolvedDimensionContent)
             ->shouldBeCalled();
 
@@ -213,13 +213,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testIsPublishedWithUnlocalizedDimension(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -239,7 +239,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity);
 
-        $contentResolver->resolve($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
+        $contentAggregator->aggregate($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
             ->willReturn($resolvedDimensionContent)
             ->shouldBeCalled();
 
@@ -258,13 +258,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
         ));
 
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -282,7 +282,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity->reveal());
 
-        $contentResolver->resolve(
+        $contentAggregator->aggregate(
             $contentRichEntity->reveal(),
             ['locale' => 'en', 'stage' => 'live']
         )->willReturn($resolvedDimensionContent->reveal());
@@ -302,13 +302,13 @@ class ContentRouteDefaultsProviderTest extends TestCase
         ));
 
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
         $contentRouteDefaultsProvider = $this->getContentRouteDefaultsProvider(
             $entityManager->reveal(),
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentStructureBridgeFactory->reveal(),
             $cacheLifetimeResolver->reveal()
         );
@@ -319,7 +319,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testGetByEntity(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentResolver = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
@@ -344,7 +344,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity);
 
-        $contentResolver->resolve($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
+        $contentResolver->aggregate($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
             ->willReturn($resolvedDimensionContent);
 
         $cacheLifetimeResolver->supports('seconds', 3600)->willReturn(true);
@@ -371,7 +371,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testGetByEntityNotPublished(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentResolver = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
@@ -395,7 +395,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity);
 
-        $contentResolver->resolve($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
+        $contentResolver->aggregate($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
             ->will(function($arguments) {
                 throw new ContentNotFoundException($arguments[0], $arguments[1]);
             });
@@ -406,7 +406,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
     public function testGetByEntityStructureMetadataNotFound(): void
     {
         $entityManager = $this->prophesize(EntityManagerInterface::class);
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentResolver = $this->prophesize(ContentAggregatorInterface::class);
         $contentStructureBridgeFactory = $this->prophesize(ContentStructureBridgeFactory::class);
         $cacheLifetimeResolver = $this->prophesize(CacheLifetimeResolverInterface::class);
 
@@ -431,7 +431,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $queryBuilder->getQuery()->willReturn($query);
         $query->getSingleResult()->willReturn($contentRichEntity);
 
-        $contentResolver->resolve($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
+        $contentResolver->aggregate($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
             ->willReturn($resolvedDimensionContent);
 
         $contentStructureBridgeFactory->getBridge($resolvedDimensionContent, '123-123-123', 'en')

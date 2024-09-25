@@ -16,11 +16,11 @@ namespace Sulu\Bundle\ContentBundle\Tests\Unit\DependencyInjection;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sulu\Bundle\AdminBundle\DependencyInjection\SuluAdminExtension;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentCopier\ContentCopierInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentNormalizer\ContentNormalizerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentWorkflow\ContentWorkflowInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Factory\DimensionContentCollectionFactoryInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Repository\DimensionContentRepositoryInterface;
@@ -50,7 +50,7 @@ class SuluContentExtensionTest extends AbstractExtensionTestCase
 
         // Main services aliases
         $this->assertContainerBuilderHasAlias(ContentManagerInterface::class, 'sulu_content.content_manager');
-        $this->assertContainerBuilderHasAlias(ContentResolverInterface::class, 'sulu_content.content_resolver');
+        $this->assertContainerBuilderHasAlias(ContentAggregatorInterface::class, 'sulu_content.content_aggregator');
         $this->assertContainerBuilderHasAlias(ContentPersisterInterface::class, 'sulu_content.content_persister');
         $this->assertContainerBuilderHasAlias(ContentNormalizerInterface::class, 'sulu_content.content_normalizer');
         $this->assertContainerBuilderHasAlias(ContentCopierInterface::class, 'sulu_content.content_copier');

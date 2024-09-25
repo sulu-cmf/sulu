@@ -97,7 +97,7 @@
         <!-- Route Defaults Provider -->
         <service id="sulu_content.route_defaults_provider" class="Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Route\ContentRouteDefaultsProvider">
             <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="sulu_content.content_resolver"/>
+            <argument type="service" id="sulu_content.content_aggregator"/>
             <argument type="service" id="sulu_content.content_structure_bridge_factory"/>
             <argument type="service" id="sulu_http_cache.cache_lifetime.resolver"/>
 
@@ -119,12 +119,12 @@
         <service id="Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface" alias="sulu_content.content_persister"/>
 
         <!-- Content Loader -->
-        <service id="sulu_content.content_resolver" class="Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolver">
+        <service id="sulu_content.content_aggregator" class="Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregator">
             <argument type="service" id="sulu_content.dimension_content_repository"/>
             <argument type="service" id="sulu_content.content_merger"/>
         </service>
 
-        <service id="Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface" alias="sulu_content.content_resolver"/>
+        <service id="Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface" alias="sulu_content.content_aggregator"/>
 
         <!-- ContentNormalizer -->
         <service id="sulu_content.content_normalizer" class="Sulu\Bundle\ContentBundle\Content\Application\ContentNormalizer\ContentNormalizer">
@@ -135,7 +135,7 @@
 
         <!-- Content Copier -->
         <service id="sulu_content.content_copier" class="Sulu\Bundle\ContentBundle\Content\Application\ContentCopier\ContentCopier">
-            <argument type="service" id="sulu_content.content_resolver"/>
+            <argument type="service" id="sulu_content.content_aggregator"/>
             <argument type="service" id="sulu_content.content_merger"/>
             <argument type="service" id="sulu_content.content_persister"/>
             <argument type="service" id="sulu_content.content_normalizer"/>
@@ -146,7 +146,7 @@
         <!-- Content Indexer -->
         <service id="sulu_content.content_indexer" class="Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexer">
             <argument type="service" id="massive_search.search_manager"/>
-            <argument type="service" id="sulu_content.content_resolver"/>
+            <argument type="service" id="sulu_content.content_aggregator"/>
         </service>
 
         <service id="Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface" alias="sulu_content.content_indexer"/>
@@ -182,7 +182,7 @@
 
         <!-- Content Manager -->
         <service id="sulu_content.content_manager" class="Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManager">
-            <argument type="service" id="sulu_content.content_resolver"/>
+            <argument type="service" id="sulu_content.content_aggregator"/>
             <argument type="service" id="sulu_content.content_persister"/>
             <argument type="service" id="sulu_content.content_normalizer"/>
             <argument type="service" id="sulu_content.content_copier"/>

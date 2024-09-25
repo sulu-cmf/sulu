@@ -15,12 +15,12 @@ namespace Sulu\Bundle\ContentBundle\Tests\Unit\Content\Application\ContentCopier
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentCopier\ContentCopier;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentCopier\ContentCopierInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentMerger\ContentMergerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentNormalizer\ContentNormalizerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentCollectionInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -30,13 +30,13 @@ class ContentCopierTest extends TestCase
     use ProphecyTrait;
 
     protected function createContentCopierInstance(
-        ContentResolverInterface $contentResolver,
+        ContentAggregatorInterface $contentAggregator,
         ContentMergerInterface $contentMerger,
         ContentPersisterInterface $contentPersister,
         ContentNormalizerInterface $contentNormalizer
     ): ContentCopierInterface {
         return new ContentCopier(
-            $contentResolver,
+            $contentAggregator,
             $contentMerger,
             $contentPersister,
             $contentNormalizer
@@ -53,12 +53,12 @@ class ContentCopierTest extends TestCase
         $targetContentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $targetDimensionAttributes = ['locale' => 'de'];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentMerger = $this->prophesize(ContentMergerInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
 
-        $contentResolver->resolve($sourceContentRichEntity->reveal(), $sourceDimensionAttributes)
+        $contentAggregator->aggregate($sourceContentRichEntity->reveal(), $sourceDimensionAttributes)
             ->willReturn($resolvedSourceContent->reveal())
             ->shouldBeCalled();
 
@@ -71,7 +71,7 @@ class ContentCopierTest extends TestCase
             ->shouldBeCalled();
 
         $contentCopier = $this->createContentCopierInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentMerger->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal()
@@ -97,7 +97,7 @@ class ContentCopierTest extends TestCase
         $targetContentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $targetDimensionAttributes = ['locale' => 'de'];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentMerger = $this->prophesize(ContentMergerInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
@@ -115,7 +115,7 @@ class ContentCopierTest extends TestCase
             ->shouldBeCalled();
 
         $contentCopier = $this->createContentCopierInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentMerger->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal()
@@ -139,7 +139,7 @@ class ContentCopierTest extends TestCase
         $targetContentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $targetDimensionAttributes = ['locale' => 'de'];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentMerger = $this->prophesize(ContentMergerInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
@@ -153,7 +153,7 @@ class ContentCopierTest extends TestCase
             ->shouldBeCalled();
 
         $contentCopier = $this->createContentCopierInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentMerger->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal()
@@ -177,7 +177,7 @@ class ContentCopierTest extends TestCase
         $targetContentRichEntity = $this->prophesize(ContentRichEntityInterface::class);
         $targetDimensionAttributes = ['locale' => 'de'];
 
-        $contentResolver = $this->prophesize(ContentResolverInterface::class);
+        $contentAggregator = $this->prophesize(ContentAggregatorInterface::class);
         $contentMerger = $this->prophesize(ContentMergerInterface::class);
         $contentPersister = $this->prophesize(ContentPersisterInterface::class);
         $contentNormalizer = $this->prophesize(ContentNormalizerInterface::class);
@@ -198,7 +198,7 @@ class ContentCopierTest extends TestCase
             ->shouldBeCalled();
 
         $contentCopier = $this->createContentCopierInstance(
-            $contentResolver->reveal(),
+            $contentAggregator->reveal(),
             $contentMerger->reveal(),
             $contentPersister->reveal(),
             $contentNormalizer->reveal()
