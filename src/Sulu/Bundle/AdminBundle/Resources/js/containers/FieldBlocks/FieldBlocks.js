@@ -3,7 +3,7 @@ import equals from 'fast-deep-equal';
 import jsonpointer from 'json-pointer';
 import jexl from 'jexl';
 import React, {Fragment} from 'react';
-import {action, computed, observable, toJS} from 'mobx';
+import {action, computed, isObservableArray, observable, toJS} from 'mobx';
 import {observer} from 'mobx-react';
 import BlockCollection from '../../components/BlockCollection';
 import {translate} from '../../utils/Translator';
@@ -28,6 +28,8 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
     @observable openedBlockSettingsIndex: ?number;
     @observable blockSettingsFormStore: ?FormStoreInterface;
     @observable value: Object;
+    oldIconValue: Object;
+    computedIcons: Array<Array<string>> = [];
 
     constructor(props: FieldTypeProps<Array<BlockEntry>>) {
         super(props);
@@ -205,42 +207,109 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
         return Object.keys(settingsSchema).reduce(iconMappingReducerCreator(), {});
     }
 
+    @computed get precomputedConditions() {
+        const precomputedConditions = [];
+        for (const pointer in this.iconsMapping) {
+            if (this.iconsMapping.hasOwnProperty(pointer)) {
+                const {visibleCondition, icon} = this.iconsMapping[pointer];
+                precomputedConditions.push({pointer, visibleCondition, icon});
+            }
+        }
+
+        return precomputedConditions;
+    }
+
+    getDifference = (target: any, source: any): { [key: string]: any } => {
+        if (target === source) {
+            return {};
+        }
+
+        if (typeof target !== 'object' || target === null || typeof source !== 'object' || source === null) {
+            return target;
+        }
+
+        if (Array.isArray(target) !== Array.isArray(source)) {
+            return target;
+        }
+
+        const result: { [key: string]: any } = {};
+        const keys = new Set(
+            [
+                ...(isObservableArray(target) ? target.keys() : Object.keys(target)),
+                ...(isObservableArray(source) ? source.keys() : Object.keys(source)),
+            ]
+        );
+
+        for (const key of keys) {
+            const targetValue = target[key];
+            const sourceValue = source[key];
+            const diffValue = this.getDifference(targetValue, sourceValue);
+
+            if (diffValue !== undefined && !equals(diffValue, {})) {
+                result[key] = diffValue;
+            }
+        }
+
+        return Object.keys(result).length > 0 ? result : {};
+    };
+
     @computed get icons(): Array<Array<string>> {
         if (!this.value) {
             return [];
         }
 
-        return this.value.map((value) => Object.keys(this.iconsMapping).reduce((icons, pointer) => {
-            const visibleCondition = this.iconsMapping[pointer].visibleCondition;
-            if (jsonpointer.has(value, pointer) || visibleCondition !== undefined) {
-                let icon = undefined;
-                if (visibleCondition !== undefined) {
-                    const conditionData = this.getConditionData(value, pointer);
-                    if (jexl.evalSync(visibleCondition, conditionData)){
-                        icon = this.iconsMapping[pointer].icon;
-                    }
-                } else if (jsonpointer.get(value, pointer)) {
-                    icon = this.iconsMapping[pointer].icon;
-                }
+        if (this.precomputedConditions.length === 0) {
+            return [];
+        }
 
-                if (icon) {
-                    icons.push(icon);
+        const diff = this.getDifference(this.value, this.oldIconValue ? this.oldIconValue : {});
+        this.oldIconValue = this.value;
+        for (const key in diff) {
+            const value = this.value[key];
+
+            const icons = [];
+            for (const {pointer, visibleCondition, icon} of this.precomputedConditions) {
+                const hasResult = jsonpointer.has(value, pointer);
+
+                if (hasResult || visibleCondition !== undefined) {
+                    if (visibleCondition !== undefined) {
+                        const conditionData = this.getConditionData(value, pointer);
+
+                        const jexlResult = jexl.evalSync(visibleCondition, conditionData);
+
+                        if (jexlResult) {
+                            icons.push(icon);
+                        }
+                    } else {
+                        const getResult = jsonpointer.get(value, pointer);
+                        if (getResult) {
+                            icons.push(icon);
+                        }
+                    }
                 }
             }
 
-            return icons;
-        }, []));
+            this.computedIcons[parseInt(key)] = icons;
+        }
+
+        if (this.computedIcons.length !== this.value.length) {
+            this.computedIcons = this.computedIcons.slice(0, this.value.length);
+        }
+
+        return this.computedIcons;
     }
 
     getConditionData(data: {[string]: any}, dataPath: ?string) {
         const {formInspector} = this.props;
+        const providers = conditionDataProviderRegistry.getAll();
+        const result = Object.assign({}, data);
 
-        return conditionDataProviderRegistry.getAll().reduce(
-            function(data, conditionDataProvider) {
-                return {...data, ...conditionDataProvider(data, dataPath, formInspector)};
-            },
-            {...data}
-        );
+        for (let i = 0; i < providers.length; i++) {
+            const newData = providers[i](result, dataPath, formInspector);
+            Object.assign(result, newData);
+        }
+
+        return result;
     }
 
     @action setValue = (value: Object) => {
