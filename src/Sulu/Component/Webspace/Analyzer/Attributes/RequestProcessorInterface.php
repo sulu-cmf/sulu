@@ -29,7 +29,7 @@ interface RequestProcessorInterface
      * Validate the given attributes and return true if it is valid,
      * if not throw a specific exception.
      *
-     * @return bool
+     * @return true
      */
     public function validate(RequestAttributes $attributes);
 }

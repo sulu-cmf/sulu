@@ -316,12 +316,7 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ToolbarAction.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ToolbarAction\\:\\:getOptions\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/ToolbarAction.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ToolbarAction\\:\\:getType\\(\\) has no return type specified\\.$#"
+			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ToolbarAction\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ToolbarAction.php
 
@@ -587,26 +582,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getUserName\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Controller/CollaborationController.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Controller\\\\CollaborationController\\:\\:cdeleteAction\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Controller/CollaborationController.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Controller\\\\CollaborationController\\:\\:cputAction\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Controller/CollaborationController.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Controller\\\\CollaborationController\\:\\:createCollaboration\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Controller/CollaborationController.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Controller\\\\CollaborationController\\:\\:getConnectionId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Controller/CollaborationController.php
 
@@ -3341,11 +3316,6 @@ parameters:
 			path: src/Sulu/Bundle/CategoryBundle/Api/Category.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Api\\\\Category\\:\\:setTranslation\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/CategoryBundle/Api/Category.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Api\\\\Category\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/CategoryBundle/Api/Category.php
@@ -3387,21 +3357,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Api\\\\RootCategory\\:\\:__construct\\(\\) has parameter \\$categories with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/CategoryBundle/Api/RootCategory.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Api\\\\RootCategory\\:\\:getCategories\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/CategoryBundle/Api/RootCategory.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Api\\\\RootCategory\\:\\:getEmbedded\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/CategoryBundle/Api/RootCategory.php
-
-		-
-			message: "#^Property Sulu\\\\Bundle\\\\CategoryBundle\\\\Api\\\\RootCategory\\:\\:\\$id \\(int\\) does not accept default value of type string\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/CategoryBundle/Api/RootCategory.php
 
@@ -11241,19 +11196,9 @@ parameters:
 			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/Initializer.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Initializer\\\\InitializerInterface\\:\\:initialize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/InitializerInterface.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Initializer\\\\InitializerInterface\\:\\:initialize\\(\\) has parameter \\$purge with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/InitializerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Initializer\\\\RootPathPurgeInitializer\\:\\:initialize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/RootPathPurgeInitializer.php
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Initializer\\\\RootPathPurgeInitializer\\:\\:initialize\\(\\) has parameter \\$purge with no type specified\\.$#"
@@ -11262,11 +11207,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:getWorkspace\\(\\)\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/WorkspaceInitializer.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Initializer\\\\WorkspaceInitializer\\:\\:initialize\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/WorkspaceInitializer.php
 
@@ -11316,16 +11256,6 @@ parameters:
 			path: src/Sulu/Bundle/DocumentManagerBundle/Session/Session.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Session\\\\SessionManager\\:\\:flush\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Session/SessionManager.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Session\\\\SessionManager\\:\\:setNodeProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Session/SessionManager.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Session\\\\SessionManager\\:\\:setNodePropertyForSession\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/DocumentManagerBundle/Session/SessionManager.php
@@ -11334,16 +11264,6 @@ parameters:
 			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Session\\\\SessionManager\\:\\:setNodePropertyForSession\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/DocumentManagerBundle/Session/SessionManager.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Session\\\\SessionManagerInterface\\:\\:flush\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Session/SessionManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Session\\\\SessionManagerInterface\\:\\:setNodeProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Session/SessionManagerInterface.php
 
 		-
 			message: "#^Comparison operation \"\\<\\=\" between int\\<254, 255\\> and 255 is always true\\.$#"
@@ -11691,19 +11611,9 @@ parameters:
 			path: src/Sulu/Bundle/HttpCacheBundle/Cache/SuluHttpCache.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\HttpCacheBundle\\\\CacheLifetime\\\\CacheLifetimeEnhancer\\:\\:enhance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/HttpCacheBundle/CacheLifetime/CacheLifetimeEnhancer.php
-
-		-
 			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string\\|null, int\\<min, \\-1\\>\\|int\\<1, max\\> given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/HttpCacheBundle/CacheLifetime/CacheLifetimeEnhancer.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\HttpCacheBundle\\\\CacheLifetime\\\\CacheLifetimeEnhancerInterface\\:\\:enhance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/HttpCacheBundle/CacheLifetime/CacheLifetimeEnhancerInterface.php
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\HttpCacheBundle\\\\CacheLifetime\\\\CacheLifetimeRequestStore\\:\\:getCacheLifetime\\(\\) should return int\\|null but returns mixed\\.$#"
@@ -19088,11 +18998,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method object\\:\\:getWorkspace\\(\\)\\.$#"
 			count: 2
-			path: src/Sulu/Bundle/PageBundle/DocumentManager/ContentInitializer.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\DocumentManager\\\\ContentInitializer\\:\\:initialize\\(\\) has no return type specified\\.$#"
-			count: 1
 			path: src/Sulu/Bundle/PageBundle/DocumentManager/ContentInitializer.php
 
 		-
@@ -28724,11 +28629,6 @@ parameters:
 			message: "#^Property Sulu\\\\Bundle\\\\SnippetBundle\\\\Document\\\\SnippetDocument\\:\\:\\$workflowStage \\(int\\) does not accept int\\|string\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SnippetBundle/Document/SnippetDocument.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Document\\\\SnippetInitializer\\:\\:initialize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SnippetBundle/Document/SnippetInitializer.php
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Document\\\\SnippetInitializer\\:\\:initialize\\(\\) has parameter \\$purge with no type specified\\.$#"
@@ -41016,11 +40916,6 @@ parameters:
 			path: src/Sulu/Component/CustomUrl/Document/CustomUrlRouteNodeType.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\CustomUrl\\\\Document\\\\Initializer\\\\CustomUrlInitializer\\:\\:initialize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/CustomUrl/Document/Initializer/CustomUrlInitializer.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\CustomUrl\\\\Document\\\\Initializer\\\\CustomUrlInitializer\\:\\:initialize\\(\\) has parameter \\$purge with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/CustomUrl/Document/Initializer/CustomUrlInitializer.php
@@ -49211,11 +49106,6 @@ parameters:
 			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzer.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\RequestAnalyzer\\:\\:analyze\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzer.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\RequestAnalyzer\\:\\:getAttribute\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzer.php
@@ -49231,27 +49121,12 @@ parameters:
 			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzer.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\RequestAnalyzer\\:\\:validate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzer.php
-
-		-
 			message: "#^Parameter \\#1 \\$attributes of method Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\Attributes\\\\RequestProcessorInterface\\:\\:validate\\(\\) expects Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\Attributes\\\\RequestAttributes, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzer.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\RequestAnalyzerInterface\\:\\:analyze\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzerInterface.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\RequestAnalyzerInterface\\:\\:getAttribute\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Webspace\\\\Analyzer\\\\RequestAnalyzerInterface\\:\\:validate\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Webspace/Analyzer/RequestAnalyzerInterface.php
 
@@ -49297,11 +49172,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getUuid\\(\\) on object\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Component/Webspace/Document/Initializer/WebspaceInitializer.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Webspace\\\\Document\\\\Initializer\\\\WebspaceInitializer\\:\\:initialize\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Webspace/Document/Initializer/WebspaceInitializer.php
 

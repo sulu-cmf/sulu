@@ -38,6 +38,11 @@ class VersionRouteLoader extends Loader
         return $this->import($resource, 'rest');
     }
 
+    /**
+     * @param string $resource
+     *
+     * @return bool
+     */
     public function supports($resource, $type = null)
     {
         return 'versioning_rest' === $type;
