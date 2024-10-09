@@ -1941,16 +1941,6 @@ parameters:
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Content/Types/TargetGroupSelection.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AudienceTargetingBundle\\\\Content\\\\Types\\\\TargetGroupSelection\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AudienceTargetingBundle/Content/Types/TargetGroupSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AudienceTargetingBundle\\\\Content\\\\Types\\\\TargetGroupSelection\\:\\:write\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AudienceTargetingBundle/Content/Types/TargetGroupSelection.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Content/Types/TargetGroupSelection.php
@@ -3587,16 +3577,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Content\\\\Types\\\\CategorySelection\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/CategoryBundle/Content/Types/CategorySelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Content\\\\Types\\\\CategorySelection\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/CategoryBundle/Content/Types/CategorySelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\CategoryBundle\\\\Content\\\\Types\\\\CategorySelection\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/CategoryBundle/Content/Types/CategorySelection.php
 
@@ -6566,31 +6546,6 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Contact/AbstractContactManager.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\AbstractContactManager\\:\\:setMainEmail\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/AbstractContactManager.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\AbstractContactManager\\:\\:setMainFax\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/AbstractContactManager.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\AbstractContactManager\\:\\:setMainForCollection\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/AbstractContactManager.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\AbstractContactManager\\:\\:setMainPhone\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/AbstractContactManager.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\AbstractContactManager\\:\\:setMainUrl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/AbstractContactManager.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\AbstractContactManager\\:\\:updateEmail\\(\\) has parameter \\$entry with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Contact/AbstractContactManager.php
@@ -7286,37 +7241,7 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:removeAddressRelation\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:setMainEmail\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:setMainFax\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:setMainForCollection\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:setMainForCollection\\(\\) has parameter \\$arrayCollection with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection but does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:setMainPhone\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:setMainUrl\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
 
@@ -7324,11 +7249,6 @@ parameters:
 			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface\\:\\:unsetMain\\(\\) has parameter \\$arrayCollection with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection but does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Content\\\\Types\\\\AccountSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Content/Types/AccountSelection.php
 
 		-
 			message: "#^Cannot call method getId\\(\\) on mixed\\.$#"
@@ -7361,34 +7281,9 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Content/Types/ContactAccountSelection.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Content\\\\Types\\\\ContactSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Content/Types/ContactSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Content\\\\Types\\\\SingleAccountSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Content/Types/SingleAccountSelection.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Content\\\\Types\\\\SingleAccountSelection\\:\\:read\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Content/Types/SingleAccountSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Content\\\\Types\\\\SingleAccountSelection\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Content/Types/SingleAccountSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Content\\\\Types\\\\SingleAccountSelection\\:\\:write\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Content/Types/SingleAccountSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Content\\\\Types\\\\SingleContactSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Content/Types/SingleContactSelection.php
 
 		-
 			message: "#^Call to an undefined method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListBuilderInterface\\:\\:setIdField\\(\\)\\.$#"
@@ -7692,11 +7587,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Controller\\\\AccountController\\:\\:retrieveFilter\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/Controller/AccountController.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\Controller\\\\AccountController\\:\\:setParent\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Controller/AccountController.php
 
@@ -11826,16 +11716,6 @@ parameters:
 			path: src/Sulu/Bundle/LocationBundle/Content/Types/LocationContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Content\\\\Types\\\\LocationContentType\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Content/Types/LocationContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Content\\\\Types\\\\LocationContentType\\:\\:write\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Content/Types/LocationContentType.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/LocationBundle/Content/Types/LocationContentType.php
@@ -13106,11 +12986,6 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\ImageMapContentType\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\ImageMapContentType\\:\\:prepareData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
@@ -13121,12 +12996,7 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\ImageMapContentType\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\ImageMapContentType\\:\\:write\\(\\) has no return type specified\\.$#"
+			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\ImageMapContentType\\:\\:write\\(\\) with return type void returns mixed but should not return anything\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
 
@@ -13171,6 +13041,11 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
 
 		-
+			message: "#^Result of method Sulu\\\\Component\\\\Content\\\\PreResolvableContentTypeInterface\\:\\:preResolve\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/MediaBundle/Content/Types/ImageMapContentType.php
+
+		-
 			message: "#^Access to an undefined property object\\:\\:\\$max\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/MediaSelectionContentType.php
@@ -13201,22 +13076,7 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/MediaSelectionContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\MediaSelectionContentType\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Content/Types/MediaSelectionContentType.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\MediaSelectionContentType\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Content/Types/MediaSelectionContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\MediaSelectionContentType\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Content/Types/MediaSelectionContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\MediaSelectionContentType\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/MediaSelectionContentType.php
 
@@ -13262,11 +13122,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\SingleMediaSelection\\:\\:encodeValue\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Content/Types/SingleMediaSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Content\\\\Types\\\\SingleMediaSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Content/Types/SingleMediaSelection.php
 
@@ -18166,27 +18021,12 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Types/Checkbox.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\Checkbox\\:\\:write\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/Checkbox.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\Date\\:\\:read\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Types/Date.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\Date\\:\\:write\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/Date.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\DateTime\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/DateTime.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\DateTime\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Types/DateTime.php
 
@@ -18211,22 +18051,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Types/PageSelection.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\PageSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/PageSelection.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\PageSelection\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/PageSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\PageSelection\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/PageSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\PageSelection\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Types/PageSelection.php
 
@@ -18261,16 +18086,6 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Types/SegmentSelect.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\SegmentSelect\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/SegmentSelect.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\SegmentSelect\\:\\:write\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/SegmentSelect.php
-
-		-
 			message: "#^Possibly invalid array key type \\(array\\<int, string\\>\\|string\\)\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Types/SegmentSelect.php
@@ -18286,17 +18101,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Types/Select.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\SinglePageSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/SinglePageSelection.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\SinglePageSelection\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Types/SinglePageSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Types\\\\SinglePageSelection\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Types/SinglePageSelection.php
 
@@ -20942,11 +20747,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Teaser\\\\TeaserContentType\\:\\:getValue\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Teaser/TeaserContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Teaser\\\\TeaserContentType\\:\\:preResolve\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Teaser/TeaserContentType.php
 
@@ -24791,11 +24591,6 @@ parameters:
 			path: src/Sulu/Bundle/RouteBundle/Content/Type/PageTreeRouteContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\RouteBundle\\\\Content\\\\Type\\\\PageTreeRouteContentType\\:\\:write\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/RouteBundle/Content/Type/PageTreeRouteContentType.php
-
-		-
 			message: "#^Parameter \\#1 \\$entity of method Sulu\\\\Bundle\\\\RouteBundle\\\\Generator\\\\ChainRouteGeneratorInterface\\:\\:generate\\(\\) expects Sulu\\\\Bundle\\\\RouteBundle\\\\Model\\\\RoutableInterface, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/RouteBundle/Content/Type/PageTreeRouteContentType.php
@@ -28176,11 +27971,6 @@ parameters:
 			path: src/Sulu/Bundle/SnippetBundle/Command/SnippetLocaleCopyCommand.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Content\\\\SingleSnippetSelection\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SnippetBundle/Content/SingleSnippetSelection.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Content\\\\SingleSnippetSelection\\:\\:resolveSnippet\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SnippetBundle/Content/SingleSnippetSelection.php
@@ -28251,22 +28041,7 @@ parameters:
 			path: src/Sulu/Bundle/SnippetBundle/Content/SnippetContent.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Content\\\\SnippetContent\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SnippetBundle/Content/SnippetContent.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Content\\\\SnippetContent\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SnippetBundle/Content/SnippetContent.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Content\\\\SnippetContent\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SnippetBundle/Content/SnippetContent.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Content\\\\SnippetContent\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SnippetBundle/Content/SnippetContent.php
 
@@ -29807,16 +29582,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\TagBundle\\\\Content\\\\Types\\\\TagSelection\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/TagBundle/Content/Types/TagSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\TagBundle\\\\Content\\\\Types\\\\TagSelection\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/TagBundle/Content/Types/TagSelection.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\TagBundle\\\\Content\\\\Types\\\\TagSelection\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/TagBundle/Content/Types/TagSelection.php
 
@@ -35226,22 +34991,7 @@ parameters:
 			path: src/Sulu/Component/Content/ContentTypeInterface.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\ContentTypeInterface\\:\\:hasValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/ContentTypeInterface.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\ContentTypeInterface\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/ContentTypeInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\ContentTypeInterface\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/ContentTypeInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\ContentTypeInterface\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/ContentTypeInterface.php
 
@@ -38511,11 +38261,6 @@ parameters:
 			path: src/Sulu/Component/Content/Metadata/StructureMetadata.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\PreResolvableContentTypeInterface\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/PreResolvableContentTypeInterface.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\Query\\\\ContentQueryBuilder\\:\\:buildOrder\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Query/ContentQueryBuilder.php
@@ -39216,27 +38961,12 @@ parameters:
 			path: src/Sulu/Component/Content/SimpleContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\SimpleContentType\\:\\:hasValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/SimpleContentType.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\SimpleContentType\\:\\:read\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/SimpleContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\SimpleContentType\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/SimpleContentType.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\SimpleContentType\\:\\:removeIllegalCharacters\\(\\) should return int\\|string but returns string\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/SimpleContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\SimpleContentType\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/SimpleContentType.php
 
@@ -40486,11 +40216,6 @@ parameters:
 			path: src/Sulu/Component/Content/Types/BlockContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\BlockContentType\\:\\:preResolve\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Types/BlockContentType.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\BlockContentType\\:\\:prepareData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Types/BlockContentType.php
@@ -40501,12 +40226,7 @@ parameters:
 			path: src/Sulu/Component/Content/Types/BlockContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\BlockContentType\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Types/BlockContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\BlockContentType\\:\\:write\\(\\) has no return type specified\\.$#"
+			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\BlockContentType\\:\\:write\\(\\) with return type void returns mixed but should not return anything\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Types/BlockContentType.php
 
@@ -40576,6 +40296,11 @@ parameters:
 			path: src/Sulu/Component/Content/Types/BlockContentType.php
 
 		-
+			message: "#^Result of method Sulu\\\\Component\\\\Content\\\\PreResolvableContentTypeInterface\\:\\:preResolve\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: src/Sulu/Component/Content/Types/BlockContentType.php
+
+		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\Link\\:\\:decodeValue\\(\\) should return array but returns mixed\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Types/Link.php
@@ -40587,11 +40312,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\Number\\:\\:read\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Types/Number.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\Number\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Types/Number.php
 
@@ -40747,11 +40467,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\TextEditor\\:\\:removeValidation\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Types/TextEditor.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\Types\\\\TextEditor\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Types/TextEditor.php
 
@@ -48051,17 +47766,7 @@ parameters:
 			path: src/Sulu/Component/SmartContent/ContentType.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\SmartContent\\\\ContentType\\:\\:remove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/SmartContent/ContentType.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\SmartContent\\\\ContentType\\:\\:resolveTags\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/SmartContent/ContentType.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\SmartContent\\\\ContentType\\:\\:write\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/SmartContent/ContentType.php
 

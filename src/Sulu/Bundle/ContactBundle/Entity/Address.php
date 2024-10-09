@@ -558,6 +558,8 @@ class Address
 
     /**
      * Remove contactAddresses.
+     *
+     * @return void
      */
     public function removeContactAddress(ContactAddress $contactAddresses)
     {
