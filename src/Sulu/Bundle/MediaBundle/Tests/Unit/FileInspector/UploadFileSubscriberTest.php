@@ -36,6 +36,16 @@ class UploadFileSubscriberTest extends TestCase
 
     private UploadFileSubscriber $subscriber;
 
+    public static function setUpBeforeClass(): void
+    {
+        \file_put_contents('test.svg', '<svg></svg>');
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        \unlink('test.svg');
+    }
+
     protected function setUp(): void
     {
         $this->svgInspector = $this->prophesize(FileInspectorInterface::class);
@@ -56,6 +66,40 @@ class UploadFileSubscriberTest extends TestCase
         $uploadedFile = new UploadedFile('test.svg', 'test.svg', $mimeType, 0, true);
 
         $request = new Request([], [], [], [], ['file' => $uploadedFile]);
+        $event = $this->createRequestEvent($request);
+
+        $this->svgInspector->supports($mimeType)->willReturn(true);
+        $this->svgInspector->inspect($uploadedFile)->willReturn($uploadedFile);
+
+        $this->subscriber->onKernelRequest($event);
+
+        // If we reach here without exception, the test passes
+        $this->addToAssertionCount(1);
+    }
+
+    public function testOnKernelRequestWithReplace(): void
+    {
+        $mimeType = 'image/svg+xml';
+        $uploadedFile = new UploadedFile('test.svg', 'test.svg', $mimeType, 0, true);
+        $newUploadedFile = new UploadedFile('test.svg', 'test.svg', $mimeType, 0, true);
+
+        $request = new Request([], [], [], [], ['file' => $uploadedFile]);
+        $event = $this->createRequestEvent($request);
+
+        $this->svgInspector->supports($mimeType)->willReturn(true);
+        $this->svgInspector->inspect($uploadedFile)->willReturn($newUploadedFile);
+
+        $this->subscriber->onKernelRequest($event);
+
+        $this->assertSame($newUploadedFile, $request->files->get('file'));
+    }
+
+    public function testOnKernelRequestWithNestedFiles(): void
+    {
+        $mimeType = 'image/svg+xml';
+        $uploadedFile = new UploadedFile('test.svg', 'test.svg', $mimeType, 0, true);
+
+        $request = new Request([], [], [], [], ['Product' => ['thumbnail' => $uploadedFile]]);
         $event = $this->createRequestEvent($request);
 
         $this->svgInspector->supports($mimeType)->willReturn(true);

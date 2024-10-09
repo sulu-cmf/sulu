@@ -24,6 +24,11 @@ class SvgFileInspectorTest extends TestCase
 {
     use ProphecyTrait;
 
+    public static function tearDownAfterClass(): void
+    {
+        \unlink('test.svg');
+    }
+
     public static function provideSvgs(): \Generator
     {
         // Safe SVGs
