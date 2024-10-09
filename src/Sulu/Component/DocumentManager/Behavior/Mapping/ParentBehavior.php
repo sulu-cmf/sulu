@@ -27,6 +27,8 @@ interface ParentBehavior
      * Set the parent document for this document.
      *
      * @param object $document
+     *
+     * @return void
      */
     public function setParent($document);
 }

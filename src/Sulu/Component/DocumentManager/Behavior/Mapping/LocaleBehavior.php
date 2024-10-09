@@ -27,6 +27,8 @@ interface LocaleBehavior
      * Sets the document locale.
      *
      * @param string $locale
+     *
+     * @return void
      */
     public function setLocale($locale);
 
@@ -41,6 +43,8 @@ interface LocaleBehavior
      * Sets the document original locale.
      *
      * @param string $locale
+     *
+     * @return void
      */
     public function setOriginalLocale($locale);
 }

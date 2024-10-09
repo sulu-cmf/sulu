@@ -29,6 +29,8 @@ interface VersionBehavior
      * Sets the versions for this document.
      *
      * @param Version[] $versions
+     *
+     * @return void
      */
     public function setVersions($versions);
 }
