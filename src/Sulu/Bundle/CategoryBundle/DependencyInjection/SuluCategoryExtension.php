@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\CategoryBundle\DependencyInjection;
 
+use Composer\InstalledVersions;
 use Sulu\Bundle\CategoryBundle\Admin\CategoryAdmin;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryMetaRepositoryInterface;
@@ -46,6 +47,14 @@ class SuluCategoryExtension extends Extension implements PrependExtensionInterfa
         $bundles = $container->getParameter('kernel.bundles');
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
             $loader->load('services_trash.xml');
+        }
+
+        if (
+            InstalledVersions::isInstalled('sulu/sulu-content-bundle')
+            && \version_compare(InstalledVersions::getVersion('sulu/sulu-content-bundle') ?? '0.0.0', '0.9', '>=')
+            && \version_compare(InstalledVersions::getVersion('sulu/sulu-content-bundle') ?? '0.0.0', '0.10', '<')
+        ) {
+            $loader->load('services_content.xml');
         }
 
         $this->configurePersistence($config['objects'], $container);

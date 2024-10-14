@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Property Resolver -->
+        <service id="sulu_category.property_resolver.category_selection"
+                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Content\PropertyResolver\Resolver\CategorySelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <!-- Resource Loader -->
+        <service id="sulu_category.resource_loader.category"
+                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Content\ResourceLoader\CategoryResourceLoader">
+            <argument type="service" id="sulu_category.category_manager"/>
+
+            <tag name="sulu_content.resource_loader" type="media"/>
+        </service>
+    </services>
+</container>
