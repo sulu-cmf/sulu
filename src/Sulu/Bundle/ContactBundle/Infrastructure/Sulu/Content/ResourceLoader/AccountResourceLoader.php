@@ -13,13 +13,19 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader;
 
+use Sulu\Bundle\ContactBundle\Api\Account as AccountApi;
 use Sulu\Bundle\ContactBundle\Contact\ContactManagerInterface;
+use Sulu\Bundle\ContactBundle\Entity\AccountAddress as AccountAddressEntity;
+use Sulu\Bundle\ContactBundle\Entity\AccountInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\ResourceLoaderInterface;
 
 class AccountResourceLoader implements ResourceLoaderInterface
 {
     public const RESOURCE_LOADER_KEY = 'account';
 
+    /**
+     * @param ContactManagerInterface<AccountInterface, AccountApi, AccountAddressEntity> $accountManager
+     */
     public function __construct(
         private ContactManagerInterface $accountManager,
     ) {
@@ -30,8 +36,8 @@ class AccountResourceLoader implements ResourceLoaderInterface
         $result = $this->accountManager->getByIds($ids, (string) $locale);
 
         $mappedResult = [];
-        foreach ($result as $media) {
-            $mappedResult[$media->getId()] = $media;
+        foreach ($result as $object) {
+            $mappedResult[$object->getId()] = $object;
         }
 
         return $mappedResult;

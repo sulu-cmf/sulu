@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\CategoryBundle\Infrastructure\Content\PropertyResolver\Resolver;
 
+use Sulu\Bundle\CategoryBundle\Infrastructure\Content\ResourceLoader\CategoryResourceLoader;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
 

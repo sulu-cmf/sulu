@@ -42,7 +42,11 @@ class ContactAccountSelectionPropertyResolver implements PropertyResolverInterfa
         foreach ($data as $id) {
             $key = \substr($id, 0, 1);
             $id = \substr($id, 1);
-            $id = \is_numeric($id) ? \intval($id) : null; // ignore invalid ids, invalid value can happen when template or block type was changed
+            $id = \is_numeric($id) ? \intval($id) : null;
+
+            if (null === $id) { // ignore invalid ids, invalid value can happen when template or block type was changed
+                continue;
+            }
 
             // this is a very edge case normally the `ResolvableResource` class should not be used by property resolvers
             // but in this case we need to use it to load resources depending on the key correctly
