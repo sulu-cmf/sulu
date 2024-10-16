@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sulu\Bundle\MediaBundle\Tests\Unit\FileInspector;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\MediaBundle\FileInspector\FileInspectorInterface;
@@ -104,6 +105,20 @@ class UploadFileSubscriberTest extends TestCase
 
         $this->svgInspector->supports($mimeType)->willReturn(true);
         $this->svgInspector->inspect($uploadedFile)->willReturn($uploadedFile);
+
+        $this->subscriber->onKernelRequest($event);
+
+        // If we reach here without exception, the test passes
+        $this->addToAssertionCount(1);
+    }
+
+    public function testOnKernelRequestWithNull(): void
+    {
+        $request = new Request([], [], [], [], ['Product' => ['thumbnail' => null]]);
+        $event = $this->createRequestEvent($request);
+
+        $this->svgInspector->supports(Argument::any())->shouldNotBeCalled();
+        $this->svgInspector->inspect(Argument::any())->shouldNotBeCalled();
 
         $this->subscriber->onKernelRequest($event);
 

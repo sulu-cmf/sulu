@@ -61,9 +61,17 @@ final class UploadFileSubscriber implements EventSubscriberInterface
      */
     private function inspectFiles(array $files): array
     {
+        /**
+         * @var string $key
+         * @var UploadedFile|array<string, mixed>|null $file
+         */
         foreach ($files as $key => $file) {
             if (\is_array($file)) {
                 $files[$key] = $this->inspectFiles($file);
+                continue;
+            }
+
+            if (null === $file) {
                 continue;
             }
 
