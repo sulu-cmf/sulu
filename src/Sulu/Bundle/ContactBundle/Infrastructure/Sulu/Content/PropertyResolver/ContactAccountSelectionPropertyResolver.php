@@ -29,6 +29,7 @@ class ContactAccountSelectionPropertyResolver implements PropertyResolverInterfa
     {
         if (!\is_array($data)
             || 0 === \count($data)
+            || !\array_is_list($data)
         ) {
             return ContentView::create([], ['ids' => [], ...$params]);
         }
@@ -40,6 +41,10 @@ class ContactAccountSelectionPropertyResolver implements PropertyResolverInterfa
 
         $resolvableResources = [];
         foreach ($data as $id) {
+            if (!\is_string($id)) {
+                continue;
+            }
+
             $key = \substr($id, 0, 1);
             $id = \substr($id, 1);
             $id = \is_numeric($id) ? \intval($id) : null;
@@ -61,7 +66,7 @@ class ContactAccountSelectionPropertyResolver implements PropertyResolverInterfa
         return ContentView::create(
             $resolvableResources,
             [
-                'ids' => $data,
+                'ids' => 0 === \count($resolvableResources) ? [] : $data,
                 ...$params,
             ],
         );

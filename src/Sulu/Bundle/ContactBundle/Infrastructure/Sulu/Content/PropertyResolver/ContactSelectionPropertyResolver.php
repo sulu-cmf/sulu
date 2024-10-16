@@ -23,6 +23,7 @@ class ContactSelectionPropertyResolver implements PropertyResolverInterface
     {
         if (!\is_array($data)
             || 0 === \count($data)
+            || !\array_is_list($data)
         ) {
             return ContentView::create([], ['ids' => [], ...$params]);
         }

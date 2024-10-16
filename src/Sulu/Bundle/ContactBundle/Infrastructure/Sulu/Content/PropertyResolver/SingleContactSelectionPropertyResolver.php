@@ -21,15 +21,15 @@ class SingleContactSelectionPropertyResolver implements PropertyResolverInterfac
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        if (!\is_int($data)) {
-            return ContentView::create([], ['id' => null, ...$params]);
+        if (!\is_numeric($data)) {
+            return ContentView::create(null, ['id' => null, ...$params]);
         }
 
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? ContactResourceLoader::getKey();
 
         return ContentView::createResolvable(
-            $data,
+            (int) $data,
             $resourceLoaderKey,
             [
                 'id' => $data,
