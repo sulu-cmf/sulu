@@ -19,6 +19,11 @@ use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentV
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
 
+/**
+ * @internal if you need to override this service, create a new service with based on PropertyResolverInterface instead of extending this class
+ *
+ * @final
+ */
 class ContactAccountSelectionPropertyResolver implements PropertyResolverInterface
 {
     public const PREFIX_CONTACT = 'c';

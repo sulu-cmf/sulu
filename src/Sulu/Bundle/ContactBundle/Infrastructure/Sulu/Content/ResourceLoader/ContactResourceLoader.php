@@ -19,6 +19,11 @@ use Sulu\Bundle\ContactBundle\Entity\ContactAddress;
 use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\ResourceLoaderInterface;
 
+/**
+ * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class
+ *
+ * @final
+ */
 class ContactResourceLoader implements ResourceLoaderInterface
 {
     public const RESOURCE_LOADER_KEY = 'contact';

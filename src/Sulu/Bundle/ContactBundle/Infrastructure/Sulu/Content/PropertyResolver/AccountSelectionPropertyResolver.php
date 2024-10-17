@@ -17,6 +17,11 @@ use Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\Account
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
 
+/**
+ * @internal if you need to override this service, create a new service with based on PropertyResolverInterface instead of extending this class
+ *
+ * @final
+ */
 class AccountSelectionPropertyResolver implements PropertyResolverInterface
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView

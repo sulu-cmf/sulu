@@ -11,18 +11,18 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\PropertyResolver;
+namespace Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\PropertyResolver;
 
-use Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\ContactResourceLoader;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
+use Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\ResourceLoader\TagResourceLoader;
 
 /**
  * @internal if you need to override this service, create a new service with based on PropertyResolverInterface instead of extending this class
  *
  * @final
  */
-class ContactSelectionPropertyResolver implements PropertyResolverInterface
+class TagSelectionPropertyResolver implements PropertyResolverInterface
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
@@ -34,20 +34,17 @@ class ContactSelectionPropertyResolver implements PropertyResolverInterface
         }
 
         /** @var string $resourceLoaderKey */
-        $resourceLoaderKey = $params['resourceLoader'] ?? ContactResourceLoader::getKey();
+        $resourceLoaderKey = $params['resourceLoader'] ?? TagResourceLoader::getKey();
 
         return ContentView::createResolvables(
             $data,
             $resourceLoaderKey,
-            [
-                'ids' => $data,
-                ...$params,
-            ],
+            ['ids' => $data, ...$params],
         );
     }
 
     public static function getType(): string
     {
-        return 'contact_selection';
+        return 'tag_selection';
     }
 }

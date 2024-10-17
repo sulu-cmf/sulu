@@ -11,32 +11,32 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\ResourceLoader;
+namespace Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\ResourceLoader;
 
-use Sulu\Bundle\CategoryBundle\Category\CategoryManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\ResourceLoaderInterface;
+use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
 
 /**
  * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class
  *
  * @final
  */
-class CategoryResourceLoader implements ResourceLoaderInterface
+class TagResourceLoader implements ResourceLoaderInterface
 {
-    public const RESOURCE_LOADER_KEY = 'category';
+    public const RESOURCE_LOADER_KEY = 'tag';
 
     public function __construct(
-        private CategoryManagerInterface $categoryManager
+        private TagRepositoryInterface $tagRepository
     ) {
     }
 
     public function load(array $ids, ?string $locale, array $params = []): array
     {
-        $result = $this->categoryManager->findByIds($ids);
+        $result = $this->tagRepository->findBy(['id' => $ids]);
 
         $mappedResult = [];
-        foreach ($result as $category) {
-            $mappedResult[$category->getId()] = $category;
+        foreach ($result as $tag) {
+            $mappedResult[$tag->getId()] = $tag->getName();
         }
 
         return $mappedResult;

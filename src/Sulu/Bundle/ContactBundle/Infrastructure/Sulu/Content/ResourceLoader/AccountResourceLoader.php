@@ -19,6 +19,11 @@ use Sulu\Bundle\ContactBundle\Entity\AccountAddress as AccountAddressEntity;
 use Sulu\Bundle\ContactBundle\Entity\AccountInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\ResourceLoaderInterface;
 
+/**
+ * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class
+ *
+ * @final
+ */
 class AccountResourceLoader implements ResourceLoaderInterface
 {
     public const RESOURCE_LOADER_KEY = 'account';

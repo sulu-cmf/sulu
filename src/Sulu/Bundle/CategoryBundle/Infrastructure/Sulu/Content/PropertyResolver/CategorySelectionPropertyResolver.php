@@ -11,27 +11,35 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\CategoryBundle\Infrastructure\Content\PropertyResolver\Resolver;
+namespace Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver;
 
-use Sulu\Bundle\CategoryBundle\Infrastructure\Content\ResourceLoader\CategoryResourceLoader;
+use Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\ResourceLoader\CategoryResourceLoader;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
 
+/**
+ * @internal if you need to override this service, create a new service with based on PropertyResolverInterface instead of extending this class
+ *
+ * @final
+ */
 class CategorySelectionPropertyResolver implements PropertyResolverInterface
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        if (empty($data) || !\is_array($data) || !isset($data['ids'])) {
-            return ContentView::create([], ['ids' => []]);
+        if (!\is_array($data)
+            || 0 === \count($data)
+            || !\array_is_list($data)
+        ) {
+            return ContentView::create([], ['ids' => [], ...$params]);
         }
 
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? CategoryResourceLoader::getKey();
 
         return ContentView::createResolvables(
-            $data['ids'],
+            $data,
             $resourceLoaderKey,
-            ['ids' => $data['ids']],
+            ['ids' => $data, ...$params],
         );
     }
 

@@ -17,6 +17,11 @@ use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentV
 use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
 use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader;
 
+/**
+ * @internal if you need to override this service, create a new service with based on PropertyResolverInterface instead of extending this class
+ *
+ * @final
+ */
 class MediaSelectionPropertyResolver implements PropertyResolverInterface
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView

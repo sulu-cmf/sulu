@@ -16,6 +16,11 @@ namespace Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader;
 use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\ResourceLoaderInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 
+/**
+ * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class
+ *
+ * @final
+ */
 class MediaResourceLoader implements ResourceLoaderInterface
 {
     public const RESOURCE_LOADER_KEY = 'media';
