@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\Resolver;
+namespace Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver;
 
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
@@ -26,8 +26,15 @@ class MediaSelectionPropertyResolver implements PropertyResolverInterface
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        if (empty($data) || !\is_array($data) || !isset($data['ids'])) {
-            return ContentView::create([], ['ids' => []]);
+        $displayOption = (\is_array($data) && isset($data['displayOption']) && \is_string($data['displayOption']))
+            ? $data['displayOption']
+            : null;
+
+        if (!\is_array($data)
+            || !isset($data['ids'])
+            || !\array_is_list($data['ids'])
+        ) {
+            return ContentView::create([], ['ids' => [], 'displayOption' => $displayOption, ...$params]);
         }
 
         /** @var string $resourceLoaderKey */
@@ -36,7 +43,11 @@ class MediaSelectionPropertyResolver implements PropertyResolverInterface
         return ContentView::createResolvables(
             $data['ids'],
             $resourceLoaderKey,
-            ['ids' => $data['ids']],
+            [
+                'ids' => $data['ids'],
+                'displayOption' => $displayOption,
+                ...$params,
+            ],
         );
     }
 

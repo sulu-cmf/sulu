@@ -9,22 +9,22 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\CategoryBundle\Tests\Unit\Infrastructure\Sulu\Content\PropertyResolver;
+namespace Sulu\Bundle\MediaBundle\Tests\Unit\Infrastructure\Sulu\Content\PropertyResolver;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver\CategorySelectionPropertyResolver;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
+use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\MediaSelectionPropertyResolver;
 
-#[CoversClass(CategorySelectionPropertyResolver::class)]
-class CategorySelectionPropertyResolverTest extends TestCase
+#[CoversClass(MediaSelectionPropertyResolver::class)]
+class MediaSelectionPropertyResolverTest extends TestCase
 {
-    private CategorySelectionPropertyResolver $resolver;
+    private MediaSelectionPropertyResolver $resolver;
 
     public function setUp(): void
     {
-        $this->resolver = new CategorySelectionPropertyResolver();
+        $this->resolver = new MediaSelectionPropertyResolver();
     }
 
     public function testResolveEmpty(): void
@@ -32,7 +32,7 @@ class CategorySelectionPropertyResolverTest extends TestCase
         $contentView = $this->resolver->resolve([], 'en');
 
         $this->assertSame([], $contentView->getContent());
-        $this->assertSame(['ids' => []], $contentView->getView());
+        $this->assertSame(['ids' => [], 'displayOption' => null], $contentView->getView());
     }
 
     public function testResolveParams(): void
@@ -42,17 +42,18 @@ class CategorySelectionPropertyResolverTest extends TestCase
         $this->assertSame([], $contentView->getContent());
         $this->assertSame([
             'ids' => [],
+            'displayOption' => null,
             'custom' => 'params',
         ], $contentView->getView());
     }
 
     #[DataProvider('provideUnresolvableData')]
-    public function testResolveUnresolvableData(mixed $data): void
+    public function testResolveUnresolvableData(mixed $data, ?string $expectedDisplayOption = null): void
     {
         $contentView = $this->resolver->resolve($data, 'en');
 
         $this->assertSame([], $contentView->getContent());
-        $this->assertSame(['ids' => []], $contentView->getView());
+        $this->assertSame(['ids' => [], 'displayOption' => $expectedDisplayOption], $contentView->getView());
     }
 
     /**
@@ -66,49 +67,64 @@ class CategorySelectionPropertyResolverTest extends TestCase
         yield 'smart_content' => [['source' => '123']];
         yield 'single_value' => [1];
         yield 'object' => [(object) [1, 2]];
+        yield 'int_list_not_in_ids' => [[1, 2]];
+        yield 'ids_null' => [['ids' => null]];
+        yield 'display_option_only' => [['displayOption' => 'left'], 'left'];
     }
 
     /**
-     * @param array<string|int> $data
+     * @param array{
+     *     ids?: array<string|int>,
+     *     displayOption?: string|null,
+     * } $data
      */
     #[DataProvider('provideResolvableData')]
-    public function testResolveResolvableData(array $data): void
+    public function testResolveResolvableData(array $data, ?string $expectedDisplayOption = null): void
     {
         $contentView = $this->resolver->resolve($data, 'en');
 
         $content = $contentView->getContent();
         $this->assertIsArray($content);
-        foreach ($data as $key => $value) {
+
+        foreach (($data['ids'] ?? []) as $key => $value) {
             $resolvable = $content[$key] ?? null;
             $this->assertInstanceOf(ResolvableResource::class, $resolvable);
             $this->assertSame($value, $resolvable->getId());
-            $this->assertSame('category', $resolvable->getResourceLoaderKey());
+            $this->assertSame('media', $resolvable->getResourceLoaderKey());
         }
 
-        $this->assertSame(['ids' => $data], $contentView->getView());
+        $this->assertSame([
+            'ids' => ($data['ids'] ?? []),
+            'displayOption' => $expectedDisplayOption,
+        ], $contentView->getView());
     }
 
     /**
      * @return iterable<array{
-     *     0: array<string|int>,
+     *     0: array{
+     *         ids: array<string|int>,
+     *         displayOption?: string|null,
+     *     },
      * }>
      */
     public static function provideResolvableData(): iterable
     {
         yield 'empty' => [[]];
-        yield 'int_list' => [[1, 2]];
-        yield 'string_list' => [['1', '2']];
+        yield 'int_list' => [['ids' => [1, 2]]];
+        yield 'int_list_with_display_option' => [['ids' => [1, 2], 'displayOption' => 'left'], 'left'];
+        yield 'string_list' => [['ids' => ['1', '2']]];
+        yield 'string_list_with_display_option' => [['ids' => ['1', '2'], 'displayOption' => 'left'], 'left'];
     }
 
     public function testCustomResourceLoader(): void
     {
-        $contentView = $this->resolver->resolve([1], 'en', ['resourceLoader' => 'custom_category']);
+        $contentView = $this->resolver->resolve(['ids' => [1]], 'en', ['resourceLoader' => 'custom_media']);
 
         $content = $contentView->getContent();
         $this->assertIsArray($content);
         $resolvable = $content[0] ?? null;
         $this->assertInstanceOf(ResolvableResource::class, $resolvable);
         $this->assertSame(1, $resolvable->getId());
-        $this->assertSame('custom_category', $resolvable->getResourceLoaderKey());
+        $this->assertSame('custom_media', $resolvable->getResourceLoaderKey());
     }
 }
