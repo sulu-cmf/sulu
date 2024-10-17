@@ -134,8 +134,10 @@ class ResettingController
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-        } catch (\Exception $ex) {
+        } catch (TokenEmailsLimitReachedException|EntityNotFoundException|UserNotInSystemException $ex) {
             $this->logger->debug($ex->getMessage(), ['exception' => $ex]);
+        } catch (\Exception $ex) {
+            $this->logger->error($ex->getMessage(), ['exception' => $ex]);
         }
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
