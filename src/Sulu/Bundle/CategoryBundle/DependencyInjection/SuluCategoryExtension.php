@@ -50,9 +50,9 @@ class SuluCategoryExtension extends Extension implements PrependExtensionInterfa
         }
 
         if (
-            InstalledVersions::isInstalled('sulu/sulu-content-bundle')
-            && \version_compare(InstalledVersions::getVersion('sulu/sulu-content-bundle') ?? '0.0.0', '0.9', '>=')
-            && \version_compare(InstalledVersions::getVersion('sulu/sulu-content-bundle') ?? '0.0.0', '0.10', '<')
+            InstalledVersions::isInstalled('sulu/content-bundle')
+            && \version_compare(InstalledVersions::getVersion('sulu/content-bundle') ?? '0.0.0', '0.9', '>=')
+            && \version_compare(InstalledVersions::getVersion('sulu/content-bundle') ?? '0.0.0', '0.10', '<')
         ) {
             $loader->load('services_content.xml');
         }
