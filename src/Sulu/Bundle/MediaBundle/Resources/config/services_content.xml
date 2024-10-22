@@ -9,6 +9,19 @@
             <tag name="sulu_content.property_resolver"/>
         </service>
 
+        <service id="sulu_media.single_media_selection_property_resolver"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleMediaSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_media.image_map_property_resolver"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\ImageMapPropertyResolver">
+            <argument type="service" id="logger"/>
+            <argument>%kernel.debug%</argument>
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
         <!-- Resource Loader -->
         <service id="sulu_media.media_resource_loader"
                  class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader">
