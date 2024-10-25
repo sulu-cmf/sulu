@@ -27,13 +27,13 @@
         <service id="sulu_contact.contact_resource_loader" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\ContactResourceLoader">
             <argument type="service" id="sulu_contact.contact_manager"/>
 
-            <tag name="sulu_content.resource_loader"/>
+            <tag name="sulu_content.resource_loader" type="contact"/>
         </service>
 
         <service id="sulu_contact.account_resource_loader" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\AccountResourceLoader">
             <argument type="service" id="sulu_contact.account_manager"/>
 
-            <tag name="sulu_content.resource_loader"/>
+            <tag name="sulu_content.resource_loader" type="account"/>
         </service>
     </services>
 </container>

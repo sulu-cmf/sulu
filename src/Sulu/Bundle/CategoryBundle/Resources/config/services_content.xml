@@ -20,7 +20,7 @@
                  class="Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\ResourceLoader\CategoryResourceLoader">
             <argument type="service" id="sulu_category.category_manager"/>
 
-            <tag name="sulu_content.resource_loader" type="media"/>
+            <tag name="sulu_content.resource_loader" type="category"/>
         </service>
     </services>
 </container>
