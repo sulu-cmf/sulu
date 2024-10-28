@@ -75,7 +75,7 @@ final class UploadFileSubscriber implements EventSubscriberInterface
                 continue;
             }
 
-            $mimeType = $file->getClientMimeType();
+            $mimeType = $file->getMimeType() ?: $file->getClientMimeType();
             foreach ($this->fileInspectors as $fileInspector) {
                 if (null !== $mimeType && $fileInspector->supports($mimeType)) {
                     try {
