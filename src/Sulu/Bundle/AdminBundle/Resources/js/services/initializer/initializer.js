@@ -78,15 +78,18 @@ class Initializer {
         });
     }
 
-    initializeTranslations() {
+    initializeTranslations(userIsLoggedIn: boolean) {
         const locale = userStore.user ? userStore.user.locale : getDefaultLocale();
 
         return this.initializedTranslationsLocale === locale
             ? Promise.resolve()
-            : Requester.get(Config.endpoints.translations + '?locale=' + locale).then((translations) => {
-                setTranslations(translations, locale);
-                this.setInitializedTranslationsLocale(locale);
-            });
+            : Requester.get(
+                Config.endpoints.translations + (!userIsLoggedIn ? '?locale=' + locale : ''))
+                .then((translations) => {
+                    setTranslations(translations, locale);
+                    this.setInitializedTranslationsLocale(locale);
+                }
+                );
     }
 
     initialize(userIsLoggedIn: boolean) {
@@ -96,13 +99,13 @@ class Initializer {
         // if no user is logged in, we do not want to fetch this data to prevent unnecessary 401 responses
         // a 401 response will reset cached basic auth credentials and lead to a second authentication prompt
         if (!userIsLoggedIn) {
-            return this.initializeTranslations()
+            return this.initializeTranslations(userIsLoggedIn)
                 .then(() => {
                     this.setLoading(false);
                 });
         }
 
-        const translationsPromise = this.initializeTranslations();
+        const translationsPromise = this.initializeTranslations(userIsLoggedIn);
         const configPromise = Requester.get(Config.endpoints.config);
         const routePromise = this.initializeSymfonyRouting();
 
