@@ -18,7 +18,9 @@ use PHPCR\Util\UUIDHelper;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Bundle\DocumentManagerBundle\Bridge\PropertyEncoder;
 use Sulu\Component\DocumentManager\Exception\DocumentManagerException;
+use Sulu\Component\DocumentManager\NamespaceRegistry;
 use Sulu\Component\DocumentManager\NodeHelper;
 use Sulu\Component\DocumentManager\NodeHelperInterface;
 
@@ -43,7 +45,7 @@ class NodeHelperTest extends TestCase
 
     public function setUp(): void
     {
-        $this->nodeHelper = new NodeHelper();
+        $this->nodeHelper = new NodeHelper(new PropertyEncoder(new NamespaceRegistry(['content_localized' => 'i18n'])));
 
         $this->node = $this->prophesize(NodeInterface::class);
         $this->session = $this->prophesize(SessionInterface::class);
@@ -156,5 +158,30 @@ class NodeHelperTest extends TestCase
         $parentNode->orderBefore('node', null)->shouldBeCalled();
 
         $this->nodeHelper->reorder($this->node->reveal(), null);
+    }
+
+    public function testSorting(): void
+    {
+        $parentNode = $this->prophesize(NodeInterface::class);
+        $parentNode->getPath()->willReturn('/path/to');
+        $this->node->getParent()->willReturn($parentNode->reveal());
+        $this->node->getName()->willReturn('node-2');
+        $this->node->getPropertyValueWithDefault('i18n:de-title', '')->shouldBeCalled()->willReturn('TOO');
+
+        $siblingNode = $this->prophesize(NodeInterface::class);
+        $siblingNode->getName()->willReturn('node-3');
+        $siblingNode->getPropertyValueWithDefault('i18n:de-title', '')->shouldBeCalled()->willReturn('ZAH');
+
+        $siblingNode1 = $this->prophesize(NodeInterface::class);
+        $siblingNode1->getName()->willReturn('node-1');
+        $siblingNode1->getPropertyValueWithDefault('i18n:de-title', '')->shouldBeCalled()->willReturn('ABC');
+
+        $parentNode->getNodes()->willReturn([$this->node, $siblingNode, $siblingNode1])->shouldBeCalled();
+
+        $parentNode->orderBefore('node-3', null)->shouldBeCalled();
+        $parentNode->orderBefore('node-1', 'node-2')->shouldBeCalled();
+        $parentNode->orderBefore('node-2', 'node-3')->shouldBeCalled();
+
+        $this->nodeHelper->sort($this->node->reveal(), 'de');
     }
 }

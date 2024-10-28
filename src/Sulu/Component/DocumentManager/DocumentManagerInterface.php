@@ -114,6 +114,11 @@ interface DocumentManagerInterface
     public function reorder($document, $destId);
 
     /**
+     * Sorting the siblings of the document.
+     */
+    public function sort(object $document, string $locale): void;
+
+    /**
      * Publishes a document to the public workspace.
      *
      * @param object $document

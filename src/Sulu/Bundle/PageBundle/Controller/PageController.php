@@ -173,6 +173,10 @@ class PageController extends AbstractRestController implements ClassResourceInte
 
                     $data = $this->documentManager->find($copiedPath, $locale);
                     break;
+                case 'sort':
+                    $document = $this->documentManager->find($id, $locale);
+                    $data = $this->documentManager->sort($document, $locale);
+                    break;
                 case 'order':
                     $position = (int) $this->getRequestParameter($request, 'position', true);
                     $webspace = $this->getWebspace($request);

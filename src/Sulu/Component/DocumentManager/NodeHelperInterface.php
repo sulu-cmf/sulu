@@ -48,4 +48,11 @@ interface NodeHelperInterface
      * @throws DocumentManagerException
      */
     public function reorder(NodeInterface $node, $destinationUuid);
+
+    /**
+     * Sorting the siblings of a given node alphabetic order.
+     *
+     * @throws DocumentManagerException
+     */
+    public function sort(NodeInterface $node, string $locale): void;
 }

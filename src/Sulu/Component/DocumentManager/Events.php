@@ -81,6 +81,11 @@ class Events
     public const REORDER = 'sulu_document_manager.reorder';
 
     /**
+     * Fired when the document manager sort method is called.
+     */
+    public const SORT = 'sulu_document_manager.sort';
+
+    /**
      * Fired when the document manager publish method is called.
      */
     public const PUBLISH = 'sulu_document_manager.publish';

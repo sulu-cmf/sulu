@@ -15,6 +15,7 @@ use PHPCR\NodeInterface;
 use PHPCR\SessionInterface;
 use PHPCR\Util\PathHelper;
 use PHPCR\Util\UUIDHelper;
+use Sulu\Bundle\DocumentManagerBundle\Bridge\PropertyEncoder;
 use Sulu\Component\DocumentManager\Exception\DocumentManagerException;
 
 /**
@@ -23,6 +24,10 @@ use Sulu\Component\DocumentManager\Exception\DocumentManagerException;
  */
 class NodeHelper implements NodeHelperInterface
 {
+    public function __construct(private PropertyEncoder $encoder)
+    {
+    }
+
     public function move(NodeInterface $node, $parentUuid, $destinationName = null)
     {
         if (!$destinationName) {
@@ -72,6 +77,26 @@ class NodeHelper implements NodeHelperInterface
         }
 
         $parentNode->orderBefore($node->getName(), PathHelper::getNodeName($siblingPath));
+    }
+
+    public function sort(NodeInterface $node, string $locale): void
+    {
+        $parentNode = $node->getParent();
+
+        $propertyName = $this->encoder->localizedContentName('title', $locale);
+
+        $nodes = \iterator_to_array($parentNode->getNodes());
+        \usort($nodes, function(NodeInterface $a, NodeInterface $b) use ($propertyName): int {
+            return $a->getPropertyValueWithDefault($propertyName, '') <=> $b->getPropertyValueWithDefault($propertyName, '');
+        });
+
+        // Putting the last node in place (ordering at the end)
+        $parentNode->orderBefore($nodes[\count($nodes) - 1]->getName(), null);
+
+        // Ordering the nodes from the end backwards
+        for ($i = \count($nodes) - 2; $i >= 0; --$i) {
+            $parentNode->orderBefore($nodes[$i]->getName(), $nodes[$i + 1]->getName());
+        }
     }
 
     /**

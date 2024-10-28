@@ -93,6 +93,12 @@ class DocumentManager implements DocumentManagerInterface, ResetInterface
         $this->eventDispatcher->dispatch($event, Events::REORDER);
     }
 
+    public function sort(object $document, string $locale): void
+    {
+        $event = new Event\SortEvent($document, $locale);
+        $this->eventDispatcher->dispatch($event, Events::SORT);
+    }
+
     public function publish($document, $locale = null, array $options = [])
     {
         $options = $this->getOptionsResolver(Events::PUBLISH)->resolve($options);

@@ -9,48 +9,42 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Comonent\DocumentManager\Tests\Unit\Subscriber;
+namespace Sulu\Component\DocumentManager\Tests\Unit\Subscriber\Phpcr;
 
 use PHPCR\NodeInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Sulu\Component\DocumentManager\Event\ReorderEvent;
+use Sulu\Component\DocumentManager\Event\SortEvent;
 use Sulu\Component\DocumentManager\NodeHelperInterface;
-use Sulu\Component\DocumentManager\Subscriber\Phpcr\ReorderSubscriber;
+use Sulu\Component\DocumentManager\Subscriber\Phpcr\SortSubscriber;
 
-class ReorderSubscriberTest extends TestCase
+class SortSubscriberTest extends TestCase
 {
     use ProphecyTrait;
 
     /**
      * @var ObjectProphecy<NodeHelperInterface>
      */
-    private $nodeHelper;
+    private ObjectProphecy $nodeHelper;
 
-    /**
-     * @var ReorderSubscriber
-     */
-    private $reorderSubscriber;
+    private SortSubscriber $sortSubscriber;
 
     public function setUp(): void
     {
         $this->nodeHelper = $this->prophesize(NodeHelperInterface::class);
-        $this->reorderSubscriber = new ReorderSubscriber(
-            $this->nodeHelper->reveal()
-        );
+        $this->sortSubscriber = new SortSubscriber($this->nodeHelper->reveal());
     }
 
     public function testHandleReorder(): void
     {
         $node = $this->prophesize(NodeInterface::class);
-        $event = $this->prophesize(ReorderEvent::class);
+        $event = $this->prophesize(SortEvent::class);
 
         $event->getNode()->willReturn($node->reveal())->shouldBeCalled();
-        $event->getDestId()->willReturn('uuid')->shouldBeCalled();
 
-        $this->nodeHelper->reorder($node->reveal(), 'uuid')->shouldBeCalled();
+        $this->nodeHelper->sort($node->reveal())->shouldBeCalled();
 
-        $this->reorderSubscriber->handleReorder($event->reveal());
+        $this->sortSubscriber->handleSort($event->reveal());
     }
 }

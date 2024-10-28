@@ -28,7 +28,9 @@
             <argument type="service" id="sulu_document_manager.default_session" />
         </service>
 
-        <service id="sulu_document_manager.node_helper" class="Sulu\Component\DocumentManager\NodeHelper"/>
+        <service id="sulu_document_manager.node_helper" class="Sulu\Component\DocumentManager\NodeHelper">
+            <argument type="service" id="sulu_document_manager.property_encoder" />
+        </service>
 
         <service id="sulu_document_manager.session_manager" class="Sulu\Bundle\DocumentManagerBundle\Session\SessionManager">
             <argument type="service" id="sulu_document_manager.default_session"/>

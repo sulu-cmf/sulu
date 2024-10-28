@@ -34,6 +34,7 @@ use Sulu\Component\DocumentManager\Event\RemoveEvent;
 use Sulu\Component\DocumentManager\Event\RemoveLocaleEvent;
 use Sulu\Component\DocumentManager\Event\ReorderEvent;
 use Sulu\Component\DocumentManager\Event\RestoreEvent;
+use Sulu\Component\DocumentManager\Event\SortEvent;
 use Sulu\Component\DocumentManager\Event\UnpublishEvent;
 use Sulu\Component\DocumentManager\Events;
 use Sulu\Component\DocumentManager\NodeManager;
@@ -314,6 +315,8 @@ class TestDocumentManagerSubscriber implements EventSubscriberInterface
 
     public $reorder = false;
 
+    public $sort = false;
+
     public function __construct(private Query $query, private QueryResultCollection $resultCollection)
     {
     }
@@ -335,6 +338,7 @@ class TestDocumentManagerSubscriber implements EventSubscriberInterface
             Events::QUERY_EXECUTE => 'handleQueryExecute',
             Events::REFRESH => 'handleRefresh',
             Events::REORDER => 'handleReorder',
+            Events::SORT => 'handleSort',
             Events::CONFIGURE_OPTIONS => 'handleConfigureOptions',
             Events::PUBLISH => 'handlePublish',
             Events::UNPUBLISH => 'handleUnpublish',
@@ -433,6 +437,11 @@ class TestDocumentManagerSubscriber implements EventSubscriberInterface
     public function handleReorder(ReorderEvent $event)
     {
         $this->reorder = true;
+    }
+
+    public function handleSort(SortEvent $event)
+    {
+        $this->sort = true;
     }
 
     public function handleRestore(RestoreEvent $event)
