@@ -84,7 +84,6 @@
         "symfony/finder": "^5.4 || ^6.0",
         "symfony/form": "^5.4 || ^6.0",
         "symfony/framework-bundle": "^5.4 || ^6.0",
-        "symfony/html-sanitizer": "^6.0",
         "symfony/http-client": "^5.4 || ^6.0",
         "symfony/http-foundation": "^5.4 || ^6.0",
         "symfony/http-kernel": "^5.4 || ^6.0",
@@ -106,6 +105,7 @@
         "symfony/twig-bundle": "^5.4 || ^6.0",
         "symfony/validator": "^5.4 || ^6.0",
         "symfony/yaml": "^5.4 || ^6.0",
+        "tgalopin/html-sanitizer": "^1.5",
         "toflar/psr6-symfony-http-cache-store": "^3.0 || ^4.0",
         "twig/twig": "^2.13 || ^3.0",
         "webmozart/assert": "^1.9"

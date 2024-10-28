@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\MediaBundle\FileInspector;
 
-use Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface;
+use HtmlSanitizer\SanitizerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -25,8 +25,8 @@ class SvgFileInspector implements FileInspectorInterface
     private const UNSAFE_ATTRIBUTES = ['on', 'xlink:href', 'href'];
 
     public function __construct(
-        private HtmlSanitizerInterface $htmlSanitizer,
-        private HtmlSanitizerInterface $htmlSanitizerSafe,
+        private SanitizerInterface $htmlSanitizer,
+        private SanitizerInterface $htmlSanitizerSafe,
     ) {
     }
 
