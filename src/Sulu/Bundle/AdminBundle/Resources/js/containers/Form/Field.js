@@ -89,6 +89,7 @@ class Field extends React.Component<Props> {
 
     handleFocus = (target: EventTarget) => {
         const {
+            dataPath,
             schemaPath,
             schema: schemaEntry,
         } = this.props;
@@ -99,6 +100,7 @@ class Field extends React.Component<Props> {
             schemaType: schemaEntry?.type,
             setValue: this.handleChange,
             getValue: () => this.props.value,
+            dataPath,
             schemaPath,
             formInspector: this.props.formInspector,
         };
