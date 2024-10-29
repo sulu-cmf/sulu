@@ -286,5 +286,10 @@
                  class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Validation\BlockFieldMetadataValidator">
             <tag name="sulu_admin.field_metadata_validator"/>
         </service>
+
+        <service id="sulu_admin.form_metadata_validator.ghost_copy_locale"
+                 class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Visitor\LocalesOptionFormMetadataVisitor">
+            <tag name="sulu_admin.form_metadata_visitor"/>
+        </service>
     </services>
 </container>

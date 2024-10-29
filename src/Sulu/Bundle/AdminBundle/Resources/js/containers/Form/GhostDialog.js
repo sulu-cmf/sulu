@@ -3,9 +3,10 @@ import React from 'react';
 import {action, observable} from 'mobx';
 import {observer} from 'mobx-react';
 import Dialog from '../../components/Dialog';
-import Form from '../../components/Form';
-import SingleSelect from '../../components/SingleSelect';
-import {translate} from '../../utils/Translator';
+import FormContainer from './Form';
+import memoryFormStoreFactory from './stores/memoryFormStoreFactory';
+import type {FormStoreInterface} from '../../../containers/Form';
+import {translate} from '../../utils';
 
 type Props = {
     locales: Array<string>,
@@ -17,11 +18,15 @@ type Props = {
 @observer
 class GhostDialog extends React.Component<Props> {
     @observable selectedLocale: string;
+    formStore: FormStoreInterface;
 
     constructor(props: Props) {
         super(props);
 
         this.selectedLocale = this.props.locales[0];
+        this.formStore = memoryFormStoreFactory.createFromFormKey('ghost_copy_locale', undefined, undefined, undefined, {
+            locales: this.props.locales,
+        });
     }
 
     handleCancel = () => {
@@ -29,20 +34,20 @@ class GhostDialog extends React.Component<Props> {
     };
 
     handleConfirm = () => {
-        this.props.onConfirm(this.selectedLocale);
-    };
+        const data = this.formStore.data;
+        const options = Object.keys(data).reduce((acc, key) => {
+            if (key !== 'locale') {
+                acc[key] = data[key];
+            }
 
-    @action handleLocaleChange = (locale: string | number) => {
-        if (typeof locale !== 'string') {
-            throw new Error('Only strings are accepted as locales! This should not happen and is likely a bug.');
-        }
+            return acc;
+        }, {});
 
-        this.selectedLocale = locale;
+        this.props.onConfirm(this.formStore.data.locale, options);
     };
 
     render() {
         const {
-            locales,
             open,
         } = this.props;
 
@@ -57,17 +62,10 @@ class GhostDialog extends React.Component<Props> {
                 title={translate('sulu_admin.ghost_dialog_title')}
             >
                 <p>{translate('sulu_admin.ghost_dialog_description')}</p>
-                <Form>
-                    <Form.Field colSpan={6} label={translate('sulu_admin.choose_language')}>
-                        <SingleSelect onChange={this.handleLocaleChange} value={this.selectedLocale}>
-                            {locales.map((locale) => (
-                                <SingleSelect.Option key={locale} value={locale}>
-                                    {locale}
-                                </SingleSelect.Option>
-                            ))}
-                        </SingleSelect>
-                    </Form.Field>
-                </Form>
+                <FormContainer
+                    store={this.formStore}
+                    onSubmit={this.handleConfirm}
+                />
             </Dialog>
         );
     }

@@ -106,14 +106,14 @@ class Form extends React.Component<Props> {
         this.hideGhostDialog();
     };
 
-    @action handleGhostDialogConfirm = (locale: string) => {
+    @action handleGhostDialogConfirm = (locale: string, options: Object) => {
         const {store} = this.props;
 
         if (!store.copyFromLocale) {
             return;
         }
 
-        store.copyFromLocale(locale);
+        store.copyFromLocale(locale, options);
         this.hideGhostDialog();
     };
 

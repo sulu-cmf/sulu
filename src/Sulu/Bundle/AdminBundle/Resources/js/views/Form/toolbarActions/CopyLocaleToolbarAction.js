@@ -3,21 +3,23 @@ import React from 'react';
 import {action, observable} from 'mobx';
 import jexl from 'jexl';
 import log from 'loglevel';
-import Checkbox from '../../../components/Checkbox';
 import Dialog from '../../../components/Dialog';
 import ResourceRequester from '../../../services/ResourceRequester';
-import {translate} from '../../../utils/Translator';
+import {translate} from '../../../utils';
 import {ResourceFormStore} from '../../../containers/Form';
 import Router from '../../../services/Router';
 import ResourceStore from '../../../stores/ResourceStore';
 import Form from '../Form';
 import copyLocaleActionStyles from './copyLocaleAction.scss';
 import AbstractFormToolbarAction from './AbstractFormToolbarAction';
+import FormContainer, {memoryFormStoreFactory} from '../../../containers/Form';
+import {FormStoreInterface} from '../../../containers';
 
 export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
     @observable showCopyLocaleDialog = false;
     @observable selectedLocales: Array<string> = [];
     @observable copying: boolean = false;
+    formStore: FormStoreInterface;
 
     constructor(
         resourceFormStore: ResourceFormStore,
@@ -50,9 +52,6 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
     getNode() {
         const {
             resourceFormStore: {
-                data: {
-                    availableLocales,
-                },
                 id,
                 locale: currentLocale,
             },
@@ -72,6 +71,7 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
                 cancelText={translate('sulu_admin.cancel')}
                 confirmLoading={this.copying}
                 confirmText={translate('sulu_admin.ok')}
+                confirmDisabled={(this.formStore?.data.locales?.length ?? 0) === 0}
                 key="sulu_admin.copy_locale"
                 onCancel={this.handleClose}
                 onConfirm={this.handleConfirm}
@@ -79,19 +79,10 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
                 title={translate('sulu_admin.copy_locale')}
             >
                 <div className={copyLocaleActionStyles.dialog}>
-                    <p>{translate('sulu_admin.choose_target_locale')}:</p>
-                    {locales.map((locale) => currentLocale.get() === locale
-                        ? null
-                        : <Checkbox
-                            checked={this.selectedLocales.includes(locale)}
-                            key={locale}
-                            onChange={this.handleCheckboxChange}
-                            value={locale}
-                        >
-                            {locale}{availableLocales && !availableLocales.includes(locale) && '*'}
-                        </Checkbox>
-                    )}
-                    <p>{translate('sulu_admin.copy_locale_dialog_description')}</p>
+                    {this.formStore && <FormContainer
+                        store={this.formStore}
+                        onSubmit={this.handleConfirm}
+                    />}
                 </div>
             </Dialog>
         );
@@ -112,6 +103,10 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
                 icon: 'su-copy',
                 label: translate('sulu_admin.copy_locale'),
                 onClick: action(() => {
+                    this.formStore = memoryFormStoreFactory.createFromFormKey('copy_locale', undefined, undefined, undefined, {
+                        locales: this.locales.filter((locale) => locale !== this.resourceFormStore.locale.get()),
+                    });
+
                     this.showCopyLocaleDialog = true;
                 }),
                 type: 'button',
@@ -132,27 +127,38 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
             },
         } = this;
 
+        const data = this.formStore.data;
+        const options = Object.keys(data).reduce((acc, key) => {
+            const value = data[key];
+            if (key === 'locales') {
+                key = 'dest';
+            }
+            acc[key] = value;
+
+            return acc;
+        }, {});
+
         ResourceRequester.post(
             resourceKey,
             undefined,
             {
                 id,
                 locale,
-                dest: this.selectedLocales,
                 action: 'copy-locale',
                 webspace,
+                ...options,
             }
         ).then(action(() => {
             this.copying = false;
             this.showCopyLocaleDialog = false;
             this.form.showSuccessSnackbar();
-            this.clearSelectedLocales();
+            this.destroyFormStore();
         }));
     };
 
     @action handleClose = () => {
         this.showCopyLocaleDialog = false;
-        this.clearSelectedLocales();
+        this.destroyFormStore();
     };
 
     @action handleCheckboxChange = (checked: boolean, value?: string | number) => {
@@ -163,7 +169,8 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
         }
     };
 
-    @action clearSelectedLocales = () => {
-        this.selectedLocales.splice(0, this.selectedLocales.length);
+    @action destroyFormStore = () => {
+        this.formStore.destroy();
+        this.formStore = undefined;
     };
 }
