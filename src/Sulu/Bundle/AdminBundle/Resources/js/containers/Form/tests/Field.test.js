@@ -645,7 +645,7 @@ test('Call onFocus callback when Field gets focus', () => {
     const field = shallow(
         <Field
             data={{}}
-            dataPath=""
+            dataPath="/title"
             formInspector={formInspector}
             name="test"
             onChange={jest.fn()}
@@ -653,7 +653,7 @@ test('Call onFocus callback when Field gets focus', () => {
             onSuccess={undefined}
             router={undefined}
             schema={{label: 'label', type: 'text'}}
-            schemaPath=""
+            schemaPath="/schema/title"
             value="test value"
         />
     );
@@ -673,7 +673,8 @@ test('Call onFocus callback when Field gets focus', () => {
         schemaType: 'text',
         setValue: expect.any(Function),
         getValue: expect.any(Function),
-        schemaPath: '',
+        schemaPath: '/schema/title',
+        dataPath: '/title',
         formInspector,
     });
 
