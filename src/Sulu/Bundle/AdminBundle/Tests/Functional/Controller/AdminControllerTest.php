@@ -186,7 +186,106 @@ class AdminControllerTest extends SuluTestCase
 
         $defaultMetadata = $metaData['types']['default'];
         $overviewMetadata = $metaData['types']['overview'];
-        $this->assertSame(\json_decode((string) \file_get_contents(__DIR__ . '/fixtures/default.json'), true), $defaultMetadata);
-        $this->assertSame(\json_decode((string) \file_get_contents(__DIR__ . '/fixtures/overview.json'), true), $overviewMetadata);
+        $this->assertSame(
+            \json_decode((string) \file_get_contents(__DIR__ . '/fixtures/default.json'), true),
+            $defaultMetadata);
+        $this->assertSame(
+            \json_decode((string) \file_get_contents(__DIR__ . '/fixtures/overview.json'), true),
+            $overviewMetadata);
+    }
+
+    public function testGetMetaDataGhostLocale(): void
+    {
+        $this->initPhpcr();
+        $collectionType = new LoadCollectionTypes();
+        $collectionType->load($this->getEntityManager());
+
+        $this->client->request('GET', '/admin/metadata/form/ghost_copy_locale?locales[]=de&locales[]=en');
+
+        $response = $this->client->getResponse();
+        $this->assertHttpStatusCode(200, $response);
+        $json = $response->getContent();
+        $this->assertIsString($json);
+
+        /**
+         * @var array{
+         *     form: array{
+         *         locale: array{
+         *             options: array{
+         *                 default_value: array{
+         *                     value: string,
+         *                 },
+         *                 values: array{
+         *                     value: array<array{
+         *                         name: string,
+         *                         value: string,
+         *                         title: string,
+         *                     }>,
+         *                 },
+         *             },
+         *         },
+         *     }
+         * } $metaData
+         */
+        $metaData = \json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
+
+        $form = $metaData['form'];
+
+        $this->assertArrayHasKey('locale', $form);
+        $this->assertSame('de', $form['locale']['options']['default_value']['value']);
+        $this->assertCount(2, $form['locale']['options']['values']['value']);
+        $this->assertSame('de', $form['locale']['options']['values']['value'][0]['name']);
+        $this->assertSame('de', $form['locale']['options']['values']['value'][0]['value']);
+        $this->assertSame('de', $form['locale']['options']['values']['value'][0]['title']);
+        $this->assertSame('en', $form['locale']['options']['values']['value'][1]['name']);
+        $this->assertSame('en', $form['locale']['options']['values']['value'][1]['value']);
+        $this->assertSame('en', $form['locale']['options']['values']['value'][1]['title']);
+    }
+
+    public function testGetMetaDataCopyLocale(): void
+    {
+        $this->initPhpcr();
+        $collectionType = new LoadCollectionTypes();
+        $collectionType->load($this->getEntityManager());
+
+        $this->client->request('GET', '/admin/metadata/form/copy_locale?locales[]=de&locales[]=en&locales[]=fr');
+
+        $response = $this->client->getResponse();
+        $this->assertHttpStatusCode(200, $response);
+        $json = $response->getContent();
+        $this->assertIsString($json);
+
+        /**
+         * @var array{
+         *     form: array{
+         *         locales: array{
+         *             options: array{
+         *                 values: array{
+         *                     value: array<array{
+         *                         name: string,
+         *                         value: string,
+         *                         title: string,
+         *                     }>,
+         *                 },
+         *             },
+         *         },
+         *     },
+         * } $metaData
+         */
+        $metaData = \json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
+
+        $form = $metaData['form'];
+
+        $this->assertArrayHasKey('locales', $form);
+        $this->assertCount(3, $form['locales']['options']['values']['value']);
+        $this->assertSame('de', $form['locales']['options']['values']['value'][0]['name']);
+        $this->assertSame('de', $form['locales']['options']['values']['value'][0]['value']);
+        $this->assertSame('de', $form['locales']['options']['values']['value'][0]['title']);
+        $this->assertSame('en', $form['locales']['options']['values']['value'][1]['name']);
+        $this->assertSame('en', $form['locales']['options']['values']['value'][1]['value']);
+        $this->assertSame('en', $form['locales']['options']['values']['value'][1]['title']);
+        $this->assertSame('fr', $form['locales']['options']['values']['value'][2]['name']);
+        $this->assertSame('fr', $form['locales']['options']['values']['value'][2]['value']);
+        $this->assertSame('fr', $form['locales']['options']['values']['value'][2]['title']);
     }
 }

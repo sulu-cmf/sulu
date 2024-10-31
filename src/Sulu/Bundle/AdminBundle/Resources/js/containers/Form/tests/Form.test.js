@@ -9,6 +9,60 @@ import ResourceStore from '../../../stores/ResourceStore';
 import ResourceFormStore from '../stores/ResourceFormStore';
 import metadataStore from '../stores/metadataStore';
 
+const FORM = {
+    locale: {
+        label: 'Sprache wählen',
+        disabledCondition: null,
+        visibleCondition: null,
+        description: '',
+        type: 'single_select',
+        colSpan: 6,
+        options: {
+            default_value: {
+                name: 'default_value',
+                type: null,
+                value: 'de',
+                title: null,
+                placeholder: null,
+                infoText: null,
+            },
+            values: {
+                name: 'values',
+                type: 'collection',
+                value: [
+                    {
+                        name: 'de',
+                        type: null,
+                        value: 'de',
+                        title: 'de',
+                        placeholder: null,
+                        infoText: null,
+                    },
+                    {
+                        name: 'en',
+                        type: null,
+                        value: 'en',
+                        title: 'en',
+                        placeholder: null,
+                        infoText: null,
+                    },
+                ],
+                title: null,
+                placeholder: null,
+                infoText: null,
+            },
+        },
+        types: [],
+        defaultType: null,
+        required: true,
+        spaceAfter: null,
+        minOccurs: null,
+        maxOccurs: null,
+        onInvalid: null,
+        tags: [],
+    },
+};
+
 jest.mock('loglevel', () => ({
     warn: jest.fn(),
     debug: jest.fn(),
@@ -27,6 +81,8 @@ jest.mock('../registries/fieldRegistry', () => ({
                 return require('../../../containers/FieldBlocks').default;
             case 'text_line':
                 return require('../../../components/Input').default;
+            case 'single_select':
+                return require('../fields/SingleSelect').default;
         }
     }),
     getOptions: jest.fn().mockReturnValue({}),
@@ -61,6 +117,7 @@ jest.mock('../../../stores/ResourceStore', () => jest.fn(function(resourceKey, i
 
 jest.mock('../stores/metadataStore', () => ({
     getSchema: jest.fn(),
+    getJsonSchema: jest.fn(),
 }));
 
 test('Should render form using renderer', () => {
@@ -445,17 +502,72 @@ test('Should not show a GhostDialog if the entity is not translatable', () => {
     expect(form.find('GhostDialog')).toHaveLength(0);
 });
 
-test('Should show a GhostDialog and copy the content if the confirm button is clicked', () => {
+test('Should show a GhostDialog and copy the content if the confirm button is clicked', (resolve) => {
+    metadataStore.getSchema.mockReturnValue(Promise.resolve(FORM));
+    metadataStore.getJsonSchema.mockReturnValue(Promise.resolve({}));
+
     const resourceStore = new ResourceStore('snippet', '1', {locale: observable.box('de')});
     resourceStore.data.availableLocales = ['en'];
+    resourceStore.loading = false;
     const formStore = new ResourceFormStore(resourceStore, 'snippet');
     const form = mount(<Form onSubmit={jest.fn()} store={formStore} />);
 
-    expect(form.find('GhostDialog').prop('open')).toEqual(true);
-    form.find('GhostDialog Button[skin="primary"]').simulate('click');
-    expect(form.find('GhostDialog').prop('open')).toEqual(false);
+    // $FlowFixMe
+    metadataStore.getSchema().then(() => {
+        setTimeout(() => {
+            form.find('GhostDialog').update();
 
-    expect(formStore.copyFromLocale).toBeCalledWith('en');
+            form.find('GhostDialog SingleSelect').at(0).prop('onChange')('en');
+            expect(form.find('GhostDialog').prop('open')).toEqual(true);
+            form.find('GhostDialog Button[skin="primary"]').simulate('click');
+            expect(form.find('GhostDialog').prop('open')).toEqual(false);
+
+            expect(formStore.copyFromLocale).toBeCalledWith('en', {});
+
+            resolve();
+        }, 1);
+    });
+});
+
+test('Should show a GhostDialog and copy the content if the confirm button is clicked (with additional fields)', (resolve) => { // eslint-disable-line max-len
+    const formMetadata = {
+        ...FORM,
+        title: {
+            label: 'Test',
+            disabledCondition: null,
+            visibleCondition: null,
+            description: '',
+            type: 'text_line',
+            colSpan: 6,
+        },
+    };
+    metadataStore.getSchema.mockReturnValue(Promise.resolve(formMetadata));
+    metadataStore.getJsonSchema.mockReturnValue(Promise.resolve({}));
+
+    const resourceStore = new ResourceStore('snippet', '1', {locale: observable.box('de')});
+    resourceStore.data.availableLocales = ['en'];
+    resourceStore.loading = false;
+    const formStore = new ResourceFormStore(resourceStore, 'snippet');
+    const form = mount(<Form onSubmit={jest.fn()} store={formStore} />);
+
+    // $FlowFixMe
+    metadataStore.getSchema().then(() => {
+        setTimeout(() => {
+            form.find('GhostDialog').update();
+
+            form.find('GhostDialog Input').at(0).prop('onChange')('Test 123');
+            form.find('GhostDialog SingleSelect').at(0).prop('onChange')('en');
+            expect(form.find('GhostDialog').prop('open')).toEqual(true);
+            form.find('GhostDialog Button[skin="primary"]').simulate('click');
+            expect(form.find('GhostDialog').prop('open')).toEqual(false);
+
+            expect(formStore.copyFromLocale).toBeCalledWith('en', {
+                title: 'Test 123',
+            });
+
+            resolve();
+        }, 1);
+    });
 });
 
 test('Should show a GhostDialog and do nothing if the cancel button is clicked', () => {
