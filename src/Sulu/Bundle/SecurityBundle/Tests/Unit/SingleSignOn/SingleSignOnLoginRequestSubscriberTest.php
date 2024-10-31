@@ -157,7 +157,7 @@ class SingleSignOnLoginRequestSubscriberTest extends TestCase
 
         $this->subscriber->onKernelRequest($event);
 
-        $this->assertSame('{"method":"json_login"}', $event->getResponse()?->getContent());
+        $this->assertNull($event->getResponse());
     }
 
     public function testOnKernelRequestResetPasswordExistingUser(): void
@@ -186,7 +186,7 @@ class SingleSignOnLoginRequestSubscriberTest extends TestCase
 
         $this->subscriber->onKernelRequest($event);
 
-        $this->assertSame('{"method":"json_login"}', $event->getResponse()?->getContent());
+        $this->assertNull($event->getResponse());
     }
 
     public function testOnKernelRequestExistingUserAndPassword(): void
