@@ -287,7 +287,7 @@
             <tag name="sulu_admin.field_metadata_validator"/>
         </service>
 
-        <service id="sulu_admin.form_metadata_validator.ghost_copy_locale"
+        <service id="sulu_admin.form_metadata_validator.locale_options"
                  class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Visitor\LocalesOptionFormMetadataVisitor">
             <tag name="sulu_admin.form_metadata_visitor"/>
         </service>

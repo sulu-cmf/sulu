@@ -146,8 +146,8 @@ class Form extends React.Component<Props> {
         const {onSuccess, router, store} = this.props;
         const {
             data: {
-                availableLocales,
-            },
+                availableLocales = null,
+            } = {availableLocales: null},
         } = store;
 
         if (store.forbidden) {

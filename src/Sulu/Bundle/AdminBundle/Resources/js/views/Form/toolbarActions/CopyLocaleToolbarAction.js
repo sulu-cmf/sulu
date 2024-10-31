@@ -6,14 +6,13 @@ import log from 'loglevel';
 import Dialog from '../../../components/Dialog';
 import ResourceRequester from '../../../services/ResourceRequester';
 import {translate} from '../../../utils';
-import {ResourceFormStore} from '../../../containers/Form';
+import FormContainer, {ResourceFormStore, memoryFormStoreFactory} from '../../../containers/Form';
 import Router from '../../../services/Router';
 import ResourceStore from '../../../stores/ResourceStore';
 import Form from '../Form';
 import copyLocaleActionStyles from './copyLocaleAction.scss';
 import AbstractFormToolbarAction from './AbstractFormToolbarAction';
-import FormContainer, {memoryFormStoreFactory} from '../../../containers/Form';
-import {FormStoreInterface} from '../../../containers';
+import type {FormStoreInterface} from '../../../containers';
 
 export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
     @observable showCopyLocaleDialog = false;
@@ -47,6 +46,12 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
         }
 
         super(resourceFormStore, form, router, locales, options, parentResourceStore);
+
+        if (locales) {
+            this.formStore = memoryFormStoreFactory.createFromFormKey('copy_locale', undefined, undefined, undefined, {
+                locales: locales.filter((locale) => locale !== this.resourceFormStore.locale?.get()),
+            });
+        }
     }
 
     getNode() {
@@ -69,9 +74,9 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
         return (
             <Dialog
                 cancelText={translate('sulu_admin.cancel')}
+                confirmDisabled={(this.formStore.data.locales?.length ?? 0) === 0}
                 confirmLoading={this.copying}
                 confirmText={translate('sulu_admin.ok')}
-                confirmDisabled={(this.formStore?.data.locales?.length ?? 0) === 0}
                 key="sulu_admin.copy_locale"
                 onCancel={this.handleClose}
                 onConfirm={this.handleConfirm}
@@ -79,10 +84,10 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
                 title={translate('sulu_admin.copy_locale')}
             >
                 <div className={copyLocaleActionStyles.dialog}>
-                    {this.formStore && <FormContainer
-                        store={this.formStore}
+                    <FormContainer
                         onSubmit={this.handleConfirm}
-                    />}
+                        store={this.formStore}
+                    />
                 </div>
             </Dialog>
         );
@@ -103,10 +108,6 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
                 icon: 'su-copy',
                 label: translate('sulu_admin.copy_locale'),
                 onClick: action(() => {
-                    this.formStore = memoryFormStoreFactory.createFromFormKey('copy_locale', undefined, undefined, undefined, {
-                        locales: this.locales.filter((locale) => locale !== this.resourceFormStore.locale.get()),
-                    });
-
                     this.showCopyLocaleDialog = true;
                 }),
                 type: 'button',
@@ -171,6 +172,9 @@ export default class CopyLocaleToolbarAction extends AbstractFormToolbarAction {
 
     @action destroyFormStore = () => {
         this.formStore.destroy();
-        this.formStore = undefined;
+
+        this.formStore = memoryFormStoreFactory.createFromFormKey('copy_locale', undefined, undefined, undefined, {
+            locales: this.locales?.filter((locale) => locale !== this.resourceFormStore.locale?.get()),
+        });
     };
 }

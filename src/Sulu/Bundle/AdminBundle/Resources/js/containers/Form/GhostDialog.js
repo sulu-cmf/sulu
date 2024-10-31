@@ -1,17 +1,17 @@
 // @flow
 import React from 'react';
-import {action, observable} from 'mobx';
+import {observable} from 'mobx';
 import {observer} from 'mobx-react';
 import Dialog from '../../components/Dialog';
+import {translate} from '../../utils';
 import FormContainer from './Form';
 import memoryFormStoreFactory from './stores/memoryFormStoreFactory';
-import type {FormStoreInterface} from '../../../containers/Form';
-import {translate} from '../../utils';
+import type {FormStoreInterface} from './../Form';
 
 type Props = {
     locales: Array<string>,
     onCancel: () => void,
-    onConfirm: (locale: string) => void,
+    onConfirm: (locale: string, options: Object) => void,
     open: boolean,
 };
 
@@ -24,9 +24,15 @@ class GhostDialog extends React.Component<Props> {
         super(props);
 
         this.selectedLocale = this.props.locales[0];
-        this.formStore = memoryFormStoreFactory.createFromFormKey('ghost_copy_locale', undefined, undefined, undefined, {
-            locales: this.props.locales,
-        });
+        this.formStore = memoryFormStoreFactory.createFromFormKey(
+            'ghost_copy_locale',
+            undefined,
+            undefined,
+            undefined,
+            {
+                locales: this.props.locales,
+            }
+        );
     }
 
     handleCancel = () => {
@@ -63,8 +69,8 @@ class GhostDialog extends React.Component<Props> {
             >
                 <p>{translate('sulu_admin.ghost_dialog_description')}</p>
                 <FormContainer
-                    store={this.formStore}
                     onSubmit={this.handleConfirm}
+                    store={this.formStore}
                 />
             </Dialog>
         );
