@@ -51,7 +51,7 @@ export default class TextArea extends React.Component<FieldTypeProps<?string>> {
             throw new Error('The "soft_max_length" schema option must be a number!');
         }
 
-        if(rows !== undefined && isNaN(rows)) {
+        if (rows !== undefined && isNaN(rows)) {
             throw new Error('The "rows" schema option must be a number!');
         }
 
