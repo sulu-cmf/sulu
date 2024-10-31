@@ -18636,11 +18636,6 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php
 
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Controller\\\\PageController\\:\\:cgetAction\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php
@@ -42382,7 +42377,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$destChildRelPath of method PHPCR\\\\NodeInterface\\:\\:orderBefore\\(\\) expects string, null given\\.$#"
-			count: 1
+			count: 2
 			path: src/Sulu/Component/DocumentManager/NodeHelper.php
 
 		-
@@ -43347,101 +43342,6 @@ parameters:
 
 		-
 			message: "#^Class Sulu\\\\Component\\\\DocumentManager\\\\DocumentManager constructor invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\DocumentManagerTest\\:\\:addSubscriber\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleClear\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleConfigureOptions\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleCopy\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleCreate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleFind\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleFlush\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleMove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handlePersist\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handlePublish\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleQueryCreate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleQueryExecute\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleRefresh\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleRemove\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleRemoveDraft\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleRemoveLocale\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleReorder\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleRestore\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\DocumentManager\\\\Tests\\\\Unit\\\\TestDocumentManagerSubscriber\\:\\:handleUnpublish\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/DocumentManager/Tests/Unit/DocumentManagerTest.php
 

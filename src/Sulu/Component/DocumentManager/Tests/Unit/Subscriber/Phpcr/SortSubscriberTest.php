@@ -42,8 +42,9 @@ class SortSubscriberTest extends TestCase
         $event = $this->prophesize(SortEvent::class);
 
         $event->getNode()->willReturn($node->reveal())->shouldBeCalled();
+        $event->getLocale()->willReturn('en');
 
-        $this->nodeHelper->sort($node->reveal())->shouldBeCalled();
+        $this->nodeHelper->sort($node->reveal(), 'en')->shouldBeCalled();
 
         $this->sortSubscriber->handleSort($event->reveal());
     }

@@ -266,7 +266,7 @@ class DocumentManagerTest extends TestCase
         $this->markTestSkipped('Not supported yet');
     }
 
-    private function addSubscriber()
+    private function addSubscriber(): TestDocumentManagerSubscriber
     {
         $subscriber = new TestDocumentManagerSubscriber($this->query->reveal(), $this->queryResultCollection->reveal());
         $this->eventDispatcher->addSubscriber($subscriber);
@@ -315,13 +315,13 @@ class TestDocumentManagerSubscriber implements EventSubscriberInterface
 
     public $reorder = false;
 
-    public $sort = false;
+    public bool $sort = false;
 
     public function __construct(private Query $query, private QueryResultCollection $resultCollection)
     {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::PERSIST => 'handlePersist',
@@ -347,7 +347,7 @@ class TestDocumentManagerSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function handleConfigureOptions(ConfigureOptionsEvent $event)
+    public function handleConfigureOptions(ConfigureOptionsEvent $event): void
     {
         $options = $event->getOptions();
         $options->setDefaults([
@@ -355,96 +355,96 @@ class TestDocumentManagerSubscriber implements EventSubscriberInterface
         ]);
     }
 
-    public function handlePersist(PersistEvent $event)
+    public function handlePersist(PersistEvent $event): void
     {
         $this->persist = true;
     }
 
-    public function handleRemove(RemoveEvent $event)
+    public function handleRemove(RemoveEvent $event): void
     {
         $this->remove = true;
     }
 
-    public function handleRemoveLocale(RemoveLocaleEvent $event)
+    public function handleRemoveLocale(RemoveLocaleEvent $event): void
     {
         $this->removeLocale = true;
     }
 
-    public function handleCopy(CopyEvent $event)
+    public function handleCopy(CopyEvent $event): void
     {
         $this->copy = true;
     }
 
-    public function handleMove(MoveEvent $event)
+    public function handleMove(MoveEvent $event): void
     {
         $this->move = true;
     }
 
-    public function handleCreate(CreateEvent $event)
+    public function handleCreate(CreateEvent $event): void
     {
         $this->create = true;
         $event->setDocument(new \stdClass());
     }
 
-    public function handleClear(ClearEvent $event)
+    public function handleClear(ClearEvent $event): void
     {
         $this->clear = true;
     }
 
-    public function handleFlush(FlushEvent $event)
+    public function handleFlush(FlushEvent $event): void
     {
         $this->flush = true;
     }
 
-    public function handleFind(FindEvent $event)
+    public function handleFind(FindEvent $event): void
     {
         $this->find = true;
         $event->setDocument(new \stdClass());
     }
 
-    public function handleQueryCreate(QueryCreateEvent $event)
+    public function handleQueryCreate(QueryCreateEvent $event): void
     {
         $this->queryCreate = true;
         $event->setQuery($this->query);
     }
 
-    public function handleQueryExecute(QueryExecuteEvent $event)
+    public function handleQueryExecute(QueryExecuteEvent $event): void
     {
         $this->queryExecute = true;
         $event->setResult($this->resultCollection);
     }
 
-    public function handlePublish(PublishEvent $event)
+    public function handlePublish(PublishEvent $event): void
     {
         $this->publish = true;
     }
 
-    public function handleUnpublish(UnpublishEvent $event)
+    public function handleUnpublish(UnpublishEvent $event): void
     {
         $this->unpublish = true;
     }
 
-    public function handleRemoveDraft(RemoveDraftEvent $event)
+    public function handleRemoveDraft(RemoveDraftEvent $event): void
     {
         $this->removeDraft = true;
     }
 
-    public function handleRefresh(RefreshEvent $event)
+    public function handleRefresh(RefreshEvent $event): void
     {
         $this->refresh = true;
     }
 
-    public function handleReorder(ReorderEvent $event)
+    public function handleReorder(ReorderEvent $event): void
     {
         $this->reorder = true;
     }
 
-    public function handleSort(SortEvent $event)
+    public function handleSort(SortEvent $event): void
     {
         $this->sort = true;
     }
 
-    public function handleRestore(RestoreEvent $event)
+    public function handleRestore(RestoreEvent $event): void
     {
         $this->restore = true;
     }
