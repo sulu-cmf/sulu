@@ -226,12 +226,12 @@ class OpenIdSingleSignOnAdapterTest extends TestCase
         $this->assertEquals($expectedUserBadge, $result);
 
         $this->assertNotNull($persistedUser);
-        $this->assertSame($persistedUser, $persistedUserRole->getUser());
+        $this->assertSame('hello@sulu.io', $persistedUser->getEmail());
         $this->assertNotNull($persistedContact);
         $this->assertSame('Hikaru', $persistedContact->getFirstName());
         $this->assertSame('Sulu', $persistedContact->getLastName());
-        $this->assertSame('hello@sulu.io', $persistedUser->getEmail());
         $this->assertNotNull($persistedUserRole);
+        $this->assertSame($persistedUser, $persistedUserRole->getUser());
         $this->assertSame($role, $persistedUserRole->getRole());
     }
 }
