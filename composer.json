@@ -105,6 +105,7 @@
         "symfony/twig-bundle": "^5.4 || ^6.0",
         "symfony/validator": "^5.4 || ^6.0",
         "symfony/yaml": "^5.4 || ^6.0",
+        "tgalopin/html-sanitizer": "^1.5",
         "toflar/psr6-symfony-http-cache-store": "^3.0 || ^4.0",
         "twig/twig": "^2.13 || ^3.0",
         "webmozart/assert": "^1.9"
@@ -252,10 +253,13 @@
         "lint-rector": [
             "Composer\\Config::disableProcessTimeout",
             "@php bin/websiteconsole cache:warmup --env=dev",
+            "@php bin/adminconsole cache:warmup --env=dev",
             "@php vendor/bin/rector process --dry-run"
         ],
         "rector": [
             "Composer\\Config::disableProcessTimeout",
+            "@php bin/websiteconsole cache:warmup --env=dev",
+            "@php bin/adminconsole cache:warmup --env=dev",
             "@php vendor/bin/rector process"
         ],
         "lint-composer": "@composer validate --strict",
