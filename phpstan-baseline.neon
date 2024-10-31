@@ -13226,11 +13226,6 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Command/FormatCacheRegenerateCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$dirs of method Symfony\\\\Component\\\\Finder\\\\Finder\\:\\:in\\(\\) expects array\\<string\\>\\|string, string\\|false given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Command/FormatCacheRegenerateCommand.php
-
-		-
 			message: "#^Property Sulu\\\\Bundle\\\\MediaBundle\\\\Command\\\\FormatCacheRegenerateCommand\\:\\:\\$filesystem is never read, only written\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Command/FormatCacheRegenerateCommand.php
