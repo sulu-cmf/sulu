@@ -92,7 +92,7 @@ class SingleSignOnLoginRequestSubscriber implements EventSubscriberInterface
 
         $adapter = $this->singleSignOnAdapterProvider->getAdapterByDomain($domain);
         if (!$adapter) {
-            if ($password) {
+            if ($password || $isResetPassword) {
                 return;
             }
 
