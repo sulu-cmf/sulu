@@ -1,7 +1,6 @@
 // @flow
 import {action, computed, observable} from 'mobx';
 import moment from 'moment';
-import userStore from '../../stores/userStore';
 import Config from '../Config';
 import {setTranslations} from '../../utils/Translator';
 import Requester from '../Requester';
@@ -78,9 +77,7 @@ class Initializer {
         });
     }
 
-    initializeTranslations() {
-        const locale = userStore.user ? userStore.user.locale : getDefaultLocale();
-
+    initializeTranslations(locale: string) {
         return this.initializedTranslationsLocale === locale
             ? Promise.resolve()
             : Requester.get(Config.endpoints.translations + '?locale=' + locale).then((translations) => {
@@ -96,18 +93,26 @@ class Initializer {
         // if no user is logged in, we do not want to fetch this data to prevent unnecessary 401 responses
         // a 401 response will reset cached basic auth credentials and lead to a second authentication prompt
         if (!userIsLoggedIn) {
-            return this.initializeTranslations()
+            return this.initializeTranslations(getDefaultLocale())
                 .then(() => {
                     this.setLoading(false);
                 });
         }
 
-        const translationsPromise = this.initializeTranslations();
         const configPromise = Requester.get(Config.endpoints.config);
         const routePromise = this.initializeSymfonyRouting();
 
-        return Promise.all([configPromise, routePromise, translationsPromise])
+        return Promise.all([configPromise, routePromise])
             .then(action(([config]) => {
+                const locale = config?.sulu_admin?.user?.locale || getDefaultLocale();
+
+                return this.initializeTranslations(locale).then(
+                    () => {
+                        return config;
+                    }
+                );
+            }))
+            .then(action((config) => {
                 this.config = config;
 
                 if (!this.initialized) {
