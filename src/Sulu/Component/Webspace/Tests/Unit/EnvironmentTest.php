@@ -37,7 +37,6 @@ class EnvironmentTest extends TestCase
             ],
         ];
 
-        // Testing that the environment of the url is overridden when adding it to the environment object
         $url = new Url('sulu.io');
 
         $environment = new Environment($expected['type']);

@@ -264,7 +264,7 @@ class PreviewRenderer implements PreviewRendererInterface
         $portal->setLocalizations([$localization]);
         $portal->setDefaultLocalization($localization);
 
-        $environment = new Environment('test');
+        $environment = new Environment($this->environment);
         $environment->addUrl(new Url($domain));
 
         $portal->addEnvironment($environment);
