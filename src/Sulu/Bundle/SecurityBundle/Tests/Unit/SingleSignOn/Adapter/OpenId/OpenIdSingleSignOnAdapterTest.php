@@ -182,32 +182,17 @@ class OpenIdSingleSignOnAdapterTest extends TestCase
 
         $this->userRepository->findOneBy(Argument::any())->willReturn(null);
 
-        $user = $this->prophesize(User::class);
-        $user->getRoles()->willReturn([]);
-        $user->setEmail(Argument::any())->shouldBeCalled();
-        $user->setUsername(Argument::any())->shouldBeCalled();
-        $user->setPassword(Argument::any())->shouldBeCalled();
-        $user->setSalt(Argument::any())->shouldBeCalled();
-        $user->setEnabled(Argument::any())->shouldBeCalled();
-        $user->setContact(Argument::any())->shouldBeCalled();
-        $user->addUserRole(Argument::any())->shouldBeCalled();
-        $user->getLocale()->shouldBeCalled();
-        $user->setLocale(Argument::any())->shouldBeCalled();
+        $user = new User();
+        $this->userRepository->createNew()->willReturn($user)->shouldBeCalled();
 
-        $contact = $this->prophesize(Contact::class);
-        $user->getContact()->willReturn($contact->reveal());
-
-        $this->userRepository->createNew()->willReturn($user->reveal());
-
-        $this->contactRepository->createNew()->willReturn($this->prophesize(Contact::class)->reveal());
+        $contact = new Contact();
+        $this->contactRepository->createNew()->willReturn($contact)->shouldBeCalled();
         $this->entityManager->persist(Argument::any())->shouldBeCalled();
-        $role = $this->prophesize(Role::class);
-        $role->getAnonymous()->shouldBeCalled()->willReturn(false);
-        $role->getIdentifier()->willReturn('hello@sulu.io');
-        $this->roleRepository->createNew()->willReturn($role->reveal());
+        $role = new Role();
+        $role->setKey('ADMIN');
         $this->roleRepository->findOneBy(Argument::any())
             ->shouldBeCalled()
-            ->willReturn($role->reveal());
+            ->willReturn($role);
         $this->entityManager->flush()->shouldBeCalled();
 
         $expectedUserBadge = new UserBadge('hello@sulu.io', null, ['email' => 'hello@sulu.io']);

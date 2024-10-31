@@ -262,8 +262,7 @@ class OpenIdSingleSignOnAdapter implements SingleSignOnAdapterInterface
         }
 
         if (!\in_array($role->getIdentifier(), $roleNames, true)) {
-            /** @var UserRole $defaultRoleKey */
-            $defaultRoleKey = $this->roleRepository->createNew();
+            $defaultRoleKey = new UserRole();
             $defaultRoleKey->setRole($role);
             $defaultRoleKey->setUser($user);
             $defaultRoleKey->setLocale('["en", "de"]');
