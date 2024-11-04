@@ -237,7 +237,8 @@ class OpenIdSingleSignOnAdapter implements SingleSignOnAdapterInterface
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
         if (!$user instanceof User) {
-            $user = new User();
+            /** @var User $user */
+            $user = $this->userRepository->createNew();
             $user->setEmail($email);
             $user->setUsername($email);
             $user->setPassword(Uuid::uuid4()->toString()); // create a random password as a password is required
