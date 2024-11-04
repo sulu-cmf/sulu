@@ -4,14 +4,20 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <!-- Property Resolver -->
-        <service id="sulu_category.property_resolver.category_selection"
-                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Content\PropertyResolver\Resolver\CategorySelectionPropertyResolver">
+        <service id="sulu_category.category_selection_property_resolver"
+                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver\CategorySelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_category.single_category_selection_property_resolver"
+                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver\CategorySelectionPropertyResolver">
+
             <tag name="sulu_content.property_resolver"/>
         </service>
 
         <!-- Resource Loader -->
-        <service id="sulu_category.resource_loader.category"
-                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Content\ResourceLoader\CategoryResourceLoader">
+        <service id="sulu_category.category_resource_loader"
+                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\ResourceLoader\CategoryResourceLoader">
             <argument type="service" id="sulu_category.category_manager"/>
 
             <tag name="sulu_content.resource_loader" type="media"/>
