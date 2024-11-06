@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\MediaBundle\Tests\Unit\SvgInspector;
+namespace Sulu\Bundle\MediaBundle\Tests\Unit\FileInspector;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -20,7 +20,7 @@ use Sulu\Bundle\MediaBundle\FileInspector\SvgSanitizerFactory;
 use Sulu\Bundle\MediaBundle\FileInspector\UnsafeFileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class SvgFileInspectorTest extends TestCase
+class SvgFileInspecaorTest extends TestCase
 {
     use ProphecyTrait;
 
