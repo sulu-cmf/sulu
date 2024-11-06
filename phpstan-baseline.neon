@@ -8421,11 +8421,6 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/DataFixtures/ORM/LoadDefaultTypes.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\DataFixtures\\\\ORM\\\\LoadDefaultTypes\\:\\:load\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/DataFixtures/ORM/LoadDefaultTypes.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\DependencyInjection\\\\Configuration\\:\\:addObjectsSection\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/DependencyInjection/Configuration.php
@@ -13801,22 +13796,12 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadCollectionTypes.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\DataFixtures\\\\ORM\\\\LoadCollectionTypes\\:\\:load\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadCollectionTypes.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\<Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaType\\>\\:\\:setIdGenerator\\(\\)\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadMediaTypes.php
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\<Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaType\\>\\:\\:setIdGeneratorType\\(\\)\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadMediaTypes.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\DataFixtures\\\\ORM\\\\LoadMediaTypes\\:\\:load\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadMediaTypes.php
 
@@ -26497,11 +26482,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with DOMNodeList\\<DOMNode\\>\\|false will always evaluate to false\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/DataFixtures/ORM/LoadSecurityTypes.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\SecurityBundle\\\\DataFixtures\\\\ORM\\\\LoadSecurityTypes\\:\\:load\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/DataFixtures/ORM/LoadSecurityTypes.php
 
