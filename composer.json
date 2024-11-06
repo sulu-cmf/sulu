@@ -86,7 +86,7 @@
         "symfony/finder": "^5.4 || ^6.0 || ^7.0",
         "symfony/form": "^5.4 || ^6.0 || ^7.0",
         "symfony/framework-bundle": "^5.4 || ^6.0 || ^7.0",
-        "symfony/html-sanitizer": "^5.4 || ^6.0 || ^7.0",
+        "symfony/html-sanitizer": "^6.1 || ^7.0",
         "symfony/http-client": "^5.4 || ^6.0 || ^7.0",
         "symfony/http-foundation": "^5.4 || ^6.0 || ^7.0",
         "symfony/http-kernel": "^5.4 || ^6.0 || ^7.0",
