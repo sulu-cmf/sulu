@@ -20,7 +20,7 @@ use Sulu\Bundle\MediaBundle\FileInspector\SvgSanitizerFactory;
 use Sulu\Bundle\MediaBundle\FileInspector\UnsafeFileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class SvgFileInspecaorTest extends TestCase
+class SvgFileInspectorTest extends TestCase
 {
     use ProphecyTrait;
 
