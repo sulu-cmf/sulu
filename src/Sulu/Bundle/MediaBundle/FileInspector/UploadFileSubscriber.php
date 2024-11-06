@@ -51,21 +51,42 @@ final class UploadFileSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
+        $request->files->replace($this->inspectFiles($request->files->all()));
+    }
+
+    /**
+     * @param array<string, mixed> $files
+     *
+     * @return array<string, mixed>
+     */
+    private function inspectFiles(array $files): array
+    {
         /**
          * @var string $key
-         * @var UploadedFile $file
+         * @var UploadedFile|array<string, mixed>|null $file
          */
-        foreach ($request->files as $key => $file) {
+        foreach ($files as $key => $file) {
+            if (\is_array($file)) {
+                $files[$key] = $this->inspectFiles($file);
+                continue;
+            }
+
+            if (null === $file) {
+                continue;
+            }
+
+            $mimeType = $file->getMimeType() ?: $file->getClientMimeType();
             foreach ($this->fileInspectors as $fileInspector) {
-                $mimeType = $file->getClientMimeType();
                 if (null !== $mimeType && $fileInspector->supports($mimeType)) {
                     try {
-                        $request->files->set($key, $fileInspector->inspect($file));
+                        $files[$key] = $fileInspector->inspect($file);
                     } catch (UnsafeFileException $exception) {
                         throw new BadRequestHttpException($exception->getMessage(), $exception);
                     }
                 }
             }
         }
+
+        return $files;
     }
 }
