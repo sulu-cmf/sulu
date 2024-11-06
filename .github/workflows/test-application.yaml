@@ -15,7 +15,7 @@ concurrency:
 jobs:
     js-css:
         name: "Node ${{ matrix.node-version }}"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         strategy:
@@ -82,7 +82,7 @@ jobs:
 
     js-lint:
         name: "Node Lint"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         env:
@@ -119,7 +119,7 @@ jobs:
 
     php:
         name: "PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.phpcr-transport }}, ${{ matrix.dependency-versions }})"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         env:
@@ -254,7 +254,7 @@ jobs:
 
     php-lint:
         name: "PHP Lint"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         env:

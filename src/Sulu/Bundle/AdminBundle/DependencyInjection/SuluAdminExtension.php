@@ -113,6 +113,11 @@ class SuluAdminExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig(
             'sulu_admin',
             [
+                'forms' => [
+                    'directories' => [
+                        __DIR__ . '/../Resources/config/forms',
+                    ],
+                ],
                 'resources' => [
                     'collaborations' => [
                         'routes' => [
