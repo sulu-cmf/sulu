@@ -92,7 +92,7 @@ class WebsiteSearchControllerTest extends SuluTestCase
     public function testSearchExactTermEndingWithSpace(): void
     {
         /** @var Crawler $crawler */
-        $crawler = $this->websiteClient->request('GET', 'http://de.sulu.lo/search?q=Product ');
+        $crawler = $this->websiteClient->request('GET', 'http://de.sulu.lo/search?q=Product%20');
         $response = $this->websiteClient->getResponse();
 
         static::assertHttpStatusCode(200, $response);
