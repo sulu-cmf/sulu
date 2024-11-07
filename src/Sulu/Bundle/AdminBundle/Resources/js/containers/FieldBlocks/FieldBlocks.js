@@ -3,7 +3,7 @@ import equals from 'fast-deep-equal';
 import jsonpointer from 'json-pointer';
 import jexl from 'jexl';
 import React, {Fragment} from 'react';
-import {action, computed, isObservableArray, observable, toJS} from 'mobx';
+import {action, computed, observable, toJS} from 'mobx';
 import {observer} from 'mobx-react';
 import BlockCollection from '../../components/BlockCollection';
 import {translate} from '../../utils/Translator';
@@ -11,6 +11,7 @@ import {memoryFormStoreFactory} from '../Form';
 import FormOverlay from '../FormOverlay';
 import snackbarStore from '../../stores/snackbarStore';
 import conditionDataProviderRegistry from '../Form/registries/conditionDataProviderRegistry';
+import {getDifference} from '../../utils/DifferenceCalculator';
 import blockPreviewTransformerRegistry from './registries/blockPreviewTransformerRegistry';
 import FieldRenderer from './FieldRenderer';
 import type {BlockError, FieldTypeProps, FormStoreInterface} from '../Form/types';
@@ -207,119 +208,37 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
         return Object.keys(settingsSchema).reduce(iconMappingReducerCreator(), {});
     }
 
-    @computed get precomputedConditions() {
-        const precomputedConditions = [];
-        for (const pointer in this.iconsMapping) {
-            if (this.iconsMapping.hasOwnProperty(pointer)) {
-                const {visibleCondition, icon} = this.iconsMapping[pointer];
-                precomputedConditions.push({pointer, visibleCondition, icon});
-            }
-        }
-
-        return precomputedConditions;
-    }
-
-    getDifference = (target: any, source: any): { [key: string]: any } => {
-        if (target === source) {
-            return {};
-        }
-
-        if (typeof target !== 'object' || target === null || typeof source !== 'object' || source === null) {
-            return target;
-        }
-
-        if (Array.isArray(target) !== Array.isArray(source)) {
-            return target;
-        }
-
-        const result: { [key: string]: any } = {};
-        const keys = new Set(
-            [
-                ...(isObservableArray(target) ? target.keys() : Object.keys(target)),
-                ...(isObservableArray(source) ? source.keys() : Object.keys(source)),
-            ]
-        );
-
-        for (const key of keys) {
-            const targetValue = target[key];
-            const sourceValue = source[key];
-            const diffValue = this.getDifference(targetValue, sourceValue);
-
-            if (diffValue !== undefined && !equals(diffValue, {})) {
-                result[key] = diffValue;
-            }
-        }
-
-        return Object.keys(result).length > 0 ? result : {};
-    };
-
-    getChangedValues = (target: any, source: any): { [key: string]: any } => {
-        // if target and source are not same data structure
-        if (typeof target !== typeof source ||
-            target === null || source === null ||
-            Array.isArray(target) !== Array.isArray(source)
-        ) {
-            return target;
-        }
-
-        // get all unique keys from target and source
-        // this is necessary because the keys of the target and source can be different
-        const keys = new Set(
-            [
-                ...(isObservableArray(target) ? target.keys() : Object.keys(target)),
-                ...(isObservableArray(source) ? source.keys() : Object.keys(source)),
-            ]
-        );
-
-        // iterate over all keys and compare the values
-        const result = {};
-        for (const key of keys) {
-            const targetValue = target[key];
-            const sourceValue = source[key];
-
-            // if the values are not equal, add the value to the result
-            if (!equals(targetValue, sourceValue)) {
-                result[key] = targetValue;
-            }
-        }
-
-        return Object.keys(result).length > 0 ? result : {};
-    }
-
     @computed get icons(): Array<Array<string>> {
-        if (!this.value) {
-            return [];
-        }
-        if (this.precomputedConditions.length === 0) {
+        if (!this.value || Object.keys(this.iconsMapping).length === 0) {
             return [];
         }
 
         const jsValue = toJS(this.value);
-        const changedValues = this.getChangedValues(jsValue, this.oldIconValue);
+        const changedValues = getDifference(jsValue, this.oldIconValue);
         this.oldIconValue = jsValue;
 
         for (const key in changedValues) {
             const value = this.value[key];
 
             const icons = [];
-            for (const {pointer, visibleCondition, icon} of this.precomputedConditions) {
-                const hasResult = jsonpointer.has(value, pointer);
 
-                if (hasResult || visibleCondition !== undefined) {
-                    if (visibleCondition !== undefined) {
-                        const conditionData = this.getConditionData(value, pointer);
+            for (const pointer in this.iconsMapping) {
+                const visibleCondition = this.iconsMapping[pointer].visibleCondition;
+                const icon = this.iconsMapping[pointer].icon;
 
-                        const jexlResult = jexl.evalSync(visibleCondition, conditionData);
-
-                        if (jexlResult) {
-                            icons.push(icon);
-                        }
-                    } else {
-                        const getResult = jsonpointer.get(value, pointer);
-                        if (getResult) {
-                            icons.push(icon);
-                        }
-                    }
+                if (
+                    ( // evaluate visible condition
+                        visibleCondition !== undefined &&
+                        jexl.evalSync(visibleCondition, this.getConditionData(value, pointer))
+                    )
+                    ||
+                    ( // use value from pointer if no visible condition is defined
+                        visibleCondition === undefined &&
+                        jsonpointer.has(value, pointer) &&
+                        jsonpointer.get(value, pointer)
+                    )
+                ) {
+                    icons.push(icon);
                 }
             }
 
