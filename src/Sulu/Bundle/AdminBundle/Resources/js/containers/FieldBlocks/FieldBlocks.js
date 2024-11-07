@@ -28,7 +28,7 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
     @observable openedBlockSettingsIndex: ?number;
     @observable blockSettingsFormStore: ?FormStoreInterface;
     @observable value: Object;
-    oldIconValue: Object;
+    oldIconValue: ?Object;
     computedIcons: Array<Array<string>> = [];
 
     constructor(props: FieldTypeProps<Array<BlockEntry>>) {
@@ -253,18 +253,52 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
         return Object.keys(result).length > 0 ? result : {};
     };
 
+    getChangedValues = (target: any, source: any): { [key: string]: any } => {
+        // if target and source are not same data structure
+        if (typeof target !== typeof source ||
+            target === null || source === null ||
+            Array.isArray(target) !== Array.isArray(source)
+        ) {
+            return target;
+        }
+
+        // get all unique keys from target and source
+        // this is necessary because the keys of the target and source can be different
+        const keys = new Set(
+            [
+                ...(isObservableArray(target) ? target.keys() : Object.keys(target)),
+                ...(isObservableArray(source) ? source.keys() : Object.keys(source)),
+            ]
+        );
+
+        // iterate over all keys and compare the values
+        const result = {};
+        for (const key of keys) {
+            const targetValue = target[key];
+            const sourceValue = source[key];
+
+            // if the values are not equal, add the value to the result
+            if (!equals(targetValue, sourceValue)) {
+                result[key] = targetValue;
+            }
+        }
+
+        return Object.keys(result).length > 0 ? result : {};
+    }
+
     @computed get icons(): Array<Array<string>> {
         if (!this.value) {
             return [];
         }
-
         if (this.precomputedConditions.length === 0) {
             return [];
         }
 
-        const diff = this.getDifference(this.value, this.oldIconValue ? this.oldIconValue : {});
-        this.oldIconValue = this.value;
-        for (const key in diff) {
+        const jsValue = toJS(this.value);
+        const changedValues = this.getChangedValues(jsValue, this.oldIconValue);
+        this.oldIconValue = jsValue;
+
+        for (const key in changedValues) {
             const value = this.value[key];
 
             const icons = [];
@@ -301,15 +335,13 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
 
     getConditionData(data: {[string]: any}, dataPath: ?string) {
         const {formInspector} = this.props;
-        const providers = conditionDataProviderRegistry.getAll();
-        const result = Object.assign({}, data);
 
-        for (let i = 0; i < providers.length; i++) {
-            const newData = providers[i](result, dataPath, formInspector);
-            Object.assign(result, newData);
-        }
-
-        return result;
+        return conditionDataProviderRegistry.getAll().reduce(
+            function(data, conditionDataProvider) {
+                return {...data, ...conditionDataProvider(data, dataPath, formInspector)};
+            },
+            {...data}
+        );
     }
 
     @action setValue = (value: Object) => {
