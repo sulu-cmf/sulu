@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\ContactBundle\DependencyInjection;
 
 use Composer\InstalledVersions;
+use Composer\Semver\VersionParser;
 use Sulu\Bundle\ContactBundle\Admin\ContactAdmin;
 use Sulu\Bundle\ContactBundle\Entity\AccountRepositoryInterface;
 use Sulu\Bundle\ContactBundle\Entity\ContactRepositoryInterface;
@@ -280,8 +281,7 @@ class SuluContactExtension extends Extension implements PrependExtensionInterfac
 
         if (
             InstalledVersions::isInstalled('sulu/content-bundle')
-            && \version_compare(InstalledVersions::getVersion('sulu/content-bundle') ?? '0.0.0', '0.9', '>=')
-            && \version_compare(InstalledVersions::getVersion('sulu/content-bundle') ?? '0.0.0', '0.10', '<')
+            && InstalledVersions::satisfies(new VersionParser(), 'sulu/content-bundle', '^0.9')
         ) {
             $loader->load('services_content.xml');
         }
