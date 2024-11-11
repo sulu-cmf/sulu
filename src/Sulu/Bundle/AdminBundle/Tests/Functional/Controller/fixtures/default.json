@@ -138,7 +138,16 @@
                             "name": "text_block",
                             "title": "Text Block",
                             "form": [],
-                            "schema": null,
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
                             "key": null,
                             "tags": [
                                 {
@@ -154,7 +163,16 @@
                             "name": "text_block2",
                             "title": "Text Block 2",
                             "form": [],
-                            "schema": null,
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
                             "key": null,
                             "tags": [
                                 {
@@ -188,7 +206,16 @@
                                     "tags": []
                                 }
                             },
-                            "schema": null,
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
                             "key": null,
                             "tags": []
                         },
@@ -235,7 +262,16 @@
                                             "name": "text_block2",
                                             "title": "Text Block 2",
                                             "form": [],
-                                            "schema": null,
+                                            "schema": {
+                                                "type": [
+                                                    "number",
+                                                    "string",
+                                                    "boolean",
+                                                    "object",
+                                                    "array",
+                                                    "null"
+                                                ]
+                                            },
                                             "key": null,
                                             "tags": [
                                                 {
@@ -251,7 +287,16 @@
                                             "name": "text_block3",
                                             "title": "Text Block 3",
                                             "form": [],
-                                            "schema": null,
+                                            "schema": {
+                                                "type": [
+                                                    "number",
+                                                    "string",
+                                                    "boolean",
+                                                    "object",
+                                                    "array",
+                                                    "null"
+                                                ]
+                                            },
                                             "key": null,
                                             "tags": [
                                                 {
@@ -273,7 +318,16 @@
                                     "tags": []
                                 }
                             },
-                            "schema": null,
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
                             "key": null,
                             "tags": []
                         }
