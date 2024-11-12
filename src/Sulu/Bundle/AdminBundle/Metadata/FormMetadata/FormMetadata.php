@@ -61,6 +61,11 @@ class FormMetadata extends AbstractMetadata
      */
     protected $tags;
 
+    public function __construct()
+    {
+        $this->schema = new SchemaMetadata();
+    }
+
     public function setName(string $name)
     {
         $this->name = $name;
