@@ -113,3 +113,7 @@ sulu_audience_targeting_api:
     type: rest
     resource: "@SuluAudienceTargetingBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
+
+sulu_next_page_api:
+    resource: "@SuluNextPageBundle/config/routing_admin_api.yaml"
+    prefix: /admin/api

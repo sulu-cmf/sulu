@@ -10,7 +10,7 @@
     </parameters>
     <services>
         <!-- admin class -->
-        <service id="sulu_page.admin" class="%sulu_page.admin.class%">
+        <!--service id="sulu_page.admin" class="%sulu_page.admin.class%">
             <tag name="sulu.admin"/>
             <tag name="sulu.context" context="admin"/>
             <argument type="service" id="Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface"/>
@@ -20,7 +20,7 @@
             <argument type="service" id="sulu_page.teaser.provider_pool" />
             <argument>%sulu_document_manager.versioning.enabled%</argument>
             <argument type="service" id="sulu_activity.activity_list_view_builder_factory"/>
-        </service>
+        </service-->
 
         <!-- content -->
         <service id="sulu_page.permission_listener" class="Sulu\Bundle\PageBundle\Search\EventListener\PermissionListener">
