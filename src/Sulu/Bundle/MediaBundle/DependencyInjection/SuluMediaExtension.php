@@ -327,7 +327,15 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
         }
 
         $hasVipsAdapter = false;
-        if (\class_exists(VipsImagine::class) && \extension_loaded('vips')) {
+        if (\class_exists(VipsImagine::class)
+            && (
+                \extension_loaded('vips')
+                || (
+                    \extension_loaded('ffi')
+                    && '1' === \ini_get('ffi.enable') // preload is not yet supported by vips see https://github.com/libvips/php-vips
+                )
+            )
+        ) {
             $loader->load('services_imagine_vips.xml');
             $hasVipsAdapter = true;
         }
