@@ -60,6 +60,11 @@ class FormMetadata extends AbstractMetadata
         $this->schema = new SchemaMetadata();
     }
 
+    public function __construct()
+    {
+        $this->schema = new SchemaMetadata();
+    }
+
     public function setName(string $name)
     {
         $this->name = $name;
