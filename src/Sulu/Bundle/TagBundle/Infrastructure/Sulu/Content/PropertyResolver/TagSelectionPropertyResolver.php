@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\PropertyResolver;
 
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
-use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
 use Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\ResourceLoader\TagResourceLoader;
 
 /**

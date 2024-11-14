@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader;
 
-use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\ResourceLoaderInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 use Sulu\Bundle\MediaBundle\Collection\Manager\CollectionManagerInterface;
 use Sulu\Bundle\MediaBundle\Media\Exception\CollectionNotFoundException;
 

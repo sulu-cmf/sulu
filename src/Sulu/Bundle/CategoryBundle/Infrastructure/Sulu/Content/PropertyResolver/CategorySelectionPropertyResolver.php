@@ -15,7 +15,7 @@ namespace Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolve
 
 use Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\ResourceLoader\CategoryResourceLoader;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
-use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
 
 /**
  * @internal if you need to override this service, create a new service with based on PropertyResolverInterface instead of extending this class

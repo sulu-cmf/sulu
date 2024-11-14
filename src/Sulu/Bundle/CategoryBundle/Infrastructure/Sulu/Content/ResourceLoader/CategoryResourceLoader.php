@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\ResourceLoader;
 
 use Sulu\Bundle\CategoryBundle\Category\CategoryManagerInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\ResourceLoaderInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 
 /**
  * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class

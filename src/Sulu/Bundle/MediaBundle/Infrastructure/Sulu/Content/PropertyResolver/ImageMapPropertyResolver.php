@@ -19,7 +19,7 @@ use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Bundle\ContentBundle\Content\Application\MetadataResolver\MetadataResolver;
-use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
 use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader;
 
 /**

@@ -17,7 +17,7 @@ use Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\Account
 use Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\ContactResourceLoader;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
-use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\PropertyResolverInterface;
+use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
 
 /**
  * @internal if you need to override this service, create a new service with based on PropertyResolverInterface instead of extending this class
