@@ -1,0 +1,109 @@
+name: Test application
+
+on:
+    pull_request:
+    push:
+        branches:
+            - '[0-9]+.x'
+            - '[0-9]+.[0-9]+'
+
+jobs:
+    test:
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.dependency-versions }}, Coverage ${{ matrix.coverage }})'
+        runs-on: ubuntu-latest
+
+        env:
+            APP_ENV: test
+            DATABASE_URL: mysql://root:root@127.0.0.1:3306/su_content_test?serverVersion=8.0.29&charset=utf8mb4&collation=utf8mb4_unicode_ci
+            COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - php-version: '8.2'
+                      dependency-versions: 'lowest'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      tools: 'composer:v2'
+
+                    - php-version: '8.2'
+                      dependency-versions: 'highest'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      tools: 'composer:v2'
+
+                    - php-version: '8.3'
+                      dependency-versions: 'highest'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      tools: 'composer:v2'
+
+                    - php-version: '8.4'
+                      composer-options: '--ignore-platform-reqs'
+                      dependency-versions: 'highest'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      tools: 'composer:v2'
+
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v4
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  extensions: ${{ matrix.php-extensions }}
+                  tools: ${{ matrix.tools }}
+                  coverage: none
+
+            - name: Remove Lint Tools
+              # These tools are not required to run tests, so we are removing them to improve dependency resolving and
+              # testing lowest versions.
+              run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
+
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v2
+              with:
+                  dependency-versions: ${{matrix.dependency-versions}}
+                  composer-options: ${{ matrix.composer-options }}
+
+            - name: Bootstrap test environment
+              run: composer bootstrap-test-environment
+
+            - name: Execute test cases
+              run: time composer test
+
+    lint:
+        name: "PHP Lint"
+        runs-on: ubuntu-latest
+
+        env:
+            COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v4
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.3
+                  extensions: 'ctype, iconv, mysql, imagick'
+                  tools: 'composer:v2'
+                  coverage: none
+
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v2
+              with:
+                  dependency-versions: ${{matrix.dependency-versions}}
+                  composer-options: ${{ matrix.composer-options }}
+
+            - name: Lint code
+              run: composer lint

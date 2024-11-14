@@ -1,0 +1,20 @@
+name: Crowdin Upload
+on:
+    push:
+        tags:
+            - '*'
+
+jobs:
+    upload_sources:
+        name: Upload Sources
+        runs-on: ubuntu-18.04
+        steps:
+            - uses: actions/checkout@v1
+            - name: Copy translation file
+              run: cp translations/admin.en.json admin.en.json
+            - name: Download Crowdin CLI
+              run: curl "https://downloads.crowdin.com/cli/v3/crowdin-cli.zip" --output crowdin-cli.zip && unzip crowdin-cli.zip
+            - name: Upload translations to crowdin
+              env:
+                  CROWDIN_TOKEN: ${{ secrets.CrowdinToken }}
+              run: java -jar $(find . -name crowdin-cli.jar) upload sources -s "admin.en.json" -t "admin.%two_letters_code%.json" -i 23 --base-url=https://sulu.crowdin.com --base-path=. --token=$CROWDIN_TOKEN

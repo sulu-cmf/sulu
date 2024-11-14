@@ -1,0 +1,5 @@
+#!/usr/bin/env php
+<?php
+
+$suluContext = 'admin';
+include __DIR__ . DIRECTORY_SEPARATOR. 'console.php';
