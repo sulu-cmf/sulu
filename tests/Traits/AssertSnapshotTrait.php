@@ -25,7 +25,7 @@ trait AssertSnapshotTrait
      */
     protected function assertResponseSnapshot(
         string $snapshotPatternFilename,
-               $actualResponse,
+        $actualResponse,
         int $statusCode = 200,
         string $message = ''
     ): void {

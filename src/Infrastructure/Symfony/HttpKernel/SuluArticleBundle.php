@@ -227,9 +227,10 @@ final class SuluArticleBundle extends AbstractBundle
         $services->set('sulu_article.article_link_provider')
             ->class(ArticleLinkProvider::class)
             ->args([
-                new Reference('sulu_content.content_manager'), // TODO link provider should not build on manager
-                new Reference('sulu_page.structure.factory'),
-                new Reference('doctrine.orm.entity_manager'),
+                new Reference('sulu_content.content_manager'),
+                new Reference('sulu_article.article_repository'),
+                new Reference('sulu_article.article_reference_store'),
+                new Reference('translator'),
             ])
             ->tag('sulu.link.provider', ['alias' => 'article']);
 

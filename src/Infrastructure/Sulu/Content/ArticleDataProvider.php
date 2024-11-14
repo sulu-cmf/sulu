@@ -22,6 +22,7 @@ use Sulu\Component\SmartContent\Configuration\ProviderConfigurationInterface;
 use Sulu\Component\SmartContent\DataProviderAliasInterface;
 use Sulu\Component\SmartContent\DataProviderInterface;
 use Sulu\Component\SmartContent\DataProviderResult;
+use Sulu\Component\SmartContent\DatasourceItemInterface;
 
 class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInterface
 {
@@ -65,20 +66,23 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
     public function getDefaultPropertyParameter(): array
     {
         return [
-            'type' => new PropertyParameter('type', null),
+            'type' => new PropertyParameter('type', ''),
             'ignoreWebspaces' => new PropertyParameter('ignoreWebspaces', false),
         ];
     }
 
     public function resolveDataItems(array $filters, array $propertyParameter, array $options = [], $limit = null, $page = 1, $pageSize = null)
     {
-        [$filters, $sortBy] = $this->resolveFilters($filters, $propertyParameter, $page, $options['locale']);
+        /** @var string $locale */
+        $locale = $options['locale'];
+        [$filters, $sortBy] = $this->resolveFilters($filters, $propertyParameter, $page, $locale);
 
         $dimensionAttributes = [
-            'locale' => $options['locale'],
+            'locale' => $locale,
             'stage' => $this->showDrafts ? DimensionContentInterface::STAGE_DRAFT : DimensionContentInterface::STAGE_LIVE,
         ];
 
+        /** @var string[] $identifiers */
         $identifiers = $this->articleRepository->findIdentifiersBy(
             filters: \array_merge($dimensionAttributes, $filters),
             sortBy: $sortBy
@@ -105,13 +109,16 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
 
     public function resolveResourceItems(array $filters, array $propertyParameter, array $options = [], $limit = null, $page = 1, $pageSize = null): DataProviderResult
     {
-        [$filters, $sortBy] = $this->resolveFilters($filters, $propertyParameter, $page, $options['locale']);
+        /** @var string $locale */
+        $locale = $options['locale'];
+        [$filters, $sortBy] = $this->resolveFilters($filters, $propertyParameter, $page, $locale);
 
         $dimensionAttributes = [
-            'locale' => $options['locale'],
+            'locale' => $locale,
             'stage' => $this->showDrafts ? DimensionContentInterface::STAGE_DRAFT : DimensionContentInterface::STAGE_LIVE,
         ];
 
+        /** @var string[] $identifiers */
         $identifiers = $this->articleRepository->findIdentifiersBy(
             filters: \array_merge($dimensionAttributes, $filters),
             sortBy: $sortBy
@@ -127,6 +134,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         foreach ($articles as $article) {
             $dimensionContent = $this->contentManager->resolve($article, $dimensionAttributes);
             $result[] = $this->contentManager->normalize($dimensionContent);
+
             $this->articleReferenceStore->add($article->getId());
         }
         $hasNextPage = \count($result) > ($pageSize ?? $limit);
@@ -135,7 +143,30 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
     }
 
     /**
+     * @param array{
+     *     categories?: int[],
+     *     categoryOperator?: 'or'|'and',
+     *     tags?: string[],
+     *     tagOperator?: 'or'|'and',
+     *     limitResult?: int,
+     *     sortBy?: string,
+     *     sortMethod?: 'asc'|'desc',
+     *     ...
+     * } $filters
      * @param array<string, PropertyParameter> $propertyParameter
+     *
+     * @return array{
+     *     array{
+     *         locale: string,
+     *         categoryIds?: int[],
+     *         categoryOperator?: 'AND'|'OR',
+     *         tagIds?: int[],
+     *         tagOperator?: 'AND'|'OR',
+     *         limit?: int,
+     *         page: int
+     *     },
+     *     array<string, 'asc'|'desc'>
+     * }
      */
     protected function resolveFilters(
         array $filters, array $propertyParameter, int $page, string $locale): array
@@ -148,13 +179,13 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
             $filter['categoryIds'] = $filters['categories'];
         }
         if (isset($filters['categoryOperator'])) {
-            $filter['categoryOperator'] = $filters['categoryOperator'];
+            $filter['categoryOperator'] = \strtoupper($filters['categoryOperator']);
         }
         if (isset($filters['tags'])) {
             $filter['tagIds'] = $filters['tags'];
         }
         if (isset($filters['tagOperator'])) {
-            $filter['tagOperator'] = $filters['tagOperator'];
+            $filter['tagOperator'] = \strtoupper($filters['tagOperator']);
         }
         if (isset($filters['limitResult']) || isset($propertyParameter['max_per_page'])) {
             $filter['limit'] = (int) ($filters['limitResult'] ?? $propertyParameter['max_per_page']->getValue());
@@ -168,9 +199,9 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         return [$filter, $sortBy];
     }
 
-    public function resolveDatasource($datasource, array $propertyParameter, array $options): void
+    public function resolveDatasource($datasource, array $propertyParameter, array $options): ?DatasourceItemInterface
     {
-        return;
+        return null;
     }
 
     public function getAlias()

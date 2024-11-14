@@ -157,8 +157,10 @@ class ArticleRepository implements ArticleRepositoryInterface
         $queryBuilder->select('DISTINCT article.uuid');
 
         // we need to select the fields which are used in the order by clause
-        /** @var OrderBy $orderBy */
-        foreach ($queryBuilder->getDQLPart('orderBy') as $orderBy) {
+
+        /** @var OrderBy[] $orderBys */
+        $orderBys = $queryBuilder->getDQLPart('orderBy');
+        foreach ($orderBys as $orderBy) {
             $queryBuilder->addSelect(\explode(' ', $orderBy->getParts()[0])[0]);
         }
 
@@ -198,6 +200,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      * @param array{
      *     uuid?: 'asc'|'desc',
      *     title?: 'asc'|'desc',
+     *     created?: 'asc'|'desc',
      * } $sortBy
      * @param array{
      *     article_admin?: bool,

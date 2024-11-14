@@ -13,43 +13,72 @@ declare(strict_types=1);
 
 namespace Sulu\Article\Infrastructure\Sulu\Content;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
 use Sulu\Article\Domain\Model\ArticleInterface;
+use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
-use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Link\ContentLinkProvider;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfiguration;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfigurationBuilder;
-use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;
+use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @extends ContentLinkProvider<ArticleDimensionContentInterface, ArticleInterface>
- */
-class ArticleLinkProvider extends ContentLinkProvider
+class ArticleLinkProvider implements LinkProviderInterface
 {
     public function __construct(
-        ContentManagerInterface $contentManager,
-        StructureMetadataFactoryInterface $structureMetadataFactory,
-        EntityManagerInterface $entityManager,
+        private readonly ContentManagerInterface $contentManager,
+        private readonly ArticleRepositoryInterface $articleRepository,
+        private readonly ReferenceStoreInterface $articleReferenceStore,
+        private readonly TranslatorInterface $translator,
     ) {
-        parent::__construct($contentManager, $structureMetadataFactory, $entityManager, ArticleInterface::class);
     }
 
     public function getConfiguration(): LinkConfiguration
     {
         return LinkConfigurationBuilder::create()
-            ->setTitle('Example')
+            ->setTitle($this->translator->trans('sulu_article.articles', [], 'admin'))
             ->setResourceKey(ArticleInterface::RESOURCE_KEY)
             ->setListAdapter('table')
             ->setDisplayProperties(['id'])
-            ->setOverlayTitle('Select Example')
-            ->setEmptyText('No example selected')
+            ->setOverlayTitle($this->translator->trans('sulu_article.selection_overlay_title', [], 'admin'))
+            ->setEmptyText($this->translator->trans('sulu_article.no_article_selected', [], 'admin'))
             ->setIcon('su-document')
             ->getLinkConfiguration();
     }
 
-    protected function getEntityIdField(): string
+    public function preload(array $hrefs, $locale, $published = true)
     {
-        return 'uuid';
+        $dimensionAttributes = [
+            'locale' => $locale,
+            'stage' => $published ? DimensionContentInterface::STAGE_LIVE : DimensionContentInterface::STAGE_DRAFT,
+        ];
+
+        $articles = $this->articleRepository->findBy(
+            filters: [...$dimensionAttributes, 'uuids' => $hrefs],
+            selects: [ArticleRepositoryInterface::GROUP_SELECT_ARTICLE_WEBSITE => true]
+        );
+
+        $result = [];
+        foreach ($articles as $article) {
+            $dimensionContent = $this->contentManager->resolve($article, $dimensionAttributes);
+            $this->articleReferenceStore->add($article->getId());
+
+            /** @var string|null $url */
+            $url = $dimensionContent->getTemplateData()['url'] ?? null;
+            if (null === $url) {
+                // TODO what to do when there is no url?
+                continue;
+            }
+
+            $result[] = new LinkItem(
+                $article->getUuid(),
+                (string) $dimensionContent->getTitle(),
+                $url,
+                $published
+            );
+        }
+
+        return $result;
     }
 }
