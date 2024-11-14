@@ -156,7 +156,16 @@
                             "tags": []
                         }
                     },
-                    "schema": null,
+                    "schema": {
+                        "type": [
+                            "number",
+                            "string",
+                            "boolean",
+                            "object",
+                            "array",
+                            "null"
+                        ]
+                    },
                     "key": null,
                     "tags": []
                 }
@@ -209,7 +218,16 @@
                             "tags": []
                         }
                     },
-                    "schema": null,
+                    "schema": {
+                        "type": [
+                            "number",
+                            "string",
+                            "boolean",
+                            "object",
+                            "array",
+                            "null"
+                        ]
+                    },
                     "key": null,
                     "tags": []
                 }

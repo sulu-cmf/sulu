@@ -117,7 +117,6 @@ class GlobalBlocksTypedFormMetadataVisitorTest extends TestCase
 
         $formMetadata = new FormMetadata();
         $formMetadata->setKey('test');
-        $formMetadata->setSchema(new SchemaMetadata());
 
         $sectionMetadata = new SectionMetadata('test1');
         $formMetadata->addItem($sectionMetadata);
@@ -142,7 +141,6 @@ class GlobalBlocksTypedFormMetadataVisitorTest extends TestCase
         $globalBlockFormTypeMetadata = new FormMetadata();
         $globalBlockFormMetadata->addForm($globalBlockName, $globalBlockFormTypeMetadata);
 
-        $globalBlockFormTypeMetadata->setSchema(new SchemaMetadata());
         $globalBlockFormTypeMetadata->setName($globalBlockName);
         $globalBlockFormTypeMetadata->setTitle('Test Block Title');
 
@@ -177,7 +175,6 @@ class GlobalBlocksTypedFormMetadataVisitorTest extends TestCase
         $formMetadata = new TypedFormMetadata();
 
         $formTypeMetadata = new FormMetadata();
-        $formTypeMetadata->setSchema(new SchemaMetadata());
         $formMetadata->addForm('test', $formTypeMetadata);
 
         $sectionMetadata = new SectionMetadata('test1');
@@ -203,7 +200,6 @@ class GlobalBlocksTypedFormMetadataVisitorTest extends TestCase
         $globalBlockFormTypeMetadata = new FormMetadata();
         $globalBlockFormMetadata->addForm($globalBlockName, $globalBlockFormTypeMetadata);
 
-        $globalBlockFormTypeMetadata->setSchema(new SchemaMetadata());
         $globalBlockFormTypeMetadata->setName($globalBlockName);
         $globalBlockFormTypeMetadata->setTitle('Test Block Title');
 
