@@ -34,7 +34,7 @@ $config->setRiskyAllowed(true)
         'single_line_throw' => false,
         'single_line_comment_spacing' => false,
         'phpdoc_to_comment' => [
-            'ignored_tags' => ['todo', 'var'],
+            'ignored_tags' => ['todo', 'var', 'see'],
         ],
         'phpdoc_separation' => [
             'groups' => [

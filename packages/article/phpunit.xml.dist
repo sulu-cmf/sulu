@@ -25,5 +25,6 @@
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="APP_ENV" value="test" force="true"/>
         <server name="KERNEL_CLASS" value="Sulu\Article\Tests\Application\Kernel"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
     </php>
 </phpunit>

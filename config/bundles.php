@@ -23,6 +23,7 @@ return [
     JMS\SerializerBundle\JMSSerializerBundle::class => ['all' => true],
     Massive\Bundle\SearchBundle\MassiveSearchBundle::class => ['all' => true],
     FOS\HttpCacheBundle\FOSHttpCacheBundle::class => ['all' => true],
+    Sulu\Messenger\Infrastructure\Symfony\HttpKernel\SuluMessengerBundle::class => ['all' => true],
     Sulu\Bundle\AdminBundle\SuluAdminBundle::class => ['all' => true],
     Sulu\Bundle\SearchBundle\SuluSearchBundle::class => ['all' => true],
     Sulu\Bundle\PersistenceBundle\SuluPersistenceBundle::class => ['all' => true],

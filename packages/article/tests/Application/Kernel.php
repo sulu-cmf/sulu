@@ -15,7 +15,6 @@ use Sulu\Article\Infrastructure\Symfony\HttpKernel\SuluArticleBundle;
 use Sulu\Bundle\ContentBundle\SuluContentBundle;
 use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
 use Sulu\Component\HttpKernel\SuluKernel;
-use Sulu\Messenger\Infrastructure\Symfony\HttpKernel\SuluMessengerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 /**
@@ -42,7 +41,6 @@ class Kernel extends SuluTestKernel
         $bundles = [...parent::registerBundles()];
         $bundles[] = new SuluArticleBundle();
         $bundles[] = new SuluContentBundle();
-        $bundles[] = new SuluMessengerBundle();
 
         return $bundles;
     }

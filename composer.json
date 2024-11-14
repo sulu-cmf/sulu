@@ -24,12 +24,19 @@
         "source": "https://github.com/sulu/skeleton",
         "docs": "https://docs.sulu.io/"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:Prokyonn/SuluContentBundle.git"
+        }
+    ],
     "require": {
         "php": "^8.2 || ^8.3",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-simplexml": "*",
         "composer-runtime-api": "^2.0",
+        "coduo/php-matcher": "^6.0.14",
         "composer/package-versions-deprecated": "^1.8",
         "contao/imagine-svg": "^1.0",
         "doctrine/annotations": "^1.2 || ^2.0",
@@ -67,6 +74,7 @@
         "phpcr/phpcr-utils": "^1.6.2 || ^2.0",
         "ramsey/uuid": "^3.1 || ^4.0",
         "stof/doctrine-extensions-bundle": "^1.2.2",
+        "sulu/messenger": "^0.1 || ^0.2",
         "symfony-cmf/routing": "^2.3 || ^3.0",
         "symfony-cmf/routing-bundle": "^2.4 || ^3.0",
         "symfony-cmf/slugifier-api": "^2.1",
@@ -143,6 +151,7 @@
         "scheb/2fa-google-authenticator": "^6.0 || ^7.0",
         "scheb/2fa-totp": "^6.0 || ^7.0",
         "scheb/2fa-trusted-device": "^6.0 || ^7.0",
+        "sulu/content-bundle": "dev-feature/content-resolver as 0.9.0",
         "superbalist/flysystem-google-storage": "^7.1",
         "symfony/browser-kit": "^5.4 || ^6.0 || ^7.0",
         "symfony/debug-bundle": "^5.4 || ^6.0 || ^7.0",
@@ -212,6 +221,9 @@
         "psr-0": {
             "Sulu\\": "src/"
         },
+        "psr-4": {
+            "Sulu\\Article\\": "packages/article/src"
+        },
         "exclude-from-classmap": [
             "src/Sulu/Component/*/Tests/",
             "src/Sulu/Bundle/*/Tests/",
@@ -220,7 +232,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\": "tests/"
+            "App\\": "tests/",
+            "Sulu\\Article\\Tests\\": "packages/article/tests"
         }
     },
     "scripts": {

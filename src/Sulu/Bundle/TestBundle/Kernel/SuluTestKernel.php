@@ -51,6 +51,7 @@ class SuluTestKernel extends SuluKernel
             new \Massive\Bundle\SearchBundle\MassiveSearchBundle(),
 
             // Sulu
+            new \Sulu\Messenger\Infrastructure\Symfony\HttpKernel\SuluMessengerBundle(),
             new \Sulu\Bundle\AdminBundle\SuluAdminBundle(),
             new \Sulu\Bundle\SearchBundle\SuluSearchBundle(),
             new \Sulu\Bundle\PersistenceBundle\SuluPersistenceBundle(),

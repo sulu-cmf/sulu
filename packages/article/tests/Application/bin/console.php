@@ -20,7 +20,7 @@ if (false === \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
     echo 'Warning: The console should be invoked via the CLI version of PHP, not the ' . \PHP_SAPI . ' SAPI' . \PHP_EOL;
 }
 
-require __DIR__ . '/../../../vendor/autoload.php';
+require __DIR__ . '/../../../../../vendor/autoload.php';
 
 if (!\class_exists(Application::class)) {
     throw new RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
