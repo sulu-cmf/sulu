@@ -2,6 +2,12 @@
 
 ## 3.0.0
 
+### Removed deprecations for 3.0
+
+Remove classes / services:
+
+- `Sulu/Bundle/MarkupBundle/Listener/SwiftMailerListener` ()
+
 Removing deprecated functions and properties:
 
 - `Sulu\Component\Security\Event\PermissionUpdateEvent::getSecurityIdentity`

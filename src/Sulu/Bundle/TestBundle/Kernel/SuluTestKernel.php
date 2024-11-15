@@ -86,10 +86,6 @@ class SuluTestKernel extends SuluKernel
             $bundles[] = new \DTL\Bundle\PhpcrMigrations\PhpcrMigrationsBundle();
         }
 
-        if (\class_exists(\Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class)) {
-            $bundles[] = new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle();
-        }
-
         if (\class_exists(\Symfony\Bundle\MonologBundle\MonologBundle::class)) {
             $bundles[] = new \Symfony\Bundle\MonologBundle\MonologBundle();
         }

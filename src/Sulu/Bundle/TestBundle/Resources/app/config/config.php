@@ -25,10 +25,6 @@ return static function(PhpFileLoader $loader, ContainerBuilder $container) {
     $loader->import('parameters.yml');
     $loader->import('context_' . $context . '.yml');
 
-    if (\class_exists(\Swift_Mailer::class)) {
-        $loader->import('swiftmailer.yml');
-    }
-
     if ('admin' === $context) {
         if (\class_exists(Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand::class)) { // detect Symfony <= 5.4
             $loader->import('security-5-4.yml');

@@ -182,10 +182,8 @@
         "scheb/2fa-google-authenticator": "< 6.0 || >= 8.0",
         "scheb/2fa-totp": "< 6.0 || >= 8.0",
         "scheb/2fa-trusted-device": "< 6.0 || >= 8.0",
-        "swiftmailer/swiftmailer": "< 6.1.3",
         "symfony/doctrine-bridge": "< 5.4.0",
         "symfony/error-handler": "< 5.4.0",
-        "symfony/swiftmailer-bundle": "< 3.1.4",
         "thecodingmachine/safe": "< 2.0.0"
     },
     "replace": {
