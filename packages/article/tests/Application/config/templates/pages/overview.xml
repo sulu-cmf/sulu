@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>overview</key>
+
+    <view>::overview</view>
+    <controller>SuluWebsiteBundle:Default:index</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="tags" type="tag_selection"/>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="article" type="text_line" minOccurs="1" maxOccurs="10"/>
+
+        <block name="block" default-type="type1">
+            <types>
+                <type name="type1">
+                    <properties>
+                        <property name="title" type="text_line"/>
+                        <property name="article" type="text_line" minOccurs="2"/>
+                    </properties>
+                </type>
+            </types>
+        </block>
+    </properties>
+</template>
