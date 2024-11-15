@@ -26146,22 +26146,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
 		-
-			message: "#^Call to method createMessage\\(\\) on an unknown class Swift_Mailer\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
 			message: "#^Call to method getEncoder\\(\\) on an unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Encoder\\\\EncoderFactoryInterface\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
-			message: "#^Call to method send\\(\\) on an unknown class Swift_Mailer\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
-			message: "#^Class Swift_Mailer not found\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
@@ -26236,17 +26221,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
 		-
-			message: "#^Parameter \\$mailer of method Sulu\\\\Bundle\\\\SecurityBundle\\\\Controller\\\\ResettingController\\:\\:__construct\\(\\) has invalid type Swift_Mailer\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
 			message: "#^Parameter \\$passwordHasherFactory of method Sulu\\\\Bundle\\\\SecurityBundle\\\\Controller\\\\ResettingController\\:\\:__construct\\(\\) has invalid type Symfony\\\\Component\\\\Security\\\\Core\\\\Encoder\\\\EncoderFactoryInterface\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
-			message: "#^Property Sulu\\\\Bundle\\\\SecurityBundle\\\\Controller\\\\ResettingController\\:\\:\\$mailer has unknown class Swift_Mailer as its type\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
