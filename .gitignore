@@ -6,6 +6,7 @@ phpunit.stdout
 # test cache folders
 /src/Sulu/Component/Rest/Tests/Functional/ListBuilder/Metadata/cache/
 /tests/Resources/cache/
+/packages/*/tests/Application/var/
 /src/Sulu/Bundle/*/Tests/var/
 /src/Sulu/Bundle/*/Tests/Application/var/
 /src/Sulu/Bundle/*/Tests/Application/public/uploads
@@ -22,6 +23,7 @@ phpunit.stdout
 /composer.phar
 composer.lock
 /vendor
+/packages/*/vendor
 
 # npm
 package-lock.json
