@@ -27,8 +27,9 @@ class DocumentFixturePass implements CompilerPassInterface
     {
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $id => $tags) {
             $definition = $container->getDefinition($id);
+            $serviceClass = $definition->getClass();
 
-            if (\is_subclass_of($definition->getClass(), ContainerAwareInterface::class)) {
+            if ($serviceClass && \is_subclass_of($serviceClass, ContainerAwareInterface::class)) {
                 @trigger_deprecation(
                     'sulu/sulu',
                     '2.1',
