@@ -217,11 +217,6 @@ jobs:
                   composer remove jackalope/jackalope-doctrine-dbal --dev --no-interaction --no-update
                   composer require jackalope/jackalope-jackrabbit:"^1.4 || ^2.0"  --no-interaction --no-update
 
-            - name: Install additional lowest dependencies
-              if: ${{ matrix.dependency-versions == 'lowest' }}
-              run: |
-                  composer require symfony/swiftmailer-bundle --no-interaction --no-update
-
             - name: Set composer stability
               if: ${{ matrix.composer-stability }}
               run: composer config minimum-stability ${{ matrix.composer-stability }}

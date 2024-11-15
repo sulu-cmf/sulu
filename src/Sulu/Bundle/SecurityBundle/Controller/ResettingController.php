@@ -60,7 +60,6 @@ class ResettingController
 
     /**
      * @param PasswordHasherFactoryInterface|EncoderFactoryInterface $passwordHasherFactory
-     * @param Mailer|\Swift_Mailer $mailer
      */
     public function __construct(
         protected ValidatorInterface $validator,
@@ -69,7 +68,7 @@ class ResettingController
         protected Environment $twig,
         protected TokenStorageInterface $tokenStorage,
         protected EventDispatcherInterface $dispatcher,
-        protected $mailer,
+        protected Mailer $mailer,
         protected $passwordHasherFactory,
         protected UserRepositoryInterface $userRepository,
         private UrlGeneratorInterface $router,
@@ -341,23 +340,13 @@ class ResettingController
      */
     private function sendTokenEmail(UserInterface $user, string $from, string $to, string $token)
     {
-        if ($this->mailer instanceof \Swift_Mailer) {
-            $message = $this->mailer->createMessage()
-                ->setSubject($this->getSubject())
-                ->setFrom($from)
-                ->setTo($to)
-                ->setBody($this->getMessage($user, $token), 'text/html');
+        $message = (new Email())
+            ->subject($this->getSubject())
+            ->from($from)
+            ->to($to)
+            ->html($this->getMessage($user, $token));
 
-            $this->mailer->send($message);
-        } else {
-            $message = (new Email())
-                ->subject($this->getSubject())
-                ->from($from)
-                ->to($to)
-                ->html($this->getMessage($user, $token));
-
-            $this->mailer->send($message);
-        }
+        $this->mailer->send($message);
     }
 
     /**

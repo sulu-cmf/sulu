@@ -54,10 +54,6 @@ class ResettingControllerTest extends SuluTestCase
 
     public function setUp(): void
     {
-        if (\class_exists(\Swift_Mailer::class)) {
-            $this->markTestSkipped('Skip ResettingControllerTest for swift mailer.');
-        }
-
         $this->client = $this->createAuthenticatedClient();
         $this->em = $this->getEntityManager();
         $this->activityRepository = $this->em->getRepository(ActivityInterface::class);
