@@ -183,6 +183,7 @@
         "thecodingmachine/safe": "< 2.0.0"
     },
     "replace": {
+        "sulu/article-bundle": "self.version",
         "sulu/document-manager": "self.version",
         "sulu/media-bundle": "self.version",
         "sulu/tag-bundle": "self.version",
