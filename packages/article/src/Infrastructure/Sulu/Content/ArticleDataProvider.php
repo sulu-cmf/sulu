@@ -16,6 +16,7 @@ use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerI
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
 use Sulu\Component\Content\Compat\PropertyParameter;
+use Sulu\Component\SmartContent\ArrayAccessItem;
 use Sulu\Component\SmartContent\Configuration\Builder;
 use Sulu\Component\SmartContent\Configuration\BuilderInterface;
 use Sulu\Component\SmartContent\Configuration\ProviderConfigurationInterface;
@@ -97,10 +98,10 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         $result = [];
         foreach ($articles as $article) {
             $dimensionContent = $this->contentManager->resolve($article, $dimensionAttributes);
-            $result[] = [
+            $result[] = new ArrayAccessItem($article->getId(), [
                 'id' => $article->getId(),
                 'title' => $dimensionContent->getTitle(),
-            ];
+            ], $article);
         }
         $hasNextPage = \count($result) > ($pageSize ?? $limit);
 
@@ -133,7 +134,11 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         $result = [];
         foreach ($articles as $article) {
             $dimensionContent = $this->contentManager->resolve($article, $dimensionAttributes);
-            $result[] = $this->contentManager->normalize($dimensionContent);
+            $result[] = new ArrayAccessItem(
+                $article->getId(),
+                $this->contentManager->normalize($dimensionContent),
+                $article,
+            );
 
             $this->articleReferenceStore->add($article->getId());
         }
@@ -174,6 +179,7 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
         $filter = [
             'locale' => $locale,
         ];
+        /** @var array<string, 'asc'|'desc'> $sortBy */
         $sortBy = [];
         if (isset($filters['categories'])) {
             $filter['categoryIds'] = $filters['categories'];
@@ -182,7 +188,9 @@ class ArticleDataProvider implements DataProviderInterface, DataProviderAliasInt
             $filter['categoryOperator'] = \strtoupper($filters['categoryOperator']);
         }
         if (isset($filters['tags'])) {
-            $filter['tagIds'] = $filters['tags'];
+            /** @var int[] $tags */ // TODO check whats correct here sulu defines string, content bundle int
+            $tags = $filters['tags'];
+            $filter['tagIds'] = $tags;
         }
         if (isset($filters['tagOperator'])) {
             $filter['tagOperator'] = \strtoupper($filters['tagOperator']);
