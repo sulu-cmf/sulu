@@ -37,6 +37,7 @@
         "ext-simplexml": "*",
         "composer-runtime-api": "^2.0",
         "composer/package-versions-deprecated": "^1.8",
+        "composer/semver": "^3.4",
         "contao/imagine-svg": "^1.0",
         "doctrine/annotations": "^1.14 || ^2.0",
         "doctrine/cache": "^1.12.1",
