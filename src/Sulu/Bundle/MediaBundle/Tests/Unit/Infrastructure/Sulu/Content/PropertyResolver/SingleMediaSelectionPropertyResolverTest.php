@@ -119,13 +119,11 @@ class SingleMediaSelectionPropertyResolverTest extends TestCase
 
     public function testCustomResourceLoader(): void
     {
-        $contentView = $this->resolver->resolve(['ids' => [1]], 'en', ['resourceLoader' => 'custom_media']);
+        $contentView = $this->resolver->resolve(['id' => 1], 'en', ['resourceLoader' => 'custom_media']);
 
         $content = $contentView->getContent();
-        $this->assertIsArray($content);
-        $resolvable = $content[0] ?? null;
-        $this->assertInstanceOf(ResolvableResource::class, $resolvable);
-        $this->assertSame(1, $resolvable->getId());
-        $this->assertSame('custom_media', $resolvable->getResourceLoaderKey());
+        $this->assertInstanceOf(ResolvableResource::class, $content);
+        $this->assertSame(1, $content->getId());
+        $this->assertSame('custom_media', $content->getResourceLoaderKey());
     }
 }
