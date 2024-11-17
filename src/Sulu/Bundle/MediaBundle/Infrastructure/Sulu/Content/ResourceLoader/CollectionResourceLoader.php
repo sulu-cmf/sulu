@@ -33,8 +33,16 @@ class CollectionResourceLoader implements ResourceLoaderInterface
 
     public function load(array $ids, ?string $locale, array $params = []): array
     {
+        if (null === $locale) {
+            throw new \RuntimeException('Locale is required for loading collections');
+        }
+
         $mappedResult = [];
         foreach ($ids as $id) {
+            if (!\is_integer($id)) {
+                continue;
+            }
+
             try {
                 $collection = $this->collectionManager->getById($id, $locale); // TODO load all over one query
                 $mappedResult[$collection->getId()] = $collection;

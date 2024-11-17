@@ -102,7 +102,7 @@ class MediaSelectionPropertyResolverTest extends TestCase
     /**
      * @return iterable<array{
      *     0: array{
-     *         ids: array<string|int>,
+     *         ids?: array<string|int>,
      *         displayOption?: string|null,
      *     },
      * }>

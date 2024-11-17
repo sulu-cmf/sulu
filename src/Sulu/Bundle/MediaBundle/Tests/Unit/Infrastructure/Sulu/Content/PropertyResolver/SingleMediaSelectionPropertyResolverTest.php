@@ -31,7 +31,7 @@ class SingleMediaSelectionPropertyResolverTest extends TestCase
     {
         $contentView = $this->resolver->resolve(null, 'en');
 
-        $this->assertSame(null, $contentView->getContent());
+        $this->assertNull($contentView->getContent());
         $this->assertSame(['id' => null, 'displayOption' => null], $contentView->getView());
     }
 
@@ -39,7 +39,7 @@ class SingleMediaSelectionPropertyResolverTest extends TestCase
     {
         $contentView = $this->resolver->resolve(null, 'en', ['custom' => 'params']);
 
-        $this->assertSame(null, $contentView->getContent());
+        $this->assertNull($contentView->getContent());
         $this->assertSame([
             'id' => null,
             'displayOption' => null,
@@ -52,7 +52,7 @@ class SingleMediaSelectionPropertyResolverTest extends TestCase
     {
         $contentView = $this->resolver->resolve($data, 'en');
 
-        $this->assertSame(null, $contentView->getContent());
+        $this->assertNull($contentView->getContent());
         $this->assertSame(['id' => null, 'displayOption' => $expectedDisplayOption], $contentView->getView());
     }
 
@@ -103,7 +103,7 @@ class SingleMediaSelectionPropertyResolverTest extends TestCase
     /**
      * @return iterable<array{
      *     0: array{
-     *         id: string|int,
+     *         id?: string|int,
      *         displayOption?: string|null,
      *     },
      * }>

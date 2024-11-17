@@ -7281,7 +7281,7 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManager.php
 
 		-
-			message: "#^Offset 'id' does not exist on non\\-falsy\\-string\\.$#"
+			message: "#^Offset 'id' does not exist on non\\-empty\\-string\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManager.php
 

@@ -141,7 +141,7 @@ class ImageMapPropertyResolverTest extends TestCase
     /**
      * @return iterable<array{
      *     0: array{
-     *         id: string|int,
+     *         id?: string|int,
      *         displayOption?: string|null,
      *     },
      * }>

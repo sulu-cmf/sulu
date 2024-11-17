@@ -33,7 +33,7 @@ class SingleCategorySelectionPropertyResolver implements PropertyResolverInterfa
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? CategoryResourceLoader::getKey();
 
-        return ContentView::createResolvables(
+        return ContentView::createResolvable(
             $data,
             $resourceLoaderKey,
             $params,
