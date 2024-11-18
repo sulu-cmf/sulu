@@ -32,11 +32,11 @@ class TagResourceLoader implements ResourceLoaderInterface
 
     public function load(array $ids, ?string $locale, array $params = []): array
     {
-        $result = $this->tagRepository->findBy(['id' => $ids]);
+        $result = $this->tagRepository->findBy(['name' => $ids]);
 
         $mappedResult = [];
         foreach ($result as $tag) {
-            $mappedResult[$tag->getId()] = $tag->getName();
+            $mappedResult[$tag->getName()] = $tag->getName();
         }
 
         return $mappedResult;
