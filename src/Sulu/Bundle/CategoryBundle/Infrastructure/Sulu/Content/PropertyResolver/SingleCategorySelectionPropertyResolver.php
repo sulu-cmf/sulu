@@ -26,7 +26,7 @@ class SingleCategorySelectionPropertyResolver implements PropertyResolverInterfa
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        if (!\is_string($data) || '' === $data) {
+        if (!\is_int($data)) {
             return ContentView::create([], $params);
         }
 
