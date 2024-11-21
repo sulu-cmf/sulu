@@ -189,7 +189,6 @@ jobs:
                       php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
                       composer-stability: 'dev'
-                      composer-options: '--ignore-platform-reqs'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=8.0
