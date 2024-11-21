@@ -378,7 +378,7 @@ class ImagineImageConverter implements ImageConverterInterface
     private function getOptionsFromImage(ImageInterface $image, $imageExtension, $imagineOptions)
     {
         $options = [];
-        if ('gif' == $imageExtension && \count($image->layers()) > 1) {
+        if (\in_array($imageExtension, ['gif', 'webp']) && \count($image->layers()) > 1) {
             $options['animated'] = true;
             $options['optimize'] = true;
         }
