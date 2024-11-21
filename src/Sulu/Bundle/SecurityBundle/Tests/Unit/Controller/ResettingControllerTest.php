@@ -41,33 +41,46 @@ class ResettingControllerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var \Prophecy\Prophecy\ObjectProphecy|ResettingController */
+    /** @var ResettingController */
     private $resettingController;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|ValidatorInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<ValidatorInterface> */
     private $validator;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|TranslatorInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<TranslatorInterface> */
     private $translator;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|TokenGeneratorInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<TokenGeneratorInterface> */
     private $tokenGenerator;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|TwigEnvironment */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<TwigEnvironment> */
     private $twig;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|TokenStorageInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<TokenStorageInterface> */
     private $tokenStorage;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|EventDispatcherInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<EventDispatcherInterface> */
     private $dispatcher;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|MailerInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<MailerInterface> */
     private $mailer;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|PasswordHasherFactoryInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<PasswordHasherFactoryInterface> */
     private $passwordHasherFactory;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|UserRepository */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<UserRepository> */
     private $userRepository;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|UrlGeneratorInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<UrlGeneratorInterface> */
     private $router;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|EntityManagerInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<EntityManagerInterface> */
     private $entityManager;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|DomainEventCollectorInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<DomainEventCollectorInterface> */
     private $domainEventCollector;
-    /** @var \Prophecy\Prophecy\ObjectProphecy|null|LoggerInterface */
+
+    /** @var \Prophecy\Prophecy\ObjectProphecy<LoggerInterface> */
     private $logger;
 
     private string $suluSecuritySystem = 'Sulu';
