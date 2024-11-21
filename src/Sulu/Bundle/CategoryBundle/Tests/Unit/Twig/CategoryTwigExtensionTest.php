@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\CategoryBundle\Tests\Unit\Twig;
 
-use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use JMS\Serializer\SerializationContext;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -26,6 +26,7 @@ use Sulu\Component\Cache\MemoizeInterface;
 use Sulu\Component\Category\Request\CategoryRequestHandler;
 use Sulu\Component\Category\Request\CategoryRequestHandlerInterface;
 use Sulu\Component\Serializer\ArraySerializerInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -41,7 +42,7 @@ class CategoryTwigExtensionTest extends TestCase
      */
     private function getMemoizeCache()
     {
-        return new Memoize(new ArrayCache(), 0);
+        return new Memoize(DoctrineProvider::wrap(new ArrayAdapter()), 0);
     }
 
     /**

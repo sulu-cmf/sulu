@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\PreviewBundle\Tests\Unit\Preview;
 
-use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\PreviewBundle\Preview\PreviewCache;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -20,7 +20,7 @@ class PreviewCacheTest extends TestCase
 {
     public function testPreviewCache(): void
     {
-        $previewCache = new PreviewCache(new ArrayAdapter());
+        $previewCache = new PreviewCache(DoctrineProvider::wrap(new ArrayAdapter()));
 
         $this->assertFalse($previewCache->contains('id'));
         $previewCache->save('id', 'test');
@@ -32,7 +32,7 @@ class PreviewCacheTest extends TestCase
 
     public function testLegacyPreviewCache(): void
     {
-        $previewCache = new PreviewCache(new ArrayCache());
+        $previewCache = new PreviewCache(DoctrineProvider::wrap(new ArrayAdapter()));
 
         $this->assertFalse($previewCache->contains('id'));
         $previewCache->save('id', 'test');
