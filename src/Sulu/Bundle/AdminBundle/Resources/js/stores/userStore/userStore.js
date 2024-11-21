@@ -120,7 +120,7 @@ class UserStore {
             // when the user was logged in already and comes again with the same user
             // we don't need to initialize again
 
-            if (data.username === this.user.username) {
+            if (this.user.username && data.username === this.user.username) {
                 this.setLoggedIn(true);
                 this.setLoading(false);
 
