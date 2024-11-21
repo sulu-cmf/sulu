@@ -11,14 +11,15 @@
 
 namespace Sulu\Bundle\SecurityBundle\Tests\Unit\Twig;
 
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Bundle\SecurityBundle\Entity\UserRepository;
 use Sulu\Bundle\SecurityBundle\Twig\UserTwigExtension;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class UserTwigExtensionTest extends TestCase
 {
@@ -41,7 +42,7 @@ class UserTwigExtensionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->cache = new ArrayCache();
+        $this->cache = DoctrineProvider::wrap(new ArrayAdapter());
         $this->userRepository = $this->prophesize(UserRepository::class);
 
         $this->extension = new UserTwigExtension($this->cache, $this->userRepository->reveal());
