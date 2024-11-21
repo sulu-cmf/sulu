@@ -49,7 +49,7 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
      * @var string
      *
      * @Expose
-     * @Groups({"fullUser", "profile"})
+     * @Groups({"frontend", "fullUser", "profile"})
      */
     protected $username;
 
