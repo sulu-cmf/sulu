@@ -61,6 +61,11 @@ parameters:
 			path: src/Sulu/Bundle/ActivityBundle/Tests/Unit/Application/Subscriber/SetDomainEventUserSubscriberTest.php
 
 		-
+			message: "#^Property Sulu\\\\Bundle\\\\ActivityBundle\\\\Tests\\\\Unit\\\\Application\\\\Subscriber\\\\SetDomainEventUserSubscriberTest\\:\\:\\$security \\(Prophecy\\\\Prophecy\\\\ObjectProphecy\\<Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\>\\) does not accept Prophecy\\\\Prophecy\\\\ObjectProphecy\\<object\\>\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/ActivityBundle/Tests/Unit/Application/Subscriber/SetDomainEventUserSubscriberTest.php
+
+		-
 			message: "#^Property Sulu\\\\Bundle\\\\ActivityBundle\\\\Tests\\\\Unit\\\\Application\\\\Subscriber\\\\SetDomainEventUserSubscriberTest\\:\\:\\$security has unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Security as its type\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ActivityBundle/Tests/Unit/Application/Subscriber/SetDomainEventUserSubscriberTest.php
@@ -7281,7 +7286,7 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManager.php
 
 		-
-			message: "#^Offset 'id' does not exist on non\\-falsy\\-string\\.$#"
+			message: "#^Offset 'id' does not exist on non\\-empty\\-string\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManager.php
 
@@ -44601,6 +44606,11 @@ parameters:
 			path: src/Sulu/Component/Media/Tests/Unit/SmartContent/MediaDataProviderTest.php
 
 		-
+			message: "#^Property Sulu\\\\Component\\\\Media\\\\Tests\\\\Unit\\\\SmartContent\\\\MediaDataProviderTest\\:\\:\\$security \\(Prophecy\\\\Prophecy\\\\ObjectProphecy\\<Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\>\\) does not accept Prophecy\\\\Prophecy\\\\ObjectProphecy\\<object\\>\\.$#"
+			count: 1
+			path: src/Sulu/Component/Media/Tests/Unit/SmartContent/MediaDataProviderTest.php
+
+		-
 			message: "#^Property Sulu\\\\Component\\\\Media\\\\Tests\\\\Unit\\\\SmartContent\\\\MediaDataProviderTest\\:\\:\\$security has unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Security as its type\\.$#"
 			count: 1
 			path: src/Sulu/Component/Media/Tests/Unit/SmartContent/MediaDataProviderTest.php
@@ -45261,7 +45271,7 @@ parameters:
 			path: src/Sulu/Component/Rest/Csv/CsvHandler.php
 
 		-
-			message: "#^Offset 'value' does not exist on Doctrine\\\\Common\\\\Lexer\\\\Token\\<1\\|2\\|3\\|4\\|5\\|6\\|7\\|8\\|9\\|10\\|11\\|12\\|13\\|14\\|15\\|16\\|17\\|18\\|19\\|100\\|101\\|102\\|200\\|201\\|202\\|203\\|204\\|205\\|206\\|207\\|208\\|209\\|210\\|211\\|212\\|213\\|214\\|215\\|216\\|217\\|218\\|219\\|220\\|221\\|222\\|223\\|224\\|225\\|226\\|227\\|228\\|229\\|230\\|231\\|232\\|233\\|234\\|235\\|236\\|237\\|238\\|239\\|240\\|241\\|242\\|243\\|244\\|245\\|246\\|247\\|248\\|249\\|250\\|251\\|252\\|253\\|254\\|255\\|256, string\\>\\|null\\.$#"
+			message: "#^Cannot access property \\$value on Doctrine\\\\Common\\\\Lexer\\\\Token\\<int, string\\>\\|null\\.$#"
 			count: 1
 			path: src/Sulu/Component/Rest/DQL/Cast.php
 
@@ -47797,6 +47807,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#7 \\$security of class Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManager constructor expects Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\|null, object given\\.$#"
+			count: 1
+			path: src/Sulu/Component/Security/Tests/Unit/Authorization/AccessControl/AccessControlManagerTest.php
+
+		-
+			message: "#^Property Sulu\\\\Component\\\\Security\\\\Tests\\\\Unit\\\\Authorization\\\\AccessControl\\\\AccessControlManagerTest\\:\\:\\$security \\(Prophecy\\\\Prophecy\\\\ObjectProphecy\\<Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\>\\) does not accept Prophecy\\\\Prophecy\\\\ObjectProphecy\\<object\\>\\.$#"
 			count: 1
 			path: src/Sulu/Component/Security/Tests/Unit/Authorization/AccessControl/AccessControlManagerTest.php
 

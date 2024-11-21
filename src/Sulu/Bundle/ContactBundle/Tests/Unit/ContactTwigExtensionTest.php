@@ -11,14 +11,15 @@
 
 namespace Sulu\Bundle\ContactBundle\Tests\Unit;
 
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\ContactBundle\Entity\Contact;
 use Sulu\Bundle\ContactBundle\Entity\ContactRepository;
 use Sulu\Bundle\ContactBundle\Twig\ContactTwigExtension;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class ContactTwigExtensionTest extends TestCase
 {
@@ -41,7 +42,7 @@ class ContactTwigExtensionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->cache = new ArrayCache();
+        $this->cache = DoctrineProvider::wrap(new ArrayAdapter());
         $this->contactRepository = $this->prophesize(ContactRepository::class);
 
         $this->extension = new ContactTwigExtension($this->cache, $this->contactRepository->reveal());

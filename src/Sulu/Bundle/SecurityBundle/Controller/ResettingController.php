@@ -32,7 +32,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -68,7 +68,7 @@ class ResettingController
         protected Environment $twig,
         protected TokenStorageInterface $tokenStorage,
         protected EventDispatcherInterface $dispatcher,
-        protected Mailer $mailer,
+        protected MailerInterface $mailer,
         protected $passwordHasherFactory,
         protected UserRepositoryInterface $userRepository,
         private UrlGeneratorInterface $router,
@@ -133,8 +133,10 @@ class ResettingController
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-        } catch (\Exception $ex) {
+        } catch (TokenEmailsLimitReachedException|EntityNotFoundException|UserNotInSystemException $ex) {
             $this->logger->debug($ex->getMessage(), ['exception' => $ex]);
+        } catch (\Exception $ex) {
+            $this->logger->error($ex->getMessage(), ['exception' => $ex]);
         }
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);

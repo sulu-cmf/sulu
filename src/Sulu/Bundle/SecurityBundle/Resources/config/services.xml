@@ -285,7 +285,12 @@
             <tag name="jms_serializer.event_subscriber"/>
         </service>
 
-        <service id="sulu_security.twig_extension.user.cache" class="Doctrine\Common\Cache\ArrayCache"/>
+        <service id="sulu_security.twig_extension.user.cache_adapter" class="Symfony\Component\Cache\Adapter\ArrayAdapter" />
+        <service id="sulu_security.twig_extension.user.cache" class="Sulu\Bundle\ContactBundle\Entity\PositionRepository">
+            <factory class="Doctrine\Common\Cache\Psr6\DoctrineProvider" method="wrap"/>
+            <argument type="service" id="sulu_security.twig_extension.user.cache_adapter" />
+        </service>
+
         <service id="sulu_security.twig_extension.user" class="Sulu\Bundle\SecurityBundle\Twig\UserTwigExtension">
             <argument type="service" id="sulu_security.twig_extension.user.cache"/>
             <argument type="service" id="sulu.repository.user"/>
