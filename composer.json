@@ -159,6 +159,7 @@
     "conflict": {
         "behat/transliterator": "< 1.3.0",
         "doctrine/lexer": ">= 3.0.0",
+        "doctrine/doctrine-bundle": "2.13.1 || 2.13.x-dev || 2.14.x-dev",
         "doctrine/orm": "2.10.0 || 2.14.2 || 2.16.0 - 2.17.2",
         "friendsofphp/php-cs-fixer": "3.9.1",
         "gedmo/doctrine-extensions" : "3.7.0",
