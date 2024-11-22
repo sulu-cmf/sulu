@@ -10,7 +10,7 @@
         </service>
 
         <service id="sulu_category.single_category_selection_property_resolver"
-                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver\CategorySelectionPropertyResolver">
+                 class="Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleCategorySelectionPropertyResolver">
 
             <tag name="sulu_content.property_resolver"/>
         </service>

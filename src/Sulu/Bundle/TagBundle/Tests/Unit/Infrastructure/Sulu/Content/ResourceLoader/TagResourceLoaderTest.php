@@ -47,17 +47,17 @@ class TagResourceLoaderTest extends TestCase
         $tag1 = $this->createTag(1);
         $tag2 = $this->createTag(3);
 
-        $this->tagRepository->findBy(['id' => [1, 3]])->willReturn([
+        $this->tagRepository->findBy(['name' => ['Tag 1', 'Tag 3']])->willReturn([
             $tag1,
             $tag2,
         ])
             ->shouldBeCalled();
 
-        $result = $this->loader->load([1, 3], 'en', []);
+        $result = $this->loader->load(['Tag 1', 'Tag 3'], 'en', []);
 
         $this->assertSame([
-            1 => $tag1->getName(),
-            3 => $tag2->getName(),
+            'Tag 1' => $tag1->getName(),
+            'Tag 3' => $tag2->getName(),
         ], $result);
     }
 
