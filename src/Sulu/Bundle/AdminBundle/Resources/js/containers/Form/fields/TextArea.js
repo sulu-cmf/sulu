@@ -62,10 +62,10 @@ export default class TextArea extends React.Component<FieldTypeProps<?string>> {
                 disabled={!!disabled}
                 id={dataPath}
                 maxCharacters={evaluatedSoftMaxLength ? parseInt(evaluatedSoftMaxLength) : undefined}
-                rows={rows}
                 onBlur={onFinish}
                 onChange={onChange}
                 onFocus={this.handleFocus}
+                rows={rows}
                 valid={!error}
                 value={value}
             />
