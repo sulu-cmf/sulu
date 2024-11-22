@@ -65,7 +65,7 @@ export default class TextArea extends React.Component<FieldTypeProps<?string>> {
                 onBlur={onFinish}
                 onChange={onChange}
                 onFocus={this.handleFocus}
-                rows={rows}
+                rows={rows ? parseInt(rows) : undefined}
                 valid={!error}
                 value={value}
             />
