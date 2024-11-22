@@ -13,6 +13,7 @@ type Props = {|
     onChange: (?string) => void,
     onFocus?: (event: Event) => void,
     placeholder?: string,
+    rows?: number,
     valid: boolean,
     value: ?string,
 |};
@@ -50,6 +51,7 @@ export default class TextArea extends React.PureComponent<Props> {
             maxCharacters,
             name,
             placeholder,
+            rows,
             value,
             valid,
         } = this.props;
@@ -73,6 +75,7 @@ export default class TextArea extends React.PureComponent<Props> {
                     onChange={this.handleChange}
                     onFocus={this.handleFocus}
                     placeholder={placeholder}
+                    rows={rows}
                     value={value || ''}
                 />
                 {maxCharacters &&
