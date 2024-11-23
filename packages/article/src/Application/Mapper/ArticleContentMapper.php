@@ -26,14 +26,8 @@ use Webmozart\Assert\Assert;
  */
 final class ArticleContentMapper implements ArticleMapperInterface
 {
-    /**
-     * @var ContentPersisterInterface
-     */
-    private $contentPersister;
-
-    public function __construct(ContentPersisterInterface $contentPersister)
+    public function __construct(private ContentPersisterInterface $contentPersister)
     {
-        $this->contentPersister = $contentPersister;
     }
 
     public function mapArticleData(ArticleInterface $article, array $data): void

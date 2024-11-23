@@ -23,22 +23,10 @@ use Sulu\Bundle\ContentBundle\Content\Application\ContentWorkflow\ContentWorkflo
  */
 final class ApplyWorkflowTransitionArticleMessageHandler
 {
-    /**
-     * @var ArticleRepositoryInterface
-     */
-    private $articleRepository;
-
-    /**
-     * @var ContentWorkflowInterface
-     */
-    private $contentWorkflow;
-
     public function __construct(
-        ArticleRepositoryInterface $articleRepository,
-        ContentWorkflowInterface $contentWorkflow
+        private ArticleRepositoryInterface $articleRepository,
+        private ContentWorkflowInterface $contentWorkflow,
     ) {
-        $this->articleRepository = $articleRepository;
-        $this->contentWorkflow = $contentWorkflow;
     }
 
     public function __invoke(ApplyWorkflowTransitionArticleMessage $message): void

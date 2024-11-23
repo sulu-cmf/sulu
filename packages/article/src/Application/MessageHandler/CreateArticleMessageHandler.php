@@ -25,24 +25,12 @@ use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
 final class CreateArticleMessageHandler
 {
     /**
-     * @var ArticleRepositoryInterface
-     */
-    private $articleRepository;
-
-    /**
-     * @var iterable<ArticleMapperInterface>
-     */
-    private $articleMappers;
-
-    /**
      * @param iterable<ArticleMapperInterface> $articleMappers
      */
     public function __construct(
-        ArticleRepositoryInterface $articleRepository,
-        iterable $articleMappers
+        private ArticleRepositoryInterface $articleRepository,
+        private iterable $articleMappers,
     ) {
-        $this->articleRepository = $articleRepository;
-        $this->articleMappers = $articleMappers;
     }
 
     public function __invoke(CreateArticleMessage $message): ArticleInterface

@@ -21,19 +21,12 @@ use Sulu\Component\Content\SimpleContentType;
 
 class ArticleSelectionContentType extends SimpleContentType implements PreResolvableContentTypeInterface
 {
-    private ReferenceStoreInterface $referenceStore;
-    private ContentManagerInterface $contentManager;
-    private ArticleRepositoryInterface $articleRepository;
-
     public function __construct(
-        ArticleRepositoryInterface $articleRepository,
-        ContentManagerInterface $contentManager,
-        ReferenceStoreInterface $referenceStore
+        private ArticleRepositoryInterface $articleRepository,
+        private ContentManagerInterface $contentManager,
+        private ReferenceStoreInterface $referenceStore
     ) {
         parent::__construct('Article', []);
-        $this->referenceStore = $referenceStore;
-        $this->contentManager = $contentManager;
-        $this->articleRepository = $articleRepository;
     }
 
     public function getContentData(PropertyInterface $property)

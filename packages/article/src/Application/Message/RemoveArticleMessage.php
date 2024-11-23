@@ -17,20 +17,12 @@ namespace Sulu\Article\Application\Message;
 class RemoveArticleMessage
 {
     /**
-     * @var array{
-     *     uuid?: string
-     * }
-     */
-    private $identifier;
-
-    /**
      * @param array{
      *     uuid?: string
      * } $identifier
      */
-    public function __construct(array $identifier)
+    public function __construct(private array $identifier)
     {
-        $this->identifier = $identifier;
     }
 
     /**
