@@ -1,0 +1,24 @@
+[
+    {
+        "id": "@integer@",
+        "type": "examples",
+        "locale": "de",
+        "url": "/beispiel-1",
+        "title": "beispiel-1",
+        "description": "example-1-excerpt-auszug",
+        "moreText": null,
+        "mediaId": null,
+        "attributes": []
+    },
+    {
+        "id": "@integer@",
+        "type": "examples",
+        "locale": "de",
+        "url": "/beispiel-4",
+        "title": "beispiel-4",
+        "description": "Test article",
+        "moreText": null,
+        "mediaId": null,
+        "attributes": []
+    }
+]

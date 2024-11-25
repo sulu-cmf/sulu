@@ -1,0 +1,39 @@
+# composer
+/composer.phar
+/composer.lock
+/auth.json
+/vendor
+
+# phpunit
+/phpunit.xml
+.phpunit.result.cache
+
+# coverall
+/php-coveralls.phar
+
+# php-cs
+.php-cs-fixer.cache
+
+# System files
+.DS_Store
+
+# Deptract
+.deptrac.cache
+
+# Node
+node_modules/
+package-lock.json
+
+# tests
+Tests/Application/var
+Tests/Application/public/build
+Tests/Application/.env.local
+Tests/Application/.env*.local
+Tests/reports/
+
+# IDEs
+.idea/*
+*.iml
+*~
+
+.php-version

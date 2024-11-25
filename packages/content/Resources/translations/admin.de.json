@@ -1,0 +1,15 @@
+{
+    "sulu_content.seo": "SEO",
+    "sulu_content.excerpt": "Auszug & Taxonomien",
+    "sulu_content.content": "Inhalt",
+    "sulu_content.published": "Veröffentlicht am",
+    "sulu_content.author": "Autor",
+    "sulu_content.authored_date": "Verfasst am",
+    "sulu_content.shadow_page": "Shadow Seite",
+    "sulu_content.enable_shadow_page": "Shadow Seite aktivieren",
+    "sulu_content.enable_shadow_page_info_text": "Diese Funktion ist deaktiviert, wenn die aktuelle Sprache bereits als Shadow verwendet wird.",
+    "sulu_content.shadow_locale": "Shadow Sprache",
+    "sulu_content.webspace": "Webspace",
+    "sulu_content.main_webspace": "Hauptwebspace",
+    "sulu_content.additional_webspaces": "Weitere Webspaces"
+}

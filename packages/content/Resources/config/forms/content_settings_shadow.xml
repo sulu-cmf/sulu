@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>content_settings_shadow</key>
+
+    <tag name="sulu_content.content_settings_form" instanceOf="Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowInterface" priority="-40"/>
+
+    <properties>
+        <section name="shadow">
+            <meta>
+                <title>sulu_content.shadow_page</title>
+            </meta>
+
+            <properties>
+                <property name="shadowOn" type="checkbox" disabledCondition="shadowLocales and __locale in shadowLocales|values">
+                    <meta>
+                        <info_text>sulu_content.enable_shadow_page_info_text</info_text>
+                    </meta>
+
+                    <params>
+                        <param name="type" value="toggler" />
+                        <param name="label">
+                            <meta>
+                                <title>sulu_content.enable_shadow_page</title>
+                            </meta>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="shadowLocale" type="page_settings_shadow_locale_select" colspan="6" visibleCondition="shadowOn == true">
+                    <meta>
+                        <title>sulu_content.shadow_locale</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</form>

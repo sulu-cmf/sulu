@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sulu_content.content_controller"
+                 class="Sulu\Bundle\ContentBundle\Content\UserInterface\Controller\Website\ContentController"
+                 public="true">
+            <tag name="container.service_subscriber" />
+            <tag name="controller.service_arguments" />
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface" />
+            </call>
+        </service>
+
+        <service id="Sulu\Bundle\ContentBundle\Content\UserInterface\Controller\Website\ContentController" alias="sulu_content.content_controller" public="true" />
+    </services>
+</container>

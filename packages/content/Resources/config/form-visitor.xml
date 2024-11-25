@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Form Visitor -->
+        <service id="sulu_content.settings_author_visitor" class="Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Form\SettingsFormMetadataVisitor">
+            <argument type="service" id="sulu_admin.xml_form_metadata_loader"/>
+
+            <tag name="sulu_admin.form_metadata_visitor" />
+        </service>
+    </services>
+</container>

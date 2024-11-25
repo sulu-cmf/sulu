@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="Tests/test-bootstrap.php"
+>
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <!-- See: https://symfony.com/doc/current/components/phpunit_bridge.html#modified-phpunit-script -->
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+
+        <env name="KERNEL_CLASS" value="Sulu\Bundle\ContentBundle\Tests\Application\Kernel"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Sulu Content Bundle Unit">
+            <directory>./Tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Sulu Content Bundle Functional">
+            <directory>./Tests/Functional</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">.</directory>
+        </include>
+
+        <exclude>
+            <directory>Resources/</directory>
+            <directory>TestCases/</directory>
+            <directory>Tests/</directory>
+            <directory>vendor/</directory>
+            <file>.php-cs-fixer.dist.php</file>
+            <file>Content/Infrastructure/Sulu/Structure/RoutableStructureInterface.php</file>
+        </exclude>
+    </coverage>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
+</phpunit>

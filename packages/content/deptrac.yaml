@@ -1,0 +1,32 @@
+parameters:
+    paths:
+      - ./Content
+
+    layers:
+      - name: UserInterface
+        collectors:
+          - type: directory
+            regex: UserInterface/.*
+      - name: Infrastructure
+        collectors:
+            - type: directory
+              regex: Infrastructure/.*
+      - name: Application
+        collectors:
+            - type: directory
+              regex: Application/.*
+      - name: Domain
+        collectors:
+            - type: directory
+              regex: Domain/.*
+
+    ruleset:
+        UserInterface:
+            - Application
+            - Domain
+        Infrastructure:
+            - Application
+            - Domain
+        Application:
+            - Domain
+        Domain: ~

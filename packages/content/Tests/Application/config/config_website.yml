@@ -1,0 +1,5 @@
+imports:
+    - config.yml
+
+framework:
+    router: { resource: '%kernel.project_dir%/config/routing_website.yml' }
