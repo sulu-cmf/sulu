@@ -13,7 +13,7 @@ namespace Sulu\Bundle\HttpCacheBundle\Cache;
 
 use FOS\HttpCache\ProxyClient\Invalidation\BanCapable;
 use FOS\HttpCacheBundle\CacheManager as FOSCacheManager;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * Sulu cache manager wraps the FOSCacheManager to check for every operation if the current proxy client supports the

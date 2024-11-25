@@ -11,10 +11,10 @@
 
 namespace Sulu\Article\Domain\Model;
 
-use Ramsey\Uuid\Uuid;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 use Sulu\Content\Domain\Model\ContentRichEntityTrait;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @experimental
@@ -35,7 +35,7 @@ class Article implements ArticleInterface
     public function __construct(
         ?string $uuid = null
     ) {
-        $this->uuid = $uuid ?: Uuid::uuid4()->toString();
+        $this->uuid = $uuid ?: Uuid::v4()->toString();
     }
 
     public function getId(): string // TODO should be replaced by uuid

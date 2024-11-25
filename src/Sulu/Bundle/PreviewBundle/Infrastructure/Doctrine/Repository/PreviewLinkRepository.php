@@ -13,9 +13,9 @@ namespace Sulu\Bundle\PreviewBundle\Infrastructure\Doctrine\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Ramsey\Uuid\Uuid;
 use Sulu\Bundle\PreviewBundle\Domain\Model\PreviewLinkInterface;
 use Sulu\Bundle\PreviewBundle\Domain\Repository\PreviewLinkRepositoryInterface;
+use Symfony\Component\Uid\Uuid;
 
 class PreviewLinkRepository implements PreviewLinkRepositoryInterface
 {
@@ -73,7 +73,7 @@ class PreviewLinkRepository implements PreviewLinkRepositoryInterface
 
     protected function generateToken(): string
     {
-        $token = \substr(\md5(Uuid::uuid4()->toString()), 0, 12);
+        $token = \substr(\md5(Uuid::v4()->toString()), 0, 12);
         if ($this->findByToken($token)) {
             return $this->generateToken();
         }

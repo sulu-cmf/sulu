@@ -12,9 +12,9 @@
 namespace Sulu\Bundle\ReferenceBundle\Tests\Unit\Domain\Model;
 
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Sulu\Bundle\ReferenceBundle\Domain\Model\Reference;
 use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
+use Symfony\Component\Uid\Uuid;
 
 class ReferenceTest extends TestCase
 {
@@ -93,7 +93,7 @@ class ReferenceTest extends TestCase
 
     public function testEqualsTrue(): void
     {
-        $uuid = Uuid::uuid4()->toString();
+        $uuid = Uuid::v4()->toString();
         $reference1 = $this->createReference();
         $reference1->setResourceKey('media');
         $reference1->setResourceId('1');
@@ -118,8 +118,8 @@ class ReferenceTest extends TestCase
 
     public function testEqualsFalse(): void
     {
-        $uuid = Uuid::uuid4()->toString();
-        $uuid2 = Uuid::uuid4()->toString();
+        $uuid = Uuid::v4()->toString();
+        $uuid2 = Uuid::v4()->toString();
         $reference1 = $this->createReference();
         $reference1->setReferenceResourceId($uuid);
         $reference2 = $this->createReference();

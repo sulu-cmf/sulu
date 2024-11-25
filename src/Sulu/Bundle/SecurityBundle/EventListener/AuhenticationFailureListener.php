@@ -11,13 +11,13 @@
 
 namespace Sulu\Bundle\SecurityBundle\EventListener;
 
-use Ramsey\Uuid\Uuid;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * This listener ensures, that requests with invalid usernames have the same response time as valid users.
@@ -46,10 +46,10 @@ class AuhenticationFailureListener implements EventSubscriberInterface
 
             if ($this->passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
                 $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
-                $hasher->hash(Uuid::uuid4()->toString());
+                $hasher->hash(Uuid::v4()->toString());
             } else {
                 $encoder = $this->passwordHasherFactory->getEncoder($user);
-                $encoder->encodePassword(Uuid::uuid4()->toString(), 'dummy-salt');
+                $encoder->encodePassword(Uuid::v4()->toString(), 'dummy-salt');
             }
         }
     }
