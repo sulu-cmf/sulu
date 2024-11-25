@@ -35,3 +35,5 @@ Tests/reports/
 .idea/*
 *.iml
 *~
+
+.php-version

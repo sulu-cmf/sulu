@@ -29,5 +29,8 @@ parameters:
         - message: "#^Method Sulu\\\\Bundle\\\\ContentBundle\\\\Content\\\\Infrastructure\\\\Sulu\\\\Structure\\\\ContentDocument\\:\\:getStructure\\(\\) should return Sulu\\\\Component\\\\Content\\\\Document\\\\Structure\\\\StructureInterface but returns null\\.$#"
           count: 1
           path: Content/Infrastructure/Sulu/Structure/ContentDocument.php
+        - message: "#Unreachable statement - code above always terminates.#"
+          count: 4
+          path: Tests/Functional/Content/Application/ContentResolver/ContentResolverTest.php
     bootstrapFiles:
         - %currentWorkingDirectory%/Tests/Application/Kernel.php

@@ -118,12 +118,11 @@
 
         <service id="Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface" alias="sulu_content.content_persister"/>
 
-        <!-- Content Loader -->
+        <!-- Content Aggregator -->
         <service id="sulu_content.content_aggregator" class="Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregator">
             <argument type="service" id="sulu_content.dimension_content_repository"/>
             <argument type="service" id="sulu_content.content_merger"/>
         </service>
-
         <service id="Sulu\Bundle\ContentBundle\Content\Application\ContentAggregator\ContentAggregatorInterface" alias="sulu_content.content_aggregator"/>
 
         <!-- ContentNormalizer -->

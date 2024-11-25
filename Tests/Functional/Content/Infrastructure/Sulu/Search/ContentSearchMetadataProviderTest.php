@@ -107,7 +107,7 @@ class ContentSearchMetadataProviderTest extends SuluTestCase
         foreach ($allMetadata as $metadata) {
             $this->assertInstanceOf(ClassMetadata::class, $metadata);
         }
-        $this->assertCount(3, $allMetadata);
+        $this->assertCount(4, $allMetadata);
     }
 
     public function testGetMetadataForDocument(): void
