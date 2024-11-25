@@ -16,10 +16,10 @@ namespace Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver;
 use Psr\Log\LoggerInterface;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
-use Sulu\Bundle\ContentBundle\Content\Application\MetadataResolver\MetadataResolver;
-use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
+use Sulu\Content\Application\ContentResolver\Value\ContentView;
+use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
+use Sulu\Content\Application\MetadataResolver\MetadataResolver;
+use Sulu\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
 use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader;
 
 /**

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\ResourceLoader;
 
-use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
+use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
 
 /**

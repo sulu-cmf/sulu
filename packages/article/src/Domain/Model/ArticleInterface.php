@@ -11,7 +11,7 @@
 
 namespace Sulu\Article\Domain\Model;
 
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
+use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 
 /**

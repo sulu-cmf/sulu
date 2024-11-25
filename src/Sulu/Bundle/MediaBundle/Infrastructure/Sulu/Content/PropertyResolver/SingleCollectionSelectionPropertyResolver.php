@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver;
 
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ContentView;
-use Sulu\Bundle\ContentBundle\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
+use Sulu\Content\Application\ContentResolver\Value\ContentView;
+use Sulu\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
 use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\CollectionResourceLoader;
 
 /**

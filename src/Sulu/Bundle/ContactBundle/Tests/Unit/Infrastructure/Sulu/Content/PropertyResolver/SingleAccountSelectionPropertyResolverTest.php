@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleAccountSelectionPropertyResolver;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
+use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 
 #[CoversClass(SingleAccountSelectionPropertyResolver::class)]
 class SingleAccountSelectionPropertyResolverTest extends TestCase

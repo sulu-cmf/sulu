@@ -15,8 +15,8 @@ namespace Sulu\Article\Infrastructure\Sulu\Content;
 
 use Sulu\Article\Domain\Model\ArticleInterface;
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Application\ContentManager\ContentManagerInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfiguration;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfigurationBuilder;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;

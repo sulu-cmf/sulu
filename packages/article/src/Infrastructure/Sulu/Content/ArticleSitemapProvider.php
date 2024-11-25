@@ -14,7 +14,7 @@ namespace Sulu\Article\Infrastructure\Sulu\Content;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
 use Sulu\Article\Domain\Model\ArticleInterface;
-use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Sitemap\ContentSitemapProvider;
+use Sulu\Content\Infrastructure\Sulu\Sitemap\ContentSitemapProvider;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 /**

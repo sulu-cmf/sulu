@@ -3,44 +3,31 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="Tests/test-bootstrap.php"
+         bootstrap="tests/test-bootstrap.php"
 >
-    <php>
-        <ini name="error_reporting" value="-1" />
-        <server name="APP_ENV" value="test" force="true" />
-        <server name="SHELL_VERBOSITY" value="-1" />
-        <!-- See: https://symfony.com/doc/current/components/phpunit_bridge.html#modified-phpunit-script -->
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
-
-        <env name="KERNEL_CLASS" value="Sulu\Bundle\ContentBundle\Tests\Application\Kernel"/>
-    </php>
-
     <testsuites>
-        <testsuite name="Sulu Content Bundle Unit">
-            <directory>./Tests/Unit</directory>
+        <!-- Run Unit Tests before Functional Tests for better Developer Experience -->
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
         </testsuite>
 
-        <testsuite name="Sulu Content Bundle Functional">
-            <directory>./Tests/Functional</directory>
+        <testsuite name="Functional">
+            <directory>tests/Functional</directory>
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
-            <directory suffix=".php">.</directory>
+            <directory>src/</directory>
         </include>
+    </source>
 
-        <exclude>
-            <directory>Resources/</directory>
-            <directory>TestCases/</directory>
-            <directory>Tests/</directory>
-            <directory>vendor/</directory>
-            <file>.php-cs-fixer.dist.php</file>
-            <file>Content/Infrastructure/Sulu/Structure/RoutableStructureInterface.php</file>
-        </exclude>
-    </coverage>
-
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-    </listeners>
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <ini name="date.timezone" value="UTC" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="KERNEL_CLASS" value="Sulu\Content\Tests\Application\Kernel"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+    </php>
 </phpunit>

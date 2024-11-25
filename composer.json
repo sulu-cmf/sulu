@@ -24,12 +24,6 @@
         "source": "https://github.com/sulu/skeleton",
         "docs": "https://docs.sulu.io/"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:Prokyonn/SuluContentBundle.git"
-        }
-    ],
     "require": {
         "php": "^8.2 || ^8.3",
         "ext-dom": "*",
@@ -115,6 +109,7 @@
         "symfony/translation-contracts": "^2.5 || ^3.0",
         "symfony/twig-bundle": "^6.4 || ^7.1",
         "symfony/validator": "^6.4 || ^7.1",
+        "symfony/workflow": "^6.4 || ^7.1",
         "symfony/yaml": "^6.4 || ^7.1",
         "toflar/psr6-symfony-http-cache-store": "^4.0",
         "twig/twig": "^2.13 || ^3.0",
@@ -130,7 +125,7 @@
         "league/flysystem-aws-s3-v3": "^1.0.1",
         "league/flysystem-azure-blob-storage": "^0.1 || ^1.0",
         "matthiasnoback/symfony-config-test": "^4.3 || ^5.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.3 || ^5.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.3 || ^5.0 || ^6.0",
         "microsoft/azure-storage-blob": "^1.2",
         "monolog/monolog": "^1.26.1 || ^2.3 || ^3.0",
         "php-cs-fixer/shim": "^3.14",
@@ -152,7 +147,7 @@
         "scheb/2fa-google-authenticator": "^6.10 || ^7.0",
         "scheb/2fa-totp": "^6.10 || ^7.0",
         "scheb/2fa-trusted-device": "^6.0 || ^7.0",
-        "sulu/content-bundle": "dev-feature/content-resolver as 0.9.0",
+        "sulu/automation-bundle": "^3.0@dev",
         "superbalist/flysystem-google-storage": "^7.1",
         "symfony/browser-kit": "^6.4 || ^7.1",
         "symfony/debug-bundle": "^6.4 || ^7.1",
@@ -186,6 +181,7 @@
     },
     "replace": {
         "sulu/article-bundle": "self.version",
+        "sulu/content-bundle": "self.version",
         "sulu/document-manager": "self.version",
         "sulu/media-bundle": "self.version",
         "sulu/tag-bundle": "self.version",
@@ -219,7 +215,8 @@
             "Sulu\\": "src/"
         },
         "psr-4": {
-            "Sulu\\Article\\": "packages/article/src"
+            "Sulu\\Article\\": "packages/article/src",
+            "Sulu\\Content\\": "packages/content/src"
         },
         "exclude-from-classmap": [
             "src/Sulu/Component/*/Tests/",
@@ -230,7 +227,8 @@
     "autoload-dev": {
         "psr-4": {
             "App\\": "tests/",
-            "Sulu\\Article\\Tests\\": "packages/article/tests"
+            "Sulu\\Article\\Tests\\": "packages/article/tests",
+            "Sulu\\Content\\Tests\\": "packages/content/tests"
         }
     },
     "scripts": {

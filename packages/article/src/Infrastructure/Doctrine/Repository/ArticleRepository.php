@@ -20,7 +20,7 @@ use Sulu\Article\Domain\Exception\ArticleNotFoundException;
 use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
 use Sulu\Article\Domain\Model\ArticleInterface;
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
-use Sulu\Bundle\ContentBundle\Content\Infrastructure\Doctrine\DimensionContentQueryEnhancer;
+use Sulu\Content\Infrastructure\Doctrine\DimensionContentQueryEnhancer;
 use Webmozart\Assert\Assert;
 
 class ArticleRepository implements ArticleRepositoryInterface

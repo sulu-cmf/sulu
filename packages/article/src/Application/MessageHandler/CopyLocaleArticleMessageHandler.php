@@ -13,8 +13,8 @@ namespace Sulu\Article\Application\MessageHandler;
 
 use Sulu\Article\Application\Message\CopyLocaleArticleMessage;
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentCopier\ContentCopierInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Application\ContentCopier\ContentCopierInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
 
 /**
  * @experimental

@@ -12,8 +12,8 @@
 namespace Sulu\Article\Domain\Model;
 
 use Ramsey\Uuid\Uuid;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\ContentRichEntityTrait;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
 /**

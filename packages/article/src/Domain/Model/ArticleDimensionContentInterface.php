@@ -11,15 +11,15 @@
 
 namespace Sulu\Article\Domain\Model;
 
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\AuthorInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
+use Sulu\Content\Domain\Model\AuthorInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\ExcerptInterface;
+use Sulu\Content\Domain\Model\RoutableInterface;
+use Sulu\Content\Domain\Model\SeoInterface;
+use Sulu\Content\Domain\Model\ShadowInterface;
+use Sulu\Content\Domain\Model\TemplateInterface;
+use Sulu\Content\Domain\Model\WebspaceInterface;
+use Sulu\Content\Domain\Model\WorkflowInterface;
 
 /**
  * @experimental

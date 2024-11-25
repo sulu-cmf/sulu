@@ -17,7 +17,7 @@ use Sulu\Bundle\ContactBundle\Api\Contact as ContactApi;
 use Sulu\Bundle\ContactBundle\Contact\ContactManagerInterface;
 use Sulu\Bundle\ContactBundle\Entity\ContactAddress;
 use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
+use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 
 /**
  * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class
