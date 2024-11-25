@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Infrastructure\Sulu\Traits;
 
+use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
-use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 
 /**
  * @internal

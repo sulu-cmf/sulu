@@ -16,11 +16,11 @@ namespace Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver;
 use Psr\Log\LoggerInterface;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FieldMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
+use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Content\Application\MetadataResolver\MetadataResolver;
 use Sulu\Content\Application\PropertyResolver\Resolver\PropertyResolverInterface;
-use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader;
 
 /**
  * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class

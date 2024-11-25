@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Infrastructure\Doctrine;
 
+use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Exception\ExampleNotFoundException;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Repository\ExampleRepository;
 use Sulu\Content\Tests\Functional\Traits\CreateCategoryTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateExampleTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateTagTrait;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 /**
  * This test the functionality which is required to work for the `DimensionContentQueryEnhancerTest`.

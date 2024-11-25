@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Application\ContentDataMapper\DataMapper;
 
-use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Content\Domain\Model\RoutableInterface;
-use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Bundle\RouteBundle\Entity\Route;
 use Sulu\Bundle\RouteBundle\Generator\RouteGeneratorInterface;
 use Sulu\Bundle\RouteBundle\Manager\ConflictResolverInterface;
@@ -23,6 +20,9 @@ use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\Content\Metadata\PropertyMetadata;
 use Sulu\Component\Content\Metadata\StructureMetadata;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\RoutableInterface;
+use Sulu\Content\Domain\Model\TemplateInterface;
 
 class RoutableDataMapper implements DataMapperInterface
 {

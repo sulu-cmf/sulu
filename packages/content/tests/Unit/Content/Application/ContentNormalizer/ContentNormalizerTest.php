@@ -15,6 +15,7 @@ namespace Sulu\Content\Tests\Unit\Content\Application\ContentNormalizer;
 
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
+use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Content\Application\ContentNormalizer\ContentNormalizer;
 use Sulu\Content\Application\ContentNormalizer\ContentNormalizerInterface;
 use Sulu\Content\Application\ContentNormalizer\Normalizer\DimensionContentNormalizer;
@@ -35,7 +36,6 @@ use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Content\Domain\Model\TemplateTrait;
 use Sulu\Content\Domain\Model\WorkflowInterface;
 use Sulu\Content\Domain\Model\WorkflowTrait;
-use Sulu\Bundle\TagBundle\Tag\TagInterface;
 
 class ContentNormalizerTest extends TestCase
 {

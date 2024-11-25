@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Application\ExampleTestBundle\Link;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfiguration;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfigurationBuilder;
+use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Content\Infrastructure\Sulu\Link\ContentLinkProvider;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfiguration;
-use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfigurationBuilder;
-use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 
 /**
  * @extends ContentLinkProvider<ExampleDimensionContent, Example>

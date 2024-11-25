@@ -15,13 +15,13 @@ namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\Search;
 
 use Massive\Bundle\SearchBundle\Search\Metadata\ClassMetadata;
 use Massive\Bundle\SearchBundle\Search\ObjectToDocumentConverter;
+use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Infrastructure\Sulu\Search\ContentSearchMetadataProvider;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 class ContentSearchMetadataProviderTest extends SuluTestCase
 {

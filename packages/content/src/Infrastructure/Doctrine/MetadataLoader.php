@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
+use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
+use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
@@ -27,8 +29,6 @@ use Sulu\Content\Domain\Model\ShadowInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Content\Domain\Model\WebspaceInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
-use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
-use Sulu\Bundle\TagBundle\Tag\TagInterface;
 
 /**
  * @internal

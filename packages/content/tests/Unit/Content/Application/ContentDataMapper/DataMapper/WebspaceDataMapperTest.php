@@ -16,13 +16,13 @@ namespace Sulu\Content\Tests\Unit\Content\Application\ContentDataMapper\DataMapp
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Component\Webspace\Manager\WebspaceCollection;
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Sulu\Component\Webspace\Webspace;
 use Sulu\Content\Application\ContentDataMapper\DataMapper\WebspaceDataMapper;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Component\Webspace\Manager\WebspaceCollection;
-use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
-use Sulu\Component\Webspace\Webspace;
 
 class WebspaceDataMapperTest extends TestCase
 {

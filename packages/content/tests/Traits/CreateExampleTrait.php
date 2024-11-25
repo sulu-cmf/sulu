@@ -15,6 +15,7 @@ namespace Sulu\Content\Tests\Traits;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sulu\Bundle\RouteBundle\Entity\Route;
 use Sulu\Content\Application\ContentDataMapper\ContentDataMapper;
 use Sulu\Content\Application\ContentDataMapper\ContentDataMapperInterface;
 use Sulu\Content\Domain\Model\DimensionContentCollection;
@@ -22,7 +23,6 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\RouteBundle\Entity\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Webmozart\Assert\Assert;
 

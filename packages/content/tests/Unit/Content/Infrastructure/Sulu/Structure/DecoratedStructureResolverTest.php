@@ -17,13 +17,13 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
+use Sulu\Bundle\WebsiteBundle\Resolver\StructureResolverInterface;
+use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Content\Infrastructure\Sulu\Structure\ContentDocument;
 use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
 use Sulu\Content\Infrastructure\Sulu\Structure\DecoratedStructureResolver;
-use Sulu\Bundle\WebsiteBundle\Resolver\StructureResolverInterface;
-use Sulu\Component\Content\Compat\StructureInterface;
 
 class DecoratedStructureResolverTest extends TestCase
 {

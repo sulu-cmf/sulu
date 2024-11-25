@@ -15,13 +15,13 @@ namespace Sulu\Content\Infrastructure\Sulu\Search;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Massive\Bundle\SearchBundle\Search\Reindex\LocalizedReindexProviderInterface;
+use Sulu\Component\HttpKernel\SuluKernel;
 use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Application\ContentMetadataInspector\ContentMetadataInspectorInterface;
 use Sulu\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
-use Sulu\Component\HttpKernel\SuluKernel;
 
 /**
  * @template B of DimensionContentInterface

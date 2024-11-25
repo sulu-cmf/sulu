@@ -16,10 +16,10 @@ namespace Sulu\Content\Tests\Unit\Content\Infrastructure\Sulu\Page\Select;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Sulu\Content\Infrastructure\Sulu\Page\Select\WebspaceSelect;
 use Sulu\Component\Webspace\Manager\WebspaceCollection;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Sulu\Component\Webspace\Webspace;
+use Sulu\Content\Infrastructure\Sulu\Page\Select\WebspaceSelect;
 
 class WebspaceSelectTest extends TestCase
 {

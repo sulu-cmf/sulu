@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Infrastructure\Sulu\Structure;
 
-use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Bundle\WebsiteBundle\Resolver\StructureResolverInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Sulu\Content\Domain\Model\AuthorInterface;
 
 /**
  * @internal

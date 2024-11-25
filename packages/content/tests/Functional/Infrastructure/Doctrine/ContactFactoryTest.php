@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Functional\Infrastructure\Doctrine;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use Sulu\Content\Domain\Factory\ContactFactoryInterface;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Content\Domain\Factory\ContactFactoryInterface;
 
 class ContactFactoryTest extends SuluTestCase
 {

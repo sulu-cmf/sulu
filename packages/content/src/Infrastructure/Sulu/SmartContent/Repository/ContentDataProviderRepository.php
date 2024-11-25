@@ -16,10 +16,10 @@ namespace Sulu\Content\Infrastructure\Sulu\SmartContent\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\QueryBuilder;
+use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 
 /**
  * @template B of DimensionContentInterface

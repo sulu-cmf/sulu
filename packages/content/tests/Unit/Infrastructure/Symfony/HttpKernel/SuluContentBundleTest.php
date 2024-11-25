@@ -15,7 +15,6 @@ namespace Sulu\Content\Tests\Unit\Content\Infrastructure\Symfony\HttpKernel;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\AdminBundle\DependencyInjection\SuluAdminExtension;
 use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Application\ContentCopier\ContentCopierInterface;
@@ -149,7 +148,7 @@ class SuluContentBundleTest extends AbstractExtensionTestCase
                 'forms' => [
                     'directories' => [
                         \dirname(__DIR__, 5) . '/config/forms',
-                    ]
+                    ],
                 ],
             ],
         ], $containerBuilder->getExtensionConfig('sulu_admin'));

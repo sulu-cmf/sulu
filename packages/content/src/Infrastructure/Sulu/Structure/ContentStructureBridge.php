@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Infrastructure\Sulu\Structure;
 
-use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Content\Domain\Model\ShadowInterface;
-use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Component\Content\Compat\Property;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\Structure\LegacyPropertyFactory;
@@ -27,6 +24,9 @@ use Sulu\Component\Content\Document\WorkflowStage;
 use Sulu\Component\Content\Metadata\ItemMetadata;
 use Sulu\Component\Content\Metadata\PropertyMetadata;
 use Sulu\Component\Content\Metadata\StructureMetadata;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\ShadowInterface;
+use Sulu\Content\Domain\Model\TemplateInterface;
 
 class ContentStructureBridge implements StructureInterface, RoutableStructureInterface
 {

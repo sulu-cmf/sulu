@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Unit\Content\Infrastructure\Sulu\Structure;
 
 use PHPUnit\Framework\TestCase;
+use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
 use Sulu\Content\Domain\Model\SeoInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Content\Infrastructure\Sulu\Structure\ContentDocument;
-use Sulu\Component\Content\Compat\StructureInterface;
 
 class ContentDocumentTest extends TestCase
 {

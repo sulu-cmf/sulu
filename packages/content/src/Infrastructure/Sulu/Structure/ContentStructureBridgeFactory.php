@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Infrastructure\Sulu\Structure;
 
-use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Component\Content\Compat\Structure\LegacyPropertyFactory;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
+use Sulu\Content\Domain\Model\TemplateInterface;
 
 class ContentStructureBridgeFactory
 {

@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Functional\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 /**

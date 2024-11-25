@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Unit\Content\Application\PropertyResolver\Resolver;
 
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\PageBundle\Teaser\Teaser;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Content\Application\PropertyResolver\Resolver\TeaserSelectionPropertyResolver;
-use Sulu\Bundle\PageBundle\Teaser\Teaser;
 
 class TeaserSelectionPropertyResolverTest extends TestCase
 {

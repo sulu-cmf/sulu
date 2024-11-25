@@ -15,11 +15,6 @@ namespace Sulu\Content\Tests\Unit\Content\Infrastructure\Sulu\Structure;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Content\Domain\Model\ShadowInterface;
-use Sulu\Content\Domain\Model\TemplateInterface;
-use Sulu\Content\Infrastructure\Sulu\Structure\ContentDocument;
-use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
 use Sulu\Component\Content\Compat\Property;
 use Sulu\Component\Content\Compat\Structure\LegacyPropertyFactory;
 use Sulu\Component\Content\Compat\StructureInterface;
@@ -29,6 +24,11 @@ use Sulu\Component\Content\Document\Structure\PropertyValue;
 use Sulu\Component\Content\Document\WorkflowStage;
 use Sulu\Component\Content\Metadata\PropertyMetadata;
 use Sulu\Component\Content\Metadata\StructureMetadata;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\ShadowInterface;
+use Sulu\Content\Domain\Model\TemplateInterface;
+use Sulu\Content\Infrastructure\Sulu\Structure\ContentDocument;
+use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
 
 class ContentStructureBridgeTest extends TestCase
 {

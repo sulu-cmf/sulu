@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Infrastructure\Sulu\SmartContent\Provider;
 
-use Sulu\Content\Application\ContentManager\ContentManagerInterface;
-use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Content\Infrastructure\Sulu\SmartContent\DataItem\ContentDataItem;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
 use Sulu\Component\Serializer\ArraySerializerInterface;
 use Sulu\Component\SmartContent\ArrayAccessItem;
@@ -24,6 +21,9 @@ use Sulu\Component\SmartContent\ItemInterface;
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use Sulu\Component\SmartContent\ResourceItemInterface;
+use Sulu\Content\Application\ContentManager\ContentManagerInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Infrastructure\Sulu\SmartContent\DataItem\ContentDataItem;
 
 class ContentDataProvider extends BaseDataProvider
 {

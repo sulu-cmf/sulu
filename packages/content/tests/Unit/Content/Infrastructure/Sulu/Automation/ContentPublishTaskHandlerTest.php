@@ -18,12 +18,12 @@ use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Bundle\PageBundle\Document\PageDocument;
 use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
 use Sulu\Content\Infrastructure\Sulu\Automation\ContentPublishTaskHandler;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
-use Sulu\Bundle\PageBundle\Document\PageDocument;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

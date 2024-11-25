@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\Search;
 
+use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Component\HttpKernel\SuluKernel;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Infrastructure\Sulu\Search\ContentReindexProvider;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Component\HttpKernel\SuluKernel;
 
 class ContentReindexProviderTest extends SuluTestCase
 {

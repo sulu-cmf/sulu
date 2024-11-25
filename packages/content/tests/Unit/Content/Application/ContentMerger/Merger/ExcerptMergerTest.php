@@ -16,11 +16,11 @@ namespace Sulu\Content\Tests\Unit\Content\Application\ContentMerger\Merger;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
+use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Content\Application\ContentMerger\Merger\ExcerptMerger;
 use Sulu\Content\Application\ContentMerger\Merger\MergerInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
-use Sulu\Bundle\TagBundle\Tag\TagInterface;
 
 class ExcerptMergerTest extends TestCase
 {

@@ -15,8 +15,8 @@ namespace Sulu\Content\Tests\Functional\Infrastructure\Doctrine;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
-use Sulu\Content\Domain\Factory\CategoryFactoryInterface;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Content\Domain\Factory\CategoryFactoryInterface;
 
 class CategoryFactoryTest extends SuluTestCase
 {

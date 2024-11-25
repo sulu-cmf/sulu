@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Sulu\Content\Infrastructure\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Sulu\Content\Domain\Factory\TagFactoryInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Persistence\Repository\ORM\EntityRepository;
+use Sulu\Content\Domain\Factory\TagFactoryInterface;
 
 class TagFactory implements TagFactoryInterface
 {

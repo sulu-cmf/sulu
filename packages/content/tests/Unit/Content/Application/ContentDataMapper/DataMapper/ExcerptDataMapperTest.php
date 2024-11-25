@@ -18,13 +18,13 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\CategoryBundle\Entity\Category;
+use Sulu\Bundle\TagBundle\Entity\Tag;
 use Sulu\Content\Application\ContentDataMapper\DataMapper\ExcerptDataMapper;
 use Sulu\Content\Domain\Factory\CategoryFactoryInterface;
 use Sulu\Content\Domain\Factory\TagFactoryInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\TagBundle\Entity\Tag;
 
 class ExcerptDataMapperTest extends TestCase
 {

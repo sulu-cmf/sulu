@@ -11,8 +11,8 @@
 
 namespace Sulu\Article\Domain\Model;
 
-use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 
 /**
  * @experimental

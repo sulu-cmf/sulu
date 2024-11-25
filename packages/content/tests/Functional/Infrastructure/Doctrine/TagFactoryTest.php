@@ -15,10 +15,10 @@ namespace Sulu\Content\Tests\Functional\Infrastructure\Doctrine;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Sulu\Bundle\ContactBundle\Entity\Contact;
-use Sulu\Content\Domain\Factory\TagFactoryInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Content\Domain\Factory\TagFactoryInterface;
 
 class TagFactoryTest extends SuluTestCase
 {

@@ -14,15 +14,15 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Functional\Application\ContentResolver;
 
 use Sulu\Bundle\CategoryBundle\Entity\Category;
+use Sulu\Bundle\MediaBundle\Api\Collection;
+use Sulu\Bundle\MediaBundle\Api\Media;
+use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Content\Tests\Functional\Traits\CreateCategoryTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateMediaTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateTagTrait;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
-use Sulu\Bundle\MediaBundle\Api\Collection;
-use Sulu\Bundle\MediaBundle\Api\Media;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 class ContentResolverTest extends SuluTestCase
 {

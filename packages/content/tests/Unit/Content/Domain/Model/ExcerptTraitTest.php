@@ -16,10 +16,10 @@ namespace Sulu\Content\Tests\Unit\Content\Domain\Model;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\CategoryBundle\Entity\Category;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
-use Sulu\Content\Domain\Model\ExcerptInterface;
-use Sulu\Content\Domain\Model\ExcerptTrait;
 use Sulu\Bundle\TagBundle\Entity\Tag;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
+use Sulu\Content\Domain\Model\ExcerptInterface;
+use Sulu\Content\Domain\Model\ExcerptTrait;
 
 class ExcerptTraitTest extends TestCase
 {

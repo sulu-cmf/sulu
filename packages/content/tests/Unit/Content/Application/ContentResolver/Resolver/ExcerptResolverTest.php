@@ -18,6 +18,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataProviderInterface;
 use Sulu\Bundle\CategoryBundle\Entity\Category;
+use Sulu\Bundle\TagBundle\Entity\Tag;
 use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
 use Sulu\Content\Application\ContentResolver\Resolver\ExcerptResolver;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
@@ -26,7 +27,6 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\TagBundle\Entity\Tag;
 
 class ExcerptResolverTest extends TestCase
 {

@@ -15,9 +15,9 @@ namespace Sulu\Content\Tests\Unit\Content\Application\PropertyResolver\Resolver;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Content\Application\PropertyResolver\Resolver\LinkPropertyResolver;
-use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 
 class LinkPropertyResolverTest extends TestCase
 {

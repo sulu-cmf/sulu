@@ -14,15 +14,15 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\Sitemap;
 
 use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
+use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Bundle\WebsiteBundle\Sitemap\Sitemap;
+use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapAlternateLink;
+use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapUrl;
 use Sulu\Content\Infrastructure\Sulu\Sitemap\ContentSitemapProvider;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
 use Sulu\Content\Tests\Traits\AssertSnapshotTrait;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Bundle\WebsiteBundle\Sitemap\Sitemap;
-use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapAlternateLink;
-use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapUrl;
 
 class ContentSitemapProviderTest extends SuluTestCase
 {

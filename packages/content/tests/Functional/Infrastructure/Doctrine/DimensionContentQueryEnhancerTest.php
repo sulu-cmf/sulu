@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Infrastructure\Doctrine;
 
+use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Content\Domain\Model\DimensionContentCollection;
 use Sulu\Content\Infrastructure\Doctrine\DimensionContentQueryEnhancer;
@@ -22,7 +23,6 @@ use Sulu\Content\Tests\Functional\Traits\CreateCategoryTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateExampleTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateTagTrait;
 use Sulu\Content\Tests\Functional\Traits\ProfilerHelperTrait;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 class DimensionContentQueryEnhancerTest extends SuluTestCase
 {

@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\Link;
 
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
+use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Link\ExampleLinkProvider;
 use Sulu\Content\Tests\Traits\AssertSnapshotTrait;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
-use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
-use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
 
 class ContentLinkProviderTest extends WebsiteTestCase
 {

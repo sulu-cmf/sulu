@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sulu\Content\UserInterface\Controller\Website;
 
+use Sulu\Bundle\PreviewBundle\Preview\Preview;
 use Sulu\Content\Application\ContentResolver\ContentResolverInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Bundle\PreviewBundle\Preview\Preview;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

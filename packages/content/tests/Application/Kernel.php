@@ -15,9 +15,9 @@ namespace Sulu\Content\Tests\Application;
 
 use Sulu\Bundle\AudienceTargetingBundle\SuluAudienceTargetingBundle;
 use Sulu\Bundle\AutomationBundle\SuluAutomationBundle;
+use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
 use Sulu\Content\Infrastructure\Symfony\HttpKernel\SuluContentBundle;
 use Sulu\Content\Tests\Application\ExampleTestBundle\ExampleTestBundle;
-use Sulu\Bundle\TestBundle\Kernel\SuluTestKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Task\TaskBundle\TaskBundle;
 

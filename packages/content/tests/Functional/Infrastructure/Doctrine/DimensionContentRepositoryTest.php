@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Infrastructure\Doctrine;
 
+use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Repository\DimensionContentRepositoryInterface;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 class DimensionContentRepositoryTest extends SuluTestCase
 {

@@ -16,9 +16,9 @@ namespace Sulu\Content\Infrastructure\Doctrine;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Content\Application\ContentMetadataInspector\ContentMetadataInspectorInterface;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
-use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 
 /**
  * @internal

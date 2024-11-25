@@ -17,19 +17,19 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Bundle\RouteBundle\Entity\Route;
+use Sulu\Bundle\RouteBundle\Generator\RouteGeneratorInterface;
+use Sulu\Bundle\RouteBundle\Manager\ConflictResolverInterface;
+use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
+use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
+use Sulu\Component\Content\Metadata\PropertyMetadata;
+use Sulu\Component\Content\Metadata\StructureMetadata;
 use Sulu\Content\Application\ContentDataMapper\DataMapper\RoutableDataMapper;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\RoutableInterface;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\RouteBundle\Entity\Route;
-use Sulu\Bundle\RouteBundle\Generator\RouteGeneratorInterface;
-use Sulu\Bundle\RouteBundle\Manager\ConflictResolverInterface;
-use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
-use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
-use Sulu\Component\Content\Metadata\PropertyMetadata;
-use Sulu\Component\Content\Metadata\StructureMetadata;
 
 class RoutableDataMapperTest extends TestCase
 {

@@ -15,9 +15,9 @@ namespace Sulu\Content\Tests\Unit\Content\Application\ResourceLoader;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader;
 use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 use Sulu\Content\Application\ResourceLoader\ResourceLoaderProvider;
-use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader;
 
 class ResourceLoaderProviderTest extends TestCase
 {

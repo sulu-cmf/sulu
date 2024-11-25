@@ -22,6 +22,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
+use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
@@ -32,7 +33,6 @@ use Sulu\Content\Domain\Model\WebspaceInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
 use Sulu\Content\Infrastructure\Doctrine\MetadataLoader;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\TagBundle\Tag\TagInterface;
 
 class MetadataLoaderTest extends TestCase
 {

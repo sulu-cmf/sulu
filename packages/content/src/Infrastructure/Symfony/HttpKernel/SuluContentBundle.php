@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sulu\Content\Infrastructure\Symfony\HttpKernel;
 
 use Sulu\Content\Infrastructure\Symfony\HttpKernel\Compiler\SettingsFormPass;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

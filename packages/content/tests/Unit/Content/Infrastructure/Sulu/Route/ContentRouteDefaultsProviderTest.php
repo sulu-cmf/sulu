@@ -19,6 +19,8 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Sulu\Bundle\HttpCacheBundle\CacheLifetime\CacheLifetimeResolverInterface;
+use Sulu\Component\Content\Metadata\StructureMetadata;
 use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
@@ -30,8 +32,6 @@ use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridgeFactory;
 use Sulu\Content\Infrastructure\Sulu\Structure\StructureMetadataNotFoundException;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
-use Sulu\Bundle\HttpCacheBundle\CacheLifetime\CacheLifetimeResolverInterface;
-use Sulu\Component\Content\Metadata\StructureMetadata;
 
 class ContentRouteDefaultsProviderTest extends TestCase
 {

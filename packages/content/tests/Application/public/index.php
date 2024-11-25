@@ -11,8 +11,8 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-use Sulu\Content\Tests\Application\Kernel;
 use Sulu\Component\HttpKernel\SuluKernel;
+use Sulu\Content\Tests\Application\Kernel;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Application\PropertyResolver\Resolver;
 
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\ResourceLoader\Loader\LinkResourceLoader;
-use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 
 class LinkPropertyResolver implements PropertyResolverInterface
 {

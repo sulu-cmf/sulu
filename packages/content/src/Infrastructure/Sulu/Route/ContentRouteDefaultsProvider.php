@@ -15,6 +15,9 @@ namespace Sulu\Content\Infrastructure\Sulu\Route;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
+use Sulu\Bundle\HttpCacheBundle\CacheLifetime\CacheLifetimeResolverInterface;
+use Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface;
+use Sulu\Component\Content\Metadata\StructureMetadata;
 use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
@@ -22,9 +25,6 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridgeFactory;
 use Sulu\Content\Infrastructure\Sulu\Structure\StructureMetadataNotFoundException;
-use Sulu\Bundle\HttpCacheBundle\CacheLifetime\CacheLifetimeResolverInterface;
-use Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface;
-use Sulu\Component\Content\Metadata\StructureMetadata;
 
 class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
 {

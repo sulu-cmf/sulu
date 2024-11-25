@@ -14,15 +14,15 @@ declare(strict_types=1);
 namespace Sulu\Content\Infrastructure\Sulu\Link;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
+use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;
+use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Infrastructure\Sulu\Traits\FindContentRichEntitiesTrait;
 use Sulu\Content\Infrastructure\Sulu\Traits\ResolveContentDimensionUrlTrait;
 use Sulu\Content\Infrastructure\Sulu\Traits\ResolveContentTrait;
-use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
-use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;
-use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 
 /**
  * @template B of DimensionContentInterface

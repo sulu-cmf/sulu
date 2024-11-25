@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Infrastructure\Sulu\Structure;
 
+use Sulu\Component\Content\Document\Behavior\ExtensionBehavior;
 use Sulu\Content\Domain\Model\ExcerptInterface;
 use Sulu\Content\Domain\Model\SeoInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
-use Sulu\Component\Content\Document\Behavior\ExtensionBehavior;
 
 class ContentDocument implements ExtensionBehavior
 {

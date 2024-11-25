@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Application\ContentDataMapper\DataMapper;
 
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\WebspaceInterface;
-use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 class WebspaceDataMapper implements DataMapperInterface
 {

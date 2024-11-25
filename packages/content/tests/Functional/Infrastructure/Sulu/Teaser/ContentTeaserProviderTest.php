@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\Teaser;
 
+use Sulu\Bundle\PageBundle\Teaser\Teaser;
+use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Teaser\ExampleTeaserProvider;
 use Sulu\Content\Tests\Traits\AssertSnapshotTrait;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
-use Sulu\Bundle\PageBundle\Teaser\Teaser;
-use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
 
 class ContentTeaserProviderTest extends WebsiteTestCase
 {

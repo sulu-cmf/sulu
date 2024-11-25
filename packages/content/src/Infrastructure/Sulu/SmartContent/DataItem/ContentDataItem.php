@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Sulu\Content\Infrastructure\Sulu\SmartContent\DataItem;
 
 use JMS\Serializer\Annotation as Serializer;
-use Sulu\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Content\Domain\Model\WorkflowInterface;
 use Sulu\Component\SmartContent\ArrayAccessItem;
 use Sulu\Component\SmartContent\ItemInterface;
 use Sulu\Component\SmartContent\PublishInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\WorkflowInterface;
 
 /**
  * @template T of DimensionContentInterface

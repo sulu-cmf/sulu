@@ -18,9 +18,6 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Sulu\Content\Application\ContentWorkflow\ContentWorkflowInterface;
-use Sulu\Content\Domain\Model\ContentRichEntityInterface;
-use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Bundle\WebsiteBundle\Sitemap\Sitemap;
 use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapAlternateLink;
@@ -29,6 +26,9 @@ use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapUrl;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Sulu\Component\Webspace\PortalInformation;
+use Sulu\Content\Application\ContentWorkflow\ContentWorkflowInterface;
+use Sulu\Content\Domain\Model\ContentRichEntityInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
 
 /**
  * @template B of DimensionContentInterface

@@ -16,10 +16,10 @@ namespace Sulu\Content\Tests\Unit\Content\Application\ResourceLoader;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Sulu\Content\Application\ResourceLoader\Loader\LinkResourceLoader;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPoolInterface;
+use Sulu\Content\Application\ResourceLoader\Loader\LinkResourceLoader;
 
 class LinkResourceLoaderTest extends TestCase
 {
