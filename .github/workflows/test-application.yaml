@@ -143,9 +143,7 @@ jobs:
                       tools: 'composer:v2'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: disabled
-                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7
-                          DATABASE_CHARSET: utf8mb4
-                          DATABASE_COLLATE: utf8mb4_unicode_ci
+                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7&charset=utf8mb4
 
                     - php-version: '8.2'
                       database: mysql-57
@@ -155,9 +153,7 @@ jobs:
                       tools: 'composer:v2'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
-                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7
-                          DATABASE_CHARSET: utf8mb4
-                          DATABASE_COLLATE: utf8mb4_unicode_ci
+                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7&charset=utf8mb4
 
                     - php-version: '8.3'
                       database: postgres-14
@@ -168,8 +164,6 @@ jobs:
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: postgres://symfony:ChangeMe@127.0.0.1:5432/sulu_test?serverVersion=14.11
-                          DATABASE_CHARSET: UTF8
-                          DATABASE_COLLATE:
 
                     - php-version: '8.3'
                       database: postgres-14
@@ -180,8 +174,6 @@ jobs:
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: postgres://symfony:ChangeMe@127.0.0.1:5432/sulu_test?serverVersion=14.11
-                          DATABASE_CHARSET: UTF8
-                          DATABASE_COLLATE:
 
                     - php-version: '8.4'
                       database: mysql-80
@@ -192,9 +184,7 @@ jobs:
                       composer-stability: 'dev'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
-                          DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=8.0
-                          DATABASE_CHARSET: utf8mb4
-                          DATABASE_COLLATE: utf8mb4_unicode_ci
+                          DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=8.0&charset=utf8mb4
 
         steps:
             - name: Checkout project
