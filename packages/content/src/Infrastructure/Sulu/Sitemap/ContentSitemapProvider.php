@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Infrastructure\Sulu\Sitemap;
 
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -219,11 +220,16 @@ class ContentSitemapProvider implements SitemapProviderInterface
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
 
+        $entityFieldQuery = self::CONTENT_RICH_ENTITY_ALIAS . '.' . $this->getEntityIdField();
+        if ($this->entityManager->getConnection()->getDatabasePlatform() instanceof PostgreSQLPlatform) {
+            // TODO no casting because indexes can then not be used
+            $entityFieldQuery = 'CAST(' . self::CONTENT_RICH_ENTITY_ALIAS . '.' . $this->getEntityIdField() . ' AS STRING)';
+        }
+
         return $queryBuilder
             ->from($this->contentRichEntityClass, self::CONTENT_RICH_ENTITY_ALIAS)
             ->innerJoin(self::CONTENT_RICH_ENTITY_ALIAS . '.dimensionContents', self::LOCALIZED_DIMENSION_CONTENT_ALIAS)
-            // TODO no casting because indexes can then not be used
-            ->innerJoin($this->routeClass, self::ROUTE_ALIAS, Join::WITH, self::ROUTE_ALIAS . '.entityId = CAST(' . self::CONTENT_RICH_ENTITY_ALIAS . '.' . $this->getEntityIdField() . ' AS STRING) AND ' . self::ROUTE_ALIAS . '.locale = ' . self::LOCALIZED_DIMENSION_CONTENT_ALIAS . '.locale')
+            ->innerJoin($this->routeClass, self::ROUTE_ALIAS, Join::WITH, self::ROUTE_ALIAS . '.entityId = ' . $entityFieldQuery . ' AND ' . self::ROUTE_ALIAS . '.locale = ' . self::LOCALIZED_DIMENSION_CONTENT_ALIAS . '.locale')
             ->where(self::LOCALIZED_DIMENSION_CONTENT_ALIAS . '.stage = :stage')
             ->andWhere(self::ROUTE_ALIAS . '.entityClass = :entityClass')
             ->andWhere(self::ROUTE_ALIAS . '.history = :history')
