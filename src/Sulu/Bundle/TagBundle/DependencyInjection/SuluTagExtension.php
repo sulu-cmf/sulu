@@ -11,8 +11,6 @@
 
 namespace Sulu\Bundle\TagBundle\DependencyInjection;
 
-use Composer\InstalledVersions;
-use Composer\Semver\VersionParser;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
@@ -91,15 +89,13 @@ class SuluTagExtension extends Extension implements PrependExtensionInterface
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('services_content.xml');
 
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
             $loader->load('services_trash.xml');
         }
 
-        if (
-            InstalledVersions::isInstalled('sulu/content-bundle')
-            && InstalledVersions::satisfies(new VersionParser(), 'sulu/content-bundle', '^0.9')
-        ) {
+        if (\array_key_exists('SuluContentBundle', $bundles)) {
             $loader->load('services_content.xml');
         }
     }
