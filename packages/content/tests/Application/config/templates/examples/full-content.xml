@@ -1,0 +1,597 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>full-content</key>
+
+    <view>@ExampleTest/examples/default</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>604800</cacheLifetime>
+
+    <meta>
+        <title lang="en">Example</title>
+        <title lang="de">Example</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="text_editor" type="text_editor">
+            <meta>
+                <title lang="en">Text Editor</title>
+                <title lang="de">Texteditor</title>
+            </meta>
+        </property>
+
+        <block name="blocks" default-type="text_block" minOccurs="0">
+            <meta>
+                <title lang="en">Content</title>
+                <title lang="de">Inhalte</title>
+            </meta>
+
+            <types>
+                <type ref="text_block"/>
+                <type name="editor">
+                    <meta>
+                        <title lang="en">Editor</title>
+                        <title lang="de">Editor</title>
+                    </meta>
+                    <properties>
+                        <property name="text_editor" type="text_editor">
+                            <meta>
+                                <title lang="en">Text Editor</title>
+                                <title lang="de">Texteditor</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+                <type name="media">
+                    <meta>
+                        <title lang="de">Media</title>
+                        <title lang="en">Media</title>
+                    </meta>
+                    <properties>
+                        <property name="media_selection" type="media_selection">
+                            <meta>
+                                <title lang="en">Media Selection</title>
+                                <title lang="de">Medienauswahl</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+                <type name="block">
+                    <meta>
+                        <title lang="de">Blöcke</title>
+                        <title lang="en">Blocks</title>
+                    </meta>
+                    <properties>
+                        <block name="blocks" default-type="editor" minOccurs="0">
+                            <meta>
+                                <title lang="en">Content</title>
+                                <title lang="de">Inhalte</title>
+                            </meta>
+
+                            <types>
+                                <type name="editor">
+                                    <meta>
+                                        <title lang="en">Editor</title>
+                                        <title lang="de">Editor</title>
+                                    </meta>
+                                    <properties>
+                                        <property name="text_editor" type="text_editor">
+                                            <meta>
+                                                <title lang="en">Text Editor</title>
+                                                <title lang="de">Texteditor</title>
+                                            </meta>
+                                        </property>
+                                    </properties>
+                                </type>
+                                <type name="media">
+                                    <meta>
+                                        <title lang="de">Media</title>
+                                        <title lang="en">Media</title>
+                                    </meta>
+                                    <properties>
+                                        <property name="media_selection" type="media_selection">
+                                            <meta>
+                                                <title lang="en">Media Selection</title>
+                                                <title lang="de">Medienauswahl</title>
+                                            </meta>
+                                        </property>
+                                    </properties>
+                                </type>
+                            </types>
+                        </block>
+                    </properties>
+                </type>
+            </types>
+        </block>
+
+        <property name="text_line" type="text_line">
+            <meta>
+                <title lang="en">Text Line</title>
+                <title lang="de">Text</title>
+                <info_text lang="en">There are no commas allowed in this field</info_text>
+                <info_text lang="de">In diesem Feld sind keine Beistriche erlaubt</info_text>
+            </meta>
+
+            <params>
+                <param name="pattern" value="^[^,]*$"/>
+                <param name="min_length" value="2"/>
+                <param name="max_length" value="3"/>
+            </params>
+        </property>
+
+        <property name="number" type="number">
+            <meta>
+                <title lang="en">Number</title>
+                <title lang="de">Zahl</title>
+            </meta>
+        </property>
+
+        <property name="phone" type="phone">
+            <meta>
+                <title lang="en">Phone</title>
+                <title lang="de">Telefonnummer</title>
+            </meta>
+        </property>
+
+        <property name="location" type="location">
+            <meta>
+                <title lang="en">Location</title>
+                <title lang="de">Standort</title>
+            </meta>
+        </property>
+
+        <property name="tag_selection" type="tag_selection">
+            <meta>
+                <title lang="en">Tag Selection</title>
+                <title lang="de">Tag</title>
+            </meta>
+        </property>
+
+        <property name="single_select" type="single_select">
+            <meta>
+                <title lang="en">Single Select</title>
+                <title lang="de">Einzelauswahl</title>
+            </meta>
+
+            <params>
+                <param name="values" type="collection">
+                    <param name="">
+                        <meta>
+                            <title lang="en">No selection</title>
+                            <title lang="de">Keine Auswahl</title>
+                        </meta>
+                    </param>
+                    <param name="value-1">
+                        <meta>
+                            <title lang="en">Value 1</title>
+                            <title lang="de">Wert 1</title>
+                        </meta>
+                    </param>
+                    <param name="value-2">
+                        <meta>
+                            <title lang="en">Value 2</title>
+                            <title lang="de">Wert 2</title>
+                        </meta>
+                    </param>
+                    <param name="value-3">
+                        <meta>
+                            <title lang="en">Value 3</title>
+                            <title lang="de">Wert 3</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+        <property name="select" type="select">
+            <meta>
+                <title lang="en">Select</title>
+                <title lang="de">Auswahl</title>
+            </meta>
+
+            <params>
+                <param name="values" type="collection">
+                    <param name="value-1">
+                        <meta>
+                            <title lang="en">Value 1</title>
+                            <title lang="de">Wert 1</title>
+                        </meta>
+                    </param>
+                    <param name="value-2" value="Value 2">
+                        <meta>
+                            <title lang="en">Value 2</title>
+                            <title lang="de">Wert 2</title>
+                        </meta>
+                    </param>
+                    <param name="value-3" value="Value 3">
+                        <meta>
+                            <title lang="en">Value 3</title>
+                            <title lang="de">Wert 3</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+        <property name="checkbox" type="checkbox">
+            <meta>
+                <title lang="en">Checkbox</title>
+                <title lang="de">Auswahlbox</title>
+            </meta>
+        </property>
+
+        <property name="color" type="color">
+            <meta>
+                <title lang="en">Color</title>
+                <title lang="de">Farbe</title>
+            </meta>
+        </property>
+
+        <property name="time" type="time">
+            <meta>
+                <title lang="en">Time</title>
+                <title lang="de">Zeit</title>
+            </meta>
+        </property>
+
+        <property name="date" type="date">
+            <meta>
+                <title lang="en">Date</title>
+                <title lang="de">Datum</title>
+            </meta>
+        </property>
+
+        <property name="datetime" type="datetime">
+            <meta>
+                <title lang="en">Date with Time</title>
+                <title lang="de">Datum mit Zeit</title>
+            </meta>
+        </property>
+
+        <property name="email" type="email">
+            <meta>
+                <title lang="en">Email</title>
+                <title lang="de">E-Mail</title>
+            </meta>
+        </property>
+
+        <property name="external_url" type="url">
+            <meta>
+                <title lang="en">URL</title>
+                <title lang="de">URL</title>
+            </meta>
+        </property>
+
+<!--        <property name="link" type="link">-->
+<!--            <meta>-->
+<!--                <title lang="en">Link</title>-->
+<!--                <title lang="de">Link</title>-->
+<!--            </meta>-->
+
+<!--            <params>-->
+<!--                <param name="enable_anchor" value="true"/>-->
+<!--                <param name="enable_query" value="true"/>-->
+<!--                <param name="enable_attributes" value="true"/>-->
+<!--            </params>-->
+<!--        </property>-->
+
+<!--        <property name="single_page_selection" type="single_page_selection">-->
+<!--            <meta>-->
+<!--                <title lang="en">Single Page Selection</title>-->
+<!--                <title lang="de">Seite</title>-->
+<!--            </meta>-->
+<!--        </property>-->
+
+<!--        <property name="page_selection" type="page_selection">-->
+<!--            <meta>-->
+<!--                <title lang="en">Page Selection</title>-->
+<!--                <title lang="de">Seiten</title>-->
+<!--            </meta>-->
+<!--        </property>-->
+
+<!--        <property name="teaser_selection" type="teaser_selection">-->
+<!--            <meta>-->
+<!--                <title lang="en">Teaser Selection</title>-->
+<!--                <title lang="de">Anreiser</title>-->
+<!--            </meta>-->
+
+<!--            <params>-->
+<!--                <param name="min" value="1"/>-->
+<!--                <param name="max" value="1"/>-->
+
+<!--                <param name="present_as" type="collection">-->
+<!--                    <param name="three-columns">-->
+<!--                        <meta>-->
+<!--                            <title lang="en">3 Columns</title>-->
+<!--                            <title lang="de">3 Spalten</title>-->
+<!--                        </meta>-->
+<!--                    </param>-->
+<!--                    <param name="five-columns">-->
+<!--                        <meta>-->
+<!--                            <title lang="en">5 Columns</title>-->
+<!--                            <title lang="de">5 Spalten</title>-->
+<!--                        </meta>-->
+<!--                    </param>-->
+<!--                </param>-->
+<!--            </params>-->
+<!--        </property>-->
+
+<!--        <property name="smart_content" type="smart_content">-->
+<!--            <meta>-->
+<!--                <title lang="en">Smart Content</title>-->
+<!--                <title lang="de">Smart Content</title>-->
+<!--            </meta>-->
+<!--        </property>-->
+
+<!--        <property name="single_snippet_selection" type="single_snippet_selection">-->
+<!--            <meta>-->
+<!--                <title lang="en">Single Snippet Selection</title>-->
+<!--                <title lang="de">Schnipsel</title>-->
+<!--            </meta>-->
+<!--        </property>-->
+
+<!--        <property name="snippet_selection" type="snippet_selection">-->
+<!--            <meta>-->
+<!--                <title lang="en">Snippet Selection</title>-->
+<!--                <title lang="de">Schnipsel</title>-->
+<!--            </meta>-->
+<!--        </property>-->
+
+        <property name="category_selection" type="category_selection">
+            <meta>
+                <title lang="en">Category Selection</title>
+                <title lang="de">Kategorien</title>
+            </meta>
+        </property>
+
+        <property name="single_category_selection" type="single_category_selection">
+            <meta>
+                <title lang="en">Single Category Selection</title>
+                <title lang="de">Einzelkategorien</title>
+            </meta>
+        </property>
+
+        <property name="single_collection_selection" type="single_collection_selection">
+            <meta>
+                <title lang="en">Single Collection Selection</title>
+                <title lang="de">Ordner</title>
+            </meta>
+        </property>
+
+        <property name="collection_selection" type="collection_selection">
+            <meta>
+                <title lang="en">Collection Selection</title>
+                <title lang="de">Ordner</title>
+            </meta>
+        </property>
+
+        <property name="single_media_selection" type="single_media_selection">
+            <meta>
+                <title lang="en">Single Media Selection</title>
+                <title lang="de">Medium</title>
+            </meta>
+        </property>
+
+        <property name="media_selection" type="media_selection">
+            <meta>
+                <title lang="en">Media Selection</title>
+                <title lang="de">Medien</title>
+            </meta>
+
+            <params>
+                <param name="min" value="2"/>
+                <param name="max" value="3"/>
+            </params>
+        </property>
+
+        <property name="single_account_selection" type="single_account_selection">
+            <meta>
+                <title lang="en">Single Account Selection</title>
+                <title lang="de">Organisation</title>
+            </meta>
+        </property>
+
+        <property name="account_selection" type="account_selection">
+            <meta>
+                <title lang="en">Account Selection</title>
+                <title lang="de">Organisationen</title>
+            </meta>
+        </property>
+
+        <property name="single_contact_selection" type="single_contact_selection">
+            <meta>
+                <title lang="en">Single Contact Selection</title>
+                <title lang="de">Kontakt</title>
+            </meta>
+        </property>
+
+        <property name="contact_selection" type="contact_selection">
+            <meta>
+                <title lang="en">Contact Selection</title>
+                <title lang="de">Kontakte</title>
+            </meta>
+
+            <params>
+                <param name="min" value="2"/>
+                <param name="max" value="2"/>
+            </params>
+        </property>
+
+        <property name="contact_account_selection" type="contact_account_selection">
+            <meta>
+                <title lang="en">Contact and Account Selection</title>
+                <title lang="de">Kontakte und Organisationen</title>
+            </meta>
+        </property>
+
+        <property name="text_area" type="text_area">
+            <meta>
+                <title lang="en">Textarea</title>
+                <title lang="de">Text</title>
+                <info_text lang="en">There are only lower case letters and spaces allowed in this field</info_text>
+                <info_text lang="de">In diesem Feld sind nur Kleinbuchstaben und Abstände erlaubt</info_text>
+            </meta>
+
+            <params>
+                <param name="pattern" value="^[a-z ]*$"/>
+                <param name="min_length" value="200"/>
+                <param name="max_length" value="300"/>
+            </params>
+        </property>
+
+        <property name="image_map" type="image_map" default-type="basic">
+            <meta>
+                <title lang="en">Image-Map</title>
+                <title lang="de">Image-Map</title>
+            </meta>
+
+            <types>
+                <type name="basic">
+                    <meta>
+                        <title lang="en">Basic</title>
+                        <title lang="de">Grundlegend</title>
+                    </meta>
+                    <properties>
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+                        <property name="description" type="text_area">
+                            <meta>
+                                <title lang="en">Description</title>
+                                <title lang="de">Beschreibung</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+
+                <type name="advanced">
+                    <meta>
+                        <title lang="en">Advanced</title>
+                        <title lang="de">Erweitert</title>
+                    </meta>
+                    <properties>
+                        <property name="text" type="text_editor">
+                            <meta>
+                                <title lang="en">Text</title>
+                                <title lang="de">Text</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <section name="test">
+            <properties>
+                <block name="blocks2" default-type="editor" minOccurs="0">
+                    <meta>
+                        <title lang="en">Content</title>
+                        <title lang="de">Inhalte</title>
+                    </meta>
+
+                    <types>
+                        <type name="editor">
+                            <meta>
+                                <title lang="en">Editor</title>
+                                <title lang="de">Editor</title>
+                            </meta>
+                            <properties>
+                                <property name="text_editor" type="text_editor">
+                                    <meta>
+                                        <title lang="en">Text Editor</title>
+                                        <title lang="de">Texteditor</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="media">
+                            <meta>
+                                <title lang="de">Media</title>
+                                <title lang="en">Media</title>
+                            </meta>
+                            <properties>
+                                <property name="media_selection" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Media Selection</title>
+                                        <title lang="de">Medienauswahl</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="block">
+                            <meta>
+                                <title lang="de">Blöcke</title>
+                                <title lang="en">Blocks</title>
+                            </meta>
+                            <properties>
+                                <block name="blocks" default-type="editor" minOccurs="0">
+                                    <meta>
+                                        <title lang="en">Content</title>
+                                        <title lang="de">Inhalte</title>
+                                    </meta>
+
+                                    <types>
+                                        <type name="editor">
+                                            <meta>
+                                                <title lang="en">Editor</title>
+                                                <title lang="de">Editor</title>
+                                            </meta>
+                                            <properties>
+                                                <property name="text_editor" type="text_editor">
+                                                    <meta>
+                                                        <title lang="en">Text Editor</title>
+                                                        <title lang="de">Texteditor</title>
+                                                    </meta>
+                                                </property>
+                                            </properties>
+                                        </type>
+                                        <type name="media">
+                                            <meta>
+                                                <title lang="de">Media</title>
+                                                <title lang="en">Media</title>
+                                            </meta>
+                                            <properties>
+                                                <property name="media_selection" type="media_selection">
+                                                    <meta>
+                                                        <title lang="en">Media Selection</title>
+                                                        <title lang="de">Medienauswahl</title>
+                                                    </meta>
+                                                </property>
+                                            </properties>
+                                        </type>
+                                    </types>
+                                </block>
+                            </properties>
+                        </type>
+                    </types>
+                </block>
+            </properties>
+        </section>
+    </properties>
+</template>

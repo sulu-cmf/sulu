@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\ResourceLoader;
 
-use Sulu\Bundle\ContentBundle\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
+use Sulu\Content\Application\ResourceLoader\Loader\ResourceLoaderInterface;
 
 /**
  * @internal if you need to override this service, create a new service with based on ResourceLoaderInterface instead of extending this class

@@ -507,7 +507,7 @@ Therefore, the `getContentId` method of the `RoutableInterface` was renamed to `
 ### Moved automation bundle services
 
 The services related to the `SuluAutomationBundle` were moved to the
-`Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Automation` namespace.
+`Sulu\Content\Infrastructure\Sulu\Automation` namespace.
 Furthermore the `ContentEntityPublishHandler` was renamed to `ContentPublishTaskHandler` and
 the `ContentEntityUnpublishHandler` was renamed to `ContentUnpublishTaskHandler`.
 

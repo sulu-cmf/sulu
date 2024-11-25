@@ -14,8 +14,8 @@ namespace Sulu\Bundle\TagBundle\Tests\Unit\Infrastructure\Sulu\Content\PropertyR
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Bundle\TagBundle\Infrastructure\Sulu\Content\PropertyResolver\TagSelectionPropertyResolver;
+use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 
 #[CoversClass(TagSelectionPropertyResolver::class)]
 class TagSelectionPropertyResolverTest extends TestCase

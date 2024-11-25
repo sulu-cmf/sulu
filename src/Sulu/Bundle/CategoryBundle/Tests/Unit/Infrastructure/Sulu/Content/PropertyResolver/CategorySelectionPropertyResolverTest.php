@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver\CategorySelectionPropertyResolver;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
+use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 
 #[CoversClass(CategorySelectionPropertyResolver::class)]
 class CategorySelectionPropertyResolverTest extends TestCase

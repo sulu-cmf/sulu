@@ -13,7 +13,7 @@ namespace Sulu\Article\Application\MessageHandler;
 
 use Sulu\Article\Application\Message\ApplyWorkflowTransitionArticleMessage;
 use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentWorkflow\ContentWorkflowInterface;
+use Sulu\Content\Application\ContentWorkflow\ContentWorkflowInterface;
 
 /**
  * @experimental

@@ -14,8 +14,8 @@ namespace Sulu\Bundle\MediaBundle\Tests\Unit\Infrastructure\Sulu\Content\Propert
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\MediaSelectionPropertyResolver;
+use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 
 #[CoversClass(MediaSelectionPropertyResolver::class)]
 class MediaSelectionPropertyResolverTest extends TestCase

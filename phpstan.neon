@@ -22,6 +22,7 @@ parameters:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/tests/Resources/cache/*
         - %currentWorkingDirectory%/*/node_modules/*
+        - %currentWorkingDirectory%/*/tests/Application/var/*
         - %currentWorkingDirectory%/*/Tests/Application/var/*
         - %currentWorkingDirectory%/*/Tests/app/cache/*
         - %currentWorkingDirectory%/*/Tests/app/var/*

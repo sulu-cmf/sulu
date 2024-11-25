@@ -12,7 +12,7 @@
 namespace Sulu\Article\Application\Mapper;
 
 use Sulu\Article\Domain\Model\ArticleInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentPersister\ContentPersisterInterface;
+use Sulu\Content\Application\ContentPersister\ContentPersisterInterface;
 use Webmozart\Assert\Assert;
 
 /**

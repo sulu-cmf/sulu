@@ -13,17 +13,17 @@ declare(strict_types=1);
 
 namespace Sulu\Article\Domain\Model;
 
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\AuthorTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateTrait;
-//use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceTrait;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowTrait;
+use Sulu\Content\Domain\Model\AuthorTrait;
+use Sulu\Content\Domain\Model\ContentRichEntityInterface;
+use Sulu\Content\Domain\Model\DimensionContentTrait;
+use Sulu\Content\Domain\Model\ExcerptTrait;
+use Sulu\Content\Domain\Model\RoutableTrait;
+use Sulu\Content\Domain\Model\SeoTrait;
+use Sulu\Content\Domain\Model\ShadowTrait;
+use Sulu\Content\Domain\Model\TemplateTrait;
+//use Sulu\Content\Domain\Model\WebspaceTrait;
+use Sulu\Content\Domain\Model\WebspaceTrait;
+use Sulu\Content\Domain\Model\WorkflowTrait;
 
 /**
  * @experimental
