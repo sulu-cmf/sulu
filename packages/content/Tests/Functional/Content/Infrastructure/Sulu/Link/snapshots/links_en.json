@@ -1,0 +1,17 @@
+[
+    {
+        "id": "@integer@",
+        "url": "/example-1",
+        "title": "example-1"
+    },
+    {
+        "id": "@integer@",
+        "url": "/example-2",
+        "title": "example-2"
+    },
+    {
+        "id": "@integer@",
+        "url": "/example-3",
+        "title": "example-3"
+    }
+]

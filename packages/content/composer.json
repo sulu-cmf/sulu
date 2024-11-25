@@ -1,0 +1,153 @@
+{
+    "name": "sulu/content-bundle",
+    "type": "sulu-bundle",
+    "description": "Experimental content implementation for sulu.",
+    "authors": [
+        {
+            "name": "SuluContentBundle",
+            "homepage": "https://github.com/sulu/SuluContentBundle/contributors"
+        }
+    ],
+    "homepage": "https://github.com/sulu/SuluContentBundle",
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Prokyonn/sulu.git"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "doctrine/inflector": "^1.4.1 || ^2.0.1",
+        "doctrine/collections": "^1.0 || ^2.0",
+        "doctrine/orm": "^2.5.3",
+        "doctrine/persistence": "^2.2 || ^3.0",
+        "doctrine/doctrine-bundle": "^2.4",
+        "friendsofsymfony/rest-bundle": "^2.6 || ^3.0",
+        "massive/search-bundle": "^2.4",
+        "ramsey/uuid": "^3.8 || ^4.0",
+        "sulu/sulu": "dev-feature/content-resolver as 3.0.0",
+        "symfony/config": "^6.4 || ^7.1",
+        "symfony/dependency-injection": "^6.4 || ^7.1",
+        "symfony/event-dispatcher": "^6.4 || ^7.1",
+        "symfony/http-foundation": "^6.4 || ^7.1",
+        "symfony/http-kernel": "^6.4 || ^7.1",
+        "symfony/options-resolver": "^6.4 || ^7.1",
+        "symfony/property-access": "^6.4 || ^7.1",
+        "symfony/security-core": "^6.4 || ^7.1",
+        "symfony/serializer": "^6.4 || ^7.1",
+        "symfony/translation-contracts": "^2.5 || ^3.0",
+        "symfony/workflow": "^6.4 || ^7.1",
+        "webmozart/assert": "^1.3"
+    },
+    "require-dev": {
+        "coduo/php-matcher": "^6.0",
+        "doctrine/data-fixtures": "^1.3.3",
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.4",
+        "handcraftedinthealps/code-coverage-checker": "^0.2.1",
+        "handcraftedinthealps/zendsearch": "^2.0",
+        "jackalope/jackalope-doctrine-dbal": "^1.3.4 || ^2.0",
+        "jangregor/phpstan-prophecy": "^1.0",
+        "matthiasnoback/symfony-config-test": "^4.3 || ^5.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.3 || ^5.0",
+        "phpspec/prophecy": "^1.14",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-doctrine": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-symfony": "^1.0",
+        "phpstan/phpstan-webmozart-assert": "^1.0",
+        "phpunit/phpunit": "^8.5.33 || ^9.6.5",
+        "qossmic/deptrac-shim": "^0.23 || ^1.0",
+        "sulu/automation-bundle": "^3.0@dev",
+        "symfony/browser-kit": "^6.4 || ^7.1",
+        "symfony/console": "^6.4 || ^7.1",
+        "symfony/dotenv": "^6.4 || ^7.1",
+        "symfony/framework-bundle": "^6.4 || ^7.1",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/phpunit-bridge": "^6.4 || ^7.1",
+        "symfony/string": "^6.4 || ^7.1",
+        "thecodingmachine/phpstan-strict-rules": "^1.0"
+    },
+    "conflict": {
+        "coduo/php-matcher": "6.0.12"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "php-http/discovery": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sulu\\Bundle\\ContentBundle\\": ""
+        },
+        "exclude-from-classmap": ["/Tests/"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sulu\\Bundle\\ContentBundle\\Tests\\": "Tests/"
+        },
+        "exclude-from-classmap": ["/Tests/Application/assets"]
+    },
+    "scripts": {
+        "bootstrap-dev-environment": [
+            "@php Tests/Application/bin/adminconsole sulu:build dev --env dev"
+        ],
+        "bootstrap-test-environment": [
+            "@php Tests/Application/bin/adminconsole doctrine:database:drop --if-exists --force --env test",
+            "@php Tests/Application/bin/adminconsole doctrine:database:create --env test",
+            "@php Tests/Application/bin/adminconsole doctrine:schema:update --force --env test"
+        ],
+        "lint": [
+            "@phpstan",
+            "@php-cs",
+            "@lint-twig",
+            "@lint-yaml",
+            "@lint-container",
+            "@lint-composer",
+            "@lint-doctrine",
+            "@deptrac"
+        ],
+        "test": [
+            "@phpunit"
+        ],
+        "fix": [
+            "@php-cs-fix"
+        ],
+        "phpunit": "@php vendor/bin/phpunit",
+        "test-with-coverage": "@phpunit --coverage-php Tests/reports/coverage.php --coverage-html Tests/reports/html --log-junit Tests/reports/unit/junit.xml --coverage-clover Tests/reports/clover.xml",
+        "check-coverage": [
+            "@php vendor/bin/code-coverage-checker \"Tests/reports/coverage.php\" \"line\" \"100.00\" \"Content\" \"DependencyInjection\""
+        ],
+        "phpstan": [
+            "@php Tests/Application/bin/adminconsole cache:warmup --env dev",
+            "@php vendor/bin/phpstan analyze"
+        ],
+        "php-cs": "@php vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
+        "php-cs-fix": "@php vendor/bin/php-cs-fixer fix",
+        "lint-composer": "@composer validate --strict",
+        "lint-twig": "@php Tests/Application/bin/adminconsole lint:twig Tests/Application/templates",
+        "lint-yaml": "@php Tests/Application/bin/adminconsole lint:yaml Resources/config Tests/Application/config",
+        "lint-container": [
+            "@php Tests/Application/bin/adminconsole lint:container --env dev",
+            "@php Tests/Application/bin/websiteconsole lint:container --env dev",
+            "@php Tests/Application/bin/adminconsole lint:container --env test",
+            "@php Tests/Application/bin/websiteconsole lint:container --env test",
+            "@php Tests/Application/bin/adminconsole lint:container --env stage",
+            "@php Tests/Application/bin/websiteconsole lint:container --env stage",
+            "@php Tests/Application/bin/adminconsole lint:container --env prod",
+            "@php Tests/Application/bin/websiteconsole lint:container --env prod"
+        ],
+        "lint-doctrine": [
+            "@php Tests/Application/bin/adminconsole doctrine:schema:validate --skip-sync",
+            "@php Tests/Application/bin/adminconsole doctrine:ensure-production-settings --env prod"
+        ],
+        "deptrac": "@php vendor/bin/deptrac"
+    },
+    "extra": {
+        "public-dir": "Tests/Application/public"
+    }
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>examples</key>
+
+    <joins name="dimensionContent">
+        <join>
+            <entity-name>dimensionContent</entity-name>
+            <field-name>Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\Example.dimensionContents</field-name>
+            <method>LEFT</method>
+            <condition>dimensionContent.locale = :locale AND dimensionContent.stage = 'draft'</condition>
+        </join>
+    </joins>
+
+    <joins name="unlocalizedDimensionContent">
+        <join>
+            <entity-name>unlocalizedDimensionContent</entity-name>
+            <field-name>Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\Example.dimensionContents</field-name>
+            <method>LEFT</method>
+            <condition>unlocalizedDimensionContent.locale IS NULL AND unlocalizedDimensionContent.stage = 'draft'</condition>
+        </join>
+    </joins>
+
+    <joins name="ghostDimensionContent" ref="unlocalizedDimensionContent">
+        <join>
+            <entity-name>ghostDimensionContent</entity-name>
+            <field-name>Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\Example.dimensionContents</field-name>
+            <method>LEFT</method>
+            <condition>dimensionContent.locale IS NULL AND ghostDimensionContent.locale = unlocalizedDimensionContent.ghostLocale AND ghostDimensionContent.stage = 'draft'</condition>
+        </join>
+    </joins>
+
+    <properties>
+        <property name="id" translation="sulu_admin.id">
+            <field-name>id</field-name>
+            <entity-name>Sulu\Bundle\ContentBundle\Tests\Application\ExampleTestBundle\Entity\Example</entity-name>
+        </property>
+
+        <case-property name="title" translation="sulu_admin.title" visibility="always" searchability="yes">
+            <field>
+                <field-name>title</field-name>
+                <entity-name>dimensionContent</entity-name>
+
+                <joins ref="dimensionContent"/>
+            </field>
+
+            <field>
+                <field-name>title</field-name>
+                <entity-name>ghostDimensionContent</entity-name>
+
+                <joins ref="ghostDimensionContent"/>
+            </field>
+
+            <transformer type="title"/>
+        </case-property>
+
+        <property name="locale" translation="sulu_admin.locale" visibility="never">
+            <field-name>locale</field-name>
+            <entity-name>dimensionContent</entity-name>
+
+            <joins ref="dimensionContent"/>
+        </property>
+
+        <property name="ghostLocale" translation="sulu_admin.ghost_locale" visibility="never">
+            <field-name>locale</field-name>
+            <entity-name>ghostDimensionContent</entity-name>
+
+            <joins ref="ghostDimensionContent"/>
+        </property>
+    </properties>
+</list>

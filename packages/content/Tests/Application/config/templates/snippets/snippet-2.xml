@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>snippet-2</key>
+
+    <meta>
+        <title lang="en">Snippet 2</title>
+        <title lang="de">Snippet 2</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+
+            <tag name="sulu.node.name"/>
+        </property>
+
+        <property name="image" type="single_media_selection">
+            <meta>
+                <title lang="en">Image</title>
+                <title lang="de">Bild</title>
+            </meta>
+        </property>
+    </properties>
+</template>

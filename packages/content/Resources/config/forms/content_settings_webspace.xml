@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>content_settings_webspace</key>
+
+    <tag name="sulu_content.content_settings_form" instanceOf="Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceInterface" priority="-30"/>
+
+    <properties>
+        <section name="webspace">
+            <meta>
+                <title>sulu_content.webspace</title>
+            </meta>
+
+            <properties>
+                <property name="mainWebspace" type="single_select" colspan="6" spaceAfter="6">
+                    <meta>
+                        <title>sulu_content.main_webspace</title>
+                    </meta>
+
+                    <params>
+                        <param
+                            name="values"
+                            type="expression"
+                            value="service('sulu_content.webspace_select').getValues()"
+                        />
+                    </params>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</form>
