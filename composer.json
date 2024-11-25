@@ -113,7 +113,7 @@
         "symfony/yaml": "^6.4 || ^7.1",
         "toflar/psr6-symfony-http-cache-store": "^4.0",
         "twig/twig": "^2.13 || ^3.0",
-        "webmozart/assert": "^1.9"
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
         "coduo/php-matcher": "^6.0.14",
