@@ -47,19 +47,19 @@ class ExampleRepositoryTest extends SuluTestCase
 
     public function testFindOneByNotExist(): void
     {
-        $this->assertNull($this->exampleRepository->findOneBy(['id' => \PHP_INT_MAX]));
+        $this->assertNull($this->exampleRepository->findOneBy(['id' => 999_999]));
     }
 
     public function testGetOneByNotExist(): void
     {
         $this->expectException(ExampleNotFoundException::class);
 
-        $this->exampleRepository->getOneBy(['id' => \PHP_INT_MAX]);
+        $this->exampleRepository->getOneBy(['id' => 999_999]);
     }
 
     public function testFindByNotExist(): void
     {
-        $examples = \iterator_to_array($this->exampleRepository->findBy(['ids' => [\PHP_INT_MAX]]));
+        $examples = \iterator_to_array($this->exampleRepository->findBy(['ids' => [999_999]]));
         $this->assertCount(0, $examples);
     }
 

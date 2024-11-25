@@ -222,7 +222,8 @@ class ContentSitemapProvider implements SitemapProviderInterface
         return $queryBuilder
             ->from($this->contentRichEntityClass, self::CONTENT_RICH_ENTITY_ALIAS)
             ->innerJoin(self::CONTENT_RICH_ENTITY_ALIAS . '.dimensionContents', self::LOCALIZED_DIMENSION_CONTENT_ALIAS)
-            ->innerJoin($this->routeClass, self::ROUTE_ALIAS, Join::WITH, self::ROUTE_ALIAS . '.entityId = ' . self::CONTENT_RICH_ENTITY_ALIAS . '.' . $this->getEntityIdField() . ' AND ' . self::ROUTE_ALIAS . '.locale = ' . self::LOCALIZED_DIMENSION_CONTENT_ALIAS . '.locale')
+            // TODO no casting because indexes can then not be used
+            ->innerJoin($this->routeClass, self::ROUTE_ALIAS, Join::WITH, self::ROUTE_ALIAS . '.entityId = CAST(' . self::CONTENT_RICH_ENTITY_ALIAS . '.' . $this->getEntityIdField() . ' AS STRING) AND ' . self::ROUTE_ALIAS . '.locale = ' . self::LOCALIZED_DIMENSION_CONTENT_ALIAS . '.locale')
             ->where(self::LOCALIZED_DIMENSION_CONTENT_ALIAS . '.stage = :stage')
             ->andWhere(self::ROUTE_ALIAS . '.entityClass = :entityClass')
             ->andWhere(self::ROUTE_ALIAS . '.history = :history')
