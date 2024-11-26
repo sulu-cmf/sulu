@@ -29,6 +29,9 @@ export default class TextArea extends React.Component<FieldTypeProps<?string>> {
                 soft_max_length: {
                     value: softMaxLength,
                 } = {},
+                rows: {
+                    value: rows,
+                } = {},
             } = {},
             value,
         } = this.props;
@@ -48,6 +51,10 @@ export default class TextArea extends React.Component<FieldTypeProps<?string>> {
             throw new Error('The "soft_max_length" schema option must be a number!');
         }
 
+        if (rows !== undefined && isNaN(rows)) {
+            throw new Error('The "rows" schema option must be a number!');
+        }
+
         const evaluatedSoftMaxLength = softMaxLength || maxCharacters;
 
         return (
@@ -58,6 +65,7 @@ export default class TextArea extends React.Component<FieldTypeProps<?string>> {
                 onBlur={onFinish}
                 onChange={onChange}
                 onFocus={this.handleFocus}
+                rows={rows ? parseInt(rows) : undefined}
                 valid={!error}
                 value={value}
             />
