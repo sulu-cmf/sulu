@@ -20,6 +20,11 @@ Removing unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
 
+Removing deprecated classes:
+- `Sulu\Component\Rest\Listing\ListQueryBuilder`
+- `Sulu\Component\Rest\Listing\ListRepository`
+- `Sulu\Component\Rest\Listing\ListRestHelper`
+
 ## 2.6.4
 
 ### Stricter Image Format Url Handling
