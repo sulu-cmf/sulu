@@ -48,7 +48,6 @@ class SuluCategoryExtension extends Extension implements PrependExtensionInterfa
             $loader->load('services_trash.xml');
         }
 
-
         if (\array_key_exists('SuluContentBundle', $bundles)) {
             $loader->load('services_content.xml');
         }

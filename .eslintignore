@@ -4,6 +4,8 @@
 styleguide/
 **/build/admin/
 
+**/tests/Application/assets
+
 .git/
 .github/
 bin/
