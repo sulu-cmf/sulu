@@ -11,12 +11,12 @@
 
 namespace Sulu\Bundle\ReferenceBundle\Tests\Functional\Infrastructure\Doctrine\Repository;
 
-use Ramsey\Uuid\Uuid;
 use Sulu\Bundle\ReferenceBundle\Domain\Exception\ReferenceNotFoundException;
 use Sulu\Bundle\ReferenceBundle\Domain\Model\ReferenceInterface;
 use Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface;
 use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Symfony\Component\Uid\Uuid;
 
 class ReferenceRepositoryTest extends SuluTestCase
 {
@@ -200,7 +200,7 @@ class ReferenceRepositoryTest extends SuluTestCase
         static::purgeDatabase();
 
         $referenceResourceKey = 'pages';
-        $referenceResourceId = Uuid::uuid4()->toString();
+        $referenceResourceId = Uuid::v7()->__toString();
         $referenceLocale = 'en';
 
         $reference1 = $this->createReference();
@@ -244,7 +244,7 @@ class ReferenceRepositoryTest extends SuluTestCase
         static::purgeDatabase();
 
         $referenceResourceKey = 'article';
-        $referenceResourceId = Uuid::uuid4()->toString();
+        $referenceResourceId = Uuid::v7()->__toString();
         $referenceLocale = 'de';
 
         $reference1 = $this->createReference();
@@ -284,7 +284,7 @@ class ReferenceRepositoryTest extends SuluTestCase
         static::purgeDatabase();
 
         $referenceResourceKey = 'article';
-        $referenceResourceId = Uuid::uuid4()->toString();
+        $referenceResourceId = Uuid::v7()->__toString();
         $referenceLocale = 'de';
 
         $reference1 = $this->createReference();
@@ -316,7 +316,7 @@ class ReferenceRepositoryTest extends SuluTestCase
             'media',
             '1',
             'pages',
-            Uuid::uuid4()->toString(),
+            Uuid::v7()->__toString(),
             'en',
             'Page Title',
             'default',

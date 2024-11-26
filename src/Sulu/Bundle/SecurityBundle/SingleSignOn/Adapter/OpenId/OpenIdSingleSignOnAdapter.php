@@ -12,7 +12,6 @@
 namespace Sulu\Bundle\SecurityBundle\SingleSignOn\Adapter\OpenId;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
 use Sulu\Bundle\ContactBundle\Entity\ContactRepositoryInterface;
 use Sulu\Bundle\SecurityBundle\Entity\Role;
 use Sulu\Bundle\SecurityBundle\Entity\User;
@@ -25,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\AccessToken\Oidc\Exception\MissingClaimException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -87,9 +87,9 @@ class OpenIdSingleSignOnAdapter implements SingleSignOnAdapterInterface
         ?string $codeVerifier = null,
         ?string $codeChallengeMethod = null,
     ): array {
-        $state ??= Uuid::uuid4()->toString();
+        $state ??= Uuid::v7()->__toString();
         $attributes['state'] = $state;
-        $nonce ??= Uuid::uuid4()->toString();
+        $nonce ??= Uuid::v7()->__toString();
 
         $query = [
             'response_type' => 'code',
@@ -241,7 +241,7 @@ class OpenIdSingleSignOnAdapter implements SingleSignOnAdapterInterface
             $user = $this->userRepository->createNew();
             $user->setEmail($email);
             $user->setUsername($email);
-            $user->setPassword(Uuid::uuid4()->toString()); // create a random password as a password is required
+            $user->setPassword(Uuid::v7()->__toString()); // create a random password as a password is required
             $user->setSalt(\base64_encode(\random_bytes(32))); // copied from sulu SaltGenerator
             $user->setEnabled(true);
 
