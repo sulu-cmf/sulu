@@ -156,7 +156,7 @@
             <argument type="service" id="sulu.phpcr.session"/>
             <argument type="service" id="sulu_core.webspace.request_analyzer"/>
             <argument type="service" id="logger" on-invalid="null"/>
-            <argument type="service" id="sulu_security.security_checker" on-invalid="null"/>
+            <argument type="service" id="sulu_security.security_checker" />
             <argument type="service" id="sulu_core.webspace.webspace_manager"/>
             <argument type="service" id="request_stack"/>
             <argument>%sulu_website.enabled_twig_attributes%</argument>

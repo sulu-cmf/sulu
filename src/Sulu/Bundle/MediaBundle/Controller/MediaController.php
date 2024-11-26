@@ -33,7 +33,6 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListBuilderInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Rest\RestHelperInterface;

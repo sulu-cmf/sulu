@@ -24,6 +24,7 @@ use ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataProvider;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\TypedFormMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\MetadataProviderInterface;
 use Sulu\Bundle\PageBundle\Document\BasePageDocument;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore;
 use Sulu\Component\Content\Compat\PropertyParameter;
@@ -124,6 +125,14 @@ class PageDataProviderTest extends TestCase
         return $mock->reveal();
     }
 
+    public function getMetadataProvider(): MetadataProviderInterface
+    {
+        /** @var FormMetadataProvider|ObjectProphecy $formMetadataProvider */
+        $formMetadataProvider = $this->prophesize(MetadataProviderInterface::class);
+
+        return $formMetadataProvider->reveal();
+    }
+
     public function testGetConfiguration(): void
     {
         $provider = new PageDataProvider(
@@ -134,7 +143,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             false,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $configuration = $provider->getConfiguration();
@@ -153,7 +164,8 @@ class PageDataProviderTest extends TestCase
             new ReferenceStore(),
             false,
             ['view' => 64],
-            true
+            true,
+            $this->getMetadataProvider(),
         );
 
         $configuration = $provider->getConfiguration();
@@ -172,7 +184,8 @@ class PageDataProviderTest extends TestCase
             new ReferenceStore(),
             false,
             ['view' => 64],
-            false
+            false,
+            $this->getMetadataProvider(),
         );
 
         $configuration = $provider->getConfiguration();
@@ -184,8 +197,6 @@ class PageDataProviderTest extends TestCase
     {
         /** @var TokenStorageInterface|ObjectProphecy $tokenStorage */
         $tokenStorage = $this->prophesize(TokenStorageInterface::class);
-        /** @var FormMetadataProvider|ObjectProphecy $formMetadataProvider */
-        $formMetadataProvider = $this->prophesize(FormMetadataProvider::class);
 
         /** @var TokenInterface|ObjectProphecy $token */
         $token = $this->prophesize(TokenInterface::class);
@@ -213,6 +224,9 @@ class PageDataProviderTest extends TestCase
         $typedFormMetadata = new TypedFormMetadata();
         $typedFormMetadata->addForm('template-1', $formMetadata1);
         $typedFormMetadata->addForm('template-2', $formMetadata2);
+
+        /** @var FormMetadataProvider|ObjectProphecy $formMetadataProvider */
+        $formMetadataProvider = $this->prophesize(FormMetadataProvider::class);
 
         $formMetadataProvider->getMetadata('page', 'en', [])
             ->shouldBeCalled()
@@ -253,7 +267,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             false,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $parameter = $provider->getDefaultPropertyParameter();
@@ -275,7 +291,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             false,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveDataItems(
@@ -308,7 +326,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             true,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveDataItems(
@@ -351,7 +371,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             true,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveDataItems(
@@ -400,7 +422,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             false,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveDataItems(
@@ -450,7 +474,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             $referenceStore,
             true,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveResourceItems(
@@ -510,7 +536,7 @@ class PageDataProviderTest extends TestCase
             true,
             ['view' => 64],
             false,
-            null,
+            $this->getMetadataProvider(),
             null,
             ['path' => false]
         );
@@ -568,7 +594,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             true,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveDataItems(
@@ -603,7 +631,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(true),
             new ReferenceStore(),
             true,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveDataItems(
@@ -631,7 +661,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             new ReferenceStore(),
             false,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveDatasource(
@@ -690,7 +722,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             $referenceStore,
             true,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveResourceItems(
@@ -732,7 +766,9 @@ class PageDataProviderTest extends TestCase
             $this->getSession(),
             $referenceStore,
             true,
-            ['view' => 64]
+            ['view' => 64],
+            false,
+            $this->getMetadataProvider(),
         );
 
         $result = $provider->resolveResourceItems(

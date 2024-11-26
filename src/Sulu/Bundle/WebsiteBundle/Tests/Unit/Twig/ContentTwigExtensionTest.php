@@ -150,6 +150,10 @@ class ContentTwigExtensionTest extends TestCase
 
         $this->startPageNode->getDepth()->willReturn(3);
 
+        $requestStack = new RequestStack([
+            new Request(),
+        ]);
+
         $this->extension = new ContentTwigExtension(
             $this->contentMapper->reveal(),
             $this->structureResolver->reveal(),
@@ -158,7 +162,7 @@ class ContentTwigExtensionTest extends TestCase
             $this->logger->reveal(),
             $this->securityChecker->reveal(),
             $this->webspaceManager->reveal(),
-            $this->prophesize(RequestStack::class)->reveal(),
+            $requestStack,
             []
         );
     }
@@ -315,70 +319,8 @@ class ContentTwigExtensionTest extends TestCase
         $this->assertSame($resolvedStructure, $result);
     }
 
-    public function testLoadWithDeprecatedRequestStack(): void
-    {
-        $requestStack = $this->prophesize(RequestStack::class);
-        $extension = new ContentTwigExtension(
-            $this->contentMapper->reveal(),
-            $this->structureResolver->reveal(),
-            $this->sessionManager->reveal(),
-            $this->requestAnalyzer->reveal(),
-            $this->logger->reveal(),
-            $requestStack->reveal()
-        );
-
-        $testStructure = $this->prophesize(StructureBridge::class);
-
-        $this->contentMapper->load('123-123-123', 'sulu_test', 'en_us')
-            ->willReturn($testStructure->reveal());
-
-        $resolvedStructure = [
-            'id' => 'some-uuid',
-            'template' => 'test',
-            'view' => [
-                'property-1' => 'view',
-                'property-2' => 'view',
-            ],
-            'content' => [
-                'property-1' => 'content',
-                'property-2' => 'content',
-            ],
-            'extension' => [
-                'excerpt' => ['test1' => 'test1'],
-            ],
-        ];
-
-        $currentRequest = $this->prophesize(Request::class);
-        $requestStack->getCurrentRequest()->willReturn($currentRequest->reveal());
-        $subRequest = $this->prophesize(Request::class);
-        $currentRequest->duplicate([], [], null, null, [])->willReturn($subRequest->reveal());
-        $requestStack->push($subRequest->reveal())->shouldBeCalled();
-
-        $this->structureResolver->resolve($testStructure->reveal(), true, null)
-            ->willReturn($resolvedStructure)
-            ->shouldBeCalled();
-
-        $requestStack->pop()->shouldBeCalled();
-
-        $result = $extension->load('123-123-123');
-
-        $this->assertSame($resolvedStructure, $result);
-    }
-
     public function testLoadWithRequestStack(): void
     {
-        $requestStack = $this->prophesize(RequestStack::class);
-        $extension = new ContentTwigExtension(
-            $this->contentMapper->reveal(),
-            $this->structureResolver->reveal(),
-            $this->sessionManager->reveal(),
-            $this->requestAnalyzer->reveal(),
-            $this->logger->reveal(),
-            null,
-            null,
-            $requestStack->reveal()
-        );
-
         $testStructure = $this->prophesize(StructureBridge::class);
 
         $this->contentMapper->load('123-123-123', 'sulu_test', 'en_us')
@@ -400,56 +342,29 @@ class ContentTwigExtensionTest extends TestCase
             ],
         ];
 
-        $currentRequest = $this->prophesize(Request::class);
-        $requestStack->getCurrentRequest()->willReturn($currentRequest->reveal());
-        $subRequest = $this->prophesize(Request::class);
-        $currentRequest->duplicate([], [], null, null, [])->willReturn($subRequest->reveal());
-        $requestStack->push($subRequest->reveal())->shouldBeCalled();
-
         $this->structureResolver->resolve($testStructure->reveal(), true, null)
             ->willReturn($resolvedStructure)
             ->shouldBeCalled();
 
-        $requestStack->pop()->shouldBeCalled();
-
-        $result = $extension->load('123-123-123');
+        $result = $this->extension->load('123-123-123');
 
         $this->assertSame($resolvedStructure, $result);
     }
 
     public function testLoadWithRequestStackAndException(): void
     {
-        $requestStack = $this->prophesize(RequestStack::class);
-        $extension = new ContentTwigExtension(
-            $this->contentMapper->reveal(),
-            $this->structureResolver->reveal(),
-            $this->sessionManager->reveal(),
-            $this->requestAnalyzer->reveal(),
-            $this->logger->reveal(),
-            null,
-            null,
-            $requestStack->reveal()
-        );
-
         $testStructure = $this->prophesize(StructureBridge::class);
 
         $this->contentMapper->load('123-123-123', 'sulu_test', 'en_us')
             ->willReturn($testStructure->reveal());
 
-        $currentRequest = $this->prophesize(Request::class);
-        $requestStack->getCurrentRequest()->willReturn($currentRequest->reveal());
-        $subRequest = $this->prophesize(Request::class);
-        $currentRequest->duplicate([], [], null, null, [])->willReturn($subRequest->reveal());
-        $requestStack->push($subRequest->reveal())->shouldBeCalled();
-
         $this->structureResolver->resolve($testStructure->reveal(), true, null)
             ->shouldBeCalled()
             ->willThrow(new \RuntimeException());
 
-        $requestStack->pop()->shouldBeCalled();
-
         $this->expectException(\RuntimeException::class);
-        $extension->load('123-123-123');
+
+        $this->extension->load('123-123-123');
     }
 
     public function testLoadWithProperties(): void
