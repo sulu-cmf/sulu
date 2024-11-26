@@ -73,7 +73,7 @@ class PreviewLinkRepository implements PreviewLinkRepositoryInterface
 
     protected function generateToken(): string
     {
-        $token = \substr(\md5(Uuid::v4()->toString()), 0, 12);
+        $token = \substr(\md5(Uuid::v7()->__toString()), 0, 12);
         if ($this->findByToken($token)) {
             return $this->generateToken();
         }
