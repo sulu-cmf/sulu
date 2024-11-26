@@ -11526,26 +11526,6 @@ parameters:
 			path: src/Sulu/Bundle/DocumentManagerBundle/Session/SessionManagerInterface.php
 
 		-
-			message: "#^Comparison operation \"\\<\\=\" between int\\<254, 255\\> and 255 is always true\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Slugifier/Urlizer.php
-
-		-
-			message: "#^Comparison operation \"\\>\\=\" between int\\<0, 255\\> and 0 is always true\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Slugifier/Urlizer.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Slugifier/Urlizer.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 5
-			path: src/Sulu/Bundle/DocumentManagerBundle/Slugifier/Urlizer.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Tests\\\\Functional\\\\BaseTestCase\\:\\:generateDataSet\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/DocumentManagerBundle/Tests/Functional/BaseTestCase.php

@@ -13,11 +13,11 @@ namespace Sulu\Bundle\CustomUrlBundle\Tests\Functional\Controller;
 
 use Doctrine\Persistence\ObjectRepository;
 use Sulu\Bundle\ActivityBundle\Domain\Model\ActivityInterface;
-use Sulu\Bundle\DocumentManagerBundle\Slugifier\Urlizer;
 use Sulu\Bundle\PageBundle\Document\PageDocument;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
+use Sulu\Component\DocumentManager\Slugifier\NodeNameSlugifier;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class CustomUrlControllerTest extends SuluTestCase
@@ -47,6 +47,8 @@ class CustomUrlControllerTest extends SuluTestCase
      */
     private $client;
 
+    private NodeNameSlugifier $urlizer;
+
     public function setUp(): void
     {
         $this->client = $this->createAuthenticatedClient();
@@ -55,6 +57,7 @@ class CustomUrlControllerTest extends SuluTestCase
         $this->activityRepository = $this->getEntityManager()->getRepository(ActivityInterface::class);
         $this->trashItemRepository = $this->getEntityManager()->getRepository(TrashItemInterface::class);
         $this->contentDocument = $this->documentManager->find('/cmf/sulu_io/contents', 'en');
+        $this->urlizer = $this->getContainer()->get('sulu_document_manager.node_name_slugifier');
     }
 
     public static function postProvider()
@@ -155,7 +158,8 @@ class CustomUrlControllerTest extends SuluTestCase
 
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['created']));
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['changed']));
-        $this->assertEquals(Urlizer::urlize($data['title']), $responseData['nodeName']);
+
+        $this->assertEquals($this->urlizer->slugify($data['title']), $responseData['nodeName']);
         if (\array_key_exists('targetDocument', $data)) {
             $this->assertEquals('Homepage', $responseData['targetTitle']);
         } else {
@@ -541,7 +545,7 @@ class CustomUrlControllerTest extends SuluTestCase
 
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['created']));
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['changed']));
-        $this->assertEquals(Urlizer::urlize($data['title']), $responseData['nodeName']);
+        $this->assertEquals($this->urlizer->slugify($data['title']), $responseData['nodeName']);
         if (\array_key_exists('targetDocument', $data)) {
             $this->assertEquals('Homepage', $responseData['targetTitle']);
         } else {
@@ -602,7 +606,7 @@ class CustomUrlControllerTest extends SuluTestCase
 
         $this->assertGreaterThanOrEqual(new \DateTime($responseData['created']), $dateTime);
         $this->assertGreaterThanOrEqual(new \DateTime($responseData['changed']), $dateTime);
-        $this->assertEquals(Urlizer::urlize($data['title']), $responseData['nodeName']);
+        $this->assertEquals($this->urlizer->slugify($data['title']), $responseData['nodeName']);
         if (\array_key_exists('targetDocument', $data)) {
             $this->assertEquals('Homepage', $responseData['targetTitle']);
         } else {

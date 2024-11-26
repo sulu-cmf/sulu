@@ -4,11 +4,15 @@
 
 ### Removed deprecations for 3.0
 
-Remove classes / services:
+Removed classes / services:
 
-- `Sulu/Bundle/MarkupBundle/Listener/SwiftMailerListener` ()
+- `Sulu/Bundle/MarkupBundle/Listener/SwiftMailerListener`
+- `Sulu\Bundle\DocumentManagerBundle\Slugifier\Urlizer`
+- `Sulu\Component\Rest\Listing\ListQueryBuilder`
+- `Sulu\Component\Rest\Listing\ListRepository`
+- `Sulu\Component\Rest\Listing\ListRestHelper`
 
-Removing deprecated functions and properties:
+Removed deprecated functions and properties:
 
 - `Sulu\Component\Security\Event\PermissionUpdateEvent::getSecurityIdentity`
 - `Sulu\Component\Webspace\Portal::getXDefaultLocalization`
@@ -16,14 +20,9 @@ Removing deprecated functions and properties:
 - `Sulu\Component\Localization\Localization::isXDefault`
 - `Sulu\Bundle\MediaBundle\Controller\MediaController::$entityKey`
 
-Removing unused arguments:
+Removed unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
-
-Removing deprecated classes:
-- `Sulu\Component\Rest\Listing\ListQueryBuilder`
-- `Sulu\Component\Rest\Listing\ListRepository`
-- `Sulu\Component\Rest\Listing\ListRestHelper`
 
 ## 2.6.4
 
