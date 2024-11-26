@@ -579,8 +579,9 @@ class ExampleControllerAvailableAndShadowLocalesTest extends SuluTestCase
 
         $result = $queryBuilder->getQuery()->getArrayResult();
 
-
         foreach ($result as &$item) {
+            $this->assertIsArray($item);
+
             if (\is_array($item['templateData'])) { // different databases save JSON data differently order so we need normalize it
                 \ksort($item['templateData']);
             }
