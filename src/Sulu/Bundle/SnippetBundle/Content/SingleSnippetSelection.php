@@ -29,17 +29,9 @@ class SingleSnippetSelection extends SimpleContentType implements PreResolvableC
         private SnippetResolverInterface $snippetResolver,
         private DefaultSnippetManagerInterface $defaultSnippetManager,
         private ReferenceStoreInterface $snippetReferenceStore,
-        private ?ReferenceStoreInterface $snippetAreaReferenceStore = null
+        private ReferenceStoreInterface $snippetAreaReferenceStore
     ) {
         parent::__construct('SingleSnippetSelection', null);
-
-        if (null === $this->snippetAreaReferenceStore) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.6',
-                'Instantiating the SingleSnippetSelection without the $snippetAreaReferenceStore argument is deprecated!'
-            );
-        }
     }
 
     public function getContentData(PropertyInterface $property)

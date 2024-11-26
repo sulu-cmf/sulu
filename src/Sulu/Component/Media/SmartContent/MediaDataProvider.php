@@ -43,18 +43,10 @@ class MediaDataProvider extends BaseDataProvider
         RequestAnalyzerInterface $requestAnalyzer,
         $permissions,
         private bool $hasAudienceTargeting = false,
-        private ?EntityManagerInterface $entityManager = null,
-        private ?TranslatorInterface $translator = null
+        private EntityManagerInterface $entityManager,
+        private TranslatorInterface $translator
     ) {
         parent::__construct($repository, $serializer, $referenceStore, $security, $requestAnalyzer, $permissions);
-
-        if (!$this->entityManager) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'The usage of the "MediaDataProvider" without setting the "EntityManager" is deprecated. Please inject the "EntityManager".');
-        }
-
-        if (!$this->translator) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'The usage of the "MediaDataProvider" without setting the "Translator" is deprecated. Please inject the "Translator".');
-        }
     }
 
     public function getConfiguration()

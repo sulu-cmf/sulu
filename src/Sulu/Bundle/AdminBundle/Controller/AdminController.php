@@ -40,11 +40,6 @@ class AdminController
     public const TRANSLATION_DOMAIN = 'admin';
 
     /**
-     * @var bool
-     */
-    private $collaborationEnabled;
-
-    /**
      * @param array<mixed> $resources
      * @param array<string> $locales
      * @param array<string> $translations
@@ -73,15 +68,11 @@ class AdminController
         private array $translations,
         private string $fallbackLocale,
         private string $collaborationInterval,
-        ?bool $collaborationEnabled = null,
+        private bool $collaborationEnabled,
         private ?string $passwordPattern = null,
         private ?string $passwordInfoTranslationKey = null,
         private bool $hasSingleSignOnProvider = false
     ) {
-        if (null === $collaborationEnabled) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'Instantiating the AdminController without the $collaborationEnabled argument is deprecated!');
-        }
-        $this->collaborationEnabled = $collaborationEnabled ?? true;
     }
 
     public function indexAction()

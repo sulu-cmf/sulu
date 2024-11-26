@@ -30,6 +30,7 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Webmozart\Assert\Assert;
 
 /**
  * Provides Interface to load content.
@@ -89,10 +90,10 @@ class ContentTwigExtension extends AbstractExtension implements ContentTwigExten
         StructureResolverInterface $structureResolver,
         SessionManagerInterface $sessionManager,
         RequestAnalyzerInterface $requestAnalyzer,
-        ?LoggerInterface $logger = null,
-        $securityChecker = null,
-        ?WebspaceManagerInterface $webspaceManager = null,
-        ?RequestStack $requestStack = null,
+        LoggerInterface $logger,
+        SecurityCheckerInterface $securityChecker,
+        WebspaceManagerInterface $webspaceManager,
+        RequestStack $requestStack,
         array $enabledTwigAttributes = [
             'urls' => true,
         ]
@@ -102,22 +103,9 @@ class ContentTwigExtension extends AbstractExtension implements ContentTwigExten
         $this->sessionManager = $sessionManager;
         $this->requestAnalyzer = $requestAnalyzer;
         $this->logger = $logger ?: new NullLogger();
-
-        if ($securityChecker instanceof RequestStack) {
-            @trigger_deprecation('sulu/sulu', '2.2', 'Instantiating the "ContentTwigExtension" without the "$securityChecker" and "$webspaceManager" parameter is deprecated');
-
-            $requestStack = $securityChecker;
-            $securityChecker = null;
-        }
-
         $this->securityChecker = $securityChecker;
         $this->webspaceManager = $webspaceManager;
         $this->requestStack = $requestStack;
-
-        if (null === $this->requestStack) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'Instantiating the "ContentTwigExtension" without the "$requestStack" parameter is deprecated');
-        }
-
         $this->enabledTwigAttributes = $enabledTwigAttributes;
     }
 
@@ -203,6 +191,7 @@ class ContentTwigExtension extends AbstractExtension implements ContentTwigExten
             $structureData = $this->structureResolver->resolve($structure, $loadExcerpt, $includedProperties);
         } else {
             $currentRequest = $this->requestStack->getCurrentRequest();
+            Assert::notNull($currentRequest, 'Could not find the current request.');
 
             // This sets query parameters, request parameters and files to an empty array
             $subRequest = $currentRequest->duplicate([], [], null, null, []);
@@ -215,11 +204,7 @@ class ContentTwigExtension extends AbstractExtension implements ContentTwigExten
             }
         }
 
-        if ($this->enabledTwigAttributes['urls'] ?? true) {
-            @trigger_deprecation('sulu/sulu', '2.2', 'Enabling the "urls" parameter is deprecated');
-        } else {
-            unset($structureData['urls']);
-        }
+        unset($structureData['urls']);
 
         return $structureData;
     }

@@ -78,7 +78,6 @@ class MediaManager implements MediaManagerInterface
      * @param CollectionRepository $collectionRepository
      * @param null|FFprobe|MediaPropertiesProviderInterface[] $mediaPropertiesProviders
      * @param string $downloadPath
-     * @param string $adminDownloadPath
      */
     public function __construct(
         protected MediaRepositoryInterface $mediaRepository,
@@ -95,42 +94,20 @@ class MediaManager implements MediaManagerInterface
         private DomainEventCollectorInterface $domainEventCollector,
         private ?TokenStorageInterface $tokenStorage,
         private ?SecurityCheckerInterface $securityChecker,
-        protected $mediaPropertiesProviders,
+        protected iterable $mediaPropertiesProviders,
         private $downloadPath,
         protected ?TargetGroupRepositoryInterface $targetGroupRepository,
-        private $adminDownloadPath = null,
+        private ?string $adminDownloadPath = null,
         private ?TrashManagerInterface $trashManager = null
     ) {
-        if (!$adminDownloadPath) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.2',
-                \sprintf(
-                    'The usage of the "%s" without setting the "$adminDownloadPath" is deprecated and will not longer work in Sulu 3.0.',
-                    MediaManager::class
-                )
-            );
-        }
-
         $this->adminDownloadPath = $adminDownloadPath ?: '/admin' . $this->downloadPath;
 
-        if (!\is_iterable($mediaPropertiesProviders)) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.3',
-                \sprintf(
-                    'The usage of the "%s" without setting "$mediaPropertiesProviders" is deprecated and will not longer work in Sulu 3.0.',
-                    MediaManager::class
-                )
-            );
-
-            if ($mediaPropertiesProviders instanceof FFProbe) {
-                $mediaPropertiesProviders = [
-                    new VideoPropertiesProvider($mediaPropertiesProviders),
-                ];
-            } else {
-                $mediaPropertiesProviders = [];
-            }
+        if ($mediaPropertiesProviders instanceof FFProbe) {
+            $mediaPropertiesProviders = [
+                new VideoPropertiesProvider($mediaPropertiesProviders),
+            ];
+        } else {
+            $mediaPropertiesProviders = [];
         }
 
         $this->mediaPropertiesProviders = $mediaPropertiesProviders;

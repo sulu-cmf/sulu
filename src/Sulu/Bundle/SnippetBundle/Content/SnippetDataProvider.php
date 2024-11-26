@@ -49,12 +49,9 @@ class SnippetDataProvider implements DataProviderInterface
         private DocumentManagerInterface $documentManager,
         private ReferenceStoreInterface $referenceStore,
         private bool $hasAudienceTargeting = false,
-        private ?MetadataProviderInterface $formMetadataProvider = null,
+        private MetadataProviderInterface $formMetadataProvider,
         private ?TokenStorageInterface $tokenStorage = null
     ) {
-        if (!$this->formMetadataProvider) {
-            @trigger_deprecation('sulu/sulu', '2.3', 'The usage of the "SnippetDataProvider" without setting the "FormMetadataProvider" is deprecated. Please inject the "FormMetadataProvider".');
-        }
     }
 
     public function getConfiguration()
