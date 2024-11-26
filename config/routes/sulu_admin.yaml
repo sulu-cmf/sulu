@@ -126,3 +126,8 @@ sulu_automation:
     type: rest
     resource: '@SuluAutomationBundle/Resources/config/routing.yml'
     prefix: /admin/automation
+
+example_test_api:
+    type: rest
+    resource: "@ExampleTestBundle/Resources/config/routing_api.yaml"
+    prefix: /admin/api

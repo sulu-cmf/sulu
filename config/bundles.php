@@ -60,4 +60,5 @@ return [
     Sulu\Article\Infrastructure\Symfony\HttpKernel\SuluArticleBundle::class => ['all' => true],
     Task\TaskBundle\TaskBundle::class => ['all' => true],
     Sulu\Bundle\AutomationBundle\SuluAutomationBundle::class => ['all' => true],
+    Sulu\Content\Tests\Application\ExampleTestBundle\ExampleTestBundle::class => ['all' => true],
 ];

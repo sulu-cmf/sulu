@@ -22,12 +22,12 @@ use Doctrine\Common\Collections\Collection;
 trait ContentRichEntityTrait
 {
     /**
-     * @var ArrayCollection<int, T>
+     * @var Collection<int, T>&iterable<int, T>
      */
     protected $dimensionContents;
 
     /**
-     * @return Collection<int, T>
+     * @return Collection<int, T>&iterable<int, T>
      */
     public function getDimensionContents(): Collection
     {

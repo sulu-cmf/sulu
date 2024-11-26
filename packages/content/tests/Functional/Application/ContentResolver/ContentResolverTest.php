@@ -131,6 +131,7 @@ class ContentResolverTest extends SuluTestCase
     {
         self::markTestSkipped('This test is skipped because it somehow fails in the CI.');
 
+        // @phpstan-ignore-next-line
         $collection1 = self::createCollection(['title' => 'collection-1', 'locale' => 'en']);
         $mediaType = self::createMediaType(['name' => 'Image', 'description' => 'This is an image']);
         $media1 = self::createMedia($collection1, $mediaType, ['title' => 'media-1', 'locale' => 'en']);
@@ -209,6 +210,7 @@ class ContentResolverTest extends SuluTestCase
     {
         self::markTestSkipped('This test is skipped because it somehow fails in the CI.');
 
+        // @phpstan-ignore-next-line
         $collection1 = self::createCollection(['title' => 'collection-1', 'locale' => 'en']);
         $collection2 = self::createCollection([
             'title' => 'collection-2',
@@ -263,6 +265,8 @@ class ContentResolverTest extends SuluTestCase
     public function testResolveCategories(): void
     {
         self::markTestSkipped('This test is skipped because it somehow fails in the CI.');
+
+        // @phpstan-ignore-next-line
         $category1 = self::createCategory(['key' => 'category-1']);
         $category2 = self::createCategory(['key' => 'category-2']);
         self::getEntityManager()->flush();
@@ -367,6 +371,7 @@ class ContentResolverTest extends SuluTestCase
     {
         self::markTestSkipped('This test is skipped because it somehow fails in the CI.');
 
+        // @phpstan-ignore-next-line
         $collection1 = self::createCollection(['title' => 'collection-1', 'locale' => 'en']);
         $mediaType = self::createMediaType(['name' => 'Image', 'description' => 'This is an image']);
         $media1 = self::createMedia($collection1, $mediaType, ['title' => 'media-1', 'locale' => 'en']);
