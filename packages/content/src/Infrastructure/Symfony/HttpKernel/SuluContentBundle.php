@@ -33,7 +33,7 @@ final class SuluContentBundle extends AbstractBundle
      */
     public function configure(DefinitionConfigurator $definition): void
     {
-        $definition->rootNode(); // @phpstan-ignore-line
+        $definition->rootNode();
     }
 
     /**

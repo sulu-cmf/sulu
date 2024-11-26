@@ -139,7 +139,7 @@ class ContentDocument implements ExtensionBehavior
 
     public function getStructure()
     {
-        return null;
+        return null; // @phpstan-ignore-line
     }
 
     protected function createReadOnlyException(string $method): \BadMethodCallException

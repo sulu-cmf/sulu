@@ -22,7 +22,7 @@ use Symfony\Component\Uid\Uuid;
 class Article implements ArticleInterface
 {
     /**
-     * @phpstan-use ContentRichEntityTrait<ArticleDimensionContent>
+     * @phpstan-use ContentRichEntityTrait<ArticleDimensionContentInterface>
      */
     use ContentRichEntityTrait;
     use AuditableTrait;

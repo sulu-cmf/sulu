@@ -191,7 +191,7 @@ final class SuluArticleBundle extends AbstractBundle
             ->class(ContentObjectProvider::class)
             ->args([
                 new Reference('doctrine.orm.entity_manager'),
-                new Reference('sulu_content.content_resolver'),
+                new Reference('sulu_content.content_aggregator'),
                 new Reference('sulu_content.content_data_mapper'),
                 '%sulu.model.article.class%',
                 ArticleAdmin::SECURITY_CONTEXT,

@@ -338,18 +338,6 @@ class ExampleRepository
             );
         }
 
-        $locale = $filters['locale'] ?? null;
-        if ($selects['with-example-translations'] ?? null) {
-            Assert::notNull($locale);
-
-            $queryBuilder->leftJoin(
-                'example.translations',
-                'translations',
-                Join::WITH,
-                'translation.locale = :locale'
-            )->setParameter('locale', $locale);
-        }
-
         return $queryBuilder;
     }
 }

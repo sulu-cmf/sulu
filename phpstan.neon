@@ -23,7 +23,10 @@ parameters:
         - %currentWorkingDirectory%/tests/Resources/cache/*
         - %currentWorkingDirectory%/*/node_modules/*
         - %currentWorkingDirectory%/*/tests/Application/var/*
+        - %currentWorkingDirectory%/*/tests/Application/Kernel.php
+        - %currentWorkingDirectory%/*/tests/Application/assets/*
         - %currentWorkingDirectory%/*/Tests/Application/var/*
+        - %currentWorkingDirectory%/packages/content/tests/Unit/Mocks//*
         - %currentWorkingDirectory%/*/Tests/app/cache/*
         - %currentWorkingDirectory%/*/Tests/app/var/*
         # RestController extends FOSRestController which was removed in friendsofsymfony/rest-bundle:3.0
