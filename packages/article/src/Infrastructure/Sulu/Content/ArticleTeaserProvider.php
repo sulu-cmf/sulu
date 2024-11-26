@@ -70,4 +70,9 @@ class ArticleTeaserProvider extends ContentTeaserProvider
 
         return $article ?: parent::getDescription($dimensionContent, $data);
     }
+
+    protected function getEntityIdField(): string
+    {
+        return 'uuid';
+    }
 }
