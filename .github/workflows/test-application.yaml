@@ -146,14 +146,14 @@ jobs:
                           DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7&charset=utf8mb4
 
                     - php-version: '8.2'
-                      database: mysql-57
+                      database: mariadb-114
                       phpcr-transport: jackrabbit
                       dependency-versions: 'highest'
                       php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
-                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7&charset=utf8mb4
+                          DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=11.4.4-MariaDB&charset=utf8mb4
 
                     - php-version: '8.3'
                       database: postgres-14
