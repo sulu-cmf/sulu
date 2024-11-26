@@ -25,6 +25,7 @@ return [
     FOS\HttpCacheBundle\FOSHttpCacheBundle::class => ['all' => true],
     Sulu\Messenger\Infrastructure\Symfony\HttpKernel\SuluMessengerBundle::class => ['all' => true],
     Sulu\Bundle\AdminBundle\SuluAdminBundle::class => ['all' => true],
+    Sulu\Content\Infrastructure\Symfony\HttpKernel\SuluContentBundle::class => ['all' => true],
     Sulu\Bundle\SearchBundle\SuluSearchBundle::class => ['all' => true],
     Sulu\Bundle\PersistenceBundle\SuluPersistenceBundle::class => ['all' => true],
     Sulu\Bundle\ContactBundle\SuluContactBundle::class => ['all' => true],
@@ -56,4 +57,7 @@ return [
     FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
     Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true, 'website' => true],
     Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
+    Sulu\Article\Infrastructure\Symfony\HttpKernel\SuluArticleBundle::class => ['all' => true],
+    Task\TaskBundle\TaskBundle::class => ['all' => true],
+    Sulu\Bundle\AutomationBundle\SuluAutomationBundle::class => ['all' => true],
 ];
