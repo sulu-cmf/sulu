@@ -89,7 +89,29 @@ class ResourceTabs extends React.Component<Props> {
             this.resourceStore.destroy();
         }
 
-        this.resourceStore = new ResourceStore(this.resourceKey, this.id, options);
+        let {
+            router: {
+                attributes,
+                route: {
+                    options: {
+                        requestParameters = {},
+                        routerAttributesToFormRequest = {},
+                    },
+                },
+            },
+        } = this.props;
+
+        const formStoreOptions = requestParameters ? requestParameters : {};
+
+        routerAttributesToFormRequest = toJS(routerAttributesToFormRequest);
+        Object.keys(toJS(routerAttributesToFormRequest)).forEach((key) => {
+            const formOptionKey = routerAttributesToFormRequest[key];
+            const attributeName = isNaN(key) ? key : routerAttributesToFormRequest[key];
+
+            formStoreOptions[formOptionKey] = attributes[attributeName];
+        });
+
+        this.resourceStore = new ResourceStore(this.resourceKey, this.id, options, formStoreOptions);
     };
 
     disposeCreateResourceStoreOnRouteChange = (route: ?Route) => {
