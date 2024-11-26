@@ -30,7 +30,6 @@ use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Sulu\Bundle\SearchBundle\SuluSearchBundle;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -274,6 +273,7 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
             'sulu_media.media.blocked_file_types',
             $this->getBlockedFileTypes($config)
         );
+        $this->configureStorage($config, $container);
 
         // collections
         $container->setParameter('sulu_media.collection.type.default', ['id' => 1]);
@@ -407,15 +407,15 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
             ]
         );
 
-        $this->configureStorage($config, $container, $loader);
         $this->configureFileValidator($config, $container);
 
         $container->registerForAutoconfiguration(MediaPropertiesProviderInterface::class)
             ->addTag('sulu_media.media_properties_provider');
     }
 
-    private function configureStorage(array $config, ContainerBuilder $container, LoaderInterface $loader)
+    private function configureStorage(array $config, ContainerBuilder $container)
     {
+        return;
         $storage = $container->resolveEnvPlaceholders($config['storage'], true);
         $container->setParameter('sulu_media.media.storage', $storage);
 
@@ -429,8 +429,6 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
                 }
             }
         }
-
-        $loader->load('services_storage_' . $storage . '.xml');
 
         $container->setAlias('sulu_media.storage', 'sulu_media.storage.' . $storage)->setPublic(true);
         $container->setAlias(StorageInterface::class, 'sulu_media.storage')->setPublic(true);

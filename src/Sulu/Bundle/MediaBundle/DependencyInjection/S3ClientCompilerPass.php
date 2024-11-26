@@ -21,6 +21,7 @@ class S3ClientCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
+        return;
         if (Configuration::STORAGE_S3 !== $container->getParameter('sulu_media.media.storage')) {
             return;
         }

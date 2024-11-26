@@ -551,5 +551,11 @@
 
             <tag name="kernel.event_subscriber"/>
         </service>
+
+        <service id="sulu_media.storage" class="Sulu\Bundle\MediaBundle\Media\Storage\FlysystemStorage">
+            <argument type="service" id="default.storage" />
+            <argument type="service" id="flysystem.adapter.default.storage" />
+            <argument>10</argument>
+         </service>
     </services>
 </container>
