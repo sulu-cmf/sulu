@@ -84,6 +84,7 @@ class LinkTest extends TestCase
             'target' => 'testTarget',
             'title' => 'testTitle',
             'rel' => 'testRel',
+            'href' => '123456',
         ], $result);
     }
 
@@ -92,6 +93,7 @@ class LinkTest extends TestCase
         $this->property->getValue()
             ->shouldBeCalled()
             ->willReturn([
+                'href' => '123456',
                 'provider' => 'pages',
                 'locale' => 'de',
             ]);
@@ -101,6 +103,7 @@ class LinkTest extends TestCase
         $this->assertSame([
             'provider' => 'pages',
             'locale' => 'de',
+            'href' => '123456',
         ], $result);
     }
 

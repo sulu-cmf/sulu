@@ -325,7 +325,15 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
         }
 
         $hasVipsAdapter = false;
-        if (\class_exists(VipsImagine::class) && \extension_loaded('vips')) {
+        if (\class_exists(VipsImagine::class)
+            && (
+                \extension_loaded('vips') // deprecate vips 1.0 way use ffi instead
+                || (
+                    \extension_loaded('ffi')
+                    && '1' === \ini_get('ffi.enable') // preload is not yet supported by vips see https://github.com/libvips/php-vips
+                )
+            )
+        ) {
             $loader->load('services_imagine_vips.xml');
             $hasVipsAdapter = true;
         }
@@ -362,6 +370,10 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
 
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
             $loader->load('services_trash.xml');
+        }
+
+        if (\array_key_exists('SuluContentBundle', $bundles)) {
+            $loader->load('services_content.xml');
         }
 
         $ffmpegBinary = $container->resolveEnvPlaceholders($config['ffmpeg']['ffmpeg_binary'] ?? null, true);

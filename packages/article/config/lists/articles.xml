@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>articles</key>
+
+    <joins name="creator">
+        <join>
+            <entity-name>%sulu.model.user.class%</entity-name>
+            <field-name>Sulu\Article\Domain\Model\ArticleInterface.creator</field-name>
+        </join>
+        <join>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <field-name>%sulu.model.user.class%.contact</field-name>
+        </join>
+    </joins>
+    <joins name="changer">
+        <join>
+            <entity-name>%sulu.model.user.class%</entity-name>
+            <field-name>Sulu\Article\Domain\Model\ArticleInterface.changer</field-name>
+        </join>
+        <join>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <field-name>%sulu.model.user.class%.contact</field-name>
+        </join>
+    </joins>
+
+    <joins name="dimensionContent">
+        <join>
+            <entity-name>dimensionContent</entity-name>
+            <field-name>Sulu\Article\Domain\Model\ArticleInterface.dimensionContents</field-name>
+            <method>LEFT</method>
+            <condition>dimensionContent.locale = :locale AND dimensionContent.stage = 'draft'</condition>
+        </join>
+    </joins>
+
+    <joins name="unlocalizedDimensionContent" ref="dimensionContent">
+        <join>
+            <entity-name>unlocalizedDimensionContent</entity-name>
+            <field-name>Sulu\Article\Domain\Model\ArticleInterface.dimensionContents</field-name>
+            <method>LEFT</method>
+            <condition>unlocalizedDimensionContent.locale IS NULL AND unlocalizedDimensionContent.stage = 'draft'</condition>
+        </join>
+    </joins>
+
+    <joins name="ghostDimensionContent" ref="unlocalizedDimensionContent">
+        <join>
+            <entity-name>ghostDimensionContent</entity-name>
+            <field-name>Sulu\Article\Domain\Model\ArticleInterface.dimensionContents</field-name>
+            <method>LEFT</method>
+            <condition>ghostDimensionContent.locale = unlocalizedDimensionContent.ghostLocale AND ghostDimensionContent.stage = 'draft' AND dimensionContent IS NULL</condition>
+        </join>
+    </joins>
+
+    <joins name="author">
+        <join>
+            <entity-name>authorEntity</entity-name>
+            <field-name>dimensionContent.author</field-name>
+        </join>
+    </joins>
+
+    <properties>
+        <!-- TODO should be uuid not id -->
+        <property name="id" translation="sulu_admin.uuid">
+            <field-name>uuid</field-name>
+            <entity-name>Sulu\Article\Domain\Model\ArticleInterface</entity-name>
+        </property>
+
+        <case-property name="title" translation="sulu_admin.title" visibility="always" searchability="yes">
+            <field>
+                <field-name>title</field-name>
+                <entity-name>dimensionContent</entity-name>
+
+                <joins ref="dimensionContent"/>
+            </field>
+
+            <field>
+                <field-name>title</field-name>
+                <entity-name>ghostDimensionContent</entity-name>
+
+                <joins ref="ghostDimensionContent"/>
+            </field>
+
+            <transformer type="title"/>
+        </case-property>
+
+        <concatenation-property name="author" visibility="yes" translation="sulu_admin.author" glue=" " sortable="false">
+            <field>
+                <field-name>firstName</field-name>
+                <entity-name>authorEntity</entity-name>
+
+                <joins ref="author"/>
+            </field>
+            <field>
+                <field-name>lastName</field-name>
+                <entity-name>authorEntity</entity-name>
+
+                <joins ref="author"/>
+            </field>
+        </concatenation-property>
+
+        <property name="authored" type="date" visibility="no" translation="sulu_admin.authored"
+        >
+            <transformer type="datetime"/>
+            <filter type="date"/>
+        </property>
+
+        <property name="created" translation="sulu_admin.created">
+            <field-name>created</field-name>
+            <entity-name>Sulu\Article\Domain\Model\ArticleInterface</entity-name>
+            <transformer type="datetime"/>
+        </property>
+
+        <property name="changed" translation="sulu_admin.changed">
+            <field-name>changed</field-name>
+            <entity-name>Sulu\Article\Domain\Model\ArticleInterface</entity-name>
+            <transformer type="datetime"/>
+        </property>
+
+        <concatenation-property name="creator" visibility="always" glue=" "
+                                translation="sulu_automation.list.creator" sortable="false">
+            <field>
+                <field-name>firstName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="creator"/>
+            </field>
+            <field>
+                <field-name>lastName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="creator"/>
+            </field>
+        </concatenation-property>
+
+        <concatenation-property name="changer" glue=" " translation="sulu_automation.list.changer"
+                                sortable="false">
+            <field>
+                <field-name>firstName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="changer"/>
+            </field>
+            <field>
+                <field-name>lastName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="changer"/>
+            </field>
+        </concatenation-property>
+
+        <property name="locale" translation="sulu_admin.locale" visibility="never">
+            <field-name>locale</field-name>
+            <entity-name>dimensionContent</entity-name>
+        </property>
+
+        <property name="ghostLocale" translation="sulu_admin.ghost_locale" visibility="never">
+            <field-name>locale</field-name>
+            <entity-name>ghostDimensionContent</entity-name>
+        </property>
+    </properties>
+</list>

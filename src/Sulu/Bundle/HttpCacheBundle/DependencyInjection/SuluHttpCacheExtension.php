@@ -36,16 +36,6 @@ class SuluHttpCacheExtension extends Extension implements PrependExtensionInterf
             ],
         ];
 
-        if (!$container->hasExtension('sensio_framework_extra')
-            && \version_compare(\Composer\InstalledVersions::getVersion('friendsofsymfony/http-cache-bundle') ?? '999.999.999', '3.0.0', '<')
-        ) {
-            $fosHttpCacheConfig['tags'] = [
-                'annotations' => [
-                    'enabled' => false,
-                ],
-            ];
-        }
-
         if (\array_key_exists('noop', $config['proxy_client'])) {
             $fosHttpCacheConfig['proxy_client']['noop'] = $config['proxy_client']['noop'];
         }

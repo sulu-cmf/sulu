@@ -51,6 +51,7 @@ class SuluTestKernel extends SuluKernel
             new \Massive\Bundle\SearchBundle\MassiveSearchBundle(),
 
             // Sulu
+            new \Sulu\Messenger\Infrastructure\Symfony\HttpKernel\SuluMessengerBundle(),
             new \Sulu\Bundle\AdminBundle\SuluAdminBundle(),
             new \Sulu\Bundle\SearchBundle\SuluSearchBundle(),
             new \Sulu\Bundle\PersistenceBundle\SuluPersistenceBundle(),
@@ -83,10 +84,6 @@ class SuluTestKernel extends SuluKernel
             // @deprecated use the phpcr/phpcr-migration-bundle
             @trigger_deprecation('sulu/sulu', '2.6', 'Using "%s" is deprecated, use "%s" instead.', 'dantleech/phpcr-migrations-bundle', 'phpcr/phpcr-migrations-bundle');
             $bundles[] = new \DTL\Bundle\PhpcrMigrations\PhpcrMigrationsBundle();
-        }
-
-        if (\class_exists(\Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class)) {
-            $bundles[] = new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle();
         }
 
         if (\class_exists(\Symfony\Bundle\MonologBundle\MonologBundle::class)) {

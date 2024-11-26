@@ -79,7 +79,7 @@ class ViewDebugCommand extends Command
                 ResourceTabViewBuilder::TYPE => $this->handleResourceTab($view, $tableRows),
                 ListViewBuilder::TYPE, FormOverlayListViewBuilder::TYPE => $this->handleList($view, $tableRows),
                 FormViewBuilder::TYPE, PreviewFormViewBuilder::TYPE => $this->handleFormView($view, $tableRows),
-                default => $this->default($view, $tableRows)
+                default => $this->default($view, $tableRows),
             };
 
             $table = new Table($output);

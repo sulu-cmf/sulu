@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Resource Loader -->
+        <service id="sulu_content.resource_loader_provider"
+                 class="Sulu\Content\Application\ResourceLoader\ResourceLoaderProvider">
+            <argument
+                type="tagged"
+                tag="sulu_content.resource_loader"
+                default-index-method="getType"
+                index-by="type"
+            />
+        </service>
+
+        <service id="sulu_content.link_resource_loader"
+                 class="Sulu\Content\Application\ResourceLoader\Loader\LinkResourceLoader">
+            <argument type="service" id="sulu_markup.link_tag.provider_pool"/>
+
+            <tag name="sulu_content.resource_loader" type="link"/>
+        </service>
+
+        <service id="sulu_content.teaser_resource_loader"
+        class="Sulu\Content\Application\ResourceLoader\Loader\TeaserResourceLoader">
+            <argument type="service" id="sulu_page.teaser.manager"/>
+
+            <tag name="sulu_content.resource_loader" type="teaser"/>
+        </service>
+    </services>
+</container>

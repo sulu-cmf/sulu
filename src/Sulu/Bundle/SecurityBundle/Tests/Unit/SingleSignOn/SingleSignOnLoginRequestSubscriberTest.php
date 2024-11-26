@@ -148,7 +148,7 @@ class SingleSignOnLoginRequestSubscriberTest extends TestCase
         $this->assertNull($event->getResponse());
     }
 
-    public function testOnKernelRequestResetPasswordEmail(): void
+    public function testOnKernelRequestResetPasswordEmailNoAdapter(): void
     {
         $request = Request::create('/admin/login', Request::METHOD_POST);
         $request->attributes->set('_route', 'sulu_security.reset_password.email');
@@ -157,7 +157,7 @@ class SingleSignOnLoginRequestSubscriberTest extends TestCase
 
         $this->subscriber->onKernelRequest($event);
 
-        $this->assertSame('{"method":"json_login"}', $event->getResponse()?->getContent());
+        $this->assertNull($event->getResponse());
     }
 
     public function testOnKernelRequestResetPasswordExistingUser(): void
@@ -174,7 +174,7 @@ class SingleSignOnLoginRequestSubscriberTest extends TestCase
         $this->assertNull($event->getResponse());
     }
 
-    public function testOnKernelRequestExistingUser(): void
+    public function testOnKernelRequestExistingUserNoAdapter(): void
     {
         $request = Request::create('/admin/login', Request::METHOD_POST);
         $request->attributes->set('_route', 'sulu_security.reset_password.email');
@@ -186,10 +186,10 @@ class SingleSignOnLoginRequestSubscriberTest extends TestCase
 
         $this->subscriber->onKernelRequest($event);
 
-        $this->assertSame('{"method":"json_login"}', $event->getResponse()?->getContent());
+        $this->assertNull($event->getResponse());
     }
 
-    public function testOnKernelRequestExistingUserAndPassword(): void
+    public function testOnKernelRequestExistingUserAndPasswordNoAdapter(): void
     {
         $request = Request::create('/admin/login', Request::METHOD_POST);
         $request->attributes->set('_route', 'sulu_security.reset_password.email');

@@ -1626,6 +1626,107 @@ test('Should display correct icons based on visibleCondition', () => {
     });
 });
 
+test('Should recalculate visibleCondition only of changed blocks', () => {
+    const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('test'), 'test'));
+
+    const types = {
+        default: {
+            title: 'Default',
+            form: {
+                text1: {
+                    label: 'Text 1',
+                    tags: [
+                        {name: 'sulu.block_preview'},
+                    ],
+                    type: 'text_line',
+                },
+                text2: {
+                    label: 'Text 2',
+                    tags: [
+                        {name: 'sulu.block_preview'},
+                    ],
+                    type: 'text_line',
+                },
+            },
+        },
+    };
+
+    formInspector.getSchemaEntryByPath.mockReturnValue({types});
+
+    const schemaPromise = Promise.resolve({
+        setting: {
+            tags: [
+                {
+                    attributes: {
+                        icon: 'su-hide',
+                        visibleCondition: '(__provider.text1 != "disabled" && text1 == "Test 1") || text2 == "Test 2"',
+                    },
+                    name: 'sulu.block_setting_icon',
+                },
+            ],
+            type: 'checkbox',
+        },
+    });
+    const jsonSchemaPromise = Promise.resolve({});
+    metadataStore.getSchema.mockReturnValue(schemaPromise);
+    metadataStore.getJsonSchema.mockReturnValue(jsonSchemaPromise);
+
+    const value = [
+        {
+            text1: 'Test 1',
+            type: 'default',
+        },
+        {
+            text2: 'Test 2',
+            type: 'default',
+        },
+    ];
+
+    const fieldBlocks = mount(
+        <FieldBlocks
+            {...fieldTypeDefaultProps}
+            defaultType="editor"
+            formInspector={formInspector}
+            schemaOptions={{settings_form_key: {name: 'settings_form_key', value: 'page_block_settings'}}}
+            types={types}
+            value={value}
+        />
+    );
+
+    return Promise.all([schemaPromise, jsonSchemaPromise]).then(() => {
+        fieldBlocks.update();
+        expect(fieldBlocks.find('Block').at(0).find('Icon[name="su-hide"]').exists()).toBe(true);
+        expect(fieldBlocks.find('Block').at(1).find('Icon[name="su-hide"]').exists()).toBe(true);
+
+        // add a provider to make the visibleCondition of the first block = false
+        conditionDataProviderRegistry.add(() => ({
+            __provider: {
+                'text1': 'disabled',
+            },
+        }));
+
+        fieldBlocks.setProps(
+            {
+                value: [
+                    {
+                        text1: 'Test 1',
+                        type: 'default',
+                    },
+                    {
+                        text2: 'Test 4',
+                        type: 'default',
+                    },
+                ],
+            }
+        );
+
+        fieldBlocks.update();
+        // first block is still visible, because it was not reevaluated as only the second block changed
+        expect(fieldBlocks.find('Block').at(0).find('Icon[name="su-hide"]').exists()).toBe(true);
+        expect(fieldBlocks.find('Block').at(1).find('Icon[name="su-hide"]').exists()).toBe(false);
+    });
+});
+
 test('Should destroy the block settings form-store on unmount', () => {
     const types = {
         default: {

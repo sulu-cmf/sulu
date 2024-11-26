@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass
+        name="Sulu\Article\Domain\Model\Article"
+        table="ar_articles"
+    >
+        <id name="uuid" type="string" column="uuid">
+            <generator strategy="NONE"/>
+        </id>
+
+        <one-to-many field="dimensionContents" target-entity="Sulu\Article\Domain\Model\ArticleDimensionContentInterface" mapped-by="article">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+    </mapped-superclass>
+</doctrine-mapping>

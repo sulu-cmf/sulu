@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="tests/test-bootstrap.php"
+>
+    <testsuites>
+        <!-- Run Unit Tests before Functional Tests for better Developer Experience -->
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Functional">
+            <directory>tests/Functional</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory>src/</directory>
+        </include>
+    </source>
+
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <ini name="date.timezone" value="UTC" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="KERNEL_CLASS" value="Sulu\Content\Tests\Application\Kernel"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+    </php>
+</phpunit>

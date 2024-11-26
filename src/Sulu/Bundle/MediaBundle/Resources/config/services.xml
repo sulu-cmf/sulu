@@ -512,5 +512,44 @@
             <tag name="jms_serializer.event_subscriber"/>
             <tag name="sulu.context" context="admin"/>
         </service>
+
+        <service
+            id="sulu_media.file_inspector.sanitizer_factory"
+            class="Sulu\Bundle\MediaBundle\FileInspector\SvgSanitizerFactory"
+        />
+
+        <service
+            id="sulu_media.file_inspector.html_sanitizer"
+            class="Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface"
+        >
+            <factory service="sulu_media.file_inspector.sanitizer_factory" method="create"/>
+        </service>
+
+        <service
+            id="sulu_media.file_inspector.html_sanitizer_safe"
+            class="Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface"
+        >
+            <factory service="sulu_media.file_inspector.sanitizer_factory" method="createSafe"/>
+        </service>
+
+        <service
+            id="sulu_media.file_inspector.svg_inspector"
+            class="Sulu\Bundle\MediaBundle\FileInspector\SvgFileInspector"
+        >
+            <argument type="service" id="sulu_media.file_inspector.html_sanitizer"/>
+            <argument type="service" id="sulu_media.file_inspector.html_sanitizer_safe"/>
+
+            <tag name="sulu_media.file_inspector"/>
+        </service>
+        <service id="Sulu\Bundle\MediaBundle\FileInspector\SvgSafetyInspectorInterface" alias="sulu_media.file_inspector.svg_inspector"/>
+
+        <service
+            id="sulu_media.file_inspector.subscriber"
+            class="Sulu\Bundle\MediaBundle\FileInspector\UploadFileSubscriber"
+        >
+            <argument type="tagged" tag="sulu_media.file_inspector"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
     </services>
 </container>

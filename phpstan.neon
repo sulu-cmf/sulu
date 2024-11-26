@@ -22,6 +22,7 @@ parameters:
         - %currentWorkingDirectory%/vendor/*
         - %currentWorkingDirectory%/tests/Resources/cache/*
         - %currentWorkingDirectory%/*/node_modules/*
+        - %currentWorkingDirectory%/*/tests/Application/var/*
         - %currentWorkingDirectory%/*/Tests/Application/var/*
         - %currentWorkingDirectory%/*/Tests/app/cache/*
         - %currentWorkingDirectory%/*/Tests/app/var/*
@@ -29,8 +30,6 @@ parameters:
         - %currentWorkingDirectory%/src/Sulu/Component/Rest/RestController.php
         # SwiftMailer was removed and con not be analyzed by phpstan anymore
         - %currentWorkingDirectory%/src/Sulu/Bundle/SecurityBundle/Tests/Functional/Controller/LegacyResettingControllerTest.php
-        - %currentWorkingDirectory%/src/Sulu/Bundle/MarkupBundle/Listener/SwiftMailerListener.php
-        - %currentWorkingDirectory%/src/Sulu/Bundle/MarkupBundle/Tests/Unit/Listener/SwiftMailerListenerTest.php
     symfony:
         containerXmlPath: %currentWorkingDirectory%/var/cache/admin/dev/App_KernelDevDebugContainer.xml
         consoleApplicationLoader: tests/phpstan/console-application.php

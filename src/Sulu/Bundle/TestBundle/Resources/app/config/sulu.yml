@@ -6,6 +6,9 @@ framework:
         enabled: false
     mailer:
         dsn: 'null://null'
+        message_bus: false # else messenger component duplicates the message: https://github.com/symfony/symfony/issues/48004#issuecomment-2476617713
+
+    lock: 'flock://%kernel.project_dir%/var/lock'
 
 doctrine:
     orm:
@@ -13,11 +16,7 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
     dbal:
-        url: '%database.url%'
-        charset: '%database.charset%'
-        default_table_options:
-            charset: '%database.charset%'
-            collate: '%database.collate%'
+        url: '%env(DATABASE_URL)%'
 
 sulu_document_manager:
     sessions:

@@ -1,0 +1,15 @@
+{
+    "sulu_content.seo": "SEO",
+    "sulu_content.excerpt": "Excerpt & Taxonomies",
+    "sulu_content.content": "Content",
+    "sulu_content.published": "Published on",
+    "sulu_content.author": "Author",
+    "sulu_content.authored_date": "Authored Date",
+    "sulu_content.shadow_page": "Shadow page",
+    "sulu_content.enable_shadow_page": "Enable Shadow page",
+    "sulu_content.enable_shadow_page_info_text": "This function is disabled if the current locale is already used as shadow locale.",
+    "sulu_content.shadow_locale": "Shadow locale",
+    "sulu_content.webspace": "Webspace",
+    "sulu_content.main_webspace": "Main Webspace",
+    "sulu_content.additional_webspaces": "Weitere Webspaces"
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>content_excerpt</key>
+
+    <properties>
+        <property name="excerptTitle" type="text_line">
+            <meta>
+                <title>sulu_admin.title</title>
+            </meta>
+        </property>
+
+        <property name="excerptMore" type="text_line">
+            <meta>
+                <title>sulu_page.text_for_more_link</title>
+            </meta>
+        </property>
+
+        <property name="excerptDescription" type="text_editor">
+            <meta>
+                <title>sulu_admin.description</title>
+            </meta>
+        </property>
+
+        <property name="excerptCategories" type="category_selection">
+            <meta>
+                <title>sulu_category.categories</title>
+            </meta>
+        </property>
+
+        <property name="excerptTags" type="tag_selection">
+            <meta>
+                <title>sulu_tag.tags</title>
+            </meta>
+        </property>
+
+        <property name="excerptIcon" type="single_media_selection">
+            <meta>
+                <title>sulu_page.icons</title>
+            </meta>
+        </property>
+
+        <property name="excerptImage" type="single_media_selection">
+            <meta>
+                <title>sulu_page.images</title>
+            </meta>
+        </property>
+    </properties>
+</form>

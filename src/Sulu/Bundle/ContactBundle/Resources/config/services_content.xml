@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Content Property Resolvers -->
+        <service id="sulu_contact.account_selection_property_resolver" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\PropertyResolver\AccountSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_contact.single_account_selection_property_resolver" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleAccountSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_contact.contact_selection_property_resolver" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\PropertyResolver\ContactSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_contact.single_contact_selection_property_resolver" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleContactSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_contact.account_contact_selection_property_resolver" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\PropertyResolver\ContactAccountSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <!-- Content Resource Loaders -->
+        <service id="sulu_contact.contact_resource_loader" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\ContactResourceLoader">
+            <argument type="service" id="sulu_contact.contact_manager"/>
+
+            <tag name="sulu_content.resource_loader" type="contact"/>
+        </service>
+
+        <service id="sulu_contact.account_resource_loader" class="Sulu\Bundle\ContactBundle\Infrastructure\Sulu\Content\ResourceLoader\AccountResourceLoader">
+            <argument type="service" id="sulu_contact.account_manager"/>
+
+            <tag name="sulu_content.resource_loader" type="account"/>
+        </service>
+    </services>
+</container>

@@ -61,6 +61,11 @@ parameters:
 			path: src/Sulu/Bundle/ActivityBundle/Tests/Unit/Application/Subscriber/SetDomainEventUserSubscriberTest.php
 
 		-
+			message: "#^Property Sulu\\\\Bundle\\\\ActivityBundle\\\\Tests\\\\Unit\\\\Application\\\\Subscriber\\\\SetDomainEventUserSubscriberTest\\:\\:\\$security \\(Prophecy\\\\Prophecy\\\\ObjectProphecy\\<Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\>\\) does not accept Prophecy\\\\Prophecy\\\\ObjectProphecy\\<object\\>\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/ActivityBundle/Tests/Unit/Application/Subscriber/SetDomainEventUserSubscriberTest.php
+
+		-
 			message: "#^Property Sulu\\\\Bundle\\\\ActivityBundle\\\\Tests\\\\Unit\\\\Application\\\\Subscriber\\\\SetDomainEventUserSubscriberTest\\:\\:\\$security has unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Security as its type\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ActivityBundle/Tests/Unit/Application/Subscriber/SetDomainEventUserSubscriberTest.php
@@ -1501,7 +1506,7 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Tests/Functional/Controller/CollaborationControllerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_values expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_values expects array\\<T\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Tests/Functional/Controller/CollaborationControllerTest.php
 
@@ -3942,6 +3947,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/CategoryBundle/Controller/CategoryController.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/CategoryBundle/Controller/CategoryController.php
 
@@ -7276,7 +7286,7 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManager.php
 
 		-
-			message: "#^Offset 'id' does not exist on non\\-falsy\\-string\\.$#"
+			message: "#^Offset 'id' does not exist on non\\-empty\\-string\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Contact/ContactManager.php
 
@@ -8412,11 +8422,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\<Sulu\\\\Bundle\\\\ContactBundle\\\\Entity\\\\UrlType\\>\\:\\:setIdGeneratorType\\(\\)\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/ContactBundle/DataFixtures/ORM/LoadDefaultTypes.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\ContactBundle\\\\DataFixtures\\\\ORM\\\\LoadDefaultTypes\\:\\:load\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/DataFixtures/ORM/LoadDefaultTypes.php
 
@@ -11321,11 +11326,6 @@ parameters:
 			path: src/Sulu/Bundle/DocumentManagerBundle/DependencyInjection/Compiler/DocumentFixturePass.php
 
 		-
-			message: "#^Parameter \\#1 \\$object_or_class of function is_subclass_of expects object\\|string, class\\-string\\|null given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/DependencyInjection/Compiler/DocumentFixturePass.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\DependencyInjection\\\\Compiler\\\\ExtractingEventDispatcher\\:\\:addListener\\(\\) has parameter \\$listener with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/DocumentManagerBundle/DependencyInjection/Compiler/RegisterListenersPass.php
@@ -13251,11 +13251,6 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Command/FormatCacheRegenerateCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$dirs of method Symfony\\\\Component\\\\Finder\\\\Finder\\:\\:in\\(\\) expects array\\<string\\>\\|string, string\\|false given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Command/FormatCacheRegenerateCommand.php
-
-		-
 			message: "#^Property Sulu\\\\Bundle\\\\MediaBundle\\\\Command\\\\FormatCacheRegenerateCommand\\:\\:\\$filesystem is never read, only written\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Command/FormatCacheRegenerateCommand.php
@@ -13781,22 +13776,12 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadCollectionTypes.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\DataFixtures\\\\ORM\\\\LoadCollectionTypes\\:\\:load\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadCollectionTypes.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\<Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaType\\>\\:\\:setIdGenerator\\(\\)\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadMediaTypes.php
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\<Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaType\\>\\:\\:setIdGeneratorType\\(\\)\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadMediaTypes.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\DataFixtures\\\\ORM\\\\LoadMediaTypes\\:\\:load\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/DataFixtures/ORM/LoadMediaTypes.php
 
@@ -18731,17 +18716,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php
 
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between false and string will always evaluate to false\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and array\\|bool\\|float\\|int\\|string will always evaluate to false\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php
 
@@ -22496,7 +22471,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Export/WebspaceExportTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_values expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_values expects array\\<T\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Export/WebspaceExportTest.php
 
@@ -26156,22 +26131,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
 		-
-			message: "#^Call to method createMessage\\(\\) on an unknown class Swift_Mailer\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
 			message: "#^Call to method getEncoder\\(\\) on an unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Encoder\\\\EncoderFactoryInterface\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
-			message: "#^Call to method send\\(\\) on an unknown class Swift_Mailer\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
-			message: "#^Class Swift_Mailer not found\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
@@ -26246,17 +26206,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
 		-
-			message: "#^Parameter \\$mailer of method Sulu\\\\Bundle\\\\SecurityBundle\\\\Controller\\\\ResettingController\\:\\:__construct\\(\\) has invalid type Swift_Mailer\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
 			message: "#^Parameter \\$passwordHasherFactory of method Sulu\\\\Bundle\\\\SecurityBundle\\\\Controller\\\\ResettingController\\:\\:__construct\\(\\) has invalid type Symfony\\\\Component\\\\Security\\\\Core\\\\Encoder\\\\EncoderFactoryInterface\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
-
-		-
-			message: "#^Property Sulu\\\\Bundle\\\\SecurityBundle\\\\Controller\\\\ResettingController\\:\\:\\$mailer has unknown class Swift_Mailer as its type\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/Controller/ResettingController.php
 
@@ -26487,11 +26437,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_null\\(\\) with DOMNodeList\\<DOMNode\\>\\|false will always evaluate to false\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/DataFixtures/ORM/LoadSecurityTypes.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\SecurityBundle\\\\DataFixtures\\\\ORM\\\\LoadSecurityTypes\\:\\:load\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/DataFixtures/ORM/LoadSecurityTypes.php
 
@@ -28577,7 +28522,7 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\SnippetBundle\\\\Controller\\\\SnippetController\\:\\:getLocale\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
+			count: 2
 			path: src/Sulu/Bundle/SnippetBundle/Controller/SnippetController.php
 
 		-
@@ -28623,6 +28568,11 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
 			count: 1
+			path: src/Sulu/Bundle/SnippetBundle/Controller/SnippetController.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|null given\\.$#"
+			count: 2
 			path: src/Sulu/Bundle/SnippetBundle/Controller/SnippetController.php
 
 		-
@@ -42697,7 +42647,7 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\+\" between int\\|string\\|false and 1 results in an error\\.$#"
-			count: 2
+			count: 1
 			path: src/Sulu/Component/DocumentManager/Subscriber/Behavior/Path/AutoNameSubscriber.php
 
 		-
@@ -44636,6 +44586,11 @@ parameters:
 			path: src/Sulu/Component/Media/Tests/Unit/SmartContent/MediaDataProviderTest.php
 
 		-
+			message: "#^Property Sulu\\\\Component\\\\Media\\\\Tests\\\\Unit\\\\SmartContent\\\\MediaDataProviderTest\\:\\:\\$security \\(Prophecy\\\\Prophecy\\\\ObjectProphecy\\<Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\>\\) does not accept Prophecy\\\\Prophecy\\\\ObjectProphecy\\<object\\>\\.$#"
+			count: 1
+			path: src/Sulu/Component/Media/Tests/Unit/SmartContent/MediaDataProviderTest.php
+
+		-
 			message: "#^Property Sulu\\\\Component\\\\Media\\\\Tests\\\\Unit\\\\SmartContent\\\\MediaDataProviderTest\\:\\:\\$security has unknown class Symfony\\\\Component\\\\Security\\\\Core\\\\Security as its type\\.$#"
 			count: 1
 			path: src/Sulu/Component/Media/Tests/Unit/SmartContent/MediaDataProviderTest.php
@@ -45296,7 +45251,7 @@ parameters:
 			path: src/Sulu/Component/Rest/Csv/CsvHandler.php
 
 		-
-			message: "#^Offset 'value' does not exist on Doctrine\\\\Common\\\\Lexer\\\\Token\\<1\\|2\\|3\\|4\\|5\\|6\\|7\\|8\\|9\\|10\\|11\\|12\\|13\\|14\\|15\\|16\\|17\\|18\\|19\\|100\\|101\\|102\\|200\\|201\\|202\\|203\\|204\\|205\\|206\\|207\\|208\\|209\\|210\\|211\\|212\\|213\\|214\\|215\\|216\\|217\\|218\\|219\\|220\\|221\\|222\\|223\\|224\\|225\\|226\\|227\\|228\\|229\\|230\\|231\\|232\\|233\\|234\\|235\\|236\\|237\\|238\\|239\\|240\\|241\\|242\\|243\\|244\\|245\\|246\\|247\\|248\\|249\\|250\\|251\\|252\\|253\\|254\\|255\\|256, string\\>\\|null\\.$#"
+			message: "#^Cannot access property \\$value on Doctrine\\\\Common\\\\Lexer\\\\Token\\<int, string\\>\\|null\\.$#"
 			count: 1
 			path: src/Sulu/Component/Rest/DQL/Cast.php
 
@@ -45696,7 +45651,7 @@ parameters:
 			path: src/Sulu/Component/Rest/ListBuilder/Doctrine/DoctrineListBuilder.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_values expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_values expects array\\<T\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Component/Rest/ListBuilder/Doctrine/DoctrineListBuilder.php
 
@@ -46436,276 +46391,6 @@ parameters:
 			path: src/Sulu/Component/Rest/ListBuilder/PaginatedRepresentation.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:addToSelect\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:generateJoins\\(\\) has parameter \\$fieldParts with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:getRelationalFilters\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:justCount\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:justCount\\(\\) has parameter \\$alias with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:justCount\\(\\) has parameter \\$countAttribute with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:performSelectFromField\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Property Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:\\$fields type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Property Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:\\$prefixes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Property Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:\\$relationalFilters type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Property Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:\\$searchFields type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Property Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:\\$searchNumberFields type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Property Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder\\:\\:\\$searchTextFields type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListQueryBuilder.php
-
-		-
-			message: "#^Cannot access offset 'id' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Cannot access offset 'totalcount' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Cannot access offset string on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Class Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository extends generic class Doctrine\\\\ORM\\\\EntityRepository but does not specify its types\\: TEntityClass$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:find\\(\\) has parameter \\$joinConditions with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:find\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:find\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:getCount\\(\\) has parameter \\$joinConditions with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:getCount\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:getCount\\(\\) should return int but returns array\\|int\\|object\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:getFieldsWitTypes\\(\\) has parameter \\$types with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:getFieldsWitTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$em of method Doctrine\\\\ORM\\\\EntityRepository\\<object\\>\\:\\:__construct\\(\\) expects Doctrine\\\\ORM\\\\EntityManagerInterface, Doctrine\\\\Persistence\\\\ObjectManager given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of function array_key_exists expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|null given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function intval expects array\\|bool\\|float\\|int\\|resource\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#2 \\$prefix \\(string\\) of method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:find\\(\\) should be compatible with parameter \\$lockMode \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<object\\>\\:\\:find\\(\\)$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:getArrayIndexByKeyValue\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#3 \\$justCount \\(bool\\) of method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository\\:\\:find\\(\\) should be compatible with parameter \\$lockVersion \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<object\\>\\:\\:find\\(\\)$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Parameter \\#4 \\$fields of class Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder constructor expects array\\<string\\>, array\\|null given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:find\\(\\) has parameter \\$joinConditions with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:find\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:find\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:find\\(\\) should return array but returns array\\|int\\|object\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getAllFields\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getFields\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getLimit\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getOffset\\(\\) should return int\\|null but returns float\\|int\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getPage\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getSearchFields\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getSearchPattern\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getSorting\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRestHelper\\:\\:getTotalNumberOfElements\\(\\) has parameter \\$joinConditions with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$className of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getClassMetadata\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
-			count: 2
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Parameter \\#2 \\$class of class Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListRepository constructor expects Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadata\\<T of object\\>, Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\<object\\> given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
-			count: 2
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
-			message: "#^Unable to resolve the template type T in call to method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getClassMetadata\\(\\)$#"
-			count: 2
-			path: src/Sulu/Component/Rest/Listing/ListRestHelper.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: src/Sulu/Component/Rest/RestHelper.php
@@ -47311,16 +46996,6 @@ parameters:
 			path: src/Sulu/Component/Rest/Tests/Unit/ListBuilder/Metadata/ListXmlLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function trim expects string, string\\|null given\\.$#"
-			count: 9
-			path: src/Sulu/Component/Rest/Tests/Unit/Listing/ListQueryBuilderTest.php
-
-		-
-			message: "#^Parameter \\#6 \\$where of class Sulu\\\\Component\\\\Rest\\\\Listing\\\\ListQueryBuilder constructor expects array\\<string\\>, array\\<string, int\\> given\\.$#"
-			count: 3
-			path: src/Sulu/Component/Rest/Tests/Unit/Listing/ListQueryBuilderTest.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Rest\\\\Tests\\\\Unit\\\\RequestParametersTraitTest\\:\\:getRequestParameter\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: src/Sulu/Component/Rest/Tests/Unit/RequestParametersTraitTest.php
@@ -47832,6 +47507,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#7 \\$security of class Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManager constructor expects Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\|null, object given\\.$#"
+			count: 1
+			path: src/Sulu/Component/Security/Tests/Unit/Authorization/AccessControl/AccessControlManagerTest.php
+
+		-
+			message: "#^Property Sulu\\\\Component\\\\Security\\\\Tests\\\\Unit\\\\Authorization\\\\AccessControl\\\\AccessControlManagerTest\\:\\:\\$security \\(Prophecy\\\\Prophecy\\\\ObjectProphecy\\<Symfony\\\\Bundle\\\\SecurityBundle\\\\Security\\|Symfony\\\\Component\\\\Security\\\\Core\\\\Security\\>\\) does not accept Prophecy\\\\Prophecy\\\\ObjectProphecy\\<object\\>\\.$#"
 			count: 1
 			path: src/Sulu/Component/Security/Tests/Unit/Authorization/AccessControl/AccessControlManagerTest.php
 

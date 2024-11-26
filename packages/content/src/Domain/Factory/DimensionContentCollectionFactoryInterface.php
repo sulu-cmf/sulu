@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of Sulu.
+ *
+ * (c) Sulu GmbH
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace Sulu\Content\Domain\Factory;
+
+use Sulu\Content\Domain\Model\ContentRichEntityInterface;
+use Sulu\Content\Domain\Model\DimensionContentCollectionInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+
+interface DimensionContentCollectionFactoryInterface
+{
+    /**
+     * @template T of DimensionContentInterface
+     *
+     * @param ContentRichEntityInterface<T> $contentRichEntity
+     * @param array<string, mixed> $data
+     * @param mixed[] $dimensionAttributes
+     *
+     * @return DimensionContentCollectionInterface<T>
+     */
+    public function create(
+        ContentRichEntityInterface $contentRichEntity,
+        array $dimensionAttributes,
+        array $data
+    ): DimensionContentCollectionInterface;
+}
