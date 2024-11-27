@@ -16,16 +16,26 @@
         <service id="Sulu\Content\Application\ContentResolver\ContentResolverInterface" alias="sulu_content.content_resolver"/>
 
         <!-- Template Resolver -->
-        <service id="sulu_content.resolver.template"
+        <service id="sulu_content.template_resolver"
                  class="Sulu\Content\Application\ContentResolver\Resolver\TemplateResolver">
             <argument type="service" id="sulu_admin.form_metadata_provider"/>
             <argument type="service" id="sulu_content.metadata_resolver"/>
 
-            <tag name="sulu_content.content_resolver"/>
+            <tag name="sulu_content.content_resolver" type="template"/>
         </service>
 
+        <!-- Settings Resolver -->
+        <service id="sulu_content.settings_resolver"
+                 class="Sulu\Content\Application\ContentResolver\Resolver\SettingsResolver">
+            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
+            <argument type="service" id="sulu.core.localization_manager"/>
+
+            <tag name="sulu_content.content_resolver" type="settings"/>
+        </service>
+
+
         <!-- Excerpt Resolver -->
-        <service id="sulu_content.resolver.excerpt"
+        <service id="sulu_content.excerpt_resolver"
                  class="Sulu\Content\Application\ContentResolver\Resolver\ExcerptResolver">
             <argument type="service" id="sulu_admin.form_metadata_provider"/>
             <argument type="service" id="sulu_content.metadata_resolver"/>
@@ -34,7 +44,7 @@
         </service>
 
         <!-- Seo Resolver -->
-        <service id="sulu_content.resolver.seo"
+        <service id="sulu_content.seo_resolver"
                  class="Sulu\Content\Application\ContentResolver\Resolver\SeoResolver">
             <argument type="service" id="sulu_admin.form_metadata_provider"/>
             <argument type="service" id="sulu_content.metadata_resolver"/>
