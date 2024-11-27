@@ -191,73 +191,13 @@ class Configuration implements ConfigurationInterface
 
     private function addStorageSection(ArrayNodeDefinition $node)
     {
-        $storages = ['local'];
-        $storagesNode = $node->children()
-            ->arrayNode('storages')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->arrayNode('local')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->scalarNode('path')->defaultValue('%kernel.project_dir%/var/uploads/media')->end()
-                            ->scalarNode('segments')->defaultValue(10)->end()
-                        ->end()
-                    ->end();
-
-        if (\class_exists(GoogleStorageAdapter::class)) {
-            $storages[] = self::STORAGE_GOOGLE_CLOUD;
-
-            $storagesNode
-                ->arrayNode(self::STORAGE_GOOGLE_CLOUD)
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('key_file_path')->isRequired()->end()
-                        ->scalarNode('bucket_name')->isRequired()->end()
-                        ->scalarNode('path_prefix')->defaultNull()->end()
-                        ->scalarNode('segments')->defaultValue(10)->end()
-                    ->end()
-                ->end();
-        }
-
-        if (\class_exists(AwsS3Adapter::class)) {
-            $storages[] = self::STORAGE_S3;
-            $storagesNode
-                ->arrayNode(self::STORAGE_S3)
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('key')->isRequired()->end()
-                        ->scalarNode('secret')->isRequired()->end()
-                        ->scalarNode('region')->isRequired()->end()
-                        ->scalarNode('bucket_name')->isRequired()->end()
-                        ->scalarNode('path_prefix')->defaultNull()->end()
-                        ->scalarNode('version')->defaultValue('latest')->end()
-                        ->scalarNode('endpoint')->defaultNull()->end()
-                        ->scalarNode('public_url')->defaultNull()->end()
-                        ->scalarNode('segments')->defaultValue(10)->end()
-                        ->arrayNode('arguments')
-                            ->scalarPrototype()->end()
-                        ->end()
-                    ->end()
-                ->end();
-        }
-
-        if (\class_exists(AzureBlobStorageAdapter::class)) {
-            $storages[] = self::STORAGE_AZURE_BLOB;
-
-            $storagesNode
-                ->arrayNode(self::STORAGE_AZURE_BLOB)
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('connection_string')->isRequired()->end()
-                        ->scalarNode('container_name')->isRequired()->end()
-                        ->scalarNode('path_prefix')->defaultNull()->end()
-                        ->scalarNode('segments')->defaultValue(10)->end()
-                    ->end()
-                ->end();
-        }
-
         $node->children()
-                ->scalarNode('storage')->defaultValue('local')->end()
+                ->arrayNode('storage')
+                    ->children()
+                        ->scalarNode('service')->info('Service to use for storing media')->defaultValue('default.storage')->end()
+                        ->integerNode('segments')->end()
+                    ->end()
+                ->end()
             ->end();
     }
 

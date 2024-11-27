@@ -14,7 +14,6 @@ namespace Sulu\Bundle\MediaBundle;
 use Sulu\Bundle\MediaBundle\DependencyInjection\FormatCacheClearerCompilerPass;
 use Sulu\Bundle\MediaBundle\DependencyInjection\ImageFormatCompilerPass;
 use Sulu\Bundle\MediaBundle\DependencyInjection\ImageTransformationCompilerPass;
-use Sulu\Bundle\MediaBundle\DependencyInjection\S3ClientCompilerPass;
 use Sulu\Bundle\MediaBundle\Entity\CollectionInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\PersistenceBundle\PersistenceBundleTrait;
@@ -44,7 +43,6 @@ class SuluMediaBundle extends Bundle
         $container->addCompilerPass(new FormatCacheClearerCompilerPass());
         $container->addCompilerPass(new ImageFormatCompilerPass());
         $container->addCompilerPass(new ImageTransformationCompilerPass());
-        $container->addCompilerPass(new S3ClientCompilerPass());
 
         parent::build($container);
     }

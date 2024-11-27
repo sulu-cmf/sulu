@@ -13631,11 +13631,6 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/DependencyInjection/Configuration.php
 
 		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/DependencyInjection/S3ClientCompilerPass.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\DependencyInjection\\\\SuluMediaExtension\\:\\:checkCommandAvailability\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/DependencyInjection/SuluMediaExtension.php

@@ -25,6 +25,7 @@ use Sulu\Bundle\MediaBundle\Media\Exception\FormatOptionsMissingParameterExcepti
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaException;
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
 use Sulu\Bundle\MediaBundle\Media\PropertiesProvider\MediaPropertiesProviderInterface;
+use Sulu\Bundle\MediaBundle\Media\Storage\FlysystemStorage;
 use Sulu\Bundle\MediaBundle\Media\Storage\StorageInterface;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Sulu\Bundle\SearchBundle\SuluSearchBundle;
@@ -413,9 +414,21 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
             ->addTag('sulu_media.media_properties_provider');
     }
 
-    private function configureStorage(array $config, ContainerBuilder $container)
+    private function configureStorage(array $config, ContainerBuilder $container): void
     {
-        return;
+        $flySystemService = $container->get($config['storage']);
+        $flySystemAdapter = $container->get('flysystem.adapter.'.$config['storage']);
+
+        $container->set('sulu_media.storage', new Definition(
+            FlysystemStorage::class,
+            [
+                $flySystemService,
+                $flySystemAdapter,
+                $config['storage']['segments'],
+            ]
+            ));
+
+
         $storage = $container->resolveEnvPlaceholders($config['storage'], true);
         $container->setParameter('sulu_media.media.storage', $storage);
 
