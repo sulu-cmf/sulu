@@ -92,7 +92,7 @@ module.exports = (env, argv) => { // eslint-disable-line no-undef
                     exclude: [
                         // eslint-disable-next-line max-len
                         /node_modules[/\\](?!(sulu-(.*)-bundle|@ckeditor|ckeditor5|array-move|lodash-es|vanilla-colorful)[/\\])/,
-                        /friendsofsymfony\/jsrouting-bundle/,
+                        /friendsofsymfony[/\\]jsrouting-bundle/,
                     ],
                     use: {
                         loader: 'babel-loader',
