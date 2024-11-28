@@ -46,6 +46,7 @@ class SuluTestKernel extends SuluKernel
             new \FOS\RestBundle\FOSRestBundle(),
             new \HandcraftedInTheAlps\RestRoutingBundle\RestRoutingBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new \League\FlysystemBundle\FlysystemBundle(),
 
             // Massive
             new \Massive\Bundle\SearchBundle\MassiveSearchBundle(),

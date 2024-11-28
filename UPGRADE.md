@@ -34,6 +34,30 @@ As part of the update of flysystem the support for the guzzle client package `gu
 
 The `GoogleGeolocator` and the `NominatimGeolocator` no longer support the Guzzle client and require a `Symfony\HttpClient` client instead.
 
+### Updating to flysystem 3
+The Sulu image storage implementation is now only supported by configuring the Flysystem adapter like this:
+```yaml
+# config/packages/flysystem.yaml
+flysystem:
+    storages:
+        default.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/var/uploads'
+```
+The service defined there has to referenced in the `SuluMediaBundle` config:
+```yaml
+# config/packages/sulu_media.yaml
+sulu_media:
+    storage:
+        service: 'default.storage'
+        segment: 10
+```
+This will only create the service `sulu_media.storage` as the alias to `sulu_media.storage.default` has been removed.
+
+Other removed services:
+- `Sulu\\Bundle\\MediaBundle\\DependencyInjection\\S3ClientCompilerPass` (internal)
+
 ## 2.6.4
 
 ### Stricter Image Format Url Handling

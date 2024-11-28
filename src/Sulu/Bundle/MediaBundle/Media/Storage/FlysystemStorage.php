@@ -25,8 +25,8 @@ use Sulu\Bundle\MediaBundle\Media\Exception\ImageProxyMediaNotFoundException;
 class FlysystemStorage implements StorageInterface
 {
     public function __construct(
-        private ?FilesystemOperator $filesystem,
-        private ?FilesystemAdapter $adapter,
+        private FilesystemOperator $filesystem,
+        private FilesystemAdapter $adapter,
         private int $segments,
     ) {
     }

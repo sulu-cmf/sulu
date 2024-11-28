@@ -45,3 +45,10 @@ sulu_website:
         attributes:
             urls: false
             path: false
+
+flysystem:
+    storages:
+        default.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/var/uploads'
