@@ -19,14 +19,8 @@ use Sulu\Content\Domain\Factory\ContactFactoryInterface;
 
 class ContactFactory implements ContactFactoryInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function create(?int $contactId): ?ContactInterface

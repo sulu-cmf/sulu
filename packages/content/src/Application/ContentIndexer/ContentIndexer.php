@@ -24,22 +24,12 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
 class ContentIndexer implements ContentIndexerInterface
 {
     /**
-     * @var SearchManager
-     */
-    private $searchManager;
-
-    /**
-     * @var ContentAggregatorInterface
-     */
-    private $contentAggregator;
-
-    /**
      * @param SearchManager $searchManager
      */
-    public function __construct(SearchManagerInterface $searchManager, ContentAggregatorInterface $contentAggregator)
-    {
-        $this->searchManager = $searchManager;
-        $this->contentAggregator = $contentAggregator;
+    public function __construct(
+        private SearchManagerInterface $searchManager,
+        private ContentAggregatorInterface $contentAggregator,
+    ) {
     }
 
     public function index(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface

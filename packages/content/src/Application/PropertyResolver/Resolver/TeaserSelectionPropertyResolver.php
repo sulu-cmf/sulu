@@ -54,9 +54,7 @@ class TeaserSelectionPropertyResolver implements PropertyResolverInterface
                     'id' => $id,
                     'type' => $type,
                 ],
-                static function(Teaser $resource) use ($item) {
-                    return $resource->merge($item);
-                }
+                static fn (Teaser $resource) => $resource->merge($item)
             );
         }
 

@@ -71,18 +71,12 @@ class ExampleRepository
      */
     private $entityRepository;
 
-    /**
-     * @var DimensionContentQueryEnhancer
-     */
-    private $dimensionContentQueryEnhancer;
-
     public function __construct(
         EntityManagerInterface $entityManager,
-        DimensionContentQueryEnhancer $dimensionContentQueryEnhancer
+        private DimensionContentQueryEnhancer $dimensionContentQueryEnhancer
     ) {
         $this->entityRepository = $entityManager->getRepository(Example::class);
         $this->entityManager = $entityManager;
-        $this->dimensionContentQueryEnhancer = $dimensionContentQueryEnhancer;
     }
 
     /**
@@ -134,7 +128,7 @@ class ExampleRepository
         try {
             /** @var Example $example */
             $example = $queryBuilder->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
+        } catch (NoResultException) {
             return null;
         }
 

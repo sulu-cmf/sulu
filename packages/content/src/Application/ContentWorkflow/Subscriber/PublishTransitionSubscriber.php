@@ -31,14 +31,8 @@ use Symfony\Component\Workflow\Event\TransitionEvent;
  */
 class PublishTransitionSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var ContentCopierInterface
-     */
-    private $contentCopier;
-
-    public function __construct(ContentCopierInterface $contentCopier)
+    public function __construct(private ContentCopierInterface $contentCopier)
     {
-        $this->contentCopier = $contentCopier;
     }
 
     public function onPublish(TransitionEvent $transitionEvent): void

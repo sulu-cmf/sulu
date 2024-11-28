@@ -31,22 +31,10 @@ use Symfony\Component\Workflow\Event\TransitionEvent;
  */
 class UnpublishTransitionSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var DimensionContentRepositoryInterface
-     */
-    private $dimensionContentRepository;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
-
     public function __construct(
-        DimensionContentRepositoryInterface $dimensionContentRepository,
-        EntityManagerInterface $entityManager
+        private DimensionContentRepositoryInterface $dimensionContentRepository,
+        private EntityManagerInterface $entityManager
     ) {
-        $this->dimensionContentRepository = $dimensionContentRepository;
-        $this->entityManager = $entityManager;
     }
 
     public function onUnpublish(TransitionEvent $transitionEvent): void

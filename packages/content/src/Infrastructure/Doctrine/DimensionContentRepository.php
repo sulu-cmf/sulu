@@ -23,29 +23,11 @@ use Sulu\Content\Domain\Repository\DimensionContentRepositoryInterface;
 
 class DimensionContentRepository implements DimensionContentRepositoryInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var ContentMetadataInspectorInterface
-     */
-    private $contentMetadataInspector;
-
-    /**
-     * @var DimensionContentQueryEnhancer
-     */
-    private $dimensionContentQueryEnhancer;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ContentMetadataInspectorInterface $contentMetadataInspector,
-        DimensionContentQueryEnhancer $dimensionContentQueryEnhancer
+        private EntityManagerInterface $entityManager,
+        private ContentMetadataInspectorInterface $contentMetadataInspector,
+        private DimensionContentQueryEnhancer $dimensionContentQueryEnhancer,
     ) {
-        $this->entityManager = $entityManager;
-        $this->contentMetadataInspector = $contentMetadataInspector;
-        $this->dimensionContentQueryEnhancer = $dimensionContentQueryEnhancer;
     }
 
     /**

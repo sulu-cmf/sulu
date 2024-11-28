@@ -22,14 +22,8 @@ use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\XmlFormMetadataLoader;
  */
 class SettingsFormMetadataVisitor implements FormMetadataVisitorInterface
 {
-    /**
-     * @var XmlFormMetadataLoader
-     */
-    private $xmlFormMetadataLoader;
-
-    public function __construct(XmlFormMetadataLoader $xmlFormMetadataLoader)
+    public function __construct(private XmlFormMetadataLoader $xmlFormMetadataLoader)
     {
-        $this->xmlFormMetadataLoader = $xmlFormMetadataLoader;
     }
 
     public function visitFormMetadata(FormMetadata $formMetadata, string $locale, array $metadataOptions = []): void

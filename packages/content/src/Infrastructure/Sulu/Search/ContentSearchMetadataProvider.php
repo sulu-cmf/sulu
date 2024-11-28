@@ -52,26 +52,6 @@ class ContentSearchMetadataProvider implements ProviderInterface
     ];
 
     /**
-     * @var ContentMetadataInspectorInterface
-     */
-    private $contentMetadataInspector;
-
-    /**
-     * @var Factory
-     */
-    private $searchMetadataFactory;
-
-    /**
-     * @var StructureMetadataFactoryInterface
-     */
-    private $structureFactory;
-
-    /**
-     * @var class-string<T>
-     */
-    private $contentRichEntityClass;
-
-    /**
      * @var class-string<B>|null
      */
     private $dimensionContentClass;
@@ -80,15 +60,11 @@ class ContentSearchMetadataProvider implements ProviderInterface
      * @param class-string<T> $contentRichEntityClass
      */
     public function __construct(
-        ContentMetadataInspectorInterface $contentMetadataInspector,
-        Factory $searchMetadataFactory,
-        StructureMetadataFactoryInterface $structureFactory,
-        string $contentRichEntityClass
+        private ContentMetadataInspectorInterface $contentMetadataInspector,
+        private Factory $searchMetadataFactory,
+        private StructureMetadataFactoryInterface $structureFactory,
+        private string $contentRichEntityClass,
     ) {
-        $this->contentMetadataInspector = $contentMetadataInspector;
-        $this->searchMetadataFactory = $searchMetadataFactory;
-        $this->structureFactory = $structureFactory;
-        $this->contentRichEntityClass = $contentRichEntityClass;
     }
 
     public function getMetadataForObject($object): ?ClassMetadata
@@ -245,7 +221,7 @@ class ContentSearchMetadataProvider implements ProviderInterface
                             $propertyMapping->addFieldMapping(
                                 $property->getName() . '.' . $componentProperty->getName(),
                                 [
-                                    'type' => isset($tagAttributes['type']) ? $tagAttributes['type'] : 'string',
+                                    'type' => $tagAttributes['type'] ?? 'string',
                                     'field' => $this->searchMetadataFactory->createMetadataProperty(
                                         '[' . $componentProperty->getName() . ']'
                                     ),
@@ -366,7 +342,7 @@ class ContentSearchMetadataProvider implements ProviderInterface
             $metadata->addFieldMapping(
                 $property->getName(),
                 [
-                    'type' => isset($tagAttributes['type']) ? $tagAttributes['type'] : 'string',
+                    'type' => $tagAttributes['type'] ?? 'string',
                     'field' => $this->getContentField($property),
                     'aggregate' => true,
                     'indexed' => isset($tagAttributes['index']) && 'indexed' === $tagAttributes['index'],
