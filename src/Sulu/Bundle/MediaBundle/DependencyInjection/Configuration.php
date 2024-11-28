@@ -11,11 +11,8 @@
 
 namespace Sulu\Bundle\MediaBundle\DependencyInjection;
 
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
-use League\Flysystem\AzureBlobStorage\AzureBlobStorageAdapter;
 use Sulu\Bundle\MediaBundle\Entity\Media;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepository;
-use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

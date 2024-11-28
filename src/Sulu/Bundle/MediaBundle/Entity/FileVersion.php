@@ -23,6 +23,8 @@ use Symfony\Component\Mime\MimeTypes;
 
 /**
  * FileVersion.
+ *
+ * @phpstan-import-type StorageOptions from StorageInterface
  */
 class FileVersion implements AuditableInterface
 {
@@ -280,6 +282,9 @@ class FileVersion implements AuditableInterface
         return null;
     }
 
+    /**
+     * @param StorageOptions $storageOptions
+     */
     public function setStorageOptions(array $storageOptions)
     {
         $serializedText = \json_encode($storageOptions);
@@ -293,7 +298,7 @@ class FileVersion implements AuditableInterface
     }
 
     /**
-     * @return mixed[]
+     * @return StorageOptions
      */
     public function getStorageOptions(): array
     {

@@ -14,6 +14,7 @@ namespace Sulu\Bundle\MediaBundle\DependencyInjection;
 use Contao\ImagineSvg\Imagine as SvgImagine;
 use FFMpeg\FFMpeg;
 use Imagine\Vips\Imagine as VipsImagine;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use Sulu\Bundle\MediaBundle\Admin\MediaAdmin;
 use Sulu\Bundle\MediaBundle\Entity\Collection;
 use Sulu\Bundle\MediaBundle\Entity\CollectionInterface;
@@ -32,8 +33,6 @@ use Sulu\Bundle\SearchBundle\SuluSearchBundle;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
@@ -420,11 +419,21 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
     private function configureStorage(array $config, ContainerBuilder $container): void
     {
         $sorageServiceId = $config['storage']['service'];
+        $adapterService = 'flysystem.adapter.' . $sorageServiceId;
+
+        //$adapterServiceDefintion = $container->getDefinition($adapterService);
+        //$rootPath = null;
+        //if ($adapterServiceDefintion->getClass() === LocalFilesystemAdapter::class) {
+        //$rootPath = $adapterServiceDefintion->getArgument(0);
+        //}
 
         $container->register('sulu_media.storage', FlysystemStorage::class)
-            ->addArgument(new Reference($sorageServiceId))
-            ->addArgument(new Reference('flysystem.adapter.' .$sorageServiceId))
-            ->addArgument($config['storage']['segments'])
+            ->setArguments([
+                new Reference($sorageServiceId),
+                new Reference($adapterService),
+                $config['storage']['segments'],
+                null,
+            ])
             ->setPublic(true)
         ;
 

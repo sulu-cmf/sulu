@@ -28,6 +28,7 @@ class FlysystemStorage implements StorageInterface
         private FilesystemOperator $filesystem,
         private FilesystemAdapter $adapter,
         private int $segments,
+        private ?string $rootPath,
     ) {
     }
 
@@ -166,7 +167,11 @@ class FlysystemStorage implements StorageInterface
 
     public function getPath(array $storageOptions): string
     {
-        return $this->getFilePath($storageOptions);
+        if (null === $this->rootPath) {
+            return $this->getFilePath($storageOptions);
+        }
+
+        return $this->rootPath . '/' . $this->getFilePath($storageOptions);
     }
 
     public function getType(array $storageOptions): string
