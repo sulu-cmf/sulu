@@ -36,6 +36,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Process\ExecutableFinder;
 
@@ -418,26 +419,15 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
 
     private function configureStorage(array $config, ContainerBuilder $container): void
     {
-        $service = $config['storage']['service'];
-        $flySystemService = $container->get($service, ContainerInterface::NULL_ON_INVALID_REFERENCE);
-        $flySystemAdapter = $container->get('flysystem.adapter.'.$service, ContainerInterface::NULL_ON_INVALID_REFERENCE);
+        $sorageServiceId = $config['storage']['service'];
 
-        $container
-            ->setDefinition(
-                'sulu_media.storage',
-                new Definition(
-                    FlysystemStorage::class,
-                    [
-                        $flySystemService,
-                        $flySystemAdapter,
-                        $config['storage']['segments'],
-                    ]
-                )
-            )
+        $container->register('sulu_media.storage', FlysystemStorage::class)
+            ->addArgument(new Reference($sorageServiceId))
+            ->addArgument(new Reference('flysystem.adapter.' .$sorageServiceId))
+            ->addArgument($config['storage']['segments'])
             ->setPublic(true)
         ;
 
-        $container->setAlias('sulu_media.storage.default', 'sulu_media.storage')->setPublic(true);
         $container->setAlias(StorageInterface::class, 'sulu_media.storage')->setPublic(true);
     }
 
@@ -460,7 +450,7 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
         return $mimeTypes;
     }
 
-    private function checkCommandAvailability($command)
+    private function checkCommandAvailability(string $command): bool
     {
         return null !== $this->executableFinder->find($command) || @\is_executable($command);
     }
