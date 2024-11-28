@@ -11,6 +11,11 @@ Removed classes / services:
 - `Sulu\Component\Rest\Listing\ListQueryBuilder`
 - `Sulu\Component\Rest\Listing\ListRepository`
 - `Sulu\Component\Rest\Listing\ListRestHelper`
+- `Sulu\\Bundle\\MediaBundle\\Media\\Storage\\AzureBlobStorage`
+- `Sulu\\Bundle\\MediaBundle\\Media\\Storage\\GoogleCloudStorage`
+- `Sulu\\Bundle\\MediaBundle\\Media\\Storage\\LocalStorage`
+- `Sulu\\Bundle\\MediaBundle\\Media\\Storage\\S3Storage`
+- `Sulu\\Bundle\\MediaBundle\\DependencyInjection\\S3ClientCompilerPass` (internal)
 
 Removed deprecated functions and properties:
 
@@ -35,7 +40,9 @@ As part of the update of flysystem the support for the guzzle client package `gu
 The `GoogleGeolocator` and the `NominatimGeolocator` no longer support the Guzzle client and require a `Symfony\HttpClient` client instead.
 
 ### Updating to flysystem 3
-The Sulu image storage implementation is now only supported by configuring the Flysystem adapter like this:
+
+The Sulu media storage uses now the Flysystem Bundle which need to be configured:
+
 ```yaml
 # config/packages/flysystem.yaml
 flysystem:
@@ -45,18 +52,17 @@ flysystem:
             options:
                 directory: '%kernel.project_dir%/var/uploads'
 ```
-The service defined there has to referenced in the `SuluMediaBundle` config:
+
+If you want use a different storage for Sulu you can configure it in:
+
 ```yaml
 # config/packages/sulu_media.yaml
 sulu_media:
     storage:
-        service: 'default.storage'
-        segment: 10
+        service: 'default.storage' # this is default and not required to be configured.
 ```
-This will only create the service `sulu_media.storage` as the alias to `sulu_media.storage.default` has been removed.
 
-Other removed services:
-- `Sulu\\Bundle\\MediaBundle\\DependencyInjection\\S3ClientCompilerPass` (internal)
+This will only create the service `sulu_media.storage` as the alias to `sulu_media.storage.*` services has been removed.
 
 ## 2.6.4
 
