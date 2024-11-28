@@ -12,12 +12,12 @@
 namespace Sulu\Bundle\MediaBundle\Media\Storage;
 
 use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToReadFile;
 use League\Flysystem\Visibility;
-use PHPCR\Shell\Config\Exception\FileExistsException as PHPCRFileExistsException;
 use Sulu\Bundle\MediaBundle\Media\Exception\FilenameAlreadyExistsException;
 use Sulu\Bundle\MediaBundle\Media\Exception\ImageProxyMediaNotFoundException;
 
@@ -55,7 +55,7 @@ class FlysystemStorage implements StorageInterface
                 \fopen($tempPath, 'r'),
                 ['visibility' => Visibility::PUBLIC]
             );
-        } catch (PHPCRFileExistsException $exception) {
+        } catch (FilesystemException) {
             throw new FilenameAlreadyExistsException($filePath);
         }
 
@@ -68,7 +68,7 @@ class FlysystemStorage implements StorageInterface
 
         try {
             return $this->filesystem->readStream($filePath);
-        } catch (UnableToReadFile $exception) {
+        } catch (UnableToReadFile) {
             throw new ImageProxyMediaNotFoundException(\sprintf('Original media at path "%s" not found', $filePath));
         }
     }
@@ -83,7 +83,7 @@ class FlysystemStorage implements StorageInterface
 
         try {
             $this->filesystem->delete($filePath);
-        } catch (UnableToDeleteFile $exception) {
+        } catch (UnableToDeleteFile) {
         }
     }
 

@@ -189,13 +189,19 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private function addStorageSection(ArrayNodeDefinition $node)
+    private function addStorageSection(ArrayNodeDefinition $node): void
     {
         $node->children()
                 ->arrayNode('storage')
+                    ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('service')->info('Service to use for storing media')->defaultValue('default.storage')->end()
-                        ->integerNode('segments')->end()
+                        ->scalarNode('service')
+                            ->info('Service to use for storing media.')
+                            ->defaultValue('default.storage')
+                        ->end()
+                        ->integerNode('segments')
+                            ->defaultValue(10)
+                        ->end()
                     ->end()
                 ->end()
             ->end();

@@ -32,6 +32,8 @@ use Sulu\Bundle\SearchBundle\SuluSearchBundle;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -416,34 +418,26 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
 
     private function configureStorage(array $config, ContainerBuilder $container): void
     {
-        $flySystemService = $container->get($config['storage']);
-        $flySystemAdapter = $container->get('flysystem.adapter.'.$config['storage']);
+        $service = $config['storage']['service'];
+        $flySystemService = $container->get($service, ContainerInterface::NULL_ON_INVALID_REFERENCE);
+        $flySystemAdapter = $container->get('flysystem.adapter.'.$service, ContainerInterface::NULL_ON_INVALID_REFERENCE);
 
-        $container->set('sulu_media.storage', new Definition(
-            FlysystemStorage::class,
-            [
-                $flySystemService,
-                $flySystemAdapter,
-                $config['storage']['segments'],
-            ]
-            ));
+        $container
+            ->setDefinition(
+                'sulu_media.storage',
+                new Definition(
+                    FlysystemStorage::class,
+                    [
+                        $flySystemService,
+                        $flySystemAdapter,
+                        $config['storage']['segments'],
+                    ]
+                )
+            )
+            ->setPublic(true)
+        ;
 
-
-        $storage = $container->resolveEnvPlaceholders($config['storage'], true);
-        $container->setParameter('sulu_media.media.storage', $storage);
-
-        foreach ($config['storages'] as $storageKey => $storageConfig) {
-            foreach ($storageConfig as $key => $value) {
-                if ($storageKey === $storage) {
-                    $container->setParameter('sulu_media.media.storage.' . $storageKey . '.' . $key, $value);
-                } else {
-                    // Resolve unused ENV Variables of other Adapter
-                    $container->resolveEnvPlaceholders($value, true);
-                }
-            }
-        }
-
-        $container->setAlias('sulu_media.storage', 'sulu_media.storage.' . $storage)->setPublic(true);
+        $container->setAlias('sulu_media.storage.default', 'sulu_media.storage')->setPublic(true);
         $container->setAlias(StorageInterface::class, 'sulu_media.storage')->setPublic(true);
     }
 
