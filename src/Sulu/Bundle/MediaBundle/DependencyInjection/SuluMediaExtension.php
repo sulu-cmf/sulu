@@ -14,7 +14,6 @@ namespace Sulu\Bundle\MediaBundle\DependencyInjection;
 use Contao\ImagineSvg\Imagine as SvgImagine;
 use FFMpeg\FFMpeg;
 use Imagine\Vips\Imagine as VipsImagine;
-use League\Flysystem\Local\LocalFilesystemAdapter;
 use Sulu\Bundle\MediaBundle\Admin\MediaAdmin;
 use Sulu\Bundle\MediaBundle\Entity\Collection;
 use Sulu\Bundle\MediaBundle\Entity\CollectionInterface;
@@ -418,14 +417,8 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
 
     private function configureStorage(array $config, ContainerBuilder $container): void
     {
-        $sorageServiceId = $config['storage']['service'];
+        $sorageServiceId = $config['storage']['flysystem_service'];
         $adapterService = 'flysystem.adapter.' . $sorageServiceId;
-
-        //$adapterServiceDefintion = $container->getDefinition($adapterService);
-        //$rootPath = null;
-        //if ($adapterServiceDefintion->getClass() === LocalFilesystemAdapter::class) {
-        //$rootPath = $adapterServiceDefintion->getArgument(0);
-        //}
 
         $container->register('sulu_media.storage', FlysystemStorage::class)
             ->setArguments([

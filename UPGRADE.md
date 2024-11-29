@@ -53,13 +53,13 @@ flysystem:
                 directory: '%kernel.project_dir%/var/uploads'
 ```
 
-If you want use a different storage for Sulu you can configure it in:
+If you want use a [different storage](https://github.com/thephpleague/flysystem-bundle/blob/3.x/docs/2-cloud-storage-providers.md) for Sulu you can configure it here:
 
 ```yaml
 # config/packages/sulu_media.yaml
 sulu_media:
     storage:
-        service: 'default.storage' # this is default and not required to be configured.
+        flysystem_service: 'default.storage' # this is default and not required to be configured.
 ```
 
 This will only create the service `sulu_media.storage` as the alias to `sulu_media.storage.*` services has been removed.

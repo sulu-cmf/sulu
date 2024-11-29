@@ -1,8 +1,0 @@
-sulu_media:
-    storage: s3
-    storages:
-        s3:
-            key: test-key
-            secret: test-secret
-            region: eu-west-1
-            bucket_name: test-bucket

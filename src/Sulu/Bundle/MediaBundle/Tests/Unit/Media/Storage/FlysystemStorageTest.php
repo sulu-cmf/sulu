@@ -81,21 +81,22 @@ class FlysystemStorageTest extends TestCase
         $this->flysystem
             ->has(Argument::type('string'))
             ->shouldBeCalled()
-            ->will(static function (array $arguments) use (&$segment) {
+            ->will(static function(array $arguments) use (&$segment) {
                 $path = $arguments[0];
-                if (str_ends_with($path, 'image.jpg')) {
+                if (\str_ends_with($path, 'image.jpg')) {
                     // Asking if the image path exists should return false because duplicate names are tested elsewhere
                     return false;
                 }
 
                 // Otherwise it's the randomly generated segment (a zero filled number from 1 to 100)
-                self::assertSame(3, strlen($path));
-                if ($path[0] === '1') {
+                self::assertSame(3, \strlen($path));
+                if ('1' === $path[0]) {
                     self::assertSame('100', $path);
                 } else {
                     self::assertSame('0', $path[0]);
                 }
                 $segment = $path;
+
                 return true;
             })
         ;
@@ -103,7 +104,7 @@ class FlysystemStorageTest extends TestCase
         $newStorageOptions = $this->flysystemStorage->save('/tmp/flysystem', 'image.jpg', $storageOptions);
 
         $this->flysystem->writeStream(
-            $segment.'/image.jpg',
+            $segment . '/image.jpg',
             false,
             ['visibility' => 'public']
         )->shouldHaveBeenCalledOnce();

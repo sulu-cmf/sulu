@@ -192,7 +192,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('storage')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('service')
+                        ->scalarNode('flysystem_service')
                             ->info('Service to use for storing media.')
                             ->defaultValue('default.storage')
                         ->end()
