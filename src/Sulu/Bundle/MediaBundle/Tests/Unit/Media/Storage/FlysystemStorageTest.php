@@ -11,12 +11,12 @@
 
 namespace Sulu\Bundle\MediaBundle\Tests\Unit\Media\Storage;
 
-use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemOperator;
+use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Bundle\MediaBundle\Media\Exception\FilenameAlreadyExistsException;
 use Sulu\Bundle\MediaBundle\Media\Storage\FlysystemStorage;
 
 class FlysystemStorageTest extends TestCase
@@ -25,24 +25,16 @@ class FlysystemStorageTest extends TestCase
 
     private FlysystemStorage $flysystemStorage;
 
-    /**
-     * @var ObjectProphecy<FilesystemOperator>
-     */
-    private $flysystem;
-
-    /**
-     * @var ObjectProphecy<FilesystemAdapter>
-     */
-    private ObjectProphecy $flysystemAdapter;
+    private FilesystemOperator $flysystem;
 
     protected function setUp(): void
     {
-        $this->flysystem = $this->prophesize(FilesystemOperator::class);
-        $this->flysystemAdapter = $this->prophesize(FilesystemAdapter::class);
+        $adapter = new InMemoryFilesystemAdapter();
+        $this->flysystem = new Filesystem($adapter);
 
         $this->flysystemStorage = new FlysystemStorage(
-            $this->flysystem->reveal(),
-            $this->flysystemAdapter->reveal(),
+            $this->flysystem,
+            $adapter,
             100,
             null,
         );
@@ -54,68 +46,38 @@ class FlysystemStorageTest extends TestCase
             'segment' => '01',
         ];
 
-        $this->flysystem->has('01/image.jpg')->shouldBeCalled()->willReturn(false);
-        $this->flysystem->has('01')->shouldBeCalled()->willReturn(true);
-
-        $this->flysystem->writeStream(
-            '01/image.jpg',
-            false,
-            ['visibility' => 'public']
-        )->shouldBeCalled();
-
-        $newStorageOptions = $this->flysystemStorage->save('/tmp/flysystem', 'image.jpg', $storageOptions);
         self::assertEquals(
             [
                 'fileName' => 'image.jpg',
                 'segment' => '01',
             ],
-            $newStorageOptions
+            $this->flysystemStorage->save(__FILE__, 'image.jpg', $storageOptions)
         );
+
+        self::assertTrue($this->flysystem->has('01/image.jpg'));
     }
 
     public function testSaveWithRandomSegment(): void
     {
         $storageOptions = [];
-        $segment = null;
 
-        $this->flysystem
-            ->has(Argument::type('string'))
-            ->shouldBeCalled()
-            ->will(static function(array $arguments) use (&$segment) {
-                $path = $arguments[0];
-                if (\str_ends_with($path, 'image.jpg')) {
-                    // Asking if the image path exists should return false because duplicate names are tested elsewhere
-                    return false;
-                }
+        $newStorageOptions = $this->flysystemStorage->save(__FILE__, 'code.php', $storageOptions);
 
-                // Otherwise it's the randomly generated segment (a zero filled number from 1 to 100)
-                self::assertSame(3, \strlen($path));
-                if ('1' === $path[0]) {
-                    self::assertSame('100', $path);
-                } else {
-                    self::assertSame('0', $path[0]);
-                }
-                $segment = $path;
+        self::assertEquals($newStorageOptions['fileName'] ?? '', 'code.php');
+        self::assertEquals(3, \strlen((string) ($newStorageOptions['segment'] ?? '')));
 
-                return true;
-            })
-        ;
+        self::assertTrue($this->flysystem->has(($newStorageOptions['segment'] ?? '') . '/code.php'));
+    }
 
-        $newStorageOptions = $this->flysystemStorage->save('/tmp/flysystem', 'image.jpg', $storageOptions);
+    public function testSaveUnableToReadSource(): void
+    {
+        $storageOptions = [
+            'sement' => '01',
+        ];
 
-        $this->flysystem->writeStream(
-            $segment . '/image.jpg',
-            false,
-            ['visibility' => 'public']
-        )->shouldHaveBeenCalledOnce();
+        $this->expectException(FilenameAlreadyExistsException::class);
 
-        self::assertEquals(
-            [
-                'fileName' => 'image.jpg',
-                'segment' => $segment,
-            ],
-            $newStorageOptions
-        );
+        $this->flysystemStorage->save(__DIR__ . '/does_not_exist', 'image.jpg', $storageOptions);
     }
 
     public function testSaveIntoDirectory(): void
@@ -125,25 +87,14 @@ class FlysystemStorageTest extends TestCase
             'segment' => '01',
         ];
 
-        $this->flysystem->has('/tmp/flysystem')->shouldBeCalled()->willReturn(true);
-        $this->flysystem->has('/tmp/flysystem/01/image.jpg')->shouldBeCalled()->willReturn(false);
-        $this->flysystem->has('/tmp/flysystem/01')->shouldBeCalled()->willReturn(true);
-
-        $this->flysystem->writeStream(
-            '/tmp/flysystem/01/image.jpg',
-            false,
-            ['visibility' => 'public']
-        )->shouldBeCalled();
-
-        $newStorageOptions = $this->flysystemStorage->save('/tmp/flysystem', 'image.jpg', $storageOptions);
         self::assertEquals(
-            [
-                'fileName' => 'image.jpg',
-                'segment' => '01',
-                'directory' => '/tmp/flysystem',
-            ],
-            $newStorageOptions
+            \array_merge($storageOptions, [
+                'fileName' => 'code.php',
+            ]),
+            $this->flysystemStorage->save(__FILE__, 'code.php', $storageOptions),
         );
+
+        self::assertTrue($this->flysystem->has('tmp/flysystem/01/code.php'));
     }
 
     public function testSaveNonUniqueFileName(): void
@@ -152,56 +103,45 @@ class FlysystemStorageTest extends TestCase
             'segment' => '08',
         ];
 
-        $this->flysystem->has('08')->shouldBeCalled()->willReturn(true);
-        $this->flysystem->has('08/image.jpg')->shouldBeCalled()->willReturn(true);
-        $this->flysystem->has('08/image-1.jpg')->shouldBeCalled()->willReturn(false);
+        $this->flysystem->write('08/code.php', 'Some code');
 
-        $this->flysystem->writeStream(
-            '08/image-1.jpg',
-            Argument::type('resource'),
-            ['visibility' => 'public']
-        )->shouldBeCalled();
-
-        $newStorageOptions = $this->flysystemStorage->save('/', 'image.jpg', $storageOptions);
+        $newStorageOptions = $this->flysystemStorage->save(__FILE__, 'code.php', $storageOptions);
         self::assertEquals(
             [
-                'fileName' => 'image-1.jpg',
+                'fileName' => 'code-1.php',
                 'segment' => '08',
             ],
             $newStorageOptions
         );
+        self::assertTrue($this->flysystem->has('08/code-1.php'));
     }
 
     public function testLoad(): void
     {
         $storageOptions = [
             'segment' => '08',
-            'fileName' => 'test.jpg',
+            'fileName' => 'code.php',
         ];
 
-        $resource = @\opendir(__DIR__);
-
-        $this->flysystem
-            ->readStream('08/test.jpg')
-            ->shouldBeCalled()
-            ->willReturn($resource)
-        ;
+        $this->flysystem->write('08/code.php', 'Some code');
 
         $loadedResource = $this->flysystemStorage->load($storageOptions);
 
-        $this->assertSame($resource, $loadedResource);
+        self::assertEquals('Some code', \stream_get_contents($loadedResource));
     }
 
     public function testRemove(): void
     {
         $storageOptions = [
             'segment' => '08',
-            'fileName' => 'test.jpg',
+            'fileName' => 'plant.jpg',
         ];
 
-        $this->flysystem->delete('08/test.jpg')->shouldBeCalled();
+        $this->flysystem->write('08/plant.jpg', 'Flowers and stuff');
 
         $this->flysystemStorage->remove($storageOptions);
+
+        self::assertFalse($this->flysystem->has('08/plant.jpg'));
     }
 
     public function testMove(): void
@@ -215,18 +155,13 @@ class FlysystemStorageTest extends TestCase
             'fileName' => 'hallo.jpg',
         ];
 
-        $this->flysystem->has('10')->shouldBeCalled()->willReturn(false);
-        $this->flysystem->has('10/hallo.jpg')->shouldBeCalled()->willReturn(false);
-
-        $this->flysystem->createDirectory('10')->shouldBeCalled();
-
-        $this->flysystem
-            ->move('08/test.jpg', '10/hallo.jpg')
-            ->shouldBeCalled();
-
+        $this->flysystem->write('08/test.jpg', 'Some file');
         $outputStorageOptions = $this->flysystemStorage->move($sourceStorageOptions, $targetStorageOptions);
 
         $this->assertEquals($targetStorageOptions, $outputStorageOptions);
+
+        self::assertTrue($this->flysystem->has('10/hallo.jpg'));
+        self::assertFalse($this->flysystem->has('08/test.jpg'));
     }
 
     public function testMoveToExistingFile(): void
@@ -240,16 +175,8 @@ class FlysystemStorageTest extends TestCase
             'fileName' => 'hallo.jpg',
         ];
 
-        $this->flysystem->has('10')->shouldBeCalled()->willReturn(false);
-        $this->flysystem->has('10/hallo.jpg')->shouldBeCalled()->willReturn(true);
-        $this->flysystem->has('10/hallo-1.jpg')->shouldBeCalled()->willReturn(false);
-
-        $this->flysystem->createDirectory('10')->shouldBeCalled();
-
-        $this->flysystem
-            ->move('08/test.jpg', '10/hallo-1.jpg')
-            ->shouldBeCalled();
-
+        $this->flysystem->write('08/test.jpg', 'Some file');
+        $this->flysystem->write('10/hallo.jpg', 'Already there');
         $outputStorageOptions = $this->flysystemStorage->move($sourceStorageOptions, $targetStorageOptions);
 
         $targetStorageOptions = [
@@ -257,6 +184,10 @@ class FlysystemStorageTest extends TestCase
             'fileName' => 'hallo-1.jpg',
         ];
         $this->assertEquals($targetStorageOptions, $outputStorageOptions);
+
+        self::assertTrue($this->flysystem->has('10/hallo.jpg'));
+        self::assertTrue($this->flysystem->has('10/hallo-1.jpg'));
+        self::assertFalse($this->flysystem->has('08/test.jpg'));
     }
 
     public function testGetPath(): void

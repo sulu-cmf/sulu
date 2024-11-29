@@ -27,7 +27,7 @@ final class FlysystemCompilerPass implements CompilerPassInterface
     {
         $mediaStorage = $container->getDefinition('sulu_media.storage');
         /** @var Reference $reference */
-        $reference =$mediaStorage->getArgument(1);
+        $reference = $mediaStorage->getArgument(1);
         $adapterDefinition = $container->getDefinition($reference->__toString());
 
         if (LocalFilesystemAdapter::class === $adapterDefinition->getClass()) {

@@ -121,6 +121,7 @@
         "handcraftedinthealps/zendsearch": "^2.0",
         "jackalope/jackalope-doctrine-dbal": "^1.6 || ^2.0",
         "jangregor/phpstan-prophecy": "^1.0",
+        "league/flysystem-memory": "^3.29",
         "matthiasnoback/symfony-config-test": "^4.3 || ^5.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.3 || ^5.0 || ^6.0",
         "monolog/monolog": "^1.26.1 || ^2.3 || ^3.0",
