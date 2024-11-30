@@ -28,6 +28,12 @@ Removed unused arguments:
 
 The script provided by Sulu for the piwik implementation has been updated to use mataomo path so the script is now pointing to matomo.php instead of the piwik.php file.
 
+### Removing deprecated guzzle integration
+
+As part of the update of flysystem the support for the guzzle client package `guzzlehttp/guzzle` has been removed. If you need it you need to manually require it.
+
+The `GoogleGeolocator` and the `NominatimGeolocator` no longer support the Guzzle client and require a `Symfony\HttpClient` client instead.
+
 ## 2.6.4
 
 ### Stricter Image Format Url Handling

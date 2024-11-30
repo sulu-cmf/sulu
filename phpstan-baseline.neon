@@ -2916,7 +2916,7 @@ parameters:
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Tests/Functional/Controller/TargetGroupControllerTest.php
 
 		-
-			message: "#^Parameter \\#6 \\$content of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\:\\:request\\(\\) expects string\\|null, string\\|false given\\.$#"
+			message: "#^Parameter \\#6 \\$content of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\<Symfony\\\\Component\\\\HttpFoundation\\\\Request,Symfony\\\\Component\\\\HttpFoundation\\\\Response\\>\\:\\:request\\(\\) expects string\\|null, string\\|false given\\.$#"
 			count: 4
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Tests/Functional/Controller/TargetGroupControllerTest.php
 
@@ -12126,131 +12126,6 @@ parameters:
 			path: src/Sulu/Bundle/LocationBundle/Geolocator/GeolocatorResponse.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 3
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'address_components' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'formatted_address' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'geometry' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'lat' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'lng' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'location' on mixed\\.$#"
-			count: 2
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'long_name'\\|'short_name' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'results' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'status' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'types' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Parameter \\#1 \\$displayTitle of method Sulu\\\\Bundle\\\\LocationBundle\\\\Geolocator\\\\GeolocatorLocation\\:\\:setDisplayTitle\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Parameter \\#1 \\$latitude of method Sulu\\\\Bundle\\\\LocationBundle\\\\Geolocator\\\\GeolocatorLocation\\:\\:setLatitude\\(\\) expects float\\|null, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Parameter \\#1 \\$longitude of method Sulu\\\\Bundle\\\\LocationBundle\\\\Geolocator\\\\GeolocatorLocation\\:\\:setLongitude\\(\\) expects float\\|null, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/GoogleGeolocator.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'address' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'city'\\|'country_code'\\|'house_number'\\|'postcode'\\|'road' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'display_name' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'lat' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'lon' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Cannot access offset 'place_id' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Parameter \\#1 \\$displayTitle of method Sulu\\\\Bundle\\\\LocationBundle\\\\Geolocator\\\\GeolocatorLocation\\:\\:setDisplayTitle\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method Sulu\\\\Bundle\\\\LocationBundle\\\\Geolocator\\\\GeolocatorLocation\\:\\:setId\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Parameter \\#1 \\$latitude of method Sulu\\\\Bundle\\\\LocationBundle\\\\Geolocator\\\\GeolocatorLocation\\:\\:setLatitude\\(\\) expects float\\|null, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
-			message: "#^Parameter \\#1 \\$longitude of method Sulu\\\\Bundle\\\\LocationBundle\\\\Geolocator\\\\GeolocatorLocation\\:\\:setLongitude\\(\\) expects float\\|null, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Geolocator/Service/NominatimGeolocator.php
-
-		-
 			message: "#^Call to an undefined method PHPCR\\\\NodeInterface\\:\\:expects\\(\\)\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Content/Types/LocationContentTypeTest.php
@@ -12296,82 +12171,12 @@ parameters:
 			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/GeolocatorResponseTest.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\GoogleGeolocatorTest\\:\\:provideLocate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\GoogleGeolocatorTest\\:\\:testLegacyGuzzleLocate\\(\\) has parameter \\$expectationMap with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\GoogleGeolocatorTest\\:\\:testLegacyGuzzleLocate\\(\\) has parameter \\$expectedCount with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\GoogleGeolocatorTest\\:\\:testLegacyGuzzleLocate\\(\\) has parameter \\$query with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\GoogleGeolocatorTest\\:\\:testLocate\\(\\) has parameter \\$expectationMap with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\GoogleGeolocatorTest\\:\\:testLocate\\(\\) has parameter \\$expectedCount with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\GoogleGeolocatorTest\\:\\:testLocate\\(\\) has parameter \\$query with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$body of class GuzzleHttp\\\\Psr7\\\\Response constructor expects Psr\\\\Http\\\\Message\\\\StreamInterface\\|resource\\|string\\|null, string\\|false given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/GoogleGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:provideLocate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:testGuzzleLocate\\(\\) has parameter \\$expectationMap with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:testGuzzleLocate\\(\\) has parameter \\$expectedCount with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:testGuzzleLocate\\(\\) has parameter \\$query with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:testLocate\\(\\) has parameter \\$expectationMap with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:testLocate\\(\\) has parameter \\$expectedCount with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:testLocate\\(\\) has parameter \\$query with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$body of class GuzzleHttp\\\\Psr7\\\\Response constructor expects Psr\\\\Http\\\\Message\\\\StreamInterface\\|resource\\|string\\|null, string\\|false given\\.$#"
+			message: "#^Method Sulu\\\\Bundle\\\\LocationBundle\\\\Tests\\\\Unit\\\\Geolocator\\\\Service\\\\NominatimGeolocatorTest\\:\\:testLocate\\(\\) has parameter \\$expectationMap with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/LocationBundle/Tests/Unit/Geolocator/Service/NominatimGeolocatorTest.php
 
@@ -21886,7 +21691,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Controller/PageControllerTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$parameters of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\:\\:jsonRequest\\(\\) expects array, mixed given\\.$#"
+			message: "#^Parameter \\#3 \\$parameters of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\<Symfony\\\\Component\\\\HttpFoundation\\\\Request,Symfony\\\\Component\\\\HttpFoundation\\\\Response\\>\\:\\:jsonRequest\\(\\) expects array, mixed given\\.$#"
 			count: 3
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Controller/PageControllerTest.php
 
@@ -26661,6 +26466,11 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Entity/User.php
 
 		-
+			message: "#^Method Sulu\\\\Bundle\\\\SecurityBundle\\\\Entity\\\\User\\:\\:getUserIdentifier\\(\\) should return non\\-empty\\-string but returns string\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/SecurityBundle/Entity/User.php
+
+		-
 			message: "#^Method Sulu\\\\Bundle\\\\SecurityBundle\\\\Entity\\\\User\\:\\:getUserRoles\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/Entity/User.php
@@ -30336,12 +30146,12 @@ parameters:
 			path: src/Sulu/Bundle/TestBundle/Kernel/SuluKernelBrowser.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\:\\:setServerParameter\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$value of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\<Symfony\\\\Component\\\\HttpFoundation\\\\Request,Symfony\\\\Component\\\\HttpFoundation\\\\Response\\>\\:\\:setServerParameter\\(\\) expects string, mixed given\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/TestBundle/Kernel/SuluKernelBrowser.php
 
 		-
-			message: "#^Parameter \\#6 \\$content of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\:\\:request\\(\\) expects string\\|null, string\\|false\\|null given\\.$#"
+			message: "#^Parameter \\#6 \\$content of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\<Symfony\\\\Component\\\\HttpFoundation\\\\Request,Symfony\\\\Component\\\\HttpFoundation\\\\Response\\>\\:\\:request\\(\\) expects string\\|null, string\\|false\\|null given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/TestBundle/Kernel/SuluKernelBrowser.php
 
