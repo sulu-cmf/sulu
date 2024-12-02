@@ -11,12 +11,6 @@
 
 namespace Sulu\Bundle\LocationBundle\Tests\Unit\Geolocator\Service;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
 use Sulu\Bundle\LocationBundle\Geolocator\Service\GoogleGeolocator;
@@ -25,7 +19,10 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 
 class GoogleGeolocatorTest extends TestCase
 {
-    public static function provideLocate()
+    /**
+     * @return array<array{string, int, array<string, string|null>}>
+     */
+    public static function provideLocate(): array
     {
         return [
             [
@@ -60,7 +57,7 @@ class GoogleGeolocatorTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('provideLocate')]
-    public function testLocate($query, $expectedCount, $expectationMap): void
+    public function testLocate(string $query, int $expectedCount, $expectationMap): void
     {
         $fixtureName = __DIR__ . '/google-responses/' . \md5($query) . '.json';
         /** @var string $fixture */
@@ -106,63 +103,9 @@ class GoogleGeolocatorTest extends TestCase
         $options->setAcceptLanguage('it-IT, it;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
         $geolocator->locate('foobar', $options);
 
-        $this->assertContains('Accept-Language: it-IT, it;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5', $mockResponse->getRequestOptions()['headers']);
-    }
-
-    /**
-     * Test if BC is maintained and guzzle client still works.
-     */
-    #[\PHPUnit\Framework\Attributes\DataProvider('provideLocate')]
-    public function testLegacyGuzzleLocate($query, $expectedCount, $expectationMap): void
-    {
-        if (!\class_exists(Client::class)) {
-            $this->markTestSkipped('No guzzle found to test legacy guzzle integration.');
-        }
-
-        $fixtureName = __DIR__ . '/google-responses/' . \md5($query) . '.json';
-        $fixture = \file_get_contents($fixtureName);
-        $mockHandler = new MockHandler([new Response(200, [], $fixture)]);
-
-        $client = new Client(['handler' => HandlerStack::create($mockHandler)]);
-        $geolocator = new GoogleGeolocator($client, '');
-
-        $results = $geolocator->locate($query);
-        $this->assertCount($expectedCount, $results);
-
-        if (0 == \count($results)) {
-            return;
-        }
-
-        $result = \current($results->toArray());
-
-        foreach ($expectationMap as $field => $expectation) {
-            $this->assertEquals($expectation, $result[$field]);
-        }
-    }
-
-    /**
-     * Test if BC is maintained and guzzle client still works.
-     */
-    public function testLegacyGuzzleApiKey(): void
-    {
-        if (!\class_exists(Client::class)) {
-            $this->markTestSkipped('No guzzle found to test legacy guzzle integration.');
-        }
-
-        $mockHandler = new MockHandler([new Response(200, [], '{"status": "OK","results":[]}')]);
-        $stack = HandlerStack::create($mockHandler);
-        $stack->push(
-            Middleware::mapRequest(
-                function(Request $request) {
-                    $this->assertStringContainsString('key=foobar', $request->getUri()->getQuery());
-
-                    return $request;
-                }
-            )
+        $this->assertContains(
+            'Accept-Language: it-IT, it;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5',
+            $mockResponse->getRequestOptions()['headers'],
         );
-
-        $client = new Client(['handler' => $stack]);
-        $geolocator = new GoogleGeolocator($client, 'foobar');
-        $geolocator->locate('foobar');
     }
 }

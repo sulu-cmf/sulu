@@ -11,8 +11,6 @@
 
 namespace Sulu\Bundle\LocationBundle\Geolocator\Service;
 
-use GuzzleHttp\ClientInterface;
-use Psr\Http\Message\ResponseInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorLocation;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
@@ -30,19 +28,9 @@ class GoogleGeolocator implements GeolocatorInterface
     public const ENDPOINT = 'https://maps.googleapis.com/maps/api/geocode/json';
 
     public function __construct(
-        protected HttpClientInterface|ClientInterface $client,
+        protected HttpClientInterface $client,
         protected string $apiKey
     ) {
-        if ($client instanceof ClientInterface) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.3',
-                \sprintf(
-                    'Instantiating GoogleGeolocator with %s as first argument is deprecated, please use %s instead.',
-                    ClientInterface::class, HttpClientInterface::class
-                )
-            );
-        }
     }
 
     public function locate(string $query, ?GeolocatorOptions $options = null): GeolocatorResponse
@@ -76,12 +64,7 @@ class GoogleGeolocator implements GeolocatorInterface
             );
         }
 
-        if ($response instanceof ResponseInterface) {
-            // BC to support for guzzle client
-            $googleResponse = \json_decode($response->getBody(), true);
-        } else {
-            $googleResponse = $response->toArray();
-        }
+        $googleResponse = $response->toArray();
 
         $response = new GeolocatorResponse();
         if ('OK' != $googleResponse['status']) {
