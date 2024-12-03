@@ -425,7 +425,7 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
                 new Reference($sorageServiceId),
                 new Reference($adapterService),
                 $config['storage']['segments'],
-                null,
+                null, // defined via compilerpass @see FlysystemCompilerPass
             ])
             ->setPublic(true)
         ;

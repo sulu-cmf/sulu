@@ -93,7 +93,10 @@ class FlysystemStorage implements StorageInterface
         $this->createDirectories($targetStorageOptions);
 
         $targetParentPath = $this->getFilePath(\array_merge($targetStorageOptions, ['fileName' => null]));
-        $targetStorageOptions['fileName'] = $this->getUniqueFileName($targetParentPath, $targetStorageOptions['fileName']);
+        $targetStorageOptions['fileName'] = $this->getUniqueFileName(
+            $targetParentPath,
+            $targetStorageOptions['fileName'] ?? 'file',
+        );
 
         $targetFilePath = $this->getFilePath($targetStorageOptions);
         if ($this->filesystem->has($targetFilePath)) {

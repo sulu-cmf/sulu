@@ -14956,26 +14956,6 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Media/Storage/FlysystemStorage.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\FlysystemStorage\\:\\:getStorageOption\\(\\) should return string\\|null but returns int\\|string\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Media/Storage/FlysystemStorage.php
-
-		-
-			message: "#^Offset 'fileName' does not exist on array\\{directory\\?\\: string, segment\\?\\: int\\|string, fileName\\?\\: string\\}\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Media/Storage/FlysystemStorage.php
-
-		-
-			message: "#^Parameter \\#1 \\$storageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\FlysystemStorage\\:\\:getFilePath\\(\\) expects array\\{directory\\?\\: string, segment\\?\\: int\\|string, fileName\\?\\: string\\}, array\\{directory\\?\\: string, fileName\\: null, segment\\: int\\|string\\} given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Media/Storage/FlysystemStorage.php
-
-		-
-			message: "#^Parameter \\#1 \\$storageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\FlysystemStorage\\:\\:getFilePath\\(\\) expects array\\{directory\\?\\: string, segment\\?\\: int\\|string, fileName\\?\\: string\\}, array\\{directory\\?\\: string, segment\\?\\: int\\|string, fileName\\: null\\} given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Media/Storage/FlysystemStorage.php
-
-		-
 			message: "#^Cannot call method getId\\(\\) on Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaType\\|null\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Media/TypeManager/TypeManager.php
@@ -17021,12 +17001,12 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Trash/MediaTrashItemHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$sourceStorageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\StorageInterface\\:\\:move\\(\\) expects array\\{directory\\?\\: string, segment\\?\\: int\\|string, fileName\\?\\: string\\}, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$sourceStorageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\StorageInterface\\:\\:move\\(\\) expects array\\<string, string\\|null\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Trash/MediaTrashItemHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$storageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\StorageInterface\\:\\:remove\\(\\) expects array\\{directory\\?\\: string, segment\\?\\: int\\|string, fileName\\?\\: string\\}, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$storageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\StorageInterface\\:\\:remove\\(\\) expects array\\<string, string\\|null\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Trash/MediaTrashItemHandler.php
 
@@ -17046,7 +17026,7 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Trash/MediaTrashItemHandler.php
 
 		-
-			message: "#^Parameter \\#2 \\$targetStorageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\StorageInterface\\:\\:move\\(\\) expects array\\{directory\\?\\: string, segment\\?\\: int\\|string, fileName\\?\\: string\\}, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$targetStorageOptions of method Sulu\\\\Bundle\\\\MediaBundle\\\\Media\\\\Storage\\\\StorageInterface\\:\\:move\\(\\) expects array\\<string, string\\|null\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Trash/MediaTrashItemHandler.php
 

@@ -15,11 +15,7 @@ namespace Sulu\Bundle\MediaBundle\Media\Storage;
  * Defines the operations of the StorageLayer.
  * The StorageLayer is a interface to centralized management of media store.
  *
- *  @phpstan-type StorageOptions array{
- *     "directory" ?: string,
- *     "segment" ?: int|string,
- *     "fileName" ?: string,
- * }
+ *  @phpstan-type StorageOptions array<string, string|null>
  */
 interface StorageInterface
 {
