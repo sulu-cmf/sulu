@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Application\ContentResolver\Resolver;
 
-use Sulu\Component\Localization\Localization;
 use Sulu\Component\Localization\Manager\LocalizationManagerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
@@ -37,8 +36,9 @@ use Sulu\Content\Domain\Model\WebspaceInterface;
  *      mainWebspace: string|null,
  *      template: string|null,
  *      author: int|null,
- *      authored: \DateTimeInterface|null,
- *      shadowBaseLocale: string|null
+ *      authored: \DateTime|null,
+ *      shadowBaseLocale: string|null,
+ *      lastModified?: \DateTimeImmutable|null
  *  }
  */
 readonly class SettingsResolver implements ResolverInterface
@@ -51,11 +51,7 @@ readonly class SettingsResolver implements ResolverInterface
 
     public function resolve(DimensionContentInterface $dimensionContent): ContentView
     {
-        // TODO add last modified data
-
-        /**
-         * @var SettingsData $result
-         */
+        /** @var SettingsData $result */
         $result = [
             'availableLocales' => $dimensionContent->getAvailableLocales() ?? [],
         ];
@@ -74,6 +70,7 @@ readonly class SettingsResolver implements ResolverInterface
 
         if ($dimensionContent instanceof AuthorInterface) {
             $result = \array_merge($result, $this->getAuthorData($dimensionContent));
+            $result = \array_merge($result, $this->getLastModifiedData($dimensionContent));
         }
 
         if ($dimensionContent instanceof ShadowInterface) {
@@ -100,22 +97,29 @@ readonly class SettingsResolver implements ResolverInterface
     protected function getLocalizationsData(RoutableInterface&TemplateInterface&DimensionContentInterface $dimensionContent): array
     {
         $templateData = $dimensionContent->getTemplateData();
-        /** @var string|null $url */
-        $url = $templateData['url'] ?? null;
+
+        if (!isset($templateData['url'])) {
+            return [
+                'localizations' => [],
+            ];
+        }
+
+        /** @var string $templateUrl */
+        $templateUrl = $templateData['url'];
         $webspaceKey = $dimensionContent instanceof WebspaceInterface ? $dimensionContent->getMainWebspace() : null;
 
         $localizations = $this->localizationManager->getLocalizations();
         $localizationData = [];
 
         $availableLocales = $dimensionContent->getAvailableLocales() ?? [];
-        foreach ($availableLocales as $locale) {
-            /** @var Localization $localization */
-            $localization = $localizations[$locale];
+        $availableLocales = \array_combine($availableLocales, $availableLocales);
+        foreach ($localizations as $locale => $localization) {
+            $url = isset($availableLocales[$locale]) ? $templateUrl : '/';
 
             $resolvedUrl = $this->webspaceManager->findUrlByResourceLocator(
-                (string) $url,
+                $url,
                 null,
-                $localization->getLocale(),
+                $locale,
                 $webspaceKey
             );
 
@@ -123,7 +127,7 @@ readonly class SettingsResolver implements ResolverInterface
                 'locale' => $locale,
                 'url' => $resolvedUrl,
                 'country' => $localization->getCountry(),
-                'alternate' => null !== $resolvedUrl, // TODO test page that has only one locale
+                'alternate' => '/' !== $url, // true for alternative locales
             ];
         }
 
@@ -179,6 +183,22 @@ readonly class SettingsResolver implements ResolverInterface
     {
         return [
             'shadowBaseLocale' => $dimensionContent->getShadowLocale(),
+        ];
+    }
+
+    /**
+     * @return array{
+     *     lastModified?: \DateTimeImmutable|null
+     * }
+     */
+    protected function getLastModifiedData(AuthorInterface $dimensionContent): array
+    {
+        if (!$dimensionContent->getLastModifiedEnabled()) {
+            return [];
+        }
+
+        return [
+            'lastModified' => $dimensionContent->getLastModified(),
         ];
     }
 }
