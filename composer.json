@@ -283,8 +283,7 @@
             "@php bin/websiteconsole lint:container --env prod"
         ],
         "lint-doctrine": [
-            "@php bin/adminconsole doctrine:schema:validate --skip-sync",
-            "@php bin/adminconsole doctrine:ensure-production-settings --env prod"
+            "@php bin/adminconsole doctrine:schema:validate --skip-sync"
         ]
     },
     "config": {
