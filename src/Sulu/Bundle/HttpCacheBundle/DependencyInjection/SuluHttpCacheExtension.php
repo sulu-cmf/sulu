@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\HttpCacheBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -60,6 +61,17 @@ class SuluHttpCacheExtension extends Extension implements PrependExtensionInterf
             if (\array_key_exists('tags_header', $varnishProxyClient)) {
                 $fosHttpCacheConfig['proxy_client']['varnish']['tags_header'] = $varnishProxyClient['tags_header'];
             }
+        }
+
+        if ($config['proxy_client']['nginx']['enabled']) {
+            if ($config['tags']['enabled']) {
+                throw new InvalidConfigurationException('The nginx proxy client does not support Tagged Cache Invalidation, please set tags to false');
+            }
+
+            $nginxProxyClient = $config['proxy_client']['nginx'];
+
+            $fosHttpCacheConfig['proxy_client']['nginx']['http']['servers'] =
+                \count($nginxProxyClient['servers']) ? $nginxProxyClient['servers'] : ['127.0.0.1'];
         }
 
         if (\array_key_exists('proxy_client', $fosHttpCacheConfig)) {
