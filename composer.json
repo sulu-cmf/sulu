@@ -24,6 +24,12 @@
         "source": "https://github.com/sulu/skeleton",
         "docs": "https://docs.sulu.io/"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:alexander-schranz/DoctrineFixturesBundle.git"
+        }
+    ],
     "require": {
         "php": "^8.0 || ^8.1",
         "ext-dom": "*",
@@ -38,7 +44,7 @@
         "doctrine/data-fixtures": "^1.3.3",
         "doctrine/dbal": "^2.13 || ^3.0",
         "doctrine/doctrine-bundle": "^2.4",
-        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "doctrine/doctrine-fixtures-bundle": "dev-patch-1 as 3.7.999",
         "doctrine/inflector": "^1.4.1 || ^2.0.1",
         "doctrine/orm": "^2.8",
         "doctrine/persistence": "^2.0",
