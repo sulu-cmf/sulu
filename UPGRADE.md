@@ -53,6 +53,101 @@ flysystem:
                 directory: '%kernel.project_dir%/var/uploads'
 ```
 
+Here are some examples on how to migrate individual providers:
+
+<details>
+  <summary>Sulu Media S3 to Flysystem S3</summary>
+
+Before:
+
+```yaml
+sulu_media:
+    storage: s3
+    storages:
+        s3:
+            key: 'your aws s3 key'
+            secret: 'your aws s3 secret'
+            bucket_name: 'your aws s3 bucket name'
+            path_prefix: 'optional/path/prefix'
+            region: 'eu-west-1'
+```
+
+New:
+
+```yaml
+flysystem:
+    storages:
+        default.storage:
+            adapter: 'aws'
+            options:
+                client: 'aws_client_service' # The service ID of the Aws\S3\S3Client instance
+                key: ''
+                secret: ''
+                bucket: 'bucket_name'
+                prefix: 'optional/path/prefix'
+                streamReads: true
+```
+
+</details>
+
+<details>
+  <summary>Sulu Google Cloud Config to Flysystem S3</summary>
+
+> [!NOTE]  
+> If you were using `superbalist/flysystem-google-storage` replace it with the official package version `league/flysystem-google-cloud-storage`.
+
+Before:
+
+```yaml
+sulu_media:
+    storage: google_cloud
+    storages:
+        google_cloud:
+            key_file_path: '/path/to/key.json'
+            bucket_name: 'sulu-bucket'
+            path_prefix: 'optional path prefix'
+```
+
+New:
+```yaml
+flysystem:
+    storages:
+        default.storage:
+            adapter: 'gcloud'
+            options:
+                client: 'gcloud_client_service' # The service ID of the Google\Cloud\Storage\StorageClient instance
+                bucket: 'bucket_name'
+                prefix: 'optional/path/prefix'
+```
+</details>
+<details>
+  <summary>Sulu Azure Config to Flysystem Config</summary>
+
+Before:
+
+```yaml
+sulu_media:
+    storage: google_cloud
+    storages:
+        google_cloud:
+            key_file_path: '/path/to/key.json'
+            bucket_name: 'sulu-bucket'
+            path_prefix: 'optional path prefix'
+```
+
+New
+```
+flysystem:
+    storages:
+        default.storage:
+            adapter: 'azure'
+            options:
+                client: 'azure_client_service' # The service ID of the MicrosoftAzure\Storage\Blob\BlobRestProxy instance
+                container: 'container_name'
+                prefix: 'optional/path/prefix'
+```
+</details>
+
 If you want use a [different storage](https://github.com/thephpleague/flysystem-bundle/blob/3.x/docs/2-cloud-storage-providers.md) for Sulu you can configure it here:
 
 ```yaml
