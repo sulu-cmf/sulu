@@ -108,6 +108,7 @@ sulu_media:
             path_prefix: 'optional path prefix'
 ```
 
+
 New:
 ```yaml
 flysystem:
@@ -119,7 +120,9 @@ flysystem:
                 bucket: 'bucket_name'
                 prefix: 'optional/path/prefix'
 ```
+
 </details>
+
 <details>
   <summary>Sulu Azure Config to Flysystem Config</summary>
 
@@ -136,7 +139,8 @@ sulu_media:
 ```
 
 New
-```
+
+```yaml
 flysystem:
     storages:
         default.storage:
@@ -146,6 +150,7 @@ flysystem:
                 container: 'container_name'
                 prefix: 'optional/path/prefix'
 ```
+
 </details>
 
 If you want use a [different storage](https://github.com/thephpleague/flysystem-bundle/blob/3.x/docs/2-cloud-storage-providers.md) for Sulu you can configure it here:
