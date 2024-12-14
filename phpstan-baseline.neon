@@ -40671,7 +40671,7 @@ parameters:
 			path: src/Sulu/Component/CustomUrl/Manager/TitleAlreadyExistsException.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\CustomUrl\\\\Repository\\\\CustomUrlRepository\\:\\:findUrls\\(\\) should return Iterator but returns array\\<string\\>\\.$#"
+			message: "#^Method Sulu\\\\Component\\\\CustomUrl\\\\Repository\\\\CustomUrlRepository\\:\\:findUrls\\(\\) should return Iterator but returns array\\<int, string\\>\\.$#"
 			count: 1
 			path: src/Sulu/Component/CustomUrl/Repository/CustomUrlRepository.php
 
@@ -40696,7 +40696,7 @@ parameters:
 			path: src/Sulu/Component/CustomUrl/Repository/CustomUrlRepository.php
 
 		-
-			message: "#^Parameter \\#1 \\$uuids of method Sulu\\\\Component\\\\Content\\\\Repository\\\\ContentRepositoryInterface\\:\\:findByUuids\\(\\) expects array\\<string\\>, array given\\.$#"
+			message: "#^Parameter \\#1 \\$uuids of method Sulu\\\\Component\\\\Content\\\\Repository\\\\ContentRepositoryInterface\\:\\:findByUuids\\(\\) expects array\\<string\\>, array\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: src/Sulu/Component/CustomUrl/Repository/CustomUrlRepository.php
 

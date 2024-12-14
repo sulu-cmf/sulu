@@ -80,12 +80,17 @@ flysystem:
         default.storage:
             adapter: 'aws'
             options:
-                client: 'aws_client_service' # The service ID of the Aws\S3\S3Client instance
+                client: 'aws_client_service' # see service below
                 key: ''
                 secret: ''
                 bucket: 'bucket_name'
                 prefix: 'optional/path/prefix'
                 streamReads: true
+services:
+    aws_client_service:
+        class: Aws\\S3\\S3Client
+        arguments:
+            - [] # Put the value of the parameter "sulu_media.media.storage.s3.arguments" here (empty array by default)
 ```
 
 </details>
@@ -116,7 +121,7 @@ flysystem:
         default.storage:
             adapter: 'gcloud'
             options:
-                client: 'gcloud_client_service' # The service ID of the Google\Cloud\Storage\StorageClient instance
+                client: 'gcloud_client_service' # The service ID of the Google\\Cloud\\Storage\\StorageClient instance
                 bucket: 'bucket_name'
                 prefix: 'optional/path/prefix'
 ```
