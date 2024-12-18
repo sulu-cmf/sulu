@@ -275,25 +275,11 @@ class Category implements CategoryInterface
         )->first();
     }
 
-    public function addChildren(CategoryInterface $child)
-    {
-        @trigger_deprecation('sulu/sulu', '1.4', __METHOD__ . '() is deprecated and will be removed in 2.0. Use addChild() instead.');
-
-        $this->addChild($child);
-    }
-
     public function addChild(CategoryInterface $child)
     {
         $this->children[] = $child;
 
         return $this;
-    }
-
-    public function removeChildren(CategoryInterface $child)
-    {
-        @trigger_deprecation('sulu/sulu', '1.4', __METHOD__ . '() is deprecated and will be removed in 2.0. Use removeChild() instead.');
-
-        $this->removeChild($child);
     }
 
     public function removeChild(CategoryInterface $child)

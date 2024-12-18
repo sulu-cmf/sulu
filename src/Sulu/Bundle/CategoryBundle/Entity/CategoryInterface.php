@@ -170,29 +170,11 @@ interface CategoryInterface extends AuditableInterface
     public function findTranslationByLocale($locale);
 
     /**
-     * {@see Category::addChild}.
-     *
-     * @deprecated use Category::addChild instead
-     *
-     * @return void
-     */
-    public function addChildren(self $child);
-
-    /**
      * Add children.
      *
      * @return CategoryInterface
      */
     public function addChild(self $child);
-
-    /**
-     * {@see Category::removeChild}.
-     *
-     * @deprecated use Category::removeChild instead
-     *
-     * @return void
-     */
-    public function removeChildren(self $child);
 
     /**
      * Remove children.
