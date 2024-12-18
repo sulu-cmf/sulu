@@ -25,15 +25,16 @@ use Sulu\Bundle\MediaBundle\Media\Exception\FormatOptionsMissingParameterExcepti
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaException;
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
 use Sulu\Bundle\MediaBundle\Media\PropertiesProvider\MediaPropertiesProviderInterface;
+use Sulu\Bundle\MediaBundle\Media\Storage\FlysystemStorage;
 use Sulu\Bundle\MediaBundle\Media\Storage\StorageInterface;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Sulu\Bundle\SearchBundle\SuluSearchBundle;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Process\ExecutableFinder;
 
@@ -274,6 +275,7 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
             'sulu_media.media.blocked_file_types',
             $this->getBlockedFileTypes($config)
         );
+        $this->configureStorage($config, $container);
 
         // collections
         $container->setParameter('sulu_media.collection.type.default', ['id' => 1]);
@@ -407,32 +409,27 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
             ]
         );
 
-        $this->configureStorage($config, $container, $loader);
         $this->configureFileValidator($config, $container);
 
         $container->registerForAutoconfiguration(MediaPropertiesProviderInterface::class)
             ->addTag('sulu_media.media_properties_provider');
     }
 
-    private function configureStorage(array $config, ContainerBuilder $container, LoaderInterface $loader)
+    private function configureStorage(array $config, ContainerBuilder $container): void
     {
-        $storage = $container->resolveEnvPlaceholders($config['storage'], true);
-        $container->setParameter('sulu_media.media.storage', $storage);
+        $sorageServiceId = $config['storage']['flysystem_service'];
+        $adapterService = 'flysystem.adapter.' . $sorageServiceId;
 
-        foreach ($config['storages'] as $storageKey => $storageConfig) {
-            foreach ($storageConfig as $key => $value) {
-                if ($storageKey === $storage) {
-                    $container->setParameter('sulu_media.media.storage.' . $storageKey . '.' . $key, $value);
-                } else {
-                    // Resolve unused ENV Variables of other Adapter
-                    $container->resolveEnvPlaceholders($value, true);
-                }
-            }
-        }
+        $container->register('sulu_media.storage', FlysystemStorage::class)
+            ->setArguments([
+                new Reference($sorageServiceId),
+                new Reference($adapterService),
+                $config['storage']['segments'],
+                null, // defined via compilerpass @see FlysystemCompilerPass
+            ])
+            ->setPublic(true)
+        ;
 
-        $loader->load('services_storage_' . $storage . '.xml');
-
-        $container->setAlias('sulu_media.storage', 'sulu_media.storage.' . $storage)->setPublic(true);
         $container->setAlias(StorageInterface::class, 'sulu_media.storage')->setPublic(true);
     }
 
@@ -455,7 +452,7 @@ class SuluMediaExtension extends Extension implements PrependExtensionInterface
         return $mimeTypes;
     }
 
-    private function checkCommandAvailability($command)
+    private function checkCommandAvailability(string $command): bool
     {
         return null !== $this->executableFinder->find($command) || @\is_executable($command);
     }

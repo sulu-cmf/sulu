@@ -11,23 +11,36 @@
 
 namespace Sulu\Bundle\MediaBundle\Media\Storage;
 
-use League\Flysystem\AdapterInterface;
-use League\Flysystem\FileExistsException;
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use League\Flysystem\UnableToDeleteFile;
+use League\Flysystem\UnableToReadFile;
+use League\Flysystem\Visibility;
 use Sulu\Bundle\MediaBundle\Media\Exception\FilenameAlreadyExistsException;
 use Sulu\Bundle\MediaBundle\Media\Exception\ImageProxyMediaNotFoundException;
 
-abstract class FlysystemStorage implements StorageInterface
+/** @phpstan-import-type StorageOptions from StorageInterface */
+class FlysystemStorage implements StorageInterface
 {
-    public function __construct(private FilesystemInterface $filesystem, private int $segments)
-    {
+    public function __construct(
+        private FilesystemOperator $filesystem,
+        private FilesystemAdapter $adapter,
+        private int $segments,
+        private ?string $rootPath,
+    ) {
     }
 
     public function save(string $tempPath, string $fileName, array $storageOptions = []): array
     {
         if (!\array_key_exists('segment', $storageOptions)) {
-            $storageOptions['segment'] = \sprintf('%0' . \strlen($this->segments) . 'd', \rand(1, $this->segments));
+            // Generating a string based on the segment. It zero fills the random value it generates. So if the value
+            // of segments is 100 and the random value is 5 it returns the string 005
+            $storageOptions['segment'] = \sprintf(
+                '%0' . \strlen((string) $this->segments) . 'd',
+                \rand(1, $this->segments),
+            );
         }
 
         $this->createDirectories($storageOptions);
@@ -41,9 +54,9 @@ abstract class FlysystemStorage implements StorageInterface
             $this->filesystem->writeStream(
                 $filePath,
                 \fopen($tempPath, 'r'),
-                ['visibility' => AdapterInterface::VISIBILITY_PUBLIC]
+                ['visibility' => Visibility::PUBLIC]
             );
-        } catch (FileExistsException $exception) {
+        } catch (FilesystemException) {
             throw new FilenameAlreadyExistsException($filePath);
         }
 
@@ -56,7 +69,7 @@ abstract class FlysystemStorage implements StorageInterface
 
         try {
             return $this->filesystem->readStream($filePath);
-        } catch (FileNotFoundException $exception) {
+        } catch (UnableToReadFile) {
             throw new ImageProxyMediaNotFoundException(\sprintf('Original media at path "%s" not found', $filePath));
         }
     }
@@ -71,7 +84,7 @@ abstract class FlysystemStorage implements StorageInterface
 
         try {
             $this->filesystem->delete($filePath);
-        } catch (FileNotFoundException $exception) {
+        } catch (UnableToDeleteFile) {
         }
     }
 
@@ -80,14 +93,17 @@ abstract class FlysystemStorage implements StorageInterface
         $this->createDirectories($targetStorageOptions);
 
         $targetParentPath = $this->getFilePath(\array_merge($targetStorageOptions, ['fileName' => null]));
-        $targetStorageOptions['fileName'] = $this->getUniqueFileName($targetParentPath, $targetStorageOptions['fileName']);
+        $targetStorageOptions['fileName'] = $this->getUniqueFileName(
+            $targetParentPath,
+            $targetStorageOptions['fileName'] ?? 'file',
+        );
 
         $targetFilePath = $this->getFilePath($targetStorageOptions);
         if ($this->filesystem->has($targetFilePath)) {
             throw new FilenameAlreadyExistsException($targetFilePath);
         }
 
-        $this->filesystem->rename($this->getFilePath($sourceStorageOptions), $targetFilePath);
+        $this->filesystem->move($this->getFilePath($sourceStorageOptions), $targetFilePath);
 
         return $targetStorageOptions;
     }
@@ -113,7 +129,7 @@ abstract class FlysystemStorage implements StorageInterface
     }
 
     /**
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      */
     protected function getStorageOption(array $storageOptions, string $key): ?string
     {
@@ -121,7 +137,7 @@ abstract class FlysystemStorage implements StorageInterface
     }
 
     /**
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      */
     protected function getFilePath(array $storageOptions): string
     {
@@ -133,7 +149,7 @@ abstract class FlysystemStorage implements StorageInterface
     }
 
     /**
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      */
     private function createDirectories(array $storageOptions): void
     {
@@ -141,14 +157,32 @@ abstract class FlysystemStorage implements StorageInterface
         $directoryPath = \implode('/', \array_filter([$directory]));
 
         if ($directoryPath && !$this->filesystem->has($directoryPath)) {
-            $this->filesystem->createDir($directoryPath);
+            $this->filesystem->createDirectory($directoryPath);
         }
 
         $segment = $this->getStorageOption($storageOptions, 'segment');
         $segmentPath = \implode('/', \array_filter([$directory, $segment]));
 
         if ($segmentPath && !$this->filesystem->has($segmentPath)) {
-            $this->filesystem->createDir($segmentPath);
+            $this->filesystem->createDirectory($segmentPath);
         }
+    }
+
+    public function getPath(array $storageOptions): string
+    {
+        if (null === $this->rootPath) {
+            return $this->getFilePath($storageOptions);
+        }
+
+        return $this->rootPath . '/' . $this->getFilePath($storageOptions);
+    }
+
+    public function getType(array $storageOptions): string
+    {
+        if ($this->adapter instanceof LocalFilesystemAdapter) {
+            return StorageInterface::TYPE_LOCAL;
+        }
+
+        return StorageInterface::TYPE_REMOTE;
     }
 }

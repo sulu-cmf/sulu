@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use JMS\Serializer\Annotation\Exclude;
 use Sulu\Bundle\AudienceTargetingBundle\Entity\TargetGroupInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
+use Sulu\Bundle\MediaBundle\Media\Storage\StorageInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
@@ -23,6 +24,8 @@ use Symfony\Component\Mime\MimeTypes;
 
 /**
  * FileVersion.
+ *
+ * @phpstan-import-type StorageOptions from StorageInterface
  */
 class FileVersion implements AuditableInterface
 {
@@ -280,6 +283,9 @@ class FileVersion implements AuditableInterface
         return null;
     }
 
+    /**
+     * @param StorageOptions $storageOptions
+     */
     public function setStorageOptions(array $storageOptions)
     {
         $serializedText = \json_encode($storageOptions);
@@ -293,10 +299,11 @@ class FileVersion implements AuditableInterface
     }
 
     /**
-     * @return mixed[]
+     * @return StorageOptions
      */
     public function getStorageOptions(): array
     {
+        /** @var StorageOptions|null $storageOptions */
         $storageOptions = \json_decode($this->storageOptions ?? '', true);
         if (!$storageOptions) {
             return [];

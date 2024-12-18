@@ -223,16 +223,13 @@ class MediaPreviewControllerTest extends SuluTestCase
         return $media;
     }
 
-    /**
-     * @return string
-     */
-    private function getImagePath()
+    private function getImagePath(): string
     {
         return __DIR__ . '/../../Fixtures/files/photo.jpeg';
     }
 
-    private function getStoragePath()
+    private function getStoragePath(): string
     {
-        return $this->getContainer()->getParameter('sulu_media.media.storage.local.path');
+        return $this->getContainer()->getParameter('kernel.project_dir') . '/var/uploads';
     }
 }
