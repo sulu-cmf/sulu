@@ -94,6 +94,7 @@ class SuluCollectorTest extends TestCase
 
         $webspace->toArray()->shouldBeCalled();
         $portal->toArray()->shouldBeCalled();
+        $portal->getEnvironment('dev')->shouldBeCalled()->willReturn([]);
         $segment->toArray()->shouldBeCalled();
 
         $this->suluCollector->collect($this->request->reveal(), $this->response->reveal());
