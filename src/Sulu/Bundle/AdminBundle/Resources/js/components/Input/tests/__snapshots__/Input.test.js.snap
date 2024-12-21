@@ -168,6 +168,19 @@ exports[`Input should render with a segment counter 1`] = `
 </div>
 `;
 
+exports[`Input should render with autoFocus 1`] = `
+<div>
+  <div
+    class="input default left"
+  >
+    <input
+      type="text"
+      value="My value"
+    />
+  </div>
+</div>
+`;
+
 exports[`Input should render with autocomplete off 1`] = `
 <div>
   <div

@@ -102,7 +102,8 @@ export default class MediaUploadStore {
             throw new Error('The "id" property must be available for updating a media');
         }
 
-        const url = resourceRouteRegistry.getDetailUrl(
+        const url = resourceRouteRegistry.getUrl(
+            'detail',
             RESOURCE_KEY,
             {
                 action: 'new-version',
@@ -119,7 +120,8 @@ export default class MediaUploadStore {
     }
 
     create(collectionId: string | number, file: File): Promise<*> {
-        const url = resourceRouteRegistry.getDetailUrl(
+        const url = resourceRouteRegistry.getUrl(
+            'detail',
             RESOURCE_KEY,
             {
                 collection: collectionId,
@@ -141,7 +143,8 @@ export default class MediaUploadStore {
             throw new Error('The "id" property must be available for updating a media');
         }
 
-        const url = resourceRouteRegistry.getDetailUrl(
+        const url = resourceRouteRegistry.getUrl(
+            'detail',
             PREVIEW_RESOURCE_KEY,
             {
                 id,

@@ -25,7 +25,8 @@ use Sulu\Component\SmartContent\DataProviderInterface;
 use Sulu\Component\SmartContent\DataProviderResult;
 use Sulu\Component\SmartContent\ItemInterface;
 use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
 
 /**
  * Provides basic functionality for contact and account providers.
@@ -59,7 +60,7 @@ abstract class BaseDataProvider implements DataProviderInterface
         DataProviderRepositoryInterface $repository,
         private ArraySerializerInterface $serializer,
         private ?ReferenceStoreInterface $referenceStore = null,
-        private ?Security $security = null,
+        private Security|SymfonyCoreSecurity|null $security = null,
         private ?RequestAnalyzerInterface $requestAnalyzer = null,
         private $permissions = null
     ) {

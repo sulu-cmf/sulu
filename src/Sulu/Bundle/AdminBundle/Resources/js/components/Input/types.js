@@ -4,6 +4,7 @@ import type {ElementRef} from 'react';
 export type InputProps<T: ?string | ?number> = {|
     alignment?: 'left' | 'center' | 'right',
     autocomplete?: string,
+    autoFocus?: boolean,
     collapsed?: boolean,
     disabled: boolean,
     headline?: boolean,
@@ -24,7 +25,7 @@ export type InputProps<T: ?string | ?number> = {|
     onBlur?: () => void,
     onChange: (value: ?string, event: SyntheticEvent<HTMLInputElement>) => void,
     onClearClick?: () => void,
-    onFocus?: () => void,
+    onFocus?: (event: Event) => void,
     onIconClick?: () => void,
     onKeyPress?: (key: ?string, event: SyntheticKeyboardEvent<HTMLInputElement>) => void,
     placeholder?: string,

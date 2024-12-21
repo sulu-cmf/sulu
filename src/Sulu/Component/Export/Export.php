@@ -88,8 +88,13 @@ class Export
         foreach ($blockDataList as $blockData) {
             $blockType = $blockData['type'];
 
+            $component = $property->getComponentByName($blockType);
+            if (!$component) {
+                continue;
+            }
+
             $block = $this->getPropertiesContentData(
-                $property->getComponentByName($blockType)->getChildren(),
+                $component->getChildren(),
                 $blockData
             );
 

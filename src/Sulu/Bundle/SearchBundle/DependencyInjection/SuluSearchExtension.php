@@ -41,18 +41,6 @@ class SuluSearchExtension extends Extension implements PrependExtensionInterface
             );
         }
 
-        if ($container->hasExtension('fos_js_routing')) {
-            $container->prependExtensionConfig(
-                'fos_js_routing',
-                [
-                    'routes_to_expose' => [
-                        'sulu_search_indexes',
-                        'sulu_search_search',
-                    ],
-                ]
-            );
-        }
-
         $container->prependExtensionConfig('jms_serializer', [
             'metadata' => [
                 'directories' => [

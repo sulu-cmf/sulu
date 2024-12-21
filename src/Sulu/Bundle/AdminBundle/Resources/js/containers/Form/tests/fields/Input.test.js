@@ -161,3 +161,22 @@ test('Should not pass any arguments to onFinish callback', () => {
 
     expect(finishSpy).toBeCalledWith();
 });
+
+test('TextArea should call onFocus when the TextArea gets focus', () => {
+    const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('test'), 'snippets'));
+    const focusSpy = jest.fn();
+    const inputValid = shallow(
+        <Input
+            {...fieldTypeDefaultProps}
+            formInspector={formInspector}
+            onFocus={focusSpy}
+        />
+    );
+
+    const target = new EventTarget();
+    inputValid.find(InputComponent).prop('onFocus')({
+        target,
+    });
+
+    expect(focusSpy).toBeCalledWith(target);
+});

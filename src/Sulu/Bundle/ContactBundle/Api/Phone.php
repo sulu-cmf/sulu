@@ -26,11 +26,9 @@ class Phone extends ApiWrapper
         $this->locale = $locale;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getId(): ?int
     {
         return $this->entity->getId();
@@ -43,11 +41,9 @@ class Phone extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("phone")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('phone')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getPhone(): ?string
     {
         return $this->entity->getPhone();
@@ -60,11 +56,9 @@ class Phone extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("phoneType")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('phoneType')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getPhoneType(): ?int
     {
         return $this->entity->getPhoneType()->getId();

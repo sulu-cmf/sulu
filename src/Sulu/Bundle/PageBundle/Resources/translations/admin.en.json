@@ -31,6 +31,8 @@
     "sulu_page.editing_information": "Editing Information",
     "sulu_page.authored_date": "Authored Date",
     "sulu_page.author": "Author",
+    "sulu_page.last_modified_enabled": "Enable last modified date",
+    "sulu_page.last_modified_date": "Last modified date",
     "sulu_page.changelog": "Changelog",
     "sulu_page.text_for_more_link": "Text for more link",
     "sulu_page.icons": "Icons",
@@ -85,5 +87,7 @@
     "sulu_activity.description.pages.translation_restored": "{userFullName} has restored the \"{resourceLocale}\" translation of the page \"{resourceTitle}\"",
     "sulu_activity.description.pages.version_restored": "{userFullName} has restored the version \"{context_version}\" of the page \"{resourceTitle}\"",
     "sulu_activity.description.pages.preview_link_generated": "{userFullName} has generated a public preview link \"{resourceTitle}\"",
-    "sulu_activity.description.pages.preview_link_revoked": "{userFullName} has revoked the public preview link \"{resourceTitle}\""
+    "sulu_activity.description.pages.preview_link_revoked": "{userFullName} has revoked the public preview link \"{resourceTitle}\"",
+    "sulu_reference.resource.pages": "Page",
+    "sulu_reference.resource.snippets": "Snippet"
 }

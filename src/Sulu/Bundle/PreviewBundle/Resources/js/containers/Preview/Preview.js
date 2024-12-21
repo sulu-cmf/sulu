@@ -276,7 +276,7 @@ class Preview extends React.Component<Props> {
         }
     };
 
-    setPreviewScrollPosition = (pos) => {
+    setPreviewScrollPosition = (pos: number) => {
         const previewWindow = this.getPreviewWindow();
         if (previewWindow) {
             previewWindow.scrollTo({top: pos});

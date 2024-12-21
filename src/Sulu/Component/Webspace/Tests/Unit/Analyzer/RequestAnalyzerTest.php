@@ -213,9 +213,7 @@ class RequestAnalyzerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideGetter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetter')]
     public function testGetter(array $attributes, $method, $expected): void
     {
         $provider = $this->prophesize(RequestProcessorInterface::class);

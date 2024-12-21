@@ -142,6 +142,21 @@
                 <title>sulu_page.editing_information</title>
             </meta>
             <properties>
+                <property name="lastModifiedEnabled" type="checkbox" colspan="6" visibleCondition="shadowOn == false AND path != ''">
+                    <meta>
+                        <title>sulu_page.last_modified_enabled</title>
+                    </meta>
+
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+                <property name="lastModified" type="datetime" colspan="6" disabledCondition="!lastModifiedEnabled" visibleCondition="shadowOn == false AND path != ''">
+                    <meta>
+                        <title>sulu_page.last_modified_date</title>
+                    </meta>
+                </property>
                 <property name="authored" type="datetime" colspan="6" visibleCondition="shadowOn == false AND path != ''">
                     <meta>
                         <title>sulu_page.authored_date</title>

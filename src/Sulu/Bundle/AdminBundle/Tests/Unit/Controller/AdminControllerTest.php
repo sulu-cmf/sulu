@@ -372,9 +372,7 @@ class AdminControllerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideTranslationsAction
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTranslationsAction')]
     public function testTranslationsAction($locale, $translations, $fallbackTranslations, $resultTranslations): void
     {
         $request = new Request(['locale' => $locale]);

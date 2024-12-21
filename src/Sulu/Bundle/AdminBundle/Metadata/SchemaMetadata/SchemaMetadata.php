@@ -29,6 +29,11 @@ class SchemaMetadata implements SchemaMetadataInterface
     private $allOfsMetadata;
 
     /**
+     * @var array<string, SchemaMetadataInterface>
+     */
+    private $definitions = [];
+
+    /**
      * @param PropertyMetadata[] $properties
      * @param SchemaMetadataInterface[] $anyOfs
      * @param SchemaMetadataInterface[] $allOfs
@@ -45,8 +50,20 @@ class SchemaMetadata implements SchemaMetadataInterface
         return new self([], [], [$this, $schema]);
     }
 
+    public function addDefinition(string $name, SchemaMetadataInterface $definition): self
+    {
+        $this->definitions[$name] = $definition;
+
+        return $this;
+    }
+
     public function toJsonSchema(): array
     {
+        $definitionSchema = [];
+        foreach ($this->definitions as $name => $definition) {
+            $definitionSchema[$name] = $definition->toJsonSchema();
+        }
+
         $propertiesSchema = $this->propertiesMetadata->toJsonSchema();
 
         /*
@@ -72,9 +89,13 @@ class SchemaMetadata implements SchemaMetadataInterface
          * empty schema object as array instead of an object and would break
          */
         if (empty($jsonSchema)) {
-            return [
+            $jsonSchema = [
                 'type' => ['number', 'string', 'boolean', 'object', 'array', 'null'],
             ];
+        }
+
+        if (0 < \count($definitionSchema)) {
+            $jsonSchema['definitions'] = $definitionSchema;
         }
 
         return $jsonSchema;

@@ -17,7 +17,12 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\AudienceTargetingBundle\TargetGroup\TargetGroupStoreInterface;
+use Sulu\Bundle\MediaBundle\Content\Types\MediaSelectionContentType;
+use Sulu\Bundle\MediaBundle\Content\Types\SingleMediaSelection;
+use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Bundle\PageBundle\Content\Types\SinglePageSelection;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollectorInterface;
+use Sulu\Bundle\ReferenceBundle\Domain\Model\Reference;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore;
 use Sulu\Component\Content\Compat\Block\BlockProperty;
 use Sulu\Component\Content\Compat\Block\BlockPropertyType;
@@ -928,5 +933,136 @@ class BlockContentTypeTest extends TestCase
             ],
             $result
         );
+    }
+
+    public function testGetReferencesWithNullProperty(): void
+    {
+        $mediaSelectionContentType = new MediaSelectionContentType(
+            $this->prophesize(MediaManagerInterface::class)->reveal(),
+            new ReferenceStore(),
+            null,
+            null,
+            null
+        );
+        $this->contentTypeManager->get('media_selection')->willReturn($mediaSelectionContentType);
+        $singleMediaSelection = new SingleMediaSelection(
+            $this->prophesize(MediaManagerInterface::class)->reveal(),
+            new ReferenceStore(),
+            $this->prophesize(RequestAnalyzerInterface::class)->reveal(),
+            null,
+        );
+        $this->contentTypeManager->get('single_media_selection')->willReturn($singleMediaSelection);
+
+        $this->blockProperty = new BlockProperty('block1', '', 'type1', false, true, 999, 1);
+        $type1 = new BlockPropertyType('type1', '');
+        $type1->addChild(new Property('media', '', 'media_selection', false, true));
+        $this->blockProperty->addType($type1);
+
+        $this->subBlockProperty = new BlockProperty('sub-block', '', 'subType1', false, true, 999, 1);
+        $subType1 = new BlockPropertyType('subType1', '');
+        $subType1->addChild(new Property('single_media', '', 'single_media_selection', false, true));
+        $this->subBlockProperty->addType($subType1);
+        $type1->addChild($this->subBlockProperty);
+
+        $this->blockProperty->setValue(null);
+
+        /** @var ObjectProphecy<ReferenceCollectorInterface> $referenceCollector */
+        $referenceCollector = $this->prophesize(ReferenceCollectorInterface::class);
+        $this->blockContentType->getReferences($this->blockProperty, $referenceCollector->reveal());
+
+        $referenceCollector->addReference(Argument::cetera())->shouldNotHaveBeenCalled();
+    }
+
+    public function testGetReferences(): void
+    {
+        $mediaSelectionContentType = new MediaSelectionContentType(
+            $this->prophesize(MediaManagerInterface::class)->reveal(),
+            new ReferenceStore(),
+            null,
+            null,
+            null
+        );
+        $this->contentTypeManager->get('media_selection')->willReturn($mediaSelectionContentType);
+        $singleMediaSelection = new SingleMediaSelection(
+            $this->prophesize(MediaManagerInterface::class)->reveal(),
+            new ReferenceStore(),
+            $this->prophesize(RequestAnalyzerInterface::class)->reveal(),
+            null,
+        );
+        $this->contentTypeManager->get('single_media_selection')->willReturn($singleMediaSelection);
+
+        $this->blockProperty = new BlockProperty('block1', '', 'type1', false, true, 999, 1);
+        $type1 = new BlockPropertyType('type1', '');
+        $type1->addChild(new Property('media', '', 'media_selection', false, true));
+        $this->blockProperty->addType($type1);
+
+        $this->subBlockProperty = new BlockProperty('sub-block', '', 'subType1', false, true, 999, 1);
+        $subType1 = new BlockPropertyType('subType1', '');
+        $subType1->addChild(new Property('single_media', '', 'single_media_selection', false, true));
+        $this->subBlockProperty->addType($subType1);
+        $type1->addChild($this->subBlockProperty);
+
+        $data = [
+            [
+                'type' => 'type1',
+                'media' => [
+                    'ids' => [
+                        1,
+                        2,
+                    ],
+                ],
+                'sub-block' => [
+                    'type' => 'subType1',
+                    'single_media' => ['id' => 3],
+                    'settings' => [],
+                ],
+                'settings' => [],
+            ],
+            [
+                'type' => 'type1',
+                'media' => [
+                    'ids' => [
+                        4,
+                    ],
+                ],
+                'sub-block' => [],
+                'settings' => [],
+            ],
+        ];
+
+        $this->blockProperty->setValue($data);
+
+        /** @var ObjectProphecy<ReferenceCollectorInterface> $referenceCollector */
+        $referenceCollector = $this->prophesize(ReferenceCollectorInterface::class);
+        $referenceCollector->addReference(
+            'media',
+            1,
+            'block1[0].media'
+        )
+            ->shouldBeCalled()
+            ->willReturn(new Reference());
+        $referenceCollector->addReference(
+            'media',
+            2,
+            'block1[0].media'
+        )
+            ->shouldBeCalled()
+            ->willReturn(new Reference());
+        $referenceCollector->addReference(
+            'media',
+            3,
+            'block1[0].sub-block[0].single_media'
+        )
+            ->shouldBeCalled()
+            ->willReturn(new Reference());
+        $referenceCollector->addReference(
+            'media',
+            4,
+            'block1[1].media'
+        )
+            ->shouldBeCalled()
+            ->willReturn(new Reference());
+
+        $this->blockContentType->getReferences($this->blockProperty, $referenceCollector->reveal());
     }
 }

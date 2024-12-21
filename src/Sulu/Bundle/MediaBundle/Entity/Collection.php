@@ -34,23 +34,20 @@ class Collection implements CollectionInterface, PermissionInheritanceInterface
 
     /**
      * @var int
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $lft;
 
     /**
      * @var int
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $rgt;
 
     /**
      * @var int
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $depth;
 
     /**
@@ -70,16 +67,14 @@ class Collection implements CollectionInterface, PermissionInheritanceInterface
 
     /**
      * @var UserInterface|null
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $changer;
 
     /**
      * @var UserInterface|null
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $creator;
 
     /**
@@ -94,9 +89,8 @@ class Collection implements CollectionInterface, PermissionInheritanceInterface
 
     /**
      * @var DoctrineCollection<int, MediaInterface>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $media;
 
     /**

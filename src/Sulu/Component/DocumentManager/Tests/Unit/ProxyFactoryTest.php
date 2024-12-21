@@ -150,9 +150,8 @@ class ProxyFactoryTest extends TestCase
 
     /**
      * It should lazy load the proxy.
-     *
-     * @depends testCreateProxy
      */
+    #[\PHPUnit\Framework\Attributes\Depends('testCreateProxy')]
     public function testHydrateLazyProxy($result): void
     {
         list($dispatcher, $proxy) = $result;

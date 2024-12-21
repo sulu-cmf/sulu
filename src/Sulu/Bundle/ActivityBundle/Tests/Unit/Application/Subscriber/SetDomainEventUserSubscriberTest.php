@@ -18,20 +18,25 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\ActivityBundle\Application\Subscriber\SetDomainEventUserSubscriber;
 use Sulu\Bundle\ActivityBundle\Domain\Event\DomainEvent;
 use Sulu\Component\Security\Authentication\UserInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
 
 class SetDomainEventUserSubscriberTest extends TestCase
 {
     use ProphecyTrait;
 
     /**
-     * @var ObjectProphecy<Security>
+     * @var ObjectProphecy<Security|SymfonyCoreSecurity>
      */
     private $security;
 
     public function setUp(): void
     {
-        $this->security = $this->prophesize(Security::class);
+        $this->security = $this->prophesize(
+            \class_exists(Security::class)
+                ? Security::class
+                : SymfonyCoreSecurity::class
+        );
     }
 
     public function testSetDomainEventUser(): void

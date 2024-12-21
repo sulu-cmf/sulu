@@ -79,7 +79,8 @@ test('Click on button does not fire onClick callback if button is disabled', () 
     render(<Button disabled={true} onClick={clickSpy} />);
 
     const button = screen.queryByRole('button');
-    userEvent.click(button);
 
-    expect(clickSpy).toHaveBeenCalledTimes(0);
+    return userEvent.click(button).then(() => {
+        expect(clickSpy).toHaveBeenCalledTimes(0);
+    });
 });

@@ -71,9 +71,7 @@ class SnippetRepositoryTest extends BaseFunctionalTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideGetSnippets
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetSnippets')]
     public function testGetSnippets($type, $offset, $limit, $search, $expectedCount): void
     {
         $snippets = $this->snippetRepository->getSnippets('de', $type, $offset, $limit, $search);
@@ -101,9 +99,7 @@ class SnippetRepositoryTest extends BaseFunctionalTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideGetSnippetsByUuids
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetSnippetsByUuids')]
     public function testGetSnippetsByUuids($snippets, $languageCode, $expectedCount): void
     {
         $uuids = [];

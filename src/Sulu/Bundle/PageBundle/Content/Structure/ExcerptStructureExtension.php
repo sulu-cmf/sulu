@@ -12,6 +12,8 @@
 namespace Sulu\Bundle\PageBundle\Content\Structure;
 
 use PHPCR\NodeInterface;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollectorInterface;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\ContentType\ReferenceContentTypeInterface;
 use Sulu\Bundle\SearchBundle\Search\Factory;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
@@ -20,6 +22,7 @@ use Sulu\Component\Content\ContentTypeExportInterface;
 use Sulu\Component\Content\ContentTypeManagerInterface;
 use Sulu\Component\Content\Extension\AbstractExtension;
 use Sulu\Component\Content\Extension\ExportExtensionInterface;
+use Sulu\Component\Content\Extension\ReferenceExtensionInterface;
 use Sulu\Component\Content\Mapper\Translation\TranslatedProperty;
 use Sulu\Component\Export\Manager\ExportManagerInterface;
 use Sulu\Component\Import\Manager\ImportManagerInterface;
@@ -27,7 +30,7 @@ use Sulu\Component\Import\Manager\ImportManagerInterface;
 /**
  * extends structure with seo content.
  */
-class ExcerptStructureExtension extends AbstractExtension implements ExportExtensionInterface
+class ExcerptStructureExtension extends AbstractExtension implements ExportExtensionInterface, ReferenceExtensionInterface
 {
     /**
      * name of structure extension.
@@ -292,6 +295,24 @@ class ExcerptStructureExtension extends AbstractExtension implements ExportExten
                     null // segmentkey
                 );
             }
+        }
+    }
+
+    public function getReferences(array $data, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
+    {
+        foreach ($this->getExcerptStructure()->getProperties(true) as $property) {
+            $contentType = $this->contentTypeManager->get($property->getContentTypeName());
+
+            if (!$contentType instanceof ReferenceContentTypeInterface) {
+                continue;
+            }
+            $property->setValue($data[$property->getName()] ?? null);
+
+            $contentType->getReferences(
+                $property,
+                $referenceCollector,
+                $propertyPrefix
+            );
         }
     }
 }

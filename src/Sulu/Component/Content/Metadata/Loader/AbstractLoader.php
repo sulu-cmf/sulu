@@ -45,7 +45,7 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * @param string $resource
      */
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): mixed
     {
         $schemaPath = __DIR__ . $this->schemaPath;
 
@@ -136,11 +136,15 @@ abstract class AbstractLoader implements LoaderInterface
             $area = [];
 
             foreach ($node->attributes as $key => $attr) {
-                if (\in_array($key, ['key'])) {
+                if (\in_array($key, ['key', 'cache-invalidation'])) {
                     $area[$key] = $attr->value;
                 } else {
                     $area['attributes'][$key] = $attr->value;
                 }
+            }
+
+            if (!isset($area['cache-invalidation'])) {
+                $area['cache-invalidation'] = 'true';
             }
 
             $meta = $this->loadMeta('x:meta/x:*', $xpath, $node);
@@ -175,17 +179,17 @@ abstract class AbstractLoader implements LoaderInterface
         return $result;
     }
 
-    public function supports($resource, $type = null)
+    public function supports($resource, $type = null): bool
     {
         throw new FeatureNotImplementedException();
     }
 
-    public function getResolver()
+    public function getResolver(): LoaderResolverInterface
     {
         throw new FeatureNotImplementedException();
     }
 
-    public function setResolver(LoaderResolverInterface $resolver)
+    public function setResolver(LoaderResolverInterface $resolver): void
     {
         throw new FeatureNotImplementedException();
     }

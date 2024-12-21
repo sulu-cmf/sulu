@@ -14,6 +14,9 @@ namespace Sulu\Bundle\SnippetBundle\Content;
 use PHPCR\NodeInterface;
 use PHPCR\PropertyType;
 use PHPCR\Util\UUIDHelper;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollectorInterface;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\ContentType\ReferenceContentTypeInterface;
+use Sulu\Bundle\SnippetBundle\Document\SnippetDocument;
 use Sulu\Bundle\SnippetBundle\Snippet\DefaultSnippetManagerInterface;
 use Sulu\Bundle\SnippetBundle\Snippet\SnippetResolverInterface;
 use Sulu\Bundle\SnippetBundle\Snippet\WrongSnippetTypeException;
@@ -26,7 +29,7 @@ use Sulu\Component\Content\ComplexContentType;
 use Sulu\Component\Content\ContentTypeExportInterface;
 use Sulu\Component\Content\PreResolvableContentTypeInterface;
 
-class SnippetContent extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface
+class SnippetContent extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface, ReferenceContentTypeInterface
 {
     /**
      * @param bool $defaultEnabled
@@ -36,7 +39,15 @@ class SnippetContent extends ComplexContentType implements ContentTypeExportInte
         private SnippetResolverInterface $snippetResolver,
         private ReferenceStoreInterface $referenceStore,
         protected $defaultEnabled,
+        private ?ReferenceStoreInterface $snippetAreaReferenceStore = null,
     ) {
+        if (null === $this->snippetAreaReferenceStore) {
+            @trigger_deprecation(
+                'sulu/sulu',
+                '2.6',
+                'Instantiating the SnippetContent without the $snippetAreaReferenceStore argument is deprecated!'
+            );
+        }
     }
 
     public function read(NodeInterface $node, PropertyInterface $property, $webspaceKey, $languageCode, $segmentKey)
@@ -148,6 +159,7 @@ class SnippetContent extends ComplexContentType implements ContentTypeExportInte
     {
         try {
             $snippet = $this->defaultSnippetManager->load($webspaceKey, $snippetArea, $locale);
+            $this->snippetAreaReferenceStore?->add($snippetArea);
         } catch (WrongSnippetTypeException $exception) {
             return [];
         }
@@ -211,6 +223,26 @@ class SnippetContent extends ComplexContentType implements ContentTypeExportInte
     {
         foreach ($this->getUuids($property->getValue()) as $uuid) {
             $this->referenceStore->add($uuid);
+        }
+    }
+
+    public function getReferences(PropertyInterface $property, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
+    {
+        $data = $property->getValue();
+        if (!\is_array($data)) {
+            return;
+        }
+
+        foreach ($data as $id) {
+            if (!\is_string($id)) {
+                continue;
+            }
+
+            $referenceCollector->addReference(
+                SnippetDocument::RESOURCE_KEY,
+                $id,
+                $propertyPrefix . $property->getName()
+            );
         }
     }
 }

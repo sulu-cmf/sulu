@@ -19,16 +19,16 @@ class IfThenElseMetadata implements SchemaMetadataInterface
     private $if;
 
     /**
-     * @var SchemaMetadata|null
+     * @var SchemaMetadataInterface|null
      */
     private $then;
 
     /**
-     * @var SchemaMetadata|null
+     * @var SchemaMetadataInterface|null
      */
     private $else;
 
-    public function __construct(SchemaMetadata $if, ?SchemaMetadata $then = null, ?SchemaMetadata $else = null)
+    public function __construct(SchemaMetadata $if, ?SchemaMetadataInterface $then = null, ?SchemaMetadataInterface $else = null)
     {
         $this->if = $if;
         $this->then = $then;

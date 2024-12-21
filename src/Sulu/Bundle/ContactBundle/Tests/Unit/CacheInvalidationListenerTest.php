@@ -12,7 +12,7 @@
 namespace Sulu\Bundle\ContactBundle\Tests\Unit;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -54,9 +54,7 @@ class CacheInvalidationListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideData')]
     public function testPostPersist($class, $alias): void
     {
         $entity = $this->prophesize($class);
@@ -77,9 +75,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->postPersist($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideData')]
     public function testPostUpdate($class, $alias): void
     {
         $entity = $this->prophesize($class);
@@ -100,9 +96,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->postUpdate($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideData')]
     public function testPreRemove($class, $alias): void
     {
         $entity = $this->prophesize($class);
@@ -131,9 +125,7 @@ class CacheInvalidationListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideDataWithTagsAndCategories
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDataWithTagsAndCategories')]
     public function testPersistUpdateWithTagsAndCategories($class, $alias): void
     {
         $entity = $this->prophesize($class);
@@ -161,9 +153,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->postPersist($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideDataWithTagsAndCategories
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDataWithTagsAndCategories')]
     public function testPostUpdateWithTagsAndCategories($class, $alias): void
     {
         $entity = $this->prophesize($class);
@@ -191,9 +181,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->postUpdate($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideDataWithTagsAndCategories
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDataWithTagsAndCategories')]
     public function testPreRemoveUpdateWithTagsAndCategories($class, $alias): void
     {
         $entity = $this->prophesize($class);

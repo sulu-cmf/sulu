@@ -24,9 +24,8 @@ class ApiEntityWrapper
      * the entity which is wrapped by this class.
      *
      * @var object
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $entity;
 
     /**

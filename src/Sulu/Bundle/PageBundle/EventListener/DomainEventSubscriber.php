@@ -258,7 +258,10 @@ class DomainEventSubscriber implements EventSubscriberInterface
                 $document->getUuid(),
                 $document->getWebspaceName(),
                 $document->getTitle(),
-                $document->getLocale()
+                $document->getLocale(),
+                [
+                    'url' => $document->getResourceSegment(),
+                ]
             )
         );
     }

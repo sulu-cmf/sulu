@@ -41,7 +41,7 @@ class FieldDescriptorFactory implements FieldDescriptorFactoryInterface, CacheWa
     ) {
     }
 
-    public function warmUp($cacheDir)
+    public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         $listsMetadataByKey = [];
 
@@ -107,9 +107,11 @@ class FieldDescriptorFactory implements FieldDescriptorFactoryInterface, CacheWa
                 return new FileResource($listMetadata->getResource());
             }, $listsMetadata));
         }
+
+        return [];
     }
 
-    public function isOptional()
+    public function isOptional(): bool
     {
         return false;
     }

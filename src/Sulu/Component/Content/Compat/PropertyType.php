@@ -18,25 +18,22 @@ class PropertyType
 {
     /**
      * @var string
-     *
-     * @Type("string")
      */
+    #[Type('string')]
     private $name;
 
     /**
      * @var Metadata
-     *
-     * @Type("Sulu\Component\Content\Compat\Metadata")
      */
+    #[Type('Sulu\Component\Content\Compat\Metadata')]
     private $metadata;
 
     /**
      * properties managed by this block.
      *
      * @var PropertyInterface[]
-     *
-     * @Type("array<Sulu\Component\Content\Compat\Property>")
      */
+    #[Type('array<Sulu\Component\Content\Compat\Property>')]
     private $childProperties = [];
 
     public function __construct($name, $metadata)
@@ -105,13 +102,21 @@ class PropertyType
      */
     public function getChild($name)
     {
+        $propertyNames = [];
         foreach ($this->childProperties as $child) {
             if ($child->getName() === $name) {
                 return $child;
             }
+
+            $propertyNames[] = $child->getName();
         }
 
-        throw new NoSuchPropertyException();
+        throw new NoSuchPropertyException(\sprintf(
+            'Property "%s" not found in "%s". Available properties: "%s"',
+            $name,
+            $this->getName(),
+            \implode('", "', $propertyNames)
+        ));
     }
 
     public function __clone()

@@ -17,6 +17,7 @@ use Sulu\Bundle\AdminBundle\Admin\AdminPool;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Component\Security\Authentication\RoleInterface;
 use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,21 +26,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @internal
  */
+#[AsCommand(name: 'sulu:security:init', description: 'Create required sulu security entities.')]
 final class InitCommand extends Command
 {
-    protected static $defaultName = 'sulu:security:init';
-
     public function __construct(
         private EntityManagerInterface $entityManager,
         private RoleRepositoryInterface $roleRepository,
         private AdminPool $adminPool
     ) {
         parent::__construct();
-    }
-
-    protected function configure()
-    {
-        $this->setDescription('Create required sulu security entities.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

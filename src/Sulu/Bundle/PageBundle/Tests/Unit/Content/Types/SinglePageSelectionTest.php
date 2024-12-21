@@ -67,9 +67,7 @@ class SinglePageSelectionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providePreResolve
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePreResolve')]
     public function testPreResolve($propertyValue, $expected): void
     {
         $this->property->getValue()->willReturn($propertyValue);

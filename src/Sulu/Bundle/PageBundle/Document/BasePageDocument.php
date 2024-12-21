@@ -14,6 +14,7 @@ namespace Sulu\Bundle\PageBundle\Document;
 use Sulu\Component\Content\Document\Behavior\ExtensionBehavior;
 use Sulu\Component\Content\Document\Behavior\LocalizedAuditableBehavior;
 use Sulu\Component\Content\Document\Behavior\LocalizedAuthorBehavior;
+use Sulu\Component\Content\Document\Behavior\LocalizedLastModifiedBehavior;
 use Sulu\Component\Content\Document\Behavior\LocalizedStructureBehavior;
 use Sulu\Component\Content\Document\Behavior\NavigationContextBehavior;
 use Sulu\Component\Content\Document\Behavior\OrderBehavior;
@@ -58,7 +59,8 @@ class BasePageDocument implements
     LocalizedAuditableBehavior,
     LocalizedTitleBehavior,
     VersionBehavior,
-    LocalizedAuthorBehavior
+    LocalizedAuthorBehavior,
+    LocalizedLastModifiedBehavior
 {
     public const RESOURCE_KEY = 'pages';
 
@@ -175,7 +177,7 @@ class BasePageDocument implements
     /**
      * Document's type of structure ie default, complex...
      *
-     * @var string
+     * @var string|null
      */
     protected $structureType;
 
@@ -248,6 +250,13 @@ class BasePageDocument implements
      * @var Version[]
      */
     protected $versions = [];
+
+    /**
+     * Date of lastModified.
+     *
+     * @var \DateTime|null
+     */
+    protected $lastModified;
 
     /**
      * Date of authoring.
@@ -510,6 +519,29 @@ class BasePageDocument implements
     public function setVersions($versions)
     {
         $this->versions = $versions;
+    }
+
+    public function getLastModifiedEnabled()
+    {
+        return null !== $this->lastModified;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+
+    /**
+     * @param \DateTime|null $lastModified
+     *
+     * @return void
+     */
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
     }
 
     public function getAuthored()

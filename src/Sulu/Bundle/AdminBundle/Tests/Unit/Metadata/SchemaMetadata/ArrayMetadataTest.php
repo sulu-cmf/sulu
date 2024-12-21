@@ -50,9 +50,7 @@ class ArrayMetadataTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideToJsonSchema
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideToJsonSchema')]
     public function testToJsonSchema($schemaMetadata, $minItems, $maxItems, $uniqueItems, $expectedSchema): void
     {
         $property = new ArrayMetadata($schemaMetadata, $minItems, $maxItems, $uniqueItems);

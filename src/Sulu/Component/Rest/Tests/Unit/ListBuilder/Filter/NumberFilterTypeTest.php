@@ -48,9 +48,7 @@ class NumberFilterTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFilter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilter')]
     public function testFilter($fieldName, $value, $expectedOperator, $expectedValue): void
     {
         $fieldDescriptor = $this->prophesize(FieldDescriptor::class);
@@ -68,9 +66,7 @@ class NumberFilterTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFilterWithInvalidOptions
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilterWithInvalidOptions')]
     public function testFilterWithInvalidOptions($options): void
     {
         $this->expectException(InvalidFilterTypeOptionsException::class);

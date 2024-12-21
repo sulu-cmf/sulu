@@ -144,9 +144,7 @@ class PhpcrAccessControlProviderTest extends TestCase
         $this->assertEquals([], $this->phpcrAccessControlProvider->getPermissions('Acme\Document', '1'));
     }
 
-    /**
-     * @dataProvider provideSupport
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSupport')]
     public function testSupport($type, $supported): void
     {
         $this->assertEquals($this->phpcrAccessControlProvider->supports($type), $supported);

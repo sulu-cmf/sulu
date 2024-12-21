@@ -56,6 +56,10 @@ class SuluPageExtension extends Extension implements PrependExtensionInterface
                                 'list' => 'sulu_page.get_pages',
                                 'detail' => 'sulu_page.get_page',
                             ],
+                            'views' => [
+                                'list' => PageAdmin::PAGES_VIEW,
+                                'detail' => PageAdmin::EDIT_FORM_VIEW,
+                            ],
                             'security_context' => PageAdmin::SECURITY_CONTEXT_PREFIX . '#webspace#',
                             'security_class' => SecurityBehavior::class,
                         ],
@@ -211,17 +215,6 @@ class SuluPageExtension extends Extension implements PrependExtensionInterface
             );
         }
 
-        if ($container->hasExtension('fos_js_routing')) {
-            $container->prependExtensionConfig(
-                'fos_js_routing',
-                [
-                    'routes_to_expose' => [
-                        'sulu_page.post_page_version_trigger',
-                    ],
-                ]
-            );
-        }
-
         if ($container->hasExtension('sulu_search')) {
             $container->prependExtensionConfig(
                 'sulu_page',
@@ -297,6 +290,10 @@ class SuluPageExtension extends Extension implements PrependExtensionInterface
 
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
             $loader->load('services_trash.xml');
+        }
+
+        if (\array_key_exists('SuluReferenceBundle', $bundles)) {
+            $loader->load('services_reference.xml');
         }
 
         $this->appendDefaultAuthor($config, $container);

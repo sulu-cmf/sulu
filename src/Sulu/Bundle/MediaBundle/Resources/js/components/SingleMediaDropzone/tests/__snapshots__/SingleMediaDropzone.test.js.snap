@@ -3,7 +3,7 @@
 exports[`Render a SingleMediaDropzone 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <img
@@ -25,8 +25,7 @@ exports[`Render a SingleMediaDropzone 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -36,7 +35,7 @@ exports[`Render a SingleMediaDropzone 1`] = `
 exports[`Render a SingleMediaDropzone in disabled state 1`] = `
 <div
   class="mediaContainer default disabled"
-  role="button"
+  role="presentation"
 >
   <img
     class="thumbnail"
@@ -57,8 +56,7 @@ exports[`Render a SingleMediaDropzone in disabled state 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -68,7 +66,7 @@ exports[`Render a SingleMediaDropzone in disabled state 1`] = `
 exports[`Render a SingleMediaDropzone while uploading 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <img
@@ -126,8 +124,7 @@ exports[`Render a SingleMediaDropzone while uploading 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -137,7 +134,7 @@ exports[`Render a SingleMediaDropzone while uploading 1`] = `
 exports[`Render a SingleMediaDropzone with a MimeTypeIndicator if an error appeared during image loading 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <div
@@ -168,8 +165,7 @@ exports[`Render a SingleMediaDropzone with a MimeTypeIndicator if an error appea
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display: none;"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
     tabindex="-1"
     type="file"
   />
@@ -179,7 +175,7 @@ exports[`Render a SingleMediaDropzone with a MimeTypeIndicator if an error appea
 exports[`Render a SingleMediaDropzone with a loader if image has not been loaded yet 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <img
@@ -212,8 +208,7 @@ exports[`Render a SingleMediaDropzone with a loader if image has not been loaded
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display: none;"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
     tabindex="-1"
     type="file"
   />
@@ -224,7 +219,7 @@ exports[`Render a SingleMediaDropzone with an error text 1`] = `
 Array [
   <div
     class="mediaContainer default"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <div
@@ -250,8 +245,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -267,7 +261,7 @@ Array [
 exports[`Render a SingleMediaDropzone with the default empty icon 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <div
@@ -293,8 +287,7 @@ exports[`Render a SingleMediaDropzone with the default empty icon 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -304,7 +297,7 @@ exports[`Render a SingleMediaDropzone with the default empty icon 1`] = `
 exports[`Render a SingleMediaDropzone with the passed empty icon 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <div
@@ -330,8 +323,7 @@ exports[`Render a SingleMediaDropzone with the passed empty icon 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -341,7 +333,7 @@ exports[`Render a SingleMediaDropzone with the passed empty icon 1`] = `
 exports[`Render a SingleMediaDropzone with the round skin 1`] = `
 <div
   class="mediaContainer round"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <img
@@ -363,8 +355,7 @@ exports[`Render a SingleMediaDropzone with the round skin 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -374,7 +365,7 @@ exports[`Render a SingleMediaDropzone with the round skin 1`] = `
 exports[`Render a SingleMediaDropzone without a loader if image has been loaded after an error occured before 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <img
@@ -396,8 +387,7 @@ exports[`Render a SingleMediaDropzone without a loader if image has been loaded 
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display: none;"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
     tabindex="-1"
     type="file"
   />
@@ -407,7 +397,7 @@ exports[`Render a SingleMediaDropzone without a loader if image has been loaded 
 exports[`Render a SingleMediaDropzone without a loader if image has been loaded yet 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <img
@@ -429,8 +419,7 @@ exports[`Render a SingleMediaDropzone without a loader if image has been loaded 
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display: none;"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
     tabindex="-1"
     type="file"
   />

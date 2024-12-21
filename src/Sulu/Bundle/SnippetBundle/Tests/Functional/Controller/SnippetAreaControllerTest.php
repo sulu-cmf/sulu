@@ -98,9 +98,7 @@ class SnippetAreaControllerTest extends BaseFunctionalTestCase
         $this->assertEquals(null, $data[2]['defaultUuid']);
     }
 
-    /**
-     * @depends testPutDefault
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testPutDefault')]
     public function testDeleteDefault(): void
     {
         $this->client->jsonRequest(

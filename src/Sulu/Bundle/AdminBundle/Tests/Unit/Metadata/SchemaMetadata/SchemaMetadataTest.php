@@ -31,6 +31,37 @@ class SchemaMetadataTest extends TestCase
         ], $schema->toJsonSchema());
     }
 
+    public function testWithDefinitions(): void
+    {
+        $schema = new SchemaMetadata();
+
+        $schema->addDefinition('test1', new SchemaMetadata(
+            [
+                new PropertyMetadata('title2', true),
+            ]
+        ));
+
+        $schema->addDefinition('test2', new SchemaMetadata(
+            [
+                new PropertyMetadata('title2', true),
+            ]
+        ));
+
+        $this->assertEquals([
+            'definitions' => [
+                'test1' => [
+                    'required' => ['title2'],
+                    'type' => 'object',
+                ],
+                'test2' => [
+                    'required' => ['title2'],
+                    'type' => 'object',
+                ],
+            ],
+            'type' => ['number', 'string', 'boolean', 'object', 'array', 'null'],
+        ], $schema->toJsonSchema());
+    }
+
     public function testNestedJsonSchema(): void
     {
         $schema = new SchemaMetadata(

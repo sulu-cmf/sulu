@@ -474,9 +474,7 @@ class ContentTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider pageProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageProvider')]
     public function testGetContentDataPagedLimit(
         $page,
         $pageSize,
@@ -570,9 +568,7 @@ class ContentTypeTest extends TestCase
         $this->assertEquals($expectedData, $pageData);
     }
 
-    /**
-     * @dataProvider pageProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageProvider')]
     public function testGetViewDataPagedLimit(
         $page,
         $pageSize,

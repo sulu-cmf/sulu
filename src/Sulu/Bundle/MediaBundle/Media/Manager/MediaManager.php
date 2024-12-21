@@ -67,7 +67,7 @@ class MediaManager implements MediaManagerInterface
     /**
      * @deprecated This const is deprecated and will be removed in Sulu 3.0 use the CollectionInterface::class instead.
      */
-    public const ENTITY_NAME_COLLECTION = 'SuluMediaBundle:Collection';
+    public const ENTITY_NAME_COLLECTION = \Sulu\Bundle\MediaBundle\Entity\Collection::class;
 
     /**
      * @var int
@@ -708,7 +708,7 @@ class MediaManager implements MediaManagerInterface
 
     public function increaseDownloadCounter($fileVersionId)
     {
-        $query = $this->em->createQueryBuilder()->update('SuluMediaBundle:FileVersion', 'fV')
+        $query = $this->em->createQueryBuilder()->update(FileVersion::class, 'fV')
             ->set('fV.downloadCounter', 'fV.downloadCounter + 1')
             ->where('fV.id = :id')
             ->setParameter('id', $fileVersionId)

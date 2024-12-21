@@ -17,6 +17,7 @@ use Sulu\Component\Content\Compat\StructureManagerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Sulu\Component\Webspace\StructureProvider\WebspaceStructureProviderInterface;
 use Sulu\Component\Webspace\Webspace;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\Table;
@@ -24,10 +25,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'sulu:content:validate', description: 'Dumps pages without valid templates')]
 class ValidatePagesCommand extends Command
 {
-    protected static $defaultName = 'sulu:content:validate';
-
     public function __construct(
         private SessionInterface $session,
         private WebspaceManagerInterface $webspaceManager,
@@ -39,8 +39,7 @@ class ValidatePagesCommand extends Command
 
     protected function configure()
     {
-        $this->addArgument('webspaceKey', InputArgument::REQUIRED, 'Which webspace to search')
-            ->setDescription('Dumps pages without valid templates');
+        $this->addArgument('webspaceKey', InputArgument::REQUIRED, 'Which webspace to search');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

@@ -4,14 +4,14 @@
 
     <joins name="address">
         <join>
-            <entity-name>SuluContactBundle:AccountAddress</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\AccountAddress</entity-name>
             <field-name>%sulu.model.account.class%.accountAddresses</field-name>
             <method>LEFT</method>
-            <condition>SuluContactBundle:AccountAddress.main = TRUE</condition>
+            <condition>Sulu\Bundle\ContactBundle\Entity\AccountAddress.main = TRUE</condition>
         </join>
         <join>
-            <entity-name>SuluContactBundle:Address</entity-name>
-            <field-name>SuluContactBundle:AccountAddress.address</field-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
+            <field-name>Sulu\Bundle\ContactBundle\Entity\AccountAddress.address</field-name>
         </join>
     </joins>
 
@@ -24,7 +24,7 @@
 
     <joins name="tags">
         <join>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
             <field-name>%sulu.model.account.class%.tags</field-name>
         </join>
     </joins>
@@ -32,10 +32,10 @@
     <properties>
         <property name="logo" visibility="always" translation="sulu_contact.logo" sortable="false">
             <field-name>id</field-name>
-            <entity-name>SuluMediaBundle:Media</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\Media</entity-name>
             <joins>
                 <join>
-                    <entity-name>SuluMediaBundle:Media</entity-name>
+                    <entity-name>Sulu\Bundle\MediaBundle\Entity\Media</entity-name>
                     <field-name>%sulu.model.account.class%.logo</field-name>
                 </join>
             </joins>
@@ -79,7 +79,7 @@
             translation="sulu_contact.city"
         >
             <field-name>city</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -92,7 +92,7 @@
             translation="sulu_contact.zip"
         >
             <field-name>zip</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -104,7 +104,7 @@
             translation="sulu_contact.street"
         >
             <field-name>street</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -113,7 +113,7 @@
 
         <property name="streetNumber" translation="sulu_contact.number">
             <field-name>number</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
         </property>
@@ -134,7 +134,7 @@
             translation="sulu_contact.state"
         >
             <field-name>state</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -147,7 +147,7 @@
             translation="sulu_contact.country"
         >
             <field-name>countryCode</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -243,7 +243,7 @@
             glue=","
         >
             <field-name>id</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins ref="tags"/>
         </group-concat-property>
@@ -256,7 +256,7 @@
             distinct="true"
         >
             <field-name>name</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins ref="tags"/>
         </group-concat-property>
@@ -269,7 +269,7 @@
             translation="sulu_tag.tags"
         >
             <field-name>id</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins ref="tags"/>
 
@@ -289,11 +289,11 @@
             translation="sulu_category.categories"
         >
             <field-name>id</field-name>
-            <entity-name>SuluCategoryBundle:Category</entity-name>
+            <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluCategoryBundle:Category</entity-name>
+                    <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
                     <field-name>%sulu.model.account.class%.categories</field-name>
                 </join>
             </joins>
@@ -314,17 +314,17 @@
             distinct="true"
         >
             <field-name>translation</field-name>
-            <entity-name>SuluCategoryBundle:CategoryTranslation</entity-name>
+            <entity-name>Sulu\Bundle\CategoryBundle\Entity\CategoryTranslation</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluCategoryBundle:Category</entity-name>
+                    <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
                     <field-name>%sulu.model.account.class%.categories</field-name>
                 </join>
                 <join>
-                    <entity-name>SuluCategoryBundle:CategoryTranslation</entity-name>
-                    <field-name>SuluCategoryBundle:Category.translations</field-name>
-                    <condition>SuluCategoryBundle:CategoryTranslation.locale = SuluCategoryBundle:Category.defaultLocale</condition>
+                    <entity-name>Sulu\Bundle\CategoryBundle\Entity\CategoryTranslation</entity-name>
+                    <field-name>Sulu\Bundle\CategoryBundle\Entity\Category.translations</field-name>
+                    <condition>Sulu\Bundle\CategoryBundle\Entity\CategoryTranslation.locale = Sulu\Bundle\CategoryBundle\Entity\Category.defaultLocale</condition>
                 </join>
             </joins>
         </group-concat-property>

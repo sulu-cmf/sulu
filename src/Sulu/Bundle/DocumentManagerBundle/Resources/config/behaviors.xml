@@ -44,6 +44,15 @@
             <tag name="sulu_document_manager.event_subscriber" />
         </service>
 
+        <service id="sulu_document_manager.suscriber.behavior.last_modified"
+                 class="Sulu\Component\Content\Document\Subscriber\LastModifiedSubscriber">
+            <argument type="service" id="sulu_document_manager.property_encoder" />
+            <argument type="service" id="sulu.repository.user" />
+            <argument type="service" id="sulu_document_manager.metadata_factory" />
+
+            <tag name="sulu_document_manager.event_subscriber" />
+        </service>
+
         <service id="sulu_document_manager.suscriber.behavior.timestamp"
                  class="Sulu\Component\DocumentManager\Subscriber\Behavior\Audit\TimestampSubscriber">
             <argument type="service" id="sulu_document_manager.property_encoder" />

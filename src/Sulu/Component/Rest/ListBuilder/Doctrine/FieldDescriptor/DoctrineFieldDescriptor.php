@@ -17,9 +17,8 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 /**
  * This class defines the necessary information for a field to resolve it within a Doctrine Query for the ListBuilder.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class DoctrineFieldDescriptor extends AbstractDoctrineFieldDescriptor
 {
     use EncodeAliasTrait;

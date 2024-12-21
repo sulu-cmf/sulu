@@ -85,9 +85,8 @@ class PageDocumentSerializationTest extends SuluTestCase
 
     /**
      * It can deserialize content that contains objects.
-     *
-     * @depends testSerialization
      */
+    #[\PHPUnit\Framework\Attributes\Depends('testSerialization')]
     public function testDeserialization($data): void
     {
         $page = $this->serializer->deserialize($data, PageDocument::class, 'json');

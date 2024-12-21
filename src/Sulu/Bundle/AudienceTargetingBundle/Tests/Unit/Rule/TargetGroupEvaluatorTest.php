@@ -63,9 +63,8 @@ class TargetGroupEvaluatorTest extends TestCase
     /**
      * @param array<TargetGroup> $targetGroups
      * @param array<string, string[]> $ruleWhitelists
-     *
-     * @dataProvider provideEvaluationData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideEvaluationData')]
     public function testEvaluate(
         array $targetGroups,
         array $ruleWhitelists,

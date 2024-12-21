@@ -7,3 +7,9 @@ sulu_security.reset_password.reset:
     path: reset
     defaults:
         _controller: sulu_security.resetting_controller::resetAction
+
+sulu_security.single_sign_on:
+    path: /openid
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+    defaults:
+        route: sulu_admin

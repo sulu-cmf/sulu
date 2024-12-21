@@ -25,9 +25,7 @@ class ConstMetadataTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideToJsonSchema
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideToJsonSchema')]
     public function testToJsonSchema($const, $expectedSchema): void
     {
         $property = new ConstMetadata($const);

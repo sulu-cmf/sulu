@@ -26,9 +26,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
-/**
- * @runTestsInSeparateProcesses else we get a conflict with the WebspaceCollectionClass already exists error.
- */
+#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class MediaStreamControllerWebsiteSecuredTest extends WebsiteTestCase
 {
     /**
@@ -56,11 +54,7 @@ class MediaStreamControllerWebsiteSecuredTest extends WebsiteTestCase
         $mediaTypes->load($this->getEntityManager());
     }
 
-    /**
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testDownloadWithCollectionPermissions(): void
     {
         $filePath = $this->createMediaFile('test.jpg');

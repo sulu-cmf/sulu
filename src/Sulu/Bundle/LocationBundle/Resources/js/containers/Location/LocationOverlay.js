@@ -12,6 +12,7 @@ import locationOverlayStyles from './locationOverlay.scss';
 import type {Location as LocationValue} from '../../types';
 
 type Props = {
+    locale: ?string,
     onClose: () => void,
     onConfirm: (?LocationValue) => void,
     open: boolean,
@@ -39,7 +40,11 @@ class LocationOverlay extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
 
-        this.geolocatorSelectionStore = new SingleSelectionStore('geolocator_locations');
+        this.geolocatorSelectionStore = new SingleSelectionStore(
+            'geolocator_locations',
+            undefined,
+            observable.box(props.locale)
+        );
 
         this.updateDataOnGeolocatorSelectDisposer = reaction(
             () => this.geolocatorSelectionStore.item,

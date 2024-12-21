@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Functional\Entity;
+namespace Sulu\Bundle\MediaBundle\Tests\Functional\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Sulu\Bundle\MediaBundle\Entity\Collection;
@@ -55,7 +55,7 @@ class FileVersionMetaRepositoryTest extends SuluTestCase
 
         $this->purgeDatabase();
         $this->em = $this->getEntityManager();
-        $this->fileVersionMetaRepository = $this->em->getRepository('SuluMediaBundle:FileVersionMeta');
+        $this->fileVersionMetaRepository = $this->em->getRepository(FileVersionMeta::class);
 
         $this->collectionType = new CollectionType();
         $this->collectionType->setName('image');

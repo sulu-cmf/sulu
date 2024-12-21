@@ -98,9 +98,7 @@ class ContentOnPageTest extends BaseFunctionalTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideSaveSnippetPage
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSaveSnippetPage')]
     public function testSaveLoadSnippetPage($webspaceKey, $templateKey, $locale, $data): void
     {
         foreach ($data['hotels'] as &$varName) {

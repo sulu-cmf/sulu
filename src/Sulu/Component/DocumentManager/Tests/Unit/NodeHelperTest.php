@@ -14,6 +14,7 @@ namespace Sulu\Component\DocumentManager\Tests\Unit;
 use Jackalope\Workspace;
 use PHPCR\NodeInterface;
 use PHPCR\SessionInterface;
+use PHPCR\Util\UUIDHelper;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -79,35 +80,36 @@ class NodeHelperTest extends TestCase
 
     public function testCopy(): void
     {
-        /** @var Workspace $workspace */
+        /** @var ObjectProphecy<Workspace> $workspace */
         $workspace = $this->prophesize(Workspace::class);
         $this->session->getWorkspace()->willReturn($workspace->reveal());
+        $identifier = UUIDHelper::generateUUID();
 
         $destinationNode = $this->prophesize(NodeInterface::class);
         $destinationNode->getPath()->willReturn('/path/to/some/other/node');
-        $this->session->getNodeByIdentifier('uuid')->willReturn($destinationNode->reveal());
+        $this->session->getNodeByIdentifier($identifier)->willReturn($destinationNode->reveal());
 
         $this->node->getName()->willReturn('node');
         $this->node->getPath()->willReturn('/path/to/node');
 
         $workspace->copy('/path/to/node', '/path/to/some/other/node/node');
-        $this->assertEquals('uuid/node', $this->nodeHelper->copy($this->node->reveal(), 'uuid'));
+        $this->assertEquals('/path/to/some/other/node/node', $this->nodeHelper->copy($this->node->reveal(), $identifier));
     }
 
     public function testCopyWithDestinationName(): void
     {
-        /** @var Workspace $workspace */
         $workspace = $this->prophesize(Workspace::class);
         $this->session->getWorkspace()->willReturn($workspace->reveal());
+        $identifier = UUIDHelper::generateUUID();
 
         $destinationNode = $this->prophesize(NodeInterface::class);
         $destinationNode->getPath()->willReturn('/path/to/some/other/node');
-        $this->session->getNodeByIdentifier('uuid')->willReturn($destinationNode->reveal());
+        $this->session->getNodeByIdentifier($identifier)->willReturn($destinationNode->reveal());
 
         $this->node->getPath()->willReturn('/path/to/node');
 
         $workspace->copy('/path/to/node', '/path/to/some/other/node/new-node');
-        $this->assertEquals('uuid/new-node', $this->nodeHelper->copy($this->node->reveal(), 'uuid', 'new-node'));
+        $this->assertEquals('/path/to/some/other/node/new-node', $this->nodeHelper->copy($this->node->reveal(), $identifier, 'new-node'));
     }
 
     public function testReorderUuidTarget(): void

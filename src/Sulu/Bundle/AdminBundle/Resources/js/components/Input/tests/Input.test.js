@@ -15,6 +15,12 @@ test('Input should render', () => {
     expect(container).toMatchSnapshot();
 });
 
+test('Input should render with autoFocus', () => {
+    const onChange = jest.fn();
+    const {container} = render(<Input autoFocus={true} onBlur={jest.fn()} onChange={onChange} value="My value" />);
+    expect(container).toMatchSnapshot();
+});
+
 test('Input should render with autocomplete off', () => {
     const onChange = jest.fn();
     const {container} = render(<Input autocomplete="off" disabled={true} onChange={onChange} value="My value" />);
@@ -180,4 +186,14 @@ test('Input should render with type number with attributes', () => {
     const {container} =
         render(<Input max={50} min={10} onBlur={jest.fn()} onChange={jest.fn()} step={5} type="number" value={25} />);
     expect(container).toMatchSnapshot();
+});
+
+test('Input should call onFocus when the Input gets focus', async() => {
+    const focusSpy = jest.fn();
+    render(bindValueToOnChange(<Input onChange={jest.fn()} onFocus={focusSpy} value="My value" />));
+
+    const input = screen.queryByDisplayValue('My value');
+    input.focus();
+
+    expect(focusSpy).toHaveBeenCalled();
 });

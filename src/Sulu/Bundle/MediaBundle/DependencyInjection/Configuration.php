@@ -232,6 +232,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('path_prefix')->defaultNull()->end()
                         ->scalarNode('version')->defaultValue('latest')->end()
                         ->scalarNode('endpoint')->defaultNull()->end()
+                        ->scalarNode('public_url')->defaultNull()->end()
                         ->scalarNode('segments')->defaultValue(10)->end()
                         ->arrayNode('arguments')
                             ->scalarPrototype()->end()

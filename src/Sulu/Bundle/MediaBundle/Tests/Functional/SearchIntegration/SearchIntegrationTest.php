@@ -71,10 +71,9 @@ class SearchIntegrationTest extends SuluTestCase
     }
 
     /**
-     * @dataProvider provideIndex
-     *
      * @param class-string<\Throwable> $expectException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIndex')]
     public function testIndex(string $format, ?string $expectException): void
     {
         $mediaSelectionContainer = $this->prophesize(MediaSelectionContainer::class);

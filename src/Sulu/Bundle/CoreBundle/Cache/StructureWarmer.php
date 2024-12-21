@@ -29,7 +29,7 @@ class StructureWarmer implements CacheWarmerInterface
      *
      * {@inheritdoc}
      */
-    public function warmUp($cacheDir)
+    public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         // warmup the pages
         $this->structureManager->getStructures(Structure::TYPE_PAGE);
@@ -45,7 +45,7 @@ class StructureWarmer implements CacheWarmerInterface
      *
      * {@inheritdoc}
      */
-    public function isOptional()
+    public function isOptional(): bool
     {
         return true;
     }

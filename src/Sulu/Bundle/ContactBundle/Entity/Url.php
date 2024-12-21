@@ -23,37 +23,32 @@ class Url
 {
     /**
      * @var string
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
     private $url;
 
     /**
      * @var int
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
     private $id;
 
     /**
      * @var UrlType
-     *
-     * @Groups({"fullAccount", "fullContact"})
      */
+    #[Groups(['fullAccount', 'fullContact'])]
     private $urlType;
 
     /**
      * @var Collection<int, AccountInterface>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $accounts;
 
     /**
      * @var Collection<int, ContactInterface>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $contacts;
 
     /**

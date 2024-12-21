@@ -28,9 +28,7 @@ class RequestAttributesTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideData')]
     public function testGetAttribute(array $attributes, $name, $default, $expected): void
     {
         $instance = new RequestAttributes($attributes);

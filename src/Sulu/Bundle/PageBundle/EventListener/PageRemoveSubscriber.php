@@ -28,8 +28,9 @@ use Sulu\Component\Rest\Exception\InsufficientDescendantPermissionsException;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Sulu\Component\Security\Authorization\AccessControl\AccessControlRepositoryInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
 
 class PageRemoveSubscriber implements EventSubscriberInterface
 {
@@ -42,7 +43,7 @@ class PageRemoveSubscriber implements EventSubscriberInterface
         private SessionManagerInterface $sessionManager,
         private AccessControlRepositoryInterface $accessControlRepository,
         private SystemStoreInterface $systemStore,
-        private ?Security $security,
+        private Security|SymfonyCoreSecurity|null $security,
         private array $permissions,
     ) {
     }

@@ -33,6 +33,7 @@
             <argument>%sulu_admin.collaboration_enabled%</argument>
             <argument>%sulu_security.password_policy_pattern%</argument>
             <argument>%sulu_security.password_policy_info_translation_key%</argument>
+            <argument>%sulu_security.has_single_sign_on_providers%</argument>
 
             <tag name="sulu.context" context="admin"/>
         </service>
@@ -262,6 +263,15 @@
             <tag name="console.command"/>
         </service>
 
+        <service
+            id="sulu_admin.debug_view_command"
+            class="Sulu\Bundle\AdminBundle\Command\ViewDebugCommand"
+        >
+            <argument type="service" id="sulu_admin.view_registry"/>
+            <tag name="sulu.context" context="admin"/>
+            <tag name="console.command"/>
+        </service>
+
         <service id="sulu_admin.field_metadata_validator.chain"
                  class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Validation\ChainFieldMetadataValidator">
             <argument type="tagged" tag="sulu_admin.field_metadata_validator"/>
@@ -275,6 +285,11 @@
         <service id="sulu_admin.field_metadata_validator.block"
                  class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Validation\BlockFieldMetadataValidator">
             <tag name="sulu_admin.field_metadata_validator"/>
+        </service>
+
+        <service id="sulu_admin.form_metadata_validator.locale_options"
+                 class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Visitor\LocalesOptionFormMetadataVisitor">
+            <tag name="sulu_admin.form_metadata_visitor"/>
         </service>
     </services>
 </container>

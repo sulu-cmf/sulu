@@ -16,7 +16,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="locale" column="locale" type="string" length="5" nullable="false"/>
+        <field name="locale" column="locale" type="string" length="15" nullable="false"/>
         <field name="keyword" column="keyword" type="string" length="191" nullable="false"/>
 
         <many-to-many target-entity="Sulu\Bundle\CategoryBundle\Entity\CategoryTranslationInterface" field="categoryTranslations"

@@ -38,6 +38,21 @@ test('Render overlay with invalid href type', () => {
     )).toThrow('The id of a media should always be a number!');
 });
 
+test('Render overlay with anchor enabled', () => {
+    const mediaLinkTypeOverlay = mount(
+        <MediaLinkTypeOverlay
+            href={undefined}
+            onAnchorChange={jest.fn()}
+            onCancel={jest.fn()}
+            onConfirm={jest.fn()}
+            onHrefChange={jest.fn()}
+            open={true}
+        />
+    );
+
+    expect(mediaLinkTypeOverlay.find('Form').render()).toMatchSnapshot();
+});
+
 test('Render overlay with target enabled', () => {
     const mediaLinkTypeOverlay = mount(
         <MediaLinkTypeOverlay

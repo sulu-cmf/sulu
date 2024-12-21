@@ -16,6 +16,7 @@ use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Component\Content\ContentTypeManagerInterface;
 use Sulu\Component\Content\Document\Behavior\ExtensionBehavior;
 use Sulu\Component\Content\Document\Behavior\LocalizedAuthorBehavior;
+use Sulu\Component\Content\Document\Behavior\LocalizedLastModifiedBehavior;
 use Sulu\Component\Content\Document\Extension\ExtensionContainer;
 use Sulu\Component\Content\Extension\ExtensionManagerInterface;
 use Sulu\Component\Content\PreResolvableContentTypeInterface;
@@ -105,6 +106,10 @@ class StructureResolver implements StructureResolverInterface
             $data['published'] = $structure->getPublished();
             $data['shadowBaseLocale'] = $structure->getShadowBaseLanguage();
             $data['webspaceKey'] = $structure->getWebspaceKey();
+        }
+
+        if ($document instanceof LocalizedLastModifiedBehavior) {
+            $data['lastModified'] = $document->getLastModifiedEnabled() ? $document->getLastModified() : null;
         }
 
         if ($document instanceof LocalizedAuthorBehavior) {

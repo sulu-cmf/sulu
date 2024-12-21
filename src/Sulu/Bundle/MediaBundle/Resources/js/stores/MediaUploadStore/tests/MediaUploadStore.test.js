@@ -9,7 +9,7 @@ jest.mock('sulu-admin-bundle/services', () => ({
         delete: jest.fn(),
     },
     resourceRouteRegistry: {
-        getDetailUrl: jest.fn(),
+        getUrl: jest.fn(),
     },
 }));
 
@@ -25,7 +25,7 @@ jest.mock('sulu-admin-bundle/stores', () => ({
 }));
 
 test('Calling the "update" method should make a "POST" request to the media update api', () => {
-    resourceRouteRegistry.getDetailUrl.mockReturnValue('/media/1?action=new-version&locale=en');
+    resourceRouteRegistry.getUrl.mockReturnValue('/media/1?action=new-version&locale=en');
 
     const openSpy = jest.fn();
 
@@ -52,7 +52,8 @@ test('Calling the "update" method should make a "POST" request to the media upda
     const fileData = new File([''], 'fileName');
 
     mediaUploadStore.update(fileData);
-    expect(resourceRouteRegistry.getDetailUrl).toBeCalledWith(
+    expect(resourceRouteRegistry.getUrl).toBeCalledWith(
+        'detail',
         'media',
         {action: 'new-version', id: 1, locale: 'en'}
     );
@@ -60,7 +61,7 @@ test('Calling the "update" method should make a "POST" request to the media upda
 });
 
 test('Promise returned by "update" method should be resolved if request is successful', () => {
-    resourceRouteRegistry.getDetailUrl.mockReturnValue('/media/1?action=new-version&locale=en');
+    resourceRouteRegistry.getUrl.mockReturnValue('/media/1?action=new-version&locale=en');
 
     window.XMLHttpRequest = jest.fn(function() {
         this.open = jest.fn();
@@ -94,7 +95,7 @@ test('Promise returned by "update" method should be resolved if request is succe
 });
 
 test('Promise returned by "update" method should be rejected if request has error status', (done) => {
-    resourceRouteRegistry.getDetailUrl.mockReturnValue('/media/1?action=new-version&locale=en');
+    resourceRouteRegistry.getUrl.mockReturnValue('/media/1?action=new-version&locale=en');
 
     window.XMLHttpRequest = jest.fn(function() {
         this.open = jest.fn();
@@ -135,7 +136,7 @@ test('Promise returned by "update" method should be rejected if request has erro
 });
 
 test('Promise returned by "update" method should be rejected if request is not successful', (done) => {
-    resourceRouteRegistry.getDetailUrl.mockReturnValue('/media/1?action=new-version&locale=en');
+    resourceRouteRegistry.getUrl.mockReturnValue('/media/1?action=new-version&locale=en');
 
     window.XMLHttpRequest = jest.fn(function() {
         this.open = jest.fn();
@@ -171,7 +172,7 @@ test('Promise returned by "update" method should be rejected if request is not s
 });
 
 test('Calling the "create" method should make a "POST" request to the media update api', () => {
-    resourceRouteRegistry.getDetailUrl.mockReturnValue('/media?locale=en&collection=1');
+    resourceRouteRegistry.getUrl.mockReturnValue('/media?locale=en&collection=1');
 
     const openSpy = jest.fn();
 
@@ -191,7 +192,7 @@ test('Calling the "create" method should make a "POST" request to the media upda
 
     const createPromise = mediaUploadStore.create(1, fileData);
 
-    expect(resourceRouteRegistry.getDetailUrl).toBeCalledWith('media', {collection: 1, locale: 'en'});
+    expect(resourceRouteRegistry.getUrl).toBeCalledWith('detail', 'media', {collection: 1, locale: 'en'});
     expect(openSpy).toBeCalledWith('POST', '/media?locale=en&collection=1');
 
     window.XMLHttpRequest.mock.instances[0].onload({target: {status: 200, response: '{"title": "test1"}'}});
@@ -259,7 +260,7 @@ test('Calling "deletePreviewImage" method should call the "delete" method of the
 });
 
 test('Calling the "updatePreviewImage" method should make a "POST" request to the preview media update api', () => {
-    resourceRouteRegistry.getDetailUrl.mockReturnValue('/media/1/preview?locale=en');
+    resourceRouteRegistry.getUrl.mockReturnValue('/media/1/preview?locale=en');
 
     const openSpy = jest.fn();
 
@@ -286,7 +287,8 @@ test('Calling the "updatePreviewImage" method should make a "POST" request to th
     const fileData = new File([''], 'fileName');
 
     mediaUploadStore.updatePreviewImage(fileData);
-    expect(resourceRouteRegistry.getDetailUrl).toBeCalledWith(
+    expect(resourceRouteRegistry.getUrl).toBeCalledWith(
+        'detail',
         'media_preview',
         {id: 2, locale: 'en'}
     );

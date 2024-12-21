@@ -103,9 +103,7 @@ class PermissionControllerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providePermissionData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePermissionData')]
     public function testGetAction($id, $resourceKey, $permissions): void
     {
         $request = new Request(['id' => $id, 'resourceKey' => $resourceKey]);
@@ -123,9 +121,7 @@ class PermissionControllerTest extends TestCase
         $this->permissionController->cgetAction($request);
     }
 
-    /**
-     * @dataProvider providePermissionData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePermissionData')]
     public function testPutAction($id, $resourceKey, $permissions): void
     {
         $request = new Request(
@@ -170,9 +166,7 @@ class PermissionControllerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideWrongPermissionData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideWrongPermissionData')]
     public function testPutActionWithWrongData($id, $class, $permissions): void
     {
         $request = new Request(

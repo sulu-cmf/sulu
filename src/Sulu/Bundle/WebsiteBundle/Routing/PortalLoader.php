@@ -49,7 +49,7 @@ class PortalLoader extends FileLoader
     /**
      * @param string $resource
      */
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): mixed
     {
         $collection = new RouteCollection();
 
@@ -80,7 +80,7 @@ class PortalLoader extends FileLoader
         return $collection;
     }
 
-    public function supports($resource, $type = null)
+    public function supports($resource, $type = null): bool
     {
         return 'portal' === $type;
     }

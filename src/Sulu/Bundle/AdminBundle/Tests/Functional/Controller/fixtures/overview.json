@@ -1,0 +1,367 @@
+{
+    "name": "overview",
+    "title": "Overview",
+    "form": {
+        "title": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "text_line",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": true,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": [
+                {
+                    "name": "sulu.rlp.part",
+                    "priority": null,
+                    "attributes": []
+                }
+            ]
+        },
+        "tags": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "text_line",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": 2,
+            "maxOccurs": 10,
+            "onInvalid": null,
+            "tags": []
+        },
+        "url": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "resource_locator",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": true,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": [
+                {
+                    "name": "sulu.rlp",
+                    "priority": null,
+                    "attributes": []
+                }
+            ]
+        },
+        "article": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "text_area",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        },
+        "blog": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "text_area",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        },
+        "external": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "url",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        },
+        "blocks": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "block",
+            "colSpan": 12,
+            "options": {
+                "settings_form_key": {
+                    "name": "settings_form_key",
+                    "type": null,
+                    "value": "page_block_settings",
+                    "title": null,
+                    "placeholder": null,
+                    "infoText": null
+                }
+            },
+            "types": {
+                "editor": {
+                    "name": "editor",
+                    "title": "Editor",
+                    "form": {
+                        "text_editor": {
+                            "label": "Text Editor",
+                            "disabledCondition": null,
+                            "visibleCondition": null,
+                            "description": "",
+                            "type": "text_editor",
+                            "colSpan": 12,
+                            "options": [],
+                            "types": [],
+                            "defaultType": null,
+                            "required": false,
+                            "spaceAfter": null,
+                            "minOccurs": null,
+                            "maxOccurs": null,
+                            "onInvalid": null,
+                            "tags": []
+                        }
+                    },
+                    "schema": {
+                        "type": [
+                            "number",
+                            "string",
+                            "boolean",
+                            "object",
+                            "array",
+                            "null"
+                        ]
+                    },
+                    "key": null,
+                    "tags": []
+                }
+            },
+            "defaultType": "editor",
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        },
+        "blocks_with_custom_settings_form_key": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "block",
+            "colSpan": 12,
+            "options": {
+                "settings_form_key": {
+                    "name": "settings_form_key",
+                    "type": "string",
+                    "value": "custom_block_settings",
+                    "title": null,
+                    "placeholder": null,
+                    "infoText": null
+                }
+            },
+            "types": {
+                "editor": {
+                    "name": "editor",
+                    "title": "Editor",
+                    "form": {
+                        "text_editor": {
+                            "label": "Text Editor",
+                            "disabledCondition": null,
+                            "visibleCondition": null,
+                            "description": "",
+                            "type": "text_editor",
+                            "colSpan": 12,
+                            "options": [],
+                            "types": [],
+                            "defaultType": null,
+                            "required": false,
+                            "spaceAfter": null,
+                            "minOccurs": null,
+                            "maxOccurs": null,
+                            "onInvalid": null,
+                            "tags": []
+                        }
+                    },
+                    "schema": {
+                        "type": [
+                            "number",
+                            "string",
+                            "boolean",
+                            "object",
+                            "array",
+                            "null"
+                        ]
+                    },
+                    "key": null,
+                    "tags": []
+                }
+            },
+            "defaultType": "editor",
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        }
+    },
+    "schema": {
+        "type": "object",
+        "properties": {
+            "title": {
+                "type": "string",
+                "minLength": 1
+            },
+            "tags": {
+                "anyOf": [
+                    {
+                        "type": "null"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    },
+                    {
+                        "type": "string"
+                    }
+                ]
+            },
+            "article": {
+                "anyOf": [
+                    {
+                        "type": "null"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    },
+                    {
+                        "type": "string"
+                    }
+                ]
+            },
+            "blog": {
+                "anyOf": [
+                    {
+                        "type": "null"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    },
+                    {
+                        "type": "string"
+                    }
+                ]
+            },
+            "blocks": {
+                "type": "array",
+                "items": {
+                    "allOf": [
+                        {
+                            "if": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "const": "editor"
+                                    }
+                                },
+                                "required": [
+                                    "type"
+                                ]
+                            },
+                            "then": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "blocks_with_custom_settings_form_key": {
+                "type": "array",
+                "items": {
+                    "allOf": [
+                        {
+                            "if": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "const": "editor"
+                                    }
+                                },
+                                "required": [
+                                    "type"
+                                ]
+                            },
+                            "then": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "required": [
+            "title",
+            "url"
+        ]
+    },
+    "key": null,
+    "tags": [
+        {
+            "name": "test3",
+            "priority": null,
+            "attributes": []
+        }
+    ]
+}

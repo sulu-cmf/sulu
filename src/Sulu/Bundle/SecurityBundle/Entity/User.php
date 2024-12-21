@@ -29,9 +29,8 @@ use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 /**
  * User.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class User extends ApiEntity implements UserInterface, EquatableInterface, AuditableInterface, PasswordAuthenticatedUserInterface
 {
     use AuditableTrait;
@@ -39,26 +38,23 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
 
     /**
      * @var int
-     *
-     * @Expose
-     * @Groups({"frontend", "fullUser"})
      */
+    #[Expose]
+    #[Groups(['frontend', 'fullUser'])]
     protected $id;
 
     /**
      * @var string
-     *
-     * @Expose
-     * @Groups({"frontend", "fullUser", "profile"})
      */
+    #[Expose]
+    #[Groups(['frontend', 'fullUser', 'profile'])]
     protected $username;
 
     /**
      * @var string|null
-     *
-     * @Expose
-     * @Groups({"fullUser", "profile"})
      */
+    #[Expose]
+    #[Groups(['fullUser', 'profile'])]
     protected $email;
 
     /**
@@ -68,10 +64,9 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
 
     /**
      * @var string
-     *
-     * @Expose
-     * @Groups({"frontend", "fullUser", "profile"})
      */
+    #[Expose]
+    #[Groups(['frontend', 'fullUser', 'profile'])]
     protected $locale;
 
     /**
@@ -81,9 +76,8 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
 
     /**
      * @var string|null
-     *
-     * @Expose
      */
+    #[Expose]
     protected $privateKey;
 
     /**
@@ -93,16 +87,14 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
 
     /**
      * @var bool
-     *
-     * @Expose
      */
+    #[Expose]
     protected $locked = false;
 
     /**
      * @var bool
-     *
-     * @Expose
      */
+    #[Expose]
     protected $enabled = true;
 
     /**
@@ -132,26 +124,23 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
 
     /**
      * @var ContactInterface
-     *
-     * @Expose
-     * @Groups({"frontend", "fullUser"})
      */
+    #[Expose]
+    #[Groups(['frontend', 'fullUser'])]
     protected $contact;
 
     /**
      * @var Collection|UserRole[]
-     *
-     * @Expose
      */
+    #[Expose]
     protected $userRoles;
 
     /**
      * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
      *
      * @var Collection|UserGroup[]
-     *
-     * @Expose
      */
+    #[Expose]
     protected $userGroups;
 
     /**
@@ -198,11 +187,10 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
     /**
      * Get username.
      *
-     * @SerializedName("username")
-     * @Groups({"frontend", "fullUser"})
-     *
      * @return string
      */
+    #[SerializedName('username')]
+    #[Groups(['frontend', 'fullUser'])]
     public function getUsername()
     {
         return $this->username;
@@ -313,7 +301,7 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
     /**
      * Removes the password of the user.
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 
@@ -567,10 +555,8 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
         return $this->userRoles;
     }
 
-    /**
-     * @VirtualProperty
-     * @Groups({"frontend"})
-     */
+    #[VirtualProperty]
+    #[Groups(['frontend'])]
     public function getRoles(): array
     {
         $roles = ['ROLE_USER'];
@@ -659,10 +645,8 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
         return $this->userSettings;
     }
 
-    /**
-     * @VirtualProperty
-     * @Groups({"frontend"})
-     */
+    #[VirtualProperty]
+    #[Groups(['frontend'])]
     public function getSettings()
     {
         $userSettingValues = [];
@@ -696,12 +680,11 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("fullName")
-     * @Groups({"frontend", "fullUser"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('fullName')]
+    #[Groups(['frontend', 'fullUser'])]
     public function getFullName()
     {
         return null !== $this->getContact() ?
@@ -709,11 +692,10 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
     }
 
     /**
-     * @VirtualProperty
-     * @Groups({"profile"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[Groups(['profile'])]
     public function getFirstName()
     {
         return $this->contact->getFirstName();
@@ -732,11 +714,10 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
     }
 
     /**
-     * @VirtualProperty
-     * @Groups({"profile"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[Groups(['profile'])]
     public function getLastName()
     {
         return $this->contact->getLastName();

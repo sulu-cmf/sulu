@@ -14,6 +14,7 @@ namespace Sulu\Bundle\PageBundle\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Sulu\Component\Content\Import\WebspaceImportInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,10 +23,9 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
+#[AsCommand(name: 'sulu:webspaces:import', description: 'Import webspace page translations from xliff file into a specific language.')]
 class WebspaceImportCommand extends Command
 {
-    protected static $defaultName = 'sulu:webspaces:import';
-
     /**
      * @var LoggerInterface
      */
@@ -46,8 +46,7 @@ class WebspaceImportCommand extends Command
             ->addOption('format', 'f', InputOption::VALUE_REQUIRED, '', '1.2.xliff')
             ->addOption('uuid', 'u', InputOption::VALUE_REQUIRED)
             ->addOption('exportSuluVersion', '', InputOption::VALUE_OPTIONAL, '1.2 or 1.3', '1.3')
-            ->addOption('overrideSettings', 'o', InputOption::VALUE_OPTIONAL, 'Override Settings-Tab', 'false')
-            ->setDescription('Import webspace page translations from xliff file into a specific language.');
+            ->addOption('overrideSettings', 'o', InputOption::VALUE_OPTIONAL, 'Override Settings-Tab', 'false');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

@@ -90,9 +90,8 @@ class FileVersion implements AuditableInterface
 
     /**
      * @var File
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $file;
 
     /**

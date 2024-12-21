@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>template_with_global_blocks_invalid_no_ref_or_name</key>
+
+    <view>page.html.twig</view>
+    <controller>SuluPageBundle:Default:index</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true"/>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <tag name="sulu.rlp" priority="1"/>
+        </property>
+
+        <block name="blocks" default-type="editor" minOccurs="0">
+            <types>
+                <type name="editor">
+                    <properties>
+                        <property name="article" type="text_editor"/>
+                    </properties>
+                </type>
+                <type/>
+            </types>
+        </block>
+    </properties>
+</template>

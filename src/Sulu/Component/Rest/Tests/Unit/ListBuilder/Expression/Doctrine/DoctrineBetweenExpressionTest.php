@@ -21,7 +21,7 @@ class DoctrineBetweenExpressionTest extends TestCase
     /**
      * @var string
      */
-    private static $entityName = 'SuluCoreBundle:Example';
+    private static $entityName = 'Sulu\Bundle\CoreBundle\Entity\Example';
 
     /**
      * http://php.net/manual/en/function.uniqid.php
@@ -56,7 +56,7 @@ class DoctrineBetweenExpressionTest extends TestCase
         $statement = $whereExpression->getStatement($this->queryBuilder);
         $result = \preg_match(
             \sprintf(
-                '/^SuluCoreBundle_Example\.name BETWEEN :name[\S]{%1$s} AND :name[\S]{%1$s}/',
+                '/^Sulu_Bundle_CoreBundle_Entity_Example\.name BETWEEN :name[\S]{%1$s} AND :name[\S]{%1$s}/',
                 $this->uniqueIdLength
             ),
             $statement

@@ -72,11 +72,13 @@ class CleanupHistoryCommandTest extends TestCase
 
         $this->defaultSession = $this->prophesize(SessionInterface::class);
         $this->defaultWorkspace = $this->prophesize(Workspace::class);
+        $this->defaultWorkspace->getName()->willReturn('default');
         $this->defaultSession->getWorkspace()->willReturn($this->defaultWorkspace->reveal());
 
         $this->liveSession = $this->prophesize(SessionInterface::class);
         $this->liveWorkspace = $this->prophesize(Workspace::class);
         $this->liveSession->getWorkspace()->willReturn($this->liveWorkspace->reveal());
+        $this->liveWorkspace->getName()->willReturn('live');
 
         $this->cleanupHistoryCommand = new CleanupHistoryCommand(
             $this->sessionManager->reveal(),

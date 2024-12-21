@@ -22,6 +22,7 @@ import NumberFieldFilterType from './fieldFilterTypes/NumberFieldFilterType';
 import NumberFieldTransformer from './fieldTransformers/NumberFieldTransformer';
 import SelectionFieldFilterType from './fieldFilterTypes/SelectionFieldFilterType';
 import TimeFieldTransformer from './fieldTransformers/TimeFieldTransformer';
+import TranslationFieldTransformer from './fieldTransformers/TranslationFieldTransformer';
 import HtmlFieldTransformer from './fieldTransformers/HtmlFieldTransformer';
 import ColumnListAdapter from './adapters/ColumnListAdapter';
 import TreeTableAdapter from './adapters/TreeTableAdapter';
@@ -67,6 +68,7 @@ export {
     StringFieldTransformer,
     TextFieldFilterType,
     TimeFieldTransformer,
+    TranslationFieldTransformer,
     ThumbnailFieldTransformer,
     BoolFieldTransformer,
     ColorFieldTransformer,

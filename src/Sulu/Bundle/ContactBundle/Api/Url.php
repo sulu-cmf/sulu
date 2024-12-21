@@ -26,11 +26,9 @@ class Url extends ApiWrapper
         $this->locale = $locale;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getId(): ?int
     {
         return $this->entity->getId();
@@ -43,11 +41,9 @@ class Url extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("website")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('website')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getUrl(): ?string
     {
         return $this->entity->getUrl();
@@ -60,11 +56,9 @@ class Url extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("websiteType")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('websiteType')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getUrlType(): ?int
     {
         return $this->entity->getUrlType()->getId();

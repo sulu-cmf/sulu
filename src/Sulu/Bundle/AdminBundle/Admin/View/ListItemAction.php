@@ -17,16 +17,14 @@ class ListItemAction
 {
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $type;
 
     /**
      * @var array<string, mixed>
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $options;
 
     /**

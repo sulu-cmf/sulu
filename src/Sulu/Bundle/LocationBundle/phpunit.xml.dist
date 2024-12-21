@@ -2,8 +2,8 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          bootstrap="../TestBundle/Resources/app/bootstrap.php"
          colors="true"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-    <coverage>
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
+    <source>
         <include>
             <directory>./</directory>
         </include>
@@ -12,7 +12,7 @@
             <directory>./Tests</directory>
             <directory>./vendor</directory>
         </exclude>
-    </coverage>
+    </source>
 
     <testsuites>
         <testsuite name="SuluLocationBundle Test Suite">

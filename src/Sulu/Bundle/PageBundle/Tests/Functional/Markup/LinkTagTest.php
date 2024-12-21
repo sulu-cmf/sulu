@@ -158,9 +158,7 @@ class LinkTagTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideParseDataDefaultProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideParseDataDefaultProvider')]
     public function testParseAllDefaultProvider($tag, $attributes, $expected): void
     {
         $content = $this->createContent('123-123-123', 'Pagetitle', '/test');

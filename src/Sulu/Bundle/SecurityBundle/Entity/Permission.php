@@ -17,30 +17,26 @@ use Sulu\Component\Security\Authentication\RoleInterface;
 
 /**
  * Permission.
- *
- * @ExclusionPolicy("all");
  */
+#[ExclusionPolicy('all')] // ;
 class Permission
 {
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $context;
 
     /**
      * @var int
-     *
-     * @Expose
      */
+    #[Expose]
     private $permissions;
 
     /**
      * @var int
-     *
-     * @Expose
      */
+    #[Expose]
     private $id;
 
     /**
@@ -50,9 +46,8 @@ class Permission
 
     /**
      * @var string|null
-     *
-     * @Expose
      */
+    #[Expose]
     private $module;
 
     /**

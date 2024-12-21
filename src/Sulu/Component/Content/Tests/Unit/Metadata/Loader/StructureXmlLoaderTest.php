@@ -368,6 +368,53 @@ class StructureXmlLoaderTest extends TestCase
         $this->load('template_with_invalid_block_default_type.xml');
     }
 
+    public function testLoadBlockWithGlobalBlock(): void
+    {
+        $this->contentTypeManager->has('text_line')->willReturn(true);
+        $this->contentTypeManager->has('text_editor')->willReturn(true);
+        $this->contentTypeManager->has('block')->willReturn(true);
+        $this->contentTypeManager->has('resource_locator')->willReturn(true);
+
+        $this->cacheLifetimeResolver->supports(CacheLifetimeResolverInterface::TYPE_SECONDS, Argument::any())
+            ->willReturn(true);
+
+        $result = $this->load('template_with_global_blocks.xml');
+
+        $blockTypes = $result->getProperty('blocks')->getComponents();
+        $this->assertFalse($blockTypes[0]->hasTag('sulu.global_block'));
+        $this->assertTrue($blockTypes[1]->hasTag('sulu.global_block'));
+    }
+
+    public function testLoadBlockWithGlobalBlockNoRefOrName(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->contentTypeManager->has('text_line')->willReturn(true);
+        $this->contentTypeManager->has('text_editor')->willReturn(true);
+        $this->contentTypeManager->has('block')->willReturn(true);
+        $this->contentTypeManager->has('resource_locator')->willReturn(true);
+
+        $this->cacheLifetimeResolver->supports(CacheLifetimeResolverInterface::TYPE_SECONDS, Argument::any())
+            ->willReturn(true);
+
+        $this->load('template_with_global_blocks_no_ref_or_name.xml');
+    }
+
+    public function testLoadBlockWithGlobalBlockRefAndName(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->contentTypeManager->has('text_line')->willReturn(true);
+        $this->contentTypeManager->has('text_editor')->willReturn(true);
+        $this->contentTypeManager->has('block')->willReturn(true);
+        $this->contentTypeManager->has('resource_locator')->willReturn(true);
+
+        $this->cacheLifetimeResolver->supports(CacheLifetimeResolverInterface::TYPE_SECONDS, Argument::any())
+            ->willReturn(true);
+
+        $this->load('template_with_global_blocks_ref_and_name.xml');
+    }
+
     private function load($name, $type = null)
     {
         $this->cacheLifetimeResolver->supports(CacheLifetimeResolverInterface::TYPE_SECONDS, Argument::any())

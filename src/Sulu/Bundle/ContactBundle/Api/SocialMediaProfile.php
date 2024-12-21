@@ -26,11 +26,9 @@ class SocialMediaProfile extends ApiWrapper
         $this->locale = $locale;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getId(): ?int
     {
         return $this->entity->getId();
@@ -43,11 +41,9 @@ class SocialMediaProfile extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("username")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('username')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getUsername(): ?string
     {
         return $this->entity->getUsername();
@@ -60,11 +56,9 @@ class SocialMediaProfile extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("socialMediaType")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('socialMediaType')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getSocialMediaProfileType(): ?int
     {
         return $this->entity->getSocialMediaProfileType()->getId();

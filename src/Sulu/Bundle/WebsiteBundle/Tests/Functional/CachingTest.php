@@ -50,9 +50,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testFirstRequestIsACacheMiss
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testFirstRequestIsACacheMiss')]
     public function testSecondRequestIsACacheHit($arguments)
     {
         list($client, $cookieJar) = $arguments;
@@ -67,9 +65,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testSecondRequestIsACacheHit
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testSecondRequestIsACacheHit')]
     public function testSwitchSegmentIsACacheMiss($arguments)
     {
         list($client, $cookieJar) = $arguments;
@@ -93,9 +89,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testSwitchSegmentIsACacheMiss
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testSwitchSegmentIsACacheMiss')]
     public function testSwitchedSegmentIsACachHit($arguments)
     {
         list($client, $cookieJar) = $arguments;
@@ -109,9 +103,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testSwitchedSegmentIsACachHit
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testSwitchedSegmentIsACachHit')]
     public function testSwitchSegmentBackIsACacheHit($arguments)
     {
         list($client, $cookieJar) = $arguments;

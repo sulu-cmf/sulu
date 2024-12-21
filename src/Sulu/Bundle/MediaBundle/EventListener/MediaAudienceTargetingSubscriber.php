@@ -11,8 +11,6 @@
 
 namespace Sulu\Bundle\MediaBundle\EventListener;
 
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
 use Sulu\Bundle\AudienceTargetingBundle\Entity\TargetGroupInterface;
@@ -21,15 +19,8 @@ use Sulu\Bundle\MediaBundle\Entity\FileVersion;
 /**
  * This subscriber adds the relationship between media and audience target groups if both bundles are registered.
  */
-class MediaAudienceTargetingSubscriber implements EventSubscriber
+class MediaAudienceTargetingSubscriber
 {
-    public function getSubscribedEvents()
-    {
-        return [
-            Events::loadClassMetadata,
-        ];
-    }
-
     public function loadClassMetadata(LoadClassMetadataEventArgs $event)
     {
         /** @var $metadata ClassMetadataInfo */

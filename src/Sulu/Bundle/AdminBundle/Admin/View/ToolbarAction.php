@@ -17,16 +17,14 @@ class ToolbarAction
 {
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $type;
 
     /**
      * @var array
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $options;
 
     public function __construct(string $type, array $options = [])

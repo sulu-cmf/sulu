@@ -21,7 +21,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             [],
             [],
             [],
@@ -30,7 +30,7 @@ class ListQueryBuilderTest extends TestCase
 
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
-        $this->assertEquals('SELECT u FROM SuluCoreBundle:Example u', $dql);
+        $this->assertEquals('SELECT u FROM Sulu\Bundle\CoreBundle\Entity\Example u', $dql);
     }
 
     public function testFindWithFields(): void
@@ -38,7 +38,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             ['field1', 'field2', 'field3'],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             ['field1', 'field2', 'field3'],
             [],
             [],
@@ -47,7 +47,7 @@ class ListQueryBuilderTest extends TestCase
 
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
-        $this->assertEquals('SELECT u.field1, u.field2, u.field3 FROM SuluCoreBundle:Example u', $dql);
+        $this->assertEquals('SELECT u.field1, u.field2, u.field3 FROM Sulu\Bundle\CoreBundle\Entity\Example u', $dql);
     }
 
     public function testFindWithSorting(): void
@@ -55,7 +55,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             [],
             ['sortField' => 'ASC'],
             [],
@@ -64,7 +64,7 @@ class ListQueryBuilderTest extends TestCase
 
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
-        $this->assertEquals('SELECT u FROM SuluCoreBundle:Example u ORDER BY u.sortField ASC', $dql);
+        $this->assertEquals('SELECT u FROM Sulu\Bundle\CoreBundle\Entity\Example u ORDER BY u.sortField ASC', $dql);
     }
 
     public function testFindWithWhere(): void
@@ -72,7 +72,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             [],
             [],
             ['field1' => 1, 'field2' => 2],
@@ -81,7 +81,7 @@ class ListQueryBuilderTest extends TestCase
 
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
-        $this->assertEquals('SELECT u FROM SuluCoreBundle:Example u WHERE u.field1 = 1 AND u.field2 = 2', $dql);
+        $this->assertEquals('SELECT u FROM Sulu\Bundle\CoreBundle\Entity\Example u WHERE u.field1 = 1 AND u.field2 = 2', $dql);
     }
 
     public function testFindWithSearch(): void
@@ -89,7 +89,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             [],
             [],
             [],
@@ -98,7 +98,7 @@ class ListQueryBuilderTest extends TestCase
 
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
-        $this->assertEquals('SELECT u FROM SuluCoreBundle:Example u WHERE (u.field LIKE :search)', $dql);
+        $this->assertEquals('SELECT u FROM Sulu\Bundle\CoreBundle\Entity\Example u WHERE (u.field LIKE :search)', $dql);
     }
 
     public function testFindWithWhereAndSearch(): void
@@ -106,7 +106,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             [],
             [],
             ['field1' => 1, 'field2' => 2],
@@ -116,7 +116,7 @@ class ListQueryBuilderTest extends TestCase
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
         $this->assertEquals(
-            'SELECT u FROM SuluCoreBundle:Example u WHERE u.field1 = 1 AND u.field2 = 2 AND (u.field LIKE :search)',
+            'SELECT u FROM Sulu\Bundle\CoreBundle\Entity\Example u WHERE u.field1 = 1 AND u.field2 = 2 AND (u.field LIKE :search)',
             $dql
         );
     }
@@ -126,7 +126,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             [],
             [],
             ['field1' => 1, 'field2' => 2],
@@ -137,7 +137,7 @@ class ListQueryBuilderTest extends TestCase
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
         $this->assertEquals(
-            'SELECT u FROM SuluCoreBundle:Example u WHERE u.field1 = 1 AND u.field2 = 2 AND (u.field1 LIKE :search OR u.field2 = :strictSearch OR u.field3 = :strictSearch)',
+            'SELECT u FROM Sulu\Bundle\CoreBundle\Entity\Example u WHERE u.field1 = 1 AND u.field2 = 2 AND (u.field1 LIKE :search OR u.field2 = :strictSearch OR u.field3 = :strictSearch)',
             $dql
         );
     }
@@ -147,7 +147,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             ['object', 'otherobject'],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             ['object_field1', 'object_field2', 'otherobject_field3'],
             [],
             [],
@@ -158,7 +158,7 @@ class ListQueryBuilderTest extends TestCase
 
         $this->assertEquals(
             'SELECT object.field1 object_field1, object.field2 object_field2, otherobject.field3 otherobject_field3 ' .
-            'FROM SuluCoreBundle:Example u LEFT JOIN u.object object LEFT JOIN u.otherobject otherobject',
+            'FROM Sulu\Bundle\CoreBundle\Entity\Example u LEFT JOIN u.object object LEFT JOIN u.otherobject otherobject',
             $dql
         );
     }
@@ -168,7 +168,7 @@ class ListQueryBuilderTest extends TestCase
         $builder = new ListQueryBuilder(
             [],
             [],
-            'SuluCoreBundle:Example',
+            'Sulu\Bundle\CoreBundle\Entity\Example',
             [],
             [],
             [],
@@ -179,6 +179,6 @@ class ListQueryBuilderTest extends TestCase
 
         $dql = \str_replace(' ,', ',', \trim(\preg_replace('/\s+/', ' ', $builder->find())));
 
-        $this->assertEquals('SELECT COUNT(u.id) as total FROM SuluCoreBundle:Example u', $dql);
+        $this->assertEquals('SELECT COUNT(u.id) as total FROM Sulu\Bundle\CoreBundle\Entity\Example u', $dql);
     }
 }

@@ -43,13 +43,14 @@
             </meta>
         </property>
 
-        <block name="blocks" default-type="editor" minOccurs="0">
+        <block name="blocks" default-type="text_block" minOccurs="0">
             <meta>
                 <title lang="en">Content</title>
                 <title lang="de">Inhalte</title>
             </meta>
 
             <types>
+                <type ref="text_block"/>
                 <type name="editor">
                     <meta>
                         <title lang="en">Editor</title>

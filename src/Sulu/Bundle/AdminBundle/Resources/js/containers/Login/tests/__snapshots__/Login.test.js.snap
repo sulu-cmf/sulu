@@ -323,6 +323,204 @@ exports[`Should render the Login with forgot password with success 1`] = `
 </div>
 `;
 
+exports[`Should render the Login with only password 1`] = `
+<div
+  class="login"
+>
+  <div
+    class="loginContainer"
+  >
+    <div
+      class="formContainer"
+    >
+      <div
+        class="logoContainer"
+      >
+        <span
+          aria-label="su-sulu"
+          class="su-sulu"
+        />
+      </div>
+      <div
+        class="header"
+      >
+        sulu_admin.welcome
+      </div>
+      <form
+        class="form"
+      >
+        <fieldset>
+          <label
+            class="inputField"
+          >
+            <div
+              class="labelText"
+            >
+              sulu_admin.password
+            </div>
+            <div
+              class="input default left"
+            >
+              <div
+                class="prependedContainer default"
+              >
+                <span
+                  aria-label="su-lock"
+                  class="su-lock icon default"
+                />
+              </div>
+              <input
+                autocomplete="current-password"
+                type="password"
+                value=""
+              />
+            </div>
+          </label>
+          <div
+            class="buttons"
+          >
+            <button
+              class="button link hasText"
+              type="button"
+            >
+              <span
+                class="buttonText"
+              >
+                sulu_admin.forgot_password
+              </span>
+            </button>
+            <button
+              class="button primary hasText"
+              disabled=""
+              type="submit"
+            >
+              <span
+                class="buttonText"
+              >
+                sulu_admin.login
+              </span>
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div
+      class="backLinkContainer"
+    >
+      <a
+        class="backLink"
+        href="/"
+      >
+        <span
+          aria-label="su-angle-left"
+          class="su-angle-left backLinkIcon"
+        />
+        sulu_admin.back_to_website
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should render the Login with only username/email 1`] = `
+<div
+  class="login"
+>
+  <div
+    class="loginContainer"
+  >
+    <div
+      class="formContainer"
+    >
+      <div
+        class="logoContainer"
+      >
+        <span
+          aria-label="su-sulu"
+          class="su-sulu"
+        />
+      </div>
+      <div
+        class="header"
+      >
+        sulu_admin.welcome
+      </div>
+      <form
+        class="form"
+      >
+        <fieldset>
+          <label
+            class="inputField"
+          >
+            <div
+              class="labelText"
+            >
+              sulu_admin.username_or_email
+            </div>
+            <div
+              class="input default left"
+            >
+              <div
+                class="prependedContainer default"
+              >
+                <span
+                  aria-label="su-user"
+                  class="su-user icon default"
+                />
+              </div>
+              <input
+                autocomplete="username"
+                type="text"
+                value=""
+              />
+            </div>
+          </label>
+          <div
+            class="buttons"
+          >
+            <button
+              class="button link hasText"
+              type="button"
+            >
+              <span
+                class="buttonText"
+              >
+                sulu_admin.forgot_password
+              </span>
+            </button>
+            <button
+              class="button primary hasText"
+              disabled=""
+              type="submit"
+            >
+              <span
+                class="buttonText"
+              >
+                sulu_admin.login
+              </span>
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div
+      class="backLinkContainer"
+    >
+      <a
+        class="backLink"
+        href="/"
+      >
+        <span
+          aria-label="su-angle-left"
+          class="su-angle-left backLinkIcon"
+        />
+        sulu_admin.back_to_website
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Should render the Login with reset password view 1`] = `
 <div
   class="login"

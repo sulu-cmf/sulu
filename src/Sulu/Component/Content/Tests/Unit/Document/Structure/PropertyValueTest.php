@@ -26,9 +26,7 @@ class PropertyValueTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideOffsetSetData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideOffsetSetData')]
     public function testOffsetSet($value, $setName, $setValue, $expected): void
     {
         $propertyValue = new PropertyValue('test', $value);

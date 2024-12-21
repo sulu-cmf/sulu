@@ -20,3 +20,17 @@ jest.mock('sulu-admin-bundle/services/Config', () => ({
     translations: ['en', 'de'],
     fallbackLocale: 'en',
 }));
+
+Object.defineProperty(window, 'matchMedia', { // see https://github.com/ckeditor/ckeditor5/issues/16368
+    writable: true,
+    value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(), // deprecated
+        removeListener: jest.fn(), // deprecated
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+    })),
+});

@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>references</key>
+
+    <properties>
+        <property
+            name="referenceTitle"
+            translation="sulu_admin.title"
+            visibility="yes"
+            searchability="yes"
+            sortable="true"
+            width="shrink"
+        />
+
+        <property
+            name="referenceLocale"
+            translation="sulu_admin.language"
+            visibility="yes"
+            searchability="no"
+            sortable="false"
+            width="shrink"
+        />
+
+        <property
+            name="referenceResourceKey"
+            translation="sulu_admin.resource"
+            visibility="yes"
+            searchability="yes"
+            sortable="false"
+        >
+            <transformer type="translation">
+                <params>
+                    <param name="prefix" value="sulu_reference.resource."/>
+                </params>
+            </transformer>
+        </property>
+
+        <property
+            name="referenceResourceId"
+            translation="sulu_admin.id"
+            visibility="no"
+            searchability="yes"
+            sortable="false"
+        />
+
+        <property
+            name="referenceContext"
+            translation="sulu_reference.reference_context"
+            visibility="yes"
+            searchability="no"
+            sortable="false"
+        />
+
+        <property
+            name="referenceProperty"
+            translation="sulu_reference.reference_property"
+            visibility="yes"
+            searchability="no"
+            sortable="false"
+        />
+
+        <property
+            name="referenceRouterAttributes"
+            visibility="never"
+            searchability="no"
+            sortable="false"
+        />
+    </properties>
+</list>

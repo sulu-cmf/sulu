@@ -129,9 +129,7 @@ class SortUtilsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideSortObjects
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSortObjects')]
     public function testSortObjects($data, $methodName, $direction, $checkField, $expectedOrder): void
     {
         $accessor = PropertyAccess::createPropertyAccessor();
@@ -166,6 +164,52 @@ class SortUtilsTest extends TestCase
         ]);
 
         SortUtils::multisort($collection, 'somefink');
+    }
+
+    public function testSortLocaleAwareSimpleArray(): void
+    {
+        $array = ['D', 'A', 'Ê', 'E', 'Ä', 'M'];
+        $result = SortUtils::sortLocaleAware($array, 'de');
+
+        if (!\class_exists(\Collator::class)) {
+            $this->assertSame(['A', 'D', 'E', 'M', 'Ä', 'Ê'], $result);
+        } else {
+            $this->assertSame(['A', 'Ä', 'D', 'E', 'Ê', 'M'], $result);
+        }
+    }
+
+    public function testSortLocaleAwareDeepArray(): void
+    {
+        $array = [
+            ['value' => 'D'],
+            ['value' => 'A'],
+            ['value' => 'Ê'],
+            ['value' => 'E'],
+            ['value' => 'Ä'],
+            ['value' => 'M'],
+        ];
+
+        $result = SortUtils::sortLocaleAware($array, 'de', fn ($item) => $item['value']);
+
+        if (!\class_exists(\Collator::class)) {
+            $this->assertSame([
+                ['value' => 'A'],
+                ['value' => 'D'],
+                ['value' => 'E'],
+                ['value' => 'M'],
+                ['value' => 'Ä'],
+                ['value' => 'Ê'],
+            ], $result);
+        } else {
+            $this->assertSame([
+                ['value' => 'A'],
+                ['value' => 'Ä'],
+                ['value' => 'D'],
+                ['value' => 'E'],
+                ['value' => 'Ê'],
+                ['value' => 'M'],
+            ], $result);
+        }
     }
 }
 

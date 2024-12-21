@@ -13,6 +13,7 @@ namespace Sulu\Bundle\PageBundle;
 
 use PHPCR\Migrations\VersionInterface;
 use PHPCR\NodeInterface;
+use PHPCR\PhpcrMigrationsBundle\ContainerAwareInterface;
 use PHPCR\SessionInterface;
 use Sulu\Bundle\DocumentManagerBundle\Bridge\DocumentInspector;
 use Sulu\Bundle\DocumentManagerBundle\Bridge\PropertyEncoder;
@@ -24,7 +25,6 @@ use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\Content\Metadata\StructureMetadata;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Sulu\Component\Localization\Manager\LocalizationManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Version201510210733 implements VersionInterface, ContainerAwareInterface
@@ -59,7 +59,7 @@ class Version201510210733 implements VersionInterface, ContainerAwareInterface
      */
     private $documentInspector;
 
-    public function setContainer(?ContainerInterface $container = null)
+    public function setContainer(?ContainerInterface $container = null): void
     {
         $this->structureMetadataFactory = $container->get('sulu_page.structure.factory');
         $this->propertyEncoder = $container->get('sulu_document_manager.property_encoder');

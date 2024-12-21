@@ -11,8 +11,8 @@
 
 namespace Sulu\Component\Content\Mapper;
 
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use Jackalope\Query\Row;
 use PHPCR\NodeInterface;
 use PHPCR\Query\QueryInterface;
@@ -31,6 +31,7 @@ use Sulu\Component\Content\Compat\StructureManagerInterface;
 use Sulu\Component\Content\ContentTypeManagerInterface;
 use Sulu\Component\Content\Document\Behavior\ExtensionBehavior;
 use Sulu\Component\Content\Document\Behavior\LocalizedAuthorBehavior;
+use Sulu\Component\Content\Document\Behavior\LocalizedLastModifiedBehavior;
 use Sulu\Component\Content\Document\Behavior\OrderBehavior;
 use Sulu\Component\Content\Document\Behavior\RedirectTypeBehavior;
 use Sulu\Component\Content\Document\Behavior\ResourceSegmentBehavior;
@@ -59,9 +60,11 @@ use Sulu\Component\DocumentManager\NamespaceRegistry;
 use Sulu\Component\PHPCR\SessionManager\SessionManagerInterface;
 use Sulu\Component\Security\Authorization\AccessControl\AccessControlManagerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
 
 /**
  * Maps content nodes to phpcr nodes with content types and provides utility function to handle content nodes.
@@ -93,7 +96,7 @@ class ContentMapper implements ContentMapperInterface
         private NamespaceRegistry $namespaceRegistry,
         private AccessControlManagerInterface $accessControlManager,
         private $permissions,
-        private ?Security $security = null,
+        private Security|SymfonyCoreSecurity|null $security = null,
     ) {
     }
 
@@ -131,7 +134,7 @@ class ContentMapper implements ContentMapperInterface
         }
 
         // save data of extensions
-        $extension = $this->extensionManager->getExtension($document->getStructureType(), $extensionName);
+        $extension = $this->extensionManager->getExtension((string) $document->getStructureType(), $extensionName);
         $node = $this->inspector->getNode($document);
 
         $extension->save($node, $data, $webspaceKey, $locale);
@@ -718,6 +721,10 @@ class ContentMapper implements ContentMapperInterface
             $documentData['urls'] = $this->inspector->getLocalizedUrlsForPage($document);
         }
 
+        if ($document instanceof LocalizedLastModifiedBehavior) {
+            $documentData['lastModified'] = $document->getLastModified();
+        }
+
         if ($document instanceof LocalizedAuthorBehavior) {
             $documentData['author'] = $document->getAuthor();
             $documentData['authored'] = $document->getAuthored();
@@ -903,7 +910,7 @@ class ContentMapper implements ContentMapperInterface
      */
     private function initializeExtensionCache()
     {
-        $this->extensionDataCache = new ArrayCache();
+        $this->extensionDataCache = DoctrineProvider::wrap(new ArrayAdapter());
     }
 
     /**

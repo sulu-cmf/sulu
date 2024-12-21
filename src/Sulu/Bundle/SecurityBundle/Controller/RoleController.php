@@ -49,7 +49,7 @@ class RoleController extends AbstractRestController implements ClassResourceInte
      */
     protected static $entityKey = 'roles';
 
-    public const ENTITY_NAME_PERMISSION = 'SuluSecurityBundle:Permission';
+    public const ENTITY_NAME_PERMISSION = Permission::class;
 
     protected $bundlePrefix = 'security.roles.';
 
@@ -432,11 +432,11 @@ class RoleController extends AbstractRestController implements ClassResourceInte
     private function setSecurityType($role, $securityTypeData)
     {
         $securityType = $this->entityManager
-            ->getRepository('SuluSecurityBundle:SecurityType')
+            ->getRepository(\Sulu\Bundle\SecurityBundle\Entity\SecurityType::class)
             ->findSecurityTypeById($securityTypeData['id']);
 
         if (!$securityType) {
-            throw new EntityNotFoundException('SuluSecurityBundle:SecurityType', $securityTypeData['id']);
+            throw new EntityNotFoundException(\Sulu\Bundle\SecurityBundle\Entity\SecurityType::class, $securityTypeData['id']);
         }
         $role->setSecurityType($securityType);
     }

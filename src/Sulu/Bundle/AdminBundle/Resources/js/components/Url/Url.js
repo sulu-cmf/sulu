@@ -4,8 +4,8 @@ import {observer} from 'mobx-react';
 import {action, computed, observable} from 'mobx';
 import classNames from 'classnames';
 import log from 'loglevel';
-import IsEmail from 'isemail';
 import SingleSelect from '../SingleSelect';
+import validateEmail from '../../utils/Email/validateEmail';
 import urlStyles from './url.scss';
 
 type Props = {|
@@ -58,7 +58,7 @@ class Url extends React.Component<Props> {
         }
 
         if (this.selectedProtocol === 'mailto:') {
-            return IsEmail.validate(url.substring(7));
+            return validateEmail(url.substring(7));
         }
 
         return true;

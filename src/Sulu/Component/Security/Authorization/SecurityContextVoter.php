@@ -43,7 +43,7 @@ class SecurityContextVoter implements VoterInterface
         return SecurityCondition::class === $class || \is_subclass_of($class, SecurityCondition::class);
     }
 
-    public function vote(TokenInterface $token, $object, array $attributes)
+    public function vote(TokenInterface $token, $object, array $attributes): int
     {
         /** @var User $user */
         $user = $token->getUser();

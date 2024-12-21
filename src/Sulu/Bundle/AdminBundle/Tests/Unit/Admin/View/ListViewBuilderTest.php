@@ -82,9 +82,7 @@ class ListViewBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideBuildListView
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBuildListView')]
     public function testBuildListView(
         string $name,
         string $path,

@@ -12,6 +12,17 @@
 namespace Sulu\Bundle\MediaBundle\Content\Types;
 
 use PHPCR\NodeInterface;
+use Sulu\Bundle\AdminBundle\FormMetadata\FormMetadataMapper;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\AllOfsMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\ArrayMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\ConstMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\IfThenElseMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\PropertyMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\PropertyMetadataMapperInterface;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\RefSchemaMetadata;
+use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\SchemaMetadata;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollectorInterface;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\ContentType\ReferenceContentTypeInterface;
 use Sulu\Component\Content\Compat\Block\BlockPropertyWrapper;
 use Sulu\Component\Content\Compat\Property;
 use Sulu\Component\Content\Compat\PropertyInterface;
@@ -22,12 +33,15 @@ use Sulu\Component\Content\ContentTypeManagerInterface;
 use Sulu\Component\Content\Document\Structure\PropertyValue;
 use Sulu\Component\Content\Document\Subscriber\PHPCR\SuluNode;
 use Sulu\Component\Content\Exception\UnexpectedPropertyType;
+use Sulu\Component\Content\Metadata\PropertyMetadata as ContentPropertyMetadata;
 use Sulu\Component\Content\PreResolvableContentTypeInterface;
 
-class ImageMapContentType extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface
+class ImageMapContentType extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface, PropertyMetadataMapperInterface, ReferenceContentTypeInterface
 {
-    public function __construct(private ContentTypeManagerInterface $contentTypeManager)
-    {
+    public function __construct(
+        private ContentTypeManagerInterface $contentTypeManager,
+        private FormMetadataMapper $formMetadataMapper,
+    ) {
     }
 
     public function read(
@@ -438,5 +452,89 @@ class ImageMapContentType extends ComplexContentType implements ContentTypeExpor
             },
             false
         );
+    }
+
+    public function mapPropertyMetadata(ContentPropertyMetadata $propertyMetadata): PropertyMetadata
+    {
+        $blockTypeSchemas = [];
+        foreach ($propertyMetadata->getComponents() as $blockType) {
+            if ($blockType->hasTag('sulu.global_block')) {
+                $blockName = $blockType->getTag('sulu.global_block')['attributes']['global_block'];
+                $blockTypeSchemas[] = new IfThenElseMetadata(
+                    new SchemaMetadata([
+                        new PropertyMetadata('type', true, new ConstMetadata($blockType->getName())),
+                    ]),
+                    new RefSchemaMetadata('#/definitions/' . $blockName)
+                );
+
+                continue;
+            }
+
+            $blockTypeSchemas[] = new IfThenElseMetadata(
+                new SchemaMetadata([
+                    new PropertyMetadata('type', true, new ConstMetadata($blockType->getName())),
+                ]),
+                $this->formMetadataMapper->mapSchema($blockType->getChildren()),
+            );
+        }
+
+        return new PropertyMetadata(
+            (string) $propertyMetadata->getName(),
+            $propertyMetadata->isRequired(),
+            new SchemaMetadata([
+                new PropertyMetadata('imageId', $propertyMetadata->isRequired()),
+                new PropertyMetadata(
+                    'hotspots', $propertyMetadata->isRequired(), new ArrayMetadata(
+                        new AllOfsMetadata($blockTypeSchemas)
+                    )),
+            ])
+        );
+    }
+
+    public function getReferences(PropertyInterface $property, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
+    {
+        $value = $property->getValue();
+
+        if (!$value) {
+            return;
+        }
+
+        $imageId = $value['imageId'] ?? null;
+        if ($imageId) {
+            $imageProperty = new Property('image', '', 'single_media_selection');
+            $imageProperty->setValue(['id' => $imageId]);
+            $imageProperty->setStructure($property->getStructure());
+            /** @var SingleMediaSelection $contentType */
+            $contentType = $this->contentTypeManager->get($imageProperty->getContentTypeName());
+
+            if ($contentType instanceof ReferenceContentTypeInterface) {
+                $contentType->getReferences(
+                    $imageProperty,
+                    $referenceCollector,
+                    $propertyPrefix . $property->getName() . '.'
+                );
+            }
+        }
+
+        $hotspots = $value['hotspots'] ?? [];
+        foreach ($hotspots as $index => $value) {
+            $propertyType = $property->getType($value['type']);
+
+            foreach ($propertyType->getChildProperties() as $child) {
+                $contentType = $this->contentTypeManager->get($child->getContentTypeName());
+                $childName = $child->getName();
+
+                if (!$contentType instanceof ReferenceContentTypeInterface || !isset($value[$childName])) {
+                    continue;
+                }
+
+                $child->setValue($value[$childName]);
+                $contentType->getReferences(
+                    $child,
+                    $referenceCollector,
+                    $propertyPrefix . $property->getName() . '.hotspots[' . $index . '].'
+                );
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ import {compile} from 'path-to-regexp';
 import {parsePath} from 'history';
 import {transformDateForUrl} from '../../utils/Date';
 import routeRegistry from './registries/routeRegistry';
+import resourceViewRegistry from './registries/resourceViewRegistry';
 import Route from './Route';
 import type {AttributeMap, UpdateAttributesHook, UpdateRouteHook, UpdateRouteMethod} from './types';
 import type {IObservableValue} from 'mobx/lib/mobx';
@@ -281,6 +282,16 @@ export default class Router {
 
     @action navigate = (name: string, attributes: Object = {}): void => {
         this.handleNavigation(name, attributes, this.navigate);
+    };
+
+    @action navigateToResourceView = (view: string, resourceKey: string, attributes: Object = {}): void => {
+        const route = resourceViewRegistry.get(view, resourceKey);
+
+        this.navigate(route, attributes);
+    };
+
+    @action hasResourceView = (view: string, resourceKey: string): boolean => {
+        return resourceViewRegistry.has(view, resourceKey);
     };
 
     @action redirect = (name: string, attributes: Object = {}): void => {

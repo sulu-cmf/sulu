@@ -56,9 +56,8 @@ class DocumentRegistryTest extends TestCase
 
     /**
      * It should deregister a given document.
-     *
-     * @depends testRegisterDocument
      */
+    #[\PHPUnit\Framework\Attributes\Depends('testRegisterDocument')]
     public function testDeregisterDocument(): void
     {
         $this->registry->registerDocument($this->document, $this->node->reveal(), 'fr');
@@ -78,9 +77,8 @@ class DocumentRegistryTest extends TestCase
 
     /**
      * It should return the PHPCR node for a registered document.
-     *
-     * @depends testRegisterDocument
      */
+    #[\PHPUnit\Framework\Attributes\Depends('testRegisterDocument')]
     public function testGetNodeForDocument(): void
     {
         $this->registry->registerDocument($this->document, $this->node->reveal(), 'fr');
@@ -113,9 +111,8 @@ class DocumentRegistryTest extends TestCase
 
     /**
      * It should return a document for a mangaed node.
-     *
-     * @depends testRegisterDocument
      */
+    #[\PHPUnit\Framework\Attributes\Depends('testRegisterDocument')]
     public function testGetDocumentForNode(): void
     {
         $this->registry->registerDocument($this->document, $this->node->reveal(), 'fr');

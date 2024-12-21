@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Component\Security\Authentication\UserInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
+use Symfony\Component\Security\Http\SecurityRequestAttributes;
 
 class AuthenticationHandlerTest extends TestCase
 {
@@ -56,6 +58,7 @@ class AuthenticationHandlerTest extends TestCase
     public function setUp(): void
     {
         $this->exception = $this->prophesize(AuthenticationException::class);
+        $this->exception->getMessageKey()->willReturn('error');
         $this->request = $this->prophesize(Request::class);
         $this->token = $this->prophesize(TokenInterface::class);
         $this->user = $this->prophesize(UserInterface::class);
@@ -65,7 +68,14 @@ class AuthenticationHandlerTest extends TestCase
         $router = $this->prophesize(RouterInterface::class);
         $session = $this->prophesize(Session::class);
         $session->get('_security.admin.target_path')->willReturn('/admin/#target/path');
-        $session->set(Security::AUTHENTICATION_ERROR, $this->exception->reveal())->will(function() {});
+        $session->set(
+            \class_exists(SecurityRequestAttributes::class)
+                ? SecurityRequestAttributes::AUTHENTICATION_ERROR
+                : (\class_exists(Security::class)
+                    ? Security::AUTHENTICATION_ERROR // BC layer to Symfony <=6.4
+                    : SymfonyCoreSecurity::AUTHENTICATION_ERROR), // BC layer to Symfony <=5.4
+            $this->exception->reveal()
+        )->will(function() {});
         $this->request->getSession()
             ->willReturn($session->reveal());
         $router->generate('sulu_admin')->willReturn('/admin');

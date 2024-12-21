@@ -17,6 +17,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\MediaBundle\Admin\MediaAdmin;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\Admin\View\ReferenceViewBuilderFactoryInterface;
 use Sulu\Component\Localization\Manager\LocalizationManagerInterface;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceCollection;
@@ -60,6 +61,11 @@ class MediaAdminTest extends TestCase
     private $activityViewBuilderFactory;
 
     /**
+     * @var ObjectProphecy<ReferenceViewBuilderFactoryInterface>
+     */
+    private $referenceViewBuilderFactory;
+
+    /**
      * @var MediaAdmin
      */
     private $mediaAdmin;
@@ -72,6 +78,7 @@ class MediaAdminTest extends TestCase
         $this->urlGenerator = $this->prophesize(UrlGeneratorInterface::class);
         $this->webspaceManager = $this->prophesize(WebspaceManagerInterface::class);
         $this->activityViewBuilderFactory = $this->prophesize(ActivityViewBuilderFactoryInterface::class);
+        $this->referenceViewBuilderFactory = $this->prophesize(ReferenceViewBuilderFactoryInterface::class);
 
         $this->mediaAdmin = new MediaAdmin(
             $this->viewBuilderFactory->reveal(),
@@ -79,7 +86,8 @@ class MediaAdminTest extends TestCase
             $this->localizationManager->reveal(),
             $this->urlGenerator->reveal(),
             $this->webspaceManager->reveal(),
-            $this->activityViewBuilderFactory->reveal()
+            $this->activityViewBuilderFactory->reveal(),
+            $this->referenceViewBuilderFactory->reveal()
         );
     }
 

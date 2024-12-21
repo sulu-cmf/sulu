@@ -13,7 +13,7 @@
         </id>
         <field name="title" type="string" column="title" length="191"/>
         <field name="description" type="text" column="description" nullable="true"/>
-        <field name="locale" type="string" column="locale" length="5"/>
+        <field name="locale" type="string" column="locale" length="15"/>
         <many-to-one field="collection" target-entity="Sulu\Bundle\MediaBundle\Entity\CollectionInterface" inversed-by="meta">
             <join-columns>
                 <join-column name="idCollections" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>

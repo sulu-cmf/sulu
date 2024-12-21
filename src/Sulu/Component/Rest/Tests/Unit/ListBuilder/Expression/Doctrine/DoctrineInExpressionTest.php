@@ -21,7 +21,7 @@ class DoctrineInExpressionTest extends TestCase
     /**
      * @var string
      */
-    private static $entityName = 'SuluCoreBundle:Example';
+    private static $entityName = 'Sulu\Bundle\CoreBundle\Entity\Example';
 
     /**
      * http://php.net/manual/en/function.uniqid.php
@@ -54,7 +54,7 @@ class DoctrineInExpressionTest extends TestCase
 
         $statement = $whereExpression->getStatement($this->queryBuilder);
         $result = \preg_match(
-            \sprintf('/^SuluCoreBundle_Example\.name IN \(:name\S{%s}\)/', $this->uniqueIdLength),
+            \sprintf('/^Sulu_Bundle_CoreBundle_Entity_Example\.name IN \(:name\S{%s}\)/', $this->uniqueIdLength),
             $statement
         );
 
@@ -69,7 +69,7 @@ class DoctrineInExpressionTest extends TestCase
 
         $statement = $whereExpression->getStatement($this->queryBuilder);
         $result = \preg_match(
-            '/^SuluCoreBundle_Example\.name IS NULL/',
+            '/^Sulu_Bundle_CoreBundle_Entity_Example\.name IS NULL/',
             $statement
         );
 

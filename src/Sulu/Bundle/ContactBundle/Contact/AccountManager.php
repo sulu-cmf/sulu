@@ -37,7 +37,7 @@ use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
  */
 class AccountManager extends AbstractContactManager implements DataProviderRepositoryInterface
 {
-    protected $addressEntity = 'SuluContactBundle:Address';
+    protected $addressEntity = AddressEntity::class;
 
     public function __construct(
         ObjectManager $em,
@@ -102,7 +102,7 @@ class AccountManager extends AbstractContactManager implements DataProviderRepos
         // Reload address to get all data (including relational data).
         /** @var AddressEntity $address */
         $address = $accountAddress->getAddress();
-        $address = $this->em->getRepository('SuluContactBundle:Address')
+        $address = $this->em->getRepository(AddressEntity::class)
             ->findById($address->getId());
 
         $isMain = $accountAddress->getMain();

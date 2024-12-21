@@ -17,10 +17,7 @@ use Imagine\Imagick\Imagine as ImagickImagine;
 use Sulu\Bundle\MediaBundle\Media\ImageConverter\Transformation\TransformationInterface;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
-/**
- * Class AbstractScaleTest.
- */
-abstract class AbstractTransformationTest extends SuluTestCase
+abstract class AbstractTransformation extends SuluTestCase
 {
     /**
      * @var TransformationInterface
@@ -77,7 +74,7 @@ abstract class AbstractTransformationTest extends SuluTestCase
         }
     }
 
-    private function createImagine()
+    private function createImagine(): ImagickImagine|GdImagine
     {
         if (\class_exists(\Imagick::class)) {
             return new ImagickImagine();

@@ -18,7 +18,19 @@ export default class MediaLinkTypeOverlay extends React.Component<LinkTypeOverla
     };
 
     render() {
-        const {href, locale, onCancel, onConfirm, onTitleChange, onTargetChange, open, title, target} = this.props;
+        const {
+            href,
+            locale,
+            onCancel,
+            onConfirm,
+            onTitleChange,
+            onTargetChange,
+            onAnchorChange,
+            open,
+            title,
+            target,
+            anchor,
+        } = this.props;
 
         if (typeof href === 'string') {
             throw new Error('The id of a media should always be a number!');
@@ -41,6 +53,12 @@ export default class MediaLinkTypeOverlay extends React.Component<LinkTypeOverla
                             value={{displayOption: undefined, id: href}}
                         />
                     </Form.Field>
+
+                    {!!onAnchorChange &&
+                        <Form.Field label={translate('sulu_admin.link_anchor')}>
+                            <Input onChange={onAnchorChange} value={anchor} />
+                        </Form.Field>
+                    }
 
                     {!!onTargetChange &&
                         <Form.Field label={translate('sulu_admin.link_target')} required={true}>

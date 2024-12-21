@@ -157,7 +157,7 @@ class WebspaceExport extends Export implements WebspaceExportInterface
         $extensionData = [];
         foreach ($data as $extensionName => $extensionProperties) {
             /** @var ExcerptStructureExtension $extension */
-            $extension = $this->extensionManager->getExtension($document->getStructureType(), $extensionName);
+            $extension = $this->extensionManager->getExtension((string) $document->getStructureType(), $extensionName);
 
             if ($extension instanceof ExportExtensionInterface) {
                 $extensionData[$extensionName] = $extension->export($extensionProperties, $this->format);

@@ -38,6 +38,8 @@ class ShadowCopyPropertiesSubscriber implements EventSubscriberInterface
 
     public const AUTHORED_PROPERTY = 'i18n:%s-authored';
 
+    public const LAST_MODIFIED_PROPERTY = 'i18n:%s-lastModified';
+
     public const TEMPLATE_PROPERTY = 'i18n:%s-template';
 
     public function __construct(protected PropertyEncoder $encoder)
@@ -91,6 +93,7 @@ class ShadowCopyPropertiesSubscriber implements EventSubscriberInterface
         $navigationContext = $this->getNavigationContext($node, $documentLocale);
         $author = $this->getAuthor($node, $documentLocale);
         $authored = $this->getAuthored($node, $documentLocale);
+        $lastModified = $this->getLastModified($node, $documentLocale);
         $template = $this->getTemplate($node, $documentLocale);
 
         foreach ($node->getProperties(self::SHADOW_BASE_PROPERTY) as $name => $property) {
@@ -105,6 +108,7 @@ class ShadowCopyPropertiesSubscriber implements EventSubscriberInterface
                 $node->setProperty(\sprintf(self::NAVIGATION_CONTEXT_PROPERTY, $locale), $navigationContext);
                 $node->setProperty(\sprintf(self::AUTHOR_PROPERTY, $locale), $author);
                 $node->setProperty(\sprintf(self::AUTHORED_PROPERTY, $locale), $authored);
+                $node->setProperty(\sprintf(self::LAST_MODIFIED_PROPERTY, $locale), $lastModified);
                 $node->setProperty(\sprintf(self::TEMPLATE_PROPERTY, $locale), $template);
             }
         }
@@ -127,6 +131,7 @@ class ShadowCopyPropertiesSubscriber implements EventSubscriberInterface
         $navigationContext = $this->getNavigationContext($node, $shadowLocale);
         $author = $this->getAuthor($node, $shadowLocale);
         $authored = $this->getAuthored($node, $shadowLocale);
+        $lastModified = $this->getLastModified($node, $shadowLocale);
         $template = $this->getTemplate($node, $shadowLocale);
 
         $node->setProperty(\sprintf(self::TAGS_PROPERTY, $locale), $tags);
@@ -134,6 +139,7 @@ class ShadowCopyPropertiesSubscriber implements EventSubscriberInterface
         $node->setProperty(\sprintf(self::NAVIGATION_CONTEXT_PROPERTY, $locale), $navigationContext);
         $node->setProperty(\sprintf(self::AUTHOR_PROPERTY, $locale), $author);
         $node->setProperty(\sprintf(self::AUTHORED_PROPERTY, $locale), $authored);
+        $node->setProperty(\sprintf(self::LAST_MODIFIED_PROPERTY, $locale), $lastModified);
         $node->setProperty(\sprintf(self::TEMPLATE_PROPERTY, $locale), $template);
     }
 
@@ -195,6 +201,17 @@ class ShadowCopyPropertiesSubscriber implements EventSubscriberInterface
         /** @var \DateTimeInterface|null $result */
         $result = $node->getPropertyValueWithDefault(
             \sprintf(ShadowCopyPropertiesSubscriber::AUTHORED_PROPERTY, $locale),
+            null
+        );
+
+        return $result;
+    }
+
+    private function getLastModified(NodeInterface $node, string $locale): ?\DateTimeInterface
+    {
+        /** @var \DateTimeInterface|null $result */
+        $result = $node->getPropertyValueWithDefault(
+            \sprintf(ShadowCopyPropertiesSubscriber::LAST_MODIFIED_PROPERTY, $locale),
             null
         );
 

@@ -15,17 +15,18 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Sulu\Bundle\SecurityBundle\Entity\SecurityType;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Load security-types from xml to database.
  *
  * @deprecated
  */
-class LoadSecurityTypes implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface
+class LoadSecurityTypes implements FixtureInterface, OrderedFixtureInterface
 {
-    use ContainerAwareTrait;
+    public function __construct(
+        private ?string $fixtureFile = null,
+    ) {
+    }
 
     public function load(ObjectManager $manager)
     {
@@ -35,10 +36,13 @@ class LoadSecurityTypes implements FixtureInterface, OrderedFixtureInterface, Co
         $qb->select('s');
         $present = $qb->getQuery()->getResult();
 
+        if (null === $this->fixtureFile) {
+            return;
+        }
+
         // load xml
-        $file = $this->container->getParameter('sulu_security.security_types.fixture');
         $doc = new \DOMDocument();
-        $doc->load($file);
+        $doc->load($this->fixtureFile);
 
         $xpath = new \DOMXPath($doc);
         $elements = $xpath->query('/security-types/security-type');

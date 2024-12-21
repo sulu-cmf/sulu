@@ -20,9 +20,8 @@ use Sulu\Component\Rest\ApiWrapper;
 
 /**
  * The ContactAddress class which will be exported to the API.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class ContactAddress extends ApiWrapper
 {
     public function __construct(ContactAddressEntity $address)
@@ -34,10 +33,9 @@ class ContactAddress extends ApiWrapper
      * Returns the id of the product.
      *
      * @return int
-     *
-     * @VirtualProperty
-     * @SerializedName("id")
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
     public function getId()
     {
         return $this->entity->getId();
@@ -61,10 +59,9 @@ class ContactAddress extends ApiWrapper
      * Get main.
      *
      * @return bool
-     *
-     * @VirtualProperty
-     * @SerializedName("main")
      */
+    #[VirtualProperty]
+    #[SerializedName('main')]
     public function getMain()
     {
         return $this->entity->getMain();
@@ -86,10 +83,9 @@ class ContactAddress extends ApiWrapper
      * Get address.
      *
      * @return AddressEntity
-     *
-     * @VirtualProperty
-     * @SerializedName("address")
      */
+    #[VirtualProperty]
+    #[SerializedName('address')]
     public function getAddress()
     {
         return $this->entity->getAddress();

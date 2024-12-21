@@ -22,7 +22,7 @@ class DoctrineNotExpressionTest extends TestCase
     /**
      * @var string
      */
-    private static $entityName = 'SuluCoreBundle:Example';
+    private static $entityName = 'Sulu\Bundle\CoreBundle\Entity\Example';
 
     /**
      * http://php.net/manual/en/function.uniqid.php
@@ -55,7 +55,7 @@ class DoctrineNotExpressionTest extends TestCase
 
         $notExpression = new DoctrineNotExpression($whereExpression);
         $result = \preg_match(
-            \sprintf('/^NOT\(SuluCoreBundle_Example\.name IN \(:name\S{%s}\)\)/', $this->uniqueIdLength),
+            \sprintf('/^NOT\(Sulu_Bundle_CoreBundle_Entity_Example\.name IN \(:name\S{%s}\)\)/', $this->uniqueIdLength),
             $notExpression->getStatement($this->queryBuilder)
         );
 

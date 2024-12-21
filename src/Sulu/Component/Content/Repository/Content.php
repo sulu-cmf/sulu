@@ -11,47 +11,42 @@
 
 namespace Sulu\Component\Content\Repository;
 
-use Jackalope\Query\Row;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
+use PHPCR\Query\RowInterface;
 use Sulu\Component\Content\Compat\StructureType;
 use Sulu\Exception\FeatureNotImplementedException;
 
 /**
  * Container class for content data.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class Content implements \ArrayAccess
 {
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $locale;
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $webspaceKey;
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $id;
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $path;
 
     /**
@@ -66,9 +61,8 @@ class Content implements \ArrayAccess
 
     /**
      * @var bool
-     *
-     * @Expose
      */
+    #[Expose]
     private $hasChildren;
 
     /**
@@ -103,9 +97,8 @@ class Content implements \ArrayAccess
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $url;
 
     /**
@@ -115,13 +108,12 @@ class Content implements \ArrayAccess
 
     /**
      * @var string[]
-     *
-     * @Expose
      */
+    #[Expose]
     private $contentLocales;
 
     /**
-     * @var Row
+     * @var RowInterface
      */
     private $row;
 
@@ -217,10 +209,9 @@ class Content implements \ArrayAccess
      * Returns template.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("template")
      */
+    #[VirtualProperty]
+    #[SerializedName('template')]
     public function getTemplate()
     {
         if ($this->brokenTemplate) {
@@ -234,10 +225,9 @@ class Content implements \ArrayAccess
      * Returns original-template.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("originalTemplate")
      */
+    #[VirtualProperty]
+    #[SerializedName('originalTemplate')]
     public function getOriginalTemplate()
     {
         return $this->template;
@@ -320,14 +310,14 @@ class Content implements \ArrayAccess
     }
 
     /**
-     * @return Row
+     * @return RowInterface
      */
     public function getRow()
     {
         return $this->row;
     }
 
-    public function setRow(Row $row)
+    public function setRow(RowInterface $row)
     {
         $this->row = $row;
     }
@@ -414,10 +404,9 @@ class Content implements \ArrayAccess
 
     /**
      * @internal
-     *
-     * @VirtualProperty
-     * @SerializedName("_embedded")
      */
+    #[VirtualProperty]
+    #[SerializedName('_embedded')]
     public function getEmbedded(): array
     {
         return [

@@ -117,7 +117,7 @@ class StructureFormMetadataLoader implements FormMetadataLoaderInterface, CacheW
         return $form;
     }
 
-    public function warmUp($cacheDir)
+    public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         $structuresMetadataByTypes = [];
         foreach ($this->structureMetadataFactory->getStructureTypes() as $structureType) {
@@ -148,6 +148,8 @@ class StructureFormMetadataLoader implements FormMetadataLoaderInterface, CacheW
                 );
             }
         }
+
+        return [];
     }
 
     /**
@@ -227,7 +229,7 @@ class StructureFormMetadataLoader implements FormMetadataLoaderInterface, CacheW
         }
     }
 
-    public function isOptional()
+    public function isOptional(): bool
     {
         return false;
     }

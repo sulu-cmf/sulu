@@ -33,9 +33,7 @@ class ListBuilderMetadataProviderCompilerPassTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProcessProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProcessProvider')]
     public function testProcess($hasDefinition, $taggedServices = []): void
     {
         $definition = $this->prophesize(Definition::class);

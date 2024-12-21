@@ -19,6 +19,8 @@ export default class ResourceStore {
     @observable data: Object = {};
     @observable dirty: boolean = false;
     @observable forbidden: boolean;
+    @observable notFound: boolean;
+    @observable unexpectedError: boolean;
     loadOptions: Object = {};
     idQueryParameter: ?string;
     preventLoadingOnce: boolean;
@@ -66,6 +68,8 @@ export default class ResourceStore {
 
         this.setLoading(true);
         this.setForbidden(false);
+        this.setNotFound(false);
+        this.setUnexpectedError(false);
 
         this.requestRemoteData()
             .then(action((response: Object) => {
@@ -81,8 +85,20 @@ export default class ResourceStore {
                 this.dirty = false;
             }))
             .catch(action((response: Object) => {
+                this.initialized = true;
+                this.setLoading(false);
+
                 if (response.status === 403) {
                     this.setForbidden(true);
+                } else if (response.status === 404) {
+                    this.setNotFound(true);
+                } else {
+                    log.error(
+                        'ResourceStore load "' + this.resourceKey
+                        + '" with id "' + id + '" failed with Status code "' + response.status + '"'
+                    );
+
+                    this.setUnexpectedError(true);
                 }
             }));
     };
@@ -117,6 +133,14 @@ export default class ResourceStore {
 
     @action setForbidden(forbidden: boolean) {
         this.forbidden = forbidden;
+    }
+
+    @action setNotFound(notFound: boolean) {
+        this.notFound = notFound;
+    }
+
+    @action setUnexpectedError(unexpectedError: boolean) {
+        this.unexpectedError = unexpectedError;
     }
 
     @action save(options: Object = {}): Promise<*> {

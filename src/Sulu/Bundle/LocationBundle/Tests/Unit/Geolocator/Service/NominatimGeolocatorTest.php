@@ -16,6 +16,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
 use Sulu\Bundle\LocationBundle\Geolocator\Service\NominatimGeolocator;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -44,9 +45,8 @@ class NominatimGeolocatorTest extends TestCase
 
     /**
      * Test if BC is maintained and guzzle client still works.
-     *
-     * @dataProvider provideLocate
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideLocate')]
     public function testGuzzleLocate($query, $expectedCount, $expectationMap): void
     {
         $fixtureName = __DIR__ . '/responses/' . \md5($query) . '.json';
@@ -70,9 +70,7 @@ class NominatimGeolocatorTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider provideLocate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideLocate')]
     public function testLocate($query, $expectedCount, $expectationMap): void
     {
         $fixtureName = __DIR__ . '/responses/' . \md5($query) . '.json';
@@ -95,5 +93,19 @@ class NominatimGeolocatorTest extends TestCase
         foreach ($expectationMap as $field => $expectation) {
             $this->assertEquals($expectation, $result[$field]);
         }
+    }
+
+    public function testAcceptLanguage(): void
+    {
+        $mockResponse = new MockResponse('[]');
+
+        $httpClient = new MockHttpClient($mockResponse);
+        $geolocator = new NominatimGeolocator($httpClient, 'https://example.org', 'key');
+        $options = new GeolocatorOptions();
+        $options->setAcceptLanguage('it-IT, it;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5');
+        $geolocator->locate('foobar', $options);
+
+        $this->assertArrayHasKey('accept-language', $mockResponse->getRequestOptions()['query']);
+        $this->assertEquals('it-IT, it;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5', $mockResponse->getRequestOptions()['query']['accept-language']);
     }
 }

@@ -14,6 +14,7 @@ namespace Sulu\Bundle\RouteBundle\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
@@ -22,10 +23,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 
+#[AsCommand(name: 'sulu:route:update', description: 'Update the routes for all entities.')]
 class UpdateRouteCommand extends Command
 {
-    protected static $defaultName = 'sulu:route:update';
-
     public function __construct(
         private LocaleAwareInterface $translator,
         private EntityManagerInterface $entityManager,
@@ -39,7 +39,6 @@ class UpdateRouteCommand extends Command
         $this->addArgument('entity', InputArgument::REQUIRED)
             ->addArgument('locale', InputArgument::REQUIRED)
             ->addOption('batch-size', null, InputOption::VALUE_REQUIRED, '', '1000')
-            ->setDescription('Update the routes for all entities.')
             ->setHelp(
                 <<<'EOT'
 Update the routes for all entities which will be returned by the repository of given entity service:

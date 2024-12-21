@@ -26,9 +26,7 @@ class PropertyMetadataTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideGetter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetter')]
     public function testGetter($name, $mandatory): void
     {
         $property = new PropertyMetadata($name, $mandatory);
@@ -47,9 +45,7 @@ class PropertyMetadataTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideToJsonSchema
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideToJsonSchema')]
     public function testToJsonSchema($name, $mandatory, $schemaMetadata, $expectedSchema): void
     {
         $property = new PropertyMetadata($name, $mandatory, $schemaMetadata);

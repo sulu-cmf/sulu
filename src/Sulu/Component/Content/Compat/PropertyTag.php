@@ -22,27 +22,24 @@ class PropertyTag
      * name of tag.
      *
      * @var string
-     *
-     * @Type("string")
      */
+    #[Type('string')]
     private $name;
 
     /**
      * priority of tag.
      *
      * @var int
-     *
-     * @Type("integer")
      */
+    #[Type('integer')]
     private $priority;
 
     /**
      * attributes of the tag.
      *
      * @var array
-     *
-     * @Type("array")
      */
+    #[Type('array')]
     private $attributes = [];
 
     /**

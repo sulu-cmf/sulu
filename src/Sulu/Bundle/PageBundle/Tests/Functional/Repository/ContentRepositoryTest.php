@@ -1022,9 +1022,7 @@ class ContentRepositoryTest extends SuluTestCase
         return [['sulu_io'], ['test_io']];
     }
 
-    /**
-     * @dataProvider provideWebspaceKeys
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideWebspaceKeys')]
     public function testFindParentsWithSiblingsByUuid($webspaceKey): void
     {
         $role1 = $this->createRole('Role 1', 'Sulu');

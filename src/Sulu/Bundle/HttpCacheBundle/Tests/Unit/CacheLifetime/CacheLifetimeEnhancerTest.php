@@ -104,9 +104,7 @@ class CacheLifetimeEnhancerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideCacheLifeTime
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCacheLifeTime')]
     public function testEnhance(int $cacheLifetime, ?int $requestCacheLifetime, int $expectedCacheLifetime): void
     {
         $this->page->getCacheLifeTime()->willReturn(

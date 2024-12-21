@@ -42,9 +42,8 @@ class CollectionType
 
     /**
      * @var DoctrineCollection<int, CollectionInterface>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $collections;
 
     /**

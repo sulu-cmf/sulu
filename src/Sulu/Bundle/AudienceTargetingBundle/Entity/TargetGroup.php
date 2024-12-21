@@ -143,10 +143,8 @@ class TargetGroup implements TargetGroupInterface
         return $this->webspaces;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("webspaceKeys")
-     */
+    #[VirtualProperty]
+    #[SerializedName('webspaceKeys')]
     public function getWebspaceKeys()
     {
         return \array_values(

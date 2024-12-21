@@ -36,9 +36,7 @@ class EncodeAliasTraitTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider encodeAliasDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('encodeAliasDataProvider')]
     public function testEncodeAlias(string $value, string $expected): void
     {
         $this->assertEquals($expected, $this->encodeAlias($value));

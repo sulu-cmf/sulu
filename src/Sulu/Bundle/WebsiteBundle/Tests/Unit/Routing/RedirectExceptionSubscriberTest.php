@@ -540,9 +540,7 @@ class RedirectExceptionSubscriberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideResolveData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideResolveData')]
     public function testRedirectPartialMatchResolve(
         $requestUri,
         $portalUrl,

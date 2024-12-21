@@ -17,9 +17,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 
-/**
- * @ExclusionPolicy("all")
- */
+#[ExclusionPolicy('all')]
 class TrashItemTranslation
 {
     /**
@@ -33,19 +31,17 @@ class TrashItemTranslation
     private $trashItem;
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var string|null
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $locale;
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var string
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $title;
 
     public function __construct(TrashItemInterface $trashItem, ?string $locale, string $title)

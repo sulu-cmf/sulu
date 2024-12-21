@@ -67,6 +67,11 @@ class SnippetContentTest extends BaseFunctionalTestCase
      */
     protected $defaultSnippetManager;
 
+    /**
+     * @var ReferenceStoreInterface
+     */
+    protected $snippetAreaReferenceStore;
+
     public function setUp(): void
     {
         $this->contentMapper = $this->getContainer()->get('sulu.content.mapper');
@@ -80,12 +85,13 @@ class SnippetContentTest extends BaseFunctionalTestCase
 
         $this->structureResolver = $this->getContainer()->get('sulu_website.resolver.structure');
         $this->referenceStore = $this->getContainer()->get('sulu_snippet.reference_store.snippet');
+        $this->snippetAreaReferenceStore = $this->getContainer()->get('sulu_snippet.reference_store.snippet_area');
         $this->contentType = new SnippetContent(
             $this->defaultSnippetManager->reveal(),
             $this->getContainer()->get('sulu_snippet.resolver'),
             $this->referenceStore,
             true,
-            'SomeTemplate.html.twig'
+            $this->snippetAreaReferenceStore
         );
 
         $this->getContainer()->get('sulu_document_manager.document_manager')->clear();
@@ -281,12 +287,16 @@ class SnippetContentTest extends BaseFunctionalTestCase
             ]
         );
 
+        self::assertNotContains('test', $this->snippetAreaReferenceStore->getAll());
+
         $this->defaultSnippetManager->load('sulu_io', 'test', 'de_at')
             ->shouldBeCalledTimes(1)
             ->willReturn($this->hotel1);
 
         $data = $this->contentType->getContentData($property->reveal());
         $this->assertCount(1, $data);
+
+        self::assertContains('test', $this->snippetAreaReferenceStore->getAll());
     }
 
     public function testGetContentDataDefaultWrongType(): void

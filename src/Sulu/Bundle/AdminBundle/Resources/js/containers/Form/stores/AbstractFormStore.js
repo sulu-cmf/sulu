@@ -117,6 +117,14 @@ export default class AbstractFormStore
         return false;
     }
 
+    get notFound(): boolean {
+        return false;
+    }
+
+    get unexpectedError(): boolean {
+        return false;
+    }
+
     isFieldModified(dataPath: string): boolean {
         return this.modifiedFields.includes(dataPath);
     }

@@ -40,7 +40,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class TagController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
 {
-    protected static $entityName = 'SuluTagBundle:Tag';
+    protected static $entityName = \Sulu\Bundle\TagBundle\Entity\Tag::class;
 
     /**
      * @deprecated Use the TagInterface::RESOURCE_KEY constant instead

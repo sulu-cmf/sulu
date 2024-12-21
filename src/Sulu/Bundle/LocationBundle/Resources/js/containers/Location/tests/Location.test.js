@@ -13,6 +13,7 @@ test('Component should render without a value', () => {
     const location = shallow(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={null}
         />
@@ -25,6 +26,7 @@ test('Component should render in disabled state', () => {
     const location = shallow(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={null}
         />
@@ -49,6 +51,7 @@ test('Component should render with a given value', () => {
     const location = shallow(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={locationData}
         />
@@ -73,6 +76,7 @@ test('Component should render a map, a marker and a tooltip with correct props a
     const location = mount(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={locationData}
         />
@@ -121,6 +125,7 @@ test('Component should not render a tooltip if given value has no additional inf
     const location = mount(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={locationData}
         />
@@ -145,6 +150,7 @@ test('Should pass correct props to the LocationOverlay', () => {
     const location = mount(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={locationData}
         />
@@ -160,6 +166,7 @@ test('Should open a LocationOverlay when the edit button is clicked', () => {
     const location = mount(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={null}
         />
@@ -174,6 +181,7 @@ test('Should close LocationOverlay when the onClose callback of the overlay is f
     const location = mount(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={null}
         />
@@ -204,6 +212,7 @@ test('Should close overlay and call callback with correct value when the Locatio
     const location = mount(
         <Location
             disabled={true}
+            locale="en"
             onChange={changeSpy}
             value={null}
         />
@@ -235,6 +244,7 @@ test('Should update view of map when value prop is changed', () => {
     const location = mount(
         <Location
             disabled={true}
+            locale="en"
             onChange={jest.fn()}
             value={locationData}
         />

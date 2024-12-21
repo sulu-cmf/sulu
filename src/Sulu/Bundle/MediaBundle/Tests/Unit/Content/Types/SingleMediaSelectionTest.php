@@ -22,7 +22,9 @@ use Sulu\Bundle\MediaBundle\Content\Types\SingleMediaSelection;
 use Sulu\Bundle\MediaBundle\Entity\Collection;
 use Sulu\Bundle\MediaBundle\Media\Exception\MediaNotFoundException;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollector;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore;
+use Sulu\Component\Content\Compat\Metadata;
 use Sulu\Component\Content\Compat\Property;
 use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Component\Content\Metadata\PropertyMetadata;
@@ -401,5 +403,39 @@ class SingleMediaSelectionTest extends TestCase
             ],
             'required' => ['id'],
         ], $jsonSchema);
+    }
+
+    public function testGetReferencesWithNullProperty(): void
+    {
+        $property = new Property(
+            'media',
+            new Metadata([]),
+            'single_media_selection',
+        );
+        $property->setValue(null);
+
+        $referenceCollector = $this->prophesize(ReferenceCollector::class);
+        $referenceCollector->addReference(Argument::cetera())->shouldNotHaveBeenCalled();
+
+        $this->singleMediaSelection->getReferences($property, $referenceCollector->reveal());
+    }
+
+    public function testGetReferences(): void
+    {
+        $property = new Property(
+            'media',
+            new Metadata([]),
+            'single_media_selection',
+        );
+        $property->setValue(['id' => 1]);
+
+        $referenceCollector = $this->prophesize(ReferenceCollector::class);
+        $referenceCollector->addReference(
+            'media',
+            1,
+            'media'
+        )->shouldBeCalled();
+
+        $this->singleMediaSelection->getReferences($property, $referenceCollector->reveal());
     }
 }

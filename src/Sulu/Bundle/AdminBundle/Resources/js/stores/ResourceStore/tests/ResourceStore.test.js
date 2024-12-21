@@ -36,13 +36,14 @@ test('Should be marked as not dirty after loading the data', () => {
     });
 });
 
-test('Should be marked as forbidden if loading failed with 403 and not forbidden if next request succeeds', (done) => {
+test('Should be marked as forbidden if loading failed with 403 and reset if next request succeeds', (done) => {
     const promise = Promise.reject({status: 403});
     ResourceRequester.get.mockReturnValue(promise);
     const resourceStore = new ResourceStore('snippets', '1');
 
     setTimeout(() => {
         expect(resourceStore.forbidden).toBe(true);
+        expect(resourceStore.loading).toBe(false);
 
         const promise = Promise.resolve({});
         ResourceRequester.get.mockReturnValue(promise);
@@ -51,6 +52,51 @@ test('Should be marked as forbidden if loading failed with 403 and not forbidden
 
         setTimeout(() => {
             expect(resourceStore.forbidden).toBe(false);
+            expect(resourceStore.loading).toBe(false);
+            done();
+        });
+    });
+});
+
+test('Should be marked as notFound if loading failed with 404 and reset if next request succeeds', (done) => {
+    const promise = Promise.reject({status: 404});
+    ResourceRequester.get.mockReturnValue(promise);
+    const resourceStore = new ResourceStore('snippets', '1');
+
+    setTimeout(() => {
+        expect(resourceStore.notFound).toBe(true);
+        expect(resourceStore.loading).toBe(false);
+
+        const promise = Promise.resolve({});
+        ResourceRequester.get.mockReturnValue(promise);
+
+        resourceStore.load();
+
+        setTimeout(() => {
+            expect(resourceStore.notFound).toBe(false);
+            expect(resourceStore.loading).toBe(false);
+            done();
+        });
+    });
+});
+
+test('Should be marked as unexpectedError if loading failed with 500 and reset if next request succeeds', (done) => {
+    const promise = Promise.reject({status: 500});
+    ResourceRequester.get.mockReturnValue(promise);
+    const resourceStore = new ResourceStore('snippets', '1');
+
+    setTimeout(() => {
+        expect(resourceStore.unexpectedError).toBe(true);
+        expect(resourceStore.loading).toBe(false);
+
+        const promise = Promise.resolve({});
+        ResourceRequester.get.mockReturnValue(promise);
+
+        resourceStore.load();
+
+        setTimeout(() => {
+            expect(resourceStore.unexpectedError).toBe(false);
+            expect(resourceStore.loading).toBe(false);
             done();
         });
     });

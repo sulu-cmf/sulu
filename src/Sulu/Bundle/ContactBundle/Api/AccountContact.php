@@ -22,9 +22,8 @@ use Sulu\Component\Rest\ApiWrapper;
 
 /**
  * The AccountContact class which will be exported to the API.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class AccountContact extends ApiWrapper
 {
     /**
@@ -54,11 +53,10 @@ class AccountContact extends ApiWrapper
      * Get main.
      *
      * @return bool
-     *
-     * @VirtualProperty
-     * @SerializedName("main")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('main')]
+    #[Groups(['fullAccount'])]
     public function getMain()
     {
         return $this->entity->getMain();
@@ -68,11 +66,10 @@ class AccountContact extends ApiWrapper
      * Get id.
      *
      * @return int
-     *
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullAccount'])]
     public function getId()
     {
         return $this->entity->getId();
@@ -94,11 +91,10 @@ class AccountContact extends ApiWrapper
      * Get contact.
      *
      * @return ContactEntity
-     *
-     * @VirtualProperty
-     * @SerializedName("contact")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('contact')]
+    #[Groups(['fullAccount'])]
     public function getContact()
     {
         $contact = $this->entity->getContact();
@@ -125,11 +121,10 @@ class AccountContact extends ApiWrapper
      * Get account.
      *
      * @return Account
-     *
-     * @VirtualProperty
-     * @SerializedName("account")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('account')]
+    #[Groups(['fullAccount'])]
     public function getAccount()
     {
         $account = $this->entity->getAccount();
@@ -158,11 +153,10 @@ class AccountContact extends ApiWrapper
      * Get position.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("position")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('position')]
+    #[Groups(['fullAccount'])]
     public function getPosition()
     {
         return $this->entity->getPosition();

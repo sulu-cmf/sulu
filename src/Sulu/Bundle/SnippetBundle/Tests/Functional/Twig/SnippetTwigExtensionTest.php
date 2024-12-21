@@ -125,8 +125,8 @@ class SnippetTwigExtensionTest extends SuluTestCase
         $this->assertArrayHasKey('changed', $snippet);
         $this->assertArrayHasKey('changer', $snippet);
 
-        $this->assertCount(2, $snippet['view']);
-        $this->assertCount(2, $snippet['content']);
+        $this->assertCount(3, $snippet['view']);
+        $this->assertCount(3, $snippet['content']);
 
         $this->assertEquals('test-title', $snippet['content']['title']);
         $this->assertEquals('test-description', $snippet['content']['description']);
@@ -162,8 +162,8 @@ class SnippetTwigExtensionTest extends SuluTestCase
         $this->assertArrayHasKey('changed', $snippet);
         $this->assertArrayHasKey('changer', $snippet);
 
-        $this->assertCount(2, $snippet['view']);
-        $this->assertCount(2, $snippet['content']);
+        $this->assertCount(3, $snippet['view']);
+        $this->assertCount(3, $snippet['content']);
 
         $this->assertEquals('en-test-title', $snippet['content']['title']);
         $this->assertEquals('en-test-description', $snippet['content']['description']);
@@ -181,8 +181,8 @@ class SnippetTwigExtensionTest extends SuluTestCase
         $this->assertArrayHasKey('changed', $snippet);
         $this->assertArrayHasKey('changer', $snippet);
 
-        $this->assertCount(2, $snippet['view']);
-        $this->assertCount(2, $snippet['content']);
+        $this->assertCount(3, $snippet['view']);
+        $this->assertCount(3, $snippet['content']);
 
         $this->assertEquals('de-test-title', $snippet['content']['title']);
         $this->assertEquals('de-test-description', $snippet['content']['description']);

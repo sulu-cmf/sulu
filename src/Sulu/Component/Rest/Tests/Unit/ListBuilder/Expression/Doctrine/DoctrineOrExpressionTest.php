@@ -22,7 +22,7 @@ class DoctrineOrExpressionTest extends TestCase
     /**
      * @var string
      */
-    private static $entityName = 'SuluCoreBundle:Example';
+    private static $entityName = 'Sulu\Bundle\CoreBundle\Entity\Example';
 
     /**
      * http://php.net/manual/en/function.uniqid.php
@@ -60,7 +60,7 @@ class DoctrineOrExpressionTest extends TestCase
         $statement = $andExpression->getStatement($this->queryBuilder);
         $result = \preg_match(
             \sprintf(
-                '/^SuluCoreBundle_Example\.name1 = :name1[\S]{%1$s} OR SuluCoreBundle_Example\.name2 = :name2[\S]{%1$s}/',
+                '/^Sulu_Bundle_CoreBundle_Entity_Example\.name1 = :name1[\S]{%1$s} OR Sulu_Bundle_CoreBundle_Entity_Example\.name2 = :name2[\S]{%1$s}/',
                 $this->uniqueIdLength
             ),
             $statement

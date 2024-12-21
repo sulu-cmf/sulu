@@ -8,7 +8,8 @@
             <!-- the $targetEntityMapping argument is set by the ResolveTargetEntitiesPass -->
             <argument type="collection" />
 
-            <tag name="doctrine.event_subscriber"/>
+            <tag name="doctrine.event_listener" event="postGenerateSchemaTable"/>
+            <tag name="doctrine.event_listener" event="loadClassMetadata"/>
         </service>
     </services>
 </container>

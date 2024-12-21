@@ -61,9 +61,7 @@ class ContentTypeManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideHas
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideHas')]
     public function testHas($alias, $expected): void
     {
         $res = $this->manager->has($alias);

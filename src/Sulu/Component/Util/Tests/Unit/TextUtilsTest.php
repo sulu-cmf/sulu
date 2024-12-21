@@ -31,9 +31,7 @@ class TextUtilsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideTruncate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTruncate')]
     public function testTruncate($text, $length, $suffix, $expected): void
     {
         $res = TextUtils::truncate($text, $length, $suffix);

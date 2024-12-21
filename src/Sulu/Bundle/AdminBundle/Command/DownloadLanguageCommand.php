@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\AdminBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,10 +21,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+#[AsCommand(name: 'sulu:admin:download-language', description: 'Downloads the currently approved translations for the given language.')]
 class DownloadLanguageCommand extends Command
 {
-    protected static $defaultName = 'sulu:admin:download-language';
-
     /**
      * @param array<string> $defaultLanguages
      */
@@ -38,8 +38,7 @@ class DownloadLanguageCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('Downloads the currently approved translations for the given language.')
-            ->addArgument('languages', InputArgument::IS_ARRAY, 'The languages to download', $this->defaultLanguages)
+        $this->addArgument('languages', InputArgument::IS_ARRAY, 'The languages to download', $this->defaultLanguages)
             ->addOption(
                 'translation-endpoint',
                 null,

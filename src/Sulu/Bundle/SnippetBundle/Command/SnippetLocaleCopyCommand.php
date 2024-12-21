@@ -18,16 +18,16 @@ use Sulu\Bundle\SnippetBundle\Snippet\SnippetRepository;
 use Sulu\Component\Content\Compat\Structure;
 use Sulu\Component\Content\Mapper\ContentMapperInterface;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'sulu:snippet:locale-copy', description: 'Copy snippet nodes from one locale to another')]
 class SnippetLocaleCopyCommand extends Command
 {
-    protected static $defaultName = 'sulu:snippet:locale-copy';
-
     /**
      * @var QueryManager
      */
@@ -53,7 +53,6 @@ class SnippetLocaleCopyCommand extends Command
 
     public function configure()
     {
-        $this->setDescription('Copy snippet nodes from one locale to another');
         $this->setHelp(
             <<<'EOT'
             The <info>%command.name%</info> command copies the internationalized properties matching <info>srcLocale</info>

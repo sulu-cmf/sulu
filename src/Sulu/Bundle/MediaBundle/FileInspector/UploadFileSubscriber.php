@@ -39,7 +39,7 @@ final class UploadFileSubscriber implements EventSubscriberInterface
     private array $fileInspectors;
 
     /**
-     * @param \Traversable<FileInspectorInterface> $fileInspectors
+     * @param iterable<FileInspectorInterface> $fileInspectors
      */
     public function __construct(
         iterable $fileInspectors,

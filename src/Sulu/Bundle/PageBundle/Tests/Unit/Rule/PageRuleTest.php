@@ -58,9 +58,7 @@ class PageRuleTest extends TestCase
         $this->resourceLocatorStrategyPool = $this->prophesize(ResourceLocatorStrategyPoolInterface::class);
     }
 
-    /**
-     * @dataProvider provideEvaluate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideEvaluate')]
     public function testEvaluate(
         $uuidHeader,
         $uuidValue,

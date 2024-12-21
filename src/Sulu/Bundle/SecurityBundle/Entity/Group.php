@@ -29,23 +29,20 @@ class Group extends ApiEntity implements AuditableInterface
 
     /**
      * @var int
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $lft;
 
     /**
      * @var int
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $rgt;
 
     /**
      * @var int
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $depth;
 
     /**
@@ -80,16 +77,14 @@ class Group extends ApiEntity implements AuditableInterface
 
     /**
      * @var UserInterface|null
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $changer;
 
     /**
      * @var UserInterface|null
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $creator;
 
     public function __construct()

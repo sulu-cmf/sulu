@@ -78,9 +78,7 @@ class DefaultSnippetManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider saveDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('saveDataProvider')]
     public function testSave(
         $webspaceKey,
         $locale,
@@ -172,9 +170,7 @@ class DefaultSnippetManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider loadDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('loadDataProvider')]
     public function testLoad($webspaceKey, $locale, $type, $uuid, $exists = true, $sameType = true): void
     {
         $settingsManager = $this->prophesize(SettingsManagerInterface::class);

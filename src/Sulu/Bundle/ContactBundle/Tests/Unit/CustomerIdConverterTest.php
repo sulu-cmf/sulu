@@ -29,9 +29,7 @@ class CustomerIdConverterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider convertIdsToGroupedIdsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('convertIdsToGroupedIdsProvider')]
     public function testConvertIdsToGroupedIds(array $ids, array $default, $expected): void
     {
         $converter = new CustomerIdConverter();
@@ -53,9 +51,7 @@ class CustomerIdConverterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider convertGroupedIdsToIdsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('convertGroupedIdsToIdsProvider')]
     public function testConvertGroupedIdsToIds(array $groupedIds, array $expected): void
     {
         $converter = new CustomerIdConverter();

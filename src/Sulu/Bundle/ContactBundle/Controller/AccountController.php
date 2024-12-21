@@ -60,18 +60,18 @@ class AccountController extends AbstractRestController implements ClassResourceI
      */
     protected static $entityKey = 'accounts';
 
-    protected static $positionEntityName = 'SuluContactBundle:Position';
+    protected static $positionEntityName = \Sulu\Bundle\ContactBundle\Entity\Position::class;
 
     /**
      * @deprecated Use the ContactInterface::RESOURCE_KEY constant instead
      */
     protected static $contactEntityKey = 'contacts';
 
-    protected static $accountContactEntityName = 'SuluContactBundle:AccountContact';
+    protected static $accountContactEntityName = AccountContactEntity::class;
 
-    protected static $addressEntityName = 'SuluContactBundle:Address';
+    protected static $addressEntityName = AddressEntity::class;
 
-    protected static $accountAddressEntityName = 'SuluContactBundle:AccountAddress';
+    protected static $accountAddressEntityName = \Sulu\Bundle\ContactBundle\Entity\AccountAddress::class;
 
     protected static $accountSerializationGroups = [
         'fullAccount',

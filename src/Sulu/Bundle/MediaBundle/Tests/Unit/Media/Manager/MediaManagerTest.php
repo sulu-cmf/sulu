@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\MediaBundle\Media\Manager;
+namespace Sulu\Bundle\MediaBundle\Tests\Unit\Media\Manager;
 
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
@@ -36,6 +36,7 @@ use Sulu\Bundle\MediaBundle\Entity\MediaType;
 use Sulu\Bundle\MediaBundle\Media\Exception\InvalidMediaTypeException;
 use Sulu\Bundle\MediaBundle\Media\FileValidator\FileValidatorInterface;
 use Sulu\Bundle\MediaBundle\Media\FormatManager\FormatManagerInterface;
+use Sulu\Bundle\MediaBundle\Media\Manager\MediaManager;
 use Sulu\Bundle\MediaBundle\Media\PropertiesProvider\MediaPropertiesProviderInterface;
 use Sulu\Bundle\MediaBundle\Media\Storage\StorageInterface;
 use Sulu\Bundle\MediaBundle\Media\TypeManager\TypeManagerInterface;
@@ -193,12 +194,11 @@ class MediaManagerTest extends TestCase
     }
 
     /**
-     * @dataProvider provideGetByIds
-     *
      * @param int[] $ids
      * @param Media[] $media
      * @param Media[] $result
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetByIds')]
     public function testGetByIds(array $ids, ?SuluUserInterface $user, ?int $permissions, array $media, array $result): void
     {
         /** @var TokenInterface|ObjectProphecy $token */
@@ -344,9 +344,7 @@ class MediaManagerTest extends TestCase
         $this->mediaManager->delete(1, true);
     }
 
-    /**
-     * @dataProvider provideSpecialCharacterFileName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSpecialCharacterFileName')]
     public function testSpecialCharacterFileName(string $fileName, string $cleanUpArgument, string $cleanUpResult, string $extension): void
     {
         /** @var UploadedFile|ObjectProphecy $uploadedFile */
@@ -376,9 +374,7 @@ class MediaManagerTest extends TestCase
         $this->assertEquals($fileName, $media->getName());
     }
 
-    /**
-     * @dataProvider provideSpecialCharacterUrl
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSpecialCharacterUrl')]
     public function testSpecialCharacterUrl(int $id, string $filename, int $version, string $expected): void
     {
         $this->assertEquals($expected, $this->mediaManager->getUrl($id, $filename, $version));

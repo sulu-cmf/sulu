@@ -12,16 +12,16 @@
 namespace Sulu\Bundle\CoreBundle\CommandOptional;
 
 use Massive\Bundle\BuildBundle\Command\BuildCommand;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
  * This command extends the Massive BuildCommand and
  * adds a global "destroy" option and changes the name to "sulu:build".
  */
+#[AsCommand(name: 'sulu:build')]
 class SuluBuildCommand extends BuildCommand
 {
-    protected static $defaultName = 'sulu:build';
-
     public function configure()
     {
         parent::configure();

@@ -67,6 +67,42 @@
 
         <property name="blog" type="text_area" multilingual="false" mandatory="false"/>
 
-        <property name="localized_blog" type="text_area" mandatory="false" />
+        <property name="localized_blog" type="text_area" mandatory="false"/>
+
+        <section name="content">
+            <properties>
+                <block name="blocks" default-type="text_block" minOccurs="0">
+                    <types>
+                        <type ref="text_block"/>
+                        <type ref="text_block2"/>
+                        <type name="editor">
+                            <meta>
+                                <title lang="en">Editor</title>
+                                <title lang="de">Editor</title>
+                            </meta>
+                            <properties>
+                                <property name="text_editor" type="text_editor">
+                                    <meta>
+                                        <title lang="en">Text Editor</title>
+                                        <title lang="de">Texteditor</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="block">
+                            <properties>
+                                <property name="title" type="text_line"/>
+                                <block name="blocks" default-type="text_block2" minOccurs="0">
+                                    <types>
+                                        <type ref="text_block2"/>
+                                        <type ref="text_block3"/>
+                                    </types>
+                                </block>
+                            </properties>
+                        </type>
+                    </types>
+                </block>
+            </properties>
+        </section>
     </properties>
 </template>

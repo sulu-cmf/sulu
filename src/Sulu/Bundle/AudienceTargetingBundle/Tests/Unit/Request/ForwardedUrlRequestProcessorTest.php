@@ -18,9 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ForwardedUrlRequestProcessorTest extends TestCase
 {
-    /**
-     * @dataProvider provideProcess
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideProcess')]
     public function testProcess($urlHeader, $url, $host, $port, $path): void
     {
         $forwardedUrlRequestProcessor = new ForwardedUrlRequestProcessor($urlHeader);

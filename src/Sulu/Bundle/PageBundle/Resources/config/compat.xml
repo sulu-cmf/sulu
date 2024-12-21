@@ -5,6 +5,7 @@
     <services>
         <service id="sulu_page.compat.structure.legacy_property_factory" class="Sulu\Component\Content\Compat\Structure\LegacyPropertyFactory" public="true">
             <argument type="service" id="sulu_document_manager.namespace_registry" />
+            <argument type="service" id="sulu_page.structure.factory" />
         </service>
     </services>
 </container>

@@ -107,8 +107,9 @@ class ListRepository extends EntityRepository
         // and filter result
         if (\count($filters = $queryBuilder->getRelationalFilters()) > 0) {
             $filteredResults = [];
+            $fields = $this->helper->getFields();
             // check if fields do contain id, else skip
-            if (\count($fields = $this->helper->getFields()) > 0 && false !== \array_search('id', $fields)) {
+            if (!\is_null($fields) && \count($fields) > 0 && false !== \array_search('id', $fields)) {
                 $ids = [];
                 foreach ($results as $result) {
                     $id = $result['id'];
@@ -172,11 +173,11 @@ class ListRepository extends EntityRepository
     /**
      * returns all fields with a specified type.
      *
-     * @param null $intersectArray only return fields that are defined in this array
+     * @param string[]|null $intersectArray only return fields that are defined in this array
      *
      * @return array
      */
-    public function getFieldsWitTypes(array $types, $intersectArray = null)
+    public function getFieldsWitTypes(array $types, ?array $intersectArray = null)
     {
         $result = [];
         foreach ($this->getClassMetadata()->getFieldNames() as $field) {

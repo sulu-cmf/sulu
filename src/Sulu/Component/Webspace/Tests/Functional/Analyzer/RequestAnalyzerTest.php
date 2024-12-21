@@ -181,9 +181,7 @@ class RequestAnalyzerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideAnalyze
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideAnalyze')]
     public function testAnalyze($config, $expected = []): void
     {
         $webspace = new Webspace();
@@ -222,9 +220,7 @@ class RequestAnalyzerTest extends TestCase
         $this->assertEquals($expected['resource_locator_prefix'], $this->requestAnalyzer->getResourceLocatorPrefix());
     }
 
-    /**
-     * @dataProvider provideAnalyzeWithFormat
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideAnalyzeWithFormat')]
     public function testAnalyzeWithFormat($config, $expected = []): void
     {
         $webspace = new Webspace();
@@ -282,9 +278,7 @@ class RequestAnalyzerTest extends TestCase
         $this->requestAnalyzer->validate($request);
     }
 
-    /**
-     * @dataProvider provideAnalyze
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideAnalyze')]
     public function testAnalyzeCurrentRequest($config, $expected = []): void
     {
         $webspace = new Webspace();

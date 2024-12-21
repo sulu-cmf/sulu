@@ -4,8 +4,9 @@ import {observer} from 'mobx-react';
 import React, {Fragment} from 'react';
 import log from 'loglevel';
 import Loader from '../../components/Loader';
-import PermissionHint from '../../components/PermissionHint';
+import Hint from '../../components/Hint';
 import Router from '../../services/Router';
+import {translate} from '../../utils';
 import Renderer from './Renderer';
 import FormInspector from './FormInspector';
 import GhostDialog from './GhostDialog';
@@ -105,14 +106,14 @@ class Form extends React.Component<Props> {
         this.hideGhostDialog();
     };
 
-    @action handleGhostDialogConfirm = (locale: string) => {
+    @action handleGhostDialogConfirm = (locale: string, options: Object) => {
         const {store} = this.props;
 
         if (!store.copyFromLocale) {
             return;
         }
 
-        store.copyFromLocale(locale);
+        store.copyFromLocale(locale, options);
         this.hideGhostDialog();
     };
 
@@ -145,12 +146,20 @@ class Form extends React.Component<Props> {
         const {onSuccess, router, store} = this.props;
         const {
             data: {
-                availableLocales,
-            },
+                availableLocales = null,
+            } = {availableLocales: null},
         } = store;
 
         if (store.forbidden) {
-            return <PermissionHint />;
+            return <Hint icon="su-lock" title={translate('sulu_admin.no_permissions')} />;
+        }
+
+        if (store.notFound) {
+            return <Hint icon="su-battery-low" title={translate('sulu_admin.not_found')} />;
+        }
+
+        if (store.unexpectedError) {
+            return <Hint icon="su-exclamation-triangle" title={translate('sulu_admin.unexpected_error')} />;
         }
 
         if (store.loading) {

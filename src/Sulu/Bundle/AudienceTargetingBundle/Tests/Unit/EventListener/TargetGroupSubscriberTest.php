@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\AudienceTargetingBundle\Tests\Unit;
+namespace Sulu\Bundle\AudienceTargetingBundle\Tests\Unit\EventListener;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -103,9 +103,7 @@ class TargetGroupSubscriberTest extends TestCase
         $targetGroupSubscriber->setTargetGroup($event);
     }
 
-    /**
-     * @dataProvider provideSetTargetGroupFromHeader
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSetTargetGroupFromHeader')]
     public function testSetTargetGroupFromHeader(
         $targetGroupHeader,
         $headerTargetGroup,
@@ -150,9 +148,7 @@ class TargetGroupSubscriberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideSetTargetGroupFromCookie
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSetTargetGroupFromCookie')]
     public function testSetTargetGroupFromCookie(
         $targetGroupCookie,
         $visitorSessionCookie,
@@ -219,9 +215,7 @@ class TargetGroupSubscriberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideSetTargetGroupFromEvaluation
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSetTargetGroupFromEvaluation')]
     public function testSetTargetGroupFromEvaluation($evaluatedTargetGroup, $result): void
     {
         $targetGroupSubscriber = new TargetGroupSubscriber(
@@ -297,9 +291,7 @@ class TargetGroupSubscriberTest extends TestCase
         $targetGroupSubscriber->setTargetGroup($event);
     }
 
-    /**
-     * @dataProvider provideAddVaryHeader
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideAddVaryHeader')]
     public function testAddVaryHeader($targetGroupUrl, $requestUrl, $hasInfluencedContent, $header, $varyHeaders): void
     {
         $targetGroupSubscriber = new TargetGroupSubscriber(
@@ -348,9 +340,7 @@ class TargetGroupSubscriberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideAddSetCookieHeader
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideAddSetCookieHeader')]
     public function testAddSetCookieHeader(string $targetGroupCookie, string $visitorSession, bool $hasChanged, string $url, ?int $cookieValue): void
     {
         $targetGroupSubscriber = new TargetGroupSubscriber(
@@ -409,9 +399,7 @@ class TargetGroupSubscriberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideAddTargetGroupHitScript
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideAddTargetGroupHitScript')]
     public function testAddTargetGroupHitScript(
         string $targetGroupHitUrl,
         string $forwardedUrlHeader,

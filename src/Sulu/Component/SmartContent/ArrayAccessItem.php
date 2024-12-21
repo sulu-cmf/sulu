@@ -18,9 +18,8 @@ use Sulu\Component\SmartContent\Exception\NotSupportedException;
 
 /**
  * Base class for DataProvider items.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class ArrayAccessItem implements ResourceItemInterface, \ArrayAccess, \JsonSerializable
 {
     /**
@@ -37,8 +36,9 @@ class ArrayAccessItem implements ResourceItemInterface, \ArrayAccess, \JsonSeria
     }
 
     /**
-     * @VirtualProperty()
+     * @return int|string
      */
+    #[VirtualProperty]
     public function getId()
     {
         return $this->id;

@@ -4,11 +4,11 @@
     <properties>
         <group-concat-property name="tags" glue="," width="shrink">
             <field-name>name</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluTagBundle:Tag</entity-name>
+                    <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
                     <field-name>%sulu.model.contact.class%.tags</field-name>
                 </join>
             </joins>

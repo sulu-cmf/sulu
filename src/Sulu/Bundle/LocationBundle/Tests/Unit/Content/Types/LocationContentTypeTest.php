@@ -56,9 +56,7 @@ class LocationContentTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideRead
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRead')]
     public function testRead($data): void
     {
         $this->initReadTest($data);
@@ -81,9 +79,7 @@ class LocationContentTypeTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideRead
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRead')]
     public function testWrite($data): void
     {
         $this->suluProperty->expects($this->once())

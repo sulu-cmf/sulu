@@ -47,7 +47,7 @@ class CollectionController extends AbstractRestController implements ClassResour
     /**
      * @var string
      */
-    protected static $entityName = 'SuluMediaBundle:Collection';
+    protected static $entityName = \Sulu\Bundle\MediaBundle\Entity\Collection::class;
 
     /**
      * @var string

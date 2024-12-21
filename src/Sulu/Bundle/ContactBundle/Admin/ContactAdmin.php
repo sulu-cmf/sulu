@@ -309,14 +309,14 @@ class ContactAdmin extends Admin
     public function getConfig(): ?array
     {
         return [
-            'addressTypes' => $this->managerRegistry->getRepository('SuluContactBundle:AddressType')->findAll(),
+            'addressTypes' => $this->managerRegistry->getRepository(\Sulu\Bundle\ContactBundle\Entity\AddressType::class)->findAll(),
             'countries' => Countries::getNames(),
-            'emailTypes' => $this->managerRegistry->getRepository('SuluContactBundle:EmailType')->findAll(),
-            'faxTypes' => $this->managerRegistry->getRepository('SuluContactBundle:FaxType')->findAll(),
-            'phoneTypes' => $this->managerRegistry->getRepository('SuluContactBundle:PhoneType')->findAll(),
+            'emailTypes' => $this->managerRegistry->getRepository(\Sulu\Bundle\ContactBundle\Entity\EmailType::class)->findAll(),
+            'faxTypes' => $this->managerRegistry->getRepository(\Sulu\Bundle\ContactBundle\Entity\FaxType::class)->findAll(),
+            'phoneTypes' => $this->managerRegistry->getRepository(\Sulu\Bundle\ContactBundle\Entity\PhoneType::class)->findAll(),
             'socialMediaTypes' => $this->managerRegistry
-                ->getRepository('SuluContactBundle:SocialMediaProfileType')->findAll(),
-            'websiteTypes' => $this->managerRegistry->getRepository('SuluContactBundle:UrlType')->findAll(),
+                ->getRepository(\Sulu\Bundle\ContactBundle\Entity\SocialMediaProfileType::class)->findAll(),
+            'websiteTypes' => $this->managerRegistry->getRepository(\Sulu\Bundle\ContactBundle\Entity\UrlType::class)->findAll(),
         ];
     }
 }

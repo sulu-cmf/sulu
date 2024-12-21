@@ -23,41 +23,35 @@ use JMS\Serializer\Annotation\VirtualProperty;
 use Sulu\Bundle\TrashBundle\Domain\Exception\TrashItemTranslationNotFoundException;
 use Sulu\Component\Security\Authentication\UserInterface;
 
-/**
- * @ExclusionPolicy("all")
- */
+#[ExclusionPolicy('all')]
 class TrashItem implements TrashItemInterface
 {
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var int
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $id;
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var string
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $resourceKey;
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var string
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $resourceId;
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var mixed[]
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $restoreData = [];
 
     /**
@@ -65,11 +59,10 @@ class TrashItem implements TrashItemInterface
      *     e.g.: Store and Restore a single translation of a page.
      *          -> "translation".
      *
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var string|null
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $restoreType;
 
     /**
@@ -77,42 +70,37 @@ class TrashItem implements TrashItemInterface
      *     e.g.: Store and Restore a single translation of a page.
      *          -> ["locale" => "en"].
      *
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var mixed[]
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $restoreOptions = [];
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var string|null
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $resourceSecurityContext;
 
     /**
-     * @Expose
-     *
      * @var string|null
      */
+    #[Expose]
     private $resourceSecurityObjectType;
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var string|null
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $resourceSecurityObjectId;
 
     /**
-     * @Expose
-     * @Groups({"trash_item_admin_api"})
-     *
      * @var \DateTimeImmutable
      */
+    #[Expose]
+    #[Groups(['trash_item_admin_api'])]
     private $storeTimestamp;
 
     /**
@@ -274,11 +262,9 @@ class TrashItem implements TrashItemInterface
         return $this->user;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("userId")
-     * @Groups({"trash_item_api"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('userId')]
+    #[Groups(['trash_item_api'])]
     public function getUserId(): ?int
     {
         return $this->user ? $this->user->getId() : null;

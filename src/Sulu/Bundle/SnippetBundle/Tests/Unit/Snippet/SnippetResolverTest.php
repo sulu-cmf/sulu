@@ -44,9 +44,7 @@ class SnippetResolverTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testResolve($uuids, $webspaceKey = 'sulu_io', $locale = 'de'): void
     {
         $contentMapper = $this->prophesize(ContentMapperInterface::class);

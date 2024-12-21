@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\ContactBundle\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Sulu\Bundle\ContactBundle\Entity\AccountInterface;
 
 /**
@@ -19,12 +19,15 @@ use Sulu\Bundle\ContactBundle\Entity\AccountInterface;
  */
 class AccountListener
 {
+    /**
+     * @param LifecycleEventArgs<\Doctrine\Persistence\ObjectManager> $args
+     */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof AccountInterface) {
-            $entityManager = $args->getEntityManager();
+            $entityManager = $args->getObjectManager();
             // after saving account check if number is set, else set a new one
             if (null === $entity->getNumber()) {
                 $entity->setNumber(\sprintf('%05d', $entity->getId()));

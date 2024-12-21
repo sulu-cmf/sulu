@@ -131,9 +131,7 @@ class CollaborationRepositoryTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideUpdate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideUpdate')]
     public function testUpdate(
         $threshold,
         $collaborationId1,

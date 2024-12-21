@@ -22,7 +22,7 @@
         </unique-constraints>
 
         <field name="path" type="string" length="191"/>
-        <field name="locale" type="string" length="8"/>
+        <field name="locale" type="string" length="15"/>
         <field name="entityClass" type="string" length="191"/>
         <field name="entityId" type="string" length="191"/>
         <field name="history" type="boolean"/>

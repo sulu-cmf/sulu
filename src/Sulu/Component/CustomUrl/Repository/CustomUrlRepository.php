@@ -12,8 +12,10 @@
 namespace Sulu\Component\CustomUrl\Repository;
 
 use Jackalope\Query\Row;
+use PHPCR\Query\QOM\ConstraintInterface;
 use PHPCR\Query\QOM\QueryObjectModelConstantsInterface;
 use PHPCR\Query\QOM\QueryObjectModelFactoryInterface;
+use PHPCR\Query\QOM\QueryObjectModelInterface;
 use PHPCR\Util\QOM\QueryBuilder;
 use Sulu\Bundle\AdminBundle\UserManager\UserManagerInterface;
 use Sulu\Component\Content\Repository\ContentRepositoryInterface;
@@ -38,6 +40,7 @@ class CustomUrlRepository
      * Returns list of custom-url data-arrays.
      *
      * @param string $path
+     * @param string[]|null $baseDomains
      *
      * @return \Iterator
      */
@@ -81,6 +84,7 @@ class CustomUrlRepository
             $queryBuilder->andWhere($this->createBaseDomainQuery($baseDomains, $qomf));
         }
 
+        /** @var QueryObjectModelInterface $query */
         $query = $queryBuilder->getQuery();
         $result = $query->execute();
 
@@ -106,6 +110,11 @@ class CustomUrlRepository
         );
     }
 
+    /**
+     * @param non-empty-array<string> $baseDomains
+     *
+     * @return ConstraintInterface
+     */
     private function createBaseDomainQuery(array $baseDomains, QueryObjectModelFactoryInterface $qomf)
     {
         $baseDomainQuery = null;

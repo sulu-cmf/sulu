@@ -22,6 +22,7 @@ use Sulu\Component\Security\Authentication\RoleInterface;
 use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
 use Sulu\Component\Security\Authentication\SaltGenerator;
 use Sulu\Component\Security\Authentication\UserInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,10 +32,9 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
+#[AsCommand(name: 'sulu:security:user:create', description: 'Create a user.')]
 class CreateUserCommand extends Command
 {
-    protected static $defaultName = 'sulu:security:user:create';
-
     /**
      * @param string[] $locales
      * @param PasswordHasherFactoryInterface|EncoderFactoryInterface $passwordHasherFactory
@@ -54,7 +54,7 @@ class CreateUserCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('Create a user.')
+        $this
             ->setDefinition(
                 [
                     new InputArgument('username', InputArgument::REQUIRED, 'The username'),

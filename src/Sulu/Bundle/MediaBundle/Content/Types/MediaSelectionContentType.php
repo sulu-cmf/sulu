@@ -23,7 +23,10 @@ use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\PropertyMetadataMapperInterf
 use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\PropertyMetadataMinMaxValueResolver;
 use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\StringMetadata;
 use Sulu\Bundle\MediaBundle\Content\MediaSelectionContainer;
+use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollectorInterface;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\ContentType\ReferenceContentTypeInterface;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\PropertyParameter;
@@ -38,7 +41,7 @@ use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
 /**
  * content type for image selection.
  */
-class MediaSelectionContentType extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface, PropertyMetadataMapperInterface
+class MediaSelectionContentType extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface, PropertyMetadataMapperInterface, ReferenceContentTypeInterface
 {
     /**
      * @param array<string,int>|null $permissions;
@@ -221,5 +224,30 @@ class MediaSelectionContentType extends ComplexContentType implements ContentTyp
         }
 
         return new PropertyMetadata($propertyMetadata->getName(), $mandatory, $mediaSelectionMetadata);
+    }
+
+    public function getReferences(PropertyInterface $property, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
+    {
+        $data = $property->getValue();
+
+        if ($data instanceof MediaSelectionContainer) { // TODO should probably be removed when tests are refactored
+            $data = $data->toArray();
+        }
+
+        if (!\is_array($data) || !isset($data['ids']) || !\is_array($data['ids'])) {
+            return;
+        }
+
+        foreach ($data['ids'] as $id) {
+            if (!\is_int($id)) {
+                continue;
+            }
+
+            $referenceCollector->addReference(
+                MediaInterface::RESOURCE_KEY,
+                (string) $id,
+                $propertyPrefix . $property->getName()
+            );
+        }
     }
 }

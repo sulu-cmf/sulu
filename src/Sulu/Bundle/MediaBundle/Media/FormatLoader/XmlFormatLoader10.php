@@ -24,7 +24,7 @@ class XmlFormatLoader10 extends BaseXmlFormatLoader
 
     public const SCHEME_PATH = '/schema/formats/formats-1.0.xsd';
 
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): mixed
     {
         @trigger_deprecation(
             'sulu/sulu',

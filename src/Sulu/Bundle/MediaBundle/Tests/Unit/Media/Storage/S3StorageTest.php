@@ -324,7 +324,7 @@ class S3StorageTest extends TestCase
         $this->assertSame(['directory' => 'trash', 'segment' => '1', 'fileName' => 'test-2.jpg'], $result);
     }
 
-    public function testGetPath(): void
+    public function testGetPathWithoutPublicUrl(): void
     {
         $adapter = $this->prophesize(AwsS3Adapter::class);
         $flysystem = $this->prophesize(Filesystem::class);
@@ -341,6 +341,25 @@ class S3StorageTest extends TestCase
 
         $path = $storage->getPath(['segment' => '1', 'fileName' => 'test.jpg']);
         $this->assertEquals('http://aws.com/test/xxx/1/test.jpg', $path);
+    }
+
+    public function testGetPathWithPublicUrl(): void
+    {
+        $adapter = $this->prophesize(AwsS3Adapter::class);
+        $flysystem = $this->prophesize(Filesystem::class);
+
+        $flysystem->getAdapter()->willReturn($adapter->reveal());
+
+        $client = $this->prophesize(S3Client::class);
+        $client->getEndpoint()->willReturn('http://aws.com');
+        $adapter->getClient()->willReturn($client->reveal());
+        $adapter->getBucket()->willReturn('test');
+        $adapter->applyPathPrefix('1/test.jpg')->willReturn('xxx/1/test.jpg');
+
+        $storage = new S3Storage($flysystem->reveal(), 1, 'https://example.org/some');
+
+        $path = $storage->getPath(['segment' => '1', 'fileName' => 'test.jpg']);
+        $this->assertEquals('https://example.org/some/xxx/1/test.jpg', $path);
     }
 
     public function testGetPathWithDirectory(): void

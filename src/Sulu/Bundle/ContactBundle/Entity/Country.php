@@ -16,9 +16,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Intl\Countries;
 
-/**
- * @ExclusionPolicy("all")
- */
+#[ExclusionPolicy('all')]
 class Country
 {
     /**
@@ -31,19 +29,15 @@ class Country
         $this->code = $code;
     }
 
-    /**
-     * @VirtualProperty()
-     * @SerializedName("code")
-     */
+    #[VirtualProperty]
+    #[SerializedName('code')]
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @VirtualProperty()
-     * @SerializedName("name")
-     */
+    #[VirtualProperty]
+    #[SerializedName('name')]
     public function getName(?string $displayLocale = null): string
     {
         return Countries::getName($this->code, $displayLocale);

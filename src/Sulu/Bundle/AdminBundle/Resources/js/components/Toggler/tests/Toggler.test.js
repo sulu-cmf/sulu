@@ -49,7 +49,7 @@ test('The component pass the props correctly to the generic checkbox', () => {
     const togglerInput = screen.queryByDisplayValue('my-value');
     expect(togglerInput.value).toBe('my-value');
     expect(togglerInput.name).toBe('my-name');
-    expect(togglerInput.checked).toBe(true);
-    expect(togglerInput.disabled).toBe(true);
+    expect(togglerInput).toBeChecked();
+    expect(togglerInput).toBeDisabled();
     expect(screen.getByText('My label')).toBeInTheDocument();
 });

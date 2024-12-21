@@ -20,9 +20,8 @@ use Sulu\Component\Rest\ApiWrapper;
 
 /**
  * The BankAccount class which will be exported to the API.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class BankAccount extends ApiWrapper
 {
     public function __construct(BankAccountEntity $account)
@@ -34,11 +33,10 @@ class BankAccount extends ApiWrapper
      * Returns the id of the product.
      *
      * @return int
-     *
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullAccount","fullContact"})
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullAccount', 'fullContact'])]
     public function getId()
     {
         return $this->entity->getId();
@@ -62,11 +60,10 @@ class BankAccount extends ApiWrapper
      * Get bic.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("bic")
-     * @Groups({"fullAccount","fullContact"})
      */
+    #[VirtualProperty]
+    #[SerializedName('bic')]
+    #[Groups(['fullAccount', 'fullContact'])]
     public function getBic()
     {
         return $this->entity->getBic();
@@ -90,11 +87,10 @@ class BankAccount extends ApiWrapper
      * Get iban.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("iban")
-     * @Groups({"fullAccount","fullContact"})
      */
+    #[VirtualProperty]
+    #[SerializedName('iban')]
+    #[Groups(['fullAccount', 'fullContact'])]
     public function getIban()
     {
         return $this->entity->getIban();
@@ -118,11 +114,10 @@ class BankAccount extends ApiWrapper
      * Get public.
      *
      * @return bool
-     *
-     * @VirtualProperty
-     * @SerializedName("public")
-     * @Groups({"fullAccount","fullContact"})
      */
+    #[VirtualProperty]
+    #[SerializedName('public')]
+    #[Groups(['fullAccount', 'fullContact'])]
     public function getPublic()
     {
         return $this->entity->getPublic();
@@ -146,11 +141,10 @@ class BankAccount extends ApiWrapper
      * Get bankName.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("bankName")
-     * @Groups({"fullAccount","fullContact"})
      */
+    #[VirtualProperty]
+    #[SerializedName('bankName')]
+    #[Groups(['fullAccount', 'fullContact'])]
     public function getBankName()
     {
         return $this->entity->getBankName();

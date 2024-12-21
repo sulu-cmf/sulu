@@ -27,25 +27,37 @@ class LoadMediaTypes extends AbstractFixture implements OrderedFixtureInterface
         $metadata->setIdGenerator(new AssignedGenerator());
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
-        $mediaDocument = new MediaType();
-        $mediaDocument->setId(1);
-        $mediaDocument = $manager->merge($mediaDocument);
-        $mediaDocument->setName('document');
+        $mediaDocument = $manager->find(MediaType::class, 1);
+        if (null === $mediaDocument) {
+            $mediaDocument = new MediaType();
+            $mediaDocument->setId(1);
+            $manager->persist($mediaDocument);
+            $mediaDocument->setName('document');
+        }
 
-        $mediaImage = new MediaType();
-        $mediaImage->setId(2);
-        $mediaImage = $manager->merge($mediaImage);
-        $mediaImage->setName('image');
+        $mediaImage = $manager->find(MediaType::class, 2);
+        if (null === $mediaImage) {
+            $mediaImage = new MediaType();
+            $mediaImage->setId(2);
+            $manager->persist($mediaImage);
+            $mediaImage->setName('image');
+        }
 
-        $mediaVideo = new MediaType();
-        $mediaVideo->setId(3);
-        $mediaVideo = $manager->merge($mediaVideo);
-        $mediaVideo->setName('video');
+        $mediaVideo = $manager->find(MediaType::class, 3);
+        if (null === $mediaVideo) {
+            $mediaVideo = new MediaType();
+            $mediaVideo->setId(3);
+            $manager->persist($mediaVideo);
+            $mediaVideo->setName('video');
+        }
 
-        $mediaAudio = new MediaType();
-        $mediaAudio->setId(4);
-        $mediaAudio = $manager->merge($mediaAudio);
-        $mediaAudio->setName('audio');
+        $mediaAudio = $manager->find(MediaType::class, 4);
+        if (null === $mediaAudio) {
+            $mediaAudio = new MediaType();
+            $mediaAudio->setId(4);
+            $manager->persist($mediaAudio);
+            $mediaAudio->setName('audio');
+        }
 
         $manager->flush();
     }

@@ -9,6 +9,16 @@ export default class Input extends React.Component<FieldTypeProps<?string>> {
         this.props.onFinish();
     };
 
+    handleFocus = (event: Event) => {
+        const {
+            onFocus,
+        } = this.props;
+
+        if (onFocus) {
+            onFocus(event.target);
+        }
+    };
+
     render() {
         const {
             dataPath,
@@ -77,6 +87,7 @@ export default class Input extends React.Component<FieldTypeProps<?string>> {
                 maxSegments={maxSegments ? parseInt(maxSegments) : undefined}
                 onBlur={this.handleBlur}
                 onChange={onChange}
+                onFocus={this.handleFocus}
                 segmentDelimiter={segmentDelimiter}
                 valid={!error}
                 value={value}

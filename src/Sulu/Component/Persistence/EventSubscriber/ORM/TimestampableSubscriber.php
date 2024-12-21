@@ -11,8 +11,6 @@
 
 namespace Sulu\Component\Persistence\EventSubscriber\ORM;
 
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
 use Sulu\Component\Persistence\Model\TimestampableInterface;
@@ -21,20 +19,11 @@ use Sulu\Component\Persistence\Model\TimestampableInterface;
  * Manage the timestamp fields on models implementing the
  * TimestampableInterface.
  */
-class TimestampableSubscriber implements EventSubscriber
+class TimestampableSubscriber
 {
     public const CREATED_FIELD = 'created';
 
     public const CHANGED_FIELD = 'changed';
-
-    public function getSubscribedEvents()
-    {
-        return [
-            Events::loadClassMetadata,
-            Events::preUpdate,
-            Events::prePersist,
-        ];
-    }
 
     /**
      * Load the class data, mapping the created and changed fields

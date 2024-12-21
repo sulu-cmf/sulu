@@ -41,7 +41,6 @@ class SuluTestKernel extends SuluKernel
             new \Sulu\Bundle\CoreBundle\SuluCoreBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
-            new \DTL\Bundle\PhpcrMigrations\PhpcrMigrationsBundle(),
             new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
@@ -75,7 +74,16 @@ class SuluTestKernel extends SuluKernel
             new \Sulu\Bundle\PreviewBundle\SuluPreviewBundle(),
             new \Sulu\Bundle\AudienceTargetingBundle\SuluAudienceTargetingBundle(),
             new \Sulu\Bundle\TrashBundle\SuluTrashBundle(),
+            new \Sulu\Bundle\ReferenceBundle\SuluReferenceBundle(),
         ];
+
+        if (\class_exists(\PHPCR\PhpcrMigrationsBundle\PhpcrMigrationsBundle::class)) {
+            $bundles[] = new \PHPCR\PhpcrMigrationsBundle\PhpcrMigrationsBundle();
+        } elseif (\class_exists(\DTL\Bundle\PhpcrMigrations\PhpcrMigrationsBundle::class)) {
+            // @deprecated use the phpcr/phpcr-migration-bundle
+            @trigger_deprecation('sulu/sulu', '2.6', 'Using "%s" is deprecated, use "%s" instead.', 'dantleech/phpcr-migrations-bundle', 'phpcr/phpcr-migrations-bundle');
+            $bundles[] = new \DTL\Bundle\PhpcrMigrations\PhpcrMigrationsBundle();
+        }
 
         if (\class_exists(\Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class)) {
             $bundles[] = new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle();
@@ -124,10 +132,7 @@ class SuluTestKernel extends SuluKernel
         return $this->projectDir;
     }
 
-    /**
-     * @return void
-     */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(SuluTestBundle::getConfigDir() . '/config.php');
 

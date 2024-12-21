@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Repository -->
+        <service id="sulu_reference.reference_repository"
+                 class="Sulu\Bundle\ReferenceBundle\Infrastructure\Doctrine\Repository\ReferenceRepository"
+        >
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+
+        <service id="Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface"
+                 alias="sulu_reference.reference_repository"/>
+
+        <!-- Admin -->
+        <service id="sulu_reference.reference_admin"
+                 class="Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\Admin\ReferenceAdmin">
+
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <service id="sulu_reference.reference_list_view_builder_factory"
+                 class="Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\Admin\View\ReferenceViewBuilderFactory">
+            <argument type="service" id="sulu_admin.view_builder_factory"/>
+            <argument type="service" id="sulu_security.security_checker"/>
+        </service>
+
+        <service id="Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\Admin\View\ReferenceViewBuilderFactoryInterface"
+                 alias="sulu_reference.reference_list_view_builder_factory"/>
+
+        <!-- Controller -->
+        <service id="sulu_reference.reference_controller"
+                 class="Sulu\Bundle\ReferenceBundle\UserInterface\Controller\Admin\ReferenceController"
+                 public="true">
+            <argument type="service" id="sulu_reference.reference_repository"/>
+            <argument type="service" id="sulu_security.security_checker"/>
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="security.token_storage"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <!-- Command -->
+        <service id="sulu_reference.refresh_command"
+                 class="Sulu\Bundle\ReferenceBundle\UserInterface\Command\RefreshCommand">
+            <argument type="tagged_iterator" tag="sulu_reference.refresher"/>
+            <argument type="service" id="sulu_reference.reference_repository"/>
+            <argument>%sulu.context%</argument>
+
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>

@@ -3,18 +3,18 @@
     <properties>
         <property name="city">
             <field-name>city</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluContactBundle:ContactAddress</entity-name>
+                    <entity-name>Sulu\Bundle\ContactBundle\Entity\ContactAddress</entity-name>
                     <field-name>%sulu.model.contact.class%.contactAddresses</field-name>
                     <method>LEFT</method>
-                    <condition>SuluContactBundle:ContactAddress.locale = :locale</condition>
+                    <condition>Sulu\Bundle\ContactBundle\Entity\ContactAddress.locale = :locale</condition>
                 </join>
                 <join>
                     <entity-name>user</entity-name>
-                    <field-name>SuluSecurityBundle:User</field-name>
+                    <field-name>Sulu\Bundle\SecurityBundle\Entity\User</field-name>
                     <method>LEFT</method>
                     <condition>user.idContacts = contact.id</condition>
                 </join>

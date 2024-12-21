@@ -163,10 +163,6 @@ export default class ExternalLinkPlugin extends Plugin {
                 });
             }
         });
-
-        this.listenTo(view.document, 'blur', () => {
-            this.hideBalloon();
-        });
     }
 
     hideBalloon() {

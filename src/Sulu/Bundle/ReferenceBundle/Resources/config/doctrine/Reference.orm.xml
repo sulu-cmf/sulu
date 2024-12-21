@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Sulu\Bundle\ReferenceBundle\Domain\Model\Reference" table="re_references">
+        <indexes>
+            <index name="resource_idx" fields="resourceKey,resourceId"/>
+        </indexes>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+
+        <field name="resourceKey" column="resourceKey" type="string" nullable="false" length="191"/>
+        <field name="resourceId" column="resourceId" type="string" nullable="false" length="191"/>
+        <field name="referenceResourceKey" column="referenceResourceKey" type="string" nullable="false" length="191"/>
+        <field name="referenceResourceId" column="referenceResourceId" type="string" nullable="false" length="191"/>
+        <field name="referenceLocale" column="referenceLocale" type="string" nullable="true" length="15"/>
+        <field name="referenceRouterAttributes" column="referenceRouterAttributes" type="json">
+            <options>
+                <option name="jsonb">true</option>
+            </options>
+        </field>
+        <field name="referenceTitle" column="referenceTitle" type="string" nullable="false" length="191"/>
+        <field name="referenceProperty" column="referenceProperty" type="string" nullable="false" length="191"/>
+        <field name="referenceContext" column="referenceContext" type="string" nullable="false" length="16"/>
+    </mapped-superclass>
+</doctrine-mapping>

@@ -9,7 +9,7 @@
         </id>
 
         <field name="translation" column="translation" type="string" length="255"/>
-        <field name="locale" column="locale" type="string" length="5"/>
+        <field name="locale" column="locale" type="string" length="15"/>
         <field name="description" type="text" column="description" nullable="true"/>
 
         <one-to-many field="medias" target-entity="Sulu\Bundle\CategoryBundle\Entity\CategoryTranslationMedia" mapped-by="categoryTranslation" orphan-removal="true">

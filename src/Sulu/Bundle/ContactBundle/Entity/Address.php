@@ -19,129 +19,113 @@ use JMS\Serializer\Annotation\Groups;
 
 /**
  * Address.
- *
- * @ExclusionPolicy("all");
  */
+#[ExclusionPolicy('all')] // ;
 class Address
 {
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $street;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $number;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $addition;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $zip;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $city;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $state;
 
     /**
      * @var int
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $id;
 
     /**
      * @var AddressType
-     *
-     * @Groups({"fullAccount", "fullContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'fullContact'])]
+    #[Expose]
     private $addressType;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $countryCode;
 
     /**
      * @var bool|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $primaryAddress;
 
     /**
      * @var bool|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $deliveryAddress;
 
     /**
      * @var bool|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $billingAddress;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $postboxNumber;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $postboxPostcode;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $postboxCity;
 
     /**
@@ -156,34 +140,30 @@ class Address
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $note;
 
     /**
      * @var string|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $title;
 
     /**
      * @var float|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $latitude;
 
     /**
      * @var float|null
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
-     * @Expose
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
+    #[Expose]
     private $longitude;
 
     /**

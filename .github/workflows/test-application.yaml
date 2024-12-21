@@ -22,10 +22,11 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - node-version: '14'
+                    - node-version: '18'
                       styleguide: false
-                    - node-version: '16'
-                      npm-version: '6'
+                      npm-version: '8'
+                    - node-version: '20'
+                      npm-version: '10'
                       styleguide: true
 
         env:
@@ -64,7 +65,7 @@ jobs:
             - name: Install and configure PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.1'
+                  php-version: '8.2'
                   tools: 'composer:v2'
                   ini-values: memory_limit=-1
                   coverage: none
@@ -94,7 +95,7 @@ jobs:
             - name: Install and configure Node
               uses: actions/setup-node@v4
               with:
-                  node-version: '14'
+                  node-version: '20'
 
             - name: Assert error when using yarn
               run: tests/js/check-yarn-warning.sh
@@ -133,7 +134,7 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - php-version: '8.0'
+                    - php-version: '8.2'
                       database: mysql-57
                       phpcr-transport: doctrinedbal
                       dependency-versions: 'lowest'
@@ -145,7 +146,7 @@ jobs:
                           DATABASE_CHARSET: utf8mb4
                           DATABASE_COLLATE: utf8mb4_unicode_ci
 
-                    - php-version: '8.1'
+                    - php-version: '8.2'
                       database: mysql-57
                       phpcr-transport: jackrabbit
                       dependency-versions: 'highest'
@@ -157,7 +158,7 @@ jobs:
                           DATABASE_CHARSET: utf8mb4
                           DATABASE_COLLATE: utf8mb4_unicode_ci
 
-                    - php-version: '8.2'
+                    - php-version: '8.3'
                       database: postgres-14
                       phpcr-transport: doctrinedbal
                       dependency-versions: 'highest'
@@ -185,10 +186,9 @@ jobs:
                       database: mysql-80
                       phpcr-transport: doctrinedbal
                       dependency-versions: 'highest'
-                      php-extensions: 'ctype, iconv, mysql, gd'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
                       composer-stability: 'dev'
-                      composer-options: '--ignore-platform-reqs'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=8.0
@@ -226,7 +226,7 @@ jobs:
               if: ${{ matrix.phpcr-transport == 'jackrabbit' }}
               run: |
                   composer remove jackalope/jackalope-doctrine-dbal --dev --no-interaction --no-update
-                  composer require jackalope/jackalope-jackrabbit:^1.4  --no-interaction --no-update
+                  composer require jackalope/jackalope-jackrabbit:"^1.4 || ^2.0"  --no-interaction --no-update
 
             - name: Install additional lowest dependencies
               if: ${{ matrix.dependency-versions == 'lowest' }}
@@ -245,9 +245,17 @@ jobs:
 
             - name: Output versions and installed dependencies
               run: |
+                  echo 'PHP Version:'
                   php --version
+                  echo ''
+                  echo 'PHP Modules:'
                   php -m
+                  echo ''
+                  echo 'Composer Info:'
                   composer info
+                  echo ''
+                  echo 'Composer Lock:'
+                  cat composer.lock
 
             - name: Bootstrap test environment
               run: composer bootstrap-test-environment
@@ -286,6 +294,20 @@ jobs:
               uses: ramsey/composer-install@v1
               with:
                   dependency-versions: highest
+
+            - name: Output versions and installed dependencies
+              run: |
+                  echo 'PHP Version:'
+                  php --version
+                  echo ''
+                  echo 'PHP Modules:'
+                  php -m
+                  echo ''
+                  echo 'Composer Info:'
+                  composer info
+                  echo ''
+                  echo 'Composer Lock:'
+                  cat composer.lock
 
             - name: Lint code
               run: composer lint

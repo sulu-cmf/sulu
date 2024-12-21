@@ -54,9 +54,9 @@ test('A click on the component should not fire the callback when disabled', () =
     render(<DisplayValue disabled={true} onClick={clickSpy}>My value</DisplayValue>);
     const display = screen.queryByRole('button');
 
-    userEvent.click(display);
-
-    expect(clickSpy).not.toBeCalled();
+    return userEvent.click(display).then(() => {
+        expect(clickSpy).not.toBeCalled();
+    });
 });
 
 test('The component should use the CroppedText component to cut long texts', () => {

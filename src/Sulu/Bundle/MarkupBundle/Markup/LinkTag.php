@@ -76,15 +76,20 @@ class LinkTag implements TagInterface
                 $title = $this->getContent($attributes);
                 $attributes['href'] = null;
             } else {
-                // only render text instead of anchor to prevent dead links on website
-                $result[$tag] = $this->getContent($attributes);
+                // Completely remove the tag if this attribute is set
+                if ($attributes['remove-if-not-exists'] ?? false) {
+                    $result[$tag] = '';
+                } else {
+                    // only render text instead of anchor to prevent dead links on website
+                    $result[$tag] = $this->getContent($attributes);
+                }
 
                 continue;
             }
 
             $htmlAttributes = \array_map(
                 function($value, $name) use ($attributes) {
-                    if (empty($value) || \in_array($name, ['content', 'sulu-validation-state'])) {
+                    if (empty($value) || \in_array($name, ['content', 'sulu-validation-state', 'remove-if-not-exists'])) {
                         return null;
                     }
 

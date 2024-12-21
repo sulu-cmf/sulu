@@ -83,9 +83,7 @@ class SeoTwigExtensionTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideSeoData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSeoData')]
     public function testRenderSeoTags(
         $seoExtension,
         $content,

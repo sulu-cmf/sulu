@@ -14,9 +14,14 @@ namespace Sulu\Bundle\SnippetBundle\Tests\Unit\Admin;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactory;
+use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
+use Sulu\Bundle\AdminBundle\Admin\View\DropdownToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactory;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\Admin\View\ReferenceViewBuilderFactory;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\Admin\View\ReferenceViewBuilderFactoryInterface;
 use Sulu\Bundle\SnippetBundle\Admin\SnippetAdmin;
 use Sulu\Bundle\TestBundle\Testing\ReadObjectAttributeTrait;
 use Sulu\Component\Security\Authorization\SecurityChecker;
@@ -44,11 +49,23 @@ class SnippetAdminTest extends TestCase
      */
     private $webspaceManager;
 
+    /**
+     * @var ActivityViewBuilderFactoryInterface
+     */
+    private $activityViewBuilderFactory;
+
+    /**
+     * @var ReferenceViewBuilderFactoryInterface
+     */
+    private $referenceViewBuilderFactory;
+
     public function setUp(): void
     {
         $this->viewBuilderFactory = new ViewBuilderFactory();
         $this->securityChecker = $this->prophesize(SecurityChecker::class);
         $this->webspaceManager = $this->prophesize(WebspaceManagerInterface::class);
+        $this->activityViewBuilderFactory = new ActivityViewBuilderFactory($this->viewBuilderFactory, $this->securityChecker->reveal());
+        $this->referenceViewBuilderFactory = new ReferenceViewBuilderFactory($this->viewBuilderFactory, $this->securityChecker->reveal());
     }
 
     public static function provideConfigureViews()
@@ -59,16 +76,16 @@ class SnippetAdminTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideConfigureViews
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideConfigureViews')]
     public function testConfigureViews($locales): void
     {
         $snippetAdmin = new SnippetAdmin(
             $this->viewBuilderFactory,
             $this->securityChecker->reveal(),
             $this->webspaceManager->reveal(),
-            false
+            false,
+            $this->activityViewBuilderFactory,
+            $this->referenceViewBuilderFactory
         );
 
         $this->securityChecker->hasPermission('sulu.global.snippets', 'add')->willReturn(true);
@@ -76,6 +93,8 @@ class SnippetAdminTest extends TestCase
         $this->securityChecker->hasPermission('sulu.global.snippets', 'delete')->willReturn(true);
         $this->securityChecker->hasPermission('sulu.global.snippets', 'view')->willReturn(true);
         $this->securityChecker->hasPermission('sulu.webspaces.sulu.default-snippets', 'edit')->willReturn(true);
+        $this->securityChecker->hasPermission('sulu.activities.activities', 'view')->willReturn(true);
+        $this->securityChecker->hasPermission('sulu.references.references', 'view')->willReturn(true);
 
         $this->webspaceManager->getAllLocales()->willReturn(\array_values($locales));
 
@@ -95,6 +114,17 @@ class SnippetAdminTest extends TestCase
         $addDetailView = $viewCollection->get('sulu_snippet.add_form.details')->getView();
         $editFormView = $viewCollection->get('sulu_snippet.edit_form')->getView();
         $editDetailView = $viewCollection->get('sulu_snippet.edit_form.details')->getView();
+
+        $dropdownActions = [
+            new ToolbarAction('sulu_admin.copy', [
+                'visible_condition' => '!!id',
+            ]),
+        ];
+        if (1 < \count($locales)) {
+            $dropdownActions[] = new ToolbarAction('sulu_admin.copy_locale', [
+                'visible_condition' => '!!id',
+            ]);
+        }
 
         $this->assertEquals('sulu_snippet.list', $listView->getName());
         $this->assertEquals([
@@ -128,6 +158,11 @@ class SnippetAdminTest extends TestCase
                 new ToolbarAction('sulu_admin.save'),
                 new ToolbarAction('sulu_admin.type', ['sort_by' => 'title']),
                 new ToolbarAction('sulu_admin.delete'),
+                new DropdownToolbarAction(
+                    'sulu_admin.edit',
+                    'su-pen',
+                    $dropdownActions
+                ),
             ],
         ], $this->readObjectAttribute($addDetailView, 'options'));
         $this->assertEquals('sulu_snippet.edit_form', $editFormView->getName());
@@ -147,6 +182,11 @@ class SnippetAdminTest extends TestCase
                 new ToolbarAction('sulu_admin.save'),
                 new ToolbarAction('sulu_admin.type', ['sort_by' => 'title']),
                 new ToolbarAction('sulu_admin.delete'),
+                new DropdownToolbarAction(
+                    'sulu_admin.edit',
+                    'su-pen',
+                    $dropdownActions
+                ),
             ],
         ], $this->readObjectAttribute($editDetailView, 'options'));
     }

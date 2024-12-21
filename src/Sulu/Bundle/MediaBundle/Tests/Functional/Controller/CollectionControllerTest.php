@@ -603,7 +603,7 @@ class CollectionControllerTest extends SuluTestCase
 
         $response = \json_decode($this->client->getResponse()->getContent());
         $this->assertEquals(5005, $response->code);
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPost(): void
@@ -996,7 +996,7 @@ class CollectionControllerTest extends SuluTestCase
         $response = \json_decode($this->client->getResponse()->getContent());
 
         $this->assertHttpStatusCode(400, $this->client->getResponse());
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPut(): void
@@ -1251,7 +1251,7 @@ class CollectionControllerTest extends SuluTestCase
 
         $response = \json_decode($this->client->getResponse()->getContent());
         $this->assertEquals(5005, $response->code);
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
 
         $trashItemRepository = $this->em->getRepository(TrashItemInterface::class);
         $trashItem = $trashItemRepository->findOneBy(['resourceKey' => 'collections', 'resourceId' => $collectionId]);

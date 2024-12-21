@@ -17,19 +17,15 @@ use JMS\Serializer\Annotation\Groups;
 use Sulu\Bundle\SecurityBundle\Entity\TwoFactor\TwoFactorInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
-/**
- * @ExclusionPolicy("all")
- */
+#[ExclusionPolicy('all')]
 class UserTwoFactor
 {
     private int $id;
 
     private UserInterface $user;
 
-    /**
-     * @Expose
-     * @Groups({"profile"})
-     */
+    #[Expose]
+    #[Groups(['profile'])]
     private ?string $method = null;
 
     private ?string $options = null;

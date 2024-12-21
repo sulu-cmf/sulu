@@ -3,18 +3,18 @@
          colors="true"
          bootstrap="../TestBundle/Resources/app/bootstrap.php"
          processIsolation="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-    <coverage includeUncoveredFiles="true">
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
+    <source>
         <include>
-            <directory>.</directory>
+            <directory>./</directory>
         </include>
 
         <exclude>
-            <directory>Resources/</directory>
-            <directory>Tests/</directory>
-            <directory>vendor/</directory>
+            <directory>./Resources</directory>
+            <directory>./Tests</directory>
+            <directory>./vendor</directory>
         </exclude>
-    </coverage>
+    </source>
 
     <testsuites>
         <testsuite name="Sulu DocumentManager Bundle">

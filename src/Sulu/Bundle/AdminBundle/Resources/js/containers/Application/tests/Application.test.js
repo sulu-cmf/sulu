@@ -39,6 +39,7 @@ const mockUserStoreContact = jest.fn();
 const mockUserStoreUser = jest.fn();
 const mockUserStoreGetPersistentSetting = jest.fn().mockReturnValue(0);
 const mockUserStoreSetPersistentSetting = jest.fn();
+const mockUserStoreHasSingleSignOn = jest.fn().mockReturnValue(false);
 
 jest.mock('../../../stores/userStore', () => {
     return new class {
@@ -52,6 +53,10 @@ jest.mock('../../../stores/userStore', () => {
 
         get contact() {
             return mockUserStoreContact();
+        }
+
+        hasSingleSignOn() {
+            return mockUserStoreHasSingleSignOn();
         }
 
         getPersistentSetting(value) {

@@ -120,7 +120,7 @@ class PagesSitemapProviderTest extends TestCase
             'de',
             $this->portalKey,
             MappingBuilder::create()
-                ->addProperties(['changed', 'seo-hideInSitemap'])
+                ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
                 ->setResolveUrl(true)
                 ->setHydrateGhost(false)
                 ->getMapping()
@@ -135,6 +135,46 @@ class PagesSitemapProviderTest extends TestCase
         for ($i = 0; $i < 3; ++$i) {
             $this->assertEquals('http://localhost' . $pages[$i]->getUrl(), $result[$i]->getLoc());
             $this->assertEquals(new \DateTime($pages[$i]->getData()['changed']), $result[$i]->getLastMod());
+        }
+    }
+
+    public function testBuildWithLastModified(): void
+    {
+        $localization = new Localization('de');
+        $this->webspace->getDefaultLocalization()->willReturn($localization);
+        $this->portalInformation->getLocalization()->willReturn($localization);
+
+        $this->webspaceManager->findPortalInformationsByHostIncludingSubdomains('localhost', 'test')
+            ->willReturn([$this->portalInformation->reveal()]);
+
+        /** @var Content[] $pages */
+        $pages = [
+            $this->createContent('/test-1'),
+            $this->createContent('/test-2', false, RedirectType::NONE, [], 'de', [], (new \DateTime())->modify('+1 day')->format('c')),
+            $this->createContent('/test-3', false, RedirectType::NONE, [], 'de', [], (new \DateTime())->modify('-3 day')->format('c')),
+        ];
+
+        $this->contentRepository->findAllByPortal(
+            'de',
+            $this->portalKey,
+            MappingBuilder::create()
+                ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
+                ->setResolveUrl(true)
+                ->setHydrateGhost(false)
+                ->getMapping()
+        )->willReturn($pages);
+
+        $this->accessControlManager->getUserPermissionByArray('de', 'sulu.webspaces.sulu_io', [], null)
+            ->shouldBeCalledTimes(3);
+
+        $result = $this->sitemapProvider->build(1, 'http', 'localhost');
+
+        $this->assertCount(3, $result);
+        for ($i = 0; $i < 3; ++$i) {
+            $pageLastMod = $pages[$i]->getData()['lastModified'] ?? $pages[$i]->getData()['changed'];
+
+            $this->assertEquals('http://localhost' . $pages[$i]->getUrl(), $result[$i]->getLoc());
+            $this->assertEquals(new \DateTime($pageLastMod), $result[$i]->getLastMod());
         }
     }
 
@@ -158,7 +198,7 @@ class PagesSitemapProviderTest extends TestCase
             'de',
             $this->portalKey,
             MappingBuilder::create()
-                ->addProperties(['changed', 'seo-hideInSitemap'])
+                ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
                 ->setResolveUrl(true)
                 ->setHydrateGhost(false)
                 ->getMapping()
@@ -210,7 +250,7 @@ class PagesSitemapProviderTest extends TestCase
             'de',
             $this->portalKey,
             MappingBuilder::create()
-                ->addProperties(['changed', 'seo-hideInSitemap'])
+                ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
                 ->setResolveUrl(true)
                 ->setHydrateGhost(false)
                 ->getMapping()
@@ -220,7 +260,7 @@ class PagesSitemapProviderTest extends TestCase
             'en',
             $this->portalKey,
             MappingBuilder::create()
-                ->addProperties(['changed', 'seo-hideInSitemap'])
+                ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
                 ->setResolveUrl(true)
                 ->setHydrateGhost(false)
                 ->getMapping()
@@ -263,7 +303,7 @@ class PagesSitemapProviderTest extends TestCase
             'de',
             $this->portalKey,
             MappingBuilder::create()
-                ->addProperties(['changed', 'seo-hideInSitemap'])
+                ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
                 ->setResolveUrl(true)
                 ->setHydrateGhost(false)
                 ->getMapping()
@@ -296,7 +336,7 @@ class PagesSitemapProviderTest extends TestCase
             'de',
             $this->portalKey,
             MappingBuilder::create()
-                ->addProperties(['changed', 'seo-hideInSitemap'])
+                ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
                 ->setResolveUrl(true)
                 ->setHydrateGhost(false)
                 ->getMapping()
@@ -315,6 +355,7 @@ class PagesSitemapProviderTest extends TestCase
      * @param string $url
      * @param bool $hideInSitemap
      * @param int $redirectTarget
+     * @param string $lastModified
      *
      * @return Content
      */
@@ -324,7 +365,8 @@ class PagesSitemapProviderTest extends TestCase
         $redirectTarget = RedirectType::NONE,
         $urls = [],
         $locale = 'de',
-        $permissions = []
+        $permissions = [],
+        $lastModified = null
     ) {
         $content = new Content(
             $locale,
@@ -335,7 +377,11 @@ class PagesSitemapProviderTest extends TestCase
             $redirectTarget,
             false,
             'default',
-            ['seo-hideInSitemap' => $hideInSitemap, 'changed' => (new \DateTime())->format('c')],
+            [
+                'seo-hideInSitemap' => $hideInSitemap,
+                'changed' => (new \DateTime())->format('c'),
+                'lastModified' => $lastModified,
+            ],
             $permissions
         );
         $content->setUrl($url);

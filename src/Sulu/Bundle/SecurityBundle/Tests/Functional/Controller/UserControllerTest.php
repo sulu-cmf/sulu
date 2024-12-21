@@ -1111,7 +1111,7 @@ class UserControllerTest extends SuluTestCase
         $this->assertEquals('Role2', $response->userRoles[1]->role->name);
         $this->assertEquals('en', $response->userRoles[1]->locales[0]);
 
-        $refreshedUser = $this->em->getRepository('SuluSecurityBundle:User')->find($this->user1->getId());
+        $refreshedUser = $this->em->getRepository(User::class)->find($this->user1->getId());
         $this->assertEquals($this->user1->getSalt(), $refreshedUser->getSalt());
     }
 

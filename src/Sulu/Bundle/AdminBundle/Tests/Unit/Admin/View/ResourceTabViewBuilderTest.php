@@ -80,9 +80,7 @@ class ResourceTabViewBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideBuildResourceTabView
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBuildResourceTabView')]
     public function testBuildResourceTabView(
         string $name,
         string $path,

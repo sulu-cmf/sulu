@@ -47,9 +47,8 @@ class BankAccount
 
     /**
      * @var Collection<int, AccountInterface>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $accounts;
 
     /**

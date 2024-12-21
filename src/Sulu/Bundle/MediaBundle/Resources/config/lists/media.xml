@@ -4,7 +4,7 @@
 
     <joins name="type">
         <join>
-            <entity-name>SuluMediaBundle:MediaType</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\MediaType</entity-name>
             <field-name>%sulu.model.media.class%.type</field-name>
         </join>
     </joins>
@@ -15,40 +15,40 @@
         </join>
 
         <join>
-            <entity-name>SuluMediaBundle:FilePreviewImage</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FilePreviewImage</entity-name>
             <field-name>%sulu.model.media.class%PreviewImage.files</field-name>
         </join>
 
         <join>
-            <entity-name>SuluMediaBundle:FileVersionPreviewImage</entity-name>
-            <field-name>SuluMediaBundle:FilePreviewImage.fileVersions</field-name>
-            <condition>SuluMediaBundle:FileVersionPreviewImage.version = SuluMediaBundle:FilePreviewImage.version</condition>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionPreviewImage</entity-name>
+            <field-name>Sulu\Bundle\MediaBundle\Entity\FilePreviewImage.fileVersions</field-name>
+            <condition>Sulu\Bundle\MediaBundle\Entity\FileVersionPreviewImage.version = Sulu\Bundle\MediaBundle\Entity\FilePreviewImage.version</condition>
         </join>
     </joins>
     <joins name="file">
         <join>
-            <entity-name>SuluMediaBundle:File</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\File</entity-name>
             <field-name>%sulu.model.media.class%.files</field-name>
         </join>
     </joins>
     <joins name="fileVersion" ref="file">
         <join>
-            <entity-name>SuluMediaBundle:FileVersion</entity-name>
-            <field-name>SuluMediaBundle:File.fileVersions</field-name>
-            <condition>SuluMediaBundle:FileVersion.version = SuluMediaBundle:File.version</condition>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersion</entity-name>
+            <field-name>Sulu\Bundle\MediaBundle\Entity\File.fileVersions</field-name>
+            <condition>Sulu\Bundle\MediaBundle\Entity\FileVersion.version = Sulu\Bundle\MediaBundle\Entity\File.version</condition>
         </join>
     </joins>
     <joins name="fileVersionMeta" ref="fileVersion">
         <join>
-            <entity-name>SuluMediaBundle:FileVersionMeta</entity-name>
-            <field-name>SuluMediaBundle:FileVersion.meta</field-name>
-            <condition>SuluMediaBundle:FileVersionMeta.locale = :locale</condition>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionMeta</entity-name>
+            <field-name>Sulu\Bundle\MediaBundle\Entity\FileVersion.meta</field-name>
+            <condition>Sulu\Bundle\MediaBundle\Entity\FileVersionMeta.locale = :locale</condition>
         </join>
     </joins>
     <joins name="defaultFileVersionMeta" ref="fileVersion">
         <join>
-            <entity-name>SuluMediaBundle:DefaultFileVersionMeta</entity-name>
-            <field-name>SuluMediaBundle:FileVersion.defaultMeta</field-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\DefaultFileVersionMeta</entity-name>
+            <field-name>Sulu\Bundle\MediaBundle\Entity\FileVersion.defaultMeta</field-name>
         </join>
     </joins>
     <joins name="collection">
@@ -71,28 +71,28 @@
 
         <property name="previewImageName" visibility="never">
             <field-name>name</field-name>
-            <entity-name>SuluMediaBundle:FileVersionPreviewImage</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionPreviewImage</entity-name>
 
             <joins ref="previewImageFileVersion"/>
         </property>
 
         <property name="previewImageVersion" visibility="never">
             <field-name>version</field-name>
-            <entity-name>SuluMediaBundle:FileVersionPreviewImage</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionPreviewImage</entity-name>
 
             <joins ref="previewImageFileVersion"/>
         </property>
 
         <property name="previewImageSubVersion" visibility="never">
             <field-name>subVersion</field-name>
-            <entity-name>SuluMediaBundle:FileVersionPreviewImage</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionPreviewImage</entity-name>
 
             <joins ref="previewImageFileVersion"/>
         </property>
 
         <property name="previewImageMimeType" visibility="never">
             <field-name>mimeType</field-name>
-            <entity-name>SuluMediaBundle:FileVersionPreviewImage</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionPreviewImage</entity-name>
 
             <joins ref="previewImageFileVersion"/>
         </property>
@@ -133,7 +133,7 @@
 
         <property name="type" translation="sulu_media.type" visibility="always">
             <field-name>name</field-name>
-            <entity-name>SuluMediaBundle:MediaType</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\MediaType</entity-name>
 
             <joins ref="type"/>
 
@@ -162,28 +162,28 @@
 
         <property name="version" translation="sulu_media.version">
             <field-name>version</field-name>
-            <entity-name>SuluMediaBundle:File</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\File</entity-name>
 
             <joins ref="file"/>
         </property>
 
         <property name="name" translation="sulu_admin.name" visibility="always" searchability="yes">
             <field-name>name</field-name>
-            <entity-name>SuluMediaBundle:FileVersion</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersion</entity-name>
 
             <joins ref="fileVersion"/>
         </property>
 
         <property name="subVersion" visibility="never">
             <field-name>subVersion</field-name>
-            <entity-name>SuluMediaBundle:FileVersion</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersion</entity-name>
 
             <joins ref="fileVersion"/>
         </property>
 
         <property name="size" translation="sulu_media.size" visibility="always">
             <field-name>size</field-name>
-            <entity-name>SuluMediaBundle:FileVersion</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersion</entity-name>
             <joins ref="fileVersion"/>
 
             <transformer type="bytes"/>
@@ -191,21 +191,21 @@
 
         <property name="mimeType" translation="sulu_media.mime_type" visibility="always">
             <field-name>mimeType</field-name>
-            <entity-name>SuluMediaBundle:FileVersion</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersion</entity-name>
 
             <joins ref="fileVersion"/>
         </property>
 
         <property name="downloadCounter" translation="sulu_media.download_counter">
             <field-name>downloadCounter</field-name>
-            <entity-name>SuluMediaBundle:FileVersion</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersion</entity-name>
 
             <joins ref="fileVersion"/>
         </property>
 
         <property name="storageOptions" visibility="never">
             <field-name>storageOptions</field-name>
-            <entity-name>SuluMediaBundle:FileVersion</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersion</entity-name>
 
             <joins ref="fileVersion"/>
         </property>
@@ -213,13 +213,13 @@
         <case-property name="locale" visibility="never">
             <field>
                 <field-name>locale</field-name>
-                <entity-name>SuluMediaBundle:FileVersionMeta</entity-name>
+                <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionMeta</entity-name>
 
                 <joins ref="fileVersionMeta"/>
             </field>
             <field>
                 <field-name>locale</field-name>
-                <entity-name>SuluMediaBundle:DefaultFileVersionMeta</entity-name>
+                <entity-name>Sulu\Bundle\MediaBundle\Entity\DefaultFileVersionMeta</entity-name>
 
                 <joins ref="defaultFileVersionMeta"/>
             </field>
@@ -228,13 +228,13 @@
         <case-property name="title" translation="sulu_admin.title" visibility="always" searchability="yes">
             <field>
                 <field-name>title</field-name>
-                <entity-name>SuluMediaBundle:FileVersionMeta</entity-name>
+                <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionMeta</entity-name>
 
                 <joins ref="fileVersionMeta"/>
             </field>
             <field>
                 <field-name>title</field-name>
-                <entity-name>SuluMediaBundle:DefaultFileVersionMeta</entity-name>
+                <entity-name>Sulu\Bundle\MediaBundle\Entity\DefaultFileVersionMeta</entity-name>
 
                 <joins ref="defaultFileVersionMeta"/>
             </field>
@@ -243,7 +243,7 @@
 
         <property name="description" translation="sulu_admin.description" searchability="yes">
             <field-name>description</field-name>
-            <entity-name>SuluMediaBundle:FileVersionMeta</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\FileVersionMeta</entity-name>
 
             <joins ref="fileVersionMeta"/>
         </property>
@@ -256,12 +256,12 @@
             translation="sulu_tag.tags"
         >
             <field-name>id</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins ref="fileVersion">
                 <join>
-                    <entity-name>SuluTagBundle:Tag</entity-name>
-                    <field-name>SuluMediaBundle:FileVersion.tags</field-name>
+                    <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
+                    <field-name>Sulu\Bundle\MediaBundle\Entity\FileVersion.tags</field-name>
                 </join>
             </joins>
 
@@ -281,12 +281,12 @@
             translation="sulu_category.categories"
         >
             <field-name>id</field-name>
-            <entity-name>SuluCategoryBundle:Category</entity-name>
+            <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
 
             <joins ref="fileVersion">
                 <join>
-                    <entity-name>SuluCategoryBundle:Category</entity-name>
-                    <field-name>SuluMediaBundle:FileVersion.categories</field-name>
+                    <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
+                    <field-name>Sulu\Bundle\MediaBundle\Entity\FileVersion.categories</field-name>
                 </join>
             </joins>
 

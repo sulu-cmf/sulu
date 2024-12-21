@@ -136,9 +136,7 @@ class PreviewRendererTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider portalDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('portalDataProvider')]
     public function testRender($scheme, $portalUrl): void
     {
         $object = $this->prophesize(\stdClass::class);

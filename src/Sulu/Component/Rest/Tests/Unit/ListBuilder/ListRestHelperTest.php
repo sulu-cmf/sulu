@@ -145,9 +145,7 @@ class ListRestHelperTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataFieldsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataFieldsProvider')]
     public function testGetFields($request, $expected): void
     {
         $this->requestStack->getCurrentRequest()->willReturn($request);

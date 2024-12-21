@@ -20,9 +20,8 @@ use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Type of social media profile (i.e. Facebook,...).
- *
- * @ExclusionPolicy("All")
  */
+#[ExclusionPolicy('All')]
 class SocialMediaProfileType implements \JsonSerializable
 {
     /**
@@ -59,12 +58,11 @@ class SocialMediaProfileType implements \JsonSerializable
     }
 
     /**
-     * @VirtualProperty()
-     * @SerializedName("id")
-     * @Groups({"fullAccount", "fullContact", "frontend"})
-     *
      * @return int
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullAccount', 'fullContact', 'frontend'])]
     public function getId()
     {
         return $this->id;
@@ -84,12 +82,11 @@ class SocialMediaProfileType implements \JsonSerializable
     }
 
     /**
-     * @VirtualProperty()
-     * @SerializedName("name")
-     * @Groups({"fullAccount", "fullContact", "frontend"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('name')]
+    #[Groups(['fullAccount', 'fullContact', 'frontend'])]
     public function getName()
     {
         return $this->name;

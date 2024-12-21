@@ -196,7 +196,7 @@ class SnippetImport extends Import implements SnippetImportInterface
      */
     protected function setDocumentData($document, $locale, $format, $data)
     {
-        $structure = $this->structureManager->getStructure($document->getStructureType(), Structure::TYPE_SNIPPET);
+        $structure = $this->structureManager->getStructure((string) $document->getStructureType(), Structure::TYPE_SNIPPET);
         $properties = $structure->getProperties(true);
         $node = $this->documentRegistry->getNodeForDocument($document);
         $node->setProperty(\sprintf('i18n:%s-template', $locale), $document->getStructureType());

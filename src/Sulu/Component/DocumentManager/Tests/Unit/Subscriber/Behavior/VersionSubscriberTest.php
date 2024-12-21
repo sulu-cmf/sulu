@@ -11,7 +11,6 @@
 
 namespace Sulu\Component\DocumentManager\Tests\Unit\Subscriber\Behavior;
 
-use Jackalope\Version\Version as JackalopeVersion;
 use Jackalope\Workspace;
 use PHPCR\NodeInterface;
 use PHPCR\PropertyInterface;
@@ -357,7 +356,7 @@ class VersionSubscriberTest extends TestCase
         $document = $this->prophesize(VersionBehavior::class);
         $node = $this->prophesize(NodeInterface::class);
         $versionHistory = $this->prophesize(VersionHistoryInterface::class);
-        $version = $this->prophesize(JackalopeVersion::class);
+        $version = $this->prophesize(VersionInterface::class);
         $frozenNode = $this->prophesize(NodeInterface::class);
 
         $node->getPath()->willReturn('/node');

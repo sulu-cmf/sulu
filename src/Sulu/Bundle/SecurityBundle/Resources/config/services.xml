@@ -32,9 +32,9 @@
         <parameter key="sulu_security.user_setting_repository.class">Sulu\Bundle\SecurityBundle\Entity\UserSettingRepository</parameter>
         <parameter key="sulu_security.user_repository_factory.class">Sulu\Component\Security\Authentication\UserRepositoryFactory</parameter>
         <parameter key="sulu_security.build.user.class">Sulu\Bundle\SecurityBundle\Build\UserBuilder</parameter>
-        <parameter key="sulu_security.entity.role">SuluSecurityBundle:Role</parameter>
-        <parameter key="sulu_security.entity.group">SuluSecurityBundle:Group</parameter>
-        <parameter key="sulu_security.entity.user_setting">SuluSecurityBundle:UserSetting</parameter>
+        <parameter key="sulu_security.entity.role">Sulu\Bundle\SecurityBundle\Entity\Role</parameter>
+        <parameter key="sulu_security.entity.group">Sulu\Bundle\SecurityBundle\Entity\Group</parameter>
+        <parameter key="sulu_security.entity.user_setting">Sulu\Bundle\SecurityBundle\Entity\UserSetting</parameter>
         <parameter key="sulu_security.profile_controller.class">Sulu\Bundle\SecurityBundle\Controller\ProfileController</parameter>
     </parameters>
 
@@ -62,6 +62,7 @@
             <argument>%sulu_security.reset_password.mail.token_send_limit%</argument>
             <argument>%sulu_admin.email%</argument>
             <argument>%kernel.secret%</argument>
+            <argument type="service" id="logger" on-invalid="null"/>
 
             <tag name="sulu.context" context="admin"/>
         </service>
@@ -284,7 +285,12 @@
             <tag name="jms_serializer.event_subscriber"/>
         </service>
 
-        <service id="sulu_security.twig_extension.user.cache" class="Doctrine\Common\Cache\ArrayCache"/>
+        <service id="sulu_security.twig_extension.user.cache_adapter" class="Symfony\Component\Cache\Adapter\ArrayAdapter" />
+        <service id="sulu_security.twig_extension.user.cache" class="Sulu\Bundle\ContactBundle\Entity\PositionRepository">
+            <factory class="Doctrine\Common\Cache\Psr6\DoctrineProvider" method="wrap"/>
+            <argument type="service" id="sulu_security.twig_extension.user.cache_adapter" />
+        </service>
+
         <service id="sulu_security.twig_extension.user" class="Sulu\Bundle\SecurityBundle\Twig\UserTwigExtension">
             <argument type="service" id="sulu_security.twig_extension.user.cache"/>
             <argument type="service" id="sulu.repository.user"/>
@@ -310,6 +316,8 @@
         </service>
 
         <service id="sulu_security.fixtures.security_types" class="Sulu\Bundle\SecurityBundle\DataFixtures\ORM\LoadSecurityTypes">
+            <argument>%sulu_security.security_types.fixture%</argument>
+
             <tag name="doctrine.fixture.orm"/>
         </service>
 
@@ -342,7 +350,7 @@
             class="Sulu\Bundle\SecurityBundle\EventListener\PermissionInheritanceSubscriber"
         >
             <argument type="service" id="sulu_security.access_control_manager" />
-            <tag name="doctrine.event_subscriber"/>
+            <tag name="doctrine.event_listener" event="postPersist"/>
         </service>
 
         <service id="sulu_security.phpcr_security_subscriber" class="Sulu\Bundle\SecurityBundle\EventListener\PhpcrSecuritySubscriber">

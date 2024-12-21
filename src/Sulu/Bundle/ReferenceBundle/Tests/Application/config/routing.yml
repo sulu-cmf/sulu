@@ -1,0 +1,4 @@
+sulu_reference_api:
+    type: rest
+    resource: "@SuluReferenceBundle/Resources/config/routing_api.yml"
+    prefix: /admin/api

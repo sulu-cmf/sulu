@@ -249,6 +249,7 @@ class PageTreeRouteContentTypeTest extends TestCase
         $this->node->setProperty($this->propertyName . '-suffix', '/')->shouldBeCalled();
 
         $this->node->hasProperty($this->propertyName . '-page')->willReturn(false);
+        $this->node->hasProperty($this->propertyName . '-page-path')->willReturn(false);
 
         $this->contentType->write(
             $this->node->reveal(),
@@ -275,14 +276,10 @@ class PageTreeRouteContentTypeTest extends TestCase
 
         $this->node->setProperty($this->propertyName, $value['path'])->shouldBeCalled();
         $this->node->setProperty($this->propertyName . '-suffix', $value['suffix'])->shouldBeCalled();
-        $this->node->setProperty($this->propertyName . '-page', $value['page']['uuid'])
-            ->shouldBeCalled();
+        $this->node->setProperty($this->propertyName . '-page', $value['page']['uuid'])->shouldBeCalled();
         $this->node->setProperty($this->propertyName . '-page-path', $value['page']['path'])->shouldBeCalled();
 
-        $pageProperty = $this->prophesize(\PHPCR\PropertyInterface::class);
-        $pageProperty->remove()->shouldBeCalled();
         $this->node->hasProperty($this->propertyName . '-page')->willReturn(true);
-        $this->node->getProperty($this->propertyName . '-page')->willReturn($pageProperty->reveal());
 
         $this->contentType->write(
             $this->node->reveal(),
@@ -328,11 +325,6 @@ class PageTreeRouteContentTypeTest extends TestCase
             ->shouldBeCalled();
         $this->node->setProperty($this->propertyName . '-page-path', $value['page']['path'])->shouldBeCalled();
 
-        $pageProperty = $this->prophesize(\PHPCR\PropertyInterface::class);
-        $pageProperty->remove()->shouldBeCalled();
-        $this->node->hasProperty($this->propertyName . '-page')->willReturn(true);
-        $this->node->getProperty($this->propertyName . '-page')->willReturn($pageProperty->reveal());
-
         $this->contentType->write(
             $this->node->reveal(),
             $this->property->reveal(),
@@ -377,10 +369,52 @@ class PageTreeRouteContentTypeTest extends TestCase
             ->shouldBeCalled();
         $this->node->setProperty($this->propertyName . '-page-path', $value['page']['path'])->shouldBeCalled();
 
+        $this->node->hasProperty($this->propertyName . '-page')->willReturn(true);
+
+        $this->contentType->write(
+            $this->node->reveal(),
+            $this->property->reveal(),
+            1,
+            $this->webspaceKey,
+            $this->locale,
+            null
+        );
+    }
+
+    public function testWriteNoParentPage(): void
+    {
+        $route = $this->prophesize(RouteInterface::class);
+        $route->getPath()->willReturn('/');
+        $route->setPath('/')->shouldBeCalled();
+
+        $this->routeRepository->createNew()->willReturn($route);
+        $this->conflictResolver->resolve($route)->shouldBeCalled()->willReturn($route);
+
+        $document = $this->prophesize(RoutableBehavior::class);
+        $this->chainRouteGenerator->generate($document->reveal())->willReturn($route->reveal());
+        $this->documentRegistry->getDocumentForNode($this->node->reveal(), $this->locale)
+            ->willReturn($document->reveal());
+
+        $value = [
+            'page' => [
+                'uuid' => null,
+                'path' => null,
+            ],
+        ];
+
+        $this->node->setProperty($this->propertyName, '/')->shouldBeCalled();
+        $this->node->setProperty($this->propertyName . '-suffix', '/')->shouldBeCalled();
+
         $pageProperty = $this->prophesize(\PHPCR\PropertyInterface::class);
         $pageProperty->remove()->shouldBeCalled();
+        $pagePathProperty = $this->prophesize(\PHPCR\PropertyInterface::class);
+        $pagePathProperty->remove()->shouldBeCalled();
         $this->node->hasProperty($this->propertyName . '-page')->willReturn(true);
         $this->node->getProperty($this->propertyName . '-page')->willReturn($pageProperty->reveal());
+        $this->node->hasProperty($this->propertyName . '-page-path')->willReturn(true);
+        $this->node->getProperty($this->propertyName . '-page-path')->willReturn($pagePathProperty->reveal());
+
+        $this->property->getValue()->willReturn($value);
 
         $this->contentType->write(
             $this->node->reveal(),

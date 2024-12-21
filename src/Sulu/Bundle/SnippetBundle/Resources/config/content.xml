@@ -10,6 +10,12 @@
             <tag name="kernel.reset" method="reset"/>
         </service>
 
+        <service id="sulu_snippet.reference_store.snippet_area"
+                 class="Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStore" public="true">
+            <tag name="sulu_website.reference_store" alias="snippet_area"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
         <service id="sulu_snippet.default_snippet.manager" class="Sulu\Bundle\SnippetBundle\Snippet\DefaultSnippetManager" public="true">
             <argument type="service" id="sulu_core.webspace.settings_manager"/>
             <argument type="service" id="sulu_document_manager.document_manager"/>
@@ -31,6 +37,7 @@
             <argument type="service" id="sulu_snippet.resolver"/>
             <argument type="service" id="sulu_snippet.default_snippet.manager"/>
             <argument type="service" id="sulu_snippet.reference_store.snippet"/>
+            <argument type="service" id="sulu_snippet.reference_store.snippet_area"/>
 
             <tag name="sulu.content.type" alias="single_snippet_selection"/>
             <tag name="sulu.content.export" format="1.2.xliff" translate="false" />
@@ -40,6 +47,7 @@
             <argument type="service" id="sulu_snippet.resolver"/>
             <argument type="service" id="sulu_snippet.reference_store.snippet"/>
             <argument>%sulu_snippet.content-type.default_enabled%</argument>
+            <argument type="service" id="sulu_snippet.reference_store.snippet_area"/>
 
             <tag name="sulu.content.type" alias="snippet_selection"/>
             <tag name="sulu.content.export" format="1.2.xliff" translate="false" />

@@ -17,7 +17,7 @@
         <field name="description" type="text" column="description" nullable="true"/>
         <field name="copyright" type="text" column="copyright" nullable="true"/>
         <field name="credits" type="text" column="credits" nullable="true"/>
-        <field name="locale" type="string" column="locale" length="5"/>
+        <field name="locale" type="string" column="locale" length="15"/>
 
         <many-to-one field="fileVersion" target-entity="Sulu\Bundle\MediaBundle\Entity\FileVersion" inversed-by="meta">
             <join-columns>

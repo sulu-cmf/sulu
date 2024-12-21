@@ -19,9 +19,8 @@ use Sulu\Component\SmartContent\PublishInterface;
 
 /**
  * Represents item in content data provider.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class ContentDataItem extends ArrayAccessItem implements ItemInterface, PublishInterface
 {
     /**
@@ -32,9 +31,7 @@ class ContentDataItem extends ArrayAccessItem implements ItemInterface, PublishI
         parent::__construct($data['id'], $data, $resource);
     }
 
-    /**
-     * @VirtualProperty
-     */
+    #[VirtualProperty]
     public function getTitle()
     {
         return $this->get('title');
@@ -44,9 +41,8 @@ class ContentDataItem extends ArrayAccessItem implements ItemInterface, PublishI
      * Returns the date at which the content was published.
      *
      * @return \DateTime
-     *
-     * @VirtualProperty
      */
+    #[VirtualProperty]
     public function getPublished()
     {
         return $this->get('published');
@@ -56,9 +52,8 @@ class ContentDataItem extends ArrayAccessItem implements ItemInterface, PublishI
      * Returns true iff the latest version of the content is published.
      *
      * @return bool
-     *
-     * @VirtualProperty
      */
+    #[VirtualProperty]
     public function getPublishedState()
     {
         return $this->get('publishedState');
@@ -68,9 +63,8 @@ class ContentDataItem extends ArrayAccessItem implements ItemInterface, PublishI
      * Returns the url of the content item.
      *
      * @return string
-     *
-     * @VirtualProperty
      */
+    #[VirtualProperty]
     public function getUrl()
     {
         if (!$this->exists('url')) {
@@ -84,9 +78,8 @@ class ContentDataItem extends ArrayAccessItem implements ItemInterface, PublishI
      * Returns the webspace of the content item.
      *
      * @return string
-     *
-     * @VirtualProperty
      */
+    #[VirtualProperty]
     public function getWebspace()
     {
         return $this->get('webspaceKey');

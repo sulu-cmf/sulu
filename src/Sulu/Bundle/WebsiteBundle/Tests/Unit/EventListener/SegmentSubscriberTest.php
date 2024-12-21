@@ -78,9 +78,7 @@ class SegmentSubscriberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideAddCookieHeader
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideAddCookieHeader')]
     public function testAddCookieHeader(
         $segmentKeys,
         $cookieSegmentKey,

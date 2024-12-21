@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ContactTitleController extends AbstractRestController implements ClassResourceInterface
 {
-    protected static $entityName = 'SuluContactBundle:ContactTitle';
+    protected static $entityName = ContactTitle::class;
 
     /**
      * @var string

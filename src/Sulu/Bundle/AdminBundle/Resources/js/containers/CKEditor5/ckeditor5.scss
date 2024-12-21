@@ -28,6 +28,9 @@ $textEditorUnpublishedLinkColor: $gold;
         /* z-index */
         --ck-z-default: 0;
 
+        /* focus */
+        --ck-focus-outer-shadow: var(--ck-color-base-border);
+
         /* shadows */
         --ck-color-shadow-inner: none;
         --ck-color-shadow-drop: none;
@@ -49,6 +52,7 @@ $textEditorUnpublishedLinkColor: $gold;
         --ck-color-button-default-hover-background: var(--ck-color-button-default-background);
         --ck-color-button-default-active-background: var(--ck-color-button-default-background);
         --ck-color-button-on-background: $textEditorDarkBackgroundColor;
+        --ck-color-button-on-color: inherit;
         --ck-color-button-on-hover-background: var(--ck-color-button-on-background);
         --ck-color-button-on-active-background: var(--ck-color-button-on-background);
         --ck-color-split-button-hover-background: transparent;
@@ -168,6 +172,10 @@ $textEditorUnpublishedLinkColor: $gold;
         }
     }
 
+    .ck.ck-balloon-panel.ck-powered-by-balloon {
+        background: transparent !important;
+    }
+
     .ck.ck-editor {
         .ck.ck-toolbar__separator {
             background: none;
@@ -178,6 +186,11 @@ $textEditorUnpublishedLinkColor: $gold;
             border-color: $textEditorBackgroundColor !important;
             line-height: 20px;
             min-height: 100px;
+            padding-bottom: 5px;
+
+            &.ck-focused {
+                border: 1px solid $textEditorBackgroundColor !important;
+            }
         }
 
         .ck-widget.table {

@@ -28,7 +28,8 @@ use Sulu\Component\SmartContent\ResourceItemInterface;
 use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
 use Sulu\Component\Webspace\Security as WebspaceSecurity;
 use Sulu\Component\Webspace\Webspace;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
 
 class BaseDataProviderTest extends TestCase
 {
@@ -66,9 +67,7 @@ class BaseDataProviderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider configurationProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('configurationProvider')]
     public function testInitConfiguration($tags, $categories, $limit, $presentAs, $paginated, $sorting): void
     {
         $repository = $this->prophesize(DataProviderRepositoryInterface::class);
@@ -192,9 +191,7 @@ class BaseDataProviderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider filtersProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('filtersProvider')]
     public function testResolveFilters(
         array $filters,
         $limit,
@@ -218,9 +215,7 @@ class BaseDataProviderTest extends TestCase
         $this->assertEquals($hasNextPage, $result[1]);
     }
 
-    /**
-     * @dataProvider filtersProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('filtersProvider')]
     public function testResolveDataItems(
         array $filters,
         $limit,
@@ -251,9 +246,7 @@ class BaseDataProviderTest extends TestCase
         $this->assertEquals($items, $result->getItems());
     }
 
-    /**
-     * @dataProvider filtersProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('filtersProvider')]
     public function testResolveResourceItems(
         array $filters,
         $limit,
@@ -315,7 +308,7 @@ class BaseDataProviderTest extends TestCase
 
         $this->repository->findByFilters([], 1, null, -1, 'en', [], $user->reveal(), 64)->shouldBeCalled()->willReturn([]);
 
-        $security = $this->prophesize(Security::class);
+        $security = $this->prophesize(\class_exists(Security::class) ? Security::class : SymfonyCoreSecurity::class);
         $security->getUser()->willReturn($user->reveal());
 
         $requestAnalyzer = $this->prophesize(RequestAnalyzerInterface::class);
@@ -353,7 +346,7 @@ class BaseDataProviderTest extends TestCase
 
         $serializer = $this->prophesize(ArraySerializerInterface::class);
 
-        $security = $this->prophesize(Security::class);
+        $security = $this->prophesize(\class_exists(Security::class) ? Security::class : SymfonyCoreSecurity::class);
         $security->getUser()->willReturn($user->reveal());
 
         $requestAnalyzer = $this->prophesize(RequestAnalyzerInterface::class);
@@ -395,9 +388,7 @@ class BaseDataProviderTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider filtersProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('filtersProvider')]
     public function testResolveResourceItemsWithReferenceStore(
         array $filters,
         $limit,

@@ -121,7 +121,7 @@ export default class ExportToolbarAction extends AbstractListToolbarAction {
 
         const search = this.listStore.searchTerm.get();
 
-        window.location.assign(resourceRouteRegistry.getListUrl(this.listStore.resourceKey, {
+        window.location.assign(resourceRouteRegistry.getUrl('list', this.listStore.resourceKey, {
             _format: 'csv',
             locale: this.list.locale.get(),
             flat: true,

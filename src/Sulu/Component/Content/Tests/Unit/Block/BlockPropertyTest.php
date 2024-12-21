@@ -59,9 +59,7 @@ class BlockPropertyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideIsMultiple
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIsMultiple')]
     public function testGetIsMultiple($minOccurs, $maxOccurs, $result): void
     {
         $blockProperty = new BlockProperty('block', [], 'test', false, false, $maxOccurs, $minOccurs);
@@ -69,9 +67,7 @@ class BlockPropertyTest extends TestCase
         $this->assertEquals($result, $blockProperty->getIsMultiple());
     }
 
-    /**
-     * @dataProvider provideSetInvalidValue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSetInvalidValue')]
     public function testSetInvalidValue($value, string $message): void
     {
         $this->expectException(\InvalidArgumentException::class);

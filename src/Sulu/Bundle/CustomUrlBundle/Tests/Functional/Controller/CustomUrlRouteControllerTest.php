@@ -103,9 +103,7 @@ class CustomUrlRouteControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider cdeleteRoutesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cdeleteRoutesProvider')]
     public function testCDeleteRoutes(
         array $before,
         $data,

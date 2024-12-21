@@ -23,37 +23,32 @@ class Phone
 {
     /**
      * @var string
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
     private $phone;
 
     /**
      * @var int
-     *
-     * @Groups({"fullAccount", "partialAccount", "fullContact", "partialContact"})
      */
+    #[Groups(['fullAccount', 'partialAccount', 'fullContact', 'partialContact'])]
     private $id;
 
     /**
      * @var PhoneType
-     *
-     * @Groups({"fullAccount", "fullContact"})
      */
+    #[Groups(['fullAccount', 'fullContact'])]
     private $phoneType;
 
     /**
      * @var Collection<int, ContactInterface>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $contacts;
 
     /**
      * @var Collection<int, AccountInterface>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $accounts;
 
     /**

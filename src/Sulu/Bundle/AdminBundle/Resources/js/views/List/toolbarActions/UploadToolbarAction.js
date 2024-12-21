@@ -154,7 +154,7 @@ export default class UploadToolbarAction extends AbstractListToolbarAction {
                     case 'file-invalid-type':
                         error = translate('sulu_admin.dropzone_error_file-invalid-type', {
                             fileName: fileRejection.file.name,
-                            allowedTypes: this.accept ? this.accept.join(', ') : undefined,
+                            allowedTypes: this.accept ? Object.keys(this.accept).join(', ') : undefined,
                         });
                         break;
                     case 'file-too-large':
@@ -298,7 +298,7 @@ export default class UploadToolbarAction extends AbstractListToolbarAction {
         return {...requestParameters, ...attributesToRequest};
     }
 
-    @computed get accept(): ?$ReadOnlyArray<any> {
+    @computed get accept(): ?{[key: string]: string[]} {
         const {accept} = this.options;
 
         if (accept === undefined || accept === null) {
@@ -309,8 +309,17 @@ export default class UploadToolbarAction extends AbstractListToolbarAction {
             throw new Error('The "accept" option must be an array!');
         }
 
+        if (accept.length === 0) {
+            return undefined;
+        }
+
+        const dropzoneObjectOption = {};
         // $FlowFixMe: flow does not recognize that isArrayLike(value) means that value is an array
-        return accept;
+        accept.forEach((type) => {
+            dropzoneObjectOption[type] = [];
+        });
+
+        return dropzoneObjectOption;
     }
 
     @computed get minSize(): ?number {

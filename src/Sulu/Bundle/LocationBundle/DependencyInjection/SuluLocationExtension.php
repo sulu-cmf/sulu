@@ -39,17 +39,6 @@ class SuluLocationExtension extends Extension implements PrependExtensionInterfa
                 ]
             );
         }
-
-        if ($container->hasExtension('fos_js_routing')) {
-            $container->prependExtensionConfig(
-                'fos_js_routing',
-                [
-                    'routes_to_expose' => [
-                        'sulu_location.geolocator_query',
-                    ],
-                ]
-            );
-        }
     }
 
     /**
@@ -96,7 +85,15 @@ class SuluLocationExtension extends Extension implements PrependExtensionInterfa
             $container->setParameter('sulu_location.geolocator.service.google.api_key', $apiKey);
         };
 
+        $mapquest = function(array $geolocators, ContainerBuilder $container) {
+            $apiKey = $geolocators['mapquest']['api_key'];
+            $endpoint = $geolocators['mapquest']['endpoint'];
+            $container->setParameter('sulu_location.geolocator.service.mapquest.api_key', $apiKey);
+            $container->setParameter('sulu_location.geolocator.service.mapquest.endpoint', $endpoint);
+        };
+
         $nominatim($geolocators, $container);
         $google($geolocators, $container);
+        $mapquest($geolocators, $container);
     }
 }

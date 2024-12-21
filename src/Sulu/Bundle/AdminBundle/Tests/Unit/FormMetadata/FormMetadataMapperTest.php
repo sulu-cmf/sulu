@@ -154,6 +154,7 @@ class FormMetadataMapperTest extends TestCase
     public function testMapPropertiesWithComponents(): void
     {
         $form = $this->createFormWithAdvancedProperty();
+        /** @var PropertyMetadata $property */
         $property = $form->getChild('name');
 
         $component1 = new ComponentMetadata('component1');
@@ -211,6 +212,69 @@ class FormMetadataMapperTest extends TestCase
         $this->assertCount(2, $item->getTypes()['component1']->getItems());
         $this->assertContains('property1', \array_keys($item->getTypes()['component1']->getItems()));
         $this->assertContains('property2', \array_keys($item->getTypes()['component1']->getItems()));
+
+        $this->assertEquals('component2', $item->getTypes()['component2']->getName());
+        $this->assertEquals('Second Component', $item->getTypes()['component2']->getTitle());
+        $this->assertCount(2, $item->getTypes()['component2']->getItems());
+        $this->assertContains('property3', \array_keys($item->getTypes()['component2']->getItems()));
+        $this->assertContains('property4', \array_keys($item->getTypes()['component2']->getItems()));
+    }
+
+    public function testMapPropertiesWithComponentsWithGlobalBlocks(): void
+    {
+        $form = $this->createFormWithAdvancedProperty();
+        $property = $form->getChild('name');
+
+        $component1 = new ComponentMetadata('component1');
+        $component1->setTitles([
+            'en' => 'First Component',
+            'de' => 'Erste Komponente',
+        ]);
+        $component1->addTag([
+            'name' => 'sulu.global_block',
+            'attributes' => [
+                'global_block' => 'component1',
+            ],
+        ]);
+
+        $component2 = new ComponentMetadata('component2');
+        $component2->setTitles([
+            'en' => 'Second Component',
+            'de' => 'Zweite Komponente',
+        ]);
+
+        $child3 = new PropertyMetadata('property3');
+        $child3->setRequired(true);
+        $child3->setType('checkbox');
+        $child4 = new PropertyMetadata('property4');
+        $child4->setType('type');
+
+        $component2->addChild($child3);
+        $component2->addChild($child4);
+
+        $property->addComponent($component1);
+        $property->addComponent($component2);
+        $property->setMinOccurs(1);
+        $property->setMaxOccurs(2);
+        $property->defaultComponentName = 'component1';
+
+        $newForm = new FormMetadata();
+        $newForm->setItems($this->formMetadataMapper->mapChildren($form->getChildren(), 'en'));
+
+        $this->assertCount(1, $newForm->getItems());
+        $this->assertContains('name', \array_keys($newForm->getItems()));
+
+        $item = $newForm->getItems()['name'];
+        $this->assertInstanceOf(FieldMetadata::class, $item);
+
+        $this->assertEquals('type', $item->getType());
+        $this->assertEquals('component1', $item->getDefaultType());
+        $this->assertEquals(1, $item->getMinOccurs());
+        $this->assertEquals(2, $item->getMaxOccurs());
+
+        $this->assertEquals('component1', $item->getTypes()['component1']->getName());
+        $this->assertEquals('First Component', $item->getTypes()['component1']->getTitle());
+        $this->assertCount(0, $item->getTypes()['component1']->getItems());
 
         $this->assertEquals('component2', $item->getTypes()['component2']->getName());
         $this->assertEquals('Second Component', $item->getTypes()['component2']->getTitle());
@@ -368,7 +432,7 @@ class FormMetadataMapperTest extends TestCase
             /** @var PropertyMetadata $propertyMetadata */
             $propertyMetadata = $arguments[0];
 
-            return new SchemaPropertyMetadata($propertyMetadata->getName(), $propertyMetadata->isRequired());
+            return new SchemaPropertyMetadata((string) $propertyMetadata->getName(), $propertyMetadata->isRequired());
         });
 
         $schema = $this->formMetadataMapper->mapSchema($form->getChildren());
@@ -454,6 +518,51 @@ class FormMetadataMapperTest extends TestCase
                                 'then' => [
                                     'required' => ['property3'],
                                     'type' => 'object',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'type' => 'object',
+        ], $schema->toJsonSchema());
+    }
+
+    public function testMapSchemaWithGlobalBlock(): void
+    {
+        $form = $this->createFormWithGlobalBlock();
+
+        $propertyMetadataMapper = $this->prophesize(PropertyMetadataMapperInterface::class);
+        $this->propertyMetadataMapperRegistry->has(Argument::cetera())->willReturn(true);
+        $this->propertyMetadataMapperRegistry->get(Argument::cetera())->willReturn($propertyMetadataMapper->reveal());
+        $propertyMetadataMapper->mapPropertyMetadata(Argument::cetera())->will(function($arguments) {
+            /** @var PropertyMetadata $propertyMetadata */
+            $propertyMetadata = $arguments[0];
+
+            return new SchemaPropertyMetadata((string) $propertyMetadata->getName(), $propertyMetadata->isRequired());
+        });
+
+        $schema = $this->formMetadataMapper->mapSchema($form->getChildren());
+
+        $this->assertInstanceOf(SchemaMetadata::class, $schema);
+        $this->assertEquals([
+            'properties' => [
+                'block' => [
+                    'type' => 'array',
+                    'items' => [
+                        'allOf' => [
+                            [
+                                'if' => [
+                                    'properties' => [
+                                        'type' => [
+                                            'const' => 'component1',
+                                        ],
+                                    ],
+                                    'required' => ['type'],
+                                    'type' => 'object',
+                                ],
+                                'then' => [
+                                    '$ref' => '#/definitions/component1',
                                 ],
                             ],
                         ],
@@ -605,6 +714,34 @@ class FormMetadataMapperTest extends TestCase
 
         $block->addComponent($component1);
         $block->addComponent($component2);
+        $block->setMinOccurs(1);
+        $block->setMaxOccurs(2);
+        $block->defaultComponentName = 'component1';
+        $block->setType('block');
+
+        $form->addChild($block);
+
+        return $form;
+    }
+
+    private function createFormWithGlobalBlock(): ExternalFormMetadata
+    {
+        $form = new ExternalFormMetadata();
+        $block = new BlockMetadata('block');
+
+        $component1 = new ComponentMetadata('component1');
+        $component1->setTitles([
+            'en' => 'First Component',
+            'de' => 'Erste Komponente',
+        ]);
+        $component1->addTag([
+            'name' => 'sulu.global_block',
+            'attributes' => [
+                'global_block' => 'component1',
+            ],
+        ]);
+
+        $block->addComponent($component1);
         $block->setMinOccurs(1);
         $block->setMaxOccurs(2);
         $block->defaultComponentName = 'component1';

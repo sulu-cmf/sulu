@@ -93,9 +93,8 @@ class FindSubscriberTest extends TestCase
 
     /**
      * It should find existing document of specified type or class.
-     *
-     * @dataProvider provideFindWithTypeOrClass
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFindWithTypeOrClass')]
     public function testFindWithTypeOrClass($type, $typeOrClass, $shouldThrow): void
     {
         if ($shouldThrow) {

@@ -122,9 +122,8 @@ class DocumentInspectorTest extends TestCase
 
     /**
      * It should return the webspace for the given document.
-     *
-     * @dataProvider provideGetWebspace
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetWebspace')]
     public function testGetWebspace($path, $expectedWebspace): void
     {
         $this->documentRegistry->getNodeForDocument($this->document)->willReturn($this->node->reveal());
@@ -271,9 +270,8 @@ class DocumentInspectorTest extends TestCase
 
     /**
      * It should return the webspace name for a given node.
-     *
-     * @dataProvider provideWebspace
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideWebspace')]
     public function testWebspace($path, $expectedWebspace): void
     {
         $this->documentRegistry->getNodeForDocument($this->document)->willReturn($this->node->reveal());

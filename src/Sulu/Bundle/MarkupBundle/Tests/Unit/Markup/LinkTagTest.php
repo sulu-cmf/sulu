@@ -84,6 +84,18 @@ class LinkTagTest extends TestCase
                 '<a href="http://sulu.lo/de/test" title="Test-Title">Test-Content</a>',
             ],
             [
+                '<sulu-link href="123-123-123" title="Test-Title" provider="article" remove-if-not-exists="true">Test-Content</sulu-link>',
+                [
+                    'href' => '123-123-123',
+                    'title' => 'Test-Title',
+                    'content' => 'Test-Content',
+                    'provider' => 'article',
+                    'remove-if-not-exists' => true,
+                ],
+                [],
+                '',
+            ],
+            [
                 '<sulu-link href="123-123-123" title="Test-Title" provider="article"/>',
                 ['href' => '123-123-123', 'title' => 'Test-Title', 'provider' => 'article'],
                 [new LinkItem('123-123-123', 'Page-Title', '/de/test', true)],
@@ -207,9 +219,7 @@ class LinkTagTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideParseData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideParseData')]
     public function testParseAll($tag, $attributes, $items, $expected): void
     {
         $uuid = \preg_split('/[#?]/', $attributes['href'], 2);

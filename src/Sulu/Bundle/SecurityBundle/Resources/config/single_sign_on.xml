@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service id="sulu_security.open_id_login_subscriber" class="Sulu\Bundle\SecurityBundle\SingleSignOn\SingleSignOnLoginRequestSubscriber">
+            <argument type="service" id="sulu_security.single_sign_provider"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="sulu.repository.user"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="sulu_security.single_sign_on_adapter_factory_open_id" class="Sulu\Bundle\SecurityBundle\SingleSignOn\Adapter\OpenId\OpenIdSingleSignOnAdapterFactory">
+            <argument type="service" id="http_client"/>
+            <argument type="service" id="sulu_security.user_repository"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sulu.repository.contact"/>
+            <argument type="service" id="sulu.repository.role"/>
+            <argument type="service" id="router"/>
+            <argument>%sulu_core.translations%</argument>
+
+            <tag name="sulu_security.single_sign_on_factory"/>
+        </service>
+
+        <service id="sulu_security.single_sign_on_adapter_factory" class="Sulu\Bundle\SecurityBundle\SingleSignOn\SingleSignOnAdapterFactory">
+            <argument type="tagged_iterator" tag="sulu_security.single_sign_on_factory"/>
+        </service>
+
+        <service id="sulu_security.single_sign_provider" class="Sulu\Bundle\SecurityBundle\SingleSignOn\SingleSignOnAdapterProvider">
+            <argument type="tagged_locator" tag="sulu_security.single_sign_on_adapter" index-by="domain" />
+        </service>
+
+        <service id="sulu_security.single_sign_on_token_extractor" class="Sulu\Bundle\SecurityBundle\SingleSignOn\SingleSignOnTokenExtractor">
+            <argument type="service" id="sulu_security.single_sign_provider"/>
+        </service>
+
+        <service id="sulu_security.single_sign_on_token_handler" class="Sulu\Bundle\SecurityBundle\SingleSignOn\SingleSignOnTokenHandler">
+            <argument type="service" id="sulu_security.single_sign_provider"/>
+            <argument type="service" id="http_client"/>
+        </service>
+    </services>
+</container>

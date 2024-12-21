@@ -53,25 +53,22 @@ class Role implements RoleInterface
 
     /**
      * @var Collection<int, Permission>
-     *
-     * @Groups({"fullRole"})
      */
+    #[Groups(['fullRole'])]
     private $permissions;
 
     /**
      * @var Collection<int, UserRole>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $userRoles;
 
     /**
      * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
      *
      * @var Collection<int, Group>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $groups;
 
     /**

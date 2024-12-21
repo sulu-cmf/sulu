@@ -1,14 +1,17 @@
 // @flow
 import equals from 'fast-deep-equal';
 import jsonpointer from 'json-pointer';
+import jexl from 'jexl';
 import React, {Fragment} from 'react';
-import {action, observable, computed, toJS} from 'mobx';
+import {action, computed, observable, toJS} from 'mobx';
 import {observer} from 'mobx-react';
 import BlockCollection from '../../components/BlockCollection';
 import {translate} from '../../utils/Translator';
 import {memoryFormStoreFactory} from '../Form';
 import FormOverlay from '../FormOverlay';
 import snackbarStore from '../../stores/snackbarStore';
+import conditionDataProviderRegistry from '../Form/registries/conditionDataProviderRegistry';
+import {getDifference} from '../../utils/DifferenceCalculator';
 import blockPreviewTransformerRegistry from './registries/blockPreviewTransformerRegistry';
 import FieldRenderer from './FieldRenderer';
 import type {BlockError, FieldTypeProps, FormStoreInterface} from '../Form/types';
@@ -26,6 +29,8 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
     @observable openedBlockSettingsIndex: ?number;
     @observable blockSettingsFormStore: ?FormStoreInterface;
     @observable value: Object;
+    oldIconValue: ?Object;
+    computedIcons: Array<Array<string>> = [];
 
     constructor(props: FieldTypeProps<Array<BlockEntry>>) {
         super(props);
@@ -194,7 +199,7 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
             const blockSettingsTag = schemaEntry.tags.find((tag) => tag.name === SETTINGS_TAG);
 
             if (blockSettingsTag) {
-                iconsMapping[SETTINGS_PREFIX + schemaKey] = blockSettingsTag.attributes.icon;
+                iconsMapping[SETTINGS_PREFIX + schemaKey] = blockSettingsTag.attributes;
             }
 
             return iconsMapping;
@@ -204,17 +209,58 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
     }
 
     @computed get icons(): Array<Array<string>> {
-        if (!this.value) {
+        if (!this.value || Object.keys(this.iconsMapping).length === 0) {
             return [];
         }
 
-        return this.value.map((value) => Object.keys(this.iconsMapping).reduce((icons, pointer) => {
-            if (jsonpointer.has(value, pointer) && jsonpointer.get(value, pointer)) {
-                icons.push(this.iconsMapping[pointer]);
+        const jsValue = toJS(this.value);
+        const changedValues = getDifference(jsValue, this.oldIconValue);
+        this.oldIconValue = jsValue;
+
+        for (const key in changedValues) {
+            const value = this.value[key];
+
+            const icons = [];
+
+            for (const pointer in this.iconsMapping) {
+                const visibleCondition = this.iconsMapping[pointer].visibleCondition;
+                const icon = this.iconsMapping[pointer].icon;
+
+                if (
+                    ( // evaluate visible condition
+                        visibleCondition !== undefined &&
+                        jexl.evalSync(visibleCondition, this.getConditionData(value, pointer))
+                    )
+                    ||
+                    ( // use value from pointer if no visible condition is defined
+                        visibleCondition === undefined &&
+                        jsonpointer.has(value, pointer) &&
+                        jsonpointer.get(value, pointer)
+                    )
+                ) {
+                    icons.push(icon);
+                }
             }
 
-            return icons;
-        }, []));
+            this.computedIcons[parseInt(key)] = icons;
+        }
+
+        if (this.computedIcons.length !== this.value.length) {
+            this.computedIcons = this.computedIcons.slice(0, this.value.length);
+        }
+
+        return this.computedIcons;
+    }
+
+    getConditionData(data: {[string]: any}, dataPath: ?string) {
+        const {formInspector} = this.props;
+
+        return conditionDataProviderRegistry.getAll().reduce(
+            function(data, conditionDataProvider) {
+                return {...data, ...conditionDataProvider(data, dataPath, formInspector)};
+            },
+            {...data}
+        );
     }
 
     @action setValue = (value: Object) => {

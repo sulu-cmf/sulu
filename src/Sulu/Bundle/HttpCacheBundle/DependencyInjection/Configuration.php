@@ -49,6 +49,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('proxy_client')
                     ->addDefaultsIfNotSet()
                     ->children()
+                        ->booleanNode('noop')->end()
                         ->arrayNode('symfony')
                             ->canBeEnabled()
                             ->addDefaultsIfNotSet()

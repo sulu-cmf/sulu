@@ -12,6 +12,7 @@ export default class CKEditor5 extends React.Component<TextEditorProps> {
             locale,
             onBlur,
             onChange,
+            onFocus,
             options,
             value,
         } = this.props;
@@ -40,6 +41,7 @@ export default class CKEditor5 extends React.Component<TextEditorProps> {
                 locale={locale}
                 onBlur={onBlur}
                 onChange={onChange}
+                onFocus={onFocus}
                 value={value}
             />
         );

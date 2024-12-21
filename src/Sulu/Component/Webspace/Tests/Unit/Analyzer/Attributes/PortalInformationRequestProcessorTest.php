@@ -33,9 +33,7 @@ class PortalInformationRequestProcessorTest extends TestCase
         $this->portalInformationRequestProcessor = new PortalInformationRequestProcessor();
     }
 
-    /**
-     * @dataProvider provideProcess
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideProcess')]
     public function testProcess($config, $expected = []): void
     {
         $webspace = new Webspace();
@@ -85,9 +83,7 @@ class PortalInformationRequestProcessorTest extends TestCase
         $this->assertEquals($expected['url_expression'], $attributes->getAttribute('urlExpression'));
     }
 
-    /**
-     * @dataProvider provideProcess
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideProcess')]
     public function testProcessWithoutLocaliziation($config, $expected = []): void
     {
         $webspace = new Webspace();
@@ -136,9 +132,7 @@ class PortalInformationRequestProcessorTest extends TestCase
         $this->assertEquals($expected['url_expression'], $attributes->getAttribute('urlExpression'));
     }
 
-    /**
-     * @dataProvider provideProcessWithFormat
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideProcessWithFormat')]
     public function testProcessWithFormat($config, $expected = []): void
     {
         $webspace = new Webspace();

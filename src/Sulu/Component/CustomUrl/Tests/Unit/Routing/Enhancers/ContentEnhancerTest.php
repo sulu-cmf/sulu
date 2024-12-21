@@ -46,9 +46,7 @@ class ContentEnhancerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider enhanceProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('enhanceProvider')]
     public function testEnhance($redirect, $target): void
     {
         $webspace = $this->prophesize(Webspace::class);

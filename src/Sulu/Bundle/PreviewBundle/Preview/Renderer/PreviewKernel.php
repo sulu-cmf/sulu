@@ -28,7 +28,7 @@ class PreviewKernel extends Kernel
      */
     private $projectDir;
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         parent::registerContainerConfiguration($loader);
 
@@ -113,10 +113,7 @@ class PreviewKernel extends Kernel
         );
     }
 
-    /**
-     * @return void
-     */
-    protected function build(ContainerBuilder $container)
+    protected function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RegisterPreviewWebspaceClassPass());
         parent::build($container);

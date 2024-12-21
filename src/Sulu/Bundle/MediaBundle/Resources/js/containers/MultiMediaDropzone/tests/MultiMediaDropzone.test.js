@@ -103,7 +103,7 @@ test('Component pass correct props to Dropzone component', () => {
     );
 
     expect(multiMediaDropzone.find('Dropzone').props()).toEqual(expect.objectContaining({
-        accept: 'application/json',
+        accept: {'application/json': []},
         disabled: false,
         noClick: true,
     }));

@@ -12,7 +12,7 @@
 namespace Sulu\Bundle\SecurityBundle\Tests\Unit\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -110,6 +110,9 @@ class ForceTwoFactorSubscriberTest extends TestCase
         $this->assertSame('other', $userTwoFactor->getMethod());
     }
 
+    /**
+     * @return LifecycleEventArgs<EntityManagerInterface>
+     */
     private function createEvent(object $object): LifecycleEventArgs
     {
         return new LifecycleEventArgs($object, $this->entityManager->reveal());

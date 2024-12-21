@@ -12,26 +12,21 @@
     {%- endblock ~%}
 </head>
 <body>
+    {%- set config = {
+        initialLoginState: is_granted('IS_AUTHENTICATED_REMEMBERED'),
+        translations: translations,
+        fallbackLocale: fallback_locale,
+        endpoints: endpoints,
+        suluVersion: sulu_version,
+        appVersion: app_version,
+        passwordPattern: password_pattern,
+        passwordInfoTranslationKey: password_info_translation_key,
+        hasSingleSignOn: has_single_sign_on,
+    } -%}
+
     {% block application -%}
-        <div id="application"></div>
+        <div id="application" data-config="{%- block config -%}{{- config|json_encode -}}{%- endblock -%}"></div>
     {% endblock %}
-
-    <script>
-        {%- set config = {
-            initialLoginState: is_granted('IS_AUTHENTICATED_REMEMBERED'),
-            translations: translations,
-            fallbackLocale: fallback_locale,
-            endpoints: endpoints,
-            suluVersion: sulu_version,
-            appVersion: app_version,
-            passwordPattern: password_pattern,
-            passwordInfoTranslationKey: password_info_translation_key,
-        } -%}
-
-        {%- block config -%}
-            const SULU_CONFIG = Object.freeze({{ config|json_encode(constant('JSON_PRETTY_PRINT'))|raw }});
-        {%- endblock -%}
-    </script>
 
     {% block javascript %}
         {#- We do not preload the files because of problems with big files on http push in Chrome -#}

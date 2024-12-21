@@ -13,6 +13,7 @@ namespace Sulu\Bundle\AdminBundle;
 
 use Sulu\Bundle\AdminBundle\DependencyInjection\Compiler\AddAdminPass;
 use Sulu\Bundle\AdminBundle\DependencyInjection\Compiler\AddMetadataProviderPass;
+use Sulu\Bundle\AdminBundle\DependencyInjection\Compiler\ExposeResourceRoutesPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -30,5 +31,9 @@ class SuluAdminBundle extends Bundle
 
         $container->addCompilerPass(new AddAdminPass());
         $container->addCompilerPass(new AddMetadataProviderPass());
+
+        if ($container->hasExtension('fos_js_routing')) {
+            $container->addCompilerPass(new ExposeResourceRoutesPass());
+        }
     }
 }

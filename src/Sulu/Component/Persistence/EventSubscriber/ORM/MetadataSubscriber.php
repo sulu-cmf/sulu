@@ -11,10 +11,8 @@
 
 namespace Sulu\Component\Persistence\EventSubscriber\ORM;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\Mapping\ReflectionService;
@@ -22,7 +20,7 @@ use Doctrine\Persistence\Mapping\ReflectionService;
 /**
  * Doctrine subscriber used to manipulate metadata.
  */
-class MetadataSubscriber implements EventSubscriber
+class MetadataSubscriber
 {
     /**
      * @var array
@@ -36,13 +34,6 @@ class MetadataSubscriber implements EventSubscriber
      */
     public function __construct(protected $objects)
     {
-    }
-
-    public function getSubscribedEvents()
-    {
-        return [
-            Events::loadClassMetadata,
-        ];
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $event)

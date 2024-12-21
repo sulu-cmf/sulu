@@ -45,9 +45,7 @@ class SegmentCacheListenerTest extends TestCase
         yield [null];
     }
 
-    /**
-     * @dataProvider providePreHandleCookieValue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePreHandleCookieValue')]
     public function testPreHandleCookieValue(?string $cookieValue): void
     {
         $request = new Request([], [], [], ['_ss' => $cookieValue]);
@@ -75,9 +73,7 @@ class SegmentCacheListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providePostHandleVary
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePostHandleVary')]
     public function testPostHandleWithVary(?string $header, int $maxAge, int $sharedMaxAge, int $expectedMaxAge): void
     {
         $request = new Request();

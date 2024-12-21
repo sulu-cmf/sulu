@@ -104,6 +104,9 @@ class InvalidationSubscriber implements EventSubscriberInterface
         $this->cacheManager->invalidatePath($this->getUrlWithScheme($url));
     }
 
+    /**
+     * @return string
+     */
     private function getUrlWithScheme(string $url)
     {
         $scheme = 'http';

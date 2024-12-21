@@ -38,9 +38,7 @@ class AdminRequestProcessorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideData')]
     public function testProcess(array $expected = [], $webspaceKey = null, $locale = null, $language = null): void
     {
         $webspaceManager = $this->prophesize(WebspaceManagerInterface::class);

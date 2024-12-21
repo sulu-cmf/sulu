@@ -94,21 +94,15 @@ class ShadowCopyPropertiesSubscriberTest extends SuluTestCase
         $englishDocument->setNavigationContexts(['main']);
         $englishDocument->setAuthor(12);
         $englishDocument->setAuthored(new \DateTime('2016-01-01'));
+        $englishDocument->setLastModified(new \DateTime('2016-01-02'));
         $englishDocument->setStructureType('default');
 
         $this->documentManager->persist($englishDocument, 'en');
         $this->documentManager->publish($englishDocument, 'en');
         $this->documentManager->flush();
 
-        /** @var Tag $tag1 */
-        $tag1 = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag1']);
-        $this->assertNotNull($tag1);
-        $tag1Id = $tag1->getId();
-
-        /** @var Tag $tag2 */
-        $tag2 = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag2']);
-        $this->assertNotNull($tag2);
-        $tag2Id = $tag2->getId();
+        $tag1Id = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag1'])?->getId();
+        $tag2Id = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag2'])?->getId();
 
         $this->assertNotNull($tag1Id);
         $this->assertNotNull($tag2Id);
@@ -137,12 +131,11 @@ class ShadowCopyPropertiesSubscriberTest extends SuluTestCase
             $this->assertSame(12, (int) $this->nodeGetIntValue($node, 'i18n:en-author'));
             $this->assertSame(12, (int) $this->nodeGetIntValue($node, 'i18n:de-author'));
 
-            /** @var \DateTimeInterface $enAuthored */
-            $enAuthored = $this->nodeGetDateTimeValue($node, 'i18n:en-authored');
-            /** @var \DateTimeInterface $deAuthored */
-            $deAuthored = $this->nodeGetDateTimeValue($node, 'i18n:de-authored');
-            $this->assertSame('2016-01-01T00:00:00+00:00', $enAuthored->format('c'));
-            $this->assertSame('2016-01-01T00:00:00+00:00', $deAuthored->format('c'));
+            $this->assertSame('2016-01-01T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:en-authored')?->format('c'));
+            $this->assertSame('2016-01-01T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:de-authored')?->format('c'));
+
+            $this->assertSame('2016-01-02T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:en-lastModified')?->format('c'));
+            $this->assertSame('2016-01-02T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:de-lastModified')?->format('c'));
 
             $this->assertSame('default', $this->nodeGetStringValue($node, 'i18n:en-template'));
             $this->assertSame('default', $this->nodeGetStringValue($node, 'i18n:de-template'));
@@ -162,6 +155,7 @@ class ShadowCopyPropertiesSubscriberTest extends SuluTestCase
         $englishDocument->setNavigationContexts(['main']);
         $englishDocument->setAuthor(12);
         $englishDocument->setAuthored(new \DateTime('2016-01-01'));
+        $englishDocument->setLastModified(new \DateTime('2016-01-02'));
         $englishDocument->setStructureType('default');
 
         $this->documentManager->persist($englishDocument, 'en');
@@ -180,15 +174,8 @@ class ShadowCopyPropertiesSubscriberTest extends SuluTestCase
         $this->documentManager->publish($germanDocument, 'de');
         $this->documentManager->flush();
 
-        /** @var Tag $tag1 */
-        $tag1 = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag1']);
-        $this->assertNotNull($tag1);
-        $tag1Id = $tag1->getId();
-
-        /** @var Tag $tag2 */
-        $tag2 = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag2']);
-        $this->assertNotNull($tag2);
-        $tag2Id = $tag2->getId();
+        $tag1Id = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag1'])?->getId();
+        $tag2Id = $this->getEntityManager()->getRepository(Tag::class)->findOneBy(['name' => 'tag2'])?->getId();
 
         $this->assertNotNull($tag1Id);
         $this->assertNotNull($tag2Id);
@@ -217,12 +204,11 @@ class ShadowCopyPropertiesSubscriberTest extends SuluTestCase
             $this->assertSame(12, (int) $this->nodeGetIntValue($node, 'i18n:en-author'));
             $this->assertSame(12, (int) $this->nodeGetIntValue($node, 'i18n:de-author'));
 
-            /** @var \DateTimeInterface $enAuthored */
-            $enAuthored = $this->nodeGetDateTimeValue($node, 'i18n:en-authored');
-            /** @var \DateTimeInterface $deAuthored */
-            $deAuthored = $this->nodeGetDateTimeValue($node, 'i18n:de-authored');
-            $this->assertSame('2016-01-01T00:00:00+00:00', $enAuthored->format('c'));
-            $this->assertSame('2016-01-01T00:00:00+00:00', $deAuthored->format('c'));
+            $this->assertSame('2016-01-01T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:en-authored')?->format('c'));
+            $this->assertSame('2016-01-01T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:de-authored')?->format('c'));
+
+            $this->assertSame('2016-01-02T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:en-lastModified')?->format('c'));
+            $this->assertSame('2016-01-02T00:00:00+00:00', $this->nodeGetDateTimeValue($node, 'i18n:de-lastModified')?->format('c'));
 
             $this->assertSame('default', $this->nodeGetStringValue($node, 'i18n:en-template'));
             $this->assertSame('default', $this->nodeGetStringValue($node, 'i18n:de-template'));

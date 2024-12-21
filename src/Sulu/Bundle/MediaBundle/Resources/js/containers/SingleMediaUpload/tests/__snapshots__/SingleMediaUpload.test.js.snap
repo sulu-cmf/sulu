@@ -4,7 +4,7 @@ exports[`Render a SingleMediaUpload 1`] = `
 Array [
   <div
     class="mediaContainer default"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <img
@@ -31,8 +31,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -75,7 +74,7 @@ Array [
 exports[`Render a SingleMediaUpload in disabled state 1`] = `
 <div
   class="mediaContainer default disabled"
-  role="button"
+  role="presentation"
 >
   <img
     class="thumbnail"
@@ -101,8 +100,7 @@ exports[`Render a SingleMediaUpload in disabled state 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -113,7 +111,7 @@ exports[`Render a SingleMediaUpload with a different image size 1`] = `
 Array [
   <div
     class="mediaContainer default"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <img
@@ -140,8 +138,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -184,7 +181,7 @@ Array [
 exports[`Render a SingleMediaUpload with an empty icon if no image is passed 1`] = `
 <div
   class="mediaContainer default"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <div
@@ -215,8 +212,7 @@ exports[`Render a SingleMediaUpload with an empty icon if no image is passed 1`]
     </div>
   </div>
   <input
-    autocomplete="off"
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -227,7 +223,7 @@ exports[`Render a SingleMediaUpload with an error message from the MediaUploadSt
 Array [
   <div
     class="mediaContainer default disabled"
-    role="button"
+    role="presentation"
   >
     <img
       class="thumbnail"
@@ -253,8 +249,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -271,7 +266,7 @@ exports[`Render a SingleMediaUpload with the round skin 1`] = `
 Array [
   <div
     class="mediaContainer round"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <img
@@ -298,8 +293,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -343,7 +337,7 @@ exports[`Render a SingleMediaUpload without delete and download button 1`] = `
 Array [
   <div
     class="mediaContainer default"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <img
@@ -370,8 +364,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />

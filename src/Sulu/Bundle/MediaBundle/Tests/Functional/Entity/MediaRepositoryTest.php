@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Functional\Entity;
+namespace Sulu\Bundle\MediaBundle\Tests\Functional\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Sulu\Bundle\ContactBundle\Entity\Contact;
@@ -76,7 +76,7 @@ class MediaRepositoryTest extends SuluTestCase
         $this->mediaRepository = $this->getContainer()->get('sulu.repository.media');
     }
 
-    protected function setUpMedia()
+    protected function setUpMedia(): void
     {
         // Create Media Type
         $documentType = new MediaType();

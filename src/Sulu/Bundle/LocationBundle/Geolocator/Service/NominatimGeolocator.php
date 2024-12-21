@@ -15,6 +15,7 @@ use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorLocation;
+use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -43,18 +44,24 @@ class NominatimGeolocator implements GeolocatorInterface
         }
     }
 
-    public function locate(string $query): GeolocatorResponse
+    public function locate(string $query, ?GeolocatorOptions $options = null): GeolocatorResponse
     {
+        $requestQuery = [
+            'q' => $query,
+            'format' => 'json',
+            'addressdetails' => 1,
+            'key' => $this->key,
+        ];
+
+        if ($options && $options->getAcceptLanguage()) {
+            $requestQuery['accept-language'] = $options->getAcceptLanguage();
+        }
+
         $response = $this->client->request(
             'GET',
             $this->baseUrl,
             [
-                'query' => [
-                    'q' => $query,
-                    'format' => 'json',
-                    'addressdetails' => 1,
-                    'key' => $this->key,
-                ],
+                'query' => $requestQuery,
             ]
         );
 

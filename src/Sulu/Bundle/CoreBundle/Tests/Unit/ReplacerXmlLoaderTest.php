@@ -72,9 +72,7 @@ class ReplacerXmlLoaderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider examplesDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('examplesDataProvider')]
     public function testRealFile($locale, $from, $to): void
     {
         $filename = 'replacers.xml';

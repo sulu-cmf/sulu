@@ -4,22 +4,22 @@
         <case-property name="tag" width="shrink">
             <field>
                 <field-name>name</field-name>
-                <entity-name>SuluTagBundle:Tag</entity-name>
+                <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
                 <joins>
                     <join>
-                        <entity-name>SuluTagBundle:Tag</entity-name>
+                        <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
                         <field-name>%sulu.model.contact.class%.tag</field-name>
                     </join>
                 </joins>
             </field>
             <field>
                 <field-name>name</field-name>
-                <entity-name>SuluTagBundle:Tag</entity-name>
+                <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
                 <joins>
                     <join>
-                        <entity-name>SuluTagBundle:Tag</entity-name>
+                        <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
                         <field-name>%sulu.model.contact.class%.defaultTag</field-name>
                     </join>
                 </joins>

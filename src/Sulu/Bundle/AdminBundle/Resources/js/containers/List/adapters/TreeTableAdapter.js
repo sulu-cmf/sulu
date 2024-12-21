@@ -62,7 +62,7 @@ class TreeTableAdapter extends AbstractTableAdapter {
         }
 
         if (itemActionsProvider) {
-            buttons.push(...itemActionsProvider(item));
+            buttons.push(...itemActionsProvider(item?.data));
         }
 
         return buttons;

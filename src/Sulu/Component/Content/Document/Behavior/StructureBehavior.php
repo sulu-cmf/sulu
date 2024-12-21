@@ -31,14 +31,14 @@ interface StructureBehavior extends LocaleBehavior
     /**
      * Return the type of the structure used for the content.
      *
-     * @return string
+     * @return string|null
      */
     public function getStructureType();
 
     /**
      * Set the structure type used for the content.
      *
-     * @param string $structureType
+     * @param string|null $structureType
      */
     public function setStructureType($structureType);
 

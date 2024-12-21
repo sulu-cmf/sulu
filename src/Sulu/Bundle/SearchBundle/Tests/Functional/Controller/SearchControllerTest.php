@@ -117,16 +117,16 @@ class SearchControllerTest extends SuluTestCase
             ],
             [
                 [
-                    'q' => 'Xeon',
+                    'q' => 'Car Xeon',
                     'indexes' => ['Product'],
                     'locale' => 'fr',
                     'limit' => 1,
-                    'page' => 2,
+                    'page' => 1,
                 ],
                 [
-                    'page' => 2,
+                    'page' => 1,
                     'limit' => 1,
-                    'pages' => 2,
+                    'pages' => 1,
                     '_embedded' => [
                         'result' => [
                             [
@@ -152,12 +152,12 @@ class SearchControllerTest extends SuluTestCase
                             ],
                         ],
                     ],
-                    'total' => 2,
+                    'total' => 1,
                 ],
             ],
             [
                 [
-                    'q' => 'Xeon',
+                    'q' => 'Bike Xeon',
                     'indexes' => ['Product'],
                     'locale' => 'fr',
                     'limit' => 1,
@@ -166,7 +166,7 @@ class SearchControllerTest extends SuluTestCase
                 [
                     'page' => 1,
                     'limit' => 1,
-                    'pages' => 2,
+                    'pages' => 1,
                     '_embedded' => [
                         'result' => [
                             [
@@ -192,15 +192,13 @@ class SearchControllerTest extends SuluTestCase
                             ],
                         ],
                     ],
-                    'total' => 2,
+                    'total' => 1,
                 ],
             ],
         ];
     }
 
-    /**
-     * @dataProvider provideSearch
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSearch')]
     public function testSearch($params, $expectedResult): void
     {
         foreach ($expectedResult['_embedded']['result'] as &$hitResult) {

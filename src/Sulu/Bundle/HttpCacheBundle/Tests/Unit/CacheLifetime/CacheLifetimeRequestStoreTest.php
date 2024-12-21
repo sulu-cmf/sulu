@@ -48,9 +48,7 @@ class CacheLifetimeRequestStoreTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideSetCacheLifetime
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSetCacheLifetime')]
     public function testSetCacheLifetime($previousCacheLifetime, $newCacheLifetime, $expectedCacheLifetime): void
     {
         $request = new Request([], [], $previousCacheLifetime ? ['_cacheLifetime' => $previousCacheLifetime] : []);

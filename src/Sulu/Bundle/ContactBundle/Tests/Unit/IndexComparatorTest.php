@@ -36,9 +36,7 @@ class IndexComparatorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider usortProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('usortProvider')]
     public function testUsortCallback(array $array, array $ids, $startsWith, $contains): void
     {
         $comparator = new IndexComparator();

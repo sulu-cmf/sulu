@@ -99,4 +99,55 @@ final class SortUtils
 
         return $values;
     }
+
+    /**
+     * Sorts the items of the iterable by a locale aware function.
+     *
+     * The values for comparison are casted to string, before they are compared. The sorted items are returned by a new array.
+     *
+     * If the intl extension is not loaded, the comparison falls back to binary comparison.
+     *
+     * @template T of mixed
+     * @template TKey of array-key
+     *
+     * @param iterable<TKey, T> $list
+     * @param null|callable $getComparableValue callback to get the value from each item that will be compared
+     *
+     * @return array<TKey, T>
+     *
+     * @throws \InvalidArgumentException if the comparison of the values failed
+     */
+    public static function sortLocaleAware(iterable $list, string $locale, ?callable $getComparableValue = null): array
+    {
+        $array = \is_array($list) ? $list : \iterator_to_array($list);
+        $isList = \array_is_list($array);
+
+        if (null === $getComparableValue) {
+            $getComparableValue = fn ($item) => $item;
+        }
+
+        // Collator class requires intl extension
+        $collator = \class_exists(\Collator::class) ? new \Collator($locale) : null;
+
+        $sortMethod = $isList ? '\usort' : '\uasort';
+
+        $sortMethod($array, function(mixed $itemA, mixed $itemB) use ($collator, $getComparableValue) {
+            $valueA = (string) $getComparableValue($itemA);
+            $valueB = (string) $getComparableValue($itemB);
+
+            if ($collator) {
+                $result = $collator->compare($valueA, $valueB);
+            } else {
+                $result = \strcmp($valueA, $valueB);
+            }
+
+            if (false === $result) {
+                throw new \InvalidArgumentException('Comparison of the strings "%s" and "%s" failed.');
+            }
+
+            return $result;
+        });
+
+        return $array;
+    }
 }

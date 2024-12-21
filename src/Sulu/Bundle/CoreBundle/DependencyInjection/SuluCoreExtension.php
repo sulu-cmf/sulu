@@ -62,16 +62,15 @@ class SuluCoreExtension extends Extension implements PrependExtensionInterface
             );
         }
 
-        $templatesPath = __DIR__ . '/../Content/templates';
         $container->prependExtensionConfig(
             'sulu_core',
             [
                 'content' => [
                     'structure' => [
                         'paths' => [
-                            'sulu' => [
-                                'path' => $templatesPath,
-                                'type' => 'page',
+                            'blocks' => [
+                                'path' => '%kernel.project_dir%/config/templates/blocks',
+                                'type' => 'block',
                             ],
                         ],
                     ],

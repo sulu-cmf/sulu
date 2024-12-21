@@ -19,11 +19,11 @@ class FilterTypeRegistry
     private $filterTypes;
 
     /**
-     * @param \Traversable<FilterTypeInterface> $filterTypes
+     * @param iterable<FilterTypeInterface> $filterTypes
      */
-    public function __construct(\Traversable $filterTypes)
+    public function __construct(iterable $filterTypes)
     {
-        $this->filterTypes = \iterator_to_array($filterTypes);
+        $this->filterTypes = [...$filterTypes];
     }
 
     public function getFilterType(string $type): FilterTypeInterface

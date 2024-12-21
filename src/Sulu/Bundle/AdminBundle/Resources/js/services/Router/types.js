@@ -24,3 +24,14 @@ export type UpdateRouteHook = (
 ) => boolean;
 
 export type UpdateRouteMethod = (route: string, attributes: AttributeMap) => void;
+
+export type ResourceViews = {
+    views: {
+        detail?: string,
+        list?: string,
+    },
+};
+
+export type ResourceViewsMap = {
+    [string]: ResourceViews,
+};

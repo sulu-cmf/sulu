@@ -21,6 +21,7 @@ use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Security\Authorization\SecurityCondition;
+use Sulu\Component\Util\SortUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -95,15 +96,15 @@ class SnippetAreaController implements ClassResourceInterface
 
                 if ($uuid) {
                     $snippet = $this->documentManager->find($uuid, $this->getUser()->getLocale());
-                    $areaData['defaultUuid'] = $snippet ? $snippet->getUuid() : null;
-                    $areaData['defaultTitle'] = $snippet ? $snippet->getTitle() : null;
+                    $areaData['defaultUuid'] = null;
+                    $areaData['defaultTitle'] = null;
                 }
             }
 
             $dataList[$key] = $areaData;
         }
 
-        \ksort($dataList);
+        $dataList = SortUtils::sortLocaleAware($dataList, $this->getUser()->getLocale(), fn ($a) => $a['title']);
 
         $data = [
             '_embedded' => [
@@ -147,8 +148,8 @@ class SnippetAreaController implements ClassResourceInterface
                 'key' => $key,
                 'template' => $area['template'],
                 'title' => $area['title'],
-                'defaultUuid' => $defaultSnippet ? $defaultSnippet->getUuid() : null,
-                'defaultTitle' => $defaultSnippet ? $defaultSnippet->getTitle() : null,
+                'defaultUuid' => $defaultSnippet->getUuid(),
+                'defaultTitle' => $defaultSnippet->getTitle(),
                 'valid' => true,
             ]
         );

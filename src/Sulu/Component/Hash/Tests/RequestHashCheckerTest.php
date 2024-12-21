@@ -52,9 +52,7 @@ class RequestHashCheckerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideCheckHash
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCheckHash')]
     public function testCheckHash($force, $givenHash, $realHash, $valid): void
     {
         $request = new Request(['force' => $force], $givenHash ? ['_hash' => $givenHash] : []);

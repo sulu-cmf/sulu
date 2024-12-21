@@ -16,9 +16,8 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 /**
  * This field descriptor can be used to concatenate multiple field descriptors.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class DoctrineConcatenationFieldDescriptor extends AbstractDoctrineFieldDescriptor
 {
     /**

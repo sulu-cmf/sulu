@@ -14,6 +14,7 @@ import type {Location as LocationValue} from '../../types';
 
 type Props = {|
     disabled: boolean,
+    locale: string,
     onChange: (value: ?LocationValue) => void,
     value: ?LocationValue,
 |};
@@ -76,6 +77,7 @@ class Location extends React.Component<Props> {
         const {
             disabled,
             value,
+            locale,
         } = this.props;
 
         const locationClass = classNames(
@@ -127,6 +129,7 @@ class Location extends React.Component<Props> {
                     </MapContainer>
                 }
                 <LocationOverlay
+                    locale={locale}
                     onClose={this.handleOverlayClose}
                     onConfirm={this.handleOverlayConfirm}
                     open={this.overlayOpen}

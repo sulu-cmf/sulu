@@ -128,12 +128,11 @@ class DataProviderPoolTest extends TestCase
     }
 
     /**
-     * @dataProvider addProvider
-     *
      * @param array<array{alias: string, provider: DataProviderInterface}> $providers
      * @param array<string, DataProviderInterface> $expectedProviders
      * @param class-string<\Throwable>|null $exceptionName
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('addProvider')]
     public function testAdd(DataProviderPool $pool, array $providers, array $expectedProviders, ?string $exceptionName = null): void
     {
         if ($exceptionName) {
@@ -158,9 +157,7 @@ class DataProviderPoolTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider existsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('existsProvider')]
     public function testExists(DataProviderPool $pool, string $alias, bool $expected): void
     {
         $this->assertEquals($expected, $pool->exists($alias));
@@ -188,10 +185,9 @@ class DataProviderPoolTest extends TestCase
     }
 
     /**
-     * @dataProvider getProvider
-     *
      * @param class-string<\Throwable>|null $exceptionName
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
     public function testGet(DataProviderPool $pool, string $alias, ?DataProviderInterface $expectedProvider, ?string $exceptionName = null): void
     {
         if ($exceptionName) {
@@ -232,10 +228,9 @@ class DataProviderPoolTest extends TestCase
     }
 
     /**
-     * @dataProvider getAllProvider
-     *
      * @param array<string, DataProviderInterface> $expectedProviders
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getAllProvider')]
     public function testGetAll(DataProviderPool $pool, array $expectedProviders): void
     {
         $this->assertEquals($expectedProviders, $pool->getAll());

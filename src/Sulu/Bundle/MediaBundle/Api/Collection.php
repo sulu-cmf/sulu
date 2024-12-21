@@ -24,9 +24,8 @@ use Sulu\Component\Security\Authentication\UserInterface;
 /**
  * Class Collection
  * The Collection RestObject is the api entity for the CollectionController.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class Collection extends ApiWrapper
 {
     /**
@@ -113,10 +112,9 @@ class Collection extends ApiWrapper
 
     /**
      * @internal
-     *
-     * @VirtualProperty
-     * @SerializedName("_embedded")
      */
+    #[VirtualProperty]
+    #[SerializedName('_embedded')]
     public function getEmbedded(): array
     {
         return [
@@ -129,11 +127,10 @@ class Collection extends ApiWrapper
     /**
      * Indicates if sub collections exists.
      *
-     * @VirtualProperty
-     * @SerializedName("hasChildren")
-     *
      * @return bool
      */
+    #[VirtualProperty]
+    #[SerializedName('hasChildren')]
     public function getHasChildren()
     {
         return $this->subCollectionCount > 0;
@@ -152,11 +149,10 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("description")
-     *
      * @return string|null
      */
+    #[VirtualProperty]
+    #[SerializedName('description')]
     public function getDescription()
     {
         $meta = $this->getMeta();
@@ -168,11 +164,10 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("id")
-     *
      * @return int
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
     public function getId()
     {
         return $this->entity->getId();
@@ -240,11 +235,10 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("style")
-     *
      * @return array|null
      */
+    #[VirtualProperty]
+    #[SerializedName('style')]
     public function getStyle()
     {
         $style = $this->entity->getStyle();
@@ -269,22 +263,20 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("properties")
-     *
      * @return array
      */
+    #[VirtualProperty]
+    #[SerializedName('properties')]
     public function getProperties()
     {
         return $this->properties;
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("preview")
-     *
      * @return array
      */
+    #[VirtualProperty]
+    #[SerializedName('preview')]
     public function getPreview()
     {
         return $this->preview;
@@ -302,10 +294,8 @@ class Collection extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("locale")
-     */
+    #[VirtualProperty]
+    #[SerializedName('locale')]
     public function getLocale()
     {
         return $this->locale;
@@ -324,11 +314,10 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("title")
-     *
      * @return string|null
      */
+    #[VirtualProperty]
+    #[SerializedName('title')]
     public function getTitle()
     {
         $meta = $this->getMeta();
@@ -352,11 +341,10 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("key")
-     *
      * @return string|null
      */
+    #[VirtualProperty]
+    #[SerializedName('key')]
     public function getKey()
     {
         return $this->entity->getKey();
@@ -375,22 +363,20 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("type")
-     *
      * @return CollectionType
      */
+    #[VirtualProperty]
+    #[SerializedName('type')]
     public function getType()
     {
         return $this->entity->getType();
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("changed")
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('changed')]
     public function getChanged()
     {
         return $this->entity->getChanged();
@@ -422,11 +408,10 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("created")
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('created')]
     public function getCreated()
     {
         return $this->entity->getCreated();
@@ -458,10 +443,9 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     *
      * @return int The number of media contained by the collection
      */
+    #[VirtualProperty]
     public function getMediaCount()
     {
         return $this->mediaCount;
@@ -476,10 +460,9 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     *
      * @return int The number of sub collections contained by the collection
      */
+    #[VirtualProperty]
     public function getSubCollectionCount()
     {
         return $this->subCollectionCount;
@@ -494,23 +477,19 @@ class Collection extends ApiWrapper
     }
 
     /**
-     * @VirtualProperty
-     *
-     * Returns the total number of all types of sub objects of this collection.
-     *
      * @return int
      */
+    #[VirtualProperty] // Returns the total number of all types of sub objects of this collection.
     public function getObjectCount()
     {
         return $this->getMediaCount() + $this->getSubCollectionCount();
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("locked")
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('locked')]
     public function getLocked()
     {
         return !$this->entity->getType()

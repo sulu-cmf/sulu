@@ -14,6 +14,7 @@ namespace Sulu\Bundle\SnippetBundle\Snippet;
 use Jackalope\Query\Query;
 use PHPCR\NodeInterface;
 use PHPCR\Query\QOM\QueryObjectModelConstantsInterface;
+use PHPCR\Query\QOM\QueryObjectModelInterface;
 use PHPCR\Util\QOM\QueryBuilder;
 use Sulu\Bundle\SnippetBundle\Document\SnippetDocument;
 use Sulu\Component\Content\Compat\Structure;
@@ -190,7 +191,7 @@ class SnippetRepository
      * @param string $sortBy
      * @param string $sortOrder
      *
-     * @return Query
+     * @return QueryObjectModelInterface
      */
     private function getSnippetsQuery(
         $locale,

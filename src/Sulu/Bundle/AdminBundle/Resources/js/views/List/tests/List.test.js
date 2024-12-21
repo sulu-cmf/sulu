@@ -9,7 +9,7 @@ import {findWithHighOrderFunction} from '../../../utils/TestHelper';
 import ResourceStore from '../../../stores/ResourceStore';
 
 jest.mock('../../../services/ResourceRequester/registries/resourceRouteRegistry', () => ({
-    getListUrl: jest.fn()
+    getUrl: jest.fn()
         .mockReturnValue('testfile.csv?locale=en&flat=true&delimiter=%3B&escape=%5C&enclosure=%22&newLine=%5Cn'),
 }));
 
@@ -1936,7 +1936,7 @@ test('Export method should be called when the export-button is pressed', () => {
     list.update();
 
     list.find('Overlay').find({confirmText: 'Export'}).find('Button').simulate('click');
-    expect(resourceRouteRegistry.getListUrl).toBeCalledWith('test', {
+    expect(resourceRouteRegistry.getUrl).toBeCalledWith('list', 'test', {
         _format: 'csv',
         locale: list.instance().locale.get(),
         flat: true,

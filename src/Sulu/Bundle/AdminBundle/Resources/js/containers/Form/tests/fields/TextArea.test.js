@@ -118,3 +118,22 @@ test('Pass props correctly including soft_max_length to TextArea component', () 
     expect(inputValid.find(TextAreaComponent).prop('maxCharacters')).toBe(70);
     expect(inputValid.find(TextAreaComponent).prop('valid')).toBe(true);
 });
+
+test('TextArea should call onFocus when the TextArea gets focus', () => {
+    const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('test'), 'test'));
+    const focusSpy = jest.fn();
+    const inputValid = shallow(
+        <TextArea
+            {...fieldTypeDefaultProps}
+            formInspector={formInspector}
+            onFocus={focusSpy}
+        />
+    );
+
+    const target = new EventTarget();
+    inputValid.find(TextAreaComponent).prop('onFocus')({
+        target,
+    });
+
+    expect(focusSpy).toBeCalledWith(target);
+});

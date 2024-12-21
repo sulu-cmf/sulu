@@ -8,7 +8,7 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-        <field name="locale" type="string" column="locale" length="5" />
+        <field name="locale" type="string" column="locale" length="15" />
         <many-to-one field="fileVersion" target-entity="Sulu\Bundle\MediaBundle\Entity\FileVersion" inversed-by="contentLanguages">
             <join-columns>
                 <join-column name="idFileVersions" referenced-column-name="id" on-delete="CASCADE" />

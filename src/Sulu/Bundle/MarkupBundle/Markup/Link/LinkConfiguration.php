@@ -17,51 +17,44 @@ class LinkConfiguration
 {
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $title;
 
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $resourceKey;
 
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $listAdapter;
 
     /**
      * @var string[]
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $displayProperties;
 
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $overlayTitle;
 
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $emptyText;
 
     /**
      * @var string
-     *
-     * @Groups({"frontend"})
      */
+    #[Groups(['frontend'])]
     private $icon;
 
     public function __construct(

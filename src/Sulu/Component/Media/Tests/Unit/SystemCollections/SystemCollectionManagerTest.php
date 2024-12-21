@@ -339,9 +339,7 @@ class SystemCollectionManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider configProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('configProvider')]
     public function testWarmUp($config, $existingCollections, $notExistingCollections, $data): void
     {
         $tokenStorage = $this->getTokenStorage();
@@ -366,9 +364,7 @@ class SystemCollectionManagerTest extends TestCase
         $manager->warmUp();
     }
 
-    /**
-     * @dataProvider getProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
     public function testGetSystemCollection($data, $key, $expected, $exception = null): void
     {
         if (null !== $exception) {
@@ -398,9 +394,7 @@ class SystemCollectionManagerTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider isProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('isProvider')]
     public function testIsSystemCollection($data, $id, $expected): void
     {
         $tokenStorage = $this->getTokenStorage();

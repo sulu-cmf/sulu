@@ -79,9 +79,7 @@ class SnippetControllerTest extends SuluTestCase
         $this->loadFixtures();
     }
 
-    /**
-     * @dataProvider provideGet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGet')]
     public function testGet($locale, $expected): void
     {
         $this->client->jsonRequest('GET', '/api/snippets/' . $this->hotel1->getUuid() . '?locale=' . $locale);
@@ -264,9 +262,7 @@ class SnippetControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideIndex
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIndex')]
     public function testIndex($params, $expectedResultCount): void
     {
         $params = \array_merge([
@@ -285,6 +281,28 @@ class SnippetControllerTest extends SuluTestCase
         foreach ($result['_embedded']['snippets'] as $snippet) {
             // check if all snippets have a title, even if it is a ghost page
             $this->assertArrayHasKey('title', $snippet);
+        }
+    }
+
+    public function testIndexWithFields(): void
+    {
+        $fields = ['id', 'title', 'path'];
+        $this->client->jsonRequest('GET', '/api/snippets?locale=de&fields=' . \implode(',', $fields));
+        $response = $this->client->getResponse();
+
+        $this->assertHttpStatusCode(200, $response);
+
+        $result = \json_decode($response->getContent(), true);
+        $this->assertIsArray($result);
+
+        /** @array array<int, array<string, mixed>> $snippetData */
+        $snippetData = $result['_embedded']['snippets'];
+
+        foreach ($snippetData as $snippet) {
+            foreach ($fields as $field) {
+                $this->assertArrayHasKey($field, $snippet);
+            }
+            $this->assertArrayNotHasKey('description', $snippet);
         }
     }
 
@@ -310,9 +328,7 @@ class SnippetControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider providePost
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePost')]
     public function testPost($params, $data): void
     {
         $params = \array_merge([
@@ -348,9 +364,7 @@ class SnippetControllerTest extends SuluTestCase
         $this->assertNotNull($activity);
     }
 
-    /**
-     * @dataProvider providePost
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePost')]
     public function testPostPublished($params, $data): void
     {
         $params = \array_merge([
@@ -641,6 +655,27 @@ class SnippetControllerTest extends SuluTestCase
         $this->assertEquals(WorkflowStage::PUBLISHED, $newPage->getWorkflowStage());
         $this->assertEquals('Hotel title DE', $newPage->getTitle());
         $this->assertEquals('Hotel description DE', $newPage->getStructure()->getProperty('description')->getValue());
+    }
+
+    public function testCopy(): void
+    {
+        $params = [
+            'locale' => 'de',
+            'action' => 'copy',
+        ];
+
+        $query = \http_build_query($params);
+        $this->client->jsonRequest('POST', \sprintf('/api/snippets/%s?%s', $this->hotel1->getUuid(), $query));
+        $response = $this->client->getResponse();
+
+        $result = \json_decode($response->getContent(), true);
+        $this->assertHttpStatusCode(200, $response);
+
+        $this->assertNotSame($this->hotel1->getUuid(), $result['id']);
+
+        $document = $this->documentManager->find($result['id'], 'de');
+
+        $this->assertEquals($this->hotel1->getTitle(), $document->getTitle());
     }
 
     private function loadFixtures(): void

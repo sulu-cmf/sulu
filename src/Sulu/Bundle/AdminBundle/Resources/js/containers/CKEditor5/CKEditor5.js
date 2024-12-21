@@ -31,6 +31,7 @@ type Props = {|
     locale?: ?IObservableValue<string>,
     onBlur?: () => void,
     onChange: (value: ?string) => void,
+    onFocus?: (event: { target: EventTarget }) => void,
     value: ?string,
 |};
 
@@ -154,6 +155,15 @@ export default class CKEditor5 extends React.Component<Props> {
                     'mergeTableCells',
                 ],
             },
+            ui: {
+                poweredBy: {
+                    position: 'inside',
+                    side: 'right',
+                    label: '',
+                    verticalOffset: 2,
+                    horizontalOffset: 3,
+                },
+            },
         };
 
         ClassicEditor
@@ -186,7 +196,7 @@ export default class CKEditor5 extends React.Component<Props> {
 
                 this.editorInstance.setData(this.props.value);
 
-                const {disabled, onBlur, onChange} = this.props;
+                const {disabled, onBlur, onChange, onFocus} = this.props;
                 const {
                     model: {
                         document: modelDocument,
@@ -206,6 +216,14 @@ export default class CKEditor5 extends React.Component<Props> {
                 if (onBlur) {
                     viewDocument.on('blur', () => {
                         onBlur();
+                    });
+                }
+
+                if (onFocus) {
+                    viewDocument.on('focus', () => {
+                        onFocus({
+                            target: this.editorInstance.ui.element.querySelector('div[contenteditable="true"]'),
+                        });
                     });
                 }
 

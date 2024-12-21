@@ -53,9 +53,7 @@ class TabViewBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideBuildTabView
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBuildTabView')]
     public function testBuildTabView(
         string $name,
         string $path,

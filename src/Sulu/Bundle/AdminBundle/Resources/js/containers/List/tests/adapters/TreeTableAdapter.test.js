@@ -917,11 +917,12 @@ test('Click on add should execute onItemAdd callback', () => {
 
 test('Click on itemAction should execute its callback', () => {
     const actionClickSpy = jest.fn();
+    const item1Data = {
+        id: 2,
+        title: 'Test1',
+    };
     const item1 = {
-        data: {
-            id: 2,
-            title: 'Test1',
-        },
+        data: item1Data,
         children: [],
         hasChildren: false,
     };
@@ -963,7 +964,7 @@ test('Click on itemAction should execute its callback', () => {
         />
     );
 
-    expect(actionsProvider).toBeCalledWith(item1);
+    expect(actionsProvider).toBeCalledWith(item1Data);
 
     const buttons = treeListAdapter.find('Table').prop('buttons');
     expect(buttons).toHaveLength(2);

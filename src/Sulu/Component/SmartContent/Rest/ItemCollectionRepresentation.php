@@ -16,10 +16,9 @@ use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\SmartContent\DatasourceItemInterface;
 
 /**
- * @Serializer\ExclusionPolicy("all")
- *
  * Provides a collection of items and the datasource.
  */
+#[Serializer\ExclusionPolicy('all')]
 class ItemCollectionRepresentation extends CollectionRepresentation
 {
     /**

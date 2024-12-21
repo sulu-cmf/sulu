@@ -17,16 +17,19 @@ use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
+/**
+ * @final
+ */
 class DocumentToUuidTransformer implements DataTransformerInterface
 {
     public function __construct(private DocumentManagerInterface $documentManager)
     {
     }
 
-    public function transform($document)
+    public function transform($document): ?string
     {
         if (null === $document) {
-            return;
+            return null;
         }
 
         // TODO: Use the document inspector instead of the UUID behavior
@@ -40,10 +43,10 @@ class DocumentToUuidTransformer implements DataTransformerInterface
         return $document->getUuid();
     }
 
-    public function reverseTransform($uuid)
+    public function reverseTransform($uuid): ?object
     {
         if (!$uuid) {
-            return;
+            return null;
         }
 
         if (!UUIDHelper::isUuid($uuid)) {

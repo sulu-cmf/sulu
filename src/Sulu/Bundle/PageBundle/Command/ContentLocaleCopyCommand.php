@@ -16,16 +16,16 @@ use PHPCR\SessionInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Component\Content\Exception\ResourceLocatorAlreadyExistsException;
 use Sulu\Component\Content\Mapper\ContentMapperInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'sulu:content:locale-copy', description: 'Copy content nodes from one locale to another')]
 class ContentLocaleCopyCommand extends Command
 {
-    protected static $defaultName = 'sulu:content:locale-copy';
-
     /**
      * @var QueryManager
      */
@@ -46,7 +46,6 @@ class ContentLocaleCopyCommand extends Command
 
     public function configure()
     {
-        $this->setDescription('Copy content nodes from one locale to another');
         $this->setHelp(
             <<<'EOT'
             The <info>%command.name%</info> command copies the internationalized properties matching <info>srcLocale</info>

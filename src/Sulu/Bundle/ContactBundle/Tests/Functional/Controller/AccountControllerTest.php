@@ -269,7 +269,7 @@ class AccountControllerTest extends SuluTestCase
 
         $response = \json_decode($this->client->getResponse()->getContent());
         $this->assertEquals(0, $response->code);
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testGetEmptyAccountContacts(): void
@@ -721,7 +721,7 @@ class AccountControllerTest extends SuluTestCase
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent());
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPostWithNotExistingEmailType(): void
@@ -748,7 +748,7 @@ class AccountControllerTest extends SuluTestCase
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent());
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPostWithNotExistingPhoneType(): void
@@ -779,7 +779,7 @@ class AccountControllerTest extends SuluTestCase
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent());
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPostWithNotExistingAddressType(): void
@@ -805,7 +805,7 @@ class AccountControllerTest extends SuluTestCase
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent());
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPostWithNotExistingFaxType(): void
@@ -828,7 +828,7 @@ class AccountControllerTest extends SuluTestCase
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent());
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPostWithNotExistingCountry(): void
@@ -854,7 +854,7 @@ class AccountControllerTest extends SuluTestCase
 
         $this->assertHttpStatusCode(404, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent());
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testGetList(): void

@@ -67,7 +67,7 @@ abstract class BaseXmlFormatLoader extends FileLoader
      *
      * @return array The formats array for the given resource
      */
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): mixed
     {
         $path = $this->getLocator()->locate($resource);
 
@@ -82,7 +82,7 @@ abstract class BaseXmlFormatLoader extends FileLoader
      *
      * @return bool true if this class supports the given resource, false otherwise
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, $type = null): bool
     {
         if (!\is_string($resource) || 'xml' !== \pathinfo($resource, \PATHINFO_EXTENSION)) {
             return false;

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import {action, computed, observable} from 'mobx';
+import {action, autorun, computed, observable} from 'mobx';
 import {observer} from 'mobx-react';
 import Icon from '../../components/Icon/index';
 import {translate} from '../../utils/index';
@@ -25,10 +25,26 @@ type Props = {|
 
 @observer
 class Login extends React.Component<Props> {
+    redirectDisposer: () => void;
+
     static defaultProps = {
         backLink: '/',
         initialized: false,
     };
+
+    constructor(props: Props) {
+        super(props);
+
+        this.redirectDisposer = autorun(() => {
+            if (userStore.redirectUrl !== '') {
+                window.location.href = userStore.redirectUrl;
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.redirectDisposer();
+    }
 
     @observable visibleForm: FormTypes = this.props.router.attributes.forgotPasswordToken ? 'reset-password' : 'login';
 
@@ -70,6 +86,10 @@ class Login extends React.Component<Props> {
 
     handleLoginFormSubmit = (data: LoginFormData) => {
         userStore.login(data).then(() => {
+            if (userStore.loginMethod === 'json_login') {
+                return;
+            }
+
             if (userStore.twoFactorMethods && userStore.twoFactorMethods.length > 0) {
                 action(() => {
                     this.visibleForm = 'two-factor';
@@ -135,6 +155,9 @@ class Login extends React.Component<Props> {
                             <LoginForm
                                 error={userStore.loginError}
                                 loading={userStore.loading}
+                                mode={userStore.hasSingleSignOn() ? (
+                                    userStore.loginMethod === 'json_login' ? 'password_only' : 'username_only'
+                                ) : 'username_password'}
                                 onChangeForm={this.handleChangeToForgotPasswordForm}
                                 onSubmit={this.handleLoginFormSubmit}
                             />

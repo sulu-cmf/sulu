@@ -19,15 +19,15 @@ use Sulu\Component\DocumentManager\Collection\QueryResultCollection;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Sulu\Component\Security\Authentication\RoleInterface;
 use Sulu\Component\Security\Authorization\AccessControl\DoctrineAccessControlProvider;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'sulu:security:sync-phpcr-permissions', description: 'Sync existing object permissions from phpcr into database to make them usable in database queries')]
 class SyncPhpcrPermissionsCommand extends Command
 {
-    protected static $defaultName = 'sulu:security:sync-phpcr-permissions';
-
     public function __construct(
         private EntityManagerInterface $entityManager,
         private DocumentManagerInterface $documentManager,
@@ -38,7 +38,6 @@ class SyncPhpcrPermissionsCommand extends Command
 
     public function configure(): void
     {
-        $this->setDescription('Sync existing object permissions from phpcr into database to make them usable in database queries');
         $this->setHelp(
             'The <info>%command.name%</info> command syncs the object permissions of phpcr documents into the database.'
         );

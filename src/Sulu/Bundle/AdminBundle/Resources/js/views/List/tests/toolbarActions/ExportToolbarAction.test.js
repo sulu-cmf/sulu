@@ -26,7 +26,7 @@ jest.mock('../../../../views/List/List', () => jest.fn(function() {
 jest.mock('../../../../services/Router/Router', () => jest.fn());
 
 jest.mock('../../../../services/ResourceRequester/registries/resourceRouteRegistry', () => ({
-    getListUrl: jest.fn(),
+    getUrl: jest.fn(),
 }));
 
 function createExportToolbarAction(options = {}) {
@@ -73,7 +73,7 @@ test('Export current result when button is clicked and dialog is confirmed', () 
     const exportToolbarAction = createExportToolbarAction();
     exportToolbarAction.listStore.data.push({});
 
-    resourceRouteRegistry.getListUrl.mockReturnValue('/list');
+    resourceRouteRegistry.getUrl.mockReturnValue('/list');
 
     const toolbarItemConfig = exportToolbarAction.getToolbarItemConfig();
     toolbarItemConfig.onClick();
@@ -82,7 +82,8 @@ test('Export current result when button is clicked and dialog is confirmed', () 
 
     element.find('Button[skin="primary"]').simulate('click');
 
-    expect(resourceRouteRegistry.getListUrl).toBeCalledWith(
+    expect(resourceRouteRegistry.getUrl).toBeCalledWith(
+        'list',
         'test',
         {
             _format: 'csv',
@@ -110,7 +111,7 @@ test('Export current result with applied filter and search when button is clicke
     // $FlowFixMe
     exportToolbarAction.listStore.filterQueryOption = {test: {eq: 'Test'}};
 
-    resourceRouteRegistry.getListUrl.mockReturnValue('/list');
+    resourceRouteRegistry.getUrl.mockReturnValue('/list');
 
     const toolbarItemConfig = exportToolbarAction.getToolbarItemConfig();
     toolbarItemConfig.onClick();
@@ -119,7 +120,8 @@ test('Export current result with applied filter and search when button is clicke
 
     element.find('Button[skin="primary"]').simulate('click');
 
-    expect(resourceRouteRegistry.getListUrl).toBeCalledWith(
+    expect(resourceRouteRegistry.getUrl).toBeCalledWith(
+        'list',
         'test',
         {
             _format: 'csv',

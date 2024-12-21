@@ -250,19 +250,6 @@ class SuluContactExtension extends Extension implements PrependExtensionInterfac
             );
         }
 
-        if ($container->hasExtension('fos_js_routing')) {
-            $container->prependExtensionConfig(
-                'fos_js_routing',
-                [
-                    'routes_to_expose' => [
-                        'sulu_contact.delete_contact_medias',
-                        'sulu_contact.delete_account_medias',
-                        'sulu_contact.delete_account_contacts',
-                    ],
-                ]
-            );
-        }
-
         if ($container->hasExtension('fos_rest')) {
             $container->prependExtensionConfig(
                 'fos_rest',

@@ -90,9 +90,7 @@ class SegmentRequestProcessorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideProcessWithDefaultSegmentValue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideProcessWithDefaultSegmentValue')]
     public function testProcessWithDefaultSegmentValue($cookieSegmentKey, $defaultSegmentKey, $expectedSegmentKey): void
     {
         $request = new Request();

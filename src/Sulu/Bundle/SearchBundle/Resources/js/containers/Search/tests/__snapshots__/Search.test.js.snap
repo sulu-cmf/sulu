@@ -224,87 +224,191 @@ exports[`Render search results 1`] = `
     sulu_search.search_hint
   </p>
   <div
-    class="searchResult"
-    role="button"
+    class="searchResultsOuterContainer"
   >
-    <div
-      class="imageContainer"
-    >
-      <img
-        class="image"
-        src="/image.jgp"
-      />
-    </div>
-    <div
-      class="resultContainer"
-    >
+    <section>
       <div
-        class="resource"
-      >
-        Page
-      </div>
-      <div
-        class="titleContainer"
+        class="searchResult"
+        role="button"
       >
         <div
-          class="title"
+          class="imageContainer"
         >
-          Test1
+          <img
+            class="image"
+            src="/image.jgp"
+          />
         </div>
         <div
-          class="locale"
+          class="resultContainer"
         >
-           (de)
-        </div>
-      </div>
-      <div
-        class="description"
-      >
-        something
+          <div
+            class="resource"
+          >
+            Page
+          </div>
+          <div
+            class="titleContainer"
+          >
+            <div
+              class="title"
+            >
+              Test1
+            </div>
+            <div
+              class="locale"
+            >
+               (de)
+            </div>
+          </div>
+          <div
+            class="description"
+          >
+            something
 
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div
-    class="searchResult"
-    role="button"
-  >
-    <div
-      class="imageContainer"
-    >
       <div
-        class="icon"
+        class="searchResult"
+        role="button"
+      >
+        <div
+          class="imageContainer"
+        >
+          <div
+            class="icon"
+          >
+            <span
+              aria-label="su-contact"
+              class="su-contact"
+            />
+          </div>
+        </div>
+        <div
+          class="resultContainer"
+        >
+          <div
+            class="resource"
+          >
+            Contact
+          </div>
+          <div
+            class="titleContainer"
+          >
+            <div
+              class="title"
+            >
+              Max Mustermann
+            </div>
+          </div>
+          <div
+            class="description"
+          >
+            something 2
+
+          </div>
+        </div>
+      </div>
+      <nav
+        class="pagination"
       >
         <span
-          aria-label="su-contact"
-          class="su-contact"
-        />
-      </div>
-    </div>
-    <div
-      class="resultContainer"
-    >
-      <div
-        class="resource"
-      >
-        Contact
-      </div>
-      <div
-        class="titleContainer"
-      >
-        <div
-          class="title"
+          class="display"
         >
-          Max Mustermann
+          sulu_admin.per_page:
+        </span>
+        <span>
+          <div
+            class="select"
+            role="none"
+          >
+            <button
+              class="displayValue dark"
+              type="button"
+            >
+              <div
+                aria-label="sulu_admin.please_choose"
+                class="croppedText"
+                title="sulu_admin.please_choose"
+              >
+                <div
+                  aria-hidden="true"
+                  class="front"
+                >
+                  sulu_admin.p
+                </div>
+                <div
+                  aria-hidden="true"
+                  class="back"
+                >
+                  <span>
+                    lease_choose
+                  </span>
+                </div>
+                <div
+                  class="whole"
+                >
+                  sulu_admin.please_choose
+                </div>
+              </div>
+              <span
+                aria-label="su-angle-down"
+                class="su-angle-down toggle"
+              />
+            </button>
+          </div>
+        </span>
+        <div
+          class="loader"
+        />
+        <span>
+          sulu_admin.page:
+        </span>
+        <span
+          class="inputContainer"
+        >
+          <div
+            class="input dark center"
+          >
+            <input
+              inputmode="numeric"
+              type="text"
+              value=""
+            />
+          </div>
+        </span>
+        <span
+          class="display"
+        >
+          sulu_admin.of 
+        </span>
+        <div
+          class="buttonGroup"
+        >
+          <button
+            class="button icon button"
+            disabled=""
+            type="button"
+          >
+            <span
+              aria-label="su-angle-left"
+              class="su-angle-left buttonIcon"
+            />
+          </button>
+          <button
+            class="button icon button"
+            disabled=""
+            type="button"
+          >
+            <span
+              aria-label="su-angle-right"
+              class="su-angle-right buttonIcon"
+            />
+          </button>
         </div>
-      </div>
-      <div
-        class="description"
-      >
-        something 2
-
-      </div>
-    </div>
+      </nav>
+    </section>
   </div>
 </div>
 `;

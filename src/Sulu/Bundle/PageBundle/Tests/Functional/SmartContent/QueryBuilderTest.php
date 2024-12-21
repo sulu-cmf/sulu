@@ -1628,7 +1628,9 @@ class QueryBuilderTest extends SuluTestCase
         if (!$isShadow) {
             /* @var PageDocument $document */
             try {
-                $document = $this->documentManager->find($uuid, $locale, ['load_ghost_content' => false]);
+                $document = $uuid
+                    ? $this->documentManager->find($uuid, $locale, ['load_ghost_content' => false])
+                    : $this->documentManager->create('page');
             } catch (DocumentNotFoundException $e) {
                 $document = $this->documentManager->create('page');
             }

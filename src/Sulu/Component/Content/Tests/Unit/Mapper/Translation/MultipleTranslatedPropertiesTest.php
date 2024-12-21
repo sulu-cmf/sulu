@@ -41,9 +41,7 @@ class MultipleTranslatedPropertiesTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideGetName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetName')]
     public function testGetName($structureType, $name, $expectedName): void
     {
         $this->properties->setLanguage('de');

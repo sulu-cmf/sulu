@@ -77,9 +77,7 @@ class PreviewFormViewBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideBuildPreviewFormView
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBuildPreviewFormView')]
     public function testBuildPreviewFormView(
         string $name,
         string $path,

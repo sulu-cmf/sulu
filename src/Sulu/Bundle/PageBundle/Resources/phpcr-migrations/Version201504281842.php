@@ -13,16 +13,23 @@ namespace Sulu\Bundle\PageBundle;
 
 use PHPCR\Migrations\VersionInterface;
 use PHPCR\NodeInterface;
+use PHPCR\PhpcrMigrationsBundle\ContainerAwareInterface;
 use PHPCR\SessionInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Version201504281842 implements VersionInterface, ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
-    public function setContainer(?ContainerInterface $container = null)
+    public function setContainer(?ContainerInterface $container = null): void
     {
+        if (null === $container) {
+            throw new \RuntimeException('Container is required to run this migration.');
+        }
+
         $this->container = $container;
     }
 

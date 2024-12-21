@@ -10,7 +10,7 @@ includes:
     - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
 
 parameters:
-    phpVersion: 80000
+    phpVersion: 80200
     paths:
         - .
     level: max

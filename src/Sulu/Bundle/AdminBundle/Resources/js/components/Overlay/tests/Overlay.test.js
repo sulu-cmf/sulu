@@ -31,6 +31,24 @@ test('The component should render in body when open', () => {
     expect(view.find('Overlay > Portal').at(0).render()).toMatchSnapshot();
 });
 
+test('The component should not render the footer where there is no onConfirm and no actions', () => {
+    const view = mount(
+        <Overlay
+            actions={[]}
+            confirmText="Apply"
+            onClose={jest.fn()}
+            onConfirm={undefined}
+            open={true}
+            size="small"
+            title="My overlay title"
+        >
+            <p>My overlay content</p>
+        </Overlay>
+    );
+
+    expect(view.find('Overlay > Portal').at(0).render()).toMatchSnapshot();
+});
+
 test('The component should render with a disabled confirm button', () => {
     const view = mount(
         <Overlay

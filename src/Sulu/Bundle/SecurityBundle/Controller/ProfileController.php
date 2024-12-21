@@ -33,7 +33,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class ProfileController implements ClassResourceInterface
 {
-    protected static $entityNameUserSetting = 'SuluSecurityBundle:UserSetting';
+    protected static $entityNameUserSetting = UserSetting::class;
 
     public function __construct(
         private TokenStorageInterface $tokenStorage,

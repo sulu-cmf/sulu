@@ -22,9 +22,7 @@ class BuilderTest extends TestCase
         return [[true], [false]];
     }
 
-    /**
-     * @dataProvider provideBoolean
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBoolean')]
     public function testTags($enable): void
     {
         $builder = Builder::create();
@@ -42,9 +40,7 @@ class BuilderTest extends TestCase
         $this->assertFalse($configuration->hasPagination());
     }
 
-    /**
-     * @dataProvider provideBoolean
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBoolean')]
     public function testCategories($enable): void
     {
         $builder = Builder::create();
@@ -62,9 +58,7 @@ class BuilderTest extends TestCase
         $this->assertFalse($configuration->hasPagination());
     }
 
-    /**
-     * @dataProvider provideBoolean
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBoolean')]
     public function testLimit($enable): void
     {
         $builder = Builder::create();
@@ -82,9 +76,7 @@ class BuilderTest extends TestCase
         $this->assertFalse($configuration->hasPagination());
     }
 
-    /**
-     * @dataProvider provideBoolean
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBoolean')]
     public function testPresentAs($enable): void
     {
         $builder = Builder::create();
@@ -102,9 +94,7 @@ class BuilderTest extends TestCase
         $this->assertFalse($configuration->hasPagination());
     }
 
-    /**
-     * @dataProvider provideBoolean
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBoolean')]
     public function testPagination($enable): void
     {
         $builder = Builder::create();

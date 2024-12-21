@@ -32,7 +32,12 @@ class S3Storage extends FlysystemStorage
      */
     private $bucketName;
 
-    public function __construct(FilesystemInterface $filesystem, int $segments)
+    /**
+     * @var string|null
+     */
+    private $publicUrl;
+
+    public function __construct(FilesystemInterface $filesystem, int $segments, ?string $publicUrl = null)
     {
         parent::__construct($filesystem, $segments);
 
@@ -44,6 +49,8 @@ class S3Storage extends FlysystemStorage
 
         $this->endpoint = (string) $this->adapter->getClient()->getEndpoint();
         $this->bucketName = $this->adapter->getBucket();
+
+        $this->publicUrl = null !== $publicUrl ? $publicUrl : ($this->endpoint . '/' . $this->bucketName);
     }
 
     public function getPath(array $storageOptions): string
@@ -51,7 +58,7 @@ class S3Storage extends FlysystemStorage
         $filePath = $this->getFilePath($storageOptions);
         $path = $this->adapter->applyPathPrefix($filePath);
 
-        return $this->endpoint . '/' . $this->bucketName . '/' . \ltrim($path, '/');
+        return $this->publicUrl . '/' . \ltrim($path, '/');
     }
 
     public function getType(array $storageOptions): string

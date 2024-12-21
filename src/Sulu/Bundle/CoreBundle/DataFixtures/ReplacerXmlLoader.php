@@ -22,7 +22,7 @@ class ReplacerXmlLoader extends FileLoader
     /**
      * @param string $resource
      */
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): mixed
     {
         $path = $this->getLocator()->locate($resource);
 
@@ -30,7 +30,7 @@ class ReplacerXmlLoader extends FileLoader
         return $this->parseXml($path);
     }
 
-    public function supports($resource, $type = null)
+    public function supports($resource, $type = null): bool
     {
         return 'xml' === \pathinfo($resource, \PATHINFO_EXTENSION);
     }

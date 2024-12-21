@@ -21,9 +21,8 @@ use Sulu\Component\Rest\ApiWrapper;
 
 /**
  * The AccountAddress class which will be exported to the API.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class AccountAddress extends ApiWrapper
 {
     public function __construct(AccountAddressEntity $address)
@@ -33,11 +32,10 @@ class AccountAddress extends ApiWrapper
 
     /**
      * @return int
-     *
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullAccount'])]
     public function getId()
     {
         return $this->entity->getId();
@@ -61,11 +59,10 @@ class AccountAddress extends ApiWrapper
      * Get main.
      *
      * @return bool
-     *
-     * @VirtualProperty
-     * @SerializedName("main")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('main')]
+    #[Groups(['fullAccount'])]
     public function getMain()
     {
         return $this->entity->getMain();
@@ -87,11 +84,10 @@ class AccountAddress extends ApiWrapper
      * Get address.
      *
      * @return AddressEntity
-     *
-     * @VirtualProperty
-     * @SerializedName("address")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('address')]
+    #[Groups(['fullAccount'])]
     public function getAddress()
     {
         return $this->entity->getAddress();

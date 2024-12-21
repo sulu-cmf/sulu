@@ -61,9 +61,7 @@ class LocalizationTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider formatProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('formatProvider')]
     public function testCreateFromString($format): void
     {
         $localization = Localization::createFromString($format, $format);

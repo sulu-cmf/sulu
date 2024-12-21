@@ -13,6 +13,7 @@ namespace Sulu\Bundle\CategoryBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -22,10 +23,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Command for recovering categories.
  * This command is fixing wrong left/right and depths (see -d) assignments of the categories tree.
  */
+#[AsCommand(name: 'sulu:categories:recover')]
 class RecoverCommand extends Command
 {
-    protected static $defaultName = 'sulu:categories:recover';
-
     public function __construct(
         private EntityManagerInterface $entityManager,
         private CategoryRepositoryInterface $categoryRepository,

@@ -19,9 +19,8 @@ class ListMetadata extends AbstractMetadata
 {
     /**
      * @var FieldMetadata[]
-     *
-     * @Serializer\Inline()
      */
+    #[Serializer\Inline]
     protected $fields;
 
     /**

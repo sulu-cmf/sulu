@@ -14,8 +14,9 @@ namespace Sulu\Component\Rest\ListBuilder;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @Serializer\ExclusionPolicy("all")
+ * @deprecated use PaginatedRepresentation instead
  */
+#[Serializer\ExclusionPolicy('all')]
 class ListRepresentation extends PaginatedRepresentation implements RepresentationInterface
 {
     /**

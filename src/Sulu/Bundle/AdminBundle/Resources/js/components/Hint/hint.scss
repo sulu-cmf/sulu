@@ -1,15 +1,15 @@
 @import 'sulu-admin-bundle/containers/Application/colors.scss';
 
-$permissionHintColor: $gray;
+$hintColor: $gray;
 
-.permission-hint {
+.hint {
     font-size: 18px;
     font-weight: bold;
-    color: $permissionHintColor;
+    color: $hintColor;
     width: 100%;
     text-align: center;
 }
 
-.permission-icon {
+.hint-icon {
     font-size: 32px;
 }

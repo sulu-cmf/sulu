@@ -23,23 +23,20 @@ class AddressType implements \JsonSerializable
 {
     /**
      * @var string
-     *
-     * @Groups({"frontend", "fullAccount","fullContact"})
      */
+    #[Groups(['frontend', 'fullAccount', 'fullContact'])]
     private $name;
 
     /**
      * @var int
-     *
-     * @Groups({"frontend", "fullAccount","fullContact"})
      */
+    #[Groups(['frontend', 'fullAccount', 'fullContact'])]
     private $id;
 
     /**
      * @var Collection<int, Address>
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $addresses;
 
     /**

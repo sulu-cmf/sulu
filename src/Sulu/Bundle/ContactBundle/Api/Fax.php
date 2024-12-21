@@ -26,11 +26,9 @@ class Fax extends ApiWrapper
         $this->locale = $locale;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getId(): ?int
     {
         return $this->entity->getId();
@@ -43,11 +41,9 @@ class Fax extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("fax")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('fax')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getFax(): ?string
     {
         return $this->entity->getFax();
@@ -60,11 +56,9 @@ class Fax extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("faxType")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('faxType')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getFaxType(): ?int
     {
         return $this->entity->getFaxType()->getId();

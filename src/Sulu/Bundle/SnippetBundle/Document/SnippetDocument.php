@@ -92,7 +92,7 @@ class SnippetDocument implements
     private $uuid;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $structureType;
 
@@ -233,7 +233,7 @@ class SnippetDocument implements
 
     public function setStructureType($structureType)
     {
-        $this->structureType = $structureType;
+        $this->structureType = (string) $structureType;
     }
 
     public function getLocale()

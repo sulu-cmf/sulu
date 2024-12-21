@@ -21,14 +21,14 @@ abstract class ItemMetadataCase extends TestCase
      */
     abstract public function getMetadata();
 
-    public function testGetTagNotExist()
+    public function testGetTagNotExist(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $metadata = $this->getMetadata();
         $metadata->getTag('foo');
     }
 
-    public function testGetTag()
+    public function testGetTag(): void
     {
         $metadata = $this->getMetadata();
         $tag = ['name' => 'foo'];
@@ -36,21 +36,30 @@ abstract class ItemMetadataCase extends TestCase
         $this->assertEquals($tag, $metadata->getTag('foo'));
     }
 
-    public function testGetTitle()
+    public function testAddTag(): void
+    {
+        $metadata = $this->getMetadata();
+        $tag = ['name' => 'foo'];
+        $metadata->addTag($tag);
+        $this->assertEquals($tag, $metadata->getTag('foo'));
+        $this->assertEquals([$tag], $metadata->getTags());
+    }
+
+    public function testGetTitle(): void
     {
         $metadata = $this->getMetadata();
         $metadata->setTitles(['fr' => 'Foobar']);
         $this->assertEquals('Foobar', $metadata->getTitle('fr'));
     }
 
-    public function testGetNotExistingTitle()
+    public function testGetNotExistingTitle(): void
     {
         $metadata = $this->getMetadata();
         $metadata->setName('foobar');
         $this->assertNull($metadata->getTitle('es'));
     }
 
-    public function testGetParameters()
+    public function testGetParameters(): void
     {
         $metadata = $this->getMetadata();
         $metadata->setParameters([
@@ -59,7 +68,7 @@ abstract class ItemMetadataCase extends TestCase
         $this->assertEquals('param', $metadata->getParameter('param1')['value']);
     }
 
-    public function testGetParametersInvalid()
+    public function testGetParametersInvalid(): void
     {
         $metadata = $this->getMetadata();
         $metadata->setParameters([

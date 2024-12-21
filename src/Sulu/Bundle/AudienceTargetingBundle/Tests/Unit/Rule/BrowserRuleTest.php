@@ -44,9 +44,7 @@ class BrowserRuleTest extends TestCase
         $this->browserRule = new BrowserRule($this->deviceDetector->reveal(), $this->translator->reveal());
     }
 
-    /**
-     * @dataProvider provideEvaluate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideEvaluate')]
     public function testEvaluate($browserShortName, $options, $result): void
     {
         $this->deviceDetector->getClient('short_name')->willReturn($browserShortName);

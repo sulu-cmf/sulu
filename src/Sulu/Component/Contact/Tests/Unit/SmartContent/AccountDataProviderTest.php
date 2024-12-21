@@ -115,8 +115,6 @@ class AccountDataProviderTest extends TestCase
     }
 
     /**
-     * @dataProvider dataItemsDataProvider
-     *
      * @param array{
      *     tags: string[],
      * } $filters
@@ -127,6 +125,7 @@ class AccountDataProviderTest extends TestCase
      * @param bool $hasNextPage
      * @param AccountDataItem[] $items
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataItemsDataProvider')]
     public function testResolveDataItems($filters, $limit, $page, $pageSize, $repositoryResult, $hasNextPage, $items): void
     {
         $this->dataProviderRepository->findByFilters(
@@ -190,8 +189,6 @@ class AccountDataProviderTest extends TestCase
     }
 
     /**
-     * @dataProvider resourceItemsDataProvider
-     *
      * @param array{
      *      tags: string[],
      *  } $filters
@@ -202,6 +199,7 @@ class AccountDataProviderTest extends TestCase
      * @param bool $hasNextPage
      * @param AccountDataItem[] $items
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('resourceItemsDataProvider')]
     public function testResolveResourceItems(
         $filters,
         $limit,

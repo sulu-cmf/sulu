@@ -55,6 +55,13 @@ abstract class BasePageDocumentType extends AbstractStructureBehaviorType
         $builder->add('shadowLocaleEnabled', CheckboxType::class);
         $builder->add('shadowLocale', TextType::class); // TODO: Should be choice of available shadow locales
         $builder->add(
+            'lastModified',
+            DateTimeType::class,
+            [
+                'widget' => 'single_text',
+            ]
+        );
+        $builder->add(
             'authored',
             DateTimeType::class,
             [

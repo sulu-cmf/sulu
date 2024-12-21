@@ -20,9 +20,8 @@ class Metadata
 {
     /**
      * @var array
-     *
-     * @Type("array")
      */
+    #[Type('array')]
     private $data;
 
     /**

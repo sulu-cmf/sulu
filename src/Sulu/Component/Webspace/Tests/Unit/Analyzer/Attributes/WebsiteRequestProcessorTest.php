@@ -249,9 +249,8 @@ class WebsiteRequestProcessorTest extends TestCase
 
     /**
      * @param PortalInformation[] $portalInformations
-     *
-     * @dataProvider provideValidateData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideValidateData')]
     public function testValidate($attributes, $exception = null, $message = '', $portalInformations = []): void
     {
         if (null !== $exception) {

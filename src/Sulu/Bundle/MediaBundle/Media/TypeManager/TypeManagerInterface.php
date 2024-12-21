@@ -19,9 +19,9 @@ use Sulu\Bundle\MediaBundle\Entity\MediaType;
  */
 interface TypeManagerInterface
 {
-    public const ENTITY_CLASS_MEDIATYPE = 'Sulu\Bundle\MediaBundle\Entity\MediaType';
+    public const ENTITY_CLASS_MEDIATYPE = MediaType::class;
 
-    public const ENTITY_NAME_MEDIATYPE = 'SuluMediaBundle:MediaType';
+    public const ENTITY_NAME_MEDIATYPE = MediaType::class;
 
     /**
      * Returns a Media Type by a given ID.

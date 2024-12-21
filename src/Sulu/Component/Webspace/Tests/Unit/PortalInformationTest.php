@@ -63,9 +63,7 @@ class PortalInformationTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideUrl
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideUrl')]
     public function testGetHostAndPrefix($url, $host, $prefix): void
     {
         $this->portalInformation->setUrl($url);

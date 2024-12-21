@@ -103,7 +103,7 @@ class LegacyResettingControllerTest extends SuluTestCase
 
         // asserting user properties
         $user = $this->client->getContainer()->get('doctrine')->getManager()->find(
-            'SuluSecurityBundle:User',
+            User::class,
             $this->users[0]->getId()
         );
         $this->assertTrue(\is_string($user->getPasswordResetToken()));
@@ -141,7 +141,7 @@ class LegacyResettingControllerTest extends SuluTestCase
 
         // asserting user properties
         $user = $this->client->getContainer()->get('doctrine')->getManager()->find(
-            'SuluSecurityBundle:User',
+            User::class,
             $this->users[0]->getId()
         );
         $this->assertTrue(\is_string($user->getPasswordResetToken()));
@@ -180,7 +180,7 @@ class LegacyResettingControllerTest extends SuluTestCase
 
         // asserting user properties
         $user = $this->client->getContainer()->get('doctrine')->getManager()->find(
-            'SuluSecurityBundle:User',
+            User::class,
             $this->users[1]->getId()
         );
         $this->assertTrue(\is_string($user->getPasswordResetToken()));
@@ -229,7 +229,7 @@ class LegacyResettingControllerTest extends SuluTestCase
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
         $response = \json_decode($this->client->getResponse()->getContent());
         $user = $this->client->getContainer()->get('doctrine')->getManager()->find(
-            'SuluSecurityBundle:User',
+            User::class,
             $this->users[2]->getId()
         );
 
@@ -363,7 +363,7 @@ class LegacyResettingControllerTest extends SuluTestCase
         ]);
 
         $user = $this->client->getContainer()->get('doctrine')->getManager()->find(
-            'SuluSecurityBundle:User',
+            User::class,
             $this->users[2]->getId()
         );
 
@@ -387,7 +387,7 @@ class LegacyResettingControllerTest extends SuluTestCase
             'password' => 'thispasswordshouldnotbeapplied',
         ]);
         $response = \json_decode($this->client->getResponse()->getContent());
-        $user = $this->em->find('SuluSecurityBundle:User', $this->users[2]->getId());
+        $user = $this->em->find(User::class, $this->users[2]->getId());
 
         $this->assertHttpStatusCode(400, $this->client->getResponse());
         $this->assertEquals(1006, $response->code);
@@ -403,7 +403,7 @@ class LegacyResettingControllerTest extends SuluTestCase
             'password' => 'thispasswordshouldnotbeapplied',
         ]);
         $response = \json_decode($this->client->getResponse()->getContent());
-        $user = $this->em->find('SuluSecurityBundle:User', $this->users[2]->getId());
+        $user = $this->em->find(User::class, $this->users[2]->getId());
 
         $this->assertHttpStatusCode(400, $this->client->getResponse());
         $this->assertEquals(1005, $response->code);

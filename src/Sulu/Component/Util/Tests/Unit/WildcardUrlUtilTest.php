@@ -29,9 +29,7 @@ class WildcardUrlUtilTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideMatchData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMatchData')]
     public function testMatch($portalUrl, $url, $expected): void
     {
         $this->assertEquals($expected, WildcardUrlUtil::match($url, $portalUrl));
@@ -51,9 +49,7 @@ class WildcardUrlUtilTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideResolveData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideResolveData')]
     public function testResolve($portalUrl, $url, $expected): void
     {
         $this->assertEquals($expected, WildcardUrlUtil::resolve($url, $portalUrl));

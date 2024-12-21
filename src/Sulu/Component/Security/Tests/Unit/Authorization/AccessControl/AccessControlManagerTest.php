@@ -34,8 +34,9 @@ use Sulu\Component\Security\Authorization\MaskConverterInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCondition;
 use Sulu\Component\Security\Event\PermissionUpdateEvent;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
 
 class AccessControlManagerTest extends TestCase
 {
@@ -83,7 +84,7 @@ class AccessControlManagerTest extends TestCase
     private $accessControlRepository;
 
     /**
-     * @var ObjectProphecy<Security>
+     * @var ObjectProphecy<Security|SymfonyCoreSecurity>
      */
     private $security;
 
@@ -112,7 +113,7 @@ class AccessControlManagerTest extends TestCase
         $this->systemStore = $this->prophesize(SystemStoreInterface::class);
         $this->roleRepository = $this->prophesize(RoleRepositoryInterface::class);
         $this->accessControlRepository = $this->prophesize(AccessControlRepositoryInterface::class);
-        $this->security = $this->prophesize(Security::class);
+        $this->security = $this->prophesize(\class_exists(Security::class) ? Security::class : SymfonyCoreSecurity::class);
         $this->user = $this->prophesize(UserInterface::class);
 
         $this->security->getUser()->willReturn($this->user->reveal());
@@ -303,9 +304,7 @@ class AccessControlManagerTest extends TestCase
         $this->assertNull($this->accessControlManager->getPermissions(\stdClass::class, '1'));
     }
 
-    /**
-     * @dataProvider provideUserPermission
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideUserPermission')]
     public function testGetUserPermissions(
         $rolePermissions,
         $securityContextPermissions,

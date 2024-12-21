@@ -65,9 +65,8 @@ class SettingsManagerTest extends TestCase
 
     /**
      * @param array<string, string>|null|NodeInterface $data
-     *
-     * @dataProvider dataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testSave(string $webspaceKey, string $key, array|NodeInterface|null $data): void
     {
         $this->deprecatedSessionManager->getWebspacePath($webspaceKey)->willReturn('/cmf/' . $webspaceKey);
@@ -99,9 +98,8 @@ class SettingsManagerTest extends TestCase
 
     /**
      * @param array<string, string>|null|NodeInterface $data
-     *
-     * @dataProvider dataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testLoad(string $webspaceKey, string $key, array|NodeInterface|null $data): void
     {
         $node = $this->prophesize(NodeInterface::class);
@@ -123,9 +121,7 @@ class SettingsManagerTest extends TestCase
         yield ['sulu_io', 'test-1', '123-123-123', false];
     }
 
-    /**
-     * @dataProvider loadStringDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('loadStringDataProvider')]
     public function testLoadString(string $webspaceKey, string $key, string $data, bool $exists): void
     {
         $node = $this->prophesize(NodeInterface::class);

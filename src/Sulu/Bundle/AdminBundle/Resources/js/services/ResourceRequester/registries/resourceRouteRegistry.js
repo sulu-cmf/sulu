@@ -1,6 +1,7 @@
 // @flow
 import {isArrayLike, toJS} from 'mobx';
 import symfonyRouting from 'fos-jsrouting/router';
+import log from 'loglevel';
 import {transformDateForUrl} from '../../../utils/Date';
 import type {EndpointConfiguration} from '../types';
 
@@ -41,25 +42,27 @@ class ResourceRouteRegistry {
         this.endpoints = endpoints;
     }
 
+    // @deprecated
     getDetailUrl(resourceKey: string, parameters: Object = {}) {
-        if (!this.endpoints[resourceKey]) {
-            throw new Error(
-                'There are no routes for the resourceKey "' + resourceKey + '"!' +
-                '\n\nRegistered keys: ' + Object.keys(this.endpoints).sort().join(', ')
-            );
-        }
-
-        if (!this.endpoints[resourceKey].routes.detail) {
-            throw new Error('There is no detail route for the resourceKey "' + resourceKey + '"');
-        }
-
-        return symfonyRouting.generate(
-            this.endpoints[resourceKey].routes.detail,
-            transformParameters(parameters)
+        log.warn(
+            'The "getDetailUrl" method is deprecated since version 2.6 and will be removed. ' +
+            'Use the "getUrl" option instead.'
         );
+
+        return this.getUrl('detail', resourceKey, parameters);
     }
 
+    // @deprecated
     getListUrl(resourceKey: string, parameters: Object = {}) {
+        log.warn(
+            'The "getListUrl" method is deprecated since version 2.6 and will be removed. ' +
+            'Use the "getUrl" option instead.'
+        );
+
+        return this.getUrl('list', resourceKey, parameters);
+    }
+
+    getUrl(type: string, resourceKey: string, parameters: Object = {}) {
         if (!this.endpoints[resourceKey]) {
             throw new Error(
                 'There are no routes for the resourceKey "' + resourceKey + '"!' +
@@ -67,12 +70,12 @@ class ResourceRouteRegistry {
             );
         }
 
-        if (!this.endpoints[resourceKey].routes.list) {
-            throw new Error('There is no list route for the resourceKey "' + resourceKey + '"');
+        if (!this.endpoints[resourceKey].routes[type]) {
+            throw new Error('There is no "' + type + '" route for the resourceKey "' + resourceKey + '"');
         }
 
         return symfonyRouting.generate(
-            this.endpoints[resourceKey].routes.list,
+            this.endpoints[resourceKey].routes[type],
             transformParameters(parameters)
         );
     }

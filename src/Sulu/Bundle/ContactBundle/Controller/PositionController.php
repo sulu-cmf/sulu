@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PositionController extends AbstractRestController implements ClassResourceInterface
 {
-    protected static $entityName = 'SuluContactBundle:Position';
+    protected static $entityName = Position::class;
 
     /**
      * @var string

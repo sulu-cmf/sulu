@@ -2,10 +2,10 @@
 
 exports[`Render permission hint if permissions are missing 1`] = `
 <div
-  class="permissionHint"
+  class="hint"
 >
   <div
-    class="permissionIcon"
+    class="hintIcon"
   >
     <span
       aria-label="su-lock"

@@ -72,6 +72,9 @@ class ImagineImageConverter implements ImageConverterInterface
                     case 'image/gif':
                         $preferredExtension = 'gif';
                         break;
+                    case 'image/avif':
+                        $preferredExtension = 'avif';
+                        break;
                 }
 
                 return \array_unique([
@@ -80,6 +83,7 @@ class ImagineImageConverter implements ImageConverterInterface
                     'gif',
                     'png',
                     'webp',
+                    'avif',
                 ]);
             }
         }

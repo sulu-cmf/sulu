@@ -14,6 +14,7 @@ namespace Sulu\Bundle\DocumentManagerBundle\Command;
 use Sulu\Bundle\DocumentManagerBundle\DataFixtures\DocumentExecutor;
 use Sulu\Bundle\DocumentManagerBundle\DataFixtures\DocumentFixtureGroupInterface;
 use Sulu\Bundle\DocumentManagerBundle\DataFixtures\DocumentFixtureInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,10 +23,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
+#[AsCommand(name: 'sulu:document:fixtures:load', description: 'Loads data fixtures services tagged with "sulu.document_manager_fixture".')]
 class FixturesLoadCommand extends Command
 {
-    protected static $defaultName = 'sulu:document:fixtures:load';
-
     /**
      * @var \Traversable<DocumentFixtureInterface>
      */
@@ -43,7 +43,6 @@ class FixturesLoadCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Loads data fixtures services tagged with "sulu.document_manager_fixture".')
             ->addOption('group', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'The group which should be loaded.')
             ->addOption('append', null, InputOption::VALUE_NONE, 'Append the data fixtures to the existing data - will not purge the workspace.')
             ->addOption('no-initialize', null, InputOption::VALUE_NONE, 'Do not run the repository initializers after purging the repository.')

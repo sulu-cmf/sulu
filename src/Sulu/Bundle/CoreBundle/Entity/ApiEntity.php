@@ -26,34 +26,30 @@ abstract class ApiEntity
      * general base path of entities.
      *
      * @var string
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $apiBasePath = '/admin/api';
 
     /**
      * $apiPath must be overriden by base entity.
      *
      * @var string
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $apiPath;
 
     /**
      * @var int
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $id;
 
     /**
      * property to be shown in serialized object.
      *
-     * @Accessor(getter="getLinks")
-     *
      * @var string
      */
+    #[Accessor(getter: 'getLinks')]
     private $_links = [];
 
     /**

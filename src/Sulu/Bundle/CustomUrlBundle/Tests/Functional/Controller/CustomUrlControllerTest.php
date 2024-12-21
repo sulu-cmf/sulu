@@ -124,9 +124,7 @@ class CustomUrlControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider postProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('postProvider')]
     public function testPost($data, $url, $statusCode = 200, $restErrorCode = null)
     {
         // content document is not there in provider
@@ -262,9 +260,7 @@ class CustomUrlControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider postMultipleProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('postMultipleProvider')]
     public function testPostMultiple($before, $data, $beforeUrl, $url, $statusCode = 200, $restErrorCode = null): void
     {
         $this->testPost($before, $beforeUrl);
@@ -510,9 +506,7 @@ class CustomUrlControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider putProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('putProvider')]
     public function testPut(array $before, $data, $url, $statusCode = 200, $restErrorCode = null)
     {
         foreach ($before as $beforeUrl => $beforeData) {
@@ -579,9 +573,7 @@ class CustomUrlControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider getProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
     public function testGet($data, $url): void
     {
         // content document is not there in provider
@@ -654,9 +646,7 @@ class CustomUrlControllerTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider cgetProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cgetProvider')]
     public function testCGet($items): void
     {
         foreach ($items as $url => $data) {
@@ -693,9 +683,7 @@ class CustomUrlControllerTest extends SuluTestCase
         }
     }
 
-    /**
-     * @dataProvider getProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
     public function testDelete($data, $url): void
     {
         $uuid = $this->testPost($data, $url);
@@ -715,9 +703,7 @@ class CustomUrlControllerTest extends SuluTestCase
         $this->assertHttpStatusCode(404, $response);
     }
 
-    /**
-     * @dataProvider cgetProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cgetProvider')]
     public function testCDelete($items): void
     {
         $uuid = $this->testPost(

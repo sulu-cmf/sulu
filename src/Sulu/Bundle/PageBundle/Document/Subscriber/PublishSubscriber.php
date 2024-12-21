@@ -146,6 +146,12 @@ class PublishSubscriber implements EventSubscriberInterface
      */
     public function setNodeFromPublicWorkspaceForPublishing(PublishEvent $event)
     {
+        // if the node is already set by another subscriber or to the event directly, we don't need to do anything.
+        // One possible reason is the phpcr-cleanup command, which sets the node directly to the event.
+        if ($event->hasNode()) {
+            return;
+        }
+
         $this->setNodeFromPublicWorkspace($event);
     }
 

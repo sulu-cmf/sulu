@@ -29,9 +29,7 @@ class UrlTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideIsValidLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIsValidLocale')]
     public function testIsValidLocale($urlLanguage, $urlCountry, $testLanguage, $testCountry, $result): void
     {
         $url = new Url();

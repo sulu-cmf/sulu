@@ -1,5 +1,408 @@
 # Upgrade
 
+## 2.6.4
+
+### Stricter Image Format Url Handling
+
+The image formats URL requires an exact filename match to retrieve the correct image format. 
+Old versions will be redirected to the new version and any non-matching filenames will now return a 404 error.
+
+## 2.6.3
+
+### Change locale length
+
+Change length of the locale fields to support longer locales.
+
+```sql
+ALTER TABLE re_references CHANGE referenceLocale referenceLocale VARCHAR(15) DEFAULT NULL;
+ALTER TABLE me_collection_meta CHANGE locale locale VARCHAR(15) NOT NULL;
+ALTER TABLE me_file_version_publish_languages CHANGE locale locale VARCHAR(15) NOT NULL;
+ALTER TABLE me_file_version_meta CHANGE locale locale VARCHAR(15) NOT NULL;
+ALTER TABLE me_file_version_content_languages CHANGE locale locale VARCHAR(15) NOT NULL;
+ALTER TABLE ca_category_meta CHANGE locale locale VARCHAR(15) DEFAULT NULL;
+ALTER TABLE ca_category_translations CHANGE locale locale VARCHAR(15) NOT NULL;
+ALTER TABLE ca_categories CHANGE default_locale default_locale VARCHAR(15) NOT NULL;
+ALTER TABLE ca_keywords CHANGE locale locale VARCHAR(15) NOT NULL;
+ALTER TABLE ro_routes CHANGE locale locale VARCHAR(15) NOT NULL;
+```
+
+## 2.6.0
+
+### PHP 8.2 upgrade
+
+Before upgrading to Sulu 2.6, ensure that your project's code and dependencies
+are already compatible with PHP 8.2.
+
+We recommend performing the PHP upgrade as a separate step before updating to
+Sulu 2.6. This will make it easier for you to identify any bugs that may occur
+in the project code with PHP 8.2.
+
+### New required bundle
+
+A new Bundle was added to Sulu which needs to be registered in the `config/bundles.php`:
+
+```diff
+return [
+    // ...
++    Sulu\Bundle\ReferenceBundle\SuluReferenceBundle::class => ['all' => true],
+];
+```
+
+And the bundles route configuration in the `config/routes/sulu_admin.yaml`:
+
+```diff
+# ...
++
++sulu_reference_api:
++    resource: "@SuluReferenceBundle/Resources/config/routing_api.yml"
++    type: rest
++    prefix: /admin/api
+```
+
+Also a new table is required to be created in the database you can use doctrine or doctrine migrations for it:
+
+```sql
+CREATE TABLE re_references (id INT AUTO_INCREMENT NOT NULL, resourceKey VARCHAR(191) NOT NULL, resourceId VARCHAR(191) NOT NULL, referenceResourceKey VARCHAR(191) NOT NULL, referenceResourceId VARCHAR(191) NOT NULL, referenceLocale VARCHAR(5) DEFAULT NULL, referenceRouterAttributes JSON NOT NULL, referenceTitle VARCHAR(191) NOT NULL, referenceProperty VARCHAR(191) NOT NULL, referenceContext VARCHAR(16) NOT NULL, created DATETIME NOT NULL, changed DATETIME NOT NULL, INDEX resource_idx (resourceKey, resourceId), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+```
+
+To create references for existing data run the following commands:
+
+```bash
+bin/adminconsole sulu:reference:refresh
+
+bin/websiteconsole sulu:reference:refresh
+```
+
+### PHPCRMigrationBundle namespace changed
+
+The [`dantleech/phpcr-migrations-bundle`](https://github.com/dantleech/phpcr-migrations-bundle) is now part of the phpcr
+under the package name [`phpcr/phpcr-migrations-bundle`](https://github.com/phpcr/phpcr-migrations-bundle).
+
+Besides changing the packages in your `composer.json`, you also need to change the namespace in the `config/bundles.php`:
+
+```diff
+return [
+    // ...
+-    DTL\Bundle\PhpcrMigrations\PhpcrMigrationsBundle::class => ['all' => true],
++    PHPCR\PhpcrMigrationsBundle\PhpcrMigrationsBundle::class => ['all' => true],
+];
+```
+
+### New Reserved Templates directory for Global Blocks
+
+With the introduction of the new [Global Blocks](https://docs.sulu.io/en/2.6/book/templates.html#templates-global-blocks) there
+is a new reserved directory `config/templates/blocks`.
+
+If you already did use that directory for `xi:includes` you should move the existing blocks to `config/templates/includes/blocks`.
+Migrating to Global Blocks is not required and can be done step by step if you want to use the new Global Blocks
+feature. Have a look at the Global Blocks [Documentation](https://docs.sulu.io/en/2.6/book/templates.html#templates-global-blocks).
+
+### Custom Admin Builds npm version changed
+
+Sulu 2.6 now supports [npm 8, 9, and 10](https://nodejs.org/en/download), 
+as well as [pnpm 8](https://pnpm.io/) or [bun 1](https://bun.sh/) for custom 
+admin builds. With the introduction of these new versions, it is necessary 
+to drop the support for npm 6.
+
+The upgrade of CKEditor to the latest version atleast [requires Node 18](https://github.com/ckeditor/ckeditor5-dev/blob/v39.6.3/package.json#L19).
+
+### Webpack 5 upgrade
+
+Sulu now uses Webpack 5 to build the administration interface application. To enable this, the following JavaScript dependencies were updated/changed:
+
+- `webpack`: `^5.75.0`
+- `webpack-cli`: `^5.0`
+- `webpack-manifest-plugin`: `^5.0.0`
+- `mini-css-extract-plugin`: `^2.7.1`
+- `optimize-css-assets-webpack-plugin` was removed replaced by `css-minimizer-webpack-plugin`: `^6.0.0`
+- `clean-webpack-plugin` was removed and replaced by `clean: true` webpack output option
+- `webpack-clean-obsolete-chunks` was removed and replaced by `clean: true` webpack output option
+- `is-email` was removed and replaced by `sulu-admin-bundle/utils/Email/validateEmail` method 
+- `file-loader`: was removed and replaced by webpack internal [assets/resource](https://webpack.js.org/guides/asset-modules/)
+- `raw-loader`: was removed and replaced by webpack internal [assets/source](https://webpack.js.org/guides/asset-modules/)
+
+If you have integrated custom JavaScript components into the administration interface,
+you might need to adjust your components to be compatible with the updated dependencies.
+If you have not integrated custom JavaScript code, you project is adjusted automatically by the
+[update build](https://docs.sulu.io/en/latest/upgrades/upgrade-2.x.html) command.
+
+Additionally, the following packages where upgraded:
+
+- `babel-loader`: `^9.1.0`
+- `css-loader`: `^6.10.0`
+- `glob`: `^10.3.10`
+- `postcss-calc`: `^9.0.1`
+- `postcss-import`: `^16.1.0`
+- `postcss-loader`: `^8.1.0`
+- `postcss-nested`: `^6.0.0`
+- `postcss-simple-vars`: `^7.0.1`
+- `debounce`: `^2.0`
+- `react-dropzone`: `^14.2.0`
+- `regenerator-runtime`: `^0.14.0`
+- `@ckeditor/ckeditor5-dev-utils`: `^39.6.3`
+- `@ckeditor/ckeditor5-theme-lark`: `^41.2.1`
+
+This update is also handled normally by the update build command automatically.
+
+### Return type adjustments to prepare Symfony 7 compatibility
+
+Return type changes in `DocumentToUuidTransformer`:
+
+```diff
+-    public function transform($document)
++    public function transform($document): ?string
+
+-    public function reverseTransform($uuid)
++    public function reverseTransform($uuid): ?object
+```
+
+Return type changes in `User`:
+
+```diff
+-    public function eraseCredentials()
++    public function eraseCredentials(): void
+```
+
+Return type changes in `AuthenticationEntryPoint`:
+
+```diff
+-    public function start(Request $request, ?AuthenticationException $authException = null)
++    public function start(Request $request, ?AuthenticationException $authException = null): Response
+```
+
+Return type changes in `UserProvider` and `TestUserProvider`:
+
+```diff
+-    public function refreshUser()
++    public function refreshUser(): UserInterface
+
+-    public function supportsClass()
++    public function supportsClass(): bool
+```
+
+Return type changes in `SecurityContextVoter` and `TestVoter`:
+
+```diff
+-    public function vote(TokenInterface $token, $object, array $attributes)
++    public function vote(TokenInterface $token, $object, array $attributes): int
+```
+
+Return type changes in the internal `Warmer`:
+
+```diff
+-    public function warmUp($cacheDir)
++    public function warmUp($cacheDir, ?string $buildDir = null): array
+
+-    public function isOptional()
++    public function isOptional(): bool
+```
+
+Return type changes in `Loader`:
+
+```diff
+-    public function load($resource, $type = null)
++    public function load($resource, $type = null): mixed
+
+
+-    public function supports($resource, $type = null)
++    public function supports($resource, $type = null): bool
+```
+
+Return type changes in `ExpressionLanguageProvider`:
+
+```diff
+-    public function getFunctions()
++    public function getFunctions(): array
+```
+
+Return type changes in `Kernel`:
+
+```diff
+-    public function registerContainerConfiguration(LoaderInterface $loader)
++    public function registerContainerConfiguration(LoaderInterface $loader): void
+```
+
+### Symfony Doctrine Bridge 7 compatibility changes
+
+To be compatible with the changes of Symfony 7 Doctrine Bridge all Sulu `doctrine.event_subscribers` were migrated to
+`doctrine.event_listener`:
+
+It is recommended to migrate own event subscribers also to listeners.
+
+Example:
+
+```diff
+-<tag name="doctrine.event_subscriber" priority="-256"/>
++<tag name="doctrine.event_listener" event="onClear" priority="-256"/>
+```
+
+See also the documentation [official Doctrine Events documentation](https://symfony.com/doc/6.4/doctrine/events.html).  
+Or the Merge request implementing this changes in Sulu [here](https://github.com/sulu/sulu/pull/7374/files).
+
+### GeolocatorInterface locate method GeolocatorOptions added
+
+To provide the Accept-Language locale to geolocator services, a custom Geolocator now requires support for the new ﻿`GeolocatorOptions` parameter:
+
+```diff
+-    public function locate(string $query): GeolocatorResponse
++    public function locate(string $query, ?GeolocatorOptions $options = null): GeolocatorResponse
+```
+
+### Replace Symfony Security class
+
+The `Symfony\Component\Security\Core\Security` deprecated class was replaced by
+`Symfony\Bundle\SecurityBundle\Security` for preparing Symfony 7 compatibility:
+
+ - `Sulu/Bundle/ActivityBundle/Application/Subscriber/SetDomainEventUserSubscriber`
+ - `Sulu/Bundle/PageBundle/EventListener/PageRemoveSubscriber`
+ - `Sulu/Bundle/SecurityBundle/Metadata/TwoFactorFormMetadataVisitor`
+ - `Sulu/Bundle/SecurityBundle/Security/AuthenticationHandler`
+ - `Sulu/Bundle/TrashBundle/Infrastructure/Doctrine/Repository/TrashItemRepository`
+ - `Sulu/Component/Content/Mapper/ContentMapper`
+ - `Sulu/Component/Media/SmartContent/MediaDataProvider`
+ - `Sulu/Component/Security/Authorization/AccessControl/AccessControlManager`
+
+### Admin JS ResourceRouteRegistry getDetailUrl and getListUrl deprecated
+
+The `getDetailUrl` and `getListUrl` methods of the `routeRegistry` were deprecated.  
+Use the newly added `getUrl` method:
+
+```diff
+-routeRegistry.getDetailUrl(/* ... */)
++routeRegistry.getUrl('detail', (/* ... */)
+-routeRegistry.getListUrl(/* ... */)
++routeRegistry.getUrl('list', (/* ... */)
+```
+
+### Static protected $defaultName property of commands removed
+
+As deprecated in Symfony 6.1 the `$defaultName` of Sulu Commands were replaced with the new
+`Symfony\Component\Console\Attribute\AsCommand` annotation.
+
+### Jackalope 2 ContentRepository compatibility
+
+To be compatible with Jackalope 2 the following method in the `ContentRepository` class
+has changed:
+
+```diff
+public function resolveInternalLinkContent(
+-    Row $row,
++    RowInterface $row,
+     $locale,
+```
+
+### PHPCR and Jackalope update
+
+An update of PHPCR and Jackalope to latest major version is optional but recommended.   
+The following new versions are supported by Sulu:
+
+ - `doctrine/phpcr-bundle`: `^3.0`
+ - `phpcr/phpcr-utils`: `^2.0`
+ - `jackalope/jackalope`: `^2.0`
+ - `jackalope/jackalope-doctrine-dbal`: `^2.0`
+ - `jackalope/jackalope-jackrabbit`: `^2.0`
+
+In case of upgrading the `sulu_document_manager.yaml` cache configuration need to be changed:
+
+```diff
+# config/packages/sulu_document_manager.yaml
+
+when@prod: &prod
+    # ...
+
+    services:
+        doctrine_phpcr.meta_cache_provider:
+-           class: Doctrine\Common\Cache\Psr6\DoctrineProvider
+-           factory: ['Doctrine\Common\Cache\Psr6\DoctrineProvider', 'wrap']
++           class: Symfony\Component\Cache\Psr16Cache
+            public: false
+            arguments:
+                - '@doctrine_phpcr.meta_cache_pool'
+            tags:
+                - { name: 'kernel.reset', method: 'reset' }
+
+        doctrine_phpcr.nodes_cache_provider:
+-           class: Doctrine\Common\Cache\Psr6\DoctrineProvider
+-           factory: ['Doctrine\Common\Cache\Psr6\DoctrineProvider', 'wrap']
++           class: Symfony\Component\Cache\Psr16Cache
+            public: false
+            arguments:
+                - '@doctrine_phpcr.nodes_cache_pool'
+            tags:
+                - { name: 'kernel.reset', method: 'reset' }
+
+# ...
+```
+
+### ListBuilder Doctrine Changes
+
+Bundle aliases where deprecated by [`doctrine/persistence` 3.0](https://github.com/doctrine/persistence/blob/3.2.0/UPGRADE.md#bc-break-removed-support-for-short-namespace-aliases) the full FQCN need to be used when upgrading to `doctrine/persistence:^3.0`:
+
+```diff
+    <joins name="address">
+        <join>
+-            <entity-name>SuluContactBundle:AccountAddress</entity-name>
++            <entity-name>Sulu\Bundle\ContactBundle\Entity\AccountAddress</entity-name>
+            <field-name>%sulu.model.account.class%.accountAddresses</field-name>
+            <method>LEFT</method>
+-            <condition>SuluContactBundle:AccountAddress.main = TRUE</condition>
++            <condition>Sulu\Bundle\ContactBundle\Entity\AccountAddress.main = TRUE</condition>
+        </join>
+
+        <join>
+-            <entity-name>SuluContactBundle:Address</entity-name>
++            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
+-            <field-name>SuluContactBundle:AccountAddress.address</field-name>
++            <field-name>Sulu\Bundle\ContactBundle\Entity\AccountAddress.address</field-name>
+        </join>
+    </joins>
+
+    <properties>
+        <property
+            name="state"
+            visibility="no"
+            translation="sulu_contact.state"
+        >
+            <field-name>state</field-name>
+-            <entity-name>SuluContactBundle:Address</entity-name>
++            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
+
+            <joins ref="address"/>
+
+            <filter type="text" />
+        </property>
+```
+
+### Deprecated urls variable in return value of sulu_content_load
+
+The `urls` variable in the return value of the `sulu_content_load` function was deprecated.
+This makes the data consistent with the data that is available inside of page templates.
+Instead of using the `urls` variable, you should pass `url` in the `properties` parameter of
+the function:
+
+```twig
+{% set page = sulu_content_load('1234-1234-1234-1234', {
+    'title': 'title',
+    'url': 'url',
+}) %}
+```
+
+If you need to use the `urls` variable, you can enable it in your configuration. Be aware that
+this configuration option will be removed in the next major version.
+
+```yaml
+# config/packages/sulu_website.yaml
+sulu_website:
+    twig:
+        attributes:
+            urls: true
+```
+
+### Fields Query parameter are now kept in mind for SnippetController
+
+In the previous version the `SnippetController` would return the entire content of the snippet in the `cgetAction`. Now
+it respects the list of fields provided in the query parameter and only returns those.
+
 ## 2.5.20
 
 ### Stricter Image Format Url Handling

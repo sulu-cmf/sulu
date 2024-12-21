@@ -1,0 +1,4 @@
+sulu_reference.references:
+    type: rest
+    name_prefix: sulu_reference.
+    resource: sulu_reference.reference_controller

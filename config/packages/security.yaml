@@ -1,6 +1,4 @@
 security:
-    enable_authenticator_manager: true
-
     access_decision_manager:
         strategy: unanimous
         allow_if_all_abstain: true
@@ -52,6 +50,9 @@ security:
                 authentication_required_handler: sulu_security.two_factor_authentication_required_handler
                 success_handler: sulu_security.two_factor_authentication_success_handler
                 failure_handler: sulu_security.two_factor_authentication_failure_handler
+#            access_token:
+#                token_handler: sulu_security.single_sign_on_token_handler
+#                token_extractors: sulu_security.single_sign_on_token_extractor
 
 #        website:
 #            pattern: ^/
@@ -79,21 +80,6 @@ security:
 #            # https://symfony.com/doc/current/security/impersonating_user.html
 #            # switch_user: true
 
-sulu_security:
-    checker:
-        enabled: true
-    password_policy:
-        enabled: true
-    two_factor:
-        force:
-            pattern: '/@sulu\.io$/'
-
-# Sulu uses the simple password_policy pattern ".{8,}" by default
-# You can change it to a more complex pattern with the following lines:
-#
-#        pattern: '(?=^.{8,}$)(?=.*\d)(?=.*[^a-zA-Z0-9]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'
-#        info_translation_key: app.password_information
-
 when@test:
     security:
         password_hashers:
@@ -118,8 +104,3 @@ when@test:
 
     sulu_test:
         enable_test_user_provider: true
-
-    sulu_security:
-        two_factor:
-            force:
-                enabled: false

@@ -416,8 +416,7 @@ class ScheduleBlockVisitorTest extends TestCase
         ];
     }
 
-    /** @dataProvider provideVisit
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideVisit')]
     public function testVisit($settings, $now, $skip, $requestCacheLifetimes): void
     {
         $nowDateTime = new \DateTime($now);

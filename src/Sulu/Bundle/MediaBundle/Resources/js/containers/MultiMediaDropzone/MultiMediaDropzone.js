@@ -148,7 +148,7 @@ class MultiMediaDropzone extends React.Component<Props> {
         return (
             <>
                 <Dropzone
-                    accept={accept}
+                    accept={accept ? {[accept]: []} : undefined}
                     disabled={disabled}
                     noClick={true}
                     onDragEnter={this.handleDragEnter}

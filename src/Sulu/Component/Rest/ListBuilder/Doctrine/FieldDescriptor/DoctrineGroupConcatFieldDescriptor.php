@@ -16,9 +16,8 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 /**
  * This field descriptor can be used to group-concatenate a joined (1:n) field descriptor.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class DoctrineGroupConcatFieldDescriptor extends AbstractDoctrineFieldDescriptor
 {
     public function __construct(

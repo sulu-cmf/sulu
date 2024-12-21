@@ -196,12 +196,32 @@ class PropertiesXmlParser
 
     private function loadType(\DOMXPath $xpath, \DOMNode $node, &$tags, $formKey)
     {
-        $result = $this->loadValues($xpath, $node, ['name']);
+        $result = $this->loadValues($xpath, $node, ['name', 'ref']);
+        if ($result['ref'] && $result['name']) {
+            throw new \InvalidArgumentException(\sprintf(
+                "Element '{http://schemas.sulu.io/template/template}type', attribute 'name' / 'ref': The attribute 'name' and 'ref' is not allowed at the same time. (in %s - line %s)",
+                $node->baseURI,
+                $node->getLineNo()
+            ));
+        } elseif (!$result['ref'] && !$result['name']) {
+            throw new \InvalidArgumentException(\sprintf(
+                "Element '{http://schemas.sulu.io/template/template}type', attribute 'name' / 'ref': The attribute 'name' or 'ref' is required. (in %s - line %s)",
+                $node->baseURI,
+                $node->getLineNo()
+            ));
+        }
+
+        if ($result['ref']) {
+            $result['name'] = $result['ref'];
+            $result['ref'] = true;
+        }
 
         $result['meta'] = $this->loadMeta($xpath, $node);
 
         $propertiesNode = $xpath->query('x:properties', $node)->item(0);
-        $result['properties'] = $this->loadProperties($tags, $xpath, $propertiesNode, $formKey);
+        if ($propertiesNode) {
+            $result['properties'] = $this->loadProperties($tags, $xpath, $propertiesNode, $formKey);
+        }
 
         return $result;
     }
@@ -413,12 +433,22 @@ class PropertiesXmlParser
             if (isset($type['meta']['title'])) {
                 $component->setTitles($type['meta']['title']);
             }
+
             if (isset($data['meta']['info_text'])) {
                 $component->setDescriptions($data['meta']['info_text']);
             }
 
-            foreach ($this->mapProperties($type['properties']) as $childProperty) {
-                $component->addChild($childProperty);
+            if (!$type['ref']) {
+                foreach ($this->mapProperties($type['properties']) as $childProperty) {
+                    $component->addChild($childProperty);
+                }
+            } else {
+                $component->addTag([
+                    'name' => 'sulu.global_block',
+                    'attributes' => [
+                        'global_block' => $name,
+                    ],
+                ]);
             }
 
             $property->addComponent($component);

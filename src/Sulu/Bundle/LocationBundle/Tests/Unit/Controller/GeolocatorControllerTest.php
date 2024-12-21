@@ -12,9 +12,11 @@
 namespace Sulu\Bundle\LocationBundle\Tests\Unit\Controller;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Bundle\LocationBundle\Controller\GeolocatorController;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorInterface;
+use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,13 +31,18 @@ class GeolocatorControllerTest extends TestCase
         $geolocatorResponse->toArray()->willReturn(['test']);
 
         $locator = $this->prophesize(GeolocatorInterface::class);
-        $locator->locate('Dornbirn Teststraße 6')->willReturn($geolocatorResponse->reveal());
+        $locator->locate('Dornbirn Teststraße 6', Argument::that(function(GeolocatorOptions $options) {
+            $this->assertSame('de', $options->getAcceptLanguage());
+
+            return true;
+        }))
+            ->willReturn($geolocatorResponse->reveal())
+            ->shouldBeCalled();
 
         $controller = new GeolocatorController($locator->reveal());
-        $request = $this->prophesize(Request::class);
-        $request->get('search', '')->willReturn('Dornbirn Teststraße 6');
+        $request = Request::create('/test', 'GET', ['search' => 'Dornbirn Teststraße 6', 'locale' => 'de']);
 
-        $response = $controller->queryAction($request->reveal());
+        $response = $controller->queryAction($request);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(

@@ -33,12 +33,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the id of the category.
      *
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return array
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getId()
     {
         return $this->entity->getId();
@@ -47,12 +46,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the key of the category.
      *
-     * @VirtualProperty
-     * @SerializedName("key")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('key')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getKey()
     {
         return $this->entity->getKey();
@@ -61,12 +59,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the default locale of the category.
      *
-     * @VirtualProperty
-     * @SerializedName("defaultLocale")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('defaultLocale')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getDefaultLocale()
     {
         return $this->entity->getDefaultLocale();
@@ -75,12 +72,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the name of the Category dependent on the locale.
      *
-     * @VirtualProperty
-     * @SerializedName("name")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('name')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getName()
     {
         if (null === ($translation = $this->getTranslation(true))) {
@@ -93,12 +89,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the description of the Category dependent on the locale.
      *
-     * @VirtualProperty
-     * @SerializedName("description")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('description')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getDescription()
     {
         if (null === ($translation = $this->getTranslation(true))) {
@@ -111,12 +106,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the medias of the Category dependent on the locale.
      *
-     * @VirtualProperty
-     * @SerializedName("medias")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return array{ids: array<int>}
      */
+    #[VirtualProperty]
+    #[SerializedName('medias')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getMediasRawData()
     {
         if (null === ($translation = $this->getTranslation(true))) {
@@ -153,12 +147,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the locale of the Category dependent on the existing translations and default locale.
      *
-     * @VirtualProperty
-     * @SerializedName("locale")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('locale')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getLocale()
     {
         if (null === ($translation = $this->getTranslation(true))) {
@@ -171,12 +164,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the locale of the Category dependent on the existing translations and default locale.
      *
-     * @VirtualProperty
-     * @SerializedName("ghostLocale")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('ghostLocale')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getGhostLocale()
     {
         if (null === ($translation = $this->getTranslation(true))) {
@@ -189,12 +181,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the name of the Category dependent on the locale.
      *
-     * @VirtualProperty
-     * @SerializedName("meta")
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return array
      */
+    #[VirtualProperty]
+    #[SerializedName('meta')]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getMeta()
     {
         $arrReturn = [];
@@ -221,12 +212,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the creator of the category.
      *
-     * @VirtualProperty
-     * @SerializedName("creator")
-     * @Groups({"fullCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('creator')]
+    #[Groups(['fullCategory'])]
     public function getCreator()
     {
         $strReturn = '';
@@ -241,12 +231,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the changer of the category.
      *
-     * @VirtualProperty
-     * @SerializedName("changer")
-     * @Groups({"fullCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('changer')]
+    #[Groups(['fullCategory'])]
     public function getChanger()
     {
         $strReturn = '';
@@ -261,12 +250,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the created date for the category.
      *
-     * @VirtualProperty
-     * @SerializedName("created")
-     * @Groups({"fullCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('created')]
+    #[Groups(['fullCategory'])]
     public function getCreated()
     {
         return $this->entity->getCreated();
@@ -275,12 +263,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the created date for the category.
      *
-     * @VirtualProperty
-     * @SerializedName("changed")
-     * @Groups({"fullCategory"})
-     *
      * @return string
      */
+    #[VirtualProperty]
+    #[SerializedName('changed')]
+    #[Groups(['fullCategory'])]
     public function getChanged()
     {
         return $this->entity->getChanged();
@@ -289,12 +276,11 @@ class Category extends ApiEntityWrapper
     /**
      * Returns the children of a category.
      *
-     * @VirtualProperty
-     * @SerializedName("children")
-     * @Groups({"fullCategory"})
-     *
      * @return Category[]
      */
+    #[VirtualProperty]
+    #[SerializedName('children')]
+    #[Groups(['fullCategory'])]
     public function getChildren()
     {
         $children = [];
@@ -376,11 +362,10 @@ class Category extends ApiEntityWrapper
      * Returns a the id of the parent category, if one exists.
      * This method is used to serialize the parent-id.
      *
-     * @VirtualProperty
-     * @Groups({"fullCategory","partialCategory"})
-     *
      * @return null|Category
      */
+    #[VirtualProperty]
+    #[Groups(['fullCategory', 'partialCategory'])]
     public function getParentId()
     {
         $parent = $this->getEntity()->getParent();

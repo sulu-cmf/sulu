@@ -461,9 +461,7 @@ class ContactManager extends AbstractContactManager implements DataProviderRepos
         // reload address to get all data (including relational data)
         /** @var Address $address */
         $address = $contactAddress->getAddress();
-        $address = $this->em->getRepository(
-            'SuluContactBundle:Address'
-        )->findById($address->getId());
+        $address = $this->em->getRepository(Address::class)->findById($address->getId());
 
         $isMain = $contactAddress->getMain();
 

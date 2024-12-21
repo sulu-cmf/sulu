@@ -1,20 +1,24 @@
 // @flow
 import React from 'react';
+import log from 'loglevel';
 import {translate} from '../../utils/Translator';
-import Icon from '../Icon';
-import permissionHintStyles from './permissionHint.scss';
+import Hint from '../Hint';
 
 type Props = {||};
 
 export default class PermissionHint extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+
+        log.warn(
+            'The "PermissionHint" component is deprecated since 3.0 and will ' +
+            'be removed. Use the "Hint" component instead.'
+        );
+    }
+
     render() {
         return (
-            <div className={permissionHintStyles.permissionHint}>
-                <div className={permissionHintStyles.permissionIcon}>
-                    <Icon name="su-lock" />
-                </div>
-                {translate('sulu_admin.no_permissions')}
-            </div>
+            <Hint icon="su-lock" title={translate('sulu_admin.no_permissions')} />
         );
     }
 }

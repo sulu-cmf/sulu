@@ -37,9 +37,8 @@ class UserSetting
      * The user for which this setting is applying.
      *
      * @var UserInterface
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $user;
 
     /**

@@ -15,7 +15,7 @@ use Doctrine\Bundle\PHPCRBundle\Command\WorkspaceImportCommand as BaseWorkspaceI
 
 class WorkspaceImportCommand extends BaseWorkspaceImportCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 

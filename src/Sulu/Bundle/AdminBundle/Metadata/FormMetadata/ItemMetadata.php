@@ -17,9 +17,8 @@ abstract class ItemMetadata
 {
     /**
      * @var string
-     *
-     * @Serializer\Exclude()
      */
+    #[Serializer\Exclude]
     protected $name;
 
     /**

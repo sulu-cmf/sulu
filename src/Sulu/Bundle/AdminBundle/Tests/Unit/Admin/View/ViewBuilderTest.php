@@ -41,9 +41,7 @@ class ViewBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideBuildView
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBuildView')]
     public function testBuildTabView(
         string $name,
         string $path,

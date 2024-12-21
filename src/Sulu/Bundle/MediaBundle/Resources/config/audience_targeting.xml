@@ -4,7 +4,7 @@
         <service id="sulu_media.media_audience_targeting_subscriber"
                  class="Sulu\Bundle\MediaBundle\EventListener\MediaAudienceTargetingSubscriber">
             <!-- Priority 50 as the MetadataLoader need to be before the ResolveTargetEntityListener of Doctrine -->
-            <tag name="doctrine.event_subscriber" priority="10"/>
+            <tag name="doctrine.event_listener" event="loadClassMetadata" priority="10"/>
         </service>
     </services>
 </container>

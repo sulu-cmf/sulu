@@ -31,6 +31,8 @@
     "sulu_page.editing_information": "Bearbeitungsinformationen",
     "sulu_page.authored_date": "Verfasst am",
     "sulu_page.author": "Autor",
+    "sulu_page.last_modified_enabled": "Aktualisierungsdatum aktivieren",
+    "sulu_page.last_modified_date": "Datum der Aktualisierung",
     "sulu_page.changelog": "Änderungshistorie",
     "sulu_page.text_for_more_link": "Text für weiterführenden Link",
     "sulu_page.icons": "Icons",
@@ -85,5 +87,7 @@
     "sulu_activity.description.pages.translation_restored": "{userFullName} hat die Sprachvariante für \"{resourceLocale}\" der Seite \"{resourceTitle}\" wiederhergestellt",
     "sulu_activity.description.pages.version_restored": "{userFullName} hat die Version \"{context_version}\" der Seite \"{resourceTitle}\" wiederhergestellt",
     "sulu_activity.description.pages.preview_link_generated": "{userFullName} hat den öffentlichen Vorschaulink \"{resourceTitle}\" erstellt",
-    "sulu_activity.description.pages.preview_link_revoked": "{userFullName} hat den öffentlichen Vorschaulink \"{resourceTitle}\" widerrufen"
+    "sulu_activity.description.pages.preview_link_revoked": "{userFullName} hat den öffentlichen Vorschaulink \"{resourceTitle}\" widerrufen",
+    "sulu_reference.resource.pages": "Seite",
+    "sulu_reference.resource.snippets": "Schnipsel"
 }

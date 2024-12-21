@@ -31,8 +31,7 @@ when@prod: &prod
 
     services:
         doctrine_phpcr.meta_cache_provider:
-            class: Doctrine\Common\Cache\Psr6\DoctrineProvider
-            factory: ['Doctrine\Common\Cache\Psr6\DoctrineProvider', 'wrap']
+            class: Symfony\Component\Cache\Psr16Cache
             public: false
             arguments:
                 - '@doctrine_phpcr.meta_cache_pool'
@@ -40,8 +39,7 @@ when@prod: &prod
                 - { name: 'kernel.reset', method: 'reset' }
 
         doctrine_phpcr.nodes_cache_provider:
-            class: Doctrine\Common\Cache\Psr6\DoctrineProvider
-            factory: ['Doctrine\Common\Cache\Psr6\DoctrineProvider', 'wrap']
+            class: Symfony\Component\Cache\Psr16Cache
             public: false
             arguments:
                 - '@doctrine_phpcr.nodes_cache_pool'

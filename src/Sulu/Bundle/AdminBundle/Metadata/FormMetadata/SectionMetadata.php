@@ -16,7 +16,7 @@ class SectionMetadata extends ItemMetadata
     /**
      * @var ItemMetadata[]
      */
-    protected $items;
+    protected $items = [];
 
     protected $type = 'section';
 

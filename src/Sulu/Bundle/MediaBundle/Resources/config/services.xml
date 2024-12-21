@@ -17,9 +17,9 @@
         <parameter key="sulu_media.collection_manager.class">Sulu\Bundle\MediaBundle\Collection\Manager\CollectionManager</parameter>
         <parameter key="sulu_media.type_manager.class">Sulu\Bundle\MediaBundle\Media\TypeManager\TypeManager</parameter>
         <parameter key="sulu_media.format_options_manager.class">Sulu\Bundle\MediaBundle\Media\FormatOptions\FormatOptionsManager</parameter>
-        <parameter key="sulu_media.collection_entity">SuluMediaBundle:Collection</parameter>
-        <parameter key="sulu_media.format_options_entity">SuluMediaBundle:FormatOptions</parameter>
-        <parameter key="sulu_media.entity.file_version_meta">SuluMediaBundle:FileVersionMeta</parameter>
+        <parameter key="sulu_media.collection_entity">Sulu\Bundle\MediaBundle\Entity\Collection</parameter>
+        <parameter key="sulu_media.format_options_entity">Sulu\Bundle\MediaBundle\Entity\FormatOptions</parameter>
+        <parameter key="sulu_media.entity.file_version_meta">Sulu\Bundle\MediaBundle\Entity\FileVersionMeta</parameter>
         <parameter key="sulu_media.twig_extension.disposition_type.class">Sulu\Bundle\MediaBundle\Twig\DispositionTypeTwigExtension</parameter>
         <parameter key="sulu_media.twig_extension.media.class">Sulu\Bundle\MediaBundle\Twig\MediaTwigExtension</parameter>
         <parameter key="tmp">Sulu\Bundle\MediaBundle\Twig\MediaTwigExtension</parameter>
@@ -164,6 +164,7 @@
             <argument type="service" id="router"/>
             <argument type="service" id="sulu_core.webspace.webspace_manager" />
             <argument type="service" id="sulu_activity.activity_list_view_builder_factory" />
+            <argument type="service" id="sulu_reference.reference_list_view_builder_factory" />
         </service>
         <service id="sulu_media.collection_repository" class="%sulu_media.collection_repository.class%" public="true">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
@@ -356,9 +357,11 @@
 
         <service id="sulu_media.type.image_map" class="Sulu\Bundle\MediaBundle\Content\Types\ImageMapContentType">
             <argument type="service" id="sulu.content.type_manager"/>
+            <argument type="service" id="sulu_admin.form_metadata.form_metadata_mapper"/>
 
             <tag name="sulu.content.type" alias="image_map"/>
             <tag name="sulu.content.export" format="1.2.xliff" translate="false" />
+            <tag name="sulu_admin.property_metadata_mapper" type="image_map" />
         </service>
 
         <service id="sulu_media.collection_manager" class="%sulu_media.collection_manager.class%" public="true">

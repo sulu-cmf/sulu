@@ -60,9 +60,7 @@ class AuditableHasherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideDifferentObjects
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDifferentObjects')]
     public function testHashDifferentObject($changer1, $changer2, $changed1, $changed2): void
     {
         /** @var AuditableInterface $object1 */

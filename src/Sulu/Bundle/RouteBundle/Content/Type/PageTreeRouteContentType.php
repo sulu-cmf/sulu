@@ -113,18 +113,22 @@ class PageTreeRouteContentType extends SimpleContentType
         $node->setProperty($propertyName . '-suffix', $suffix);
 
         $pagePropertyName = $propertyName . '-page';
-        if ($node->hasProperty($pagePropertyName)) {
-            $node->getProperty($pagePropertyName)->remove();
-        }
-
+        $pagePathPropertyName = $pagePropertyName . '-path';
         if (!$page['uuid']) {
+            if ($node->hasProperty($pagePropertyName)) {
+                $node->getProperty($pagePropertyName)->remove();
+            }
+            if ($node->hasProperty($pagePathPropertyName)) {
+                $node->getProperty($pagePathPropertyName)->remove();
+            }
+
             // no parent-page given
 
             return;
         }
 
         $node->setProperty($pagePropertyName, $page['uuid']);
-        $node->setProperty($pagePropertyName . '-path', $page['path']);
+        $node->setProperty($pagePathPropertyName, $page['path']);
     }
 
     public function getContentData(PropertyInterface $property)

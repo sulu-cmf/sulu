@@ -3,7 +3,7 @@
 exports[`Render the MediaCollection 1`] = `
 <div
   class="dropzone"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <div>
@@ -578,9 +578,8 @@ exports[`Render the MediaCollection 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
     multiple=""
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />
@@ -590,7 +589,7 @@ exports[`Render the MediaCollection 1`] = `
 exports[`Render the MediaCollection for all media 1`] = `
 <div
   class="dropzone"
-  role="button"
+  role="presentation"
   tabindex="0"
 >
   <div>
@@ -1152,9 +1151,8 @@ exports[`Render the MediaCollection for all media 1`] = `
     </div>
   </div>
   <input
-    autocomplete="off"
     multiple=""
-    style="display:none"
+    style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
     tabindex="-1"
     type="file"
   />

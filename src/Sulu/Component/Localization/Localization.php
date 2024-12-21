@@ -57,54 +57,48 @@ class Localization implements \JsonSerializable, ArrayableInterface
      * The language of the localization.
      *
      * @var string
-     *
-     * @Groups({"frontend", "Default"})
      */
+    #[Groups(['frontend', 'Default'])]
     private $language;
 
     /**
      * The country of the localization.
      *
      * @var string
-     *
-     * @Groups({"frontend", "Default"})
      */
+    #[Groups(['frontend', 'Default'])]
     private $country;
 
     /**
      * Defines how the generation of shadow pages should be handled.
      *
      * @var string
-     *
-     * @Groups({"frontend", "Default"})
      */
+    #[Groups(['frontend', 'Default'])]
     private $shadow;
 
     /**
      * The sub localizations of this one.
      *
      * @var Localization[]
-     *
-     * @Groups({"frontend", "Default"})
      */
+    #[Groups(['frontend', 'Default'])]
     private $children = [];
 
     /**
      * The parent localization.
      *
      * @var Localization
-     *
-     * @Groups({"frontend", "Default"})
      */
+    #[Groups(['frontend', 'Default'])]
     private $parent;
 
     /**
      * Defines whether this localization is the default one or not.
      *
      * @var bool
-     *
-     * @Groups({"frontend", "Default"})
      */
+    #[Groups(['frontend', 'Default'])]
     private $default;
 
     /**
@@ -113,10 +107,9 @@ class Localization implements \JsonSerializable, ArrayableInterface
      *
      * @var bool
      *
-     * @Groups({"frontend", "Default"})
-     *
      * @deprecated use $default instead
      */
+    #[Groups(['frontend', 'Default'])]
     private $xDefault;
 
     public function __construct($language = null, $country = null)
@@ -220,11 +213,10 @@ class Localization implements \JsonSerializable, ArrayableInterface
      *
      * @return string
      *
-     * @VirtualProperty
-     * @Groups({"frontend", "Default"})
-     *
      * @deprecated use getLocale instead
      */
+    #[VirtualProperty]
+    #[Groups(['frontend', 'Default'])]
     public function getLocalization($delimiter = '_')
     {
         @trigger_deprecation('sulu/sulu', '1.2', __METHOD__ . '() is deprecated and will be removed in 2.0. Use getLocale() instead.');
@@ -243,10 +235,9 @@ class Localization implements \JsonSerializable, ArrayableInterface
      * @param string $format requested localization format
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @Groups({"frontend", "Default"})
      */
+    #[VirtualProperty]
+    #[Groups(['frontend', 'Default'])]
     public function getLocale($format = self::UNDERSCORE)
     {
         $localization = \strtolower($this->getLanguage());

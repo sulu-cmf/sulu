@@ -33,7 +33,7 @@ export default class FileUploadButton extends React.Component<Props> {
 
         return (
             <Dropzone
-                accept={accept}
+                accept={accept ? {[accept]: []} : undefined}
                 onDrop={this.handleDrop}
                 style={{}}
             >

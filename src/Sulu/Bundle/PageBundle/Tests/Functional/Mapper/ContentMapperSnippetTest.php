@@ -172,9 +172,7 @@ class ContentMapperSnippetTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideRemoveSnippetWithReferencesDereference
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRemoveSnippetWithReferencesDereference')]
     public function testRemoveSnippetWithReferencesDereference($multiple = false): void
     {
         $document = $this->documentManager->create('page');

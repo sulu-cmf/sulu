@@ -115,7 +115,7 @@ final class SnippetTrashItemHandler implements
             $localizedSnippet->setLocale($locale);
             $localizedSnippet->setCreator($localeData['creator']);
             $localizedSnippet->setCreated(new \DateTime($localeData['created']));
-            $localizedSnippet->setStructureType($localeData['structureType']);
+            $localizedSnippet->setStructureType((string) $localeData['structureType']);
             $localizedSnippet->getStructure()->bind($localeData['structureData']);
             $localizedSnippet->setExtensionsData($localeData['extensionsData']);
 

@@ -131,10 +131,9 @@ class ActivityControllerTest extends SuluTestCase
     }
 
     /**
-     * @dataProvider provideCgetAction
-     *
      * @param mixed[] $parameters
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCgetAction')]
     public function testCgetAction(array $parameters, int $expectedTotal): void
     {
         $urlParameters = \array_merge(

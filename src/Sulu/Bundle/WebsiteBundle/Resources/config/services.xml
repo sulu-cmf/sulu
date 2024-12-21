@@ -159,6 +159,7 @@
             <argument type="service" id="sulu_security.security_checker" on-invalid="null"/>
             <argument type="service" id="sulu_core.webspace.webspace_manager"/>
             <argument type="service" id="request_stack"/>
+            <argument>%sulu_website.enabled_twig_attributes%</argument>
         </service>
         <service id="sulu_website.twig.content.memoized" class="%sulu_website.twig.content.memoized.class%">
             <argument type="service" id="sulu_website.twig.content"/>

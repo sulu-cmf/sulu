@@ -28,19 +28,25 @@ class LoadCollectionTypes extends AbstractFixture implements OrderedFixtureInter
         $metadata->setIdGenerator(new AssignedGenerator());
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
-        // create or update collectiontype with id 1
-        $defaultCollectionType = new CollectionType();
-        $defaultCollectionType->setId(1);
-        $defaultCollectionType = $manager->merge($defaultCollectionType);
-        $defaultCollectionType->setKey('collection.default');
-        $defaultCollectionType->setName('Default');
+        $defaultCollectionType = $manager->find(CollectionType::class, 1);
+        if (null === $defaultCollectionType) {
+            // create or update collectiontype with id 1
+            $defaultCollectionType = new CollectionType();
+            $defaultCollectionType->setId(1);
+            $manager->persist($defaultCollectionType);
+            $defaultCollectionType->setKey('collection.default');
+            $defaultCollectionType->setName('Default');
+        }
 
-        // create or update collectiontype with id 2
-        $systemCollectionType = new CollectionType();
-        $systemCollectionType->setId(2);
-        $systemCollectionType = $manager->merge($systemCollectionType);
-        $systemCollectionType->setKey(SystemCollectionManagerInterface::COLLECTION_TYPE);
-        $systemCollectionType->setName('System Collections');
+        $systemCollectionType = $manager->find(CollectionType::class, 2);
+        if (null === $systemCollectionType) {
+            // create or update collectiontype with id 2
+            $systemCollectionType = new CollectionType();
+            $systemCollectionType->setId(2);
+            $manager->persist($systemCollectionType);
+            $systemCollectionType->setKey(SystemCollectionManagerInterface::COLLECTION_TYPE);
+            $systemCollectionType->setName('System Collections');
+        }
 
         $manager->flush();
     }

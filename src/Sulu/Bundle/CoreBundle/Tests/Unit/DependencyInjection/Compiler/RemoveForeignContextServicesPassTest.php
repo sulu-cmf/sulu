@@ -36,9 +36,7 @@ class RemoveForeignContextServicesPassTest extends AbstractCompilerPassTestCase
         $container->addCompilerPass(new RemoveForeignContextServicesPass());
     }
 
-    /**
-     * @dataProvider provideWebsiteServices
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideWebsiteServices')]
     public function testRemoveWebsiteServices($services): void
     {
         $this->setParameter('sulu.context', 'website');

@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\TagBundle\Tests\Unit\Twig;
 
-use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use JMS\Serializer\SerializationContext;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -24,6 +24,7 @@ use Sulu\Component\Cache\MemoizeInterface;
 use Sulu\Component\Serializer\ArraySerializerInterface;
 use Sulu\Component\Tag\Request\TagRequestHandler;
 use Sulu\Component\Tag\Request\TagRequestHandlerInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -39,7 +40,7 @@ class TagTwigExtensionTest extends TestCase
      */
     private function getMemoizeCache()
     {
-        return new Memoize(new ArrayCache(), 0);
+        return new Memoize(DoctrineProvider::wrap(new ArrayAdapter()), 0);
     }
 
     public static function getProvider()
@@ -52,9 +53,7 @@ class TagTwigExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider getProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
     public function testGetTags($tagData): void
     {
         $tags = [];
@@ -94,9 +93,7 @@ class TagTwigExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider appendProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('appendProvider')]
     public function testAppendTagUrl($tagsParameter, $url, $tagsString, $expected): void
     {
         $tag = ['name' => 'Test'];
@@ -137,9 +134,7 @@ class TagTwigExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider setProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('setProvider')]
     public function testSetTagUrl($tagsParameter, $url, $tagsString, $expected): void
     {
         $tag = ['name' => 'Test'];
@@ -180,9 +175,7 @@ class TagTwigExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider clearProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('clearProvider')]
     public function testClearTagUrl($tagsParameter, $url, $tagsString): void
     {
         $tagManager = $this->prophesize(TagManagerInterface::class);

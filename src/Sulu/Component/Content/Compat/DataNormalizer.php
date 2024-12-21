@@ -66,10 +66,16 @@ class DataNormalizer
             'shadowLocaleEnabled' => self::getAndUnsetValue($data, 'shadowOn') ? true : false,
             'parent' => self::getAndUnsetValue($data, 'parent'),
             'workflowStage' => self::getAndUnsetValue($data, 'workflowStage'),
+            'lastModified' => $data['lastModifiedEnabled'] ?? false ? self::getAndUnsetValue($data, 'lastModified') : null,
             'authored' => self::getAndUnsetValue($data, 'authored'),
             'author' => self::getAndUnsetValue($data, 'author'),
             'structure' => $data,
         ];
+
+        // Set to false if lastModifiedEnabled exists but should be null, because if set to null it will be unset.
+        if (\array_key_exists('lastModifiedEnabled', $data) && false === $data['lastModifiedEnabled']) {
+            $normalized['lastModified'] = false;
+        }
 
         foreach ($normalized as $key => $value) {
             if (null === $value) {

@@ -3,14 +3,14 @@
 
     <joins name="address">
         <join>
-            <entity-name>SuluContactBundle:ContactAddress</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\ContactAddress</entity-name>
             <field-name>%sulu.model.contact.class%.contactAddresses</field-name>
             <method>LEFT</method>
-            <condition>SuluContactBundle:ContactAddress.main = TRUE</condition>
+            <condition>Sulu\Bundle\ContactBundle\Entity\ContactAddress.main = TRUE</condition>
         </join>
         <join>
-            <entity-name>SuluContactBundle:Address</entity-name>
-            <field-name>SuluContactBundle:ContactAddress.address</field-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
+            <field-name>Sulu\Bundle\ContactBundle\Entity\ContactAddress.address</field-name>
         </join>
     </joins>
 
@@ -33,11 +33,11 @@
         <property name="avatar" translation="public.avatar" visibility="always" type="thumbnails"
             sortable="false">
             <field-name>id</field-name>
-            <entity-name>SuluMediaBundle:Media</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\Media</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluMediaBundle:Media</entity-name>
+                    <entity-name>Sulu\Bundle\MediaBundle\Entity\Media</entity-name>
                     <field-name>%sulu.model.contact.class%.avatar</field-name>
                 </join>
             </joins>
@@ -59,7 +59,7 @@
 
         <property name="city" translation="contact.address.city" visibility="always">
             <field-name>city</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
         </property>

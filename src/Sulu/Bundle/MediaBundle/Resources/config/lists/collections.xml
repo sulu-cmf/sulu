@@ -5,17 +5,17 @@
     <properties>
         <property name="id" translation="sulu_admin.id" visibility="no">
             <field-name>id</field-name>
-            <entity-name>SuluMediaBundle:Collection</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\Collection</entity-name>
         </property>
 
         <property name="title" translation="sulu_admin.title" visibility="yes">
             <field-name>title</field-name>
-            <entity-name>SuluMediaBundle:Collection</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\Collection</entity-name>
         </property>
 
         <property name="objectCount" visibility="yes">
             <field-name>objectCount</field-name>
-            <entity-name>SuluMediaBundle:Collection</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\Collection</entity-name>
             <transformer type="number"/>
         </property>
     </properties>

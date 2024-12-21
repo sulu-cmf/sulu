@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\AudienceTargetingBundle\Tests\Unit;
+namespace Sulu\Bundle\AudienceTargetingBundle\Tests\Unit\Controller;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -51,9 +51,7 @@ class TargetGroupEvaluationControllerTest extends TestCase
         $this->targetGroupStore = $this->prophesize(TargetGroupStoreInterface::class);
     }
 
-    /**
-     * @dataProvider provideTargetGroup
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTargetGroup')]
     public function testTargetGroupAction($header, $currentTargetGroup, $targetGroup, $targetGroupId): void
     {
         if ($currentTargetGroup) {
@@ -101,9 +99,7 @@ class TargetGroupEvaluationControllerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideTargetGroupHit
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTargetGroupHit')]
     public function testTargetGroupHitAction($oldTargetGroup, $newTargetGroup, $newTargetGroupId): void
     {
         $this->targetGroupRepository->find($oldTargetGroup->getId())->willReturn($oldTargetGroup);

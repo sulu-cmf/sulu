@@ -56,12 +56,12 @@ class FieldDescriptorFactoryTest extends TestCase
     public function setup(): void
     {
         $parameterBag = $this->prophesize(ParameterBagInterface::class);
-        $parameterBag->resolveValue('%sulu.model.contact.class%')->willReturn('SuluContactBundle:Contact');
+        $parameterBag->resolveValue('%sulu.model.contact.class%')->willReturn('Sulu\Bundle\ContactBundle\Entity\Contact');
         $parameterBag->resolveValue('%sulu.model.contact.class%.avatar')->willReturn(
-            'SuluContactBundle:Contact.avatar'
+            'Sulu\Bundle\ContactBundle\Entity\Contact.avatar'
         );
         $parameterBag->resolveValue('%sulu.model.contact.class%.contactAddresses')->willReturn(
-            'SuluContactBundle:Contact.contactAddresses'
+            'Sulu\Bundle\ContactBundle\Entity\Contact.contactAddresses'
         );
         $parameterBag->resolveValue(Argument::any())->willReturnArgument(0);
 
@@ -178,7 +178,7 @@ class FieldDescriptorFactoryTest extends TestCase
         $this->assertInstanceOf(DoctrineCaseFieldDescriptor::class, $tagFieldDescriptor);
 
         $this->assertEquals(
-            '(CASE WHEN SuluTagBundle_Tag.name IS NOT NULL THEN SuluTagBundle_Tag.name ELSE SuluTagBundle_Tag.name END)',
+            '(CASE WHEN Sulu_Bundle_TagBundle_Entity_Tag.name IS NOT NULL THEN Sulu_Bundle_TagBundle_Entity_Tag.name ELSE Sulu_Bundle_TagBundle_Entity_Tag.name END)',
             $tagFieldDescriptor->getSelect()
         );
     }
@@ -216,15 +216,15 @@ class FieldDescriptorFactoryTest extends TestCase
                 'translation' => 'City',
                 'disabled' => true,
                 'joins' => [
-                    'SuluContactBundle:ContactAddress' => [
-                        'entity-name' => 'SuluContactBundle:ContactAddress',
-                        'field-name' => 'SuluContactBundle_Contact.contactAddresses',
+                    'Sulu\Bundle\ContactBundle\Entity\ContactAddress' => [
+                        'entity-name' => 'Sulu\Bundle\ContactBundle\Entity\ContactAddress',
+                        'field-name' => 'Sulu_Bundle_ContactBundle_Entity_Contact.contactAddresses',
                         'method' => 'LEFT',
-                        'condition' => 'SuluContactBundle_ContactAddress.locale = :locale',
+                        'condition' => 'Sulu_Bundle_ContactBundle_Entity_ContactAddress.locale = :locale',
                     ],
                     'user' => [
                         'entity-name' => 'user',
-                        'field-name' => 'SuluSecurityBundle:User',
+                        'field-name' => 'Sulu\Bundle\SecurityBundle\Entity\User',
                         'method' => 'LEFT',
                         'condition' => 'user.idContacts = contact.id',
                     ],

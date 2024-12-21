@@ -22,23 +22,20 @@ use Sulu\Component\Security\Authentication\UserInterface;
 
 /**
  * UserRole.
- *
- * @ExclusionPolicy("all");
  */
+#[ExclusionPolicy('all')] // ;
 class UserRole extends ApiEntity
 {
     /**
      * @var int
-     *
-     * @Expose
      */
+    #[Expose]
     protected $id;
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     protected $locale;
 
     /**
@@ -48,9 +45,8 @@ class UserRole extends ApiEntity
 
     /**
      * @var RoleInterface
-     *
-     * @Expose
      */
+    #[Expose]
     protected $role;
 
     /**
@@ -91,10 +87,9 @@ class UserRole extends ApiEntity
      * Get Locales as array.
      *
      * @return array
-     *
-     * @VirtualProperty
-     * @SerializedName("locales")
      */
+    #[VirtualProperty]
+    #[SerializedName('locales')]
     public function getLocales()
     {
         return \json_decode($this->locale);

@@ -17,9 +17,8 @@ abstract class AbstractMetadata implements MetadataInterface
 {
     /**
      * @var bool
-     *
-     * @Serializer\Exclude()
      */
+    #[Serializer\Exclude]
     protected $cacheable = true;
 
     public function isCacheable(): bool

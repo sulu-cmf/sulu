@@ -307,9 +307,7 @@ class DoctrineAccessControlProviderTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideSupport
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSupport')]
     public function testSupport(string $type, bool $supported): void
     {
         $this->assertSame($supported, $this->doctrineAccessControlProvider->supports($type));

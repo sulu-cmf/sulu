@@ -34,11 +34,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("street")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('street')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getStreet(): ?string
     {
         return $this->entity->getStreet();
@@ -51,11 +49,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("number")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('number')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getNumber(): ?string
     {
         return $this->entity->getNumber();
@@ -68,11 +64,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("addition")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('addition')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getAddition(): ?string
     {
         return $this->entity->getAddition();
@@ -85,11 +79,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("zip")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('zip')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getZip(): ?string
     {
         return $this->entity->getZip();
@@ -102,11 +94,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("city")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('city')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getCity(): ?string
     {
         return $this->entity->getCity();
@@ -119,21 +109,17 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("state")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('state')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getState(): ?string
     {
         return $this->entity->getState();
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getId(): ?int
     {
         return $this->entity->getId();
@@ -146,11 +132,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("addressType")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('addressType')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getAddressType(): ?int
     {
         return $this->entity->getAddressType()->getId();
@@ -163,11 +147,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("countryCode")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('countryCode')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getCountryCode(): ?string
     {
         return $this->entity->getCountryCode();
@@ -185,11 +167,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("primaryAddress")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('primaryAddress')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getPrimaryAddress(): ?bool
     {
         return $this->entity->getPrimaryAddress();
@@ -202,11 +182,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("deliveryAddress")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('deliveryAddress')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getDeliveryAddress(): ?bool
     {
         return $this->entity->getDeliveryAddress();
@@ -219,11 +197,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("billingAddress")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('billingAddress')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getBillingAddress(): ?bool
     {
         return $this->entity->getBillingAddress();
@@ -236,11 +212,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("postboxNumber")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('postboxNumber')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getPostboxNumber(): ?string
     {
         return $this->entity->getPostboxNumber();
@@ -253,11 +227,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("postboxPostcode")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('postboxPostcode')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getPostboxPostcode(): ?string
     {
         return $this->entity->getPostboxPostcode();
@@ -270,11 +242,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("postboxCity")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('postboxCity')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getPostboxCity(): ?string
     {
         return $this->entity->getPostboxCity();
@@ -325,11 +295,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("note")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('note')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getNote(): ?string
     {
         return $this->entity->getNote();
@@ -342,21 +310,17 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("title")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('title')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getTitle(): ?string
     {
         return $this->entity->getTitle();
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("latitude")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('latitude')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getLatitude(): ?float
     {
         return $this->entity->getLatitude();
@@ -369,11 +333,9 @@ class Address extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("longitude")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('longitude')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getLongitude(): ?float
     {
         return $this->entity->getLongitude();

@@ -172,9 +172,7 @@ class SuluSecurityListenerTest extends TestCase
         $this->securityChecker->checkPermission('sulu.media.collection', Argument::cetera());
     }
 
-    /**
-     * @dataProvider provideMethodActionMapping
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMethodActionMapping')]
     public function testMethodPermissionMapping($method, $action, $permission): void
     {
         $request = Request::create('/', $method, ['id' => '1']);
@@ -194,9 +192,7 @@ class SuluSecurityListenerTest extends TestCase
             ->shouldHaveBeenCalled();
     }
 
-    /**
-     * @dataProvider provideInvokeMethodActionMapping
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideInvokeMethodActionMapping')]
     public function testCallableControllerPermission($method, $permission): void
     {
         $request = Request::create('/', $method, ['id' => '1']);

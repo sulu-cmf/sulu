@@ -25,53 +25,29 @@ class FieldDescriptor implements FieldDescriptorInterface
      * The translation name.
      *
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $translation;
 
     /**
      * @var AbstractPropertyMetadata
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $metadata;
 
     public function __construct(
-        /**
-         * The name of the field in the database.
-         *
-         * @Expose
-         */
+        #[Expose]
         private string $name,
         ?string $translation = null,
-        /**
-         * Defines the visibility of the field.
-         *
-         * @Expose
-         */
+        #[Expose]
         private string $visibility = FieldDescriptorInterface::VISIBILITY_YES,
-        /**
-         * Defines the searchability of the field.
-         *
-         * @Expose
-         */
+        #[Expose]
         private string $searchability = FieldDescriptorInterface::SEARCHABILITY_NEVER,
-        /**
-         * The type of the field (only used for special fields like dates).
-         *
-         * @Expose
-         */
+        #[Expose]
         private string $type = '',
-        /**
-         * Defines if this field is sortable.
-         *
-         * @Expose
-         */
+        #[Expose]
         private bool $sortable = true,
-        /**
-         * @Expose
-         */
+        #[Expose]
         private string $width = FieldDescriptorInterface::WIDTH_AUTO
     ) {
         $this->translation = null == $translation ? $this->name : $translation;
@@ -82,9 +58,7 @@ class FieldDescriptor implements FieldDescriptorInterface
         return $this->name;
     }
 
-    /**
-     * @Serializer\VirtualProperty()
-     */
+    #[Serializer\VirtualProperty]
     public function getDisabled()
     {
         return \in_array(
@@ -113,9 +87,7 @@ class FieldDescriptor implements FieldDescriptorInterface
         return $this->searchability;
     }
 
-    /**
-     * @Serializer\VirtualProperty()
-     */
+    #[Serializer\VirtualProperty]
     public function getDefault()
     {
         return \in_array(

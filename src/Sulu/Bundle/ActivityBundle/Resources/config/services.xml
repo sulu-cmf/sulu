@@ -27,7 +27,8 @@
         <service id="sulu_activity.domain_event_collector_subscriber" class="Sulu\Bundle\ActivityBundle\Infrastructure\Doctrine\Subscriber\DomainEventCollectorSubscriber">
             <argument type="service" id="sulu_activity.domain_event_collector"/>
 
-            <tag name="doctrine.event_subscriber" priority="-256"/>
+            <tag name="doctrine.event_listener" event="onClear" priority="-256"/>
+            <tag name="doctrine.event_listener" event="postFlush" priority="-256"/>
         </service>
 
         <service id="sulu_activity.store_activity_subscriber" class="Sulu\Bundle\ActivityBundle\Application\Subscriber\StoreActivitySubscriber">

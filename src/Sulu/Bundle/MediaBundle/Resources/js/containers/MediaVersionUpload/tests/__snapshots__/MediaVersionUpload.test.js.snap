@@ -4,7 +4,7 @@ exports[`Render a MediaVersionUpload field for images 1`] = `
 Array [
   <div
     class="mediaContainer default"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <img
@@ -31,8 +31,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -79,7 +78,7 @@ exports[`Render a MediaVersionUpload field for videos 1`] = `
 Array [
   <div
     class="mediaContainer default"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <img
@@ -106,8 +105,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -119,7 +117,7 @@ Array [
     class="buttons"
   >
     <div
-      role="button"
+      role="presentation"
       tabindex="0"
     >
       <button
@@ -137,9 +135,8 @@ Array [
         </span>
       </button>
       <input
-        autocomplete="off"
         multiple=""
-        style="display:none"
+        style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
         tabindex="-1"
         type="file"
       />
@@ -166,7 +163,7 @@ exports[`Render a MediaVersionUpload field for videos without assigned preview i
 Array [
   <div
     class="mediaContainer default"
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <img
@@ -193,8 +190,7 @@ Array [
       </div>
     </div>
     <input
-      autocomplete="off"
-      style="display:none"
+      style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
       tabindex="-1"
       type="file"
     />
@@ -206,7 +202,7 @@ Array [
     class="buttons"
   >
     <div
-      role="button"
+      role="presentation"
       tabindex="0"
     >
       <button
@@ -224,9 +220,8 @@ Array [
         </span>
       </button>
       <input
-        autocomplete="off"
         multiple=""
-        style="display:none"
+        style="border:0;clip:rect(0, 0, 0, 0);clip-path:inset(50%);height:1px;margin:0 -1px -1px 0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap"
         tabindex="-1"
         type="file"
       />

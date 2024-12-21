@@ -6,7 +6,7 @@ import {render} from 'react-dom';
 import {configure} from 'mobx';
 import ResizeObserver from 'resize-observer-polyfill';
 import Requester from './services/Requester';
-import Router, {routeRegistry} from './services/Router';
+import Router, {routeRegistry, resourceViewRegistry} from './services/Router';
 import Application from './containers/Application';
 import {updateRouterAttributesFromView, viewRegistry} from './containers/ViewRenderer';
 import CollaborationStore from './stores/CollaborationStore';
@@ -24,6 +24,7 @@ import List, {
     listItemActionRegistry,
     listToolbarActionRegistry,
     LinkItemAction as ListLinkItemAction,
+    DetailLinkItemAction as ListDetailLinkItemAction,
     AddToolbarAction as ListAddToolbarAction,
     DeleteToolbarAction as ListDeleteToolbarAction,
     MoveToolbarAction as ListMoveToolbarAction,
@@ -57,6 +58,7 @@ import {
     TextFieldFilterType,
     ThumbnailFieldTransformer,
     TimeFieldTransformer,
+    TranslationFieldTransformer,
     TreeTableAdapter,
 } from './containers/List';
 import FieldBlocks, {
@@ -226,6 +228,7 @@ function registerListFieldTransformers() {
     listFieldTransformerRegistry.add('color', new ColorFieldTransformer());
     listFieldTransformerRegistry.add('icon', new IconFieldTransformer());
     listFieldTransformerRegistry.add('html', new HtmlFieldTransformer());
+    listFieldTransformerRegistry.add('translation', new TranslationFieldTransformer());
 
     // TODO: Remove this type when not needed anymore
     listFieldTransformerRegistry.add('title', new StringFieldTransformer());
@@ -233,6 +236,7 @@ function registerListFieldTransformers() {
 
 function registerListItemActions() {
     listItemActionRegistry.add('link', ListLinkItemAction);
+    listItemActionRegistry.add('detail_link', ListDetailLinkItemAction);
 }
 
 function registerFieldTypes(fieldTypeOptions) {
@@ -343,12 +347,15 @@ function registerListToolbarActions() {
 
 function processConfig(config: Object) {
     routeRegistry.clear();
+    resourceViewRegistry.clear();
     navigationRegistry.clear();
     resourceRouteRegistry.clear();
 
     routeRegistry.addCollection(config.routes);
+    resourceViewRegistry.addResourceViews(config.resources);
     localizationStore.setLocalizations(config.localizations);
     navigationRegistry.set(config.navigation);
+
     resourceRouteRegistry.setEndpoints(config.resources);
     smartContentConfigStore.setConfig(config.smartContent);
     CollaborationStore.enabled = config.collaborationEnabled;
@@ -390,6 +397,20 @@ function startAdmin() {
         'font-family: monospace; font-size: 10px; text-decoration: none;'
     );
 
+    const id = 'application';
+    const applicationElement = document.getElementById(id);
+
+    if (!applicationElement) {
+        throw new Error(`DOM element with ID "${id}" was not found!`);
+    }
+
+    if (!('config' in applicationElement.dataset)) {
+        throw new Error(`Attribute "data-config" not found on element with ID "${id}"!`);
+    }
+
+    Object.assign(Config, JSON.parse(applicationElement.dataset.config));
+    Object.freeze(Config);
+
     if (Config.suluVersion !== SULU_ADMIN_BUILD_VERSION) {
         log.error(
             'Sulu administration interface: JavaScript build version mismatch' +
@@ -408,13 +429,6 @@ function startAdmin() {
     initializer.initialize(Config.initialLoginState).then(() => {
         router.reload();
     });
-
-    const id = 'application';
-    const applicationElement = document.getElementById(id);
-
-    if (!applicationElement) {
-        throw new Error('DOM element with ID "id" was not found!');
-    }
 
     render(
         <Application appVersion={Config.appVersion} router={router} suluVersion={Config.suluVersion} />,

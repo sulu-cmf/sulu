@@ -11,7 +11,6 @@
 
         <parameter key="sulu.content.mapper.class">Sulu\Component\Content\Mapper\ContentMapper</parameter>
         <parameter key="sulu.content.structure_manager.class">Sulu\Component\Content\Compat\StructureManager</parameter>
-        <parameter key="sulu.content.webspace_structure_provider.cache.class">Doctrine\Common\Cache\FilesystemCache</parameter>
         <parameter key="sulu.content.webspace_structure_provider.class">Sulu\Component\Webspace\StructureProvider\WebspaceStructureProvider</parameter>
 
         <parameter key="sulu.content.type_manager.class">Sulu\Component\Content\ContentTypeManager</parameter>
@@ -83,8 +82,15 @@
             <argument>%sulu.content.structure.type_map%</argument>
         </service>
 
-        <service id="sulu.content.webspace_structure_provider.cache" class="%sulu.content.webspace_structure_provider.cache.class%">
+        <service id="sulu.content.webspace_structure_provider.cache_adapter" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
+            <argument type="string"></argument>
+            <argument>0</argument>
             <argument type="string">%sulu.cache_dir%/webspace_structures</argument>
+        </service>
+
+        <service id="sulu.content.webspace_structure_provider.cache" class="Doctrine\Common\Cache\CacheProvider">
+            <factory class="Doctrine\Common\Cache\Psr6\DoctrineProvider" method="wrap"/>
+            <argument type="service" id="sulu.content.webspace_structure_provider.cache_adapter" />
         </service>
 
         <service id="sulu.content.webspace_structure_provider" class="%sulu.content.webspace_structure_provider.class%" public="true">
@@ -202,6 +208,16 @@
             <argument type="service" id="sulu_core.webspace.request_analyzer" />
             <argument type="service" id="sulu_http_cache.cache_lifetime.request_store" on-invalid="null" />
             <tag name="sulu_content.block_visitor" />
+        </service>
+
+        <service
+            id="sulu.content.type.block.global_block_visitor"
+            class="Sulu\Component\Content\Types\Metadata\GlobalBlocksTypedFormMetadataVisitor"
+        >
+            <argument type="service" id="sulu_admin.metadata_provider_registry" />
+
+            <tag name="sulu_admin.typed_form_metadata_visitor"/>
+            <tag name="sulu_admin.form_metadata_visitor" />
         </service>
 
         <!-- content query -->

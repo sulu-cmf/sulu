@@ -18,34 +18,27 @@ use Sulu\Component\SmartContent\ItemInterface;
 
 /**
  * Represents media item in media data provider.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class MediaDataItem implements ItemInterface
 {
     public function __construct(private Media $entity)
     {
     }
 
-    /**
-     * @VirtualProperty
-     */
+    #[VirtualProperty]
     public function getId()
     {
         return $this->entity->getId();
     }
 
-    /**
-     * @VirtualProperty
-     */
+    #[VirtualProperty]
     public function getTitle()
     {
         return $this->entity->getTitle() ?: '';
     }
 
-    /**
-     * @VirtualProperty
-     */
+    #[VirtualProperty]
     public function getImage()
     {
         if (!\array_key_exists('sulu-50x50', $thumbnails = $this->entity->getThumbnails())) {

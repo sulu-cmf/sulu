@@ -48,15 +48,15 @@ class ListXmlLoaderTest extends TestCase
 
         $this->parameterBag = $this->prophesize(ParameterBagInterface::class);
 
-        $this->parameterBag->resolveValue('%sulu.model.contact.class%')->willReturn('SuluContactBundle:Contact');
+        $this->parameterBag->resolveValue('%sulu.model.contact.class%')->willReturn('Sulu\Bundle\ContactBundle\Entity\Contact');
         $this->parameterBag->resolveValue('%sulu.model.contact.class%.avatar')->willReturn(
-            'SuluContactBundle:Contact.avatar'
+            'Sulu\Bundle\ContactBundle\Entity\Contact.avatar'
         );
         $this->parameterBag->resolveValue('%sulu.model.contact.class%.contactAddresses')->willReturn(
-            'SuluContactBundle:Contact.contactAddresses'
+            'Sulu\Bundle\ContactBundle\Entity\Contact.contactAddresses'
         );
         $this->parameterBag->resolveValue('%sulu.model.contact.class%.tags')->willReturn(
-            'SuluContactBundle:Contact.tags'
+            'Sulu\Bundle\ContactBundle\Entity\Contact.tags'
         );
         $this->parameterBag->resolveValue('%test-parameter%')->willReturn('test-value');
         $this->parameterBag->resolveValue(Argument::any())->willReturnArgument(0);
@@ -76,7 +76,7 @@ class ListXmlLoaderTest extends TestCase
         $this->assertSingleMetadata(
             [
                 'name' => 'id',
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                 'translation' => 'public.id',
                 'type' => 'integer',
             ],
@@ -85,7 +85,7 @@ class ListXmlLoaderTest extends TestCase
         $this->assertSingleMetadata(
             [
                 'name' => 'firstName',
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                 'translation' => 'contact.contacts.firstName',
                 'visibility' => FieldDescriptorInterface::VISIBILITY_ALWAYS,
             ],
@@ -94,7 +94,7 @@ class ListXmlLoaderTest extends TestCase
         $this->assertSingleMetadata(
             [
                 'name' => 'lastName',
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                 'translation' => 'contact.contacts.lastName',
                 'visibility' => FieldDescriptorInterface::VISIBILITY_ALWAYS,
             ],
@@ -103,15 +103,15 @@ class ListXmlLoaderTest extends TestCase
         $this->assertSingleMetadata(
             [
                 'name' => 'avatar',
-                'entityName' => 'SuluMediaBundle:Media',
+                'entityName' => 'Sulu\Bundle\MediaBundle\Entity\Media',
                 'translation' => 'public.avatar',
                 'visibility' => FieldDescriptorInterface::VISIBILITY_ALWAYS,
                 'type' => 'thumbnails',
                 'sortable' => false,
                 'joins' => [
                     [
-                        'entityName' => 'SuluMediaBundle:Media',
-                        'entityField' => 'SuluContactBundle:Contact.avatar',
+                        'entityName' => 'Sulu\Bundle\MediaBundle\Entity\Media',
+                        'entityField' => 'Sulu\Bundle\ContactBundle\Entity\Contact.avatar',
                     ],
                 ],
             ],
@@ -129,11 +129,11 @@ class ListXmlLoaderTest extends TestCase
                 'fields' => [
                     [
                         'name' => 'firstName',
-                        'entityName' => 'SuluContactBundle:Contact',
+                        'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                     ],
                     [
                         'name' => 'lastName',
-                        'entityName' => 'SuluContactBundle:Contact',
+                        'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                     ],
                 ],
             ],
@@ -156,7 +156,7 @@ class ListXmlLoaderTest extends TestCase
                 'name' => 'id',
                 'translation' => 'public.id',
                 'type' => 'integer',
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
             ],
             $propertiesMetadata[0]
         );
@@ -166,7 +166,7 @@ class ListXmlLoaderTest extends TestCase
                 'translation' => 'contact.contacts.firstName',
                 'visibility' => FieldDescriptorInterface::VISIBILITY_ALWAYS,
                 'searchability' => FieldDescriptorInterface::SEARCHABILITY_YES,
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                 'width' => FieldDescriptorInterface::WIDTH_SHRINK,
             ],
             $propertiesMetadata[1]
@@ -177,7 +177,7 @@ class ListXmlLoaderTest extends TestCase
                 'translation' => 'contact.contacts.lastName',
                 'visibility' => FieldDescriptorInterface::VISIBILITY_ALWAYS,
                 'searchability' => FieldDescriptorInterface::SEARCHABILITY_NO,
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
             ],
             $propertiesMetadata[2]
         );
@@ -198,7 +198,7 @@ class ListXmlLoaderTest extends TestCase
                 'name' => 'id',
                 'translation' => 'public.id',
                 'type' => 'integer',
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
             ],
             $propertiesMetadata[0]
         );
@@ -208,7 +208,7 @@ class ListXmlLoaderTest extends TestCase
                 'translation' => 'contact.contacts.firstName',
                 'visibility' => FieldDescriptorInterface::VISIBILITY_ALWAYS,
                 'searchability' => FieldDescriptorInterface::SEARCHABILITY_YES,
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
             ],
             $propertiesMetadata[1]
         );
@@ -218,7 +218,7 @@ class ListXmlLoaderTest extends TestCase
                 'translation' => 'contact.contacts.lastName',
                 'visibility' => FieldDescriptorInterface::VISIBILITY_ALWAYS,
                 'searchability' => FieldDescriptorInterface::SEARCHABILITY_NO,
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
             ],
             $propertiesMetadata[2]
         );
@@ -358,11 +358,11 @@ class ListXmlLoaderTest extends TestCase
             [
                 'name' => 'tags',
                 'translation' => 'Tags',
-                'entityName' => 'SuluTagBundle:Tag',
+                'entityName' => 'Sulu\Bundle\TagBundle\Entity\Tag',
                 'joins' => [
                     [
-                        'entityName' => 'SuluTagBundle:Tag',
-                        'entityField' => 'SuluContactBundle:Contact.tags',
+                        'entityName' => 'Sulu\Bundle\TagBundle\Entity\Tag',
+                        'entityField' => 'Sulu\Bundle\ContactBundle\Entity\Contact.tags',
                     ],
                 ],
                 'filter-type' => 'test',
@@ -391,7 +391,7 @@ class ListXmlLoaderTest extends TestCase
             [
                 'name' => 'tags',
                 'translation' => 'Tags',
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                 'filter-type' => 'test',
                 'filter-type-params' => [
                     'testCollection' => [
@@ -419,7 +419,7 @@ class ListXmlLoaderTest extends TestCase
             [
                 'name' => 'tags',
                 'translation' => 'Tags',
-                'entityName' => 'SuluContactBundle:Contact',
+                'entityName' => 'Sulu\Bundle\ContactBundle\Entity\Contact',
                 'filter-type' => 'test',
                 'filter-type-params' => [
                     'testCollection' => [

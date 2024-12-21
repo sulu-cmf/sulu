@@ -1,0 +1,56 @@
+{
+    "info": {
+        "statuscode": 0,
+        "copyright": {
+            "text": "© 2024 MapQuest, Inc.",
+            "imageUrl": "http://api.mqcdn.com/res/mqlogo.gif",
+            "imageAltText": "© 2024 MapQuest, Inc."
+        },
+        "messages": [
+
+        ]
+    },
+    "options": {
+        "maxResults": -1,
+        "ignoreLatLngInput": false
+    },
+    "results": [
+        {
+            "providedLocation": {
+                "location": "10, Rue Alexandre Dumas, Paris"
+            },
+            "locations": [
+                {
+                    "street": "10 Rue Alexandre Dumas",
+                    "adminArea6": "11th Arrondissement",
+                    "adminArea6Type": "Neighborhood",
+                    "adminArea5": "Paris",
+                    "adminArea5Type": "City",
+                    "adminArea4": "Paris",
+                    "adminArea4Type": "County",
+                    "adminArea3": "IDF",
+                    "adminArea3Type": "State",
+                    "adminArea1": "FR",
+                    "adminArea1Type": "Country",
+                    "postalCode": "75011",
+                    "geocodeQualityCode": "P1AAA",
+                    "geocodeQuality": "ADDRESS",
+                    "dragPoint": false,
+                    "sideOfStreet": "R",
+                    "linkId": "0",
+                    "unknownInput": "",
+                    "type": "s",
+                    "latLng": {
+                        "lat": 48.85297,
+                        "lng": 2.38986
+                    },
+                    "displayLatLng": {
+                        "lat": 48.85294,
+                        "lng": 2.38988
+                    },
+                    "mapUrl": ""
+                }
+            ]
+        }
+    ]
+}

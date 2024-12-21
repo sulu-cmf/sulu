@@ -22,32 +22,28 @@ use Sulu\Component\Persistence\Model\AuditableTrait;
 
 /**
  * Represents a concrete route in the route-pool.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class Route implements RouteInterface, AuditableInterface
 {
     use AuditableTrait;
 
     /**
      * @var int
-     *
-     * @Expose
      */
+    #[Expose]
     private $id;
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $path;
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $locale;
 
     /**
@@ -62,9 +58,8 @@ class Route implements RouteInterface, AuditableInterface
 
     /**
      * @var bool
-     *
-     * @Expose
      */
+    #[Expose]
     private $history = false;
 
     /**
@@ -188,17 +183,13 @@ class Route implements RouteInterface, AuditableInterface
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     */
+    #[VirtualProperty]
     public function getCreated()
     {
         return $this->created;
     }
 
-    /**
-     * @VirtualProperty
-     */
+    #[VirtualProperty]
     public function getResourcelocator()
     {
         return $this->path;

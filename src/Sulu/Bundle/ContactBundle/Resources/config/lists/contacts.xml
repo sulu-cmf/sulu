@@ -4,36 +4,36 @@
 
     <joins name="address">
         <join>
-            <entity-name>SuluContactBundle:ContactAddress</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\ContactAddress</entity-name>
             <field-name>%sulu.model.contact.class%.contactAddresses</field-name>
             <method>LEFT</method>
-            <condition>SuluContactBundle:ContactAddress.main = TRUE</condition>
+            <condition>Sulu\Bundle\ContactBundle\Entity\ContactAddress.main = TRUE</condition>
         </join>
         <join>
-            <entity-name>SuluContactBundle:Address</entity-name>
-            <field-name>SuluContactBundle:ContactAddress.address</field-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
+            <field-name>Sulu\Bundle\ContactBundle\Entity\ContactAddress.address</field-name>
         </join>
     </joins>
 
     <joins name="position" ref="accountContact">
         <join>
-            <entity-name>SuluContactBundle:Position</entity-name>
-            <field-name>SuluContactBundle:AccountContact.position</field-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Position</entity-name>
+            <field-name>Sulu\Bundle\ContactBundle\Entity\AccountContact.position</field-name>
         </join>
     </joins>
 
     <joins name="accountContact">
         <join>
-            <entity-name>SuluContactBundle:AccountContact</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\AccountContact</entity-name>
             <field-name>%sulu.model.contact.class%.accountContacts</field-name>
             <method>LEFT</method>
-            <condition>SuluContactBundle:AccountContact.main = true</condition>
+            <condition>Sulu\Bundle\ContactBundle\Entity\AccountContact.main = true</condition>
         </join>
     </joins>
 
     <joins name="tags">
         <join>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
             <field-name>%sulu.model.contact.class%.tags</field-name>
         </join>
     </joins>
@@ -46,10 +46,10 @@
             sortable="false"
         >
             <field-name>id</field-name>
-            <entity-name>SuluMediaBundle:Media</entity-name>
+            <entity-name>Sulu\Bundle\MediaBundle\Entity\Media</entity-name>
             <joins>
                 <join>
-                    <entity-name>SuluMediaBundle:Media</entity-name>
+                    <entity-name>Sulu\Bundle\MediaBundle\Entity\Media</entity-name>
                     <field-name>%sulu.model.contact.class%.avatar</field-name>
                 </join>
             </joins>
@@ -105,14 +105,14 @@
             <joins ref="accountContact">
                 <join>
                     <entity-name>%sulu.model.account.class%</entity-name>
-                    <field-name>SuluContactBundle:AccountContact.account</field-name>
+                    <field-name>Sulu\Bundle\ContactBundle\Entity\AccountContact.account</field-name>
                 </join>
             </joins>
         </property>
 
         <identity-property name="accountId" visibility="never" translation="sulu_contact.organization">
             <field-name>account</field-name>
-            <entity-name>SuluContactBundle:AccountContact</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\AccountContact</entity-name>
 
             <joins ref="accountContact"/>
 
@@ -126,7 +126,7 @@
 
         <property name="city" visibility="always" translation="sulu_contact.city">
             <field-name>city</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -135,7 +135,7 @@
 
         <property name="zip" translation="sulu_contact.zip">
             <field-name>zip</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -144,7 +144,7 @@
 
         <property name="street" translation="sulu_contact.street">
             <field-name>street</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -153,7 +153,7 @@
 
         <property name="number" translation="sulu_contact.number">
             <field-name>number</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
         </property>
@@ -170,7 +170,7 @@
 
         <property name="state" translation="sulu_contact.state">
             <field-name>state</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -179,7 +179,7 @@
 
         <property name="countryCode" translation="sulu_contact.country">
             <field-name>countryCode</field-name>
-            <entity-name>SuluContactBundle:Address</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Address</entity-name>
 
             <joins ref="address"/>
 
@@ -229,11 +229,11 @@
 
         <property name="title" translation="sulu_contact.title">
             <field-name>title</field-name>
-            <entity-name>SuluContactBundle:ContactTitle</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\ContactTitle</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluContactBundle:ContactTitle</entity-name>
+                    <entity-name>Sulu\Bundle\ContactBundle\Entity\ContactTitle</entity-name>
                     <field-name>%sulu.model.contact.class%.title</field-name>
                 </join>
             </joins>
@@ -271,7 +271,7 @@
 
         <identity-property name="positionId" visibility="never" translation="sulu_contact.position">
             <field-name>position</field-name>
-            <entity-name>SuluContactBundle:AccountContact</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\AccountContact</entity-name>
 
             <joins ref="position"/>
 
@@ -290,7 +290,7 @@
             sortable="false"
         >
             <field-name>position</field-name>
-            <entity-name>SuluContactBundle:Position</entity-name>
+            <entity-name>Sulu\Bundle\ContactBundle\Entity\Position</entity-name>
 
             <joins ref="position"/>
         </property>
@@ -302,7 +302,7 @@
             glue=","
         >
             <field-name>id</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins ref="tags"/>
         </group-concat-property>
@@ -315,7 +315,7 @@
             distinct="true"
         >
             <field-name>name</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins ref="tags"/>
         </group-concat-property>
@@ -328,7 +328,7 @@
             translation="sulu_tag.tags"
         >
             <field-name>id</field-name>
-            <entity-name>SuluTagBundle:Tag</entity-name>
+            <entity-name>Sulu\Bundle\TagBundle\Entity\Tag</entity-name>
 
             <joins ref="tags"/>
 
@@ -348,11 +348,11 @@
             translation="sulu_category.categories"
         >
             <field-name>id</field-name>
-            <entity-name>SuluCategoryBundle:Category</entity-name>
+            <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluCategoryBundle:Category</entity-name>
+                    <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
                     <field-name>%sulu.model.contact.class%.categories</field-name>
                 </join>
             </joins>
@@ -372,17 +372,17 @@
             glue=","
         >
             <field-name>translation</field-name>
-            <entity-name>SuluCategoryBundle:CategoryTranslation</entity-name>
+            <entity-name>Sulu\Bundle\CategoryBundle\Entity\CategoryTranslation</entity-name>
 
             <joins>
                 <join>
-                    <entity-name>SuluCategoryBundle:Category</entity-name>
+                    <entity-name>Sulu\Bundle\CategoryBundle\Entity\Category</entity-name>
                     <field-name>%sulu.model.contact.class%.categories</field-name>
                 </join>
                 <join>
-                    <entity-name>SuluCategoryBundle:CategoryTranslation</entity-name>
-                    <field-name>SuluCategoryBundle:Category.translations</field-name>
-                    <condition>SuluCategoryBundle:CategoryTranslation.locale = SuluCategoryBundle:Category.defaultLocale</condition>
+                    <entity-name>Sulu\Bundle\CategoryBundle\Entity\CategoryTranslation</entity-name>
+                    <field-name>Sulu\Bundle\CategoryBundle\Entity\Category.translations</field-name>
+                    <condition>Sulu\Bundle\CategoryBundle\Entity\CategoryTranslation.locale = Sulu\Bundle\CategoryBundle\Entity\Category.defaultLocale</condition>
                 </join>
             </joins>
         </group-concat-property>

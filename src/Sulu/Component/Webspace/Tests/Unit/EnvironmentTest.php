@@ -76,9 +76,7 @@ class EnvironmentTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider addUrlProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('addUrlProvider')]
     public function testAddUrl(array $urls, Url $expectedMainUrl): void
     {
         $environment = new Environment();

@@ -28,9 +28,7 @@ class UrlRequestProcessorTest extends TestCase
         $this->urlRequestProcessor = new UrlRequestProcessor();
     }
 
-    /**
-     * @dataProvider provideProcess
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideProcess')]
     public function testProcess($url, $host, $port, $path): void
     {
         $request = Request::create($url);

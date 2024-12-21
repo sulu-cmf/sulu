@@ -46,9 +46,7 @@ class CustomUrlRouteProviderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testGetRouteCollectionForRequest(
         $host,
         $pathInfo,

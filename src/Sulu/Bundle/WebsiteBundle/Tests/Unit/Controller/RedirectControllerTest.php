@@ -74,9 +74,7 @@ class RedirectControllerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideRedirectAction
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRedirectAction')]
     public function testRedirectAction($requestUri, $portalUrl, $redirectUrl, $expectedTargetUrl, $prefix = ''): void
     {
         $request = $this->getRequestMock($requestUri, $portalUrl, $redirectUrl, $prefix);
@@ -97,9 +95,7 @@ class RedirectControllerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideRedirectWebspaceAction
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRedirectWebspaceAction')]
     public function testRedirectWebspaceAction($uri, $redirectUri, $expectedTargetUrl): void
     {
         $request = $this->getRequestMock($redirectUri, null, $uri);
@@ -125,9 +121,7 @@ class RedirectControllerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideRedirectToRouteAction
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRedirectToRouteAction')]
     public function testRedirectToRouteAction(
         $route,
         $statusCode = 301,

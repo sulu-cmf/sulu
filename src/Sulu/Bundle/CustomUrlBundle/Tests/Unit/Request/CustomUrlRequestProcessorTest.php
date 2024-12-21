@@ -50,9 +50,7 @@ class CustomUrlRequestProcessorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testProcess(
         $host,
         $pathInfo,

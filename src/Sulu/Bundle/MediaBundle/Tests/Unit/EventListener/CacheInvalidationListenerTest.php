@@ -12,7 +12,7 @@
 namespace Sulu\Bundle\MediaBundle\Tests\Unit\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -47,7 +47,10 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener = new CacheInvalidationListener($this->cacheManager->reveal());
     }
 
-    public static function provideFunctionName()
+    /**
+     * @return string[][]
+     */
+    public static function provideFunctionName(): array
     {
         return [
             ['postPersist'],
@@ -56,9 +59,7 @@ class CacheInvalidationListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFunctionName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFunctionName')]
     public function testPostUpdate($functionName): void
     {
         $entity = $this->prophesize(MediaInterface::class);
@@ -72,9 +73,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->{$functionName}($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideFunctionName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFunctionName')]
     public function testPostUpdateFile($functionName): void
     {
         $media = $this->prophesize(MediaInterface::class);
@@ -90,9 +89,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->{$functionName}($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideFunctionName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFunctionName')]
     public function testPostUpdateFileVersion($functionName): void
     {
         $media = $this->prophesize(MediaInterface::class);
@@ -124,9 +121,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->{$functionName}($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideFunctionName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFunctionName')]
     public function testPostUpdateFileVersionMeta($functionName): void
     {
         $media = $this->prophesize(MediaInterface::class);
@@ -148,9 +143,7 @@ class CacheInvalidationListenerTest extends TestCase
         $this->listener->{$functionName}($eventArgs->reveal());
     }
 
-    /**
-     * @dataProvider provideFunctionName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFunctionName')]
     public function testPostUpdateOther($functionName): void
     {
         $entity = $this->prophesize(\stdClass::class);

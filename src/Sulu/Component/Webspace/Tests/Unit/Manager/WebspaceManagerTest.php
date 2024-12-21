@@ -495,10 +495,9 @@ class WebspaceManagerTest extends WebspaceTestCase
     }
 
     /**
-     * @dataProvider provideFindPortalInformationByUrl
-     *
      * @param bool $shouldFind
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFindPortalInformationByUrl')]
     public function testFindPortalInformationByUrlWithInvalidSuffix(string $url, $shouldFind): void
     {
         $portalInformation = $this->webspaceManager->findPortalInformationByUrl($url, 'dev');

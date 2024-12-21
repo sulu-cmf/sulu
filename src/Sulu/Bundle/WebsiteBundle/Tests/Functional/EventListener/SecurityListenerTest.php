@@ -22,9 +22,7 @@ use Sulu\Component\Content\Document\Behavior\SecurityBehavior;
 use Sulu\Component\Content\Document\WorkflowStage;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-/**
- * @runTestsInSeparateProcesses This is necessary because the kernel is booted with different configurations.
- */
+#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class SecurityListenerTest extends SuluTestCase
 {
     /**
@@ -43,9 +41,6 @@ class SecurityListenerTest extends SuluTestCase
         $this->initPhpcr();
     }
 
-    /**
-     * @preserveGlobalState disabled
-     */
     public function testNoPermissions(): void
     {
         $pageDocument = $this->createSecuredPage();
@@ -57,9 +52,6 @@ class SecurityListenerTest extends SuluTestCase
         $this->assertNull($response->headers->get('Location'));
     }
 
-    /**
-     * @preserveGlobalState disabled
-     */
     public function testRedirectToLoginWhenNoAccess(): void
     {
         $pageDocument = $this->createSecuredPage();

@@ -9,7 +9,7 @@
                  class="Sulu\Bundle\WebsiteBundle\Entity\DomainRepository">
             <factory service="doctrine.orm.entity_manager" method="getRepository"/>
 
-            <argument type="string">SuluWebsiteBundle:Domain</argument>
+            <argument type="string">Sulu\Bundle\WebsiteBundle\Entity\Domain</argument>
         </service>
 
         <service id="sulu_website.analytics.manager"

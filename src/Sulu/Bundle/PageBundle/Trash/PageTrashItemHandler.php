@@ -43,7 +43,7 @@ final class PageTrashItemHandler implements
         private TrashItemRepositoryInterface $trashItemRepository,
         private DocumentManagerInterface $documentManager,
         private DocumentInspector $documentInspector,
-        private DocumentDomainEventCollectorInterface $documentDomainEventCollector
+        private DocumentDomainEventCollectorInterface $documentDomainEventCollector,
     ) {
     }
 
@@ -80,6 +80,7 @@ final class PageTrashItemHandler implements
                 : $localizedPage->getExtensionsData();
 
             $pageTitles[$locale] = $localizedPage->getTitle();
+            $lastModified = $localizedPage->getLastModified() ? $localizedPage->getLastModified()->format('c') : null;
 
             $data['locales'][] = [
                 'title' => $localizedPage->getTitle(),
@@ -87,6 +88,7 @@ final class PageTrashItemHandler implements
                 'creator' => $localizedPage->getCreator(),
                 'created' => $localizedPage->getCreated()->format('c'),
                 'author' => $localizedPage->getAuthor(),
+                'lastModified' => $lastModified,
                 'authored' => $localizedPage->getAuthored()->format('c'),
                 'structureType' => $localizedPage->getStructureType(),
                 'structureData' => $localizedPage->getStructure()->toArray(),
@@ -112,7 +114,7 @@ final class PageTrashItemHandler implements
             $options,
             PageAdmin::getPageSecurityContext($page->getWebspaceName()),
             SecurityBehavior::class,
-            (string) $page->getUuid()
+            (string) $page->getUuid(),
         );
     }
 
@@ -125,6 +127,7 @@ final class PageTrashItemHandler implements
 
         // restore shadow locales after concrete locales because shadow locales depend on their target locale
         $sortedLocales = [];
+        /** @var array<string, string|int|bool> $localeData */
         foreach ($data['locales'] as $localeData) {
             if ($localeData['shadowLocaleEnabled']) {
                 $sortedLocales[] = $localeData;
@@ -133,6 +136,28 @@ final class PageTrashItemHandler implements
             }
         }
 
+        /** @var array{
+         *     title: string,
+         *     resourceSegment: string,
+         *     suluOrder: int,
+         *     locale: string,
+         *     creator: ?int,
+         *     created: string,
+         *     lastModified: ?string,
+         *     author: ?int,
+         *     authored: string,
+         *     structureType: string,
+         *     structureData: mixed,
+         *     extensionsData: mixed,
+         *     permissions: ?mixed,
+         *     navigationContexts: array<string>,
+         *     shadowLocaleEnabled: bool,
+         *     shadowLocale: ?string,
+         *     redirectType: int,
+         *     redirectExternal: ?string,
+         *     redirectTargetUuid: ?string,
+         * } $localeData
+         */
         foreach ($sortedLocales as $localeData) {
             $locale = $localeData['locale'];
 
@@ -148,12 +173,15 @@ final class PageTrashItemHandler implements
                 $localizedPageAccessor->set('uuid', $uuid);
             }
 
+            $lastModified = $localeData['lastModified'] ? new \DateTime($localeData['lastModified']) : null;
+
             $localizedPage->setTitle($localeData['title']);
             $localizedPage->setResourceSegment($localeData['resourceSegment']);
             $localizedPage->setSuluOrder($localeData['suluOrder']);
             $localizedPage->setLocale($locale);
             $localizedPage->setCreator($localeData['creator']);
             $localizedPage->setCreated(new \DateTime($localeData['created']));
+            $localizedPage->setLastModified($lastModified);
             $localizedPage->setAuthor($localeData['author']);
             $localizedPage->setAuthored(new \DateTime($localeData['authored']));
             $localizedPage->setStructureType($localeData['structureType']);
@@ -194,7 +222,7 @@ final class PageTrashItemHandler implements
             'restore_page',
             PageAdmin::EDIT_FORM_VIEW,
             ['id' => 'id', 'webspace' => 'webspace'],
-            ['defaultPage']
+            ['defaultPage'],
         );
     }
 }

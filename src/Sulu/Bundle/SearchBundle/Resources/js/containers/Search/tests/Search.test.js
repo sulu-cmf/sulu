@@ -23,6 +23,8 @@ jest.mock('../stores/searchStore', () => ({
     query: undefined,
     results: [],
     search: jest.fn(),
+    setPage: jest.fn(),
+    setLimit: jest.fn(),
 }));
 
 beforeEach(() => {

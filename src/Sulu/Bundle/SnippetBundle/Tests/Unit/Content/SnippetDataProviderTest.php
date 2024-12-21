@@ -190,9 +190,7 @@ class SnippetDataProviderTest extends TestCase
         $this->assertSame('translated-template-2', $configuration->getTypes()[1]->getName());
     }
 
-    /**
-     * @dataProvider provideResolveDataItems
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideResolveDataItems')]
     public function testResolveDataItems(
         $filters,
         $propertyParameter,
@@ -289,9 +287,7 @@ class SnippetDataProviderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideResolveDataItems
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideResolveDataItems')]
     public function testResolveResourceItems(
         $filters,
         $propertyParameter,
@@ -329,9 +325,7 @@ class SnippetDataProviderTest extends TestCase
         $this->assertEquals($hasNextPage, $dataProviderResult->getHasNextPage());
     }
 
-    /**
-     * @dataProvider provideResolveExcludeDuplicates
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideResolveExcludeDuplicates')]
     public function testResolveResourceItemsExcludeDuplicates($filters, $uuids): void
     {
         $options = ['webspaceKey' => 'sulu', 'locale' => 'de'];

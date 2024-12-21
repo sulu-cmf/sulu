@@ -85,6 +85,7 @@
             <argument type="service" id="sulu_snippet.default_snippet.manager"/>
             <argument type="service" id="sulu_core.webspace.request_analyzer"/>
             <argument type="service" id="sulu_snippet.resolver"/>
+            <argument type="service" id="sulu_snippet.reference_store.snippet_area"/>
 
             <tag name="twig.extension"/>
         </service>
@@ -97,6 +98,14 @@
             <argument type="service" id="doctrine_phpcr" />
             <argument type="service" id="sulu_document_manager.path_builder" />
             <tag name="sulu_document_manager.initializer"/>
+        </service>
+
+        <service id="sulu_snippet.cache_invalidation_subscriber" class="Sulu\Bundle\SnippetBundle\EventListener\CacheInvalidationSubscriber">
+            <argument type="service" id="sulu_snippet.default_snippet.manager"/>
+            <argument type="service" id="sulu_http_cache.cache_manager" on-invalid="null"/>
+            <argument>%sulu_snippet.areas%</argument>
+
+            <tag name="kernel.event_subscriber"/>
         </service>
 
         <!-- domain events -->

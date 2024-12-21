@@ -35,9 +35,8 @@ class Analytics implements AnalyticsInterface
 
     /**
      * @var mixed
-     *
-     * @Exclude
      */
+    #[Exclude]
     private $content;
 
     /**
@@ -51,10 +50,9 @@ class Analytics implements AnalyticsInterface
     private $webspaceKey;
 
     /**
-     * @var Collection|Domain[]
-     *
-     * @Exclude
+     * @var Collection<int, Domain>
      */
+    #[Exclude]
     private $domains;
 
     public function __construct()
@@ -153,8 +151,9 @@ class Analytics implements AnalyticsInterface
     }
 
     /**
-     * @VirtualProperty
+     * @return Collection<int, string>|null
      */
+    #[VirtualProperty]
     public function getDomains(): ?Collection
     {
         if (0 === \count($this->domains)) {

@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\HttpCacheBundle\Tests\Unit\EventListener;
+namespace Sulu\Bundle\AudienceTargetingBundle\Tests\Unit\EventListener;
 
 use FOS\HttpCache\SymfonyCache\CacheEvent;
 use PHPUnit\Framework\TestCase;

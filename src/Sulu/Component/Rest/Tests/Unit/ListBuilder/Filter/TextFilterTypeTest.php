@@ -47,9 +47,7 @@ class TextFilterTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFilter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilter')]
     public function testFilter($fieldName, $value, $expectedOperator, $expectedValue): void
     {
         $fieldDescriptor = $this->prophesize(FieldDescriptor::class);

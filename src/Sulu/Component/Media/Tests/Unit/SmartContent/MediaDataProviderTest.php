@@ -40,8 +40,9 @@ use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
 use Sulu\Component\Webspace\Security as WebspaceSecurity;
 use Sulu\Component\Webspace\Webspace;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MediaDataProviderTest extends TestCase
@@ -80,7 +81,7 @@ class MediaDataProviderTest extends TestCase
     private $mediaDataProvider;
 
     /**
-     * @var ObjectProphecy<Security>
+     * @var ObjectProphecy<Security|SymfonyCoreSecurity>
      */
     private $security;
 
@@ -96,7 +97,7 @@ class MediaDataProviderTest extends TestCase
         $this->serializer = $this->prophesize(ArraySerializerInterface::class);
         $this->requestStack = $this->prophesize(RequestStack::class);
         $this->referenceStore = $this->prophesize(ReferenceStoreInterface::class);
-        $this->security = $this->prophesize(Security::class);
+        $this->security = $this->prophesize(\class_exists(Security::class) ? Security::class : SymfonyCoreSecurity::class);
         $this->requestAnalyzer = $this->prophesize(RequestAnalyzerInterface::class);
 
         $this->mediaDataProvider = new MediaDataProvider(
@@ -261,9 +262,7 @@ class MediaDataProviderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataItemsDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataItemsDataProvider')]
     public function testResolveDataItems($filters, $limit, $page, $pageSize, $repositoryResult, $hasNextPage, $items): void
     {
         $this->dataProviderRepository
@@ -369,9 +368,7 @@ class MediaDataProviderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider resourceItemsDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('resourceItemsDataProvider')]
     public function testResolveResourceItems(
         $filters,
         $limit,

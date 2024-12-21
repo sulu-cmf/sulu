@@ -124,6 +124,9 @@ class SuluDocumentManagerExtension extends Extension implements PrependExtension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        /** @var array<string, class-string> $bundles */
+        $bundles = $container->getParameter('kernel.bundles');
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -140,6 +143,10 @@ class SuluDocumentManagerExtension extends Extension implements PrependExtension
 
         if ($config['versioning']['enabled']) {
             $loader->load('versioning.xml');
+        }
+
+        if (\array_key_exists('SuluReferenceBundle', $bundles)) {
+            $loader->load('services_reference.xml');
         }
     }
 

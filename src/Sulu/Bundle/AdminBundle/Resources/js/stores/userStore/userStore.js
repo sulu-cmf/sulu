@@ -19,9 +19,11 @@ class UserStore {
     @observable loggedIn: boolean = false;
     @observable loading: boolean = false;
     @observable loginError: boolean = false;
+    @observable loginMethod: string = '';
     @observable forgotPasswordSuccess: boolean = false;
     @observable twoFactorMethods: Array<string> = [];
     @observable twoFactorError: boolean = false;
+    @observable redirectUrl: string = '';
 
     @action clear() {
         this.persistentSettings = new Map();
@@ -30,9 +32,11 @@ class UserStore {
         this.user = undefined;
         this.contact = undefined;
         this.loginError = false;
+        this.loginMethod = '';
         this.forgotPasswordSuccess = false;
         this.twoFactorMethods = [];
         this.twoFactorError = false;
+        this.redirectUrl = '';
     }
 
     @computed get systemLocale() {
@@ -51,6 +55,10 @@ class UserStore {
         this.loginError = loginError;
     }
 
+    @action setLoginMethod(loginMethod: string) {
+        this.loginMethod = loginMethod;
+    }
+
     @action setForgotPasswordSuccess(forgotPasswordSuccess: boolean) {
         this.forgotPasswordSuccess = forgotPasswordSuccess;
     }
@@ -61,6 +69,10 @@ class UserStore {
 
     @action setTwoFactorError(twoFactorError: boolean) {
         this.twoFactorError = twoFactorError;
+    }
+
+    @action setRedirectUrl(redirectUrl: string) {
+        this.redirectUrl = redirectUrl;
     }
 
     @computed get contentLocale(): string {
@@ -106,6 +118,19 @@ class UserStore {
     handleLogin = (data: Object) => {
         this.setTwoFactorMethods([]);
 
+        if (data.method === 'redirect' && data.url) {
+            this.setRedirectUrl(data.url);
+
+            return;
+        }
+
+        if (data.method === 'json_login') {
+            this.setLoginMethod(data.method);
+            this.setLoading(false);
+
+            return;
+        }
+
         if (data.completed === false) {
             this.setLoading(false);
 
@@ -130,6 +155,10 @@ class UserStore {
             this.clear();
         }
 
+        if (this.loginMethod === 'json_login') {
+            this.clear();
+        }
+
         this.setLoading(true);
         return initializer.initialize(true).then(() => {
             this.setLoading(false);
@@ -145,6 +174,10 @@ class UserStore {
                 this.setLoading(false);
                 if (error.status !== 401) {
                     return Promise.reject(error);
+                }
+
+                if (this.loginMethod === 'json_login') {
+                    this.clear();
                 }
 
                 this.setLoginError(true);
@@ -170,7 +203,13 @@ class UserStore {
         this.setLoading(true);
 
         return Requester.post(Config.endpoints.forgotPasswordReset, data)
-            .then(() => {
+            .then((data) => {
+                if (data.method === 'redirect' && data.url) {
+                    this.setRedirectUrl(data.url);
+
+                    return;
+                }
+
                 this.setLoading(false);
                 this.setForgotPasswordSuccess(true);
             })
@@ -233,6 +272,10 @@ class UserStore {
         }
 
         return new RegExp(pattern).test(password);
+    }
+
+    hasSingleSignOn() {
+        return Config.endpoints.has_single_sign_on;
     }
 }
 

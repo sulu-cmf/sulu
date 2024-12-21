@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Functional\Entity;
+namespace Sulu\Bundle\MediaBundle\Tests\Functional\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\MediaBundle\Entity\Collection;
@@ -159,9 +159,7 @@ class CollectionRepositoryTest extends SuluTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideTreeData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTreeData')]
     public function testTree($index, $expectedIndexes): void
     {
         $expected = [];

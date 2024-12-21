@@ -222,7 +222,7 @@ class AbstractRestControllerTest extends TestCase
 
         $id = 1;
         $deleteCallBack = function($id) {
-            throw new EntityNotFoundException('SuluCoreBundle:Example', 7);
+            throw new EntityNotFoundException('Sulu\Bundle\CoreBundle\Entity\Example', 7);
         };
 
         /** @var View $view */

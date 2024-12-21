@@ -56,7 +56,7 @@ class PagesSitemapProvider extends AbstractSitemapProvider
                 $portalInformation->getLocalization()->getLocale(),
                 $portalInformation->getPortalKey(),
                 MappingBuilder::create()
-                    ->addProperties(['changed', 'seo-hideInSitemap'])
+                    ->addProperties(['changed', 'seo-hideInSitemap', 'lastModified'])
                     ->setResolveUrl(true)
                     ->setHydrateGhost(false)
                     ->getMapping()
@@ -102,7 +102,7 @@ class PagesSitemapProvider extends AbstractSitemapProvider
         string $host,
         string $scheme
     ) {
-        $changed = $contentPage['changed'];
+        $changed = $contentPage['lastModified'] ?? $contentPage['changed'];
         if (\is_string($changed)) {
             $changed = new \DateTime($changed);
         }

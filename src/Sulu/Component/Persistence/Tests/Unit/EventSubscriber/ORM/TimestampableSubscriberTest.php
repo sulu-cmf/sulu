@@ -12,9 +12,9 @@
 namespace Sulu\Component\Persistence\Tests\Unit\EventSubscriber\ORM;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -32,7 +32,7 @@ class TimestampableSubscriberTest extends TestCase
     private $loadClassMetadataEvent;
 
     /**
-     * @var ObjectProphecy<LifecycleEventArgs>
+     * @var ObjectProphecy<LifecycleEventArgs<EntityManager>>
      */
     private $lifecycleEvent;
 
@@ -95,9 +95,7 @@ class TimestampableSubscriberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideOnPreUpdate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideOnPreUpdate')]
     public function testOnPreUpdate($created): void
     {
         $entity = $this->timestampableObject->reveal();

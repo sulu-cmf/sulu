@@ -35,9 +35,7 @@ class HtmlTagExtractorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideTags
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTags')]
     public function testExtract($tag, $tagName, array $attributes): void
     {
         $html = '<html><body>' . $tag . '</body></html>';
@@ -74,9 +72,7 @@ class HtmlTagExtractorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideMultipleTags
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMultipleTags')]
     public function testExtractAll($html, array $counts): void
     {
         $extractor = new HtmlTagExtractor('sulu');
@@ -88,9 +84,7 @@ class HtmlTagExtractorTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider provideMultipleTags
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMultipleTags')]
     public function testCount($html, array $counts, $count): void
     {
         $extractor = new HtmlTagExtractor('sulu');

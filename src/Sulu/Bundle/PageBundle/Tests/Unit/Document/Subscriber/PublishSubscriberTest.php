@@ -380,11 +380,28 @@ class PublishSubscriberTest extends TestCase
         $document->getPath()->willReturn('/cmf/sulu');
 
         $event = $this->prophesize(PublishEvent::class);
+        $event->hasNode()->willReturn(false);
         $event->getDocument()->willReturn($document->reveal());
 
         $this->liveSession->getNode('/cmf/sulu')->willReturn($this->node->reveal());
 
         $event->setNode($this->node->reveal())->shouldBeCalled();
+
+        $this->publishSubscriber->setNodeFromPublicWorkspaceForPublishing($event->reveal());
+    }
+
+    public function testSetNodeFromPublicWorkspaceForPublishingAlreadySet(): void
+    {
+        $document = $this->prophesize(PathBehavior::class);
+        $document->getPath()->willReturn('/cmf/sulu');
+
+        $event = $this->prophesize(PublishEvent::class);
+        $event->hasNode()->willReturn(true);
+        $event->getDocument()->willReturn($document->reveal());
+
+        $this->liveSession->getNode('/cmf/sulu')->shouldNotBeCalled();
+
+        $event->setNode(Argument::any())->shouldNotBeCalled();
 
         $this->publishSubscriber->setNodeFromPublicWorkspaceForPublishing($event->reveal());
     }

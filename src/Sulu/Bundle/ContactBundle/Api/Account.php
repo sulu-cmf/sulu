@@ -35,9 +35,8 @@ use Sulu\Component\Rest\ApiWrapper;
 
 /**
  * The Account class which will be exported to the API.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class Account extends ApiWrapper
 {
     public const TYPE = 'account';
@@ -60,11 +59,10 @@ class Account extends ApiWrapper
      * Returns the id of the product.
      *
      * @return int
-     *
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getId()
     {
         return $this->entity->getId();
@@ -116,11 +114,10 @@ class Account extends ApiWrapper
      * Get depth.
      *
      * @return int
-     *
-     * @VirtualProperty
-     * @SerializedName("depth")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('depth')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getDepth()
     {
         return $this->entity->getDepth();
@@ -144,11 +141,10 @@ class Account extends ApiWrapper
      * Get name.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("name")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('name')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getName()
     {
         return $this->entity->getName();
@@ -158,11 +154,10 @@ class Account extends ApiWrapper
      * Get created.
      *
      * @return \DateTime
-     *
-     * @VirtualProperty
-     * @SerializedName("created")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('created')]
+    #[Groups(['fullAccount'])]
     public function getCreated()
     {
         return $this->entity->getCreated();
@@ -172,11 +167,10 @@ class Account extends ApiWrapper
      * Get changed.
      *
      * @return \DateTime
-     *
-     * @VirtualProperty
-     * @SerializedName("changed")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('changed')]
+    #[Groups(['fullAccount'])]
     public function getChanged()
     {
         return $this->entity->getChanged();
@@ -198,11 +192,10 @@ class Account extends ApiWrapper
      * Get parent.
      *
      * @return AccountInterface
-     *
-     * @VirtualProperty
-     * @SerializedName("parent")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('parent')]
+    #[Groups(['fullAccount'])]
     public function getParent()
     {
         $account = $this->entity->getParent();
@@ -329,11 +322,9 @@ class Account extends ApiWrapper
         return $this->entity->setNote($note);
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("note")
-     * @Groups({"fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('note')]
+    #[Groups(['fullAccount'])]
     public function getNote(): ?string
     {
         return $this->entity->getNote();
@@ -363,11 +354,10 @@ class Account extends ApiWrapper
      * Get notes.
      *
      * @return NoteEntity[]
-     *
-     * @VirtualProperty
-     * @SerializedName("notes")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('notes')]
+    #[Groups(['fullAccount'])]
     public function getNotes()
     {
         $notes = [];
@@ -380,11 +370,9 @@ class Account extends ApiWrapper
         return $notes;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("contactDetails")
-     * @Groups({"fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('contactDetails')]
+    #[Groups(['fullAccount'])]
     public function getContactDetails()
     {
         return [
@@ -488,11 +476,10 @@ class Account extends ApiWrapper
      * Get corporation.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("corporation")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('corporation')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getCorporation()
     {
         return $this->entity->getCorporation();
@@ -516,11 +503,10 @@ class Account extends ApiWrapper
      * Get uid.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("uid")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('uid')]
+    #[Groups(['fullAccount'])]
     public function getUid()
     {
         return $this->entity->getUid();
@@ -544,11 +530,10 @@ class Account extends ApiWrapper
      * Get registerNumber.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("registerNumber")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('registerNumber')]
+    #[Groups(['fullAccount'])]
     public function getRegisterNumber()
     {
         return $this->entity->getRegisterNumber();
@@ -578,11 +563,10 @@ class Account extends ApiWrapper
      * Get bankAccounts.
      *
      * @return BankAccountEntity[]
-     *
-     * @VirtualProperty
-     * @SerializedName("bankAccounts")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('bankAccounts')]
+    #[Groups(['fullAccount'])]
     public function getBankAccounts()
     {
         $bankAccounts = [];
@@ -620,11 +604,10 @@ class Account extends ApiWrapper
      * Get tags.
      *
      * @return TagInterface[]
-     *
-     * @VirtualProperty
-     * @SerializedName("tags")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('tags')]
+    #[Groups(['fullAccount'])]
     public function getTags()
     {
         return $this->entity->getTagNameArray();
@@ -654,11 +637,10 @@ class Account extends ApiWrapper
      * Get accountContacts.
      *
      * @return AccountContact[]
-     *
-     * @VirtualProperty
-     * @SerializedName("accountContacts")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('accountContacts')]
+    #[Groups(['fullAccount'])]
     public function getAccountContacts()
     {
         $accountContacts = [];
@@ -689,11 +671,10 @@ class Account extends ApiWrapper
      * Get placeOfJurisdiction.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("placeOfJurisdiction")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('placeOfJurisdiction')]
+    #[Groups(['fullAccount'])]
     public function getPlaceOfJurisdiction()
     {
         return $this->entity->getPlaceOfJurisdiction();
@@ -717,11 +698,10 @@ class Account extends ApiWrapper
      * Get number.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("number")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('number')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getNumber()
     {
         return $this->entity->getNumber();
@@ -745,11 +725,10 @@ class Account extends ApiWrapper
      * Get externalId.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("externalId")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('externalId')]
+    #[Groups(['fullAccount'])]
     public function getExternalId()
     {
         return $this->entity->GetExternalId();
@@ -771,11 +750,10 @@ class Account extends ApiWrapper
      * Get mainContact.
      *
      * @return Account
-     *
-     * @VirtualProperty
-     * @SerializedName("mainContact")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('mainContact')]
+    #[Groups(['fullAccount'])]
     public function getMainContact()
     {
         if ($this->entity->getMainContact()) {
@@ -803,11 +781,10 @@ class Account extends ApiWrapper
      * Get mainEmail.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("mainEmail")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('mainEmail')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getMainEmail()
     {
         return $this->entity->getMainEmail();
@@ -831,11 +808,10 @@ class Account extends ApiWrapper
      * Get mainPhone.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("mainPhone")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('mainPhone')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getMainPhone()
     {
         return $this->entity->getMainPhone();
@@ -859,11 +835,10 @@ class Account extends ApiWrapper
      * Get mainFax.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("mainFax")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('mainFax')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getMainFax()
     {
         return $this->entity->getMainFax();
@@ -887,11 +862,10 @@ class Account extends ApiWrapper
      * Get mainUrl.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("mainUrl")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('mainUrl')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getMainUrl()
     {
         return $this->entity->getMainUrl();
@@ -921,10 +895,9 @@ class Account extends ApiWrapper
      * Get accountAddresses.
      *
      * @return AccountAddress[]
-     *
-     * @VirtualProperty
-     * @SerializedName("accountAddresses")
      */
+    #[VirtualProperty]
+    #[SerializedName('accountAddresses')]
     public function getAccountAddresses()
     {
         $accountAddresses = [];
@@ -939,11 +912,10 @@ class Account extends ApiWrapper
 
     /**
      * returns addresses.
-     *
-     * @VirtualProperty
-     * @SerializedName("addresses")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('addresses')]
+    #[Groups(['fullAccount'])]
     public function getAddresses()
     {
         $accountAddresses = $this->entity->getAccountAddresses();
@@ -963,11 +935,10 @@ class Account extends ApiWrapper
 
     /**
      * Returns the main address.
-     *
-     * @VirtualProperty
-     * @SerializedName("mainAddress")
-     * @Groups({"fullAccount", "partialAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('mainAddress')]
+    #[Groups(['fullAccount', 'partialAccount'])]
     public function getMainAddress()
     {
         $accountAddresses = $this->entity->getAccountAddresses();
@@ -988,11 +959,10 @@ class Account extends ApiWrapper
      * Get contacts.
      *
      * @return Contact[]
-     *
-     * @VirtualProperty
-     * @SerializedName("contacts")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('contacts')]
+    #[Groups(['fullAccount'])]
     public function getContacts()
     {
         $accountContacts = $this->entity->getAccountContacts();
@@ -1020,11 +990,10 @@ class Account extends ApiWrapper
      * Get the accounts logo and return the array of different formats.
      *
      * @return Media
-     *
-     * @VirtualProperty
-     * @SerializedName("logo")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('logo')]
+    #[Groups(['fullAccount'])]
     public function getLogo()
     {
         if ($this->logo) {
@@ -1062,11 +1031,10 @@ class Account extends ApiWrapper
      * Get medias.
      *
      * @return Media[]
-     *
-     * @VirtualProperty
-     * @SerializedName("medias")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('medias')]
+    #[Groups(['fullAccount'])]
     public function getMedias()
     {
         $medias = [];
@@ -1083,11 +1051,10 @@ class Account extends ApiWrapper
      * Get categories.
      *
      * @return Category[]
-     *
-     * @VirtualProperty
-     * @SerializedName("categories")
-     * @Groups({"fullAccount"})
      */
+    #[VirtualProperty]
+    #[SerializedName('categories')]
+    #[Groups(['fullAccount'])]
     public function getCategories()
     {
         return \array_map(function($category) {
@@ -1098,10 +1065,9 @@ class Account extends ApiWrapper
     /**
      * Get type of api entity.
      *
-     * @VirtualProperty
-     *
      * @return string
      */
+    #[VirtualProperty]
     public function getType()
     {
         return self::TYPE;

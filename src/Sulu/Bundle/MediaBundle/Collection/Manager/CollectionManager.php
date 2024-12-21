@@ -47,11 +47,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class CollectionManager implements CollectionManagerInterface
 {
-    private static $entityName = 'SuluMediaBundle:Collection';
+    private static $entityName = \Sulu\Bundle\MediaBundle\Entity\Collection::class;
 
-    private static $entityCollectionType = 'SuluMediaBundle:Collection';
+    private static $entityCollectionType = \Sulu\Bundle\MediaBundle\Entity\Collection::class;
 
-    private static $entityCollectionMeta = 'SuluMediaBUndle:CollectionMeta';
+    private static $entityCollectionMeta = \Sulu\Bundle\MediaBundle\Entity\CollectionMeta::class;
 
     private static $entityUser = UserInterface::class;
 
@@ -515,7 +515,7 @@ class CollectionManager implements CollectionManagerInterface
     protected function getTypeById($typeId)
     {
         /** @var CollectionType $type */
-        $type = $this->em->getRepository('SuluMediaBundle:CollectionType')->find($typeId);
+        $type = $this->em->getRepository(CollectionType::class)->find($typeId);
         if (!$type) {
             throw new CollectionTypeNotFoundException('Collection Type with the ID ' . $typeId . ' not found');
         }

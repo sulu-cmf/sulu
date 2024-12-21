@@ -4,6 +4,7 @@
     <parameters>
         <parameter key="sulu_location.geolocator.nominatim.class">Sulu\Bundle\LocationBundle\Geolocator\Service\NominatimGeolocator</parameter>
         <parameter key="sulu_location.geolocator.google.class">Sulu\Bundle\LocationBundle\Geolocator\Service\GoogleGeolocator</parameter>
+        <parameter key="sulu_location.geolocator.mapquest.class">Sulu\Bundle\LocationBundle\Geolocator\Service\MapquestGeolocator</parameter>
     </parameters>
 
     <services>
@@ -19,6 +20,13 @@
         <service id="sulu_location.geolocator.service.google" class="%sulu_location.geolocator.google.class%">
             <argument type="service" id="http_client" />
             <argument>%sulu_location.geolocator.service.google.api_key%</argument>
+        </service>
+
+        <!-- * Mapquest * -->
+        <service id="sulu_location.geolocator.service.mapquest" class="%sulu_location.geolocator.mapquest.class%">
+            <argument type="service" id="http_client" />
+            <argument>%sulu_location.geolocator.service.mapquest.endpoint%</argument>
+            <argument>%sulu_location.geolocator.service.mapquest.api_key%</argument>
         </service>
     </services>
 </container>

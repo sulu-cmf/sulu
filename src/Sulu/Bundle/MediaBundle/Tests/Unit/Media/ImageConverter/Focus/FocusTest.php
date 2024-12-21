@@ -32,9 +32,7 @@ class FocusTest extends TestCase
         $this->focus = new Focus();
     }
 
-    /**
-     * @dataProvider provideFocus
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFocus')]
     public function testFocus($imageWidth, $imageHeight, $x, $y, $width, $height, $cropX, $cropY, $cropWidth, $cropHeight): void
     {
         $image = $this->prophesize(ImageInterface::class);

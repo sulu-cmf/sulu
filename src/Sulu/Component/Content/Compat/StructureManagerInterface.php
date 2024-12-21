@@ -12,12 +12,11 @@
 namespace Sulu\Component\Content\Compat;
 
 use Sulu\Component\Content\Metadata\StructureMetadata;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * Interface of StructureManager.
  */
-interface StructureManagerInterface extends ContainerAwareInterface
+interface StructureManagerInterface
 {
     /**
      * Returns structure for given key and type.

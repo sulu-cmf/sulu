@@ -4,6 +4,7 @@ import listItemActionRegistry from './registries/listItemActionRegistry';
 import listToolbarActionRegistry from './registries/listToolbarActionRegistry';
 import AbstractListItemAction from './itemActions/AbstractListItemAction';
 import LinkItemAction from './itemActions/LinkItemAction';
+import DetailLinkItemAction from './itemActions/DetailLinkItemAction';
 import AbstractListToolbarAction from './toolbarActions/AbstractListToolbarAction';
 import AddToolbarAction from './toolbarActions/AddToolbarAction';
 import DeleteToolbarAction from './toolbarActions/DeleteToolbarAction';
@@ -21,6 +22,7 @@ export {
     AddToolbarAction,
     DeleteToolbarAction,
     LinkItemAction,
+    DetailLinkItemAction,
     MoveToolbarAction,
     ExportToolbarAction,
     UploadToolbarAction,

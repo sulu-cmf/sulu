@@ -35,6 +35,8 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
+     * For Symfony <= 5.4.
+     *
      * @return UserInterface
      */
     public function loadUserByUsername($username)
@@ -74,7 +76,7 @@ class UserProvider implements UserProviderInterface
         throw new UserNotFoundException($exceptionMessage, 0);
     }
 
-    public function refreshUser(BaseUserInterface $user)
+    public function refreshUser(BaseUserInterface $user): UserInterface
     {
         $class = \get_class($user);
         if (!$this->supportsClass($class)) {
@@ -99,7 +101,7 @@ class UserProvider implements UserProviderInterface
         return $user;
     }
 
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         return \is_subclass_of($class, UserInterface::class);
     }

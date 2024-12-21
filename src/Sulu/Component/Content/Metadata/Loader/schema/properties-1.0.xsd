@@ -44,6 +44,7 @@
             </xs:element>
         </xs:sequence>
         <xs:attribute name="key" type="xs:string" use="required"/>
+        <xs:attribute name="cache-invalidation" type="xs:boolean" default="true"/>
     </xs:complexType>
 
     <xs:complexType name="langType">
@@ -138,12 +139,13 @@
     </xs:complexType>
 
     <xs:complexType name="blockTypeType">
-        <xs:sequence minOccurs="1" maxOccurs="1">
+        <xs:sequence minOccurs="0" maxOccurs="1">
             <xs:element type="metaType" name="meta" minOccurs="0" maxOccurs="1"/>
             <xs:element type="propertiesType" name="properties" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
 
-        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="ref"/>
         <xs:attributeGroup ref="defaultAttributes"/>
     </xs:complexType>
 

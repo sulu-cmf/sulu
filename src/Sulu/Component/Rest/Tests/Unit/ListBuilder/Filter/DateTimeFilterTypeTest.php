@@ -47,9 +47,7 @@ class DateTimeFilterTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFilter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilter')]
     public function testFilter($fieldName, $value, $expected): void
     {
         $fieldDescriptor = $this->prophesize(FieldDescriptor::class);
@@ -73,9 +71,7 @@ class DateTimeFilterTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFilterFromOnly
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilterFromOnly')]
     public function testFilterFromOnly($fieldName, $value, $expected): void
     {
         $fieldDescriptor = $this->prophesize(FieldDescriptor::class);
@@ -95,9 +91,7 @@ class DateTimeFilterTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFilterToOnly
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilterToOnly')]
     public function testFilterToOnly($fieldName, $value, $expected): void
     {
         $fieldDescriptor = $this->prophesize(FieldDescriptor::class);
@@ -117,9 +111,7 @@ class DateTimeFilterTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFilterWithInvalidOptions
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilterWithInvalidOptions')]
     public function testFilterWithInvalidOptions($value): void
     {
         $this->expectException(InvalidFilterTypeOptionsException::class);

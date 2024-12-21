@@ -13,6 +13,8 @@ namespace Sulu\Bundle\SecurityBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\SecurityBundle\Domain\Event\UserPasswordResettedEvent;
 use Sulu\Bundle\SecurityBundle\Entity\User;
@@ -30,7 +32,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -52,8 +54,13 @@ class ResettingController
     protected static $resetRouteId = 'sulu_admin';
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param PasswordHasherFactoryInterface|EncoderFactoryInterface $passwordHasherFactory
-     * @param Mailer|\Swift_Mailer $mailer
+     * @param MailerInterface|\Swift_Mailer $mailer
      */
     public function __construct(
         protected ValidatorInterface $validator,
@@ -75,8 +82,10 @@ class ResettingController
         protected string $mailTemplate,
         protected string $tokenSendLimit,
         protected string $adminMail,
-        protected string $secret
+        protected string $secret,
+        ?LoggerInterface $logger = null,
     ) {
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -125,8 +134,10 @@ class ResettingController
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+        } catch (TokenEmailsLimitReachedException|EntityNotFoundException|UserNotInSystemException $ex) {
+            $this->logger->debug($ex->getMessage(), ['exception' => $ex]);
         } catch (\Exception $ex) {
-            // do nothing
+            $this->logger->error($ex->getMessage(), ['exception' => $ex]);
         }
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);

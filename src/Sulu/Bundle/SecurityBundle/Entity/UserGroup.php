@@ -69,10 +69,9 @@ class UserGroup extends ApiEntity
      * Get Locales as array.
      *
      * @return array
-     *
-     * @VirtualProperty
-     * @SerializedName("locales")
      */
+    #[VirtualProperty]
+    #[SerializedName('locales')]
     public function getLocales()
     {
         return \json_decode($this->locale);

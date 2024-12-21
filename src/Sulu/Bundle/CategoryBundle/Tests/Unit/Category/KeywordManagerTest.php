@@ -40,9 +40,7 @@ class KeywordManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideSaveData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSaveData')]
     public function testSave($exists = false, $has = false, $keywordString = 'Test', $locale = 'de'): void
     {
         $repository = $this->prophesize(KeywordRepositoryInterface::class);
@@ -162,9 +160,7 @@ class KeywordManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideDeleteData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDeleteData')]
     public function testDelete($referenced = false, $keywordString = 'Test', $locale = 'de'): void
     {
         $repository = $this->prophesize(KeywordRepositoryInterface::class);

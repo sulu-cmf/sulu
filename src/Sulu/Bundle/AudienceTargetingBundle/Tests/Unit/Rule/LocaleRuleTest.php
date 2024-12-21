@@ -53,9 +53,7 @@ class LocaleRuleTest extends TestCase
         $this->localeRule = new LocaleRule($this->requestStack->reveal(), $this->translator->reveal());
     }
 
-    /**
-     * @dataProvider provideEvaluationData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideEvaluationData')]
     public function testEvaluate($languages, $options, $result): void
     {
         $this->request->getLanguages()->willReturn($languages);

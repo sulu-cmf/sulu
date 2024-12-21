@@ -13,9 +13,9 @@ namespace Sulu\Bundle\CoreBundle\Build;
 
 use Massive\Bundle\BuildBundle\Build\BuilderContext;
 use Massive\Bundle\BuildBundle\Build\BuilderInterface;
+use Massive\Bundle\BuildBundle\ContainerAwareInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

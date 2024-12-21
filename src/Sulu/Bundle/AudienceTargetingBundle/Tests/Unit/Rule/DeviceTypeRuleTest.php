@@ -44,9 +44,7 @@ class DeviceTypeRuleTest extends TestCase
         $this->deviceTypeRule = new DeviceTypeRule($this->deviceDetector->reveal(), $this->translator->reveal());
     }
 
-    /**
-     * @dataProvider provideEvaluate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideEvaluate')]
     public function testEvaluate($deviceType, $options, $result): void
     {
         $this->deviceDetector->isDesktop()->willReturn(DeviceTypeRule::DESKTOP === $deviceType);

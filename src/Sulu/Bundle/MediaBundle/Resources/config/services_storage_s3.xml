@@ -27,6 +27,7 @@
         <service id="sulu_media.storage.s3" class="Sulu\Bundle\MediaBundle\Media\Storage\S3Storage">
             <argument type="service" id="sulu_media.storage.s3.filesystem"/>
             <argument>%sulu_media.media.storage.s3.segments%</argument>
+            <argument type="string">%sulu_media.media.storage.s3.public_url%</argument>
         </service>
     </services>
 </container>

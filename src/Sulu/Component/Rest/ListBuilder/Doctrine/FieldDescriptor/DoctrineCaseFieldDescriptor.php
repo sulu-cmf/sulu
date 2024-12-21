@@ -16,9 +16,8 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 /**
  * This class defines the necessary information for a field to resolve it within a Doctrine Query for the ListBuilder.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class DoctrineCaseFieldDescriptor extends AbstractDoctrineFieldDescriptor
 {
     public function __construct(

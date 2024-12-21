@@ -168,9 +168,7 @@ class AnalyticsManagerTest extends BaseFunctional
         ];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testCreate($webspaceKey, array $data): void
     {
         $result = $this->analyticsManager->create($webspaceKey, $data);
@@ -211,9 +209,7 @@ class AnalyticsManagerTest extends BaseFunctional
         );
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testUpdate($webspaceKey, array $data): void
     {
         $id = $this->entities[0]->getId();

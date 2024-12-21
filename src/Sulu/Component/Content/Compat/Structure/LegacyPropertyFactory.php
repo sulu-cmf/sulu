@@ -17,14 +17,16 @@ use Sulu\Component\Content\Compat\Property as LegacyProperty;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\PropertyParameter;
 use Sulu\Component\Content\Compat\PropertyTag;
-use Sulu\Component\Content\Compat\PropertyType;
 use Sulu\Component\Content\Compat\Section\SectionProperty;
 use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Component\Content\Mapper\Translation\TranslatedProperty;
 use Sulu\Component\Content\Metadata\BlockMetadata;
+use Sulu\Component\Content\Metadata\ComponentMetadata;
+use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\Content\Metadata\ItemMetadata;
 use Sulu\Component\Content\Metadata\PropertyMetadata;
 use Sulu\Component\Content\Metadata\SectionMetadata;
+use Sulu\Component\Content\Metadata\StructureMetadata;
 use Sulu\Component\DocumentManager\NamespaceRegistry;
 
 /**
@@ -34,8 +36,20 @@ use Sulu\Component\DocumentManager\NamespaceRegistry;
  */
 class LegacyPropertyFactory
 {
-    public function __construct(private NamespaceRegistry $namespaceRegistry)
-    {
+    public function __construct(
+        private NamespaceRegistry $namespaceRegistry,
+        private ?StructureMetadataFactoryInterface $structureFactory = null
+    ) {
+        if (!$this->structureFactory) {
+            @trigger_deprecation(
+                'sulu/sulu',
+                '2.6',
+                \sprintf(
+                    'The usage of the "%s" without the service the "sulu_page.structure.factory" is deprecated and will not longer work in Sulu 3.0.',
+                    self::class
+                )
+            );
+        }
     }
 
     /**
@@ -51,13 +65,12 @@ class LegacyPropertyFactory
         if ($property instanceof ItemMetadata) {
             $property = $this->createProperty($property, $structure);
         }
-        $property = new TranslatedProperty(
+
+        return new TranslatedProperty(
             $property,
             $locale,
             $this->namespaceRegistry->getPrefix('content_localized')
         );
-
-        return $property;
     }
 
     /**
@@ -117,19 +130,13 @@ class LegacyPropertyFactory
         }
 
         foreach ($property->getComponents() as $component) {
-            $propertyType = new PropertyType(
-                $component->getName(),
-                [
-                    'title' => $component->getTitles(),
-                    'info_text' => $component->getDescriptions(),
-                ]
-            );
+            if ($component->hasTag('sulu.global_block')) {
+                $propertyBridge->addType($this->createReferenceType($component, $structure));
 
-            foreach ($component->getChildren() as $property) {
-                $propertyType->addChild($this->createProperty($property, $structure));
+                continue;
             }
 
-            $propertyBridge->addType($propertyType);
+            $propertyBridge->addType($this->createType($component, $structure));
         }
         $propertyBridge->setStructure($structure);
 
@@ -190,21 +197,65 @@ class LegacyPropertyFactory
         $blockProperty->setStructure($structure);
 
         foreach ($property->getComponents() as $component) {
-            $blockPropertyType = new BlockPropertyType(
-                $component->getName(),
-                [
-                    'title' => $component->getTitles(),
-                    'info_text' => $component->getDescriptions(),
-                ]
-            );
+            if ($component->hasTag('sulu.global_block')) {
+                $blockProperty->addType($this->createReferenceType($component, $structure));
 
-            foreach ($component->getChildren() as $property) {
-                $blockPropertyType->addChild($this->createProperty($property, $structure));
+                continue;
             }
 
-            $blockProperty->addType($blockPropertyType);
+            $blockProperty->addType($this->createType($component, $structure));
         }
 
         return $blockProperty;
+    }
+
+    private function createReferenceType(ComponentMetadata $component, ?StructureInterface $structure = null): BlockPropertyType
+    {
+        if (!$this->structureFactory) {
+            throw new \RuntimeException('The required service "sulu_page.structure.factory" was not injected.');
+        }
+
+        /** @var StructureMetadata $structureMetadata */
+        $structureMetadata = $this->structureFactory->getStructureMetadata('block', $component->getName());
+        if (!$structureMetadata) {
+            throw new \InvalidArgumentException(
+                \sprintf('Global block with name "%s" was not found!', $component->getName())
+            );
+        }
+
+        if ($structure) {
+            $propertyType = new BlockPropertyType(
+                $component->getName(),
+                [
+                    'title' => $structureMetadata->getTitle($structure->getLanguageCode()),
+                    'info_text' => $structureMetadata->getDescription($structure->getLanguageCode()),
+                ]
+            );
+        } else {
+            $propertyType = new BlockPropertyType($component->getName(), []);
+        }
+
+        foreach ($structureMetadata->getProperties() as $property) {
+            $propertyType->addChild($this->createProperty($property, $structure));
+        }
+
+        return $propertyType;
+    }
+
+    public function createType(ComponentMetadata $component, ?StructureInterface $structure = null): BlockPropertyType
+    {
+        $propertyType = new BlockPropertyType(
+            $component->getName(),
+            [
+                'title' => $component->getTitles(),
+                'info_text' => $component->getDescriptions(),
+            ]
+        );
+
+        foreach ($component->getChildren() as $property) {
+            $propertyType->addChild($this->createProperty($property, $structure));
+        }
+
+        return $propertyType;
     }
 }

@@ -39,9 +39,7 @@ class QueryStringRuleTest extends TestCase
         $this->translator = $this->prophesize(TranslatorInterface::class);
     }
 
-    /**
-     * @dataProvider provideEvaluate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideEvaluate')]
     public function testEvaluate($url, $urlHeader, $urlHeaderValue, $options, $result): void
     {
         $queryStringRule = new QueryStringRule($this->requestStack->reveal(), $this->translator->reveal(), $urlHeader);

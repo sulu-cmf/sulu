@@ -57,29 +57,29 @@ abstract class AbstractContactManager implements ContactManagerInterface
 {
     use RelationTrait;
 
-    protected static $accountContactEntityName = 'SuluContactBundle:AccountContact';
+    protected static $accountContactEntityName = AccountContact::class;
 
-    protected static $positionEntityName = 'SuluContactBundle:Position';
+    protected static $positionEntityName = Position::class;
 
-    protected static $addressTypeEntityName = 'SuluContactBundle:AddressType';
+    protected static $addressTypeEntityName = AddressType::class;
 
-    protected static $urlTypeEntityName = 'SuluContactBundle:UrlType';
+    protected static $urlTypeEntityName = UrlType::class;
 
-    protected static $emailTypeEntityName = 'SuluContactBundle:EmailType';
+    protected static $emailTypeEntityName = EmailType::class;
 
-    protected static $faxTypeEntityName = 'SuluContactBundle:FaxType';
+    protected static $faxTypeEntityName = FaxType::class;
 
-    protected static $socialMediaProfileTypeEntityName = 'SuluContactBundle:SocialMediaProfileType';
+    protected static $socialMediaProfileTypeEntityName = SocialMediaProfileType::class;
 
-    protected static $phoneTypeEntityName = 'SuluContactBundle:PhoneType';
+    protected static $phoneTypeEntityName = PhoneType::class;
 
-    protected static $addressEntityName = 'SuluContactBundle:Address';
+    protected static $addressEntityName = Address::class;
 
-    protected static $emailEntityName = 'SuluContactBundle:Email';
+    protected static $emailEntityName = Email::class;
 
-    protected static $urlEntityName = 'SuluContactBundle:Url';
+    protected static $urlEntityName = Url::class;
 
-    protected static $phoneEntityName = 'SuluContactBundle:Phone';
+    protected static $phoneEntityName = Phone::class;
 
     protected static $categoryEntityName = CategoryInterface::class;
 
@@ -1071,7 +1071,7 @@ abstract class AbstractContactManager implements ContactManagerInterface
      */
     protected function addFax($contact, $faxData)
     {
-        $faxEntity = 'SuluContactBundle:Fax';
+        $faxEntity = Fax::class;
 
         $faxType = $this->em
             ->getRepository(self::$faxTypeEntityName)
@@ -1170,7 +1170,7 @@ abstract class AbstractContactManager implements ContactManagerInterface
      */
     protected function addSocialMediaProfile($contact, $socialMediaProfileData)
     {
-        $socialMediaProfileEntity = 'SuluContactBundle:SocialMediaProfile';
+        $socialMediaProfileEntity = SocialMediaProfile::class;
 
         $socialMediaProfileType = $this->em
             ->getRepository(self::$socialMediaProfileTypeEntityName)
@@ -1466,7 +1466,7 @@ abstract class AbstractContactManager implements ContactManagerInterface
      */
     protected function addNote($contact, $noteData)
     {
-        $noteEntity = 'SuluContactBundle:Note';
+        $noteEntity = Note::class;
 
         if (isset($noteData['id'])) {
             throw new EntityIdAlreadySetException($noteEntity, $noteData['id']);
@@ -1612,7 +1612,7 @@ abstract class AbstractContactManager implements ContactManagerInterface
      */
     protected function addBankAccount($contact, $data = null)
     {
-        $entityName = 'SuluContactBundle:BankAccount';
+        $entityName = BankAccount::class;
 
         if (isset($data['id'])) {
             throw new EntityIdAlreadySetException($entityName, $data['id']);

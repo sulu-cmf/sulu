@@ -33,5 +33,12 @@
                 <title lang="en">Description</title>
             </meta>
         </property>
+
+        <property name="image" type="single_media_selection">
+            <meta>
+                <title lang="de">Bild</title>
+                <title lang="en">Image</title>
+            </meta>
+        </property>
     </properties>
 </template>

@@ -22,18 +22,16 @@ class ApiWrapper
      * the entity which is wrapped by this class.
      *
      * @var object
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $entity;
 
     /**
      * the locale in which the wrapped entity should be expressed.
      *
      * @var string
-     *
-     * @Exclude
      */
+    #[Exclude]
     protected $locale;
 
     public function getEntity()

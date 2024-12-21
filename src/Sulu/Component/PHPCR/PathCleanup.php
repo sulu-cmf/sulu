@@ -54,6 +54,15 @@ class PathCleanup implements PathCleanupInterface
             $slugger = new AsciiSlugger();
         }
 
+        if (\method_exists($slugger, 'withEmoji')) { // BC Layer <= Symfony 6.3
+            if (
+                !\method_exists(\Symfony\Component\String\AbstractUnicodeString::class, 'localeUpper') // BC Layer <= Symfony 7.0
+                || \class_exists(\Symfony\Component\Emoji\EmojiTransliterator::class) // Symfony >= 7.1 requires symfony/emoji
+            ) {
+                $slugger = $slugger->withEmoji();
+            }
+        }
+
         $this->replacers = $replacers;
         $this->slugger = $slugger;
     }
@@ -75,6 +84,7 @@ class PathCleanup implements PathCleanupInterface
                 $replacers,
                 isset($this->replacers[$languageCode]) ? $this->replacers[$languageCode] : []
             );
+            $languageCode = \str_replace('-', '_', $languageCode);
         }
 
         if (\count($replacers) > 0) {

@@ -11,13 +11,16 @@
 
 namespace Sulu\Bundle\DocumentManagerBundle\Tests\Unit\DataFixtures\fixtures;
 
+use Massive\Bundle\BuildBundle\ContainerAwareInterface;
 use Sulu\Bundle\DocumentManagerBundle\DataFixtures\DocumentFixtureInterface;
 use Sulu\Component\DocumentManager\DocumentManager;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ContainerFixture implements DocumentFixtureInterface, ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface|null
+     */
     public $container;
 
     public function setContainer(?ContainerInterface $container = null): void

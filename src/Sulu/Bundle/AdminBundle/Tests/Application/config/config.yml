@@ -1,6 +1,4 @@
 security:
-    enable_authenticator_manager: true
-
     access_control:
         - { path: ^/admin/reset, roles: PUBLIC_ACCESS }
         - { path: ^/admin/security/reset, roles: PUBLIC_ACCESS }

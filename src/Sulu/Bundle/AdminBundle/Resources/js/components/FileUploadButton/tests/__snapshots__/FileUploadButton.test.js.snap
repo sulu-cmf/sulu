@@ -3,7 +3,7 @@
 exports[`Render a FileUploadButton 1`] = `
 <div>
   <div
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <button
@@ -17,9 +17,8 @@ exports[`Render a FileUploadButton 1`] = `
       </span>
     </button>
     <input
-      autocomplete="off"
       multiple=""
-      style="display: none;"
+      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       tabindex="-1"
       type="file"
     />
@@ -30,7 +29,7 @@ exports[`Render a FileUploadButton 1`] = `
 exports[`Render a FileUploadButton with other skin and icon 1`] = `
 <div>
   <div
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <button
@@ -48,9 +47,8 @@ exports[`Render a FileUploadButton with other skin and icon 1`] = `
       </span>
     </button>
     <input
-      autocomplete="off"
       multiple=""
-      style="display: none;"
+      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       tabindex="-1"
       type="file"
     />
@@ -61,7 +59,7 @@ exports[`Render a FileUploadButton with other skin and icon 1`] = `
 exports[`Render a disabled FileUploadButton 1`] = `
 <div>
   <div
-    role="button"
+    role="presentation"
     tabindex="0"
   >
     <button
@@ -76,9 +74,8 @@ exports[`Render a disabled FileUploadButton 1`] = `
       </span>
     </button>
     <input
-      autocomplete="off"
       multiple=""
-      style="display: none;"
+      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
       tabindex="-1"
       type="file"
     />

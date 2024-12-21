@@ -147,12 +147,13 @@ class AdminControllerTest extends SuluTestCase
         $this->client->jsonRequest('GET', '/admin/metadata/list/accounts');
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
-        $response = \json_decode($this->client->getResponse()->getContent());
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
 
-        $this->assertTrue(\property_exists($response, 'id'));
-        $this->assertTrue(\property_exists($response, 'name'));
-        $this->assertTrue(\property_exists($response, 'zip'));
-        $this->assertTrue(\property_exists($response, 'city'));
+        $this->assertIsArray($response);
+        $this->assertArrayHasKey('id', $response);
+        $this->assertArrayHasKey('name', $response);
+        $this->assertArrayHasKey('zip', $response);
+        $this->assertArrayHasKey('city', $response);
     }
 
     public function testContactFormMetadataAction(): void
@@ -162,16 +163,12 @@ class AdminControllerTest extends SuluTestCase
         $this->client->jsonRequest('GET', '/admin/metadata/form/contact_details');
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
-        $response = \json_decode($this->client->getResponse()->getContent());
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
 
-        $form = $response->form;
-
-        $this->assertTrue(\property_exists($form, 'avatar'));
-        $this->assertTrue(\property_exists($form, 'contact'));
-
-        $schema = $response->schema;
-
-        $this->assertEquals(['firstName', 'lastName', 'formOfAddress'], $schema->required);
+        $this->assertIsArray($response);
+        $this->assertArrayHasKey('avatar', $response['form']);
+        $this->assertArrayHasKey('contact', $response['form']);
+        $this->assertEquals(['firstName', 'lastName', 'formOfAddress'], $response['schema']['required']);
     }
 
     public function testAccountFormMetadataAction(): void
@@ -181,16 +178,15 @@ class AdminControllerTest extends SuluTestCase
         $this->client->jsonRequest('GET', '/admin/metadata/form/account_details');
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
-        $response = \json_decode($this->client->getResponse()->getContent());
+        $response = \json_decode($this->client->getResponse()->getContent(), true);
 
-        $form = $response->form;
+        $this->assertIsArray($response);
+        $form = $response['form'];
+        $this->assertArrayHasKey('logo', $form);
+        $this->assertArrayHasKey('account', $form);
 
-        $this->assertTrue(\property_exists($form, 'logo'));
-        $this->assertTrue(\property_exists($form, 'account'));
-
-        $schema = $response->schema;
-
-        $this->assertEquals(['name'], $schema->required);
+        $schema = $response['schema'];
+        $this->assertEquals(['name'], $schema['required']);
     }
 
     private function createCollectionTypes(): void

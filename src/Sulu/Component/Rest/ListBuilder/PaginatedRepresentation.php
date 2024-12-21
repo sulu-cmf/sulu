@@ -14,10 +14,9 @@ namespace Sulu\Component\Rest\ListBuilder;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @Serializer\ExclusionPolicy("all")
- *
  * This class represents a list for our common rest services.
  */
+#[Serializer\ExclusionPolicy('all')]
 class PaginatedRepresentation extends CollectionRepresentation implements RepresentationInterface
 {
     /**

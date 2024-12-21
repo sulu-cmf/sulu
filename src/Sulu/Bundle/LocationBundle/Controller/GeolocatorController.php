@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\LocationBundle\Controller;
 
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorInterface;
+use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,8 +30,23 @@ class GeolocatorController
     {
         $query = $request->get('search', '');
 
-        $res = $this->geolocator->locate($query);
+        $geolocatorOptions = new GeolocatorOptions();
+        $geolocatorOptions->setAcceptLanguage(
+            $this->getLocale($request),
+        );
+
+        $res = $this->geolocator->locate($query, $geolocatorOptions);
 
         return new JsonResponse(['_embedded' => ['geolocator_locations' => $res->toArray()]]);
+    }
+
+    private function getLocale(Request $request): ?string
+    {
+        $locale = $request->query->get('locale');
+        if (!$locale && !\is_string($locale)) {
+            return null;
+        }
+
+        return $locale;
     }
 }

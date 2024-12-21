@@ -206,7 +206,7 @@ class RestHelperTest extends TestCase
 
     public function testprocessSubEntitiesEmpty(): void
     {
-        $mock = $this->getMockBuilder('Mock')->setMethods(['delete', 'update', 'add', 'get'])->getMock();
+        $mock = $this->getMockBuilder(MockInterface::class)->getMock();
         $mock->expects($this->never())->method('delete');
         $mock->expects($this->never())->method('update');
         $mock->expects($this->never())->method('add');
@@ -233,10 +233,10 @@ class RestHelperTest extends TestCase
 
     public function testprocessSubEntitiesWithDelete(): void
     {
-        $mockedObject = $this->getMockBuilder('Mock')->setMethods(['getId'])->getMock();
+        $mockedObject = $this->getMockBuilder(MockInterface::class)->getMock();
         $mockedObject->expects($this->any())->method('getId')->willReturn(1);
 
-        $mock = $this->getMockBuilder('Mock')->setMethods(['delete', 'update', 'add', 'get'])->getMock();
+        $mock = $this->getMockBuilder(MockInterface::class)->getMock();
         $mock->expects($this->once())->method('delete');
         $mock->expects($this->never())->method('update');
         $mock->expects($this->never())->method('add');
@@ -272,10 +272,10 @@ class RestHelperTest extends TestCase
 
     public function testprocessSubEntitiesWithUpdate(): void
     {
-        $mockedObject = $this->getMockBuilder('Mock')->setMethods(['getId'])->getMock();
+        $mockedObject = $this->getMockBuilder(MockInterface::class)->getMock();
         $mockedObject->expects($this->any())->method('getId')->willReturn(1);
 
-        $mock = $this->getMockBuilder('Mock')->setMethods(['delete', 'update', 'add', 'get'])->getMock();
+        $mock = $this->getMockBuilder(MockInterface::class)->getMock();
         $mock->expects($this->never())->method('delete');
         $mock->expects($this->once())->method('update');
         $mock->expects($this->never())->method('add');
@@ -315,7 +315,7 @@ class RestHelperTest extends TestCase
 
     public function testprocessSubEntitiesWithAdd(): void
     {
-        $mock = $this->getMockBuilder('Mock')->setMethods(['delete', 'update', 'add', 'get'])->getMock();
+        $mock = $this->getMockBuilder(MockInterface::class)->getMock();
         $mock->expects($this->never())->method('delete');
         $mock->expects($this->never())->method('update');
         $mock->expects($this->once())->method('add');
@@ -353,14 +353,14 @@ class RestHelperTest extends TestCase
 
     public function testCompareEntitiesWithData(): void
     {
-        $mockedObject = $this->getMockBuilder('Mock')->setMethods(['getId', 'getValue'])->getMock();
+        $mockedObject = $this->getMockBuilder(MockInterface::class)->getMock();
         $mockedObject->expects($this->any())->method('getId')->willReturn(1);
         $mockedObject->expects($this->any())->method('getValue')->willReturn(2);
 
         $mockedObject2 = clone $mockedObject;
         $mockedObject3 = clone $mockedObject;
 
-        $mock = $this->getMockBuilder('Mock')->setMethods(['delete', 'update', 'add', 'get'])->getMock();
+        $mock = $this->getMockBuilder(MockInterface::class)->getMock();
         $mock->expects($this->once())->method('delete');
         $mock->expects($this->any())->method('update');
         $mock->expects($this->once())->method('add');

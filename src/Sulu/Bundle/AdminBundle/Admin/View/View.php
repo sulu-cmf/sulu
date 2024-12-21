@@ -17,65 +17,57 @@ use JMS\Serializer\Annotation\Groups;
 
 /**
  * Represents a type for the adminstration frontend.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class View
 {
     /**
      * @var string
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $name;
 
     /**
      * @var string
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $type;
 
     /**
      * @var string
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $path;
 
     /**
      * @var array
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $options = [];
 
     /**
      * @var array
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $attributeDefaults = [];
 
     /**
      * @var string
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $parent;
 
     /**
      * @var array
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $rerenderAttributes;
 
     public function __construct(string $name, string $path, string $type)

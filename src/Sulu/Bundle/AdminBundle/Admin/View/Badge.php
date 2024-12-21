@@ -18,42 +18,37 @@ class Badge
 {
     /**
      * @var string
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $routeName;
 
     /**
      * @var string|null
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $dataPath;
 
     /**
      * @var string|null
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $visibleCondition;
 
     /**
      * @var array<string, mixed>
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $requestParameters = [];
 
     /**
      * @var array<string, mixed>
-     *
-     * @Expose()
-     * @Groups({"fullView"})
      */
+    #[Expose]
+    #[Groups(['fullView'])]
     private $routerAttributesToRequest = [];
 
     public function __construct(string $routeName, ?string $dataPath = null, ?string $visibleCondition = null)

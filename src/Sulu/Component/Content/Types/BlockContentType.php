@@ -13,6 +13,8 @@ namespace Sulu\Component\Content\Types;
 
 use PHPCR\NodeInterface;
 use Sulu\Bundle\AudienceTargetingBundle\TargetGroup\TargetGroupStoreInterface;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollectorInterface;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\ContentType\ReferenceContentTypeInterface;
 use Sulu\Component\Content\Compat\Block\BlockPropertyInterface;
 use Sulu\Component\Content\Compat\Block\BlockPropertyWrapper;
 use Sulu\Component\Content\Compat\Property;
@@ -30,7 +32,7 @@ use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
 /**
  * content type for block.
  */
-class BlockContentType extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface
+class BlockContentType extends ComplexContentType implements ContentTypeExportInterface, PreResolvableContentTypeInterface, ReferenceContentTypeInterface
 {
     /**
      * @param string $languageNamespace
@@ -440,5 +442,36 @@ class BlockContentType extends ComplexContentType implements ContentTypeExportIn
             },
             false
         );
+    }
+
+    public function getReferences(PropertyInterface $property, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
+    {
+        $values = $property->getValue();
+
+        if (!\is_array($values)) {
+            return;
+        }
+
+        foreach ($values as $index => $value) {
+            $propertyType = $property->getType($value['type']);
+
+            foreach ($propertyType->getChildProperties() as $child) {
+                $contentType = $this->contentTypeManager->get($child->getContentTypeName());
+                $childName = $child->getName();
+
+                if (!$contentType instanceof ReferenceContentTypeInterface || !isset($value[$childName])) {
+                    continue;
+                }
+
+                $oldValue = $child->getValue();
+                $child->setValue($value[$childName]);
+                $contentType->getReferences(
+                    $child,
+                    $referenceCollector,
+                    $propertyPrefix . $property->getName() . '[' . $index . '].'
+                );
+                $child->setValue($oldValue);
+            }
+        }
     }
 }

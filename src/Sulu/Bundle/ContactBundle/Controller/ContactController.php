@@ -54,9 +54,9 @@ class ContactController extends AbstractRestController implements ClassResourceI
      */
     protected static $entityKey = ContactInterface::RESOURCE_KEY;
 
-    protected static $accountContactEntityName = 'SuluContactBundle:AccountContact';
+    protected static $accountContactEntityName = \Sulu\Bundle\ContactBundle\Entity\AccountContact::class;
 
-    protected static $positionEntityName = 'SuluContactBundle:Position';
+    protected static $positionEntityName = \Sulu\Bundle\ContactBundle\Entity\Position::class;
 
     // serialization groups for contact
     protected static $contactSerializationGroups = [

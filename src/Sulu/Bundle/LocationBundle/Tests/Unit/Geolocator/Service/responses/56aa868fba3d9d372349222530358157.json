@@ -1,1 +1,63 @@
-[{"place_id":"15184655","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"1328013514","boundingbox":[48.8528986,48.8529986,2.3898394,2.3899394],"lat":"48.8529486","lon":"2.3898894","display_name":"10, Rue Alexandre Dumas, Ste-Marguerite, 11th Arrondissement, Paris, Ile-de-France, F-75011, Metropolitan France, European Union","class":"place","type":"house","importance":0.901,"address":{"house_number":"10","road":"Rue Alexandre Dumas","suburb":"Ste-Marguerite","city_district":"11th Arrondissement","city":"Paris","county":"Paris","state":"Ile-de-France","postcode":"F-75011","country":"Metropolitan France","country_code":"fr","continent":"European Union"}},{"place_id":"2444577729","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"2098258062","boundingbox":[48.4164924,48.4165924,-4.4545536,-4.4544536],"lat":"48.4165424","lon":"-4.4545036","display_name":"10, Rue Alexandre Dumas, Coataudon, Guipavas, Brest, Finist\u00e8re, Brittany, 29200, Metropolitan France, European Union","class":"place","type":"house","importance":0.801,"address":{"house_number":"10","road":"Rue Alexandre Dumas","suburb":"Coataudon","city":"Guipavas","county":"Brest","state":"Brittany","postcode":"29200","country":"Metropolitan France","country_code":"fr","continent":"European Union"}}]
+[
+    {
+        "place_id": "15184655",
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright",
+        "osm_type": "node",
+        "osm_id": "1328013514",
+        "boundingbox": [
+            48.8528986,
+            48.8529986,
+            2.3898394,
+            2.3899394
+        ],
+        "lat": "48.8529486",
+        "lon": "2.3898894",
+        "display_name": "10, Rue Alexandre Dumas, Ste-Marguerite, 11th Arrondissement, Paris, Ile-de-France, F-75011, Metropolitan France, European Union",
+        "class": "place",
+        "type": "house",
+        "importance": 0.901,
+        "address": {
+            "house_number": "10",
+            "road": "Rue Alexandre Dumas",
+            "suburb": "Ste-Marguerite",
+            "city_district": "11th Arrondissement",
+            "city": "Paris",
+            "county": "Paris",
+            "state": "Ile-de-France",
+            "postcode": "F-75011",
+            "country": "Metropolitan France",
+            "country_code": "fr",
+            "continent": "European Union"
+        }
+    },
+    {
+        "place_id": "2444577729",
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright",
+        "osm_type": "node",
+        "osm_id": "2098258062",
+        "boundingbox": [
+            48.4164924,
+            48.4165924,
+            -4.4545536,
+            -4.4544536
+        ],
+        "lat": "48.4165424",
+        "lon": "-4.4545036",
+        "display_name": "10, Rue Alexandre Dumas, Coataudon, Guipavas, Brest, Finist\u00e8re, Brittany, 29200, Metropolitan France, European Union",
+        "class": "place",
+        "type": "house",
+        "importance": 0.801,
+        "address": {
+            "house_number": "10",
+            "road": "Rue Alexandre Dumas",
+            "suburb": "Coataudon",
+            "city": "Guipavas",
+            "county": "Brest",
+            "state": "Brittany",
+            "postcode": "29200",
+            "country": "Metropolitan France",
+            "country_code": "fr",
+            "continent": "European Union"
+        }
+    }
+]

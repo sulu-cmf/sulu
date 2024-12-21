@@ -13,10 +13,10 @@ namespace Sulu\Bundle\PageBundle;
 
 use PHPCR\Migrations\VersionInterface;
 use PHPCR\NodeInterface;
+use PHPCR\PhpcrMigrationsBundle\ContainerAwareInterface;
 use PHPCR\SessionInterface;
 use Sulu\Component\Content\Document\Subscriber\ShadowCopyPropertiesSubscriber;
 use Sulu\Component\Webspace\Webspace;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Version202404051600 implements VersionInterface, ContainerAwareInterface

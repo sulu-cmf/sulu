@@ -234,10 +234,6 @@ export default class InternalLinkPlugin extends Plugin {
                 });
             }
         });
-
-        this.listenTo(view.document, 'blur', () => {
-            this.hideBalloon();
-        });
     }
 
     hideBalloon() {

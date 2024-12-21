@@ -1,0 +1,683 @@
+{
+    "name": "default",
+    "title": "Animals",
+    "form": {
+        "title": {
+            "label": "Animals",
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "text_line",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": true,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": [
+                {
+                    "name": "sulu.rlp.part",
+                    "priority": 100,
+                    "attributes": []
+                }
+            ]
+        },
+        "url": {
+            "label": "Resourcelocator",
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "resource_locator",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": true,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": [
+                {
+                    "name": "sulu.rlp",
+                    "priority": null,
+                    "attributes": []
+                }
+            ]
+        },
+        "animals": {
+            "label": "Animals",
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "snippet_selection",
+            "colSpan": 12,
+            "options": {
+                "snippetType": {
+                    "name": "snippetType",
+                    "type": "string",
+                    "value": "animal",
+                    "title": null,
+                    "placeholder": null,
+                    "infoText": null
+                }
+            },
+            "types": [],
+            "defaultType": null,
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        },
+        "blog": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "text_area",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        },
+        "localized_blog": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": "",
+            "type": "text_area",
+            "colSpan": 12,
+            "options": [],
+            "types": [],
+            "defaultType": null,
+            "required": false,
+            "spaceAfter": null,
+            "minOccurs": null,
+            "maxOccurs": null,
+            "onInvalid": null,
+            "tags": []
+        },
+        "content": {
+            "label": null,
+            "disabledCondition": null,
+            "visibleCondition": null,
+            "description": null,
+            "type": "section",
+            "colSpan": 12,
+            "items": {
+                "blocks": {
+                    "label": null,
+                    "disabledCondition": null,
+                    "visibleCondition": null,
+                    "description": "",
+                    "type": "block",
+                    "colSpan": 12,
+                    "options": {
+                        "settings_form_key": {
+                            "name": "settings_form_key",
+                            "type": null,
+                            "value": "page_block_settings",
+                            "title": null,
+                            "placeholder": null,
+                            "infoText": null
+                        }
+                    },
+                    "types": {
+                        "text_block": {
+                            "name": "text_block",
+                            "title": "Text Block",
+                            "form": [],
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
+                            "key": null,
+                            "tags": [
+                                {
+                                    "name": "sulu.global_block",
+                                    "priority": null,
+                                    "attributes": {
+                                        "global_block": "text_block"
+                                    }
+                                }
+                            ]
+                        },
+                        "text_block2": {
+                            "name": "text_block2",
+                            "title": "Text Block 2",
+                            "form": [],
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
+                            "key": null,
+                            "tags": [
+                                {
+                                    "name": "sulu.global_block",
+                                    "priority": null,
+                                    "attributes": {
+                                        "global_block": "text_block2"
+                                    }
+                                }
+                            ]
+                        },
+                        "editor": {
+                            "name": "editor",
+                            "title": "Editor",
+                            "form": {
+                                "text_editor": {
+                                    "label": "Text Editor",
+                                    "disabledCondition": null,
+                                    "visibleCondition": null,
+                                    "description": "",
+                                    "type": "text_editor",
+                                    "colSpan": 12,
+                                    "options": [],
+                                    "types": [],
+                                    "defaultType": null,
+                                    "required": false,
+                                    "spaceAfter": null,
+                                    "minOccurs": null,
+                                    "maxOccurs": null,
+                                    "onInvalid": null,
+                                    "tags": []
+                                }
+                            },
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
+                            "key": null,
+                            "tags": []
+                        },
+                        "block": {
+                            "name": "block",
+                            "title": "Block",
+                            "form": {
+                                "title": {
+                                    "label": null,
+                                    "disabledCondition": null,
+                                    "visibleCondition": null,
+                                    "description": "",
+                                    "type": "text_line",
+                                    "colSpan": 12,
+                                    "options": [],
+                                    "types": [],
+                                    "defaultType": null,
+                                    "required": false,
+                                    "spaceAfter": null,
+                                    "minOccurs": null,
+                                    "maxOccurs": null,
+                                    "onInvalid": null,
+                                    "tags": []
+                                },
+                                "blocks": {
+                                    "label": null,
+                                    "disabledCondition": null,
+                                    "visibleCondition": null,
+                                    "description": "",
+                                    "type": "block",
+                                    "colSpan": 12,
+                                    "options": {
+                                        "settings_form_key": {
+                                            "name": "settings_form_key",
+                                            "type": null,
+                                            "value": "page_block_settings",
+                                            "title": null,
+                                            "placeholder": null,
+                                            "infoText": null
+                                        }
+                                    },
+                                    "types": {
+                                        "text_block2": {
+                                            "name": "text_block2",
+                                            "title": "Text Block 2",
+                                            "form": [],
+                                            "schema": {
+                                                "type": [
+                                                    "number",
+                                                    "string",
+                                                    "boolean",
+                                                    "object",
+                                                    "array",
+                                                    "null"
+                                                ]
+                                            },
+                                            "key": null,
+                                            "tags": [
+                                                {
+                                                    "name": "sulu.global_block",
+                                                    "priority": null,
+                                                    "attributes": {
+                                                        "global_block": "text_block2"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "text_block3": {
+                                            "name": "text_block3",
+                                            "title": "Text Block 3",
+                                            "form": [],
+                                            "schema": {
+                                                "type": [
+                                                    "number",
+                                                    "string",
+                                                    "boolean",
+                                                    "object",
+                                                    "array",
+                                                    "null"
+                                                ]
+                                            },
+                                            "key": null,
+                                            "tags": [
+                                                {
+                                                    "name": "sulu.global_block",
+                                                    "priority": null,
+                                                    "attributes": {
+                                                        "global_block": "text_block3"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "defaultType": "text_block2",
+                                    "required": false,
+                                    "spaceAfter": null,
+                                    "minOccurs": null,
+                                    "maxOccurs": null,
+                                    "onInvalid": null,
+                                    "tags": []
+                                }
+                            },
+                            "schema": {
+                                "type": [
+                                    "number",
+                                    "string",
+                                    "boolean",
+                                    "object",
+                                    "array",
+                                    "null"
+                                ]
+                            },
+                            "key": null,
+                            "tags": []
+                        }
+                    },
+                    "defaultType": "text_block",
+                    "required": false,
+                    "spaceAfter": null,
+                    "minOccurs": null,
+                    "maxOccurs": null,
+                    "onInvalid": null,
+                    "tags": []
+                }
+            }
+        }
+    },
+    "schema": {
+        "allOf": [
+            {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "animals": {
+                        "anyOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": [
+                                        "number",
+                                        "string",
+                                        "boolean",
+                                        "object",
+                                        "array",
+                                        "null"
+                                    ]
+                                },
+                                "maxItems": 0
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "number"
+                                        }
+                                    ]
+                                },
+                                "uniqueItems": true
+                            }
+                        ]
+                    },
+                    "blog": {
+                        "anyOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string",
+                                "maxLength": 0
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "localized_blog": {
+                        "anyOf": [
+                            {
+                                "type": "null"
+                            },
+                            {
+                                "type": "string",
+                                "maxLength": 0
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "blocks": {
+                        "type": "array",
+                        "items": {
+                            "allOf": [
+                                {
+                                    "if": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "const": "text_block"
+                                            }
+                                        },
+                                        "required": [
+                                            "type"
+                                        ]
+                                    },
+                                    "then": {
+                                        "$ref": "#\/definitions\/text_block"
+                                    }
+                                },
+                                {
+                                    "if": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "const": "text_block2"
+                                            }
+                                        },
+                                        "required": [
+                                            "type"
+                                        ]
+                                    },
+                                    "then": {
+                                        "$ref": "#\/definitions\/text_block2"
+                                    }
+                                },
+                                {
+                                    "if": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "const": "editor"
+                                            }
+                                        },
+                                        "required": [
+                                            "type"
+                                        ]
+                                    },
+                                    "then": {
+                                        "type": [
+                                            "number",
+                                            "string",
+                                            "boolean",
+                                            "object",
+                                            "array",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "if": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "const": "block"
+                                            }
+                                        },
+                                        "required": [
+                                            "type"
+                                        ]
+                                    },
+                                    "then": {
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "anyOf": [
+                                                    {
+                                                        "type": "null"
+                                                    },
+                                                    {
+                                                        "type": "string",
+                                                        "maxLength": 0
+                                                    },
+                                                    {
+                                                        "type": "string"
+                                                    }
+                                                ]
+                                            },
+                                            "blocks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "allOf": [
+                                                        {
+                                                            "if": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "type": {
+                                                                        "const": "text_block2"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "type"
+                                                                ]
+                                                            },
+                                                            "then": {
+                                                                "$ref": "#\/definitions\/text_block2"
+                                                            }
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "type": {
+                                                                        "const": "text_block3"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "type"
+                                                                ]
+                                                            },
+                                                            "then": {
+                                                                "$ref": "#\/definitions\/text_block3"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "title",
+                    "url"
+                ]
+            },
+            {
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "blog"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "required": [
+                            "localized_blog"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "definitions": {
+            "text_block": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "blocks": {
+                        "type": "array",
+                        "items": {
+                            "allOf": [
+                                {
+                                    "if": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "const": "text_block2"
+                                            }
+                                        },
+                                        "required": [
+                                            "type"
+                                        ]
+                                    },
+                                    "then": {
+                                        "$ref": "#\/definitions\/text_block2"
+                                    }
+                                },
+                                {
+                                    "if": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "const": "editor"
+                                            }
+                                        },
+                                        "required": [
+                                            "type"
+                                        ]
+                                    },
+                                    "then": {
+                                        "type": [
+                                            "number",
+                                            "string",
+                                            "boolean",
+                                            "object",
+                                            "array",
+                                            "null"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            },
+            "text_block2": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            },
+            "text_block3": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        }
+    },
+    "key": null,
+    "tags": [
+        {
+            "name": "test",
+            "priority": null,
+            "attributes": {
+                "value": "test-value"
+            }
+        },
+        {
+            "name": "test2",
+            "priority": null,
+            "attributes": {
+                "test": "test-value2"
+            }
+        },
+        {
+            "name": "test3",
+            "priority": null,
+            "attributes": {
+                "value": "test-value"
+            }
+        }
+    ]
+}

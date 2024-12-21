@@ -13,5 +13,5 @@ namespace Sulu\Bundle\LocationBundle\Geolocator;
 
 interface GeolocatorInterface
 {
-    public function locate(string $query): GeolocatorResponse;
+    public function locate(string $query, ?GeolocatorOptions $options = null): GeolocatorResponse;
 }

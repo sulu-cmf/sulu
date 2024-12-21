@@ -15,6 +15,7 @@ use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorLocation;
+use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -44,12 +45,19 @@ class GoogleGeolocator implements GeolocatorInterface
         }
     }
 
-    public function locate(string $query): GeolocatorResponse
+    public function locate(string $query, ?GeolocatorOptions $options = null): GeolocatorResponse
     {
+        $requestHeaders = [];
+
+        if ($options && $options->getAcceptLanguage()) {
+            $requestHeaders['Accept-Language'] = $options->getAcceptLanguage();
+        }
+
         $response = $this->client->request(
             'GET',
             self::ENDPOINT,
             [
+                'headers' => $requestHeaders,
                 'query' => [
                     'key' => $this->apiKey,
                     'address' => $query,

@@ -2712,7 +2712,9 @@ class ContentMapperTest extends SuluTestCase
         $documentAlias = Structure::TYPE_PAGE
     ) {
         try {
-            $document = $this->documentManager->find($uuid, $locale, ['load_ghost_content' => false]);
+            $document = $uuid
+                ? $this->documentManager->find($uuid, $locale, ['load_ghost_content' => false])
+                : $this->documentManager->create($documentAlias);
         } catch (DocumentNotFoundException $e) {
             $document = $this->documentManager->create($documentAlias);
         }

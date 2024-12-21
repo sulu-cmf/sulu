@@ -901,7 +901,7 @@ class MediaControllerTest extends SuluTestCase
 
         $response = \json_decode($this->client->getResponse()->getContent());
         $this->assertEquals(5015, $response->code);
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
     }
 
     public function testPost(): void
@@ -1035,9 +1035,7 @@ class MediaControllerTest extends SuluTestCase
         $this->assertNotNull($response->id);
     }
 
-    /**
-     * @group postWithoutDetails
-     */
+    #[\PHPUnit\Framework\Attributes\Group('postWithoutDetails')]
     public function testPostWithoutExtension(): void
     {
         $imagePath = $this->getImagePath();
@@ -1441,7 +1439,7 @@ class MediaControllerTest extends SuluTestCase
 
         $response = \json_decode($this->client->getResponse()->getContent());
         $this->assertEquals(5015, $response->code);
-        $this->assertTrue(isset($response->message));
+        $this->assertObjectHasProperty('message', $response);
 
         $this->assertFalse(\file_exists($this->getStoragePath() . '/1/photo.jpeg'));
     }

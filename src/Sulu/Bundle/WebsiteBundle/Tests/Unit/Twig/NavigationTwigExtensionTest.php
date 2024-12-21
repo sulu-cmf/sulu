@@ -40,9 +40,7 @@ class NavigationTwigExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider activeElementProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('activeElementProvider')]
     public function testActiveElement($expected, $requestPath, $itemPath): void
     {
         $extension = new NavigationTwigExtension(

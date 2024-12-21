@@ -83,9 +83,7 @@ class FormOverlayListViewBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideBuildFormOverlayListView
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBuildFormOverlayListView')]
     public function testBuildFormOverlayListView(
         string $name,
         string $path,

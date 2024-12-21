@@ -555,7 +555,9 @@ class NodeRepositoryTest extends SuluTestCase
         $documentAlias = Structure::TYPE_PAGE
     ) {
         try {
-            $document = $this->documentManager->find($uuid, $locale);
+            $document = $uuid
+                ? $this->documentManager->find($uuid, $locale)
+                : $this->documentManager->create($documentAlias);
         } catch (DocumentNotFoundException $e) {
             $document = $this->documentManager->create($documentAlias);
         }

@@ -19,9 +19,8 @@ use Sulu\Component\Rest\ApiWrapper;
 
 /**
  * The ContactLocale class which will be exported to the API.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class ContactLocale extends ApiWrapper
 {
     public function __construct(ContactLocaleEntity $contactLocale)
@@ -33,10 +32,9 @@ class ContactLocale extends ApiWrapper
      * Returns the id of the product.
      *
      * @return int
-     *
-     * @VirtualProperty
-     * @SerializedName("id")
      */
+    #[VirtualProperty]
+    #[SerializedName('id')]
     public function getId()
     {
         return $this->entity->getId();
@@ -60,10 +58,9 @@ class ContactLocale extends ApiWrapper
      * Get locale.
      *
      * @return string
-     *
-     * @VirtualProperty
-     * @SerializedName("locale")
      */
+    #[VirtualProperty]
+    #[SerializedName('locale')]
     public function getLocale()
     {
         return $this->entity->getLocale();

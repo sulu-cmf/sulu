@@ -1,5 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Render overlay with anchor enabled 1`] = `
+<div
+  class="grid grid"
+>
+  <div
+    class="item gridItem colSpan colSpan-12 space-before-0 space-after-0"
+  >
+    <div
+      class="field"
+    >
+      <label
+        class="label"
+      >
+        sulu_admin.link_url *
+      </label>
+      <div
+        class="singleItemSelection"
+      >
+        <button
+          class="button left"
+          type="button"
+        >
+          <span
+            aria-label="su-image"
+            class="su-image icon"
+          />
+        </button>
+        <div
+          class="itemContainer"
+        >
+          <div
+            class="item clickable"
+            role="button"
+          >
+            <div
+              class="empty"
+            >
+              sulu_media.select_media_singular
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        single media selection overlay
+      </div>
+      <div
+        class="errorLabel"
+      />
+    </div>
+  </div>
+  <div
+    class="item gridItem colSpan colSpan-12 space-before-0 space-after-0"
+  >
+    <div
+      class="field"
+    >
+      <label
+        class="label"
+      >
+        sulu_admin.link_anchor
+      </label>
+      <div
+        class="input default left"
+      >
+        <input
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="errorLabel"
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Render overlay with minimal config 1`] = `
 <div
   class="grid grid"

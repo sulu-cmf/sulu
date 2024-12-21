@@ -78,12 +78,6 @@ class SearchController
         $result = $query->execute();
         $total = $result->getTotal();
 
-        // FIXME
-        //    zend_lucene seems not to have any pagination implemented and will return here
-        //    the total query hits we paginate in php here to return the correct results
-        $result = \iterator_to_array($result);
-        $result = \array_slice($result, $offset, $limit);
-
         $representation = new PaginatedRepresentation(
             $result,
             'result',

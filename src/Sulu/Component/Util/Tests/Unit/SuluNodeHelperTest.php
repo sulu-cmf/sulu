@@ -12,7 +12,6 @@
 namespace Sulu\Component\Content\Tests\Unit\Mapper\Translation;
 
 use Jackalope\Node;
-use Jackalope\Property;
 use PHPCR\NodeInterface;
 use PHPCR\PropertyInterface;
 use PHPCR\SessionInterface;
@@ -83,13 +82,13 @@ class SuluNodeHelperTest extends TestCase
         $this->node = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();
         $this->structureMetadataFactory = $this->getMockBuilder(StructureMetadataFactoryInterface::class)
             ->disableOriginalConstructor()->getMock();
-        $this->property1 = $this->getMockBuilder(Property::class)->disableOriginalConstructor()->getMock();
-        $this->property2 = $this->getMockBuilder(Property::class)->disableOriginalConstructor()->getMock();
-        $this->property3 = $this->getMockBuilder(Property::class)->disableOriginalConstructor()->getMock();
-        $this->property4 = $this->getMockBuilder(Property::class)->disableOriginalConstructor()->getMock();
-        $this->property5 = $this->getMockBuilder(Property::class)->disableOriginalConstructor()->getMock();
-        $this->property6 = $this->getMockBuilder(Property::class)->disableOriginalConstructor()->getMock();
-        $this->property7 = $this->getMockBuilder(Property::class)->disableOriginalConstructor()->getMock();
+        $this->property1 = $this->getMockBuilder(PropertyInterface::class)->disableOriginalConstructor()->getMock();
+        $this->property2 = $this->getMockBuilder(PropertyInterface::class)->disableOriginalConstructor()->getMock();
+        $this->property3 = $this->getMockBuilder(PropertyInterface::class)->disableOriginalConstructor()->getMock();
+        $this->property4 = $this->getMockBuilder(PropertyInterface::class)->disableOriginalConstructor()->getMock();
+        $this->property5 = $this->getMockBuilder(PropertyInterface::class)->disableOriginalConstructor()->getMock();
+        $this->property6 = $this->getMockBuilder(PropertyInterface::class)->disableOriginalConstructor()->getMock();
+        $this->property7 = $this->getMockBuilder(PropertyInterface::class)->disableOriginalConstructor()->getMock();
 
         $propertyIndex = 1;
         foreach ([
@@ -112,7 +111,7 @@ class SuluNodeHelperTest extends TestCase
 
         $this->node->expects($this->any())
             ->method('getProperties')
-            ->willReturn([
+            ->willReturn(new \ArrayIterator([
                 $this->property1,
                 $this->property2,
                 $this->property3,
@@ -120,7 +119,7 @@ class SuluNodeHelperTest extends TestCase
                 $this->property5,
                 $this->property6,
                 $this->property7,
-            ]);
+            ]));
 
         $this->helper = new SuluNodeHelper(
             $this->session,
@@ -165,9 +164,7 @@ class SuluNodeHelperTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideExtractWebspaceFromPath
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideExtractWebspaceFromPath')]
     public function testExtractWebspaceFromPath($path, $expected): void
     {
         $res = $this->helper->extractWebspaceFromPath($path);
@@ -187,9 +184,7 @@ class SuluNodeHelperTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideExtractSnippetTypeFromPath
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideExtractSnippetTypeFromPath')]
     public function testExtractSnippetTypeFromPath($path, $expected, $valid = true): void
     {
         if (false === $valid) {
@@ -210,9 +205,7 @@ class SuluNodeHelperTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideGetStructureTypeForNode
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetStructureTypeForNode')]
     public function testGetStructureTypeForNode($nodeType, $expected): void
     {
         $this->node->expects($this->any())
@@ -234,9 +227,7 @@ class SuluNodeHelperTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideHasSuluNodeType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideHasSuluNodeType')]
     public function testHasSuluNodeType($nodeTypes, $expected): void
     {
         $this->node->expects($this->any())
@@ -255,19 +246,20 @@ class SuluNodeHelperTest extends TestCase
                 ->method('getPath')
                 ->willReturn('/foobar/foobar-' . $i);
         }
-
+        $iterator = new \ArrayIterator([
+            $node1, $node2, $node3,
+        ]);
         $node2->expects($this->any())
             ->method('getParent')
             ->willReturn($this->node);
         $this->node->expects($this->any())
             ->method('getNodes')
-            ->willReturn([
-                $node1, $node2, $node3,
-            ]);
+            ->willReturn($iterator);
 
         $res = $this->helper->getNextNode($node2);
         $this->assertSame($node3->getPath(), $res->getPath());
 
+        $iterator->rewind();
         $res = $this->helper->getPreviousNode($node2);
         $this->assertSame($node1->getPath(), $res->getPath());
     }

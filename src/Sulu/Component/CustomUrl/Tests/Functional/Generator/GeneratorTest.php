@@ -134,9 +134,8 @@ class GeneratorTest extends TestCase
     /**
      * @param array<string> $domainParts
      * @param class-string<\Throwable>|null $exception
-     *
-     * @dataProvider provideGenerateData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGenerateData')]
     public function testGenerate(
         string $baseDomain,
         array $domainParts,

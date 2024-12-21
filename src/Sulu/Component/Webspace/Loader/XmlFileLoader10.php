@@ -68,7 +68,7 @@ class XmlFileLoader10 extends BaseXmlFileLoader
      *
      * @return Webspace The webspace object for the given resource
      */
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): Webspace
     {
         $path = $this->getLocator()->locate($resource);
 
@@ -84,7 +84,7 @@ class XmlFileLoader10 extends BaseXmlFileLoader
      *
      * @return bool true if this class supports the given resource, false otherwise
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, $type = null): bool
     {
         return parent::supports($resource, $type);
     }

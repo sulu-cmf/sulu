@@ -6,6 +6,8 @@
         <property name="creator" type="integer" groups="defaultPage,preview"/>
         <property name="changer" type="integer" groups="defaultPage,preview"/>
         <property name="created" type="DateTime" groups="defaultPage,preview"/>
+        <virtual-property method="getLastModifiedEnabled" name="lastModifiedEnabled" serialized-name="lastModifiedEnabled" groups="defaultPage"/>
+        <property name="lastModified" type="DateTime" groups="defaultPage,preview"/>
         <property name="authored" type="DateTime" groups="defaultPage,preview"/>
         <property name="author" type="integer" groups="defaultPage,preview"/>
         <property name="published" type="DateTime" groups="defaultPage,smallPage,preview"/>

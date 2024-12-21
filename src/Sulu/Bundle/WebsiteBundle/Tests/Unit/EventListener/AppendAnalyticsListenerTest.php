@@ -38,10 +38,9 @@ class AppendAnalyticsListenerTest extends TestCase
     }
 
     /**
-     * @dataProvider formatProvider
-     *
      * @param string $format
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('formatProvider')]
     public function testAppendFormatNoEffect($format): void
     {
         $engine = $this->prophesize(Environment::class);

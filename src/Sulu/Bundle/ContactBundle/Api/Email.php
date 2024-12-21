@@ -26,11 +26,9 @@ class Email extends ApiWrapper
         $this->locale = $locale;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("id")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('id')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getId(): ?int
     {
         return $this->entity->getId();
@@ -43,11 +41,9 @@ class Email extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("email")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('email')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getEmail(): ?string
     {
         return $this->entity->getEmail();
@@ -60,11 +56,9 @@ class Email extends ApiWrapper
         return $this;
     }
 
-    /**
-     * @VirtualProperty
-     * @SerializedName("emailType")
-     * @Groups({"fullContact", "fullAccount"})
-     */
+    #[VirtualProperty]
+    #[SerializedName('emailType')]
+    #[Groups(['fullContact', 'fullAccount'])]
     public function getEmailType(): ?int
     {
         return $this->entity->getEmailType()->getId();

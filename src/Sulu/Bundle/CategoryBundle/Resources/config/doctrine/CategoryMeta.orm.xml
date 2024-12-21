@@ -10,7 +10,7 @@
 
         <field name="key" column="meta_key" type="string" length="45"/>
         <field name="value" column="value" type="string" length="255"/>
-        <field name="locale" column="locale" type="string" length="5" nullable="true"/>
+        <field name="locale" column="locale" type="string" length="15" nullable="true"/>
 
         <many-to-one field="category" target-entity="Sulu\Bundle\CategoryBundle\Entity\CategoryInterface" inversed-by="meta">
             <join-columns>

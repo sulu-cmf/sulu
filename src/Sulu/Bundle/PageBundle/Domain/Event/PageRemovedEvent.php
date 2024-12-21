@@ -20,11 +20,15 @@ use Sulu\Component\Content\Document\Behavior\SecurityBehavior;
 
 class PageRemovedEvent extends DomainEvent
 {
+    /**
+     * @param array<string, mixed> $context
+     */
     public function __construct(
         private string $pageId,
         private string $webspaceKey,
         private ?string $pageTitle,
-        private ?string $pageTitleLocale
+        private ?string $pageTitleLocale,
+        private array $context = [],
     ) {
         parent::__construct();
     }
@@ -32,6 +36,11 @@ class PageRemovedEvent extends DomainEvent
     public function getEventType(): string
     {
         return 'removed';
+    }
+
+    public function getEventContext(): array
+    {
+        return $this->context;
     }
 
     public function getResourceKey(): string

@@ -15,7 +15,7 @@ namespace Sulu\Bundle\MediaBundle\Tests\Unit\Media\ImageConverter\Transformation
  * Class CropTransformationTest
  * Test the crop transformation service.
  */
-class CropTransformationTest extends AbstractTransformationTest
+class CropTransformationTest extends AbstractTransformation
 {
     protected $transformationServiceName = 'sulu_media.image.transformation.crop';
 

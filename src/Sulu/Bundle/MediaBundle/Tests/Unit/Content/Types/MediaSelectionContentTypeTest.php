@@ -13,12 +13,16 @@ namespace Sulu\Bundle\MediaBundle\Tests\Unit\Content\Types;
 
 use PHPCR\NodeInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\PropertyMetadataMinMaxValueResolver;
 use Sulu\Bundle\MediaBundle\Content\Types\MediaSelectionContentType;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
+use Sulu\Bundle\ReferenceBundle\Application\Collector\ReferenceCollector;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
+use Sulu\Component\Content\Compat\Metadata;
+use Sulu\Component\Content\Compat\Property;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Component\Content\Metadata\PropertyMetadata;
@@ -546,5 +550,44 @@ class MediaSelectionContentTypeTest extends TestCase
         ]);
 
         $this->mediaSelection->mapPropertyMetadata($propertyMetadata);
+    }
+
+    public function testGetReferencesWithNullProperty(): void
+    {
+        $property = new Property(
+            'media',
+            new Metadata([]),
+            'single_media_selection',
+        );
+        $property->setValue(null);
+
+        $referenceCollector = $this->prophesize(ReferenceCollector::class);
+        $referenceCollector->addReference(Argument::cetera())->shouldNotHaveBeenCalled();
+
+        $this->mediaSelection->getReferences($property, $referenceCollector->reveal());
+    }
+
+    public function testGetReferences(): void
+    {
+        $property = new Property(
+            'media',
+            new Metadata([]),
+            'media_selection',
+        );
+        $property->setValue(['ids' => [1, 2]]);
+
+        $referenceCollector = $this->prophesize(ReferenceCollector::class);
+        $referenceCollector->addReference(
+            'media',
+            1,
+            'media'
+        )->shouldBeCalled();
+        $referenceCollector->addReference(
+            'media',
+            2,
+            'media'
+        )->shouldBeCalled();
+
+        $this->mediaSelection->getReferences($property, $referenceCollector->reveal());
     }
 }

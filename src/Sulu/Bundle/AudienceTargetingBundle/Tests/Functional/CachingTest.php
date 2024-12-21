@@ -69,9 +69,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testFirstRequestIsACacheMiss
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testFirstRequestIsACacheMiss')]
     public function testSecondRequestIsACacheHit($arguments)
     {
         list($client, $cookieJar) = $arguments;
@@ -86,9 +84,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testSecondRequestIsACacheHit
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testSecondRequestIsACacheHit')]
     public function testRequestFromOtherClientIsACacheMiss($arguments)
     {
         list($client, $cookieJar) = $arguments;
@@ -108,9 +104,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testRequestFromOtherClientIsACacheMiss
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testRequestFromOtherClientIsACacheMiss')]
     public function testRequestWithoutSessionCookieTriggersNoRules($arguments)
     {
         /** @var KernelBrowser $client */
@@ -133,9 +127,7 @@ class CachingTest extends SuluTestCase
         return [$client, $cookieJar];
     }
 
-    /**
-     * @depends testRequestWithoutSessionCookieTriggersNoRules
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testRequestWithoutSessionCookieTriggersNoRules')]
     public function testRequestWithoutSessionCookieTriggersARule($arguments): void
     {
         /** @var KernelBrowser $client */

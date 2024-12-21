@@ -23,6 +23,7 @@ use Sulu\Component\Content\ContentTypeInterface;
 use Sulu\Component\Content\ContentTypeManagerInterface;
 use Sulu\Component\Content\Document\Behavior\ExtensionBehavior;
 use Sulu\Component\Content\Document\Behavior\LocalizedAuthorBehavior;
+use Sulu\Component\Content\Document\Behavior\LocalizedLastModifiedBehavior;
 use Sulu\Component\Content\Document\Extension\ExtensionContainer;
 use Sulu\Component\Content\Extension\ExtensionInterface;
 use Sulu\Component\Content\Extension\ExtensionManagerInterface;
@@ -99,12 +100,17 @@ class StructureResolverTest extends TestCase
         $structure->getWebspaceKey()->willReturn('test');
 
         $authored = new \DateTime();
+        $lastModified = new \DateTime();
+        $lastModified->modify('+ 1 day');
 
         $document = $this->prophesize()->willImplement(LocalizedAuthorBehavior::class);
         $document->willImplement(ExtensionBehavior::class);
+        $document->willImplement(LocalizedLastModifiedBehavior::class);
         $structure->getDocument()->willReturn($document->reveal());
         $document->getAuthored()->willReturn($authored);
         $document->getAuthor()->willReturn(1);
+        $document->getLastModifiedEnabled()->willReturn(true);
+        $document->getlastModified()->willReturn($lastModified);
 
         $expected = [
             'extension' => [
@@ -129,6 +135,7 @@ class StructureResolverTest extends TestCase
             'urls' => ['en' => '/description', 'de' => '/beschreibung', 'es' => null],
             'path' => 'test-path',
             'shadowBaseLocale' => 'en',
+            'lastModified' => $lastModified,
             'authored' => $authored,
             'author' => 1,
             'webspaceKey' => 'test',
@@ -167,12 +174,17 @@ class StructureResolverTest extends TestCase
         $structure->getWebspaceKey()->willReturn('test');
 
         $authored = new \DateTime();
+        $lastModified = new \DateTime();
+        $lastModified->modify('+ 1 day');
 
         $document = $this->prophesize()->willImplement(LocalizedAuthorBehavior::class);
         $document->willImplement(ExtensionBehavior::class);
+        $document->willImplement(LocalizedLastModifiedBehavior::class);
         $structure->getDocument()->willReturn($document->reveal());
         $document->getAuthored()->willReturn($authored);
         $document->getAuthor()->willReturn(1);
+        $document->getLastModifiedEnabled()->willReturn(true);
+        $document->getLastModified()->willReturn($lastModified);
 
         $expected = [
             'extension' => [
@@ -194,6 +206,7 @@ class StructureResolverTest extends TestCase
             'template' => 'test',
             'urls' => ['en' => '/description', 'de' => '/beschreibung', 'es' => null],
             'shadowBaseLocale' => 'en',
+            'lastModified' => $lastModified,
             'authored' => $authored,
             'author' => 1,
             'webspaceKey' => 'test',
@@ -239,12 +252,17 @@ class StructureResolverTest extends TestCase
         $structure->getWebspaceKey()->willReturn('test');
 
         $authored = new \DateTime();
+        $lastModified = new \DateTime();
+        $lastModified->modify('+ 1 day');
 
         $document = $this->prophesize()->willImplement(LocalizedAuthorBehavior::class);
         $document->willImplement(ExtensionBehavior::class);
+        $document->willImplement(LocalizedLastModifiedBehavior::class);
         $structure->getDocument()->willReturn($document->reveal());
         $document->getAuthored()->willReturn($authored);
         $document->getAuthor()->willReturn(1);
+        $document->getLastModifiedEnabled()->willReturn(true);
+        $document->getLastModified()->willReturn($lastModified);
 
         $expected = [
             'id' => 'some-uuid',
@@ -264,6 +282,7 @@ class StructureResolverTest extends TestCase
             'urls' => ['en' => '/description', 'de' => '/beschreibung', 'es' => null],
             'path' => 'test-path',
             'shadowBaseLocale' => 'en',
+            'lastModified' => $lastModified,
             'authored' => $authored,
             'author' => 1,
             'webspaceKey' => 'test',
@@ -309,9 +328,12 @@ class StructureResolverTest extends TestCase
 
         $document = $this->prophesize()->willImplement(LocalizedAuthorBehavior::class);
         $document->willImplement(ExtensionBehavior::class);
+        $document->willImplement(LocalizedLastModifiedBehavior::class);
         $structure->getDocument()->willReturn($document->reveal());
         $document->getAuthored()->willReturn($authored);
         $document->getAuthor()->willReturn(1);
+        $document->getLastModifiedEnabled()->willReturn(false);
+        $document->getLastModified()->willReturn(null);
 
         $expected = [
             'extension' => [
@@ -334,6 +356,7 @@ class StructureResolverTest extends TestCase
             'urls' => ['en' => '/description', 'de' => '/beschreibung', 'es' => null],
             'path' => 'test-path',
             'shadowBaseLocale' => 'en',
+            'lastModified' => null,
             'authored' => $authored,
             'author' => 1,
             'webspaceKey' => 'test',

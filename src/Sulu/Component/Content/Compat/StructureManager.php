@@ -16,7 +16,6 @@ use Sulu\Component\Content\Compat\Structure\LegacyPropertyFactory;
 use Sulu\Component\Content\Metadata\Factory\Exception\StructureTypeNotFoundException;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\Content\Metadata\StructureMetadata;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * generates subclasses of structure to match template definitions.
@@ -24,8 +23,6 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
  */
 class StructureManager implements StructureManagerInterface
 {
-    use ContainerAwareTrait;
-
     public function __construct(
         private StructureMetadataFactoryInterface $structureFactory,
         private DocumentInspector $inspector,

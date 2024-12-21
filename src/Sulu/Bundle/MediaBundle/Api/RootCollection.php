@@ -18,30 +18,26 @@ use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * The Collection Root RestObject is the api entity for the CollectionController.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class RootCollection
 {
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $id = 'root';
 
     /**
      * @var string
-     *
-     * @Expose
      */
+    #[Expose]
     private $title;
 
     /**
      * @var bool
-     *
-     * @Expose
      */
+    #[Expose]
     private $hasSub = true;
 
     /**
@@ -89,10 +85,9 @@ class RootCollection
 
     /**
      * @internal
-     *
-     * @VirtualProperty
-     * @SerializedName("_embedded")
      */
+    #[VirtualProperty]
+    #[SerializedName('_embedded')]
     public function getEmbedded(): array
     {
         return [

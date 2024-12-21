@@ -28,9 +28,7 @@ class DataCacheTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideIsFreshData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIsFreshData')]
     public function testIsFresh($file, $createFile, $expected): void
     {
         $filesystem = new Filesystem();
@@ -57,9 +55,7 @@ class DataCacheTest extends TestCase
         return $cache;
     }
 
-    /**
-     * @depends testWrite
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testWrite')]
     public function testRead(CacheInterface $cache): void
     {
         $this->assertEquals(['test' => 'test'], $cache->read());

@@ -73,7 +73,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $structureType = $document->getStructureType();
+        $structureType = (string) $document->getStructureType();
         $node = $event->getNode();
         $extensionsData = $document->getExtensionsData();
 

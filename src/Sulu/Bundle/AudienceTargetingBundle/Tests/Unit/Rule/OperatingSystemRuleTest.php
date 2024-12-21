@@ -44,9 +44,7 @@ class OperatingSystemRuleTest extends TestCase
         $this->operatingSystemRule = new OperatingSystemRule($this->deviceDetector->reveal(), $this->translator->reveal());
     }
 
-    /**
-     * @dataProvider provideEvaluate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideEvaluate')]
     public function testEvaluate($operatingSystemShortName, $options, $result): void
     {
         $this->deviceDetector->getOs('short_name')->willReturn($operatingSystemShortName);

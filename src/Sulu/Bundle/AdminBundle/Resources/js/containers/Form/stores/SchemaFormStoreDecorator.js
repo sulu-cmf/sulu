@@ -107,6 +107,22 @@ export default class SchemaFormStoreDecorator implements FormStoreInterface {
         return false;
     }
 
+    @computed get notFound() {
+        if (this.innerFormStore) {
+            return this.innerFormStore.notFound;
+        }
+
+        return false;
+    }
+
+    @computed get unexpectedError() {
+        if (this.innerFormStore) {
+            return this.innerFormStore.unexpectedError;
+        }
+
+        return false;
+    }
+
     finishField(dataPath: string) {
         when(
             () => !!this.innerFormStore,

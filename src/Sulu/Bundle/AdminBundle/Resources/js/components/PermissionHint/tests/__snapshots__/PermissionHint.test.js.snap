@@ -3,10 +3,10 @@
 exports[`Render PermissionHint 1`] = `
 <div>
   <div
-    class="permissionHint"
+    class="hint"
   >
     <div
-      class="permissionIcon"
+      class="hintIcon"
     >
       <span
         aria-label="su-lock"

@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\AdminBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,15 +28,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @deprecated use the "UpdateBuildCommand" class instead
  */
+#[AsCommand(name: 'sulu:admin:download-build', description: 'Downloads the current admin application build from the sulu/skeleton repository.')]
 class DownloadBuildCommand extends Command
 {
-    protected static $defaultName = 'sulu:admin:download-build';
-
-    protected function configure()
-    {
-        $this->setDescription('Downloads the current admin application build from the sulu/skeleton repository.');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $application = $this->getApplication();

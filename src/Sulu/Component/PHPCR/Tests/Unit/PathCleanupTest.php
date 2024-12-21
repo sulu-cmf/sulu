@@ -20,8 +20,19 @@ class PathCleanupTest extends TestCase
 {
     private PathCleanupInterface $cleaner;
 
+    /**
+     * @var bool
+     */
+    private $hasEmojiSupport = false;
+
     protected function setUp(): void
     {
+        $slugger = new AsciiSlugger();
+        $this->hasEmojiSupport = \method_exists($slugger, 'withEmoji') && (
+            !\method_exists(\Symfony\Component\String\AbstractUnicodeString::class, 'localeUpper') // BC Layer <= Symfony 7.0
+            || \class_exists(\Symfony\Component\Emoji\EmojiTransliterator::class) // Symfony >= 7.1 requires symfony/emoji
+        );
+
         $this->cleaner = new PathCleanup(
             [
                 'default' => [
@@ -46,13 +57,11 @@ class PathCleanupTest extends TestCase
                     '&' => 'и',
                 ],
             ],
-            new AsciiSlugger()
+            $slugger
         );
     }
 
-    /**
-     * @dataProvider cleanupProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cleanupProvider')]
     public function testCleanup(string $a, string $b, string $locale): void
     {
         $clean = $this->cleaner->cleanup($a, $locale);
@@ -88,5 +97,22 @@ class PathCleanupTest extends TestCase
         $this->assertFalse($this->cleaner->validate('/Test'));
         $this->assertFalse($this->cleaner->validate('/-test'));
         $this->assertFalse($this->cleaner->validate('/asdf.xml'));
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('emojiCleanupProvider')]
+    public function testEmojiCleanup(string $a, string $b, string $locale): void
+    {
+        if (!$this->hasEmojiSupport) {
+            $this->markTestSkipped('Test requires feature from symfony/string 6.2 and symfony/intl 6.2');
+        }
+        $clean = $this->cleaner->cleanup($a, $locale);
+        $this->assertEquals($b, $clean);
+    }
+
+    public static function emojiCleanupProvider(): \Generator
+    {
+        yield 'default' => ['a 😺, and a 🦁 go to 🏞️', 'a-grinning-cat-and-a-lion-go-to-national-park', 'en'];
+        yield 'locale code with dash' => ['Menus with 🍕 or 🍝', 'menus-with-pizza-or-spaghetti', 'en-US'];
+        yield 'unknown locale' => ['Menus with 🍕 or 🍝', 'menus-with-or', 'unknown'];
     }
 }

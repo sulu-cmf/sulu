@@ -16,9 +16,8 @@ use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Concrete Datasource item.
- *
- * @ExclusionPolicy("all")
  */
+#[ExclusionPolicy('all')]
 class DatasourceItem implements DatasourceItemInterface
 {
     /**
@@ -32,32 +31,36 @@ class DatasourceItem implements DatasourceItemInterface
     }
 
     /**
-     * @VirtualProperty
+     * @return int|string
      */
+    #[VirtualProperty]
     public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @VirtualProperty
+     * @return string
      */
+    #[VirtualProperty]
     public function getTitle()
     {
         return $this->title;
     }
 
     /**
-     * @VirtualProperty
+     * @return string
      */
+    #[VirtualProperty]
     public function getPath()
     {
         return $this->path;
     }
 
     /**
-     * @VirtualProperty
+     * @return string|null
      */
+    #[VirtualProperty]
     public function getImage()
     {
         return $this->image;

@@ -63,9 +63,7 @@ class NodeNameSlugifierTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide10eData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provide10eData')]
     public function testSlugify10e($actual, $expected): void
     {
         $this->slugifier->slugify($actual)->willReturn($actual);

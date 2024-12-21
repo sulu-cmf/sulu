@@ -2,8 +2,8 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
-        <parameter key="sulu_contact.contact_title.entity">SuluContactBundle:ContactTitle</parameter>
-        <parameter key="sulu_contact.position.entity">SuluContactBundle:Position</parameter>
+        <parameter key="sulu_contact.contact_title.entity">Sulu\Bundle\ContactBundle\Entity\ContactTitle</parameter>
+        <parameter key="sulu_contact.position.entity">Sulu\Bundle\ContactBundle\Entity\Position</parameter>
     </parameters>
     <services>
         <service id="sulu_contact.admin" class="Sulu\Bundle\ContactBundle\Admin\ContactAdmin">
@@ -48,7 +48,14 @@
             <argument type="service" id="sulu.repository.user" />
             <argument type="service" id="sulu_trash.trash_manager" on-invalid="null"/>
         </service>
-        <service id="sulu_contact.twig.cache" class="Doctrine\Common\Cache\ArrayCache"/>
+
+        <service id="sulu_contact.twig.cache_adapter" class="Symfony\Component\Cache\Adapter\ArrayAdapter" />
+
+        <service id="sulu_contact.twig.cache" class="Doctrine\Common\Cache\Cache">
+            <factory class="Doctrine\Common\Cache\Psr6\DoctrineProvider" method="wrap"/>
+            <argument type="service" id="sulu_contact.twig.cache_adapter" />
+        </service>
+
         <service id="sulu_contact.twig" class="Sulu\Bundle\ContactBundle\Twig\ContactTwigExtension">
             <argument type="service" id="sulu_contact.twig.cache"/>
             <argument type="service" id="sulu.repository.contact"/>

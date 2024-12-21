@@ -55,9 +55,7 @@ class ArrayUtilsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideData')]
     public function testFilter($collection, $expression, $expected, $context = []): void
     {
         $this->assertEquals($expected, ArrayUtils::filter($collection, $expression, $context));

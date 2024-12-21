@@ -85,9 +85,8 @@ class ExtensionManagerTest extends TestCase
      *     type: string,
      * }> $extensions
      * @param array<string, ExtensionInterface> $expected
-     *
-     * @dataProvider addProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('addProvider')]
     public function testAdd(array $extensions, string $type, array $expected): void
     {
         $manager = new ExtensionManager();
@@ -136,9 +135,8 @@ class ExtensionManagerTest extends TestCase
      *     instance: ExtensionInterface,
      *     type: string,
      * }> $extensions
-     *
-     * @dataProvider hasProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('hasProvider')]
     public function testHas(array $extensions, string $type, string $name, bool $expected): void
     {
         $manager = new ExtensionManager();
@@ -187,9 +185,7 @@ class ExtensionManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider getProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
     public function testGet($extensions, $type, $name, $expected): void
     {
         $manager = new ExtensionManager();
@@ -244,9 +240,8 @@ class ExtensionManagerTest extends TestCase
      *      type: string,
      * }> $extensions
      * @param class-string<\Throwable> $exxceptionName
-     *
-     * @dataProvider getExceptionProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getExceptionProvider')]
     public function testGetException($extensions, string $type, string $name, string $exxceptionName): void
     {
         $this->expectException($exxceptionName);

@@ -8,6 +8,8 @@
             <argument type="service" id="sulu_security.security_checker"/>
             <argument type="service" id="sulu_core.webspace.webspace_manager"/>
             <argument>%sulu_snippet.content-type.default_enabled%</argument>
+            <argument type="service" id="sulu_activity.activity_list_view_builder_factory" />
+            <argument type="service" id="sulu_reference.reference_list_view_builder_factory" />
 
             <tag name="sulu.admin"/>
             <tag name="sulu.context" context="admin"/>

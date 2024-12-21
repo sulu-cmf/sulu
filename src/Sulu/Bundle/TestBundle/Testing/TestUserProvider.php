@@ -154,11 +154,9 @@ class TestUserProvider implements UserProviderInterface, ResetInterface
      * object can just be merged into some internal array of users / identity
      * map.
      *
-     * @return UserInterface
-     *
      * @throws UnsupportedUserException if the account is not supported
      */
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
         if (self::TEST_USER_USERNAME === $user->getUserIdentifier()) {
             return $this->getUser();
@@ -171,10 +169,8 @@ class TestUserProvider implements UserProviderInterface, ResetInterface
      * Whether this provider supports the given user class.
      *
      * @param string $class
-     *
-     * @return bool
      */
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         return $this->userProvider->supportsClass($class);
     }

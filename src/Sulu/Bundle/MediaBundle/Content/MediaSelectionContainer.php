@@ -37,31 +37,27 @@ class MediaSelectionContainer implements ArrayableInterface
     private $displayOption;
 
     /**
-     * @Exclude
-     *
      * @var string
      */
+    #[Exclude]
     private $locale;
 
     /**
-     * @Exclude
-     *
      * @var Media[]
      */
+    #[Exclude]
     private $data;
 
     /**
-     * @Exclude
-     *
      * @var string
      */
+    #[Exclude]
     private $types;
 
     /**
-     * @Exclude
-     *
      * @var MediaManagerInterface
      */
+    #[Exclude]
     private $mediaManager;
 
     /**

@@ -21,7 +21,7 @@ use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 use Sulu\Component\Content\Compat\Property;
 use Sulu\Component\Content\Compat\StructureInterface;
 
-class SingleCategorySelectonTest extends TestCase
+class SingleCategorySelectionTest extends TestCase
 {
     use ProphecyTrait;
 

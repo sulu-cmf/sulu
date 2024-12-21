@@ -29,10 +29,9 @@ trait TwoFactorTrait
 
     /**
      * @var UserTwoFactor|null
-     *
-     * @Expose
-     * @Groups({"profile"})
      */
+    #[Expose]
+    #[Groups(['profile'])]
     protected $twoFactor = null;
 
     public function getTwoFactor(): ?UserTwoFactor

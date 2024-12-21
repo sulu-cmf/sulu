@@ -1,0 +1,19 @@
+sulu_security:
+    checker:
+        enabled: true
+    password_policy:
+        enabled: true
+# Sulu uses the simple password_policy pattern ".{8,}" by default
+# You can change it to a more complex pattern with the following lines:
+#
+#        pattern: '(?=^.{8,}$)(?=.*\d)(?=.*[^a-zA-Z0-9]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'
+#        info_translation_key: app.password_information
+    two_factor:
+        force:
+            pattern: '/@sulu\.io$/'
+
+when@test:
+    sulu_security:
+        two_factor:
+            force:
+                enabled: false
