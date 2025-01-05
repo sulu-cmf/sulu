@@ -1186,11 +1186,6 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Metadata/FormMetadata/XmlFormMetadataLoader.php
 
 		-
-			message: "#^Cannot call method merge\\(\\) on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Metadata/FormMetadata/XmlFormMetadataLoader.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Metadata\\\\FormMetadata\\\\XmlFormMetadataLoader\\:\\:__construct\\(\\) has parameter \\$formDirectories with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Metadata/FormMetadata/XmlFormMetadataLoader.php
@@ -12211,11 +12206,6 @@ parameters:
 			path: src/Sulu/Bundle/MarkupBundle/Markup/LinkTag.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderPoolInterface\\:\\:getProvider\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MarkupBundle/Markup/LinkTag.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\TagMatchGroup\\:\\:__construct\\(\\) has parameter \\$tags with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MarkupBundle/Markup/TagMatchGroup.php
@@ -17861,7 +17851,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:export\\(\\) should return array\\<string\\> but returns array\\<int\\|string, array\\<string, mixed\\>\\>\\.$#"
+			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:export\\(\\) should return array\\<string\\> but returns array\\<array\\<string, mixed\\>\\>\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
 
@@ -22591,7 +22581,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Repository/ContentRepositoryTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\{uuid\\: string, hasChildren\\: true, children\\: null, permissions\\: non\\-empty\\-array\\<int\\|string, array\\{view\\: false, add\\: false, edit\\: true, delete\\: false\\}\\|array\\{view\\: false, add\\: true, edit\\: false, delete\\: false\\}\\|array\\{view\\: true, add\\: false, edit\\: false, delete\\: false, archive\\: true\\}\\>\\} and array\\{uuid\\: string, hasChildren\\: bool, children\\: array\\<Sulu\\\\Component\\\\Content\\\\Repository\\\\Content\\>, permissions\\: array\\} will always evaluate to false\\.$#"
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\{uuid\\: string, hasChildren\\: true, children\\: null, permissions\\: non\\-empty\\-array\\<array\\{view\\: false, add\\: false, edit\\: true, delete\\: false\\}\\|array\\{view\\: false, add\\: true, edit\\: false, delete\\: false\\}\\|array\\{view\\: true, add\\: false, edit\\: false, delete\\: false, archive\\: true\\}\\>\\} and array\\{uuid\\: string, hasChildren\\: bool, children\\: array\\<Sulu\\\\Component\\\\Content\\\\Repository\\\\Content\\>, permissions\\: array\\} will always evaluate to false\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Repository/ContentRepositoryTest.php
 
