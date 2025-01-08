@@ -102,7 +102,12 @@ class PagesSitemapProvider extends AbstractSitemapProvider
         string $host,
         string $scheme
     ) {
-        $changed = $contentPage['lastModified'] ?? $contentPage['changed'];
+        $changed = $contentPage['changed'];
+
+        if (!empty($contentPage['lastModified'])) {
+            $changed = $contentPage['lastModified'];
+        }
+
         if (\is_string($changed)) {
             $changed = new \DateTime($changed);
         }
