@@ -112,7 +112,7 @@ class ArticleRepository implements ArticleRepositoryInterface
         try {
             /** @var ArticleInterface $article */
             $article = $queryBuilder->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
+        } catch (NoResultException) {
             return null;
         }
 

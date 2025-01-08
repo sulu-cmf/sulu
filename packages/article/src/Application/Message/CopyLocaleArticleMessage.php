@@ -14,32 +14,15 @@ namespace Sulu\Article\Application\Message;
 class CopyLocaleArticleMessage
 {
     /**
-     * @var array{
-     *     uuid?: string
-     * }
-     */
-    private $identifier;
-
-    /**
-     * @var string
-     */
-    private $sourceLocale;
-
-    /**
-     * @var string
-     */
-    private $targetLocale;
-
-    /**
      * @param array{
      *     uuid?: string
      * } $identifier
      */
-    public function __construct($identifier, string $sourceLocale, string $targetLocale)
-    {
-        $this->identifier = $identifier;
-        $this->sourceLocale = $sourceLocale;
-        $this->targetLocale = $targetLocale;
+    public function __construct(
+        private array $identifier,
+        private string $sourceLocale,
+        private string $targetLocale,
+    ) {
     }
 
     /**
@@ -47,7 +30,7 @@ class CopyLocaleArticleMessage
      *     uuid?: string
      * }
      */
-    public function getIdentifier()
+    public function getIdentifier(): array
     {
         return $this->identifier;
     }

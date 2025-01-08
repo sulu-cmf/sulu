@@ -21,8 +21,11 @@ use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
  */
 class PhpcrAccessControlProvider implements AccessControlProviderInterface
 {
-    public function __construct(private DocumentManagerInterface $documentManager, private RoleRepositoryInterface $roleRepository, private array $permissions)
-    {
+    public function __construct(
+        private DocumentManagerInterface $documentManager,
+        private RoleRepositoryInterface $roleRepository,
+        private array $permissions,
+    ) {
     }
 
     public function setPermissions($type, $identifier, $permissions)

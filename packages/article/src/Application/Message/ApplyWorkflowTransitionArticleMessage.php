@@ -14,32 +14,15 @@ namespace Sulu\Article\Application\Message;
 class ApplyWorkflowTransitionArticleMessage
 {
     /**
-     * @var array{
-     *     uuid?: string,
-     * }
-     */
-    private $identifier;
-
-    /**
-     * @var string
-     */
-    private $locale;
-
-    /**
-     * @var string
-     */
-    private $transitionName;
-
-    /**
      * @param array{
      *     uuid?: string
      * } $identifier
      */
-    public function __construct(array $identifier, string $locale, string $transitionName)
-    {
-        $this->identifier = $identifier;
-        $this->locale = $locale;
-        $this->transitionName = $transitionName;
+    public function __construct(
+        private array $identifier,
+        private string $locale,
+        private string $transitionName,
+    ) {
     }
 
     /**

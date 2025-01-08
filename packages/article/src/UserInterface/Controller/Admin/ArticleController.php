@@ -44,54 +44,16 @@ final class ArticleController
 {
     use HandleTrait;
 
-    /**
-     * @var ArticleRepositoryInterface
-     */
-    private $articleRepository;
-
-    /**
-     * @var NormalizerInterface
-     */
-    private $normalizer;
-
-    /**
-     * @var ContentManagerInterface
-     */
-    private $contentManager;
-
-    /**
-     * @var FieldDescriptorFactoryInterface
-     */
-    private $fieldDescriptorFactory;
-
-    /**
-     * @var DoctrineListBuilderFactoryInterface
-     */
-    private $listBuilderFactory;
-
-    /**
-     * @var RestHelperInterface
-     */
-    private $restHelper;
-
     public function __construct(
-        ArticleRepositoryInterface $articleRepository,
+        private ArticleRepositoryInterface $articleRepository,
         MessageBusInterface $messageBus,
-        NormalizerInterface $normalizer,
-        ContentManagerInterface $contentManager,
-        FieldDescriptorFactoryInterface $fieldDescriptorFactory,
-        DoctrineListBuilderFactoryInterface $listBuilderFactory,
-        RestHelperInterface $restHelper
+        private NormalizerInterface $normalizer,
+        private ContentManagerInterface $contentManager,
+        private FieldDescriptorFactoryInterface $fieldDescriptorFactory,
+        private DoctrineListBuilderFactoryInterface $listBuilderFactory,
+        private RestHelperInterface $restHelper
     ) {
-        $this->articleRepository = $articleRepository;
         $this->messageBus = $messageBus;
-        $this->normalizer = $normalizer;
-
-        // TODO controller should not need more then Repository, MessageBus, Serializer
-        $this->fieldDescriptorFactory = $fieldDescriptorFactory;
-        $this->listBuilderFactory = $listBuilderFactory;
-        $this->restHelper = $restHelper;
-        $this->contentManager = $contentManager;
     }
 
     public function cgetAction(Request $request): Response

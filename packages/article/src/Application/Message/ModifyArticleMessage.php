@@ -19,29 +19,14 @@ use Webmozart\Assert\Assert;
 class ModifyArticleMessage
 {
     /**
-     * @var array{
-     *     uuid?: string
-     * }
-     */
-    private $identifier;
-
-    /**
-     * @var mixed[]
-     */
-    private $data;
-
-    /**
      * @param array{
      *     uuid?: string
      * } $identifier
      * @param mixed[] $data
      */
-    public function __construct(array $identifier, array $data)
+    public function __construct(private array $identifier, private array $data)
     {
         Assert::string($data['locale'] ?? null, 'Expected a "locale" string given.');
-
-        $this->identifier = $identifier;
-        $this->data = $data;
     }
 
     /**
