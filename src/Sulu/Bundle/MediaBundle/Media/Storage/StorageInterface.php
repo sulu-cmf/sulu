@@ -14,6 +14,8 @@ namespace Sulu\Bundle\MediaBundle\Media\Storage;
 /**
  * Defines the operations of the StorageLayer.
  * The StorageLayer is a interface to centralized management of media store.
+ *
+ *  @phpstan-type StorageOptions array<string, string|null>
  */
 interface StorageInterface
 {
@@ -24,16 +26,16 @@ interface StorageInterface
     /**
      * Save the document in the storage and return storage options of the stored document.
      *
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      *
-     * @return array<string, string|null>
+     * @return StorageOptions
      */
     public function save(string $tempPath, string $fileName, array $storageOptions = []): array;
 
     /**
      * Returns the content for the given file as a resource.
      *
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      *
      * @return resource
      */
@@ -42,31 +44,31 @@ interface StorageInterface
     /**
      * Returns the path for the given file.
      *
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      */
     public function getPath(array $storageOptions): string;
 
     /**
      * Returns the type for the given file.
      *
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      */
     public function getType(array $storageOptions): string;
 
     /**
      * Moves a file on the storage.
      *
-     * @param array<string, string|null> $sourceStorageOptions
-     * @param array<string, string|null> $targetStorageOptions
+     * @param StorageOptions $sourceStorageOptions
+     * @param StorageOptions $targetStorageOptions
      *
-     * @return array<string, string|null>
+     * @return StorageOptions
      */
     public function move(array $sourceStorageOptions, array $targetStorageOptions): array;
 
     /**
      * Removes the file from storage.
      *
-     * @param array<string, string|null> $storageOptions
+     * @param StorageOptions $storageOptions
      */
     public function remove(array $storageOptions): void;
 }

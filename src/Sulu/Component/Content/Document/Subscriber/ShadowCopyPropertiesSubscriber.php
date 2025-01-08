@@ -232,6 +232,7 @@ class ShadowCopyPropertiesSubscriber implements EventSubscriberInterface
     private function getLocale(string $propertyName): string
     {
         \preg_match('/i18n:(?P<locale>.+)-shadow-base/', $propertyName, $match);
+        \assert(\array_key_exists('locale', $match), 'This method should only be called with property names matching the shadow base property schema.');
 
         return $match['locale'];
     }

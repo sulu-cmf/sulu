@@ -2,6 +2,7 @@
 import React from 'react';
 import {action, observable} from 'mobx';
 import {observer} from 'mobx-react';
+import {translate} from 'sulu-admin-bundle/utils';
 import {Icon, ArrowMenu} from 'sulu-admin-bundle/components';
 import webspaceSelectStyles from './webspaceSelect.scss';
 import type {ChildrenArray, Element} from 'react';
@@ -75,7 +76,7 @@ class WebspaceSelect extends React.Component<Props> {
                 <ArrowMenu.SingleItemSection
                     icon="su-webspace"
                     onChange={this.handleChange}
-                    title="Webspaces"
+                    title={translate('sulu_page.webspaces')}
                     value={value}
                 >
                     {children}

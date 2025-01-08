@@ -11,6 +11,7 @@ import {memoryFormStoreFactory} from '../Form';
 import FormOverlay from '../FormOverlay';
 import snackbarStore from '../../stores/snackbarStore';
 import conditionDataProviderRegistry from '../Form/registries/conditionDataProviderRegistry';
+import {getDifference} from '../../utils/DifferenceCalculator';
 import blockPreviewTransformerRegistry from './registries/blockPreviewTransformerRegistry';
 import FieldRenderer from './FieldRenderer';
 import type {BlockError, FieldTypeProps, FormStoreInterface} from '../Form/types';
@@ -28,6 +29,8 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
     @observable openedBlockSettingsIndex: ?number;
     @observable blockSettingsFormStore: ?FormStoreInterface;
     @observable value: Object;
+    oldIconValue: ?Object;
+    computedIcons: Array<Array<string>> = [];
 
     constructor(props: FieldTypeProps<Array<BlockEntry>>) {
         super(props);
@@ -206,30 +209,47 @@ class FieldBlocks extends React.Component<FieldTypeProps<Array<BlockEntry>>> {
     }
 
     @computed get icons(): Array<Array<string>> {
-        if (!this.value) {
+        if (!this.value || Object.keys(this.iconsMapping).length === 0) {
             return [];
         }
 
-        return this.value.map((value) => Object.keys(this.iconsMapping).reduce((icons, pointer) => {
-            const visibleCondition = this.iconsMapping[pointer].visibleCondition;
-            if (jsonpointer.has(value, pointer) || visibleCondition !== undefined) {
-                let icon = undefined;
-                if (visibleCondition !== undefined) {
-                    const conditionData = this.getConditionData(value, pointer);
-                    if (jexl.evalSync(visibleCondition, conditionData)){
-                        icon = this.iconsMapping[pointer].icon;
-                    }
-                } else if (jsonpointer.get(value, pointer)) {
-                    icon = this.iconsMapping[pointer].icon;
-                }
+        const jsValue = toJS(this.value);
+        const changedValues = getDifference(jsValue, this.oldIconValue);
+        this.oldIconValue = jsValue;
 
-                if (icon) {
+        for (const key in changedValues) {
+            const value = this.value[key];
+
+            const icons = [];
+
+            for (const pointer in this.iconsMapping) {
+                const visibleCondition = this.iconsMapping[pointer].visibleCondition;
+                const icon = this.iconsMapping[pointer].icon;
+
+                if (
+                    ( // evaluate visible condition
+                        visibleCondition !== undefined &&
+                        jexl.evalSync(visibleCondition, this.getConditionData(value, pointer))
+                    )
+                    ||
+                    ( // use value from pointer if no visible condition is defined
+                        visibleCondition === undefined &&
+                        jsonpointer.has(value, pointer) &&
+                        jsonpointer.get(value, pointer)
+                    )
+                ) {
                     icons.push(icon);
                 }
             }
 
-            return icons;
-        }, []));
+            this.computedIcons[parseInt(key)] = icons;
+        }
+
+        if (this.computedIcons.length !== this.value.length) {
+            this.computedIcons = this.computedIcons.slice(0, this.value.length);
+        }
+
+        return this.computedIcons;
     }
 
     getConditionData(data: {[string]: any}, dataPath: ?string) {

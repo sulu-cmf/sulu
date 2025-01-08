@@ -11,7 +11,7 @@
     <index name="foo_index" />
 
     <meta>
-        <title>template_title</title>
+        <title>sulu_admin.title</title>
         <title lang="de">Template Titel</title>
     </meta>
 
@@ -20,7 +20,7 @@
     <properties>
         <property name="title" type="text_line" mandatory="true">
             <meta>
-                <title>property_title</title>
+                <title>sulu_admin.name</title>
             </meta>
 
             <indexField />

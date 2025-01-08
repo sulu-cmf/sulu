@@ -17,6 +17,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -36,8 +37,13 @@ class FormatCacheRegenerateCommand extends Command
     {
         $ui = new SymfonyStyle($input, $output);
 
+        $imageCachePath = \realpath($this->localFormatCachePath);
+        if (false === $imageCachePath) {
+            throw new FileNotFoundException(\sprintf('Unable to resolve path "%s".', $this->localFormatCachePath));
+        }
+
         $finder = new Finder();
-        $finder->in(\realpath($this->localFormatCachePath));
+        $finder->in($imageCachePath);
         $files = $finder->files();
 
         if (!\count($files)) {

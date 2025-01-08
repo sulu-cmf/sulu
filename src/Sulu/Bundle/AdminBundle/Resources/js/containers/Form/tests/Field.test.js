@@ -634,3 +634,56 @@ test('Do not render anything if field does not exist and onInvalid is set to ign
 
     expect(field.isEmptyRender()).toEqual(true);
 });
+
+test('Call onFocus callback when Field gets focus', () => {
+    const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('snippets'), 'snippets'));
+
+    fieldRegistry.get.mockReturnValue(function Text() {
+        return <input type="text" />;
+    });
+
+    const field = shallow(
+        <Field
+            data={{}}
+            dataPath="/title"
+            formInspector={formInspector}
+            name="test"
+            onChange={jest.fn()}
+            onFinish={jest.fn()}
+            onSuccess={undefined}
+            router={undefined}
+            schema={{label: 'label', type: 'text'}}
+            schemaPath="/schema/title"
+            value="test value"
+        />
+    );
+
+    const target = new EventTarget();
+    const dispatchEventSpy = jest.spyOn(target, 'dispatchEvent');
+
+    field.find('Text').props().onFocus(target);
+
+    expect(dispatchEventSpy).toHaveBeenCalled();
+
+    const dispatchedEvent = dispatchEventSpy.mock.calls[0][0];
+
+    expect(dispatchedEvent.type).toBe('sulu.focus');
+    expect(dispatchedEvent.bubbles).toBe(true);
+    expect(dispatchedEvent.detail).toEqual({
+        schemaType: 'text',
+        setValue: expect.any(Function),
+        getValue: expect.any(Function),
+        schemaPath: '/schema/title',
+        dataPath: '/title',
+        formInspector,
+    });
+
+    // Test the getValue function
+    expect(dispatchedEvent.detail.getValue()).toBe('test value');
+
+    // Test the setValue function
+    const onChangeMock = jest.fn();
+    field.setProps({onChange: onChangeMock});
+    dispatchedEvent.detail.setValue('new value');
+    expect(onChangeMock).toHaveBeenCalledWith('test', 'new value', undefined);
+});

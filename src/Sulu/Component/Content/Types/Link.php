@@ -80,6 +80,8 @@ class Link extends SimpleContentType
             $result['rel'] = $value['rel'];
         }
 
+        $result['href'] = $value['href'] ?? null;
+
         return $result;
     }
 

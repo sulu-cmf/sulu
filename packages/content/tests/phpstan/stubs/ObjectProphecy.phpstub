@@ -1,0 +1,30 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Copyright (c) 2018 Jan Gregor Emge-Triebel
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/Jan0707/phpstan-prophecy
+ */
+
+namespace Prophecy\Prophecy;
+
+/**
+ * @see https://github.com/Jan0707/phpstan-prophecy/pull/298/files
+ *
+ * @template-covariant T of object
+ * @template-implements ProphecyInterface<T>
+ */
+class ObjectProphecy implements ProphecyInterface
+{
+    /**
+     * @return T
+     */
+    public function reveal()
+    {
+    }
+}

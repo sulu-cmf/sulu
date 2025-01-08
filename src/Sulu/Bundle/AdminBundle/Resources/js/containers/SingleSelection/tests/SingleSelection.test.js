@@ -184,7 +184,7 @@ test('Pass itemDisabledCondition to SingleListOverlay', () => {
             displayProperties={['name', 'value']}
             emptyText="Nothing"
             icon="su-test"
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             listKey="test"
             onChange={jest.fn()}
             overlayTitle="Test"
@@ -485,7 +485,7 @@ test('Pass correct itemDisabled prop to SingleItemSelection component when item 
             adapter="table"
             displayProperties={[]}
             emptyText="nothing"
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             listKey="snippets"
             onChange={jest.fn()}
             overlayTitle="Selection"

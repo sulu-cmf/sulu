@@ -7,6 +7,7 @@ export type TextEditorProps = {|
     locale: ?IObservableValue<string>,
     onBlur?: () => void,
     onChange: (value: ?string) => void,
+    onFocus?: (event: {target: EventTarget}) => void,
     options?: ?SchemaOptions,
     value: ?string,
 |};

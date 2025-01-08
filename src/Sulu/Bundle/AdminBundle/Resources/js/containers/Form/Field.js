@@ -87,6 +87,27 @@ class Field extends React.Component<Props> {
         onFinish(dataPath, schemaPath);
     };
 
+    handleFocus = (target: EventTarget) => {
+        const {
+            dataPath,
+            schemaPath,
+            schema: schemaEntry,
+        } = this.props;
+
+        const focusEvent = new Event('sulu.focus', {bubbles: true});
+        // $FlowFixMe
+        focusEvent.detail = {
+            schemaType: schemaEntry?.type,
+            setValue: this.handleChange,
+            getValue: () => this.props.value,
+            dataPath,
+            schemaPath,
+            formInspector: this.props.formInspector,
+        };
+
+        target.dispatchEvent(focusEvent);
+    };
+
     findErrorKeyword(error: ?Error | ErrorCollection): ?string {
         if (!error) {
             return;
@@ -212,6 +233,7 @@ class Field extends React.Component<Props> {
                             minOccurs={minOccurs}
                             onChange={this.handleChange}
                             onFinish={this.handleFinish}
+                            onFocus={this.handleFocus}
                             onSuccess={onSuccess}
                             router={router}
                             schemaOptions={schemaOptions}

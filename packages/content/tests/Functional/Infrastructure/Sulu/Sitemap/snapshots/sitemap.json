@@ -1,0 +1,50 @@
+[
+    {
+        "locale": "de",
+        "defaultLocale": "de",
+        "loc": "https://localhost/beispiel-1",
+        "alternateLinks": {
+            "de": {
+                "locale": "de",
+                "href": "https://localhost/beispiel-1"
+            },
+            "en": {
+                "locale": "en",
+                "href": "https://localhost/en/example-1"
+            }
+        }
+    },
+    {
+        "locale": "de",
+        "defaultLocale": "de",
+        "loc": "https://localhost/beispiel-4",
+        "alternateLinks": {
+            "de": {
+                "locale": "de",
+                "href": "https://localhost/beispiel-4"
+            }
+        }
+    },
+    {
+        "locale": "en",
+        "defaultLocale": "en",
+        "loc": "https://localhost/en/example-2",
+        "alternateLinks": {
+            "en": {
+                "locale": "en",
+                "href": "https://localhost/en/example-2"
+            }
+        }
+    },
+    {
+        "locale": "en",
+        "defaultLocale": "en",
+        "loc": "https://localhost/en/example-3",
+        "alternateLinks": {
+            "en": {
+                "locale": "en",
+                "href": "https://localhost/en/example-3"
+            }
+        }
+    }
+]

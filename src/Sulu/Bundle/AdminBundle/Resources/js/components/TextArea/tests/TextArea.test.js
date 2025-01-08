@@ -76,3 +76,13 @@ test('TextArea should call onChange with undefined when the TextArea changes to 
 
     expect(changeSpy).toHaveBeenCalledWith(undefined);
 });
+
+test('TextArea should call onFocus when the TextArea gets focus', async() => {
+    const focusSpy = jest.fn();
+    render(bindValueToOnChange(<TextArea onChange={jest.fn()} onFocus={focusSpy} value="My value" />));
+
+    const textarea = screen.queryByDisplayValue('My value');
+    textarea.focus();
+
+    expect(focusSpy).toHaveBeenCalled();
+});

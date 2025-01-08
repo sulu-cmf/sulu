@@ -1,0 +1,16 @@
+version: '3'
+services:
+  database:
+    image: mariadb:11.4.4
+    command: [ "--max_connections=1000", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci" ]
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_DATABASE: 'sulu_test'
+      MARIADB_ROOT_PASSWORD: 'ChangeMe'
+      MARIADB_ROOT_HOST: '%'
+    volumes:
+      - sulu-mariadb117-data:/var/lib/mysql
+
+volumes:
+  sulu-mariadb117-data:

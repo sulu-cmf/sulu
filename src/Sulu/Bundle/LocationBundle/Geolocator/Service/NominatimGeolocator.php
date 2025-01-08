@@ -11,8 +11,6 @@
 
 namespace Sulu\Bundle\LocationBundle\Geolocator\Service;
 
-use GuzzleHttp\ClientInterface;
-use Psr\Http\Message\ResponseInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorInterface;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorLocation;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
@@ -28,20 +26,10 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class NominatimGeolocator implements GeolocatorInterface
 {
     public function __construct(
-        protected HttpClientInterface|ClientInterface $client,
+        protected HttpClientInterface $client,
         protected string $baseUrl,
         private string $key
     ) {
-        if ($client instanceof ClientInterface) {
-            @trigger_deprecation(
-                'sulu/sulu',
-                '2.3',
-                \sprintf(
-                    'Instantiating NominatimGeolocator with %s as first argument is deprecated, please use %s instead.',
-                    ClientInterface::class, HttpClientInterface::class
-                )
-            );
-        }
     }
 
     public function locate(string $query, ?GeolocatorOptions $options = null): GeolocatorResponse
@@ -76,15 +64,8 @@ class NominatimGeolocator implements GeolocatorInterface
             );
         }
 
-        if ($response instanceof ResponseInterface) {
-            // BC to support for guzzle client
-            $results = \json_decode($response->getBody(), true);
-        } else {
-            $results = $response->toArray();
-        }
-
-        $response = new GeolocatorResponse();
-        foreach ($results as $result) {
+        $geolocatorResponse = new GeolocatorResponse();
+        foreach ($response->toArray() as $result) {
             $location = new GeolocatorLocation();
 
             foreach ([
@@ -104,9 +85,9 @@ class NominatimGeolocator implements GeolocatorInterface
             $location->setLatitude($result['lat']);
             $location->setDisplayTitle($result['display_name']);
 
-            $response->addLocation($location);
+            $geolocatorResponse->addLocation($location);
         }
 
-        return $response;
+        return $geolocatorResponse;
     }
 }

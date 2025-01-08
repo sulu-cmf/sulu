@@ -1,0 +1,9 @@
+imports:
+    - config.yml
+
+framework:
+    router: { resource: "%kernel.project_dir%/config/routing_admin.yml" }
+
+services:
+    sulu_preview.preview.kernel_factory:
+        class: Sulu\Content\Tests\Application\PreviewKernelFactory

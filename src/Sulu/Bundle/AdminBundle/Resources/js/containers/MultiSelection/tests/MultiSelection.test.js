@@ -170,7 +170,7 @@ test('Pass itemDisabledCondition to MultiListOverlay', () => {
     const selection = mount(
         <MultiSelection
             adapter="table"
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             listKey="snippets"
             onChange={jest.fn()}
             overlayTitle="Selection"
@@ -664,7 +664,7 @@ test('Should render selected item in disabled state if it fulfills passed itemDi
     const selection = mount(
         <MultiSelection
             adapter="table"
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             listKey="snippets"
             onChange={jest.fn()}
             overlayTitle="Selection"

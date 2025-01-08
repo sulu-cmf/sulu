@@ -120,15 +120,14 @@ class StructureXmlLoaderTest extends TestCase
         $this->cacheLifetimeResolver->supports(CacheLifetimeResolverInterface::TYPE_SECONDS, Argument::any())
             ->willReturn(true);
 
-        $this->translator->trans('template_title', [], 'admin', 'en')->willReturn('en_template_title');
-        $this->translator->trans('template_title', [], 'admin', 'de')->willReturn('de_template_title');
-        $this->translator->trans('template_title', [], 'admin', 'fr')->willReturn('fr_template_title');
-        $this->translator->trans('template_title', [], 'admin', 'nl')->willReturn('nl_template_title');
+        $this->translator->trans('sulu_admin.title', [], 'admin', 'en')->willReturn('en_template_title');
+        $this->translator->trans('sulu_admin.title', [], 'admin', 'fr')->willReturn('fr_template_title');
+        $this->translator->trans('sulu_admin.title', [], 'admin', 'nl')->willReturn('nl_template_title');
 
-        $this->translator->trans('property_title', [], 'admin', 'en')->willReturn('en_property_title');
-        $this->translator->trans('property_title', [], 'admin', 'de')->willReturn('de_property_title');
-        $this->translator->trans('property_title', [], 'admin', 'fr')->willReturn('fr_property_title');
-        $this->translator->trans('property_title', [], 'admin', 'nl')->willReturn('nl_property_title');
+        $this->translator->trans('sulu_admin.name', [], 'admin', 'en')->willReturn('en_property_title');
+        $this->translator->trans('sulu_admin.name', [], 'admin', 'de')->willReturn('de_property_title');
+        $this->translator->trans('sulu_admin.name', [], 'admin', 'fr')->willReturn('fr_property_title');
+        $this->translator->trans('sulu_admin.name', [], 'admin', 'nl')->willReturn('nl_property_title');
 
         $result = $this->load('template_with_localizations.xml');
 

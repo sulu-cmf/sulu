@@ -355,3 +355,37 @@ test('Call onBlur prop when CKEditor5 fires its blur event', () => {
         expect(blurSpy).toBeCalled();
     });
 });
+
+test('Call onFocus prop when CKEditor5 fires its focus event', () => {
+    const focusSpy = jest.fn();
+    const target = new EventTarget();
+    const querySelectorSpy = jest.fn().mockReturnValue(target);
+    const editor = {
+        ...defaultEditor,
+        getData: jest.fn().mockReturnValue('test'),
+        model: {
+            document: {
+                on: jest.fn(),
+                differ: {
+                    getChanges: jest.fn().mockReturnValue([]),
+                },
+            },
+        },
+        ui: {
+            element: {
+                querySelector: querySelectorSpy,
+            },
+        },
+    };
+
+    const editorPromise = Promise.resolve(editor);
+    ClassicEditor.create.mockReturnValue(editorPromise);
+
+    mount(<CKEditor5 onChange={jest.fn()} onFocus={focusSpy} value={undefined} />);
+
+    return editorPromise.then(() => {
+        editor.editing.view.document.on.mock.calls[0][1]();
+        expect(focusSpy).toBeCalledWith({target});
+        expect(querySelectorSpy).toBeCalledWith('div[contenteditable="true"]');
+    });
+});

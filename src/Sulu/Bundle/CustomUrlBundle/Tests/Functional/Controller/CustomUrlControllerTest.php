@@ -129,7 +129,8 @@ class CustomUrlControllerTest extends SuluTestCase
 
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['created']));
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['changed']));
-        $this->assertEquals(Urlizer::urlize($data['title']), $responseData['nodeName']);
+
+        $this->assertEquals($this->urlizer->slugify($data['title']), $responseData['nodeName']);
         if (\array_key_exists('targetDocument', $data)) {
             $this->assertEquals('Homepage', $responseData['targetTitle']);
         } else {
@@ -514,7 +515,7 @@ class CustomUrlControllerTest extends SuluTestCase
 
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['created']));
         $this->assertLessThanOrEqual(new \DateTime(), new \DateTime($responseData['changed']));
-        $this->assertEquals(Urlizer::urlize($data['title']), $responseData['nodeName']);
+        $this->assertEquals($this->urlizer->slugify($data['title']), $responseData['nodeName']);
         if (\array_key_exists('targetDocument', $data)) {
             $this->assertEquals('Homepage', $responseData['targetTitle']);
         } else {
@@ -570,7 +571,7 @@ class CustomUrlControllerTest extends SuluTestCase
 
         $this->assertGreaterThanOrEqual(new \DateTime($responseData['created']), $dateTime);
         $this->assertGreaterThanOrEqual(new \DateTime($responseData['changed']), $dateTime);
-        $this->assertEquals(Urlizer::urlize($data['title']), $responseData['nodeName']);
+        $this->assertEquals($this->urlizer->slugify($data['title']), $responseData['nodeName']);
         if (\array_key_exists('targetDocument', $data)) {
             $this->assertEquals('Homepage', $responseData['targetTitle']);
         } else {

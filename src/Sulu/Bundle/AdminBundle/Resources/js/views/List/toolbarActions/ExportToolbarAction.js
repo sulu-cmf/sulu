@@ -49,7 +49,7 @@ export default class ExportToolbarAction extends AbstractListToolbarAction {
                                 label={translate('sulu_admin.enclosure')}
                             >
                                 <SingleSelect onChange={this.handleEnclosureChanged} value={this.enclosure}>
-                                    <SingleSelect.Option value={'"'}>&quot;</SingleSelect.Option>
+                                    <SingleSelect.Option value='"'>&quot;</SingleSelect.Option>
                                     <SingleSelect.Option value="">
                                         {translate('sulu_admin.enclosure_nothing')}
                                     </SingleSelect.Option>
@@ -63,7 +63,7 @@ export default class ExportToolbarAction extends AbstractListToolbarAction {
                             >
                                 <SingleSelect onChange={this.handleEscapeChanged} value={this.escape}>
                                     <SingleSelect.Option value={'\\'}>\</SingleSelect.Option>
-                                    <SingleSelect.Option value={'"'}>&quot;</SingleSelect.Option>
+                                    <SingleSelect.Option value='"'>&quot;</SingleSelect.Option>
                                 </SingleSelect>
                             </Form.Field>
                             <Form.Field

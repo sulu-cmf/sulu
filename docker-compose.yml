@@ -5,6 +5,7 @@ services:
   database:
     # arm compatible mysql docker image
     image: mysql/mysql-server:${MYSQL_VERSION:-8.0} # arm and x86/x64 compatible mysql image
+    command: [ "--max_connections=1000", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci" ]
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-sulu}
       # You should definitely change the password in production

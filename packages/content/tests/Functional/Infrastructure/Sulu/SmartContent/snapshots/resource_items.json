@@ -1,0 +1,95 @@
+[
+    {
+        "id": "@integer@",
+        "excerptCategories": [
+            "@integer@",
+            "@integer@",
+            "@integer@"
+        ],
+        "excerptTags": [
+            "tagA",
+            "tagB",
+            "tagC"
+        ],
+        "published": "@string@.isDateTime()",
+        "publishedState": true,
+        "title": "example with all categories with all tags",
+        "url": "/example-with-all-categories-with-all-tags"
+    },
+    {
+        "id": "@integer@",
+        "excerptCategories": [
+            "@integer@",
+            "@integer@",
+            "@integer@"
+        ],
+        "excerptTags": [],
+        "published": "@string@.isDateTime()",
+        "publishedState": true,
+        "title": "example with all categories without tags",
+        "url": "/example-with-all-categories-without-tags"
+    },
+    {
+        "id": "@integer@",
+        "excerptCategories": [
+            "@integer@"
+        ],
+        "excerptTags": [
+            "tagB"
+        ],
+        "published": "@string@.isDateTime()",
+        "publishedState": true,
+        "title": "example with some categories with some tags",
+        "url": "/example-with-some-categories-with-some-tags"
+    },
+    {
+        "id": "@integer@",
+        "excerptCategories": [
+            "@integer@"
+        ],
+        "excerptTags": [],
+        "published": null,
+        "publishedState": false,
+        "title": "example with some categories without tags unpublished",
+        "url": "/example-with-some-categories-without-tags-unpublished"
+    },
+    {
+        "id": "@integer@",
+        "excerptCategories": [],
+        "excerptTags": [
+            "tagA",
+            "tagB",
+            "tagC"
+        ],
+        "published": "@string@.isDateTime()",
+        "publishedState": true,
+        "title": "example without categories with all tags",
+        "url": "/example-without-categories-with-all-tags"
+    },
+    {
+        "id": "@integer@",
+        "excerptCategories": [],
+        "excerptTags": [
+            "tagA"
+        ],
+        "published": "@string@.isDateTime()",
+        "publishedState": true,
+        "title": "example without categories with some tags",
+        "url": "/example-without-categories-with-some-tags"
+    },
+    {
+        "id": "@integer@",
+        "excerptCategories": [
+            "@integer@",
+            "@integer@"
+        ],
+        "excerptTags": [
+            "tagB",
+            "tagC"
+        ],
+        "published": "@string@.isDateTime()",
+        "publishedState": false,
+        "title": "example without categories without tags draft",
+        "url": "/example-without-categories-without-tags-draft"
+    }
+]

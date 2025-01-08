@@ -55,6 +55,11 @@ class FormMetadata extends AbstractMetadata
     #[Exclude(if: "'admin_form_metadata_keys_only' in context.getAttribute('groups')")]
     protected $tags = [];
 
+    public function __construct()
+    {
+        $this->schema = new SchemaMetadata();
+    }
+
     public function setName(string $name)
     {
         $this->name = $name;

@@ -264,7 +264,7 @@ test('Should pass itemDisabledCondition to the ListOverlay', () => {
     const singleListOverlay = shallow(
         <SingleListOverlay
             adapter="table"
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             listKey="snippets"
             onClose={jest.fn()}
             onConfirm={jest.fn()}

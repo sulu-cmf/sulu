@@ -1,0 +1,35 @@
+[
+    {
+        "id": "@integer@",
+        "type": "examples",
+        "locale": "en",
+        "url": "/example-1",
+        "title": "example-1-excerpt-title",
+        "description": "example-1-article",
+        "moreText": "example-1-more",
+        "mediaId": null,
+        "attributes": []
+    },
+    {
+        "id": "@integer@",
+        "type": "examples",
+        "locale": "en",
+        "url": "/example-2",
+        "title": "example-2",
+        "description": null,
+        "moreText": null,
+        "mediaId": null,
+        "attributes": []
+    },
+    {
+        "id": "@integer@",
+        "type": "examples",
+        "locale": "en",
+        "url": "/example-3",
+        "title": "example-3",
+        "description": "Test article",
+        "moreText": null,
+        "mediaId": null,
+        "attributes": []
+    }
+]

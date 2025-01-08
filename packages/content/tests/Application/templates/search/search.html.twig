@@ -1,0 +1,13 @@
+{% block content %}
+    <h2>Showing {{ hits|length }} results for "{{ query }}"</h2>
+
+    <ul>
+        {% for i, hit in hits %}
+            <li>
+                <a href="{{ hit.document.url }}">
+                    {{- hit.document.title -}}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -277,6 +277,10 @@ class SuluContactExtension extends Extension implements PrependExtensionInterfac
         $loader->load('content.xml');
         $loader->load('command.xml');
 
+        if (\array_key_exists('SuluContentBundle', $bundles)) {
+            $loader->load('services_content.xml');
+        }
+
         if (\array_key_exists('SuluTrashBundle', $bundles)) {
             $loader->load('services_trash.xml');
         }

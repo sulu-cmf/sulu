@@ -179,9 +179,13 @@ function get_bundles($target = null)
     $finder = Finder::create();
 
     if ($target) {
-        $finder->in(__DIR__ . '/../src/Sulu/Bundle/' . $target);
+        $finder->in(
+            is_dir(__DIR__ . '/../src/Sulu/Bundle/' . $target)
+                ? __DIR__ . '/../src/Sulu/Bundle/' . $target
+                : __DIR__ . '/../packages/' . $target
+        );
     } else {
-        $finder->in(__DIR__ . '/../src/Sulu/Bundle/*');
+        $finder->in([__DIR__ . '/../packages/*', __DIR__ . '/../src/Sulu/Bundle/*']);
     }
     $finder->name('phpunit.xml.dist');
     $finder->depth(' < 1');
@@ -191,7 +195,7 @@ function get_bundles($target = null)
 
 function get_test_console_path()
 {
-    $consolePath = __DIR__ . '/../src/Sulu/Bundle/TestBundle/Resources/app/console';
+    $consolePath = __DIR__ . '/../packages/article/tests/Application/bin/adminconsole'; // to init the database with complete schema was using currently article bundle
 
     if (!file_exists($consolePath)) {
         write_error(sprintf('Could not find test console "%s", is the test being executed in the correct directory?', $consolePath));

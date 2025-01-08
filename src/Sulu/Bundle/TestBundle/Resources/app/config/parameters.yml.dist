@@ -1,8 +1,4 @@
 parameters:
-    database.url: '%env(DATABASE_URL)%'
-    database.charset: '%env(DATABASE_CHARSET)%'
-    database.collate: '%env(DATABASE_COLLATE)%'
-
     phpcr.transport: '%env(PHPCR_TRANSPORT)%'
     phpcr.backend_url: '%env(PHPCR_BACKEND_URL)%'
     phpcr.username: '%env(PHPCR_USERNAME)%'
@@ -12,9 +8,7 @@ parameters:
 
     # Fallback values (used if environmental variables are not set)
 
-    env(DATABASE_URL): mysql://root:@127.0.0.1:3306/sulu_test
-    env(DATABASE_CHARSET): utf8mb4
-    env(DATABASE_COLLATE): utf8mb4_unicode_ci
+    env(DATABASE_URL): mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=5.7&charset=utf8mb4
 
     env(PHPCR_TRANSPORT): doctrinedbal
     env(PHPCR_BACKEND_URL): http://localhost:8080/server/

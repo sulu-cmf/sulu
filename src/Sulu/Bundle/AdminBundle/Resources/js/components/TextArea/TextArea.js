@@ -11,7 +11,9 @@ type Props = {|
     name?: string,
     onBlur?: () => void,
     onChange: (?string) => void,
+    onFocus?: (event: Event) => void,
     placeholder?: string,
+    rows?: number,
     valid: boolean,
     value: ?string,
 |};
@@ -34,6 +36,14 @@ export default class TextArea extends React.PureComponent<Props> {
         }
     };
 
+    handleFocus = (event: Event) => {
+        const {onFocus} = this.props;
+
+        if (onFocus) {
+            onFocus(event);
+        }
+    };
+
     render() {
         const {
             id,
@@ -41,6 +51,7 @@ export default class TextArea extends React.PureComponent<Props> {
             maxCharacters,
             name,
             placeholder,
+            rows,
             value,
             valid,
         } = this.props;
@@ -62,7 +73,9 @@ export default class TextArea extends React.PureComponent<Props> {
                     name={name}
                     onBlur={this.handleBlur}
                     onChange={this.handleChange}
+                    onFocus={this.handleFocus}
                     placeholder={placeholder}
+                    rows={rows}
                     value={value || ''}
                 />
                 {maxCharacters &&
