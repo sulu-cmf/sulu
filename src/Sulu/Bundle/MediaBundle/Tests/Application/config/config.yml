@@ -4,9 +4,6 @@ massive_search:
 sulu_media:
     search:
         enabled: true
-    format_manager:
-        response_headers:
-            Expires: "+1 month"
     image_format_files:
         - "%kernel.project_dir%/config/image-formats.xml"
     ffmpeg:
