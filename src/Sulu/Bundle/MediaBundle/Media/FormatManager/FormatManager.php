@@ -292,7 +292,7 @@ class FormatManager implements FormatManagerInterface
             $date = new \DateTime();
             $date->modify($this->responseHeaders['Expires']);
             $headers['Expires'] = $date->format('D, d M Y H:i:s \G\M\T');
-        } else {
+        } elseif (!$setExpireHeaders) {
             // will remove exist set expire header
             $headers['Expires'] = null;
             $headers['Cache-Control'] = 'no-cache';
