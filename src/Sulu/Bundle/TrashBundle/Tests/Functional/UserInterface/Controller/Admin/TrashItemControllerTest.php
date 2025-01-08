@@ -18,13 +18,13 @@ use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Bundle\SecurityBundle\Entity\Role;
 use Sulu\Bundle\SecurityBundle\Entity\UserRole;
-use Sulu\Bundle\TestBundle\Kernel\SuluKernelBrowser;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Bundle\TrashBundle\Infrastructure\Sulu\Admin\TrashAdmin;
 use Sulu\Bundle\TrashBundle\Tests\Functional\Traits\CreateTrashItemTrait;
 use Sulu\Component\Security\Authorization\AccessControl\SecuredEntityInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class TrashItemControllerTest extends SuluTestCase
 {
@@ -46,13 +46,12 @@ class TrashItemControllerTest extends SuluTestCase
     private $repository;
 
     /**
-     * @var SuluKernelBrowser
+     * @var KernelBrowser
      */
     private $client;
 
     public function setUp(): void
     {
-        /** @var SuluKernelBrowser $client */
         $client = $this->createAuthenticatedClient();
 
         $this->client = $client;
