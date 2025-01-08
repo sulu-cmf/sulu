@@ -69,8 +69,11 @@ class LocationOverlay extends React.Component<Props> {
     }
 
     setLeafletMap = (map: typeof Map) => {
-        map.on('zoomanim', this.handleMapZoom);
         this.map = map;
+
+        if (map) {
+            map.on('zoomanim', this.handleMapZoom);
+        }
     };
 
     updateMapToData = () => {
@@ -226,7 +229,7 @@ class LocationOverlay extends React.Component<Props> {
                                 attributionControl={false}
                                 center={[this.lat || 0, this.long || 0]}
                                 className={locationOverlayStyles.map}
-                                whenCreated={this.setLeafletMap}
+                                ref={this.setLeafletMap}
                                 zoom={this.zoom}
                             >
                                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
