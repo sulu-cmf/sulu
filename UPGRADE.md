@@ -2,6 +2,10 @@
 
 ## 3.0.0
 
+### Changed Media Response Header
+
+Removed Pragma & Expires headers, as the Cache-Control header is enough
+
 ### Removed deprecations for 3.0
 
 Removed classes / services:
