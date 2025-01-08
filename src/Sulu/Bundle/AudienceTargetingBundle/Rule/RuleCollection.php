@@ -17,13 +17,16 @@ namespace Sulu\Bundle\AudienceTargetingBundle\Rule;
 class RuleCollection implements RuleCollectionInterface
 {
     /**
-     * @var RuleInterface[]
+     * @var array<string, RuleInterface>
      */
     private $rules;
 
-    public function __construct(array $rules)
+    /**
+     * @param iterable<string, RuleInterface> $rules
+     */
+    public function __construct(iterable $rules)
     {
-        $this->rules = $rules;
+        $this->rules = [...$rules];
     }
 
     public function getRule($name)

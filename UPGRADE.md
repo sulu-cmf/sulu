@@ -2,6 +2,11 @@
 
 ## 2.6.4
 
+### Replacing compiler passes with `tagged_iterator`s
+We have replaced the manual logic of getting a list of tagged services to the Symfony `tagged_iterator` argument. This
+means that the following classes have been removed:
+- src/Sulu/Bundle/AudienceTargetingBundle/DependencyInjection/Compiler/AddRulesPass.php
+
 ### Stricter Image Format Url Handling
 
 The image formats URL requires an exact filename match to retrieve the correct image format. 

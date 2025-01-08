@@ -72,7 +72,7 @@
         </service>
         <service id="sulu_audience_targeting.rules_collection"
                  class="Sulu\Bundle\AudienceTargetingBundle\Rule\RuleCollection">
-            <argument type="collection"></argument>
+            <argument type="tagged_iterator" tag="sulu.audience_target_rule" index-by="alias" />
         </service>
         <service id="sulu_audience_targeting.rules.locale"
                  class="Sulu\Bundle\AudienceTargetingBundle\Rule\LocaleRule">

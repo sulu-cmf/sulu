@@ -15,6 +15,11 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @internal
+ *
+ * @deprecated since version 2.3, to be removed in 3.0. Use a tagged iterator instead.
+ */
 class AddRulesPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

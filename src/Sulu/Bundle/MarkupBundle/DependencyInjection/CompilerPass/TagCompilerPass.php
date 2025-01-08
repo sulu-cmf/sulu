@@ -40,8 +40,7 @@ class TagCompilerPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $id => $tags) {
             foreach ($tags as $attributes) {
                 $type = $attributes[self::TYPE_ATTRIBUTE];
-                $namespace = \array_key_exists(self::NAMESPACE_ATTRIBUTE, $attributes)
-                    ? $attributes[self::NAMESPACE_ATTRIBUTE] : 'sulu';
+                $namespace = $attributes[self::NAMESPACE_ATTRIBUTE] ?? 'sulu';
                 $tag = $attributes[self::TAG_ATTRIBUTE];
 
                 if (!\array_key_exists($type, $references)) {
