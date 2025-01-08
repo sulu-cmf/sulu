@@ -2911,11 +2911,6 @@ parameters:
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Tests/Functional/Controller/TargetGroupControllerTest.php
 
 		-
-			message: "#^Parameter \\#6 \\$content of method Symfony\\\\Component\\\\BrowserKit\\\\AbstractBrowser\\<Symfony\\\\Component\\\\HttpFoundation\\\\Request,Symfony\\\\Component\\\\HttpFoundation\\\\Response\\>\\:\\:request\\(\\) expects string\\|null, string\\|false given\\.$#"
-			count: 4
-			path: src/Sulu/Bundle/AudienceTargetingBundle/Tests/Functional/Controller/TargetGroupControllerTest.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\AudienceTargetingBundle\\\\Tests\\\\Functional\\\\Entity\\\\TargetGroupRepositoryTest\\:\\:createTargetGroup\\(\\) has parameter \\$active with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Tests/Functional/Entity/TargetGroupRepositoryTest.php
@@ -17721,16 +17716,6 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Structure/ExcerptStructureExtension.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\ExcerptStructureExtension\\:\\:export\\(\\) has parameter \\$properties with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Structure/ExcerptStructureExtension.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\ExcerptStructureExtension\\:\\:export\\(\\) should return array\\<string\\> but returns array\\<string, array\\<string, mixed\\>\\>\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Structure/ExcerptStructureExtension.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\ExcerptStructureExtension\\:\\:getContentData\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Structure/ExcerptStructureExtension.php
@@ -17846,32 +17831,12 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:export\\(\\) has parameter \\$properties with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:export\\(\\) should return array\\<string\\> but returns array\\<array\\<string, mixed\\>\\>\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:getExportOption\\(\\) has parameter \\$format with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:getExportOption\\(\\) has parameter \\$key with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:getExportOption\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Content\\\\Structure\\\\SeoStructureExtension\\:\\:getExportOption\\(\\) should return array but empty return statement found\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Content/Structure/SeoStructureExtension.php
 
@@ -36241,11 +36206,6 @@ parameters:
 			path: src/Sulu/Component/Content/Extension/AbstractExtension.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Content\\\\Extension\\\\ExportExtensionInterface\\:\\:export\\(\\) has parameter \\$properties with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Extension/ExportExtensionInterface.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Content\\\\Extension\\\\ExportExtensionInterface\\:\\:import\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Extension/ExportExtensionInterface.php
@@ -40601,11 +40561,6 @@ parameters:
 			path: src/Sulu/Component/CustomUrl/Manager/CustomUrlManager.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\CustomUrl\\\\Manager\\\\CustomUrlManager\\:\\:findUrls\\(\\) should return array\\<string\\> but returns Iterator\\.$#"
-			count: 1
-			path: src/Sulu/Component/CustomUrl/Manager/CustomUrlManager.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\CustomUrl\\\\Manager\\\\CustomUrlManager\\:\\:getItemsPath\\(\\) has parameter \\$webspaceKey with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/CustomUrl/Manager/CustomUrlManager.php
@@ -40661,11 +40616,6 @@ parameters:
 			path: src/Sulu/Component/CustomUrl/Manager/TitleAlreadyExistsException.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\CustomUrl\\\\Repository\\\\CustomUrlRepository\\:\\:findUrls\\(\\) should return Iterator but returns array\\<int, string\\>\\.$#"
-			count: 1
-			path: src/Sulu/Component/CustomUrl/Repository/CustomUrlRepository.php
-
-		-
 			message: "#^Parameter \\#1 \\$baseDomain of method Sulu\\\\Component\\\\CustomUrl\\\\Generator\\\\GeneratorInterface\\:\\:generate\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Component/CustomUrl/Repository/CustomUrlRepository.php
@@ -40682,11 +40632,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Component/CustomUrl/Repository/CustomUrlRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$uuids of method Sulu\\\\Component\\\\Content\\\\Repository\\\\ContentRepositoryInterface\\:\\:findByUuids\\(\\) expects array\\<string\\>, array\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: src/Sulu/Component/CustomUrl/Repository/CustomUrlRepository.php
 
@@ -43196,11 +43141,6 @@ parameters:
 			path: src/Sulu/Component/Export/Manager/ExportManager.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Export\\\\Manager\\\\ExportManager\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Export/Manager/ExportManager.php
-
-		-
 			message: "#^Property Sulu\\\\Component\\\\Export\\\\Manager\\\\ExportManager\\:\\:\\$contentTypeOptions type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Component/Export/Manager/ExportManager.php
@@ -43217,11 +43157,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Component\\\\Export\\\\Manager\\\\ExportManagerInterface\\:\\:export\\(\\) has parameter \\$propertyValue with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Export/Manager/ExportManagerInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Export\\\\Manager\\\\ExportManagerInterface\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Component/Export/Manager/ExportManagerInterface.php
 

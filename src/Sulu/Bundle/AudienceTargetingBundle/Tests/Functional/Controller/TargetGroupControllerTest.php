@@ -115,7 +115,7 @@ class TargetGroupControllerTest extends SuluTestCase
             ],
         ];
 
-        $this->client->request('POST', self::BASE_URL, [], [], [], \json_encode($data));
+        $this->client->request('POST', self::BASE_URL, [], [], [], \json_encode($data, \JSON_THROW_ON_ERROR));
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent(), true);
@@ -169,7 +169,7 @@ class TargetGroupControllerTest extends SuluTestCase
             ],
         ];
 
-        $this->client->request('PUT', self::BASE_URL . '/' . $targetGroup->getId(), [], [], [], \json_encode($data));
+        $this->client->request('PUT', self::BASE_URL . '/' . $targetGroup->getId(), [], [], [], \json_encode($data, \JSON_THROW_ON_ERROR));
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent(), true);
@@ -272,7 +272,7 @@ class TargetGroupControllerTest extends SuluTestCase
             ],
         ];
 
-        $this->client->request('PUT', self::BASE_URL . '/' . $targetGroup->getId(), [], [], [], \json_encode($data));
+        $this->client->request('PUT', self::BASE_URL . '/' . $targetGroup->getId(), [], [], [], \json_encode($data, \JSON_THROW_ON_ERROR));
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent(), true);
@@ -330,7 +330,7 @@ class TargetGroupControllerTest extends SuluTestCase
             ],
         ];
 
-        $this->client->request('PUT', self::BASE_URL . '/' . $targetGroup->getId(), [], [], [], \json_encode($data));
+        $this->client->request('PUT', self::BASE_URL . '/' . $targetGroup->getId(), [], [], [], \json_encode($data, \JSON_THROW_ON_ERROR));
 
         $this->assertHttpStatusCode(200, $this->client->getResponse());
         $response = \json_decode($this->client->getResponse()->getContent(), true);

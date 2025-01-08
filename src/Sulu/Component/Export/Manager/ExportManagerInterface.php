@@ -49,7 +49,7 @@ interface ExportManagerInterface
      * @param string $contentTypeName
      * @param string $format
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getOptions($contentTypeName, $format);
 }
