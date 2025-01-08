@@ -90,8 +90,6 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->arrayNode('response_headers')
                         ->prototype('scalar')->end()->defaultValue([
-                            'Expires' => '+1 month',
-                            'Pragma' => 'public',
                             'Cache-Control' => 'public, immutable, max-age=31536000',
                         ])
                     ->end()
