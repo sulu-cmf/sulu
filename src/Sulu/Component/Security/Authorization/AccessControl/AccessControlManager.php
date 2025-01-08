@@ -191,6 +191,8 @@ class AccessControlManager implements AccessControlManagerInterface
      * Adds a new AccessControlProvider.
      *
      * @param AccessControlProviderInterface $accessControlProvider The AccessControlProvider to add
+     *
+     * @return void
      */
     public function addAccessControlProvider(AccessControlProviderInterface $accessControlProvider)
     {

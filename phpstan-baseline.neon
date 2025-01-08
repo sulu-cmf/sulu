@@ -1186,6 +1186,11 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Metadata/FormMetadata/XmlFormMetadataLoader.php
 
 		-
+			message: "#^Cannot call method merge\\(\\) on mixed\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/AdminBundle/Metadata/FormMetadata/XmlFormMetadataLoader.php
+
+		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Metadata\\\\FormMetadata\\\\XmlFormMetadataLoader\\:\\:__construct\\(\\) has parameter \\$formDirectories with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Metadata/FormMetadata/XmlFormMetadataLoader.php
@@ -10836,6 +10841,11 @@ parameters:
 			path: src/Sulu/Bundle/CustomUrlBundle/Tests/Functional/Controller/CustomUrlRouteControllerTest.php
 
 		-
+			message: "#^Property Sulu\\\\Bundle\\\\CustomUrlBundle\\\\Tests\\\\Functional\\\\Trash\\\\CustomUrlTrashItemHandlerTest\\:\\:\\$customUrlTrashItemHandler \\(Sulu\\\\Bundle\\\\CustomUrlBundle\\\\Trash\\\\CustomUrlTrashItemHandler\\) does not accept object\\|null\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/CustomUrlBundle/Tests/Functional/Trash/CustomUrlTrashItemHandlerTest.php
+
+		-
 			message: "#^Method Sulu\\\\Bundle\\\\CustomUrlBundle\\\\Tests\\\\Unit\\\\Request\\\\CustomUrlRequestProcessorTest\\:\\:dataProvider\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/CustomUrlBundle/Tests/Unit/Request/CustomUrlRequestProcessorTest.php
@@ -12197,6 +12207,11 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\LinkTag\\:\\:validateAll\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/MarkupBundle/Markup/LinkTag.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Sulu\\\\Bundle\\\\MarkupBundle\\\\Markup\\\\Link\\\\LinkProviderPoolInterface\\:\\:getProvider\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MarkupBundle/Markup/LinkTag.php
 
@@ -13586,16 +13601,6 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Entity/Collection.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Entity/CollectionRepository.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\CollectionRepository\\:\\:addAccessControl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Entity/CollectionRepository.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\CollectionRepository\\:\\:countCollections\\(\\) has parameter \\$filter with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Entity/CollectionRepository.php
@@ -13662,11 +13667,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$parameters of method Doctrine\\\\ORM\\\\QueryBuilder\\:\\:setParameters\\(\\) expects array\\|Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>, Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int, Doctrine\\\\ORM\\\\Query\\\\Parameter\\> given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Entity/CollectionRepository.php
-
-		-
-			message: "#^Parameter \\#2 \\$user of method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\CollectionRepository\\:\\:addAccessControl\\(\\) expects Sulu\\\\Component\\\\Security\\\\Authentication\\\\UserInterface, Sulu\\\\Component\\\\Security\\\\Authentication\\\\UserInterface\\|null given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Entity/CollectionRepository.php
 
@@ -13991,11 +13991,6 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Entity/MediaDataProviderRepository.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaRepository\\:\\:addAccessControl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Entity/MediaRepository.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaRepository\\:\\:extractFilterVars\\(\\) has parameter \\$filter with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Entity/MediaRepository.php
@@ -14047,11 +14042,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaRepository\\:\\:setAccessControlQueryEnhancer\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MediaBundle/Entity/MediaRepository.php
-
-		-
-			message: "#^Parameter \\#2 \\$user of method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaRepository\\:\\:addAccessControl\\(\\) expects Sulu\\\\Component\\\\Security\\\\Authentication\\\\UserInterface, Sulu\\\\Component\\\\Security\\\\Authentication\\\\UserInterface\\|null given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Entity/MediaRepository.php
 
@@ -22546,7 +22536,7 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Repository/ContentRepositoryTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\{uuid\\: string, hasChildren\\: true, children\\: null, permissions\\: non\\-empty\\-array\\<array\\{view\\: false, add\\: false, edit\\: true, delete\\: false\\}\\|array\\{view\\: false, add\\: true, edit\\: false, delete\\: false\\}\\|array\\{view\\: true, add\\: false, edit\\: false, delete\\: false, archive\\: true\\}\\>\\} and array\\{uuid\\: string, hasChildren\\: bool, children\\: array\\<Sulu\\\\Component\\\\Content\\\\Repository\\\\Content\\>, permissions\\: array\\} will always evaluate to false\\.$#"
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\{uuid\\: string, hasChildren\\: true, children\\: null, permissions\\: non\\-empty\\-array\\<int\\|string, array\\{view\\: false, add\\: false, edit\\: true, delete\\: false\\}\\|array\\{view\\: false, add\\: true, edit\\: false, delete\\: false\\}\\|array\\{view\\: true, add\\: false, edit\\: false, delete\\: false, archive\\: true\\}\\>\\} and array\\{uuid\\: string, hasChildren\\: bool, children\\: array\\<Sulu\\\\Component\\\\Content\\\\Repository\\\\Content\\>, permissions\\: array\\} will always evaluate to false\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Repository/ContentRepositoryTest.php
 
@@ -44881,11 +44871,6 @@ parameters:
 			path: src/Sulu/Component/Rest/ListBuilder/Doctrine/DoctrineListBuilder.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\Doctrine\\\\DoctrineListBuilder\\:\\:addAccessControl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Component/Rest/ListBuilder/Doctrine/DoctrineListBuilder.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\Doctrine\\\\DoctrineListBuilder\\:\\:addPermissionCheckField\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Rest/ListBuilder/Doctrine/DoctrineListBuilder.php
@@ -46462,11 +46447,6 @@ parameters:
 
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
-
-		-
-			message: "#^Method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManager\\:\\:addAccessControlProvider\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
 

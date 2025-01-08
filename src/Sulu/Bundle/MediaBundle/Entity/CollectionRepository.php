@@ -22,7 +22,6 @@ use Sulu\Bundle\SecurityBundle\AccessControl\AccessControlQueryEnhancer;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Sulu\Component\Security\Authorization\AccessControl\DescendantProviderInterface;
-use Sulu\Component\Security\Authorization\AccessControl\SecuredEntityRepositoryTrait;
 
 /**
  * CollectionRepository.
@@ -34,12 +33,7 @@ use Sulu\Component\Security\Authorization\AccessControl\SecuredEntityRepositoryT
  */
 class CollectionRepository extends NestedTreeRepository implements CollectionRepositoryInterface, DescendantProviderInterface
 {
-    use SecuredEntityRepositoryTrait;
-
-    /**
-     * @var AccessControlQueryEnhancer
-     */
-    private $accessControlQueryEnhancer;
+    private AccessControlQueryEnhancer $accessControlQueryEnhancer;
 
     public function findCollectionById($id)
     {
@@ -104,23 +98,13 @@ class CollectionRepository extends NestedTreeRepository implements CollectionRep
         $queryBuilder->addOrderBy('collection.id', 'ASC');
 
         if (null != $permission) {
-            if ($this->accessControlQueryEnhancer) {
-                $this->accessControlQueryEnhancer->enhance(
-                    $queryBuilder,
-                    $user,
-                    $permission,
-                    CollectionEntity::class,
-                    'collection'
-                );
-            } else {
-                $this->addAccessControl(
-                    $queryBuilder,
-                    $user,
-                    $permission,
-                    CollectionEntity::class,
-                    'collection'
-                );
-            }
+            $this->accessControlQueryEnhancer->enhance(
+                $queryBuilder,
+                $user,
+                $permission,
+                CollectionEntity::class,
+                'collection'
+            );
         }
 
         /** @var CollectionEntity[] */
