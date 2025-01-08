@@ -15,14 +15,14 @@ use Gedmo\Sluggable\Util\Urlizer;
 use Sulu\Bundle\PageBundle\Document\BasePageDocument;
 use Sulu\Bundle\PageBundle\Document\PageDocument;
 use Sulu\Bundle\PreviewBundle\Domain\Model\PreviewLinkInterface;
-use Sulu\Bundle\TestBundle\Kernel\SuluKernelBrowser;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class PreviewLinkControllerTest extends SuluTestCase
 {
     /**
-     * @var SuluKernelBrowser
+     * @var KernelBrowser
      */
     private $client;
 
@@ -53,7 +53,6 @@ class PreviewLinkControllerTest extends SuluTestCase
 
     public function setUp(): void
     {
-        /** @var SuluKernelBrowser $client */
         $client = static::createAuthenticatedClient();
 
         $this->client = $client;
