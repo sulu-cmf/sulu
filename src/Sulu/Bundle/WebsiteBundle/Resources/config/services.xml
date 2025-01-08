@@ -310,7 +310,7 @@
         <!-- reference-store -->
         <service id="sulu_website.reference_store_pool"
                  class="Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStorePool">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu_website.reference_store" index-by="alias" />
         </service>
 
         <service id="sulu_website.webspace_reference_store"

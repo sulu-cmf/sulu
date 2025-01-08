@@ -17,14 +17,14 @@ namespace Sulu\Bundle\RouteBundle\Routing\Defaults;
 class RouteDefaultsProvider implements RouteDefaultsProviderInterface
 {
     /**
-     * @var RouteDefaultsProviderInterface[]
+     * @var array<string, RouteDefaultsProviderInterface>
      */
     private $defaultsProviderMap = [];
 
     /**
-     * @param RouteDefaultsProviderInterface[] $defaultsProvider
+     * @param iterable<RouteDefaultsProviderInterface> $defaultsProvider
      */
-    public function __construct(private array $defaultsProvider)
+    public function __construct(private iterable $defaultsProvider)
     {
     }
 
@@ -47,6 +47,9 @@ class RouteDefaultsProvider implements RouteDefaultsProviderInterface
         return null !== $this->getDefaultProvider($entityClass);
     }
 
+    /**
+     * @param string $entityClass
+     */
     private function getDefaultProvider($entityClass)
     {
         if (\array_key_exists($entityClass, $this->defaultsProviderMap)) {

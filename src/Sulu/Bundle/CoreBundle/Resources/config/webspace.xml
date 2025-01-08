@@ -64,7 +64,7 @@
         </service>
 
         <service id="sulu_core.webspace.url_provider" class="Sulu\Component\Webspace\Url\WebspaceUrlChainProvider">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu.webspace.url_provider"/>
         </service>
 
         <service id="sulu_core.webspace.url_provider.default" class="Sulu\Component\Webspace\Url\WebspaceUrlProvider">

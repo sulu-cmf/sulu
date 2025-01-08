@@ -25066,11 +25066,6 @@ parameters:
 			path: src/Sulu/Bundle/RouteBundle/Routing/Defaults/RouteDefaultsProvider.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\RouteBundle\\\\Routing\\\\Defaults\\\\RouteDefaultsProvider\\:\\:getDefaultProvider\\(\\) has parameter \\$entityClass with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/RouteBundle/Routing/Defaults/RouteDefaultsProvider.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\RouteBundle\\\\Routing\\\\Defaults\\\\RouteDefaultsProviderInterface\\:\\:getByEntity\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/RouteBundle/Routing/Defaults/RouteDefaultsProviderInterface.php

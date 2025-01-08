@@ -110,7 +110,7 @@
         <!-- rlp strategies -->
         <service id="sulu.content.resource_locator.strategy_pool"
                  class="Sulu\Component\Content\Types\ResourceLocator\Strategy\ResourceLocatorStrategyPool">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu.resource_locator.strategy" index-by="alias" />
             <argument type="service" id="sulu_core.webspace.webspace_manager"/>
         </service>
         <service id="sulu.content.resource_locator.strategy.tree_generator"

@@ -17,16 +17,16 @@ namespace Sulu\Bundle\WebsiteBundle\ReferenceStore;
 class ReferenceStorePool implements ReferenceStorePoolInterface
 {
     /**
-     * @var ReferenceStoreInterface[]
+     * @var array<string, ReferenceStoreInterface>
      */
     private $stores = [];
 
     /**
-     * @param ReferenceStoreInterface[] $stores
+     * @param iterable<string, ReferenceStoreInterface> $stores
      */
-    public function __construct(array $stores)
+    public function __construct(iterable $stores)
     {
-        $this->stores = $stores;
+        $this->stores = [...$stores];
     }
 
     public function getStores()

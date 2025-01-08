@@ -6,7 +6,7 @@
         <service id="sulu_core.webspace.request_analyzer"
                  class="Sulu\Component\Webspace\Analyzer\RequestAnalyzer" public="true">
             <argument type="service" id="request_stack"/>
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu.request_attributes" />
         </service>
         <service id="Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface" alias="sulu_core.webspace.request_analyzer" />
 

@@ -16,10 +16,16 @@ use Sulu\Bundle\PreviewBundle\Preview\Exception\ProviderNotFoundException;
 class PreviewObjectProviderRegistry implements PreviewObjectProviderRegistryInterface
 {
     /**
-     * @param PreviewObjectProviderInterface[] $previewObjectProviders
+     * @var array<string, PreviewObjectProviderInterface>
      */
-    public function __construct(private array $previewObjectProviders)
+    private $previewObjectProviders;
+
+    /**
+     * @param iterable<string, PreviewObjectProviderInterface> $previewObjectProviders
+     */
+    public function __construct(iterable $previewObjectProviders)
     {
+        $this->previewObjectProviders = [...$previewObjectProviders];
     }
 
     public function getPreviewObjectProviders(): array

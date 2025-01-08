@@ -14,7 +14,7 @@
 
         <service id="sulu_markup.parser.delegating_html_extractor"
                  class="Sulu\Bundle\MarkupBundle\Markup\DelegatingTagExtractor">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu_markup.parser.html_extractor" />
         </service>
 
         <service id="sulu_markup.parser" class="Sulu\Bundle\MarkupBundle\Markup\HtmlMarkupParser">
@@ -40,7 +40,7 @@
 
         <service id="sulu_markup.link_tag.provider_pool"
                  class="Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderPool">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu.link.provider" index-by="alias" />
         </service>
 
         <service id="sulu_markup.link_tag" class="Sulu\Bundle\MarkupBundle\Markup\LinkTag">
