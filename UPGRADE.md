@@ -2,9 +2,11 @@
 
 ## 3.0.0
 
-### Changed Media Response Header
+### Changed Media Format HTTP Response Headers
 
-Removed Pragma & Expires headers, as the Cache-Control header is enough
+Removed `Pragma` & `Expires` HTTP headers, as the `Cache-Control` header is enough.
+
+If you still want to readd them use `sulu_media.format_manager.response_headers` configuration.
 
 ### Removed deprecations for 3.0
 
