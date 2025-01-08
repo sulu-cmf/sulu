@@ -16,9 +16,10 @@ use PHPCR\NodeInterface;
 interface ExportExtensionInterface
 {
     /**
+     * @param array<string, mixed> $properties
      * @param string $format
      *
-     * @return string[]
+     * @return array<string, array{name: string, value: mixed, type: string, options: array<string, mixed>}>
      */
     public function export($properties, $format = null);
 

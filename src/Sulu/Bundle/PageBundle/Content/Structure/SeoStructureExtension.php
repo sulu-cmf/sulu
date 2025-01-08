@@ -93,12 +93,12 @@ class SeoStructureExtension extends AbstractExtension implements ExportExtension
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     protected function getExportOption($key, $format)
     {
         if ('1.2.xliff' !== $format) {
-            return;
+            return [];
         }
 
         $translate = true;

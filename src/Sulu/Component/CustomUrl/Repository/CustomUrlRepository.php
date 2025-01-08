@@ -84,6 +84,7 @@ class CustomUrlRepository
         $query = $queryBuilder->getQuery();
         $result = $query->execute();
 
+        /** @var string[] $uuids */
         $uuids = \array_map(
             function(Row $item) {
                 return $item->getValue('a.targetDocument');
@@ -138,7 +139,7 @@ class CustomUrlRepository
      *
      * @param string $path
      *
-     * @return \Iterator
+     * @return array<string>
      */
     public function findUrls($path)
     {
