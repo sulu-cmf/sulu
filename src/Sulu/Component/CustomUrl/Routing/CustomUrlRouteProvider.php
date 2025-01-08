@@ -11,11 +11,15 @@
 
 namespace Sulu\Component\CustomUrl\Routing;
 
-use PHPCR\Util\PathHelper;
-use Sulu\Component\Content\Document\WorkflowStage;
-use Sulu\Component\CustomUrl\Document\RouteDocument;
-use Sulu\Component\DocumentManager\PathBuilder;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
+use Sulu\Component\CustomUrl\Generator\GeneratorInterface;
+use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
+use Sulu\Component\Localization\Localization;
+use Sulu\Component\Webspace\Analyzer\Attributes\RequestAttributes;
+use Sulu\Component\Webspace\Analyzer\RequestAnalyzer;
 use Sulu\Component\Webspace\Analyzer\RequestAnalyzerInterface;
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Sulu\Component\Webspace\PortalInformation;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -23,68 +27,67 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * Provides custom-url routes.
+ * Generates a list of custom routes based on custom url redirects that could match the current request.
  */
 class CustomUrlRouteProvider implements RouteProviderInterface
 {
     /**
-     * @param string $environment
+     * @param array<string, string> $defaultOptions
      */
     public function __construct(
-        private RequestAnalyzerInterface $requestAnalyzer,
-        private PathBuilder $pathBuilder,
-        private $environment,
-        private array $defaultOptions = [],
+        private CustomUrlRepositoryInterface $customUrlRepository,
+        private GeneratorInterface $generator,
+        private WebspaceManagerInterface $webspaceManager,
+        private array $defaultOptions,
+        private string $environment,
+        private CustomUrlDefaultsProvider $customUrlDefaultsProvider
     ) {
     }
 
     public function getRouteCollectionForRequest(Request $request): RouteCollection
     {
-        $collection = new RouteCollection();
+        $url = $this->sanitizeUrl($request);
+        $portalInformations = $this->webspaceManager->findPortalInformationsByUrl($url, $this->environment);
 
-        $routeDocument = $this->requestAnalyzer->getAttribute('customUrlRoute');
-        $customUrlDocument = $this->requestAnalyzer->getAttribute('customUrl');
-        $localization = $this->requestAnalyzer->getAttribute('localization');
-        if (null === $routeDocument || null === $localization) {
-            return $collection;
-        }
-
-        if ($routeDocument->isHistory()) {
-            // if custom-url is not redirect to avoid double redirects.
-            if (!$routeDocument->getTargetDocument()->getTargetDocument()->isRedirect()) {
-                return $this->addHistoryRedirectToRouteCollection(
-                    $request,
-                    $routeDocument,
-                    $collection,
-                    $this->requestAnalyzer->getWebspace()->getKey()
-                );
+        /** @var CustomUrl $customUrl */
+        $customUrl = null;
+        foreach ($portalInformations as $portalInformation) {
+            if (!$portalInformation->getWebspace() || RequestAnalyzerInterface::MATCH_TYPE_WILDCARD !== $portalInformation->getType()) {
+                continue;
             }
 
-            $routeDocument = $routeDocument->getTargetDocument();
-            $customUrlDocument = $routeDocument->getTargetDocument();
+            if (null !== $customUrl = $this->matchCustomUrl($url, $portalInformation, $request)) {
+                break;
+            }
         }
 
-        if (null === $customUrlDocument
-            || false === $customUrlDocument->isPublished()
-            || (
-                null !== $customUrlDocument->getTargetDocument()
-                && WorkflowStage::PUBLISHED !== $customUrlDocument->getTargetDocument()->getWorkflowStage()
-            )
-        ) {
-            return $collection;
+        if (null === $customUrl) {
+            return new RouteCollection();
         }
 
+        $defaults = $this->customUrlDefaultsProvider->provideDefault($request, $customUrl);
+
+        if ($customUrl->isRedirect()) {
+            $defaults = \array_merge(
+                $defaults,
+                $this->customUrlDefaultsProvider->provideForRedirect($request, $customUrl)
+            );
+        } else {
+            $defaults = \array_merge(
+                $defaults,
+                $this->customUrlDefaultsProvider->provideForForward($request, $customUrl),
+            );
+        }
+
+        // Forwarding the route to the normal request handling
+        $collection = new RouteCollection();
         $collection->add(
-            \uniqid('custom_url_route_', true),
+            'Custom Url: ' . $customUrl->getTitle(),
             new Route(
-                $this->decodePathInfo($request->getPathInfo()),
-                [
-                    '_custom_url' => $customUrlDocument,
-                    '_webspace' => $this->requestAnalyzer->getWebspace(),
-                    '_environment' => $this->environment,
-                ],
-                [],
-                $this->defaultOptions
+                path: $this->decodePathInfo($request->getPathInfo()),
+                defaults: $defaults,
+                requirements: [],
+                options: $this->defaultOptions
             )
         );
 
@@ -104,68 +107,56 @@ class CustomUrlRouteProvider implements RouteProviderInterface
         return [];
     }
 
-    /**
-     * Add redirect to current custom-url.
-     *
-     * @param string $webspaceKey
-     *
-     * @return RouteCollection
-     */
-    private function addHistoryRedirectToRouteCollection(
-        Request $request,
-        RouteDocument $routeDocument,
-        RouteCollection $collection,
-        $webspaceKey
-    ) {
-        $resourceSegment = PathHelper::relativizePath(
-            $routeDocument->getTargetDocument()->getPath(),
-            $this->getRoutesPath($webspaceKey)
-        );
-
-        $requestFormat = $request->getRequestFormat(null);
-        $requestFormatSuffix = $requestFormat ? '.' . $requestFormat : '';
-
-        $url = \sprintf('%s://%s%s', $request->getScheme(), $resourceSegment, $requestFormatSuffix);
-
-        $collection->add(
-            \uniqid('custom_url_route_', true),
-            new Route(
-                $this->decodePathInfo($request->getPathInfo()),
-                [
-                    '_controller' => 'sulu_website.redirect_controller::redirectAction',
-                    '_finalized' => true,
-                    'url' => $url,
-                ],
-                [],
-                $this->defaultOptions
-            )
-        );
-
-        return $collection;
-    }
-
-    /**
-     * Return routes path for custom-url in given webspace.
-     *
-     * @param string $webspaceKey
-     *
-     * @return string
-     */
-    private function getRoutesPath($webspaceKey)
+    private function matchCustomUrl(string $url, PortalInformation $portalInformation, Request $request): ?CustomUrl
     {
-        return $this->pathBuilder->build(['%base%', $webspaceKey, '%custom_urls%', '%custom_urls_routes%']);
+        $webspace = $portalInformation->getWebspace();
+        $customUrl = $this->customUrlRepository->findNewestPublishedByUrl(\rawurldecode($url), $webspace->getKey());
+
+        if (!$customUrl) {
+            return null;
+        }
+
+        $localization = Localization::createFromString($customUrl->getTargetLocale());
+
+        // TODO: Fix this
+        $attributes = $request->attributes->get(RequestAnalyzer::SULU_ATTRIBUTE)->merge(new RequestAttributes([
+            'portalInformation' => $portalInformation,
+            'localization' => $localization,
+            'locale' => $localization->getLocale(),
+            'customUrl' => $customUrl,
+            'urlExpression' => $this->generator->generate($customUrl->getBaseDomain(), $customUrl->getDomainParts()),
+        ]));
+
+        $request->attributes->set(RequestAnalyzer::SULU_ATTRIBUTE, $attributes);
+
+        return $customUrl;
     }
 
     /**
      * Server encodes the url and symfony does not encode it
      * Symfony decodes this data here https://github.com/symfony/symfony/blob/3.3/src/Symfony/Component/Routing/Matcher/UrlMatcher.php#L91.
-     *
-     * @param string $pathInfo
-     *
-     * @return string
      */
-    private function decodePathInfo($pathInfo)
+    private function decodePathInfo(string $pathInfo): string
     {
         return \rawurldecode($pathInfo);
+    }
+
+    private function sanitizeUrl(Request $request): string
+    {
+        $pathInfo = $request->getPathInfo();
+
+        // If the string contains a dot, strip everything after the dot. This should strip things like index.html to just index
+        $position = \strrpos($pathInfo, '.');
+        if ($position) {
+            $pathInfo = \substr($pathInfo, 0, $position);
+        }
+        $pathInfo = \rtrim($pathInfo, '/');
+
+        $queryString = $request->getQueryString() ?? '';
+        if ('' !== $queryString) {
+            $queryString = '?' . $queryString;
+        }
+
+        return $this->decodePathInfo(\sprintf('%s%s%s', $request->getHost(), $pathInfo, $queryString));
     }
 }

@@ -13,9 +13,8 @@
         <service id="sulu_custom_urls.custom_url_trash_item_handler"
                  class="Sulu\Bundle\CustomUrlBundle\Trash\CustomUrlTrashItemHandler">
             <argument type="service" id="sulu_trash.trash_item_repository"/>
-            <argument type="service" id="sulu_document_manager.document_manager"/>
-            <argument type="service" id="sulu_document_manager.document_inspector"/>
             <argument type="service" id="sulu_document_manager.document_domain_event_collector"/>
+            <argument type="service" id="doctrine.orm.entity_manager" />
 
             <tag name="sulu_trash.store_trash_item_handler"/>
             <tag name="sulu_trash.restore_trash_item_handler"/>

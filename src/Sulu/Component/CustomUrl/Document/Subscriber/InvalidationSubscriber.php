@@ -11,13 +11,12 @@
 
 namespace Sulu\Component\CustomUrl\Document\Subscriber;
 
-use PHPCR\Util\PathHelper;
-use Sulu\Bundle\DocumentManagerBundle\Bridge\DocumentInspector;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrlRoute;
 use Sulu\Bundle\HttpCacheBundle\Cache\CacheManager;
 use Sulu\Bundle\PageBundle\Document\BasePageDocument;
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
-use Sulu\Component\CustomUrl\Document\RouteDocument;
-use Sulu\Component\CustomUrl\Manager\CustomUrlManagerInterface;
+use Sulu\Bundle\PageBundle\Document\RouteDocument;
+use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
 use Sulu\Component\DocumentManager\Event\PublishEvent;
 use Sulu\Component\DocumentManager\Event\RemoveEvent;
 use Sulu\Component\DocumentManager\Events;
@@ -25,19 +24,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Invalidate custom-url http-cache.
+ * When a content has changed or been removed we need to invalidate all custom url routes that point to the content
+ * When a custom route has been removed we need to invalidate all the caches too.
  */
 class InvalidationSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private CustomUrlManagerInterface $customUrlManager,
-        private DocumentInspector $documentInspector,
+        private CustomUrlRepositoryInterface $customUrlRepository,
         private ?CacheManager $cacheManager,
         private RequestStack $requestStack,
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::PUBLISH => ['invalidateDocumentBeforePublishing', 1024],
@@ -45,69 +44,48 @@ class InvalidationSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * Invalidate custom-urls before publishing.
-     */
-    public function invalidateDocumentBeforePublishing(PublishEvent $event)
+    public function invalidateDocumentBeforePublishing(PublishEvent $event): void
     {
         $this->invalidateDocument($event->getDocument());
     }
 
-    /**
-     * Invalidate custom-urls before removing.
-     */
-    public function invalidateDocumentBeforeRemoving(RemoveEvent $event)
+    public function invalidateDocumentBeforeRemoving(RemoveEvent $event): void
     {
         $this->invalidateDocument($event->getDocument());
     }
 
-    private function invalidateDocument($document)
+    private function invalidateDocument(BasePageDocument|RouteDocument|CustomUrl|CustomUrlRoute $document): void
     {
+        if (!$this->cacheManager) {
+            return;
+        }
+
         if ($document instanceof BasePageDocument) {
-            /** @var CustomUrlDocument $customUrlDocument */
-            foreach ($this->customUrlManager->findByPage($document) as $customUrlDocument) {
+            foreach ($this->customUrlRepository->findByTarget($document) as $customUrlDocument) {
                 $this->invalidateCustomUrlDocument($customUrlDocument);
             }
-        }
-
-        if ($document instanceof CustomUrlDocument) {
+        } elseif ($document instanceof RouteDocument) {
+            $this->invalidateDocument($document->getTargetDocument());
+        } elseif ($document instanceof CustomUrl) {
             $this->invalidateCustomUrlDocument($document);
-        }
-
-        if ($document instanceof RouteDocument) {
-            $this->invalidateRouteDocument($document);
+        } else {
+            $this->invalidateCustomUrl($document);
         }
     }
 
-    private function invalidateCustomUrlDocument(CustomUrlDocument $document)
+    private function invalidateCustomUrlDocument(CustomUrl $customUrl): void
     {
-        if (!$this->cacheManager) {
-            return;
-        }
-
-        foreach ($document->getRoutes() as $route => $routeDocument) {
-            $this->cacheManager->invalidatePath($this->getUrlWithScheme($route));
+        foreach ($customUrl->getRoutes() as $route) {
+            $this->cacheManager->invalidatePath($this->getUrlWithScheme($route->getPath()));
         }
     }
 
-    private function invalidateRouteDocument(RouteDocument $routeDocument)
+    private function invalidateCustomUrl(CustomUrlRoute $customUrlRoute): void
     {
-        if (!$this->cacheManager) {
-            return;
-        }
-
-        $url = PathHelper::relativizePath(
-            $routeDocument->getPath(),
-            $this->customUrlManager->getRoutesPath($this->documentInspector->getWebspace($routeDocument))
-        );
-
-        $this->cacheManager->invalidatePath($this->getUrlWithScheme($url));
+        $this->cacheManager->invalidatePath($this->getUrlWithScheme($customUrlRoute->getPath()));
     }
 
-    /**
-     * @return string
-     */
-    private function getUrlWithScheme(string $url)
+    private function getUrlWithScheme(string $url): string
     {
         $scheme = 'http';
         if ($request = $this->requestStack->getCurrentRequest()) {

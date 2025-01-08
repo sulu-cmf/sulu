@@ -19,22 +19,12 @@ use Sulu\Component\Rest\Exception\TranslationErrorMessageExceptionInterface;
  */
 class TitleAlreadyExistsException extends RestException implements TranslationErrorMessageExceptionInterface
 {
-    /**
-     * @param string $title
-     */
-    private $title;
-
-    public function __construct($title, ?\Throwable $previous = null)
+    public function __construct(private string $title, ?\Throwable $previous = null)
     {
-        parent::__construct(\sprintf('Title "%s" already in use', $title), 9001, $previous);
-
-        $this->title = $title;
+        parent::__construct(\sprintf('Title "%s" already in use', $this->title), 9001, $previous);
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }

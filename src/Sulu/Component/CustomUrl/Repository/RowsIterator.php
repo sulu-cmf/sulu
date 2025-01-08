@@ -11,31 +11,31 @@
 
 namespace Sulu\Component\CustomUrl\Repository;
 
-use Sulu\Bundle\AdminBundle\UserManager\UserManagerInterface;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 use Sulu\Component\Content\Repository\Content;
 use Sulu\Component\CustomUrl\Generator\GeneratorInterface;
 
 /**
  * Converts rows into simple data-arrays.
+ *
+ * @extends \ArrayIterator<CustomUrl>
  */
-class RowsIterator extends \IteratorIterator
+class RowsIterator extends \ArrayIterator
 {
     /**
-     * @var Content[]
+     * @var array<int, Content>
      */
     private $targets;
 
     /**
-     * @param string[] $columns
+     * @param array<Content> $results
      */
     public function __construct(
-        \Traversable $iterator,
-        private array $columns,
+        array $results,
         array $targets,
         private GeneratorInterface $generator,
-        private UserManagerInterface $userManager
     ) {
-        parent::__construct($iterator);
+        parent::__construct($results);
 
         $this->targets = [];
         foreach ($targets as $target) {
@@ -46,30 +46,18 @@ class RowsIterator extends \IteratorIterator
     #[\ReturnTypeWillChange]
     public function current()
     {
+        /** @var CustomUrl $row */
         $row = parent::current();
-        $result = [];
-
-        foreach ($this->columns as $column) {
-            if ('uuid' === $column) {
-                $result['id'] = $row->getValue($column);
-                continue;
-            }
-
-            $result[\str_replace('a.', '', $column)] = $row->getValue($column);
-        }
+        $result = $row->toArray();
 
         $result['targetTitle'] = '';
-        if (!empty($result['targetDocument']) && \array_key_exists($result['targetDocument'], $this->targets)) {
+        if (\array_key_exists($result['targetDocument'], $this->targets)) {
             $result['targetTitle'] = $this->targets[$result['targetDocument']]['title'];
         }
-        $result['domainParts'] = \json_decode($result['domainParts'], true);
-        $result['customUrl'] = $this->generator->generate(
-            $result['baseDomain'],
-            $result['domainParts']
-        );
+        $result['customUrl'] = $this->generator->generate($result['baseDomain'], $result['domainParts']);
 
-        $result['creatorFullName'] = $this->userManager->getFullNameByUserId($result['creator']);
-        $result['changerFullName'] = $this->userManager->getFullNameByUserId($result['changer']);
+        $result['creatorFullName'] = $row->getCreator()?->getFullName();
+        $result['changerFullName'] = $row->getChanger()?->getFullName();
 
         return $result;
     }

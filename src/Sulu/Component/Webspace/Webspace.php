@@ -293,6 +293,14 @@ class Webspace implements ArrayableInterface
     }
 
     /**
+     * @return array<CustomUrl>
+     */
+    public function getCustomUrls(string $environment): array
+    {
+        return $this->getPortals()[0]->getEnvironment($environment)->getCustomUrls();
+    }
+
+    /**
      * Adds a segment to the webspace.
      *
      * @return void

@@ -13,7 +13,7 @@ namespace Sulu\Component\CustomUrl\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Sulu\Component\CustomUrl\Manager\CustomUrlManagerInterface;
+use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
 use Sulu\Component\CustomUrl\WebspaceCustomUrlProvider;
 use Sulu\Component\Webspace\Url;
 use Sulu\Component\Webspace\Webspace;
@@ -24,10 +24,10 @@ class WebspaceCustomUrlProviderTest extends TestCase
 
     public function testGetUrls(): void
     {
-        $customUrlManager = $this->prophesize(CustomUrlManagerInterface::class);
+        $customUrlManager = $this->prophesize(CustomUrlRepositoryInterface::class);
         $provider = new WebspaceCustomUrlProvider($customUrlManager->reveal());
 
-        $customUrlManager->findUrls('sulu_io')->willReturn(['1.sulu.lo', '1.sulu.lo/2']);
+        $customUrlManager->findPathsByWebspace('sulu_io')->willReturn(['1.sulu.lo', '1.sulu.lo/2']);
 
         $webspace = $this->prophesize(Webspace::class);
         $webspace->getKey()->willReturn('sulu_io');

@@ -11,24 +11,22 @@
 
 namespace Sulu\Component\CustomUrl;
 
-use Sulu\Component\CustomUrl\Manager\CustomUrlManagerInterface;
+use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
 use Sulu\Component\Webspace\Url;
 use Sulu\Component\Webspace\Url\WebspaceUrlProviderInterface;
 use Sulu\Component\Webspace\Webspace;
 
-/**
- * Returns custom-urls for given webspace.
- */
 class WebspaceCustomUrlProvider implements WebspaceUrlProviderInterface
 {
-    public function __construct(private CustomUrlManagerInterface $customUrlManager)
-    {
+    public function __construct(
+        private CustomUrlRepositoryInterface $customUrlRepository
+    ) {
     }
 
-    public function getUrls(Webspace $webspace, $environment)
+    public function getUrls(Webspace $webspace, $environment): array
     {
         $urls = [];
-        foreach ($this->customUrlManager->findUrls($webspace->getKey()) as $customUrl) {
+        foreach ($this->customUrlRepository->findPathsByWebspace($webspace->getKey()) as $customUrl) {
             $urls[] = new Url($customUrl, $environment);
         }
 

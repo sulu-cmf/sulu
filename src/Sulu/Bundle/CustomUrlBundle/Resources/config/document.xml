@@ -4,50 +4,28 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sulu_custom_urls.repository" class="Sulu\Component\CustomUrl\Repository\CustomUrlRepository">
-            <argument type="service" id="sulu.phpcr.session"/>
-            <argument type="service" id="sulu_page.content_repository"/>
-            <argument type="service" id="sulu_custom_urls.domain_generator"/>
-            <argument type="service" id="sulu_security.user_manager"/>
+        <service id="Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface"
+            class="Sulu\Component\CustomUrl\Repository\CustomUrlRepository">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="sulu_page.content_repository" />
+            <argument type="service" id="sulu_custom_urls.domain_generator" />
+            <argument type="service" id="sulu_core.webspace.webspace_manager" />
         </service>
 
-        <service id="sulu_custom_urls.manager" class="Sulu\Component\CustomUrl\Manager\CustomUrlManager" public="true">
-            <argument type="service" id="sulu_document_manager.document_manager"/>
-            <argument type="service" id="sulu_document_manager.document_inspector"/>
+        <service id="sulu_custom_urls.repository" alias="Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface" />
+
+        <service id="sulu_custom_urls.manager" class="Sulu\Component\CustomUrl\Manager\CustomUrlManager">
             <argument type="service" id="sulu_custom_urls.repository"/>
-            <argument type="service" id="sulu_document_manager.metadata_factory"/>
-            <argument type="service" id="sulu_document_manager.path_builder"/>
-            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
             <argument type="string">%kernel.environment%</argument>
             <argument type="service" id="sulu_document_manager.document_domain_event_collector"/>
-        </service>
-
-        <service id="sulu_custom_urls.initializer"
-                 class="Sulu\Component\CustomUrl\Document\Initializer\CustomUrlInitializer">
-            <argument type="service" id="sulu_document_manager.node_manager"/>
-            <argument type="service" id="sulu_document_manager.path_builder"/>
-            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
-            <argument type="service" id="sulu.phpcr.session"/>
-
-            <!-- This needs to happen after the content repository has been initialized !-->
-            <tag name="sulu_document_manager.initializer" priority="-127"/>
-        </service>
-
-        <service id="sulu_custom_urls.subscriber"
-                 class="Sulu\Component\CustomUrl\Document\Subscriber\CustomUrlSubscriber">
-            <argument type="service" id="sulu_custom_urls.domain_generator"/>
-            <argument type="service" id="sulu_document_manager.document_manager"/>
-            <argument type="service" id="sulu_document_manager.path_builder"/>
-            <argument type="service" id="sulu_document_manager.document_inspector"/>
-            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
-
-            <tag name="sulu_document_manager.event_subscriber"/>
+            <argument type="service" id="property_accessor" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="sulu_custom_urls.domain_generator" />
         </service>
 
         <service id="sulu_custom_urls.event_subscriber.invalidation"
                  class="Sulu\Component\CustomUrl\Document\Subscriber\InvalidationSubscriber">
-            <argument type="service" id="sulu_custom_urls.manager"/>
-            <argument type="service" id="sulu_document_manager.document_inspector"/>
+            <argument type="service" id="sulu_custom_urls.repository"/>
             <argument type="service" id="sulu_http_cache.cache_manager" on-invalid="null"/>
             <argument type="service" id="request_stack"/>
 
@@ -59,7 +37,8 @@
         </service>
 
         <service id="sulu_custom_urls.url_provider" class="Sulu\Component\CustomUrl\WebspaceCustomUrlProvider">
-            <argument type="service" id="sulu_custom_urls.manager"/>
+            <argument type="service" id="sulu_custom_urls.repository"/>
+
             <tag name="sulu.webspace.url_provider"/>
         </service>
 
@@ -68,8 +47,8 @@
                  public="true">
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="sulu_custom_urls.manager"/>
-            <argument type="service" id="sulu_document_manager.document_manager"/>
             <argument type="service" id="request_stack"/>
+            <argument type="service" id="sulu_custom_urls.repository"/>
 
             <tag name="sulu.context" context="admin"/>
         </service>
@@ -78,8 +57,7 @@
                  class="Sulu\Bundle\CustomUrlBundle\Controller\CustomUrlRouteController"
                  public="true">
             <argument type="service" id="fos_rest.view_handler"/>
-            <argument type="service" id="sulu_custom_urls.manager"/>
-            <argument type="service" id="sulu_document_manager.document_manager"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="request_stack"/>
 
             <tag name="sulu.context" context="admin"/>

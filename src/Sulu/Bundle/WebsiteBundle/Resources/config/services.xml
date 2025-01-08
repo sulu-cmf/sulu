@@ -33,6 +33,11 @@
                  public="true">
             <argument type="service" id="router"/>
         </service>
+        <service
+            id="Sulu\Bundle\WebsiteBundle\Controller\RedirectController"
+            alias="sulu_website.redirect_controller"
+            public="true"
+        />
 
         <service id="sulu_website.default_controller"
                  class="Sulu\Bundle\WebsiteBundle\Controller\DefaultController"

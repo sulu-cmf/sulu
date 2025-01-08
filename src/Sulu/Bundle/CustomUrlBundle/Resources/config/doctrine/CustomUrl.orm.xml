@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+     https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl" table="cu_custom_url"
+        repository-class="Sulu\Component\CustomUrl\Repository\CustomUrlRepository">
+        <indexes>
+            <index columns="webspace" />
+        </indexes>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="title" type="string" unique="true" />
+        <field name="published" type="boolean" />
+        <field name="baseDomain" type="string" />
+        <field name="webspace" type="string" />
+        <field name="domainParts" type="json" />
+        <field name="targetDocument" type="string" />
+        <field name="targetLocale" type="string" />
+        <field name="canonical" type="boolean" />
+        <field name="redirect" type="boolean" />
+        <field name="noFollow" type="boolean" />
+        <field name="noIndex" type="boolean" />
+
+        <field name="created" type="datetime" />
+        <field name="changed" type="datetime" />
+
+        <many-to-one field="creator" target-entity="Sulu\Component\Security\Authentication\UserInterface" />
+        <many-to-one field="changer" target-entity="Sulu\Component\Security\Authentication\UserInterface" />
+
+        <one-to-many field="routes" target-entity="Sulu\Bundle\CustomUrlBundle\Entity\CustomUrlRoute" mapped-by="customUrl">
+            <cascade>
+                <cascade-remove />
+                <cascade-persist />
+            </cascade>
+        </one-to-many>
+    </mapped-superclass>
+</doctrine-mapping>

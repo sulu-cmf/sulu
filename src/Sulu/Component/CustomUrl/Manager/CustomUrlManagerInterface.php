@@ -11,115 +11,25 @@
 
 namespace Sulu\Component\CustomUrl\Manager;
 
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
-use Sulu\Component\CustomUrl\Document\RouteDocument;
-use Sulu\Component\DocumentManager\Behavior\Mapping\UuidBehavior;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
+use Sulu\Component\CustomUrl\Repository\RowsIterator;
 
-/**
- * Interface for custom-url manager.
- */
 interface CustomUrlManagerInterface
 {
     /**
-     * Create a new custom-url with given data.
-     *
-     * @param string $webspaceKey
-     *
-     * @return CustomUrlDocument
+     * @param array<string, mixed> $data
      *
      * @throws TitleAlreadyExistsException
      */
-    public function create($webspaceKey, array $data);
+    public function create(string $webspaceKey, array $data): CustomUrl;
 
     /**
-     * Returns a list of custom-url data (in a assoc-array).
-     *
-     * @param string $webspaceKey
-     *
-     * @return array
+     * @param array<string, mixed> $data
      */
-    public function findList($webspaceKey);
+    public function save(CustomUrl $customUrl, array $data): void;
 
     /**
-     * Returns a list of custom-urls.
-     *
-     * @param string $webspaceKey
-     *
-     * @return string[]
+     * @param array<int> $ids
      */
-    public function findUrls($webspaceKey);
-
-    /**
-     * Returns a single custom-url object identified by uuid.
-     *
-     * @param string $uuid
-     *
-     * @return CustomUrlDocument
-     */
-    public function find($uuid);
-
-    /**
-     * Returns a single custom-url object identified by url.
-     *
-     * @param string $url
-     * @param string $webspaceKey
-     * @param string|null $locale
-     *
-     * @return CustomUrlDocument
-     */
-    public function findByUrl($url, $webspaceKey, $locale = null);
-
-    /**
-     * Returns a list of custom-url documents which targeting the given page.
-     *
-     * @return CustomUrlDocument[]
-     */
-    public function findByPage(UuidBehavior $page);
-
-    /**
-     * Returns route for a custom-url object.
-     *
-     * @param string $url
-     * @param string $webspaceKey
-     *
-     * @return RouteDocument
-     */
-    public function findRouteByUrl($url, $webspaceKey);
-
-    /**
-     * Update a single custom-url object identified by uuid with given data.
-     *
-     * @param string $uuid
-     *
-     * @return CustomUrlDocument
-     */
-    public function save($uuid, array $data);
-
-    /**
-     * Delete custom-url identified by uuid.
-     *
-     * @param string $uuid
-     *
-     * @return CustomUrlDocument
-     */
-    public function delete($uuid);
-
-    /**
-     * Delete route of a custom-url.
-     *
-     * @param string $uuid
-     * @param string $webspaceKey
-     *
-     * @return CustomUrlDocument
-     *
-     * @throws RouteNotRemovableException
-     */
-    public function deleteRoute($webspaceKey, $uuid);
-
-    /**
-     * Returns base path to custom-url routes.
-     *
-     * @return string
-     */
-    public function getRoutesPath($webspaceKey);
+    public function deleteByIds(array $ids): void;
 }

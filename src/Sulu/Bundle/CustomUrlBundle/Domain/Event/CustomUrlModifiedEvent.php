@@ -13,7 +13,7 @@ namespace Sulu\Bundle\CustomUrlBundle\Domain\Event;
 
 use Sulu\Bundle\ActivityBundle\Domain\Event\DomainEvent;
 use Sulu\Bundle\CustomUrlBundle\Admin\CustomUrlAdmin;
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 
 class CustomUrlModifiedEvent extends DomainEvent
 {
@@ -21,16 +21,15 @@ class CustomUrlModifiedEvent extends DomainEvent
      * @param mixed[] $payload
      */
     public function __construct(
-        private CustomUrlDocument $customUrlDocument,
-        private string $webspaceKey,
+        private CustomUrl $customUrl,
         private array $payload
     ) {
         parent::__construct();
     }
 
-    public function getCustomUrlDocument(): CustomUrlDocument
+    public function getCustomUrlDocument(): CustomUrl
     {
-        return $this->customUrlDocument;
+        return $this->customUrl;
     }
 
     public function getEventType(): string
@@ -45,26 +44,26 @@ class CustomUrlModifiedEvent extends DomainEvent
 
     public function getResourceKey(): string
     {
-        return CustomUrlDocument::RESOURCE_KEY;
+        return CustomUrl::RESOURCE_KEY;
     }
 
     public function getResourceId(): string
     {
-        return (string) $this->customUrlDocument->getUuid();
+        return (string) $this->customUrl->getId();
     }
 
     public function getResourceWebspaceKey(): ?string
     {
-        return $this->webspaceKey;
+        return $this->customUrl->getWebspace();
     }
 
     public function getResourceTitle(): ?string
     {
-        return $this->customUrlDocument->getTitle();
+        return $this->customUrl->getTitle();
     }
 
     public function getResourceSecurityContext(): ?string
     {
-        return CustomUrlAdmin::getCustomUrlSecurityContext($this->webspaceKey);
+        return CustomUrlAdmin::getCustomUrlSecurityContext($this->customUrl->getWebspace());
     }
 }

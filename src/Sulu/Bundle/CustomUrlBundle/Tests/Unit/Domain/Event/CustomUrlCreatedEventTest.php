@@ -15,27 +15,27 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\CustomUrlBundle\Domain\Event\CustomUrlCreatedEvent;
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 
 class CustomUrlCreatedEventTest extends TestCase
 {
     use ProphecyTrait;
 
     /**
-     * @var ObjectProphecy<CustomUrlDocument>
+     * @var ObjectProphecy<CustomUrl>
      */
-    private $customUrlDocument;
+    private $customUrl;
 
     public function setUp(): void
     {
-        $this->customUrlDocument = $this->prophesize(CustomUrlDocument::class);
+        $this->customUrl = $this->prophesize(CustomUrl::class);
     }
 
     public function testGetCustomUrlDocument(): void
     {
         $event = $this->createCustomUrlCreatedEvent();
 
-        static::assertSame($this->customUrlDocument->reveal(), $event->getCustomUrlDocument());
+        static::assertSame($this->customUrl->reveal(), $event->getCustomUrl());
     }
 
     public function testGetEventType(): void
@@ -62,7 +62,7 @@ class CustomUrlCreatedEventTest extends TestCase
     public function testGetResourceId(): void
     {
         $event = $this->createCustomUrlCreatedEvent();
-        $this->customUrlDocument->getUuid()->willReturn('1234-1234-1234-1234');
+        $this->customUrl->getUuid()->willReturn('1234-1234-1234-1234');
 
         static::assertSame('1234-1234-1234-1234', $event->getResourceId());
     }
@@ -77,7 +77,7 @@ class CustomUrlCreatedEventTest extends TestCase
     public function testGetResourceTitle(): void
     {
         $event = $this->createCustomUrlCreatedEvent();
-        $this->customUrlDocument->getTitle()->willReturn('custom-url-title');
+        $this->customUrl->getTitle()->willReturn('custom-url-title');
 
         static::assertSame('custom-url-title', $event->getResourceTitle());
     }
@@ -104,8 +104,7 @@ class CustomUrlCreatedEventTest extends TestCase
         array $payload = []
     ): CustomUrlCreatedEvent {
         return new CustomUrlCreatedEvent(
-            $this->customUrlDocument->reveal(),
-            $webspaceKey,
+            $this->customUrl->reveal(),
             $payload
         );
     }

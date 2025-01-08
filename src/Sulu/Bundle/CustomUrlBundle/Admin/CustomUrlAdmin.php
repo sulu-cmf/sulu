@@ -15,8 +15,8 @@ use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 use Sulu\Bundle\PageBundle\Admin\PageAdmin;
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
@@ -35,10 +35,8 @@ class CustomUrlAdmin extends Admin
      * @final
      *
      * @param string $webspaceKey
-     *
-     * @return string
      */
-    public static function getCustomUrlSecurityContext($webspaceKey)
+    public static function getCustomUrlSecurityContext($webspaceKey): string
     {
         return \sprintf('%s%s.%s', PageAdmin::SECURITY_CONTEXT_PREFIX, $webspaceKey, 'custom-urls');
     }
@@ -61,7 +59,7 @@ class CustomUrlAdmin extends Admin
             $viewCollection->add(
                 $this->viewBuilderFactory
                     ->createFormOverlayListViewBuilder(static::LIST_VIEW, '/custom-urls')
-                    ->setResourceKey(CustomUrlDocument::RESOURCE_KEY)
+                    ->setResourceKey(CustomUrl::RESOURCE_KEY)
                     ->setListKey('custom_urls')
                     ->addListAdapters(['table'])
                     ->addAdapterOptions(['table' => ['skin' => 'light']])
@@ -78,7 +76,7 @@ class CustomUrlAdmin extends Admin
         }
     }
 
-    public function getSecurityContexts()
+    public function getSecurityContexts(): array
     {
         $webspaceContexts = [];
         /* @var Webspace $webspace */
@@ -94,7 +92,7 @@ class CustomUrlAdmin extends Admin
         ];
     }
 
-    public function getSecurityContextsWithPlaceholder()
+    public function getSecurityContextsWithPlaceholder(): array
     {
         return [
             self::SULU_ADMIN_SECURITY_SYSTEM => [
@@ -105,7 +103,10 @@ class CustomUrlAdmin extends Admin
         ];
     }
 
-    private function getSecurityContextPermissions()
+    /**
+     * @return array<int,string>
+     */
+    private function getSecurityContextPermissions(): array
     {
         return [
             PermissionTypes::VIEW,

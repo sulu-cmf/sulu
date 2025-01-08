@@ -2,7 +2,6 @@
 <webspace xmlns="http://schemas.sulu.io/webspace/webspace"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
-
     <name>Sulu Blog</name>
     <key>sulu-blog</key>
 
@@ -64,6 +63,9 @@
                     <urls>
                         <url language="en">{host}/blog</url>
                     </urls>
+                    <custom-urls>
+                        <custom-url>localhost/*</custom-url>
+                    </custom-urls>
                 </environment>
             </environments>
         </portal>

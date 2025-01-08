@@ -12,80 +12,106 @@
 namespace Sulu\Component\CustomUrl\Tests\Unit\Document\Subscriber;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Sulu\Bundle\DocumentManagerBundle\Bridge\DocumentInspector;
+use Prophecy\Prophecy\ObjectProphecy;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrlRoute;
 use Sulu\Bundle\HttpCacheBundle\Cache\CacheManager;
 use Sulu\Bundle\PageBundle\Document\BasePageDocument;
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
-use Sulu\Component\CustomUrl\Document\RouteDocument;
+use Sulu\Bundle\PageBundle\Document\RouteDocument;
 use Sulu\Component\CustomUrl\Document\Subscriber\InvalidationSubscriber;
-use Sulu\Component\CustomUrl\Manager\CustomUrlManagerInterface;
+use Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface;
 use Sulu\Component\DocumentManager\Event\PublishEvent;
+use Sulu\Component\DocumentManager\Event\RemoveEvent;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class InvalidationSubscriberTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testInvalidateDocumentBeforePublishing(): void
-    {
-        $customUrlManager = $this->prophesize(CustomUrlManagerInterface::class);
-        $documentInspector = $this->prophesize(DocumentInspector::class);
-        $cacheManager = $this->prophesize(CacheManager::class);
-        $requestStack = $this->prophesize(RequestStack::class);
+    /**
+     * @var ObjectProphecy<CustomUrlRepositoryInterface>
+     */
+    private ObjectProphecy $customUrlRepository;
 
-        $subscriber = new InvalidationSubscriber(
-            $customUrlManager->reveal(),
-            $documentInspector->reveal(),
-            $cacheManager->reveal(),
+    /**
+     * @var ObjectProphecy<CacheManager>
+     */
+    private ObjectProphecy $cacheManager;
+
+    private InvalidationSubscriber $subscriber;
+
+    public function setUp(): void
+    {
+        $this->customUrlRepository = $this->prophesize(CustomUrlRepositoryInterface::class);
+        $this->cacheManager = $this->prophesize(CacheManager::class);
+
+        $requestStack = $this->prophesize(RequestStack::class);
+        $requestStack->getCurrentRequest()->willReturn(Request::create('http://sulu.lo/'));
+
+        $this->subscriber = new InvalidationSubscriber(
+            $this->customUrlRepository->reveal(),
+            $this->cacheManager->reveal(),
             $requestStack->reveal()
         );
+    }
 
-        $routeDocument1 = $this->prophesize(RouteDocument::class);
-        $routeDocument1->getPath()->willReturn('/cmf/sulu_io/custom-urls/routes/sulu.lo/test-1');
-
-        $routeDocument2 = $this->prophesize(RouteDocument::class);
-        $routeDocument2->getPath()->willReturn('/cmf/sulu_io/custom-urls/routes/sulu.lo/test-2');
+    public function testInvalidateDocumentBeforePublishing(): void
+    {
+        $customUrl = new CustomUrl();
+        $route1 = new CustomUrlRoute($customUrl, 'sulu.lo/test-1');
+        $route2 = new CustomUrlRoute($customUrl, 'sulu.lo/test-2');
+        $customUrl->addRoute($route1);
+        $customUrl->addRoute($route2);
 
         $document = $this->prophesize(BasePageDocument::class);
 
-        $customUrl = $this->prophesize(CustomUrlDocument::class);
-        $customUrl->getRoutes()->willReturn(
-            ['sulu.lo/test-1' => $routeDocument1->reveal(), 'sulu.lo/test-2' => $routeDocument2->reveal()]
-        );
+        $this->customUrlRepository
+            ->findByTarget($document->reveal())
+            ->shouldBeCalled()
+            ->willReturn([$customUrl]);
 
-        $event = $this->prophesize(PublishEvent::class);
-        $event->getDocument()->willReturn($document->reveal());
+        $this->cacheManager->invalidatePath('http://sulu.lo/test-1')->shouldBeCalled();
+        $this->cacheManager->invalidatePath('http://sulu.lo/test-2')->shouldBeCalled();
 
-        $customUrlManager->findByPage($document->reveal())->willReturn([$customUrl->reveal()]);
-        $cacheManager->invalidatePath('http://sulu.lo/test-1')->shouldBeCalled();
-        $cacheManager->invalidatePath('http://sulu.lo/test-2')->shouldBeCalled();
-
-        $subscriber->invalidateDocumentBeforePublishing($event->reveal());
+        $event = new PublishEvent($document->reveal(), 'de');
+        $this->subscriber->invalidateDocumentBeforePublishing($event);
     }
 
-    public function testInvalidateDocumentBeforePublishingOfOtherDocument(): void
+    public function testInvalidateCustomUrl(): void
     {
-        $customUrlManager = $this->prophesize(CustomUrlManagerInterface::class);
-        $documentInspector = $this->prophesize(DocumentInspector::class);
-        $cacheManager = $this->prophesize(CacheManager::class);
-        $requestStack = $this->prophesize(RequestStack::class);
+        $customUrl = new CustomUrl();
+        $route1 = new CustomUrlRoute($customUrl, 'sulu.lo/test-1');
+        $route2 = new CustomUrlRoute($customUrl, 'sulu.lo/test-2');
+        $customUrl->addRoute($route1);
+        $customUrl->addRoute($route2);
 
-        $subscriber = new InvalidationSubscriber(
-            $customUrlManager->reveal(),
-            $documentInspector->reveal(),
-            $cacheManager->reveal(),
-            $requestStack->reveal()
-        );
+        $this->cacheManager->invalidatePath('http://sulu.lo/test-1')->shouldBeCalled();
+        $this->cacheManager->invalidatePath('http://sulu.lo/test-2')->shouldBeCalled();
 
-        $document = new \stdClass();
-        $event = $this->prophesize(PublishEvent::class);
-        $event->getDocument()->willReturn($document);
+        $event = new PublishEvent($customUrl, 'de');
+        $this->subscriber->invalidateDocumentBeforePublishing($event);
+    }
 
-        $customUrlManager->findByPage(Argument::any())->shouldNotBeCalled();
-        $cacheManager->invalidatePath(Argument::any())->shouldNotBeCalled();
+    public function testInvalidateCustomUrlRoute(): void
+    {
+        $route = new CustomUrlRoute(new CustomUrl(), 'sulu.lo/test-1');
 
-        $subscriber->invalidateDocumentBeforePublishing($event->reveal());
+        $this->cacheManager->invalidatePath('http://sulu.lo/test-1')->shouldBeCalled();
+
+        $event = new PublishEvent($route, 'de');
+        $this->subscriber->invalidateDocumentBeforePublishing($event);
+    }
+
+    public function testInvalidateRouteDocument(): void
+    {
+        $routeDocument = $this->prophesize(RouteDocument::class);
+        $routeDocument->getPath()->shouldBeCalled()->willReturn('sulu.lo/test-1');
+
+        $this->cacheManager->invalidatePath('http://sulu.lo/test-1')->shouldBeCalled();
+
+        $event = new RemoveEvent($routeDocument->reveal());
+        $this->subscriber->invalidateDocumentBeforeRemoving($event);
     }
 }

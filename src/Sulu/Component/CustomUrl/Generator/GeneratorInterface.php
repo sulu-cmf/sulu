@@ -22,10 +22,9 @@ interface GeneratorInterface
      * Generates urls for given base-domain and domain-parts.
      * If locales are passed the urls will be localized by replacers after generation.
      *
-     * @param string $baseDomain
      * @param string[] $domainParts
      *
      * @return string
      */
-    public function generate($baseDomain, $domainParts, ?Localization $locale = null);
+    public function generate(string $baseDomain, array $domainParts, ?Localization $locale = null);
 }

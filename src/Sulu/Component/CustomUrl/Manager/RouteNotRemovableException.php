@@ -11,8 +11,7 @@
 
 namespace Sulu\Component\CustomUrl\Manager;
 
-use Sulu\Component\CustomUrl\Document\CustomUrlDocument;
-use Sulu\Component\CustomUrl\Document\RouteDocument;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
 use Sulu\Component\Rest\Exception\RestException;
 
 /**
@@ -20,13 +19,9 @@ use Sulu\Component\Rest\Exception\RestException;
  */
 class RouteNotRemovableException extends RestException
 {
-    /**
-     * @param string $route
-     */
     public function __construct(
-        private $route,
-        private RouteDocument $routeDocument,
-        private CustomUrlDocument $customUrl,
+        private string $route,
+        private CustomUrl $customUrl,
     ) {
         parent::__construct(
             \sprintf('Cannot delete current route "%s" of custom-url "%s"', $route, $customUrl->getTitle()),
@@ -34,26 +29,12 @@ class RouteNotRemovableException extends RestException
         );
     }
 
-    /**
-     * @return RouteDocument
-     */
-    public function getRouteDocument()
-    {
-        return $this->routeDocument;
-    }
-
-    /**
-     * @return CustomUrlDocument
-     */
-    public function getCustomUrl()
+    public function getCustomUrl(): CustomUrl
     {
         return $this->customUrl;
     }
 
-    /**
-     * @return string
-     */
-    public function getRoute()
+    public function getRoute(): string
     {
         return $this->route;
     }

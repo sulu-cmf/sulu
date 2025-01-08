@@ -11,89 +11,61 @@
 
 namespace Sulu\Component\CustomUrl\Repository;
 
-use Jackalope\Query\Row;
-use PHPCR\Query\QOM\ConstraintInterface;
-use PHPCR\Query\QOM\QueryObjectModelConstantsInterface;
-use PHPCR\Query\QOM\QueryObjectModelFactoryInterface;
-use PHPCR\Query\QOM\QueryObjectModelInterface;
-use PHPCR\Util\QOM\QueryBuilder;
-use Sulu\Bundle\AdminBundle\UserManager\UserManagerInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Sulu\Bundle\CustomUrlBundle\Entity\CustomUrl;
+use Sulu\Component\Webspace\CustomUrl as WebspaceCustomUrl;
+use Sulu\Component\Content\Document\Behavior\WebspaceBehavior;
 use Sulu\Component\Content\Repository\ContentRepositoryInterface;
 use Sulu\Component\Content\Repository\Mapping\MappingBuilder;
 use Sulu\Component\CustomUrl\Generator\GeneratorInterface;
-use Sulu\Component\PHPCR\SessionManager\SessionManagerInterface;
+use Sulu\Component\DocumentManager\Behavior\Mapping\UuidBehavior;
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
-/**
- * Repository enables direct access to custom-urls without document-manager.
- */
-class CustomUrlRepository
+/** @extends ServiceEntityRepository<CustomUrl> */
+class CustomUrlRepository extends ServiceEntityRepository implements CustomUrlRepositoryInterface
 {
     public function __construct(
-        private SessionManagerInterface $sessionManager,
-        private ContentRepositoryInterface $contentRepository,
-        private GeneratorInterface $generator,
-        private UserManagerInterface $userManager,
+        ManagerRegistry $registry,
+        private readonly ContentRepositoryInterface $contentRepository,
+        private readonly GeneratorInterface $customUrlGenerator,
+        private readonly WebspaceManagerInterface $webspaceManager,
     ) {
+        parent::__construct($registry, CustomUrl::class);
+    }
+
+    public function findByWebspaceKey(string $webspaceKey): RowsIterator
+    {
+        $webspace = $this->webspaceManager->findWebspaceByKey($webspaceKey);
+
+        return $this->findByWebspaceAndBaseDomains(
+            $webspaceKey,
+            baseDomains: \array_map(
+                fn (WebspaceCustomUrl $customUrl): string => $customUrl->getUrl(),
+                $webspace->getCustomUrls($this->environment),
+            )
+        );
     }
 
     /**
-     * Returns list of custom-url data-arrays.
-     *
-     * @param string $path
-     * @param string[]|null $baseDomains
-     *
-     * @return \Iterator
+     * @param string[] $baseDomains
      */
-    public function findList($path, ?array $baseDomains = null)
+    public function findByWebspaceAndBaseDomains(string $webspaceKey, array $baseDomains = []): RowsIterator
     {
-        // TODO pagination
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->andWhere('c.webspace = :webspace')
+            ->setParameter('webspace', $webspaceKey)
+        ;
 
-        $session = $this->sessionManager->getSession();
-        $queryManager = $session->getWorkspace()->getQueryManager();
-
-        $qomFactory = $queryManager->getQOMFactory();
-        $queryBuilder = new QueryBuilder($qomFactory);
-
-        $queryBuilder->select('a', 'jcr:uuid', 'uuid');
-        $queryBuilder->addSelect('a', 'title', 'title');
-        $queryBuilder->addSelect('a', 'published', 'published');
-        $queryBuilder->addSelect('a', 'domainParts', 'domainParts');
-        $queryBuilder->addSelect('a', 'baseDomain', 'baseDomain');
-        $queryBuilder->addSelect('a', 'sulu:content', 'targetDocument');
-        $queryBuilder->addSelect('a', 'sulu:created', 'created');
-        $queryBuilder->addSelect('a', 'sulu:creator', 'creator');
-        $queryBuilder->addSelect('a', 'sulu:changed', 'changed');
-        $queryBuilder->addSelect('a', 'sulu:changer', 'changer');
-
-        $qomf = $queryBuilder->qomf();
-
-        $queryBuilder->from($qomf->selector('a', 'nt:unstructured'));
-
-        $queryBuilder->where(
-            $qomf->comparison(
-                $qomf->propertyValue('a', 'jcr:mixinTypes'),
-                QueryObjectModelConstantsInterface::JCR_OPERATOR_EQUAL_TO,
-                $qomf->literal('sulu:custom_url')
-            )
-        );
-        $queryBuilder->andWhere(
-            $qomf->descendantNode('a', $path)
-        );
-
-        if ($baseDomains) {
-            $queryBuilder->andWhere($this->createBaseDomainQuery($baseDomains, $qomf));
+        if ([] !== $baseDomains) {
+            $expr = $queryBuilder->expr();
+            $queryBuilder->andWhere($expr->in('c.baseDomain', $baseDomains));
         }
 
-        /** @var QueryObjectModelInterface $query */
-        $query = $queryBuilder->getQuery();
-        $result = $query->execute();
+        /** @var array<CustomUrl> $result */
+        $result = $queryBuilder->getQuery()->getResult();
 
-        $uuids = \array_map(
-            function(Row $item) {
-                return $item->getValue('a.targetDocument');
-            },
-            \iterator_to_array($result->getRows())
-        );
+        $uuids = \array_map(fn (CustomUrl $url) => $url->getTargetDocument(), $result);
 
         $targets = $this->contentRepository->findByUuids(
             \array_unique($uuids),
@@ -101,91 +73,61 @@ class CustomUrlRepository
             MappingBuilder::create()->addProperties(['title'])->getMapping()
         );
 
-        return new RowsIterator(
-            $result->getRows(),
-            $result->getColumnNames(),
-            $targets,
-            $this->generator,
-            $this->userManager
-        );
+        return new RowsIterator($result, $targets, $this->customUrlGenerator);
     }
 
-    /**
-     * @param non-empty-array<string> $baseDomains
-     *
-     * @return ConstraintInterface
-     */
-    private function createBaseDomainQuery(array $baseDomains, QueryObjectModelFactoryInterface $qomf)
+    public function findNewestPublishedByUrl(string $url, string $webspace, ?string $locale = null): ?CustomUrl
     {
-        $baseDomainQuery = null;
-        foreach ($baseDomains as $baseDomain) {
-            if (!$baseDomainQuery) {
-                $baseDomainQuery = $qomf->comparison(
-                    $qomf->propertyValue('a', 'baseDomain'),
-                    QueryObjectModelConstantsInterface::JCR_OPERATOR_EQUAL_TO,
-                    $qomf->literal($baseDomain)
-                );
+        return $this->createQueryBuilder('c')
+            ->join('c.routes', 'r')
+            ->andWhere('c.targetDocument IS NOT NULL')
+            ->andWhere('c.published = 1')
+            ->andWhere('c.webspace = :webspace')
+            ->andWhere('r.path = :route')
+            ->setParameter('route', $url)
+            ->setParameter('webspace', $webspace)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
-                continue;
-            }
+    public function findByTarget(UuidBehavior $page): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->andWhere('c.targetDocument = :id')
+            ->setParameter('id', $page->getUuid());
 
-            $baseDomainQuery = $qomf->orConstraint(
-                $baseDomainQuery,
-                $baseDomainQuery = $qomf->comparison(
-                    $qomf->propertyValue('a', 'baseDomain'),
-                    QueryObjectModelConstantsInterface::JCR_OPERATOR_EQUAL_TO,
-                    $qomf->literal($baseDomain)
-                )
-            );
+        if ($page instanceof WebspaceBehavior) {
+            $qb->andWhere('c.webspace = :webspace')
+                ->setParameter('webspace', $page->getWebspaceName());
         }
 
-        return $baseDomainQuery;
+        return $qb->getQuery()->execute();
     }
 
-    /**
-     * Returns list of custom-url data-arrays.
-     *
-     * @param string $path
-     *
-     * @return \Iterator
-     */
-    public function findUrls($path)
+    public function findPathsByWebspace(string $webspace): array
     {
-        $session = $this->sessionManager->getSession();
-        $queryManager = $session->getWorkspace()->getQueryManager();
-
-        $qomFactory = $queryManager->getQOMFactory();
-        $queryBuilder = new QueryBuilder($qomFactory);
-
-        $queryBuilder->addSelect('a', 'domainParts', 'domainParts')
-            ->addSelect('a', 'baseDomain', 'baseDomain');
-
-        $queryBuilder->from(
-            $queryBuilder->qomf()->selector('a', 'nt:unstructured')
-        );
-
-        $queryBuilder->where(
-            $queryBuilder->qomf()->comparison(
-                $queryBuilder->qomf()->propertyValue('a', 'jcr:mixinTypes'),
-                QueryObjectModelConstantsInterface::JCR_OPERATOR_EQUAL_TO,
-                $queryBuilder->qomf()->literal('sulu:custom_url')
-            )
-        );
-        $queryBuilder->andWhere(
-            $queryBuilder->qomf()->descendantNode('a', $path)
-        );
-
-        $query = $queryBuilder->getQuery();
-        $result = $query->execute();
+        $result = $this->findBy(['webspace' => $webspace]);
 
         return \array_map(
-            function(Row $item) {
-                return $this->generator->generate(
-                    $item->getValue('a.baseDomain'),
-                    \json_decode($item->getValue('a.domainParts'), true)
-                );
-            },
-            \iterator_to_array($result->getRows())
+            fn (CustomUrl $url) => $this->customUrlGenerator->generate($url->getBaseDomain(), $url->getDomainParts()),
+            $result
         );
+    }
+
+    public function deleteByIds(array $ids): void
+    {
+        if ([] === $ids) {
+            return;
+        }
+
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $expr = $queryBuilder->expr();
+
+        $queryBuilder
+            ->delete($this->_entityName, 'c')
+            ->where($expr->in('c.id', $ids))
+            ->getQuery()
+            ->execute();
     }
 }

@@ -12,21 +12,14 @@
 namespace Sulu\Bundle\CustomUrlBundle\Tests\Functional\Controller;
 
 use Doctrine\Persistence\ObjectRepository;
+use Ramsey\Uuid\Uuid;
 use Sulu\Bundle\ActivityBundle\Domain\Model\ActivityInterface;
-use Sulu\Bundle\PageBundle\Document\PageDocument;
+use Sulu\Bundle\DocumentManagerBundle\Slugifier\Urlizer;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
-use Sulu\Component\DocumentManager\Slugifier\NodeNameSlugifier;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class CustomUrlControllerTest extends SuluTestCase
 {
-    /**
-     * @var DocumentManagerInterface
-     */
-    private $documentManager;
-
     /**
      * @var ObjectRepository<ActivityInterface>
      */
@@ -37,27 +30,10 @@ class CustomUrlControllerTest extends SuluTestCase
      */
     private $trashItemRepository;
 
-    /**
-     * @var PageDocument
-     */
-    private $contentDocument;
-
-    /**
-     * @var KernelBrowser
-     */
-    private $client;
-
-    private NodeNameSlugifier $urlizer;
-
     public function setUp(): void
     {
-        $this->client = $this->createAuthenticatedClient();
-        $this->initPhpcr();
-        $this->documentManager = $this->getContainer()->get('sulu_document_manager.document_manager');
         $this->activityRepository = $this->getEntityManager()->getRepository(ActivityInterface::class);
         $this->trashItemRepository = $this->getEntityManager()->getRepository(TrashItemInterface::class);
-        $this->contentDocument = $this->documentManager->find('/cmf/sulu_io/contents', 'en');
-        $this->urlizer = $this->getContainer()->get('sulu_document_manager.node_name_slugifier');
     }
 
     public static function postProvider()
@@ -69,7 +45,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-1', 'test-2'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -98,7 +74,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io',
                     'domainParts' => ['test-1'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -113,7 +89,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-1'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -128,13 +104,8 @@ class CustomUrlControllerTest extends SuluTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('postProvider')]
-    public function testPost($data, $url, $statusCode = 200, $restErrorCode = null)
+    public function testPost(array $data, string $url, int $statusCode = 200, ?int $restErrorCode = null): void
     {
-        // content document is not there in provider
-        if (\array_key_exists('targetDocument', $data)) {
-            $data['targetDocument'] = $this->contentDocument->getUuid();
-        }
-
         $this->client->jsonRequest('POST', '/api/webspaces/sulu_io/custom-urls', $data);
 
         $response = $this->client->getResponse();
@@ -166,11 +137,9 @@ class CustomUrlControllerTest extends SuluTestCase
             $this->assertArrayNotHasKey('targetTitle', $responseData);
         }
         $this->assertEquals($url, $responseData['customUrl']);
-
-        return $responseData['id'];
     }
 
-    public static function postMultipleProvider()
+    public static function postMultipleProvider(): array
     {
         return [
             [
@@ -179,7 +148,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-11', 'test-21'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -191,7 +160,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-12', 'test-22'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -207,7 +176,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-11', 'test-21'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -219,7 +188,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-12', 'test-22'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -237,7 +206,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test', 'test'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -249,7 +218,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test', 'test'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -265,8 +234,14 @@ class CustomUrlControllerTest extends SuluTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('postMultipleProvider')]
-    public function testPostMultiple($before, $data, $beforeUrl, $url, $statusCode = 200, $restErrorCode = null): void
-    {
+    public function testPostMultiple(
+        arary $before,
+        array $data,
+        string $beforeUrl,
+        string $url,
+        int $statusCode = 200,
+        ?int $restErrorCode = null,
+    ): void {
         $this->testPost($before, $beforeUrl);
         $this->testPost($data, $url, $statusCode, $restErrorCode);
     }
@@ -281,7 +256,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-11', 'test-21'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -294,7 +269,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-12', 'test-22'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -310,7 +285,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-11', 'test-21'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'de',
                         'canonical' => true,
                         'redirect' => true,
@@ -323,7 +298,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-12', 'test-22'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'de',
                     'canonical' => true,
                     'redirect' => true,
@@ -339,7 +314,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-1', 'test-1'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -352,7 +327,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-1', 'test-1'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -368,7 +343,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-1', 'test-1'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -381,7 +356,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/',
                     'domainParts' => ['test-2'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -397,7 +372,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-1', 'test-1'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -410,7 +385,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-1'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -428,7 +403,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test', 'test'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -440,7 +415,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-1', 'test-1'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -453,7 +428,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-1', 'test-1'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -471,7 +446,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test', 'test'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -483,7 +458,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-1', 'test-1'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -496,7 +471,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test', 'test'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -511,15 +486,10 @@ class CustomUrlControllerTest extends SuluTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('putProvider')]
-    public function testPut(array $before, $data, $url, $statusCode = 200, $restErrorCode = null)
+    public function testPut(array $before, array $data, string $url, int $statusCode = 200, ?int $restErrorCode = null)
     {
         foreach ($before as $beforeUrl => $beforeData) {
             $uuid = $this->testPost($beforeData, $beforeUrl);
-        }
-
-        // content document is not there in provider
-        if (\array_key_exists('targetDocument', $data)) {
-            $data['targetDocument'] = $this->contentDocument->getUuid();
         }
 
         $this->client->jsonRequest('PUT', '/api/webspaces/sulu_io/custom-urls/' . $uuid, $data);
@@ -556,7 +526,7 @@ class CustomUrlControllerTest extends SuluTestCase
         return $responseData['id'];
     }
 
-    public static function getProvider()
+    public static function getProvider(): array
     {
         return [
             [
@@ -565,7 +535,7 @@ class CustomUrlControllerTest extends SuluTestCase
                     'published' => true,
                     'baseDomain' => '*.sulu.io/*',
                     'domainParts' => ['test-1', 'test-2'],
-                    'targetDocument' => true,
+                    'targetDocument' => Uuid::uuid4(),
                     'targetLocale' => 'en',
                     'canonical' => true,
                     'redirect' => true,
@@ -578,13 +548,8 @@ class CustomUrlControllerTest extends SuluTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
-    public function testGet($data, $url): void
+    public function testGet(array $data, string $url): void
     {
-        // content document is not there in provider
-        if (\array_key_exists('targetDocument', $data)) {
-            $data['targetDocument'] = $this->contentDocument->getUuid();
-        }
-
         $uuid = $this->testPost($data, $url);
 
         $dateTime = new \DateTime();
@@ -616,7 +581,7 @@ class CustomUrlControllerTest extends SuluTestCase
         $this->assertEquals('sulu_io', $responseData['webspace']);
     }
 
-    public static function cgetProvider()
+    public static function cgetProvider(): array
     {
         return [
             [
@@ -626,7 +591,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-1', 'test-1'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -638,7 +603,7 @@ class CustomUrlControllerTest extends SuluTestCase
                         'published' => true,
                         'baseDomain' => '*.sulu.io/*',
                         'domainParts' => ['test-2', 'test-2'],
-                        'targetDocument' => true,
+                        'targetDocument' => Uuid::uuid4(),
                         'targetLocale' => 'en',
                         'canonical' => true,
                         'redirect' => true,
@@ -651,7 +616,7 @@ class CustomUrlControllerTest extends SuluTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('cgetProvider')]
-    public function testCGet($items): void
+    public function testCGet(array $items): void
     {
         foreach ($items as $url => $data) {
             $items[$url]['id'] = $this->testPost($data, $url);
@@ -688,7 +653,7 @@ class CustomUrlControllerTest extends SuluTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('getProvider')]
-    public function testDelete($data, $url): void
+    public function testDelete(array $data, string $url): void
     {
         $uuid = $this->testPost($data, $url);
 
@@ -708,7 +673,7 @@ class CustomUrlControllerTest extends SuluTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('cgetProvider')]
-    public function testCDelete($items): void
+    public function testCDelete(array $items): void
     {
         $uuid = $this->testPost(
             [
@@ -716,7 +681,7 @@ class CustomUrlControllerTest extends SuluTestCase
                 'published' => true,
                 'baseDomain' => '*.sulu.io/*',
                 'domainParts' => ['test', 'test'],
-                'targetDocument' => true,
+                'targetDocument' => Uuid::uuid4(),
                 'targetLocale' => 'en',
                 'canonical' => true,
                 'redirect' => true,
