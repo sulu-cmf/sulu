@@ -22,24 +22,10 @@ use Webmozart\Assert\Assert;
 class ContentMerger implements ContentMergerInterface
 {
     /**
-     * @var iterable<MergerInterface>
-     */
-    private $mergers;
-
-    /**
-     * @var PropertyAccessor
-     */
-    private $propertyAccessor;
-
-    /**
      * @param iterable<MergerInterface> $mergers
      */
-    public function __construct(
-        iterable $mergers,
-        PropertyAccessor $propertyAccessor
-    ) {
-        $this->mergers = $mergers;
-        $this->propertyAccessor = $propertyAccessor;
+    public function __construct(private iterable $mergers, private PropertyAccessor $propertyAccessor)
+    {
     }
 
     /**

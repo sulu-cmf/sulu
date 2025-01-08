@@ -56,12 +56,12 @@ trait CreateExampleTrait
 
         $fillWithdefaultData = function(array $data) use ($slugger): array {
             // the example default template has the following required fields
-            $data['title'] = $data['title'] ?? 'Test Example';
-            $data['url'] = $data['url'] ?? '/' . $slugger->slug($data['title'])->toString();
-            $data['description'] = $data['description'] ?? null;
-            $data['image'] = $data['image'] ?? null;
-            $data['article'] = $data['article'] ?? null;
-            $data['blocks'] = $data['blocks'] ?? [];
+            $data['title'] ??= 'Test Example';
+            $data['url'] ??= '/' . $slugger->slug($data['title'])->toString();
+            $data['description'] ??= null;
+            $data['image'] ??= null;
+            $data['article'] ??= null;
+            $data['blocks'] ??= [];
 
             return $data;
         };

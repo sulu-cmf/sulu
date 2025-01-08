@@ -264,9 +264,7 @@ class ContentObjectProviderTest extends TestCase
 
         $this->contentDataMapper->map(
             Argument::that(
-                function(PreviewDimensionContentCollection $dimensionContentCollection) use ($exampleDimensionContent) {
-                    return $exampleDimensionContent === $dimensionContentCollection->getDimensionContent([]);
-                }
+                fn (PreviewDimensionContentCollection $dimensionContentCollection) => $exampleDimensionContent === $dimensionContentCollection->getDimensionContent([])
             ),
             ['locale' => 'de', 'stage' => 'draft'],
             $data

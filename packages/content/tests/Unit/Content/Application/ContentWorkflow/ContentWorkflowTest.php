@@ -100,7 +100,7 @@ class ContentWorkflowTest extends TestCase
         $this->expectExceptionMessage(\sprintf(
             'Expected "%s" but "%s" given.',
             WorkflowInterface::class,
-            \get_class($dimensionContent2->reveal()))
+            $dimensionContent2->reveal()::class)
         );
 
         $dimensionContentCollection = new DimensionContentCollection([

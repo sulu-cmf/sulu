@@ -31,45 +31,15 @@ use Sulu\Content\Domain\Model\TemplateInterface;
 class ContentObjectProvider implements PreviewObjectProviderInterface
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var ContentAggregatorInterface
-     */
-    private $contentAggregator;
-
-    /**
-     * @var ContentDataMapperInterface
-     */
-    private $contentDataMapper;
-
-    /**
-     * @var class-string<T>
-     */
-    private $contentRichEntityClass;
-
-    /**
-     * @var string|null
-     */
-    private $securityContext;
-
-    /**
      * @param class-string<T> $contentRichEntityClass
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ContentAggregatorInterface $contentAggregator,
-        ContentDataMapperInterface $contentDataMapper,
-        string $contentRichEntityClass,
-        ?string $securityContext = null
+        private EntityManagerInterface $entityManager,
+        private ContentAggregatorInterface $contentAggregator,
+        private ContentDataMapperInterface $contentDataMapper,
+        private string $contentRichEntityClass,
+        private ?string $securityContext = null,
     ) {
-        $this->entityManager = $entityManager;
-        $this->contentAggregator = $contentAggregator;
-        $this->contentDataMapper = $contentDataMapper;
-        $this->contentRichEntityClass = $contentRichEntityClass;
-        $this->securityContext = $securityContext;
     }
 
     /**
@@ -89,7 +59,7 @@ class ContentObjectProvider implements PreviewObjectProviderInterface
                 ->setParameter('id', $id)
                 ->getQuery()
                 ->getSingleResult();
-        } catch (NoResultException $exception) {
+        } catch (NoResultException) {
             return null;
         }
 
@@ -205,7 +175,7 @@ class ContentObjectProvider implements PreviewObjectProviderInterface
             }
 
             return $resolvedDimensionContent;
-        } catch (ContentNotFoundException $exception) {
+        } catch (ContentNotFoundException) {
             return null;
         }
     }

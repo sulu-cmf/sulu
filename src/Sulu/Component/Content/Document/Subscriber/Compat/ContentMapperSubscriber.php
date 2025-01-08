@@ -44,8 +44,13 @@ class ContentMapperSubscriber implements EventSubscriberInterface
      */
     private $persistEvents = [];
 
-    public function __construct(private DocumentInspector $documentInspector, private EventDispatcherInterface $eventDispatcher, private ContentMapperInterface $contentMapper, private SuluNodeHelper $nodeHelper, private StructureManagerInterface $structureManager)
-    {
+    public function __construct(
+        private DocumentInspector $documentInspector,
+        private EventDispatcherInterface $eventDispatcher,
+        private ContentMapperInterface $contentMapper,
+        private SuluNodeHelper $nodeHelper,
+        private StructureManagerInterface $structureManager,
+    ) {
     }
 
     public static function getSubscribedEvents()

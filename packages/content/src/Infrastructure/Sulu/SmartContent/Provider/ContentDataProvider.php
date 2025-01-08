@@ -27,26 +27,13 @@ use Sulu\Content\Infrastructure\Sulu\SmartContent\DataItem\ContentDataItem;
 
 class ContentDataProvider extends BaseDataProvider
 {
-    /**
-     * @var ContentManagerInterface
-     */
-    protected $contentManager;
-
-    /**
-     * @var ReferenceStoreInterface|null
-     */
-    protected $referenceStore;
-
     public function __construct(
         DataProviderRepositoryInterface $repository,
         ArraySerializerInterface $arraySerializer,
-        ContentManagerInterface $contentManager,
-        ?ReferenceStoreInterface $referenceStore = null
+        protected ContentManagerInterface $contentManager,
+        protected ?ReferenceStoreInterface $referenceStore = null
     ) {
         parent::__construct($repository, $arraySerializer);
-
-        $this->contentManager = $contentManager;
-        $this->referenceStore = $referenceStore;
 
         $configurationBuilder = static::createConfigurationBuilder();
 

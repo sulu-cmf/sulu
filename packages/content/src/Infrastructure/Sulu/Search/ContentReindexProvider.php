@@ -30,31 +30,6 @@ use Sulu\Content\Domain\Model\WorkflowInterface;
 class ContentReindexProvider implements LocalizedReindexProviderInterface
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var ContentMetadataInspectorInterface
-     */
-    private $contentMetadataInspector;
-
-    /**
-     * @var ContentAggregatorInterface
-     */
-    private $contentAggregator;
-
-    /**
-     * @var string
-     */
-    private $context;
-
-    /**
-     * @var class-string<T>
-     */
-    private $contentRichEntityClass;
-
-    /**
      * @var class-string<B>|null
      */
     private $dimensionContentClass;
@@ -63,17 +38,12 @@ class ContentReindexProvider implements LocalizedReindexProviderInterface
      * @param class-string<T> $contentRichEntityClass
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ContentMetadataInspectorInterface $contentMetadataInspector,
-        ContentAggregatorInterface $contentAggregator,
-        string $context,
-        string $contentRichEntityClass
+        private EntityManagerInterface $entityManager,
+        private ContentMetadataInspectorInterface $contentMetadataInspector,
+        private ContentAggregatorInterface $contentAggregator,
+        private string $context,
+        private string $contentRichEntityClass,
     ) {
-        $this->entityManager = $entityManager;
-        $this->contentMetadataInspector = $contentMetadataInspector;
-        $this->contentAggregator = $contentAggregator;
-        $this->context = $context;
-        $this->contentRichEntityClass = $contentRichEntityClass;
     }
 
     public function provide($classFqn, $offset, $maxResults)
@@ -126,14 +96,10 @@ class ContentReindexProvider implements LocalizedReindexProviderInterface
 
         $locales = $object->getDimensionContents()
             ->filter(
-                function(DimensionContentInterface $dimensionContent) use ($stage) {
-                    return $stage === $dimensionContent->getStage();
-                }
+                fn (DimensionContentInterface $dimensionContent) => $stage === $dimensionContent->getStage()
             )
             ->map(
-                function(DimensionContentInterface $dimensionContent) {
-                    return $dimensionContent->getLocale();
-                }
+                fn (DimensionContentInterface $dimensionContent) => $dimensionContent->getLocale()
             )->getValues();
 
         return \array_values(\array_filter(\array_unique($locales)));
@@ -158,7 +124,7 @@ class ContentReindexProvider implements LocalizedReindexProviderInterface
                     'stage' => $stage,
                 ]
             );
-        } catch (ContentNotFoundException $e) { // @codeCoverageIgnore
+        } catch (ContentNotFoundException) { // @codeCoverageIgnore
             // TODO FIXME add testcase for this
             return null; // @codeCoverageIgnore
         }

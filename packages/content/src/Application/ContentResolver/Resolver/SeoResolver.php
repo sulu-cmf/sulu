@@ -40,9 +40,7 @@ class SeoResolver implements ResolverInterface
         /** @var FormMetadata $formMetadata */
         $formMetadata = $this->formMetadataProvider->getMetadata($this->getFormKey(), $locale, []);
 
-        $items = \array_filter($formMetadata->getItems(), function($item) {
-            return !\in_array($item->getType(), $this->excludedPropertyTypes(), true);
-        });
+        $items = \array_filter($formMetadata->getItems(), fn ($item) => !\in_array($item->getType(), $this->excludedPropertyTypes(), true));
 
         return ContentView::create(
             $this->metadataResolver->resolveItems(

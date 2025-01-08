@@ -25,26 +25,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContentPublishTaskHandler implements AutomationTaskHandlerInterface
 {
-    /**
-     * @var ContentManagerInterface
-     */
-    private $contentManager;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(ContentManagerInterface $contentManager, EntityManagerInterface $entityManager, TranslatorInterface $translator)
-    {
-        $this->contentManager = $contentManager;
-        $this->entityManager = $entityManager;
-        $this->translator = $translator;
+    public function __construct(
+        private ContentManagerInterface $contentManager,
+        private EntityManagerInterface $entityManager,
+        private TranslatorInterface $translator,
+    ) {
     }
 
     public function configureOptionsResolver(OptionsResolver $optionsResolver): OptionsResolver

@@ -80,9 +80,7 @@ class DimensionContentCollectionFactoryTest extends TestCase
         $contentDataMapper = $this->prophesize(ContentDataMapperInterface::class);
         $contentDataMapper->map(
             Argument::that(
-                function(DimensionContentCollectionInterface $collection) use ($dimensionContent1, $dimensionContent2) {
-                    return [$dimensionContent1, $dimensionContent2] === \iterator_to_array($collection);
-                }
+                fn (DimensionContentCollectionInterface $collection) => [$dimensionContent1, $dimensionContent2] === \iterator_to_array($collection)
             ),
             $attributes,
             $data
@@ -138,9 +136,7 @@ class DimensionContentCollectionFactoryTest extends TestCase
         $contentDataMapper = $this->prophesize(ContentDataMapperInterface::class);
         $contentDataMapper->map(
             Argument::that(
-                function(DimensionContentCollectionInterface $collection) use ($dimensionContent1, $dimensionContent2) {
-                    return [$dimensionContent1, $dimensionContent2] === \iterator_to_array($collection);
-                }
+                fn (DimensionContentCollectionInterface $collection) => [$dimensionContent1, $dimensionContent2] === \iterator_to_array($collection)
             ),
             $attributes,
             $data
@@ -196,9 +192,7 @@ class DimensionContentCollectionFactoryTest extends TestCase
         $contentDataMapper = $this->prophesize(ContentDataMapperInterface::class);
         $contentDataMapper->map(
             Argument::that(
-                function(DimensionContentCollectionInterface $collection) use ($dimensionContent1, $dimensionContent2) {
-                    return [$dimensionContent1, $dimensionContent2] === \iterator_to_array($collection);
-                }
+                fn (DimensionContentCollectionInterface $collection) => [$dimensionContent1, $dimensionContent2] === \iterator_to_array($collection)
             ),
             $attributes,
             $data

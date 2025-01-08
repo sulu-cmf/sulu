@@ -21,22 +21,12 @@ use Sulu\Content\Domain\Factory\TagFactoryInterface;
 class TagFactory implements TagFactoryInterface
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var EntityRepository<TagInterface>
-     */
-    private $tagRepository;
-
-    /**
      * @param EntityRepository<TagInterface> $tagRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, EntityRepository $tagRepository)
-    {
-        $this->entityManager = $entityManager;
-        $this->tagRepository = $tagRepository;
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private EntityRepository $tagRepository,
+    ) {
     }
 
     public function create(array $tagNames): array

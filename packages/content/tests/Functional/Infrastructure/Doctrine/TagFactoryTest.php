@@ -49,9 +49,7 @@ class TagFactoryTest extends SuluTestCase
         $this->assertSame(
             $tagNames,
             \array_map(
-                function(TagInterface $tag) {
-                    return $tag->getName();
-                },
+                fn (TagInterface $tag) => $tag->getName(),
                 $tags
             )
         );

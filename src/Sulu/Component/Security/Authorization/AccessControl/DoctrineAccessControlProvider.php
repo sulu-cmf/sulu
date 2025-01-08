@@ -22,8 +22,12 @@ use Sulu\Component\Security\Authorization\MaskConverterInterface;
  */
 class DoctrineAccessControlProvider implements AccessControlProviderInterface
 {
-    public function __construct(private ObjectManager $objectManager, private RoleRepositoryInterface $roleRepository, private AccessControlRepositoryInterface $accessControlRepository, private MaskConverterInterface $maskConverter)
-    {
+    public function __construct(
+        private ObjectManager $objectManager,
+        private RoleRepositoryInterface $roleRepository,
+        private AccessControlRepositoryInterface $accessControlRepository,
+        private MaskConverterInterface $maskConverter,
+    ) {
     }
 
     /**

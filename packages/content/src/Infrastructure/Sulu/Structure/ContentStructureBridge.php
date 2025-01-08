@@ -31,31 +31,6 @@ use Sulu\Content\Domain\Model\TemplateInterface;
 class ContentStructureBridge implements StructureInterface, RoutableStructureInterface
 {
     /**
-     * @var StructureMetadata
-     */
-    protected $structure;
-
-    /**
-     * @var LegacyPropertyFactory
-     */
-    private $propertyFactory;
-
-    /**
-     * @var TemplateInterface
-     */
-    protected $content;
-
-    /**
-     * @var string|int
-     */
-    protected $id;
-
-    /**
-     * @var string
-     */
-    protected $locale;
-
-    /**
      * @var array<string|int|float, PropertyInterface>
      */
     private $loadedProperties = [];
@@ -64,17 +39,12 @@ class ContentStructureBridge implements StructureInterface, RoutableStructureInt
      * @param string|int $id
      */
     public function __construct(
-        StructureMetadata $structure,
-        LegacyPropertyFactory $propertyFactory,
-        TemplateInterface $content,
-        $id,
-        string $locale
+        protected StructureMetadata $structure,
+        private LegacyPropertyFactory $propertyFactory,
+        protected TemplateInterface $content,
+        protected $id,
+        protected string $locale
     ) {
-        $this->structure = $structure;
-        $this->propertyFactory = $propertyFactory;
-        $this->content = $content;
-        $this->id = $id;
-        $this->locale = $locale;
     }
 
     public function getDocument(): ContentDocument

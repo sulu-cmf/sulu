@@ -19,14 +19,8 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
 
 class AuthorDataMapper implements DataMapperInterface
 {
-    /**
-     * @var ContactFactoryInterface
-     */
-    private $contactFactory;
-
-    public function __construct(ContactFactoryInterface $contactFactory)
+    public function __construct(private ContactFactoryInterface $contactFactory)
     {
-        $this->contactFactory = $contactFactory;
     }
 
     public function map(

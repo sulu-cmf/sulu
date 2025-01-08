@@ -21,33 +21,14 @@ use Sulu\Content\Domain\Model\DimensionContentCollectionInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Repository\DimensionContentRepositoryInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class DimensionContentCollectionFactory implements DimensionContentCollectionFactoryInterface
 {
-    /**
-     * @var DimensionContentRepositoryInterface
-     */
-    private $dimensionContentRepository;
-
-    /**
-     * @var ContentDataMapperInterface
-     */
-    private $contentDataMapper;
-
-    /**
-     * @var PropertyAccessorInterface
-     */
-    private $propertyAccessor;
-
     public function __construct(
-        DimensionContentRepositoryInterface $dimensionContentRepository,
-        ContentDataMapperInterface $contentDataMapper,
-        PropertyAccessor $propertyAccessor
+        private DimensionContentRepositoryInterface $dimensionContentRepository,
+        private ContentDataMapperInterface $contentDataMapper,
+        private PropertyAccessor $propertyAccessor,
     ) {
-        $this->dimensionContentRepository = $dimensionContentRepository;
-        $this->contentDataMapper = $contentDataMapper;
-        $this->propertyAccessor = $propertyAccessor;
     }
 
     public function create(

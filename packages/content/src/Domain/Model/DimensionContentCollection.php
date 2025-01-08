@@ -36,11 +36,6 @@ class DimensionContentCollection implements \IteratorAggregate, DimensionContent
     private $dimensionAttributes;
 
     /**
-     * @var class-string<T>
-     */
-    private $dimensionContentClass;
-
-    /**
      * @var mixed[]
      */
     private $defaultDimensionAttributes;
@@ -55,11 +50,10 @@ class DimensionContentCollection implements \IteratorAggregate, DimensionContent
     public function __construct(
         array $dimensionContents,
         array $dimensionAttributes,
-        string $dimensionContentClass
+        private string $dimensionContentClass
     ) {
-        $this->dimensionContentClass = $dimensionContentClass;
-        $this->defaultDimensionAttributes = $dimensionContentClass::getDefaultDimensionAttributes();
-        $this->dimensionAttributes = $dimensionContentClass::getEffectiveDimensionAttributes($dimensionAttributes);
+        $this->defaultDimensionAttributes = $this->dimensionContentClass::getDefaultDimensionAttributes();
+        $this->dimensionAttributes = $this->dimensionContentClass::getEffectiveDimensionAttributes($dimensionAttributes);
 
         $this->dimensionContents = new ArrayCollection(
             // dimension contents need to be sorted from most specific to least specific when they are merged

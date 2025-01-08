@@ -42,39 +42,9 @@ class ContentSitemapProvider implements SitemapProviderInterface
     public const LOCALIZED_DIMENSION_CONTENT_ALIAS = 'localizedDimensionContent';
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
-
-    /**
-     * @var WebspaceManagerInterface
-     */
-    protected $webspaceManager;
-
-    /**
-     * @var string
-     */
-    protected $kernelEnvironment;
-
-    /**
-     * @var class-string<T>
-     */
-    protected $contentRichEntityClass;
-
-    /**
-     * @var class-string<RouteInterface>
-     */
-    protected $routeClass;
-
-    /**
-     * @var string
-     */
-    protected $alias;
-
-    /**
      * @var int
      */
-    protected $pageSize;
+    protected $pageSize = self::PAGE_SIZE;
 
     /**
      * @param string $kernelEnvironment Inject parameter "kernel.environment" here
@@ -82,20 +52,13 @@ class ContentSitemapProvider implements SitemapProviderInterface
      * @param class-string<RouteInterface> $routeClass
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
-        WebspaceManagerInterface $webspaceManager,
-        string $kernelEnvironment,
-        string $contentRichEntityClass,
-        string $routeClass,
-        string $alias
+        protected EntityManagerInterface $entityManager,
+        protected WebspaceManagerInterface $webspaceManager,
+        protected string $kernelEnvironment,
+        protected string $contentRichEntityClass,
+        protected string $routeClass,
+        protected string $alias
     ) {
-        $this->entityManager = $entityManager;
-        $this->webspaceManager = $webspaceManager;
-        $this->kernelEnvironment = $kernelEnvironment;
-        $this->contentRichEntityClass = $contentRichEntityClass;
-        $this->routeClass = $routeClass;
-        $this->alias = $alias;
-        $this->pageSize = self::PAGE_SIZE;
     }
 
     public function build($page, $scheme, $host): array
@@ -170,7 +133,7 @@ class ContentSitemapProvider implements SitemapProviderInterface
                 ->getSingleScalarResult();
 
             return (int) \ceil($amount / $this->pageSize);
-        } catch (NoResultException|NonUniqueResultException $e) { // @codeCoverageIgnore
+        } catch (NoResultException|NonUniqueResultException) { // @codeCoverageIgnore
             // TODO FIXME add testcase for this
             return 0; // @codeCoverageIgnore
         }

@@ -20,22 +20,10 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
 
 class ContentPersister implements ContentPersisterInterface
 {
-    /**
-     * @var DimensionContentCollectionFactoryInterface
-     */
-    private $dimensionContentCollectionFactory;
-
-    /**
-     * @var ContentMergerInterface
-     */
-    private $contentMerger;
-
     public function __construct(
-        DimensionContentCollectionFactoryInterface $dimensionContentCollectionFactory,
-        ContentMergerInterface $contentMerger
+        private DimensionContentCollectionFactoryInterface $dimensionContentCollectionFactory,
+        private ContentMergerInterface $contentMerger,
     ) {
-        $this->dimensionContentCollectionFactory = $dimensionContentCollectionFactory;
-        $this->contentMerger = $contentMerger;
     }
 
     public function persist(ContentRichEntityInterface $contentRichEntity, array $data, array $dimensionAttributes): DimensionContentInterface

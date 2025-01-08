@@ -66,4 +66,4 @@ class Kernel extends SuluTestKernel
 }
 
 // Needed for preview PreviewKernelFactory
-\class_alias(Kernel::class, 'App\\Kernel');
+\class_alias(Kernel::class, \App\Kernel::class);

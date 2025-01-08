@@ -27,45 +27,15 @@ use Sulu\Content\Domain\Model\TemplateInterface;
 class RoutableDataMapper implements DataMapperInterface
 {
     /**
-     * @var StructureMetadataFactoryInterface
-     */
-    private $factory;
-
-    /**
-     * @var RouteGeneratorInterface
-     */
-    private $routeGenerator;
-
-    /**
-     * @var RouteManagerInterface
-     */
-    private $routeManager;
-
-    /**
-     * @var ConflictResolverInterface
-     */
-    private $conflictResolver;
-
-    /**
-     * @var array<string, array<mixed>>
-     */
-    private $routeMappings;
-
-    /**
      * @param array<string, array<mixed>> $routeMappings
      */
     public function __construct(
-        StructureMetadataFactoryInterface $factory,
-        RouteGeneratorInterface $routeGenerator,
-        RouteManagerInterface $routeManager,
-        ConflictResolverInterface $conflictResolver,
-        array $routeMappings
+        private StructureMetadataFactoryInterface $factory,
+        private RouteGeneratorInterface $routeGenerator,
+        private RouteManagerInterface $routeManager,
+        private ConflictResolverInterface $conflictResolver,
+        private array $routeMappings,
     ) {
-        $this->factory = $factory;
-        $this->routeGenerator = $routeGenerator;
-        $this->routeManager = $routeManager;
-        $this->conflictResolver = $conflictResolver;
-        $this->routeMappings = $routeMappings;
     }
 
     public function map(

@@ -28,36 +28,12 @@ use Sulu\Content\Infrastructure\Sulu\Structure\StructureMetadataNotFoundExceptio
 
 class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
-
-    /**
-     * @var ContentAggregatorInterface
-     */
-    protected $contentAggregator;
-
-    /**
-     * @var ContentStructureBridgeFactory
-     */
-    protected $contentStructureBridgeFactory;
-
-    /**
-     * @var CacheLifetimeResolverInterface
-     */
-    private $cacheLifetimeResolver;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ContentAggregatorInterface $contentAggregator,
-        ContentStructureBridgeFactory $contentStructureBridgeFactory,
-        CacheLifetimeResolverInterface $cacheLifetimeResolver
+        protected EntityManagerInterface $entityManager,
+        protected ContentAggregatorInterface $contentAggregator,
+        protected ContentStructureBridgeFactory $contentStructureBridgeFactory,
+        private CacheLifetimeResolverInterface $cacheLifetimeResolver
     ) {
-        $this->entityManager = $entityManager;
-        $this->contentAggregator = $contentAggregator;
-        $this->contentStructureBridgeFactory = $contentStructureBridgeFactory;
-        $this->cacheLifetimeResolver = $cacheLifetimeResolver;
     }
 
     /**
@@ -85,7 +61,7 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
 
         try {
             $structureBridge = $this->contentStructureBridgeFactory->getBridge($entity, $id, $locale);
-        } catch (StructureMetadataNotFoundException $exception) {
+        } catch (StructureMetadataNotFoundException) {
             // return empty array which will lead to a 404 response
             return [];
         }
@@ -138,7 +114,7 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
                 ->setParameter('id', $id)
                 ->getQuery()
                 ->getSingleResult();
-        } catch (NoResultException $exception) {
+        } catch (NoResultException) {
             return null;
         }
 
@@ -160,7 +136,7 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
             }
 
             return $resolvedDimensionContent;
-        } catch (ContentNotFoundException $exception) {
+        } catch (ContentNotFoundException) {
             return null;
         }
     }

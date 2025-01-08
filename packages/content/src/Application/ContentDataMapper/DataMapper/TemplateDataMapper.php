@@ -20,22 +20,12 @@ use Sulu\Content\Domain\Model\TemplateInterface;
 class TemplateDataMapper implements DataMapperInterface
 {
     /**
-     * @var StructureMetadataFactoryInterface
-     */
-    private $factory;
-
-    /**
-     * @var array<string, string>
-     */
-    private $structureDefaultTypes;
-
-    /**
      * @param array<string, string> $structureDefaultTypes
      */
-    public function __construct(StructureMetadataFactoryInterface $factory, array $structureDefaultTypes)
-    {
-        $this->factory = $factory;
-        $this->structureDefaultTypes = $structureDefaultTypes;
+    public function __construct(
+        private StructureMetadataFactoryInterface $factory,
+        private array $structureDefaultTypes,
+    ) {
     }
 
     public function map(

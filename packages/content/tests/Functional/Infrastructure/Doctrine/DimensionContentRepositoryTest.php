@@ -53,9 +53,7 @@ class DimensionContentRepositoryTest extends SuluTestCase
         $this->assertSame([
             $dimensionContent1->getId(),
             $dimensionContent2->getId(),
-        ], \array_map(function(ExampleDimensionContent $dimensionContent) {
-            return $dimensionContent->getId();
-        }, \iterator_to_array($dimensionContentCollection)));
+        ], \array_map(fn (ExampleDimensionContent $dimensionContent) => $dimensionContent->getId(), \iterator_to_array($dimensionContentCollection)));
     }
 
     public function testLoadOneNotExist(): void
@@ -76,9 +74,7 @@ class DimensionContentRepositoryTest extends SuluTestCase
 
         $this->assertSame([
             $dimensionContent1->getId(),
-        ], \array_map(function(ExampleDimensionContent $dimensionContent) {
-            return $dimensionContent->getId();
-        }, \iterator_to_array($dimensionContentCollection)));
+        ], \array_map(fn (ExampleDimensionContent $dimensionContent) => $dimensionContent->getId(), \iterator_to_array($dimensionContentCollection)));
     }
 
     public function testLoadExistOrderedDifferent(): void
@@ -102,9 +98,7 @@ class DimensionContentRepositoryTest extends SuluTestCase
         $this->assertSame([
             $dimensionContent1->getId(),
             $dimensionContent2->getId(), // Dimension 2 should be the last one in this case
-        ], \array_map(function(ExampleDimensionContent $dimensionContent) {
-            return $dimensionContent->getId();
-        }, \iterator_to_array($dimensionContentCollection)));
+        ], \array_map(fn (ExampleDimensionContent $dimensionContent) => $dimensionContent->getId(), \iterator_to_array($dimensionContentCollection)));
     }
 
     private function createContentRichEntity(): Example

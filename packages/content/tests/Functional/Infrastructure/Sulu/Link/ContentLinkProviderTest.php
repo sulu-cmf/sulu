@@ -141,12 +141,10 @@ class ContentLinkProviderTest extends WebsiteTestCase
      */
     private function mapLinks(array $links): array
     {
-        return \array_map(function(LinkItem $linkItem) {
-            return [
-                'id' => $linkItem->getId(),
-                'url' => $linkItem->getUrl(),
-                'title' => $linkItem->getTitle(),
-            ];
-        }, $links);
+        return \array_map(fn (LinkItem $linkItem) => [
+            'id' => $linkItem->getId(),
+            'url' => $linkItem->getUrl(),
+            'title' => $linkItem->getTitle(),
+        ], $links);
     }
 }

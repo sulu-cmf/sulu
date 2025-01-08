@@ -31,26 +31,6 @@ class ContentDataProviderRepository implements DataProviderRepositoryInterface
     public const LOCALIZED_DIMENSION_CONTENT_ALIAS = 'localizedContent';
 
     /**
-     * @var ContentManagerInterface
-     */
-    protected $contentManager;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
-
-    /**
-     * @var bool
-     */
-    protected $showDrafts;
-
-    /**
-     * @var class-string<T>
-     */
-    protected $contentRichEntityClass;
-
-    /**
      * @var ClassMetadataInfo<T>
      */
     protected $contentRichEntityClassMetadata;
@@ -60,16 +40,11 @@ class ContentDataProviderRepository implements DataProviderRepositoryInterface
      * @param class-string<T> $contentRichEntityClass
      */
     public function __construct(
-        ContentManagerInterface $contentManager,
-        EntityManagerInterface $entityManager,
-        bool $showDrafts,
-        string $contentRichEntityClass
+        protected ContentManagerInterface $contentManager,
+        protected EntityManagerInterface $entityManager,
+        protected bool $showDrafts,
+        protected string $contentRichEntityClass
     ) {
-        $this->contentManager = $contentManager;
-        $this->entityManager = $entityManager;
-        $this->showDrafts = $showDrafts;
-        $this->contentRichEntityClass = $contentRichEntityClass;
-
         /** @var ClassMetadataInfo<T> $contentRichEntityClassMetadata */
         $contentRichEntityClassMetadata = $this->entityManager->getClassMetadata($this->contentRichEntityClass);
         $this->contentRichEntityClassMetadata = $contentRichEntityClassMetadata;
@@ -354,11 +329,9 @@ class ContentDataProviderRepository implements DataProviderRepositoryInterface
     /**
      * Extension point to filter for target groups.
      *
-     * @param mixed $targetGroupId
-     *
      * @return array<string, mixed> parameters for query
      */
-    protected function addTargetGroupFilter(QueryBuilder $queryBuilder, $targetGroupId, string $alias): array
+    protected function addTargetGroupFilter(QueryBuilder $queryBuilder, mixed $targetGroupId, string $alias): array
     {
         // TODO FIXME add testcase for this
         // @codeCoverageIgnoreStart
@@ -401,7 +374,7 @@ class ContentDataProviderRepository implements DataProviderRepositoryInterface
 
         if (false !== \mb_strpos($sortColumn, '.')) {
             // TODO FIXME add testcase for this
-            list($alias, $sortColumn) = \explode('.', $sortColumn, 2); // @codeCoverageIgnore
+            [$alias, $sortColumn] = \explode('.', $sortColumn, 2); // @codeCoverageIgnore
         }
 
         if (!\in_array($alias, $queryBuilder->getAllAliases(), true)) {
@@ -438,16 +411,14 @@ class ContentDataProviderRepository implements DataProviderRepositoryInterface
      */
     protected function appendRelation(QueryBuilder $queryBuilder, string $relation, array $values, string $operator, string $alias): array
     {
-        $queryBuilder->distinct(); // TODO remove distinct and replace joins with subselect filter see: https://github.com/sulu/SuluContentBundle/pull/226
+        $queryBuilder->distinct();
 
-        switch ($operator) {
-            case 'or':
-                return $this->appendRelationOr($queryBuilder, $relation, $values, $alias);
-            case 'and':
-                return $this->appendRelationAnd($queryBuilder, $relation, $values, $alias);
-        }
-
-        return []; // @codeCoverageIgnore
+        // TODO remove distinct and replace joins with subselect filter see: https://github.com/sulu/SuluContentBundle/pull/226
+        return match ($operator) {
+            'or' => $this->appendRelationOr($queryBuilder, $relation, $values, $alias),
+            'and' => $this->appendRelationAnd($queryBuilder, $relation, $values, $alias),
+            default => [],
+        }; // @codeCoverageIgnore
     }
 
     /**

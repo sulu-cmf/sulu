@@ -17,14 +17,8 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 class WebspaceSelect
 {
-    /**
-     * @var WebspaceManagerInterface
-     */
-    private $webspaceManager;
-
-    public function __construct(WebspaceManagerInterface $webspaceManager)
+    public function __construct(private WebspaceManagerInterface $webspaceManager)
     {
-        $this->webspaceManager = $webspaceManager;
     }
 
     /**

@@ -19,14 +19,8 @@ use Sulu\Content\Domain\Factory\CategoryFactoryInterface;
 
 class CategoryFactory implements CategoryFactoryInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function create(array $categoryIds): array

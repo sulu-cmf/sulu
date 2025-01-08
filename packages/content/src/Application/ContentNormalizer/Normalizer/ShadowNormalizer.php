@@ -28,7 +28,7 @@ class ShadowNormalizer implements NormalizerInterface
         Assert::isInstanceOf($object, DimensionContentInterface::class);
 
         $normalizedData['shadowOn'] = null !== $object->getShadowLocale();
-        $normalizedData['shadowLocales'] = $normalizedData['shadowLocales'] ?? [];
+        $normalizedData['shadowLocales'] ??= [];
         $normalizedData['contentLocales'] = $object->getAvailableLocales() ?? []; // TODO should be changed in Sulu Core (PageSettingsShadowLocaleSelect.js)
 
         return $normalizedData;

@@ -20,20 +20,8 @@ use Sulu\Content\Domain\Model\TemplateInterface;
 
 class ContentDocument implements ExtensionBehavior
 {
-    /**
-     * @var TemplateInterface
-     */
-    private $content;
-
-    /**
-     * @var string
-     */
-    private $locale;
-
-    public function __construct(TemplateInterface $content, string $locale)
+    public function __construct(private TemplateInterface $content, private string $locale)
     {
-        $this->content = $content;
-        $this->locale = $locale;
     }
 
     public function getContent(): TemplateInterface

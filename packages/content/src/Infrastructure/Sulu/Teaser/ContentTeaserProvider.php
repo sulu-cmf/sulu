@@ -40,53 +40,17 @@ abstract class ContentTeaserProvider implements TeaserProviderInterface
     use ResolveContentTrait;
 
     /**
-     * @var ContentManagerInterface
-     */
-    protected $contentManager;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
-
-    /**
-     * @var ContentMetadataInspectorInterface
-     */
-    private $contentMetadataInspector;
-
-    /**
-     * @var StructureMetadataFactoryInterface
-     */
-    protected $metadataFactory;
-
-    /**
-     * @var class-string<T>
-     */
-    protected $contentRichEntityClass;
-
-    /**
-     * @var bool
-     */
-    protected $showDrafts;
-
-    /**
      * @param class-string<T> $contentRichEntityClass
      * @param bool $showDrafts Inject parameter "sulu_document_manager.show_drafts" here
      */
     public function __construct(
-        ContentManagerInterface $contentManager,
-        EntityManagerInterface $entityManager,
-        ContentMetadataInspectorInterface $contentMetadataInspector,
-        StructureMetadataFactoryInterface $metadataFactory,
-        string $contentRichEntityClass,
-        bool $showDrafts
+        protected ContentManagerInterface $contentManager,
+        protected EntityManagerInterface $entityManager,
+        private ContentMetadataInspectorInterface $contentMetadataInspector,
+        protected StructureMetadataFactoryInterface $metadataFactory,
+        protected string $contentRichEntityClass,
+        protected bool $showDrafts
     ) {
-        $this->contentManager = $contentManager;
-        $this->entityManager = $entityManager;
-        $this->contentMetadataInspector = $contentMetadataInspector;
-        $this->metadataFactory = $metadataFactory;
-        $this->contentRichEntityClass = $contentRichEntityClass;
-        $this->showDrafts = $showDrafts;
     }
 
     /**

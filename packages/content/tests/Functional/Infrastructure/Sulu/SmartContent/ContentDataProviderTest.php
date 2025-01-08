@@ -303,7 +303,7 @@ class ContentDataProviderTest extends SuluTestCase
     public function testResolveDataItems(): void
     {
         foreach ($this->filters() as $dataset) {
-            list($name, $locale, $page, $pageSize, $limit, $filters, $expectedCount, $expectedHasNextPage) = $dataset;
+            [$name, $locale, $page, $pageSize, $limit, $filters, $expectedCount, $expectedHasNextPage] = $dataset;
 
             /** @var string $name */
             /** @var string $locale */
@@ -621,9 +621,9 @@ class ContentDataProviderTest extends SuluTestCase
      */
     private function mapDataProviderResult(DataProviderResult $dataProviderResult): array
     {
-        return \array_map(function(ResourceItemInterface $item) {
+        return \array_map(fn (ResourceItemInterface $item) =>
             /** @var ResourceItemInterface&ArrayAccessItem $item */
-            return [
+            [
                 'id' => $item->getId(),
                 'excerptCategories' => $item['excerptCategories'],
                 'excerptTags' => $item['excerptTags'],
@@ -631,7 +631,6 @@ class ContentDataProviderTest extends SuluTestCase
                 'publishedState' => $item['publishedState'],
                 'title' => $item['title'],
                 'url' => $item['url'],
-            ];
-        }, $dataProviderResult->getItems());
+            ], $dataProviderResult->getItems());
     }
 }

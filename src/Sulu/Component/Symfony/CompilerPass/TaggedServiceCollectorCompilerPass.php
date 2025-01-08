@@ -26,8 +26,12 @@ class TaggedServiceCollectorCompilerPass implements CompilerPassInterface
      * @param int $argumentNumber
      * @param string $aliasAttribute
      */
-    public function __construct(private $serviceId, private $tagName, private $argumentNumber = 0, private $aliasAttribute = null)
-    {
+    public function __construct(
+        private $serviceId,
+        private $tagName,
+        private $argumentNumber = 0,
+        private $aliasAttribute = null,
+    ) {
     }
 
     public function process(ContainerBuilder $container)

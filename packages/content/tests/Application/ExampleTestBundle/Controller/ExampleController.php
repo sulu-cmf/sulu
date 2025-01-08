@@ -38,53 +38,16 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class ExampleController extends AbstractRestController implements ClassResourceInterface
 {
-    /**
-     * @var FieldDescriptorFactoryInterface
-     */
-    private $fieldDescriptorFactory;
-
-    /**
-     * @var DoctrineListBuilderFactoryInterface
-     */
-    private $listBuilderFactory;
-
-    /**
-     * @var RestHelperInterface
-     */
-    private $restHelper;
-
-    /**
-     * @var ContentManagerInterface
-     */
-    private $contentManager;
-
-    /**
-     * @var ContentIndexerInterface
-     */
-    private $contentIndexer;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,
-        FieldDescriptorFactoryInterface $fieldDescriptorFactory,
-        DoctrineListBuilderFactoryInterface $listBuilderFactory,
-        RestHelperInterface $restHelper,
-        ContentManagerInterface $contentManager,
-        ContentIndexerInterface $contentIndexer,
-        EntityManagerInterface $entityManager
+        private FieldDescriptorFactoryInterface $fieldDescriptorFactory,
+        private DoctrineListBuilderFactoryInterface $listBuilderFactory,
+        private RestHelperInterface $restHelper,
+        private ContentManagerInterface $contentManager,
+        private ContentIndexerInterface $contentIndexer,
+        private EntityManagerInterface $entityManager
     ) {
-        $this->fieldDescriptorFactory = $fieldDescriptorFactory;
-        $this->listBuilderFactory = $listBuilderFactory;
-        $this->restHelper = $restHelper;
-        $this->contentManager = $contentManager;
-        $this->contentIndexer = $contentIndexer;
-        $this->entityManager = $entityManager;
-
         parent::__construct($viewHandler, $tokenStorage);
     }
 

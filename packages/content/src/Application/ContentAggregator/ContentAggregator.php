@@ -21,22 +21,10 @@ use Sulu\Content\Domain\Repository\DimensionContentRepositoryInterface;
 
 class ContentAggregator implements ContentAggregatorInterface
 {
-    /**
-     * @var DimensionContentRepositoryInterface
-     */
-    private $dimensionContentRepository;
-
-    /**
-     * @var ContentMergerInterface
-     */
-    private $contentMerger;
-
     public function __construct(
-        DimensionContentRepositoryInterface $dimensionContentRepository,
-        ContentMergerInterface $contentMerger
+        private DimensionContentRepositoryInterface $dimensionContentRepository,
+        private ContentMergerInterface $contentMerger,
     ) {
-        $this->dimensionContentRepository = $dimensionContentRepository;
-        $this->contentMerger = $contentMerger;
     }
 
     public function aggregate(ContentRichEntityInterface $contentRichEntity, array $dimensionAttributes): DimensionContentInterface

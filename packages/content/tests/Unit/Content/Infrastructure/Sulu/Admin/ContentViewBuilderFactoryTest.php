@@ -323,9 +323,7 @@ class ContentViewBuilderFactoryTest extends TestCase
 
         foreach ($views as $index => $viewBuilder) {
             $toolbarActions = $viewBuilder->getView()->getOption('toolbarActions');
-            $toolbarActionTypes = \array_map(function($toolbarAction) {
-                return $toolbarAction->getType();
-            }, $toolbarActions);
+            $toolbarActionTypes = \array_map(fn ($toolbarAction) => $toolbarAction->getType(), $toolbarActions);
 
             $this->assertSame($expectedToolbarActions[$index], $toolbarActionTypes);
         }
@@ -459,9 +457,7 @@ class ContentViewBuilderFactoryTest extends TestCase
 
         foreach ($views as $index => $viewBuilder) {
             $toolbarActions = $viewBuilder->getView()->getOption('toolbarActions');
-            $toolbarActionTypes = \array_map(function($toolbarAction) {
-                return $toolbarAction->getType();
-            }, $toolbarActions);
+            $toolbarActionTypes = \array_map(fn ($toolbarAction) => $toolbarAction->getType(), $toolbarActions);
 
             $this->assertSame($expectedToolbarActions[$index], $toolbarActionTypes);
         }
