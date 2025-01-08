@@ -236,10 +236,6 @@
             <factory class="Symfony\Component\HttpClient\HttpClient" method="create"/>
         </service>
 
-        <service id="sulu_admin.download_build_command" class="Sulu\Bundle\AdminBundle\Command\DownloadBuildCommand">
-            <tag name="console.command"/>
-        </service>
-
         <service id="sulu_admin.update_build_command" class="Sulu\Bundle\AdminBundle\Command\UpdateBuildCommand">
             <argument type="service" id="http_client" />
             <argument>%kernel.project_dir%</argument>
