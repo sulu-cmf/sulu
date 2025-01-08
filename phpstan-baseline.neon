@@ -12456,11 +12456,6 @@ parameters:
 			path: src/Sulu/Bundle/MarkupBundle/Tag/TagRegistry.php
 
 		-
-			message: "#^Class Sulu\\\\Bundle\\\\MarkupBundle\\\\Listener\\\\MarkupListener constructor invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/MarkupBundle/Tests/Unit/Listener/MarkupListenerTest.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\MarkupBundle\\\\Tests\\\\Unit\\\\Markup\\\\HtmlTagExtractorTest\\:\\:provideMultipleTags\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MarkupBundle/Tests/Unit/Markup/HtmlTagExtractorTest.php

@@ -25,7 +25,7 @@
         </service>
 
         <service id="sulu_markup.response_listener" class="Sulu\Bundle\MarkupBundle\Listener\MarkupListener">
-            <argument type="collection"/>
+            <argument type="tagged_iterator" tag="sulu_markup.parser" index-by="type" />
 
             <tag name="kernel.event_subscriber"/>
         </service>
