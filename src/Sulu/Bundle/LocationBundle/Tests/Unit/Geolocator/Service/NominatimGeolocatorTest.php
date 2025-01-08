@@ -11,10 +11,6 @@
 
 namespace Sulu\Bundle\LocationBundle\Tests\Unit\Geolocator\Service;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\LocationBundle\Geolocator\GeolocatorOptions;
 use Sulu\Bundle\LocationBundle\Geolocator\Service\NominatimGeolocator;
@@ -23,7 +19,10 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 
 class NominatimGeolocatorTest extends TestCase
 {
-    public static function provideLocate()
+    /**
+     * @return array<array{string, int, array<string, string|null>}>
+     */
+    public static function provideLocate(): array
     {
         return [
             [
@@ -43,35 +42,8 @@ class NominatimGeolocatorTest extends TestCase
         ];
     }
 
-    /**
-     * Test if BC is maintained and guzzle client still works.
-     */
     #[\PHPUnit\Framework\Attributes\DataProvider('provideLocate')]
-    public function testGuzzleLocate($query, $expectedCount, $expectationMap): void
-    {
-        $fixtureName = __DIR__ . '/responses/' . \md5($query) . '.json';
-        $fixture = \file_get_contents($fixtureName);
-        $mockHandler = new MockHandler([new Response(200, [], $fixture)]);
-
-        $client = new Client(['handler' => HandlerStack::create($mockHandler)]);
-        $geolocator = new NominatimGeolocator($client, '', '');
-
-        $results = $geolocator->locate($query);
-        $this->assertCount($expectedCount, $results);
-
-        if (0 == \count($results)) {
-            return;
-        }
-
-        $result = \current($results->toArray());
-
-        foreach ($expectationMap as $field => $expectation) {
-            $this->assertEquals($expectation, $result[$field]);
-        }
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('provideLocate')]
-    public function testLocate($query, $expectedCount, $expectationMap): void
+    public function testLocate(string $query, int $expectedCount, array $expectationMap): void
     {
         $fixtureName = __DIR__ . '/responses/' . \md5($query) . '.json';
         /** @var string $fixture */
@@ -83,10 +55,6 @@ class NominatimGeolocatorTest extends TestCase
 
         $results = $geolocator->locate($query);
         $this->assertCount($expectedCount, $results);
-
-        if (0 == \count($results)) {
-            return;
-        }
 
         $result = \current($results->toArray());
 

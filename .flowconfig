@@ -17,6 +17,7 @@ module.name_mapper='fos-jsrouting/router' -> 'empty/object'
 .*/node_modules/stylelint/.*
 .*/node_modules/resolve/test/resolver/malformed_package_json/.*
 .*/vendor/symfony/.*
+.*/packages/.*/tests/Application/assets/.*
 
 .git/
 .github/
@@ -25,4 +26,3 @@ config/
 public/
 templates/
 var/
-

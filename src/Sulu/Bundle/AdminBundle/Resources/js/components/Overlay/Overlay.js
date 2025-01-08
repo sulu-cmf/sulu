@@ -22,7 +22,7 @@ type Props = {
     confirmLoading: boolean,
     confirmText: string,
     onClose: () => void,
-    onConfirm: () => void,
+    onConfirm?: () => void,
     onSnackbarClick?: () => void,
     onSnackbarCloseClick?: () => void,
     open: boolean,
@@ -117,6 +117,8 @@ class Overlay extends React.Component<Props> {
             title,
         } = this.props;
 
+        const footerVisible = onConfirm !== undefined || actions.length > 0;
+
         const {open, visible} = this;
 
         const containerClass = classNames(
@@ -153,17 +155,23 @@ class Overlay extends React.Component<Props> {
                                         />
                                     </header>
                                     <article className={overlayStyles.article}>{children}</article>
-                                    <footer className={overlayStyles.footer}>
-                                        <Actions actions={actions} />
-                                        <Button
-                                            disabled={confirmDisabled}
-                                            loading={confirmLoading}
-                                            onClick={onConfirm}
-                                            skin="primary"
-                                        >
-                                            {confirmText}
-                                        </Button>
-                                    </footer>
+                                    {footerVisible &&
+                                        <footer className={overlayStyles.footer}>
+                                            {actions.length > 0 && (
+                                                <Actions actions={actions} />
+                                            )}
+                                            {onConfirm !== undefined && (
+                                                <Button
+                                                    disabled={confirmDisabled}
+                                                    loading={confirmLoading}
+                                                    onClick={onConfirm}
+                                                    skin="primary"
+                                                >
+                                                    {confirmText}
+                                                </Button>
+                                            )}
+                                        </footer>
+                                    }
                                     <div className={overlayStyles.snackbar}>
                                         <Snackbar
                                             message={snackbarMessage || ''}

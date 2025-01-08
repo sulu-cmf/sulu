@@ -103,7 +103,7 @@ class MediaStreamController
             }
 
             if ($fileVersion->getName() !== $slug) {
-                return new Response('Invalid file name "' . $slug . '" for media with ID "' . $id . '".', 404);
+                return new Response('Invalid file name for media with ID "' . $id . '".', 404);
             }
 
             if ($this->securityChecker) {

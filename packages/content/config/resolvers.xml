@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- main Content Resolver -->
+        <service id="sulu_content.content_resolver"
+                 class="Sulu\Content\Application\ContentResolver\ContentResolver">
+            <argument
+                type="tagged_iterator"
+                tag="sulu_content.content_resolver"
+                index-by="type"
+            />
+            <argument type="service" id="sulu_content.resource_loader_provider"/>
+        </service>
+        <service id="Sulu\Content\Application\ContentResolver\ContentResolverInterface" alias="sulu_content.content_resolver"/>
+
+        <!-- Template Resolver -->
+        <service id="sulu_content.resolver.template"
+                 class="Sulu\Content\Application\ContentResolver\Resolver\TemplateResolver">
+            <argument type="service" id="sulu_admin.form_metadata_provider"/>
+            <argument type="service" id="sulu_content.metadata_resolver"/>
+
+            <tag name="sulu_content.content_resolver"/>
+        </service>
+
+        <!-- Excerpt Resolver -->
+        <service id="sulu_content.resolver.excerpt"
+                 class="Sulu\Content\Application\ContentResolver\Resolver\ExcerptResolver">
+            <argument type="service" id="sulu_admin.form_metadata_provider"/>
+            <argument type="service" id="sulu_content.metadata_resolver"/>
+
+            <tag name="sulu_content.content_resolver" type="excerpt"/>
+        </service>
+
+        <!-- Seo Resolver -->
+        <service id="sulu_content.resolver.seo"
+                 class="Sulu\Content\Application\ContentResolver\Resolver\SeoResolver">
+            <argument type="service" id="sulu_admin.form_metadata_provider"/>
+            <argument type="service" id="sulu_content.metadata_resolver"/>
+
+            <tag name="sulu_content.content_resolver" type="seo"/>
+        </service>
+
+        <!-- Metadata Resolver -->
+        <service id="sulu_content.metadata_resolver"
+                 class="Sulu\Content\Application\MetadataResolver\MetadataResolver">
+            <argument type="service" id="sulu_content.property_resolver_provider"/>
+        </service>
+
+        <!-- Property Resolvers -->
+        <service id="sulu_content.property_resolver_provider"
+                 class="Sulu\Content\Application\PropertyResolver\PropertyResolverProvider">
+            <argument
+                type="tagged_iterator"
+                tag="sulu_content.property_resolver"
+                default-index-method="getType"
+                index-by="type"
+            />
+        </service>
+
+        <service id="sulu_content.default_property_resolver"
+                 class="Sulu\Content\Application\PropertyResolver\Resolver\DefaultPropertyResolver">
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_content.block_property_resolver"
+                 class="Sulu\Content\Application\PropertyResolver\Resolver\BlockPropertyResolver">
+            <argument type="service" id="logger"/>
+            <argument>%kernel.debug%</argument>
+
+            <call method="setMetadataResolver">
+                <argument type="service" id="sulu_content.metadata_resolver"/>
+            </call>
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_content.link_property_resolver"
+                 class="Sulu\Content\Application\PropertyResolver\Resolver\LinkPropertyResolver">
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_content.teaser_selection_property_resolver"
+                 class="Sulu\Content\Application\PropertyResolver\Resolver\TeaserSelectionPropertyResolver">
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+    </services>
+</container>

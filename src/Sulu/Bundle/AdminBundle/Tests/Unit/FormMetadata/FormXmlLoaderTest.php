@@ -105,35 +105,35 @@ class FormXmlLoaderTest extends TestCase
 
     public function testLoadFormWithLocalization(): void
     {
-        $this->translator->trans('mr', [], 'admin', 'en')->willReturn('en_mr');
-        $this->translator->trans('mr', [], 'admin', 'de')->willReturn('de_mr');
-        $this->translator->trans('mr', [], 'admin', 'fr')->willReturn('fr_mr');
-        $this->translator->trans('mr', [], 'admin', 'nl')->willReturn('nl_mr');
+        $this->translator->trans('sulu_contact.male_form_of_address', [], 'admin', 'en')->willReturn('en_mr');
+        $this->translator->trans('sulu_contact.male_form_of_address', [], 'admin', 'de')->willReturn('de_mr');
+        $this->translator->trans('sulu_contact.male_form_of_address', [], 'admin', 'fr')->willReturn('fr_mr');
+        $this->translator->trans('sulu_contact.male_form_of_address', [], 'admin', 'nl')->willReturn('nl_mr');
 
-        $this->translator->trans('ms', [], 'admin', 'en')->willReturn('en_ms');
-        $this->translator->trans('ms', [], 'admin', 'de')->willReturn('de_ms');
-        $this->translator->trans('ms', [], 'admin', 'fr')->willReturn('fr_ms');
-        $this->translator->trans('ms', [], 'admin', 'nl')->willReturn('nl_ms');
+        $this->translator->trans('sulu_contact.female_form_of_address', [], 'admin', 'en')->willReturn('en_ms');
+        $this->translator->trans('sulu_contact.female_form_of_address', [], 'admin', 'de')->willReturn('de_ms');
+        $this->translator->trans('sulu_contact.female_form_of_address', [], 'admin', 'fr')->willReturn('fr_ms');
+        $this->translator->trans('sulu_contact.female_form_of_address', [], 'admin', 'nl')->willReturn('nl_ms');
 
-        $this->translator->trans('form_of_address', [], 'admin', 'en')->willReturn('en_form_of_address');
-        $this->translator->trans('form_of_address', [], 'admin', 'de')->willReturn('de_form_of_address');
-        $this->translator->trans('form_of_address', [], 'admin', 'fr')->willReturn('fr_form_of_address');
-        $this->translator->trans('form_of_address', [], 'admin', 'nl')->willReturn('nl_form_of_address');
+        $this->translator->trans('sulu_contact.form_of_address', [], 'admin', 'en')->willReturn('en_form_of_address');
+        $this->translator->trans('sulu_contact.form_of_address', [], 'admin', 'de')->willReturn('de_form_of_address');
+        $this->translator->trans('sulu_contact.form_of_address', [], 'admin', 'fr')->willReturn('fr_form_of_address');
+        $this->translator->trans('sulu_contact.form_of_address', [], 'admin', 'nl')->willReturn('nl_form_of_address');
 
-        $this->translator->trans('first_name', [], 'admin', 'en')->willReturn('en_first_name');
-        $this->translator->trans('first_name', [], 'admin', 'de')->willReturn('de_first_name');
-        $this->translator->trans('first_name', [], 'admin', 'fr')->willReturn('fr_first_name');
-        $this->translator->trans('first_name', [], 'admin', 'nl')->willReturn('nl_first_name');
+        $this->translator->trans('sulu_contact.first_name', [], 'admin', 'en')->willReturn('en_first_name');
+        $this->translator->trans('sulu_contact.first_name', [], 'admin', 'de')->willReturn('de_first_name');
+        $this->translator->trans('sulu_contact.first_name', [], 'admin', 'fr')->willReturn('fr_first_name');
+        $this->translator->trans('sulu_contact.first_name', [], 'admin', 'nl')->willReturn('nl_first_name');
 
-        $this->translator->trans('last_name', [], 'admin', 'en')->willReturn('en_last_name');
-        $this->translator->trans('last_name', [], 'admin', 'de')->willReturn('de_last_name');
-        $this->translator->trans('last_name', [], 'admin', 'fr')->willReturn('fr_last_name');
-        $this->translator->trans('last_name', [], 'admin', 'nl')->willReturn('nl_last_name');
+        $this->translator->trans('sulu_contact.last_name', [], 'admin', 'en')->willReturn('en_last_name');
+        $this->translator->trans('sulu_contact.last_name', [], 'admin', 'de')->willReturn('de_last_name');
+        $this->translator->trans('sulu_contact.last_name', [], 'admin', 'fr')->willReturn('fr_last_name');
+        $this->translator->trans('sulu_contact.last_name', [], 'admin', 'nl')->willReturn('nl_last_name');
 
-        $this->translator->trans('salutation', [], 'admin', 'en')->willReturn('en_salutation');
-        $this->translator->trans('salutation', [], 'admin', 'de')->willReturn('de_salutation');
-        $this->translator->trans('salutation', [], 'admin', 'fr')->willReturn('fr_salutation');
-        $this->translator->trans('salutation', [], 'admin', 'nl')->willReturn('nl_salutation');
+        $this->translator->trans('sulu_contact.salutation', [], 'admin', 'en')->willReturn('en_salutation');
+        $this->translator->trans('sulu_contact.salutation', [], 'admin', 'de')->willReturn('de_salutation');
+        $this->translator->trans('sulu_contact.salutation', [], 'admin', 'fr')->willReturn('fr_salutation');
+        $this->translator->trans('sulu_contact.salutation', [], 'admin', 'nl')->willReturn('nl_salutation');
 
         /**
          * @var LocalizedFormMetadataCollection

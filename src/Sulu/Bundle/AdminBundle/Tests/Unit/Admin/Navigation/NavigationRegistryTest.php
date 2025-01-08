@@ -78,17 +78,19 @@ class NavigationRegistryTest extends TestCase
 
     public function testGetNavigation(): void
     {
-        $navigationItem1 = new NavigationItem('navigation_1');
+        $navigationItem1 = new NavigationItem('sulu_snippet.snippets');
         $navigationItem1->setView('view1');
+        $navigationItem1->setPosition(10);
 
         $this->admin1->configureNavigationItems(Argument::any())->will(function($arguments) use ($navigationItem1): void {
             $arguments[0]->add($navigationItem1);
         });
 
-        $navigationItem2 = new NavigationItem('navigation_2');
-        $navigationChildItem1 = new NavigationItem('navigation_2_child_1');
+        $navigationItem2 = new NavigationItem('sulu_admin.settings');
+        $navigationItem2->setPosition(20);
+        $navigationChildItem1 = new NavigationItem('sulu_category.categories');
         $navigationChildItem1->setView('view2_child1');
-        $navigationChildItem2 = new NavigationItem('navigation_2_child_2');
+        $navigationChildItem2 = new NavigationItem('sulu_tag.tags');
         $navigationChildItem2->setView('view2_child2');
         $navigationItem2->addChild($navigationChildItem1);
         $navigationItem2->addChild($navigationChildItem2);
@@ -128,20 +130,20 @@ class NavigationRegistryTest extends TestCase
         $this->viewRegistry->findViewByName('view2_child2')->shouldBeCalled()
             ->willReturn($view2Child2->reveal());
 
-        $this->translator->trans('navigation_1', [], 'admin')->willReturn('Navigation 1');
-        $this->translator->trans('navigation_2', [], 'admin')->willReturn('Navigation 2');
-        $this->translator->trans('navigation_2_child_1', [], 'admin')->willReturn('Navigation 2 - Child 1');
-        $this->translator->trans('navigation_2_child_2', [], 'admin')->willReturn('Navigation 2 - Child 2');
+        $this->translator->trans('sulu_snippet.snippets', [], 'admin')->willReturn('Snippets');
+        $this->translator->trans('sulu_admin.settings', [], 'admin')->willReturn('Settings');
+        $this->translator->trans('sulu_category.categories', [], 'admin')->willReturn('Categories');
+        $this->translator->trans('sulu_tag.tags', [], 'admin')->willReturn('Tags');
 
         $navigationItems = $this->navigationRegistry->getNavigationItems();
         $this->assertCount(2, $navigationItems);
-        $this->assertEquals('Navigation 1', $navigationItems[0]->getLabel());
-        $this->assertEquals('Navigation 2', $navigationItems[1]->getLabel());
+        $this->assertEquals('Snippets', $navigationItems[0]->getLabel());
+        $this->assertEquals('Settings', $navigationItems[1]->getLabel());
 
         // check for children of first navigation
         $this->assertCount(2, $navigationItems[1]->getChildren());
         $this->assertEquals(
-            'Navigation 2 - Child 1',
+            'Categories',
             $navigationItems[1]->getChildren()[0]->getLabel()
         );
         // check for created child views
@@ -155,7 +157,7 @@ class NavigationRegistryTest extends TestCase
         );
         // check for "Navigation 2 - Child 2"
         $this->assertEquals(
-            'Navigation 2 - Child 2',
+            'Tags',
             $navigationItems[1]->getChildren()[1]->getLabel()
         );
     }

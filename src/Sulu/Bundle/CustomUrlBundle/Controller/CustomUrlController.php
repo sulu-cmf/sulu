@@ -44,7 +44,7 @@ class CustomUrlController extends AbstractRestController implements SecuredContr
 
     public function cgetAction(string $webspace, Request $request): Response
     {
-        $result = $this->customUrlManager->findByWebspaceKey($webspace);
+        $result = $this->customUrlRepository->findByWebspaceKey($webspace);
 
         $list = new CollectionRepresentation($result, CustomUrl::RESOURCE_KEY);
 

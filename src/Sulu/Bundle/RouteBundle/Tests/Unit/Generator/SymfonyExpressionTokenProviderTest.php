@@ -44,7 +44,9 @@ class SymfonyExpressionTokenProviderTest extends TestCase
         $translator = $this->prophesize(Translator::class);
         $translator->getLocale()->willReturn('de');
         $translator->setLocale('de')->shouldBeCalled();
-        $translator->trans('test-key', Argument::cetera())->willReturn('TEST');
+        $translator->trans(Argument::cetera())->will(function($args) {
+            return \ucfirst(\str_replace(['-', '_', '.'], [' '], $args[0]));
+        });
         $entity = $this->prophesize(RoutableInterface::class);
         $entity->getLocale()->willReturn('en');
 
@@ -52,7 +54,7 @@ class SymfonyExpressionTokenProviderTest extends TestCase
             return 'en';
         };
         $provider = new SymfonyExpressionTokenProvider($translator->reveal());
-        $this->assertEquals('TEST', $provider->provide($entity, 'translator.trans("test-key")'));
+        $this->assertEquals('Test key', $provider->provide($entity, 'translator.trans("test-key")'));
     }
 
     public function testResolveWithImplode(): void
@@ -93,7 +95,9 @@ class SymfonyExpressionTokenProviderTest extends TestCase
         $translator->getLocale()->willReturn('de');
         $translator->setLocale('de')->shouldBeCalled();
         $translator->setLocale('es')->shouldBeCalled();
-        $translator->trans('test-key', Argument::cetera())->willReturn('TEST');
+        $translator->trans(Argument::cetera())->will(function($args) {
+            return \ucfirst(\str_replace(['-', '_', '.'], [' '], $args[0]));
+        });
 
         $entity = [
             'title',
@@ -103,7 +107,7 @@ class SymfonyExpressionTokenProviderTest extends TestCase
         $provider = new SymfonyExpressionTokenProvider($translator->reveal());
 
         $this->assertEquals(
-            'TEST',
+            'Test key',
             $provider->provide($entity, 'translator.trans("test-key")', ['locale' => 'es'])
         );
     }

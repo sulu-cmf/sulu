@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Merger -->
+        <service id="sulu_content.dimension_content_merger" class="Sulu\Content\Application\ContentMerger\Merger\DimensionContentMerger">
+            <tag name="sulu_content.merger" priority="256"/>
+        </service>
+
+        <service id="`sulu_content.template_merger`" class="Sulu\Content\Application\ContentMerger\Merger\TemplateMerger">
+            <tag name="sulu_content.merger" priority="128"/>
+        </service>
+
+        <service id="sulu_content.workflow_merger" class="Sulu\Content\Application\ContentMerger\Merger\WorkflowMerger">
+            <tag name="sulu_content.merger" priority="64"/>
+        </service>
+
+        <service id="sulu_content.excerpt_merger" class="Sulu\Content\Application\ContentMerger\Merger\ExcerptMerger">
+            <tag name="sulu_content.merger" priority="32"/>
+        </service>
+
+        <service id="sulu_content.seo_merger" class="Sulu\Content\Application\ContentMerger\Merger\SeoMerger">
+            <tag name="sulu_content.merger" priority="24"/>
+        </service>
+
+        <service id="sulu_content.webspace_merger" class="Sulu\Content\Application\ContentMerger\Merger\WebspaceMerger">
+            <tag name="sulu_content.merger" priority="16"/>
+        </service>
+
+        <service id="sulu_content.author_merger" class="Sulu\Content\Application\ContentMerger\Merger\AuthorMerger">
+            <tag name="sulu_content.merger" priority="8"/>
+        </service>
+
+        <service id="sulu_content.shadow_merger" class="Sulu\Content\Application\ContentMerger\Merger\ShadowMerger">
+            <tag name="sulu_content.merger" priority="4"/>
+        </service>
+    </services>
+</container>

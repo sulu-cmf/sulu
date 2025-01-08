@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>ghost_copy_locale</key>
+
+    <properties>
+        <property name="locale" type="single_select" mandatory="true" colspan="6">
+            <meta>
+                <title>sulu_admin.choose_language</title>
+            </meta>
+            <params>
+                <param name="default_value" value=""/>
+                <param name="values" type="collection"/>
+            </params>
+        </property>
+    </properties>
+</form>

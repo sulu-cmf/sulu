@@ -11,7 +11,7 @@
 
 namespace Sulu\Component\Webspace\Tests\Unit\StructureProvider;
 
-use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Component\Content\Compat\Structure\PageBridge;
@@ -19,6 +19,7 @@ use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Component\Content\Compat\StructureManagerInterface;
 use Sulu\Component\Webspace\StructureProvider\WebspaceStructureProvider;
 use Sulu\Component\Webspace\Webspace;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -28,7 +29,7 @@ class WebspaceStructureProviderTest extends TestCase
 
     public function testGetStructures(): void
     {
-        $cache = new ArrayCache();
+        $cache = DoctrineProvider::wrap(new ArrayAdapter());
 
         $structures = [
             $this->generateStructure('t1', 'MyBundle:default:t1'),
@@ -67,7 +68,7 @@ class WebspaceStructureProviderTest extends TestCase
 
     public function testGetStructuresCached(): void
     {
-        $cache = new ArrayCache();
+        $cache = DoctrineProvider::wrap(new ArrayAdapter());
         $cache->save('sulu_io', ['t1', 't3']);
 
         $structures = [

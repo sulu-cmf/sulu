@@ -26,7 +26,6 @@ class CustomUrlManager implements CustomUrlManagerInterface
 {
     public function __construct(
         private CustomUrlRepositoryInterface $customUrlRepository,
-        private string $environment,
         private DocumentDomainEventCollectorInterface $documentDomainEventCollector,
         private PropertyAccessor $propertyAccess,
         private EntityManagerInterface $entityManager,

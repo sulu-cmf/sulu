@@ -18,6 +18,7 @@ import userStore, {
 } from './stores/userStore';
 import {Config, resourceRouteRegistry} from './services';
 import initializer from './services/initializer';
+import {translate} from './utils';
 import ResourceTabs from './views/ResourceTabs';
 import List, {
     listItemActionRegistry,
@@ -316,7 +317,7 @@ function registerInternalLinkTypes(internalLinkTypes) {
     linkTypeRegistry.add(
         'external',
         ExternalLinkTypeOverlay,
-        'Link',
+        translate('sulu_admin.external_link'),
         undefined
     );
 }

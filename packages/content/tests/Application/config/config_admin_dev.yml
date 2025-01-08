@@ -1,0 +1,13 @@
+security:
+    providers:
+        testprovider:
+            id: sulu_security.user_provider
+    firewalls:
+        test:
+            entry_point: sulu_security.authentication_entry_point
+            json_login:
+                check_path: sulu_admin.login_check
+                success_handler: sulu_security.authentication_handler
+                failure_handler: sulu_security.authentication_handler
+            logout:
+                path: sulu_admin.logout

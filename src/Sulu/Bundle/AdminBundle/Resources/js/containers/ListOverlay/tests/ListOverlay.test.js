@@ -122,7 +122,7 @@ test('Should pass itemDisabledCondition to the List', () => {
     const listOverlay = shallow(
         <ListOverlay
             adapter="table"
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             listStore={listStore}
             onClose={jest.fn()}
             onConfirm={jest.fn()}

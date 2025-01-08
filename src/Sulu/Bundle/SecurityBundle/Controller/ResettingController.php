@@ -32,7 +32,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -60,7 +60,6 @@ class ResettingController
 
     /**
      * @param PasswordHasherFactoryInterface|EncoderFactoryInterface $passwordHasherFactory
-     * @param Mailer|\Swift_Mailer $mailer
      */
     public function __construct(
         protected ValidatorInterface $validator,
@@ -69,7 +68,7 @@ class ResettingController
         protected Environment $twig,
         protected TokenStorageInterface $tokenStorage,
         protected EventDispatcherInterface $dispatcher,
-        protected $mailer,
+        protected MailerInterface $mailer,
         protected $passwordHasherFactory,
         protected UserRepositoryInterface $userRepository,
         private UrlGeneratorInterface $router,
@@ -134,8 +133,10 @@ class ResettingController
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-        } catch (\Exception $ex) {
+        } catch (TokenEmailsLimitReachedException|EntityNotFoundException|UserNotInSystemException $ex) {
             $this->logger->debug($ex->getMessage(), ['exception' => $ex]);
+        } catch (\Exception $ex) {
+            $this->logger->error($ex->getMessage(), ['exception' => $ex]);
         }
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
@@ -236,6 +237,7 @@ class ResettingController
                 [
                     'user' => $user,
                     'reset_url' => $resetUrl . '#/?forgotPasswordToken=' . $token,
+                    'message' => 'sulu_security.reset_mail_message',
                     'translation_domain' => $translationDomain,
                 ]
             )
@@ -340,23 +342,13 @@ class ResettingController
      */
     private function sendTokenEmail(UserInterface $user, string $from, string $to, string $token)
     {
-        if ($this->mailer instanceof \Swift_Mailer) {
-            $message = $this->mailer->createMessage()
-                ->setSubject($this->getSubject())
-                ->setFrom($from)
-                ->setTo($to)
-                ->setBody($this->getMessage($user, $token), 'text/html');
+        $message = (new Email())
+            ->subject($this->getSubject())
+            ->from($from)
+            ->to($to)
+            ->html($this->getMessage($user, $token));
 
-            $this->mailer->send($message);
-        } else {
-            $message = (new Email())
-                ->subject($this->getSubject())
-                ->from($from)
-                ->to($to)
-                ->html($this->getMessage($user, $token));
-
-            $this->mailer->send($message);
-        }
+        $this->mailer->send($message);
     }
 
     /**

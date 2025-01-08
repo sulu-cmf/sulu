@@ -29,9 +29,5 @@ class SuluMarkupExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
-
-        if (\class_exists(\Swift_Mailer::class)) {
-            $loader->load('swiftmailer.xml');
-        }
     }
 }

@@ -111,7 +111,7 @@ class FlattenExceptionNormalizerTest extends TestCase
         $exception = new class('Key already exists', 56789) extends \Exception implements TranslationErrorMessageExceptionInterface {
             public function getMessageTranslationKey(): string
             {
-                return 'error_message_translation_key';
+                return 'sulu_security.key_assigned_to_other_role';
             }
 
             /**
@@ -120,8 +120,7 @@ class FlattenExceptionNormalizerTest extends TestCase
             public function getMessageTranslationParameters(): array
             {
                 return [
-                    'parameter1' => 'value1',
-                    'parameter2' => 'value2',
+                    '{key}' => 'role_key',
                 ];
             }
         };
@@ -138,10 +137,9 @@ class FlattenExceptionNormalizerTest extends TestCase
         ]);
 
         $translator->trans(
-            'error_message_translation_key',
+            'sulu_security.key_assigned_to_other_role',
             [
-                'parameter1' => 'value1',
-                'parameter2' => 'value2',
+                '{key}' => 'role_key',
             ],
             'admin'
         )->willReturn('Translated Error Message Example');
@@ -383,7 +381,7 @@ class FlattenExceptionNormalizerTest extends TestCase
         $exception = new class('Key already exists', 56789) extends \Exception implements TranslationErrorMessageExceptionInterface {
             public function getMessageTranslationKey(): string
             {
-                return 'error_message_translation_key';
+                return 'sulu_security.key_assigned_to_other_role';
             }
 
             /**
@@ -392,8 +390,7 @@ class FlattenExceptionNormalizerTest extends TestCase
             public function getMessageTranslationParameters(): array
             {
                 return [
-                    'parameter1' => 'value1',
-                    'parameter2' => 'value2',
+                    '{key}' => 'role_key',
                 ];
             }
         };
@@ -410,10 +407,9 @@ class FlattenExceptionNormalizerTest extends TestCase
         ]);
 
         $translator->trans(
-            'error_message_translation_key',
+            'sulu_security.key_assigned_to_other_role',
             [
-                'parameter1' => 'value1',
-                'parameter2' => 'value2',
+                '{key}' => 'role_key',
             ],
             'admin'
         )->willReturn('Translated Error Message Example');

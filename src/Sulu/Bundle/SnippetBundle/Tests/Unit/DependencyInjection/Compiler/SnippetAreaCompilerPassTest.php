@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\SnippetBundle\Tests\Unit\DependencyInjection\Compiler;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\SnippetBundle\DependencyInjection\Compiler\SnippetAreaCompilerPass;
@@ -186,7 +187,7 @@ class SnippetAreaCompilerPassTest extends TestCase
                     'key' => 'article',
                     'cache-invalidation' => 'false',
                     'title' => [
-                        'sulu_snippet.areas.article.title',
+                        'sulu_snippet.snippet_area',
                     ],
                 ],
             ]
@@ -196,8 +197,8 @@ class SnippetAreaCompilerPassTest extends TestCase
         $this->structureFactory->getStructures('snippet')->willReturn([$structureMetaData->reveal()]);
 
         $translator = $this->prophesize(TranslatorInterface::class);
-        $translator->trans('sulu_snippet.areas.article.title', [], 'admin', 'en')->willReturn('Article Test');
-        $translator->trans('sulu_snippet.areas.article.title', [], 'admin', 'de')->willReturn('Artikel Test');
+        $translator->trans('sulu_snippet.snippet_area', [], 'admin', 'en')->willReturn('Article Test');
+        $translator->trans('sulu_snippet.snippet_area', [], 'admin', 'de')->willReturn('Artikel Test');
         $this->container = $this->prophesize(ContainerBuilder::class);
         $this->container->get('sulu_page.structure.factory')->willReturn($this->structureFactory->reveal());
         $this->container->get('translator')->willReturn($translator->reveal());
@@ -242,8 +243,7 @@ class SnippetAreaCompilerPassTest extends TestCase
         $this->structureFactory->getStructures('snippet')->willReturn([$structureMetaData->reveal()]);
 
         $translator = $this->prophesize(TranslatorInterface::class);
-        $translator->trans('sulu_snippet.areas.article.title', [], 'admin', 'en')->willReturn('sulu_snippet.areas.article.title');
-        $translator->trans('sulu_snippet.areas.article.title', [], 'admin', 'de')->willReturn('sulu_snippet.areas.article.title');
+        $translator->trans(Argument::any(), [], 'admin', Argument::any())->willReturnArgument(0);
         $this->container = $this->prophesize(ContainerBuilder::class);
         $this->container->get('sulu_page.structure.factory')->willReturn($this->structureFactory->reveal());
         $this->container->get('translator')->willReturn($translator->reveal());

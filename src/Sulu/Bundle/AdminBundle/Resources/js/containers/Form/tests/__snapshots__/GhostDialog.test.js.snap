@@ -56,54 +56,63 @@ Array [
             class="grid grid"
           >
             <div
-              class="item gridItem colSpan colSpan-6 space-before-0 space-after-0"
+              class="item gridItem colSpan colSpan-6 space-before-0 space-after-null"
             >
               <div
                 class="field"
               >
                 <label
                   class="label"
+                  for="/locale"
                 >
-                  sulu_admin.choose_language
+                  Sprache wählen *
                 </label>
                 <div
-                  class="select"
-                  role="none"
+                  class="fieldContainer"
                 >
-                  <button
-                    class="displayValue default"
-                    type="button"
+                  <div
+                    class="field"
                   >
                     <div
-                      aria-label="en"
-                      class="croppedText"
-                      title="en"
+                      class="select"
+                      role="none"
                     >
-                      <div
-                        aria-hidden="true"
-                        class="front"
+                      <button
+                        class="displayValue default"
+                        type="button"
                       >
-                        e
-                      </div>
-                      <div
-                        aria-hidden="true"
-                        class="back"
-                      >
-                        <span>
-                          n
-                        </span>
-                      </div>
-                      <div
-                        class="whole"
-                      >
-                        en
-                      </div>
+                        <div
+                          aria-label="de"
+                          class="croppedText"
+                          title="de"
+                        >
+                          <div
+                            aria-hidden="true"
+                            class="front"
+                          >
+                            d
+                          </div>
+                          <div
+                            aria-hidden="true"
+                            class="back"
+                          >
+                            <span>
+                              e
+                            </span>
+                          </div>
+                          <div
+                            class="whole"
+                          >
+                            de
+                          </div>
+                        </div>
+                        <span
+                          aria-label="su-angle-down"
+                          class="su-angle-down toggle"
+                        />
+                      </button>
                     </div>
-                    <span
-                      aria-label="su-angle-down"
-                      class="su-angle-down toggle"
-                    />
-                  </button>
+                  </div>
                 </div>
                 <div
                   class="errorLabel"

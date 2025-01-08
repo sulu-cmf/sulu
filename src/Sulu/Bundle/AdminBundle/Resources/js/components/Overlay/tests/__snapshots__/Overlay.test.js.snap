@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`The component should not render the footer where there is no onConfirm and no actions 1`] = `
+Array [
+  <div
+    class="backdrop visible fixed"
+    data-testid="backdrop"
+    role="button"
+  />,
+  <div
+    class="container isDown"
+  >
+    <div
+      class="overlay small"
+    >
+      <section
+        class="content"
+      >
+        <header
+          class="header"
+        >
+          <h2>
+            My overlay title
+          </h2>
+          <span
+            aria-label="su-times"
+            class="su-times clickable icon"
+            role="button"
+            tabindex="0"
+          />
+        </header>
+        <article
+          class="article"
+        >
+          <p>
+            My overlay content
+          </p>
+        </article>
+        <div
+          class="snackbar"
+        >
+          <div
+            class="snackbar error"
+            role="button"
+          >
+            <span
+              aria-label="su-exclamation-triangle"
+              class="su-exclamation-triangle icon"
+            />
+            <div
+              class="text"
+            >
+              <strong>
+                sulu_admin.error
+              </strong>
+               - 
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>,
+]
+`;
+
 exports[`The component should render in body when open 1`] = `
 Array [
   <div

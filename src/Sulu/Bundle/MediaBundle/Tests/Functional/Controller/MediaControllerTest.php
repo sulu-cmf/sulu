@@ -131,8 +131,8 @@ class MediaControllerTest extends SuluTestCase
     protected function cleanImage(): void
     {
         if ($this->getContainer()) {
-            $configPath = $this->getContainer()->getParameter('sulu_media.media.storage.local.path');
-            $this->recursiveRemoveDirectory($configPath);
+            $mediaPath = $this->getContainer()->getParameter('kernel.project_dir') . '/var/uploads';
+            $this->recursiveRemoveDirectory($mediaPath);
 
             $cachePath = $this->getContainer()->getParameter('sulu_media.format_cache.path');
             $this->recursiveRemoveDirectory($cachePath);
@@ -385,6 +385,7 @@ class MediaControllerTest extends SuluTestCase
             'GET',
             '/uploads/media/50x50/1/0-photo.jpg'
         );
+        $this->assertHttpStatusCode(404, $this->client->getResponse());
         $this->assertFalse($this->client->getResponse()->isCacheable());
         $expiresDate = new \DateTime($this->client->getResponse()->headers->get('Expires'));
         $expiresDate->modify('+1 second');
@@ -404,6 +405,8 @@ class MediaControllerTest extends SuluTestCase
             '/media/' . $media->getId() . '/download/photo.jpeg'
         );
         \ob_end_clean();
+
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
         $this->assertEquals(
             'attachment; filename=photo.jpeg',
             \str_replace('"', '', $this->client->getResponse()->headers->get('Content-Disposition'))
@@ -423,6 +426,9 @@ class MediaControllerTest extends SuluTestCase
             '/media/' . $media->getId() . '/download/photo.jpeg?inline=1'
         );
         \ob_end_clean();
+
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
+
         $this->assertEquals(
             'inline; filename=photo.jpeg',
             \str_replace('"', '', $this->client->getResponse()->headers->get('Content-Disposition'))
@@ -442,6 +448,8 @@ class MediaControllerTest extends SuluTestCase
             '/media/' . $media->getId() . '/download/wöchentlich.jpeg?inline=1'
         );
         \ob_end_clean();
+
+        $this->assertHttpStatusCode(200, $this->client->getResponse());
         $this->assertEquals(
             'inline; filename=woechentlich.jpeg; filename*=utf-8\'\'w%C3%B6chentlich.jpeg',
             \str_replace('"', '', $this->client->getResponse()->headers->get('Content-Disposition'))
@@ -1567,7 +1575,7 @@ class MediaControllerTest extends SuluTestCase
 
     private function getStoragePath()
     {
-        return $this->getContainer()->getParameter('sulu_media.media.storage.local.path');
+        return $this->getContainer()->getParameter('kernel.project_dir') . '/var/uploads';
     }
 
     /**

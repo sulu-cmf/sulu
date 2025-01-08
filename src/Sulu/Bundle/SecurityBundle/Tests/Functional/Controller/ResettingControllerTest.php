@@ -54,10 +54,6 @@ class ResettingControllerTest extends SuluTestCase
 
     public function setUp(): void
     {
-        if (\class_exists(\Swift_Mailer::class)) {
-            $this->markTestSkipped('Skip ResettingControllerTest for swift mailer.');
-        }
-
         $this->client = $this->createAuthenticatedClient();
         $this->em = $this->getEntityManager();
         $this->activityRepository = $this->em->getRepository(ActivityInterface::class);
@@ -124,6 +120,7 @@ class ResettingControllerTest extends SuluTestCase
         $htmlBody = $message->getHtmlBody();
         $this->assertIsString($htmlBody);
         \preg_match('/forgotPasswordToken=(.*)/', $htmlBody, $regexMatches);
+        $this->assertArrayHasKey(1, $regexMatches);
         $token = $regexMatches[1];
         $expectedEmailData = $this->getExpectedEmailData($this->client, $user, $token);
 
@@ -170,6 +167,7 @@ class ResettingControllerTest extends SuluTestCase
         $htmlBody = $message->getHtmlBody();
         $this->assertIsString($htmlBody);
         \preg_match('/forgotPasswordToken=(.*)/', $htmlBody, $regexMatches);
+        $this->assertArrayHasKey(1, $regexMatches);
         $token = $regexMatches[1];
         $expectedEmailData = $this->getExpectedEmailData($this->client, $user, $token);
 
@@ -216,6 +214,7 @@ class ResettingControllerTest extends SuluTestCase
         $htmlBody = $message->getHtmlBody();
         $this->assertIsString($htmlBody);
         \preg_match('/forgotPasswordToken=(.*)/', $htmlBody, $regexMatches);
+        $this->assertArrayHasKey(1, $regexMatches);
         $token = $regexMatches[1];
         $expectedEmailData = $this->getExpectedEmailData($this->client, $user, $token);
 
@@ -395,6 +394,7 @@ class ResettingControllerTest extends SuluTestCase
         $htmlBody = $message->getHtmlBody();
         $this->assertIsString($htmlBody);
         \preg_match('/forgotPasswordToken=(.*)/', $htmlBody, $regexMatches);
+        $this->assertArrayHasKey(1, $regexMatches);
         $token = $regexMatches[1];
 
         $this->client->jsonRequest('GET', '/security/reset', [

@@ -52,13 +52,13 @@ class XmlListMetadataLoaderTest extends TestCase
 
     public function testGetMetadata(): void
     {
-        $this->translator->trans('sulu_contact.firstname', [], 'admin', 'de')->willReturn('First name');
-        $this->translator->trans('sulu_contact.lastname', [], 'admin', 'de')->willReturn('Last name');
+        $this->translator->trans('sulu_contact.first_name', [], 'admin', 'de')->willReturn('First name');
+        $this->translator->trans('sulu_contact.last_name', [], 'admin', 'de')->willReturn('Last name');
         $this->translator->trans('sulu_contact.name', [], 'admin', 'en')->willReturn('Name');
 
         $firstNameFieldDescriptor = new FieldDescriptor(
             'firstName',
-            'sulu_contact.firstname',
+            'sulu_contact.first_name',
             FieldDescriptorInterface::VISIBILITY_YES,
             FieldDescriptorInterface::SEARCHABILITY_NEVER,
             'string',
@@ -72,7 +72,7 @@ class XmlListMetadataLoaderTest extends TestCase
 
         $lastNameFieldDescriptor = new FieldDescriptor(
             'lastName',
-            'sulu_contact.lastname',
+            'sulu_contact.last_name',
             FieldDescriptorInterface::VISIBILITY_NO,
             FieldDescriptorInterface::SEARCHABILITY_NEVER,
             'string',

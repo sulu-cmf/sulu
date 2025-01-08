@@ -46,6 +46,14 @@ export default class Input<T: ?string | ?number> extends React.PureComponent<Inp
         this.props.onChange(event.currentTarget.value || undefined, event);
     };
 
+    handleFocus = (event: Event) => {
+        const {onFocus} = this.props;
+
+        if (onFocus) {
+            onFocus(event);
+        }
+    };
+
     handleKeyPress = (event: SyntheticKeyboardEvent<HTMLInputElement>) => {
         const {onKeyPress} = this.props;
 
@@ -74,7 +82,6 @@ export default class Input<T: ?string | ?number> extends React.PureComponent<Inp
             onBlur,
             onIconClick,
             onClearClick,
-            onFocus,
             onKeyPress,
             segmentDelimiter,
             type,
@@ -156,7 +163,7 @@ export default class Input<T: ?string | ?number> extends React.PureComponent<Inp
                         name={name}
                         onBlur={onBlur}
                         onChange={this.handleChange}
-                        onFocus={onFocus}
+                        onFocus={this.handleFocus}
                         onKeyPress={onKeyPress ? this.handleKeyPress : undefined}
                         placeholder={placeholder}
                         ref={inputRef ? this.setInputRef : undefined}

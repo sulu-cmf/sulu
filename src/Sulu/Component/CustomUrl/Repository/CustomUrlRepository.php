@@ -27,9 +27,10 @@ class CustomUrlRepository extends ServiceEntityRepository implements CustomUrlRe
 {
     public function __construct(
         ManagerRegistry $registry,
-        private readonly ContentRepositoryInterface $contentRepository,
-        private readonly GeneratorInterface $customUrlGenerator,
-        private readonly WebspaceManagerInterface $webspaceManager,
+        private ContentRepositoryInterface $contentRepository,
+        private GeneratorInterface $customUrlGenerator,
+        private WebspaceManagerInterface $webspaceManager,
+        private string $environment,
     ) {
         parent::__construct($registry, CustomUrl::class);
     }

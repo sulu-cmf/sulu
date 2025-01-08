@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\LocationBundle\DependencyInjection;
 
-use GuzzleHttp\Client;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -64,10 +63,6 @@ class SuluLocationExtension extends Extension implements PrependExtensionInterfa
         $geolocators = $config['geolocators'] ?? null;
 
         $loader->load('geolocator.xml');
-
-        if (\class_exists(Client::class)) {
-            $loader->load('guzzle.xml');
-        }
 
         $container->setParameter('sulu_location.geolocator.name', $geolocatorName);
         $container->setAlias('sulu_location.geolocator', 'sulu_location.geolocator.service.' . $geolocatorName);

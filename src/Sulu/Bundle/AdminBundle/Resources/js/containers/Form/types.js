@@ -87,7 +87,7 @@ export interface FormStoreInterface {
     +changeMultiple: (values: {[dataPath: string]: mixed}, context?: ChangeContext) => void,
     +changeType: (type: string, context?: ChangeContext) => void,
     // Only exists in one implementation, therefore optional. Maybe we can remove that definition one day...
-    +copyFromLocale?: (string) => Promise<*>,
+    +copyFromLocale?: (string, Object) => Promise<*>,
     +data: {[string]: any},
     +destroy: () => void,
     dirty: boolean,
@@ -127,6 +127,7 @@ export type FieldTypeProps<T> = {|
     minOccurs: ?number,
     onChange: (value: T, context?: ChangeContext) => void,
     onFinish: (subDataPath: ?string, subSchemaPath: ?string) => void,
+    onFocus?: (target: EventTarget) => void,
     onSuccess: ?() => void,
     router: ?Router,
     schemaOptions: SchemaOptions,

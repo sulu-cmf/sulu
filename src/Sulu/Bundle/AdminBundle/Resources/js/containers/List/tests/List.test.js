@@ -537,7 +537,7 @@ test('Pass given disabledIds and ids of items that fulfill given itemDisabledCon
         <List
             adapters={['test']}
             disabledIds={[1, 3]}
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             store={listStore}
         />
     );
@@ -600,7 +600,7 @@ test('Do not call activate if item fulfills itemDisabledCondition and allowActiv
         <List
             adapters={['test']}
             allowActivateForDisabledItems={false}
-            itemDisabledCondition={'status == "inactive"'}
+            itemDisabledCondition='status == "inactive"'
             store={listStore}
         />
     );

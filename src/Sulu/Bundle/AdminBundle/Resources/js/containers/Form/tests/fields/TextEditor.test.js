@@ -71,3 +71,22 @@ test('Pass content locale from user to TextEditor if form has no locale', () => 
     expect(textEditor.find('TextEditor').props().locale).toBeDefined();
     expect(textEditor.find('TextEditor').props().locale.get()).toEqual('de');
 });
+
+test('Call onFocus when editor get focus', () => {
+    const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('test'), 'test'));
+    const focusSpy = jest.fn();
+
+    const textEditor = shallow(
+        <TextEditor
+            {...fieldTypeDefaultProps}
+            formInspector={formInspector}
+            onFocus={focusSpy}
+        />
+    );
+
+    const target = new EventTarget();
+
+    textEditor.find('TextEditor').props().onFocus({target});
+
+    expect(focusSpy).toBeCalledWith(target);
+});

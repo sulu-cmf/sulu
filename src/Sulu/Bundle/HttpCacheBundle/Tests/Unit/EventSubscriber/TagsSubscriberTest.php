@@ -16,13 +16,13 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Ramsey\Uuid\Uuid;
 use Sulu\Bundle\HttpCacheBundle\EventSubscriber\TagsSubscriber;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStoreInterface;
 use Sulu\Bundle\WebsiteBundle\ReferenceStore\ReferenceStorePoolInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Uid\Uuid;
 
 class TagsSubscriberTest extends TestCase
 {
@@ -80,9 +80,9 @@ class TagsSubscriberTest extends TestCase
 
     public function setUp(): void
     {
-        $this->uuid1 = Uuid::uuid4()->toString();
-        $this->uuid2 = Uuid::uuid4()->toString();
-        $this->currentStructureUuid = Uuid::uuid4()->toString();
+        $this->uuid1 = Uuid::v7()->__toString();
+        $this->uuid2 = Uuid::v7()->__toString();
+        $this->currentStructureUuid = Uuid::v7()->__toString();
 
         $testReferenceStore = $this->prophesize(ReferenceStoreInterface::class);
         $testReferenceStore->getAll()->willReturn(['1', '2']);

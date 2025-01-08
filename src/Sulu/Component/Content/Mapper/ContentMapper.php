@@ -11,8 +11,8 @@
 
 namespace Sulu\Component\Content\Mapper;
 
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use Jackalope\Query\Row;
 use PHPCR\NodeInterface;
 use PHPCR\Query\QueryInterface;
@@ -61,6 +61,7 @@ use Sulu\Component\PHPCR\SessionManager\SessionManagerInterface;
 use Sulu\Component\Security\Authorization\AccessControl\AccessControlManagerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Security as SymfonyCoreSecurity;
@@ -909,7 +910,7 @@ class ContentMapper implements ContentMapperInterface
      */
     private function initializeExtensionCache()
     {
-        $this->extensionDataCache = new ArrayCache();
+        $this->extensionDataCache = DoctrineProvider::wrap(new ArrayAdapter());
     }
 
     /**

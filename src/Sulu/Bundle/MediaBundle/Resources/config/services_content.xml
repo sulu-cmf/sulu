@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Property Resolver -->
+        <service id="sulu_media.media_selection_property_resolver"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\MediaSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_media.single_media_selection_property_resolver"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleMediaSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_media.image_map_property_resolver"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\ImageMapPropertyResolver">
+            <argument type="service" id="logger"/>
+            <argument>%kernel.debug%</argument>
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_media.collection_selection_property_resolver"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\CollectionSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_media.single_collection_selection_property_resolver"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleCollectionSelectionPropertyResolver">
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <!-- Resource Loader -->
+        <service id="sulu_media.media_resource_loader"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\MediaResourceLoader">
+            <argument type="service" id="sulu_media.media_manager"/>
+
+            <tag name="sulu_content.resource_loader" type="media"/>
+        </service>
+
+        <service id="sulu_media.collection_resource_loader"
+                 class="Sulu\Bundle\MediaBundle\Infrastructure\Sulu\Content\ResourceLoader\CollectionResourceLoader">
+            <argument type="service" id="sulu_media.collection_manager"/>
+
+            <tag name="sulu_content.resource_loader" type="collection"/>
+        </service>
+    </services>
+</container>

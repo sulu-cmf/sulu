@@ -27,6 +27,7 @@ class CachingTest extends SuluTestCase
     public function testFirstRequestIsACacheMiss()
     {
         $this->purgeDatabase();
+        $this->initPhpcr();
 
         $cacheKernel = new AppCache(self::bootKernel());
         $cookieJar = new CookieJar();

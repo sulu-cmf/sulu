@@ -1,7 +1,6 @@
 // @flow
 import {action, computed, observable} from 'mobx';
 import moment from 'moment';
-import userStore from '../../stores/userStore';
 import Config from '../Config';
 import {setTranslations} from '../../utils/Translator';
 import Requester from '../Requester';
@@ -78,19 +77,13 @@ class Initializer {
         });
     }
 
-    initializeTranslations() {
-        const locale = userStore.user ? userStore.user.locale : getDefaultLocale();
-
-        const promise = this.initializedTranslationsLocale === locale
+    initializeTranslations(locale: string) {
+        return this.initializedTranslationsLocale === locale
             ? Promise.resolve()
             : Requester.get(Config.endpoints.translations + '?locale=' + locale).then((translations) => {
                 setTranslations(translations, locale);
                 this.setInitializedTranslationsLocale(locale);
             });
-
-        return promise.then(() => {
-            this.setLoading(false);
-        });
     }
 
     initialize(userIsLoggedIn: boolean) {
@@ -100,7 +93,10 @@ class Initializer {
         // if no user is logged in, we do not want to fetch this data to prevent unnecessary 401 responses
         // a 401 response will reset cached basic auth credentials and lead to a second authentication prompt
         if (!userIsLoggedIn) {
-            return this.initializeTranslations();
+            return this.initializeTranslations(getDefaultLocale())
+                .then(() => {
+                    this.setLoading(false);
+                });
         }
 
         const configPromise = Requester.get(Config.endpoints.config);
@@ -108,6 +104,15 @@ class Initializer {
 
         return Promise.all([configPromise, routePromise])
             .then(action(([config]) => {
+                const locale = config?.sulu_admin?.user?.locale || getDefaultLocale();
+
+                return this.initializeTranslations(locale).then(
+                    () => {
+                        return config;
+                    }
+                );
+            }))
+            .then(action((config) => {
                 this.config = config;
 
                 if (!this.initialized) {
@@ -121,13 +126,17 @@ class Initializer {
                 }
 
                 this.setInitialized();
-                return this.initializeTranslations();
+                return Promise.resolve().then(() => {
+                    this.setLoading(false);
+                });
             }))
             .catch((error) => {
                 if (error.status !== 401) {
                     return Promise.reject(error);
                 }
-                return this.initializeTranslations();
+                return Promise.resolve().then(() => {
+                    this.setLoading(false);
+                });
             });
     }
 }

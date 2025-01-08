@@ -11,7 +11,8 @@
 
 namespace Sulu\Component\Cache;
 
-use Doctrine\Common\Cache\CacheProvider;
+use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\FlushableCache;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
@@ -20,9 +21,10 @@ use Symfony\Contracts\Service\ResetInterface;
 class Memoize implements MemoizeInterface, ResetInterface
 {
     /**
+     * @param Cache $cache should also include FlushableCache to reset in other runtimes like FrankenPHP correctly
      * @param int $defaultLifeTime
      */
-    public function __construct(protected CacheProvider $cache, protected $defaultLifeTime)
+    public function __construct(protected Cache $cache, protected $defaultLifeTime)
     {
     }
 
@@ -74,6 +76,8 @@ class Memoize implements MemoizeInterface, ResetInterface
      */
     public function reset()
     {
-        $this->cache->flushAll();
+        if ($this->cache instanceof FlushableCache) {
+            $this->cache->flushAll();
+        }
     }
 }

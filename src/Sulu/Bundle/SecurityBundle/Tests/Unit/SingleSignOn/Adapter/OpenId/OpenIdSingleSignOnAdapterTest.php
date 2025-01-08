@@ -19,6 +19,8 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\ContactBundle\Entity\Contact;
 use Sulu\Bundle\ContactBundle\Entity\ContactRepositoryInterface;
 use Sulu\Bundle\SecurityBundle\Entity\Role;
+use Sulu\Bundle\SecurityBundle\Entity\User;
+use Sulu\Bundle\SecurityBundle\Entity\UserRole;
 use Sulu\Bundle\SecurityBundle\SingleSignOn\Adapter\OpenId\OpenIdSingleSignOnAdapter;
 use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
@@ -167,6 +169,8 @@ class OpenIdSingleSignOnAdapterTest extends TestCase
                 /** @var string $response */
                 $response = \json_encode([
                     'email' => 'hello@sulu.io',
+                    'family_name' => 'Sulu',
+                    'given_name' => 'Hikaru',
                 ]);
 
                 return new MockResponse($response);
@@ -180,20 +184,54 @@ class OpenIdSingleSignOnAdapterTest extends TestCase
             ->willReturn('https://sulu.io/admin');
 
         $this->userRepository->findOneBy(Argument::any())->willReturn(null);
-        $this->contactRepository->createNew()->willReturn($this->prophesize(Contact::class)->reveal());
-        $this->entityManager->persist(Argument::any())->shouldBeCalled();
-        $role = $this->prophesize(Role::class);
-        $role->getAnonymous()->shouldBeCalled()->willReturn(false);
-        $role->getIdentifier()->willReturn('hello@sulu.io');
+
+        $user = new User();
+        $this->userRepository->createNew()->willReturn($user)->shouldBeCalled();
+
+        $contact = new Contact();
+        $this->contactRepository->createNew()->willReturn($contact)->shouldBeCalled();
+
+        $persistedUser = null;
+        $persistedContact = null;
+        $persistedUserRole = null;
+
+        $this->entityManager->persist(Argument::that(function($object) use (&$persistedUser, &$persistedContact, &$persistedUserRole) {
+            if ($object instanceof Contact) {
+                $persistedContact = $object;
+            } elseif ($object instanceof User) {
+                $persistedUser = $object;
+            } elseif ($object instanceof UserRole) {
+                $persistedUserRole = $object;
+            } else {
+                $this->fail('Unexpected object: ' . $object::class);
+            }
+
+            return true;
+        }))->shouldBeCalledTimes(3);
+        $role = new Role();
+        $role->setKey('ADMIN');
         $this->roleRepository->findOneBy(Argument::any())
             ->shouldBeCalled()
-            ->willReturn($role->reveal());
+            ->willReturn($role);
         $this->entityManager->flush()->shouldBeCalled();
 
-        $expectedUserBadge = new UserBadge('hello@sulu.io', null, ['email' => 'hello@sulu.io']);
+        $expectedUserBadge = new UserBadge('hello@sulu.io', null, [
+            'email' => 'hello@sulu.io',
+            'family_name' => 'Sulu',
+            'given_name' => 'Hikaru',
+        ]);
 
         $result = $this->adapter->createOrUpdateUser($token);
 
         $this->assertEquals($expectedUserBadge, $result);
+
+        $this->assertNotNull($persistedUser);
+        $this->assertSame('hello@sulu.io', $persistedUser->getEmail());
+        $this->assertNotNull($persistedContact);
+        $this->assertSame('Hikaru', $persistedContact->getFirstName());
+        $this->assertSame('Sulu', $persistedContact->getLastName());
+        $this->assertNotNull($persistedUserRole);
+        $this->assertSame($persistedUser, $persistedUserRole->getUser());
+        $this->assertSame($role, $persistedUserRole->getRole());
     }
 }

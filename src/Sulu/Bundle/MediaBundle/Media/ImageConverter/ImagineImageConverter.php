@@ -382,7 +382,10 @@ class ImagineImageConverter implements ImageConverterInterface
     private function getOptionsFromImage(ImageInterface $image, $imageExtension, $imagineOptions)
     {
         $options = [];
-        if ('gif' == $imageExtension && \count($image->layers()) > 1) {
+        // TODO avif support requires first support in imagemagick and then in imagine php library
+        //     https://github.com/ImageMagick/ImageMagick/issues/6380
+        //     https://github.com/php-imagine/Imagine/pull/812 (same changes for avif required)
+        if (\in_array($imageExtension, ['gif', 'webp']) && \count($image->layers()) > 1) {
             $options['animated'] = true;
             $options['optimize'] = true;
         }

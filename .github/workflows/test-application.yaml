@@ -15,7 +15,7 @@ concurrency:
 jobs:
     js-css:
         name: "Node ${{ matrix.node-version }}"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         strategy:
@@ -82,7 +82,7 @@ jobs:
 
     js-lint:
         name: "Node Lint"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         env:
@@ -119,7 +119,7 @@ jobs:
 
     php:
         name: "PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.phpcr-transport }}, ${{ matrix.dependency-versions }})"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         env:
@@ -129,6 +129,7 @@ jobs:
             SULU_ADMIN_EMAIL:
             PHPCR_TRANSPORT: ${{ matrix.phpcr-transport }}
             COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            COMPOSER_ROOT_VERSION: 3.x-dev # todo remove when content bundle is merged into sulu/sulu
 
         strategy:
             fail-fast: false
@@ -142,21 +143,17 @@ jobs:
                       tools: 'composer:v2'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: disabled
-                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7
-                          DATABASE_CHARSET: utf8mb4
-                          DATABASE_COLLATE: utf8mb4_unicode_ci
+                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7&charset=utf8mb4
 
                     - php-version: '8.2'
-                      database: mysql-57
+                      database: mariadb-114
                       phpcr-transport: jackrabbit
                       dependency-versions: 'highest'
                       php-extensions: 'ctype, iconv, mysql, imagick'
                       tools: 'composer:v2'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
-                          DATABASE_URL: mysql://root@127.0.0.1:3306/sulu_test?serverVersion=5.7
-                          DATABASE_CHARSET: utf8mb4
-                          DATABASE_COLLATE: utf8mb4_unicode_ci
+                          DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=11.4.4-MariaDB&charset=utf8mb4
 
                     - php-version: '8.3'
                       database: postgres-14
@@ -167,10 +164,18 @@ jobs:
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           DATABASE_URL: postgres://symfony:ChangeMe@127.0.0.1:5432/sulu_test?serverVersion=14.11
-                          DATABASE_CHARSET: UTF8
-                          DATABASE_COLLATE:
 
                     - php-version: '8.3'
+                      database: postgres-14
+                      phpcr-transport: jackrabbit
+                      dependency-versions: 'highest'
+                      php-extensions: 'ctype, iconv, mysql, gd'
+                      tools: 'composer:v2'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: postgres://symfony:ChangeMe@127.0.0.1:5432/sulu_test?serverVersion=14.11
+
+                    - php-version: '8.4'
                       database: mysql-80
                       phpcr-transport: doctrinedbal
                       dependency-versions: 'highest'
@@ -179,9 +184,7 @@ jobs:
                       composer-stability: 'dev'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
-                          DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=8.0
-                          DATABASE_CHARSET: utf8mb4
-                          DATABASE_COLLATE: utf8mb4_unicode_ci
+                          DATABASE_URL: mysql://root:ChangeMe@127.0.0.1:3306/sulu_test?serverVersion=8.0&charset=utf8mb4
 
         steps:
             - name: Checkout project
@@ -216,11 +219,6 @@ jobs:
                   composer remove jackalope/jackalope-doctrine-dbal --dev --no-interaction --no-update
                   composer require jackalope/jackalope-jackrabbit:"^1.4 || ^2.0"  --no-interaction --no-update
 
-            - name: Install additional lowest dependencies
-              if: ${{ matrix.dependency-versions == 'lowest' }}
-              run: |
-                  composer require symfony/swiftmailer-bundle --no-interaction --no-update
-
             - name: Set composer stability
               if: ${{ matrix.composer-stability }}
               run: composer config minimum-stability ${{ matrix.composer-stability }}
@@ -229,6 +227,7 @@ jobs:
               uses: ramsey/composer-install@v1
               with:
                   dependency-versions: ${{matrix.dependency-versions}}
+                  composer-options: ${{ matrix.composer-options }}
 
             - name: Output versions and installed dependencies
               run: |
@@ -254,7 +253,7 @@ jobs:
 
     php-lint:
         name: "PHP Lint"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         timeout-minutes: 30
 
         env:
@@ -263,6 +262,7 @@ jobs:
             MAILER_URL: null://localhost
             SULU_ADMIN_EMAIL:
             COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            COMPOSER_ROOT_VERSION: 3.x-dev # todo remove when content bundle is merged into sulu/sulu
 
         steps:
             - name: Checkout project

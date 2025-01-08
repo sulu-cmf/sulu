@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|split('_')[0] }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block meta %}
+        {% include "@SuluWebsite/Extension/seo.html.twig" with {
+            "seo": extension.seo|default([]),
+            "content": content|default([]),
+            "urls": urls|default([]),
+            "shadowBaseLocale": shadowBaseLocale|default(),
+            "defaultLocale": app.request.locale
+        } %}
+    {% endblock %}
+
+    {% block style %}{% endblock %}
+</head>
+<body>
+<header>
+    {% block header %}
+        <nav>
+            <ul>
+                <li>
+                    <a href="{{ sulu_content_root_path() }}">Homepage</a>
+                </li>
+
+                {% for item in sulu_navigation_root_tree('main') %}
+                    <li>
+                        <a href="{{ sulu_content_path(item.url, item.webspaceKey) }}"
+                           title="{{ item.title }}">{{ item.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endblock %}
+</header>
+
+<section id="content">
+    {% block content %}{% endblock %}
+</section>
+
+<aside>
+    {% block aside %}{% endblock %}
+</aside>
+
+<footer>
+    {% block footer %}
+        <p>Copyright {{ 'now'|date('Y') }} SULU</p>
+    {% endblock %}
+</footer>
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -10,13 +10,13 @@
             <argument type="service" id="sulu_page.content_repository" />
             <argument type="service" id="sulu_custom_urls.domain_generator" />
             <argument type="service" id="sulu_core.webspace.webspace_manager" />
+            <argument type="string">%kernel.environment%</argument>
         </service>
 
         <service id="sulu_custom_urls.repository" alias="Sulu\Component\CustomUrl\Repository\CustomUrlRepositoryInterface" />
 
         <service id="sulu_custom_urls.manager" class="Sulu\Component\CustomUrl\Manager\CustomUrlManager">
             <argument type="service" id="sulu_custom_urls.repository"/>
-            <argument type="string">%kernel.environment%</argument>
             <argument type="service" id="sulu_document_manager.document_domain_event_collector"/>
             <argument type="service" id="property_accessor" />
             <argument type="service" id="doctrine.orm.entity_manager" />

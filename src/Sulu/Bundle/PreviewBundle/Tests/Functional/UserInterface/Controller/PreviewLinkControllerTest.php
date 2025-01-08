@@ -11,13 +11,13 @@
 
 namespace Sulu\Bundle\PreviewBundle\Tests\Functional\UserInterface\Controller;
 
-use Gedmo\Sluggable\Util\Urlizer;
 use Sulu\Bundle\PageBundle\Document\BasePageDocument;
 use Sulu\Bundle\PageBundle\Document\PageDocument;
 use Sulu\Bundle\PreviewBundle\Domain\Model\PreviewLinkInterface;
 use Sulu\Bundle\TestBundle\Kernel\SuluKernelBrowser;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
+use Sulu\Component\DocumentManager\Slugifier\NodeNameSlugifier;
 
 class PreviewLinkControllerTest extends SuluTestCase
 {
@@ -51,6 +51,8 @@ class PreviewLinkControllerTest extends SuluTestCase
      */
     private $locale = 'en';
 
+    private NodeNameSlugifier $urlizer;
+
     public function setUp(): void
     {
         /** @var SuluKernelBrowser $client */
@@ -64,6 +66,8 @@ class PreviewLinkControllerTest extends SuluTestCase
         /** @var BasePageDocument $document */
         $document = $this->documentManager->find(\sprintf('/cmf/%s/contents', $this->webspaceKey), $this->locale);
         $this->homePage = $document;
+
+        $this->urlizer = static::getContainer()->get('sulu_document_manager.node_name_slugifier');
     }
 
     public function testGetAction(): void
@@ -183,7 +187,7 @@ class PreviewLinkControllerTest extends SuluTestCase
     {
         $page = new PageDocument();
         $page->setTitle($title);
-        $page->setResourceSegment('/' . Urlizer::urlize($title));
+        $page->setResourceSegment('/' . $this->urlizer->slugify($title));
         $page->setParent($this->homePage);
         $page->setStructureType('default');
         $page->getStructure()->bind(
