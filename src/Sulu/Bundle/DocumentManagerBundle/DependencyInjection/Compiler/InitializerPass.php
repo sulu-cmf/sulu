@@ -14,6 +14,11 @@ namespace Sulu\Bundle\DocumentManagerBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal
+ *
+ * @deprecated Since 2.6 use tagged_iterator instead
+ */
 class InitializerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

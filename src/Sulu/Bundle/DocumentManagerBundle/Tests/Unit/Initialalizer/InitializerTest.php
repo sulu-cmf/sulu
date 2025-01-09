@@ -17,16 +17,10 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\DocumentManagerBundle\Initializer\Initializer;
 use Sulu\Bundle\DocumentManagerBundle\Initializer\InitializerInterface;
 use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class InitializerTest extends TestCase
 {
     use ProphecyTrait;
-
-    /**
-     * @var ObjectProphecy<ContainerInterface>
-     */
-    private $container;
 
     /**
      * @var ObjectProphecy<InitializerInterface>
@@ -50,23 +44,15 @@ class InitializerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
         $this->initializer1 = $this->prophesize(InitializerInterface::class);
         $this->initializer2 = $this->prophesize(InitializerInterface::class);
         $this->initializer3 = $this->prophesize(InitializerInterface::class);
 
-        $this->initializer = new Initializer(
-            $this->container->reveal(),
-            [
-                'service1' => 50,
-                'service2' => 10,
-                'service3' => 29,
-            ]
-        );
-
-        $this->container->get('service1')->willReturn($this->initializer1->reveal());
-        $this->container->get('service2')->willReturn($this->initializer2->reveal());
-        $this->container->get('service3')->willReturn($this->initializer3->reveal());
+        $this->initializer = new Initializer([
+            'service1' => $this->initializer1->reveal(),
+            'service3' => $this->initializer3->reveal(),
+            'service2' => $this->initializer2->reveal(),
+        ]);
     }
 
     public function testInitialize(): void

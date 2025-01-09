@@ -183,6 +183,14 @@ This will only create the service `sulu_media.storage` as the alias to `sulu_med
 The image formats URL requires an exact filename match to retrieve the correct image format. 
 Old versions will be redirected to the new version and any non-matching filenames will now return a 404 error.
 
+### Replacing compiler passes with `tagged_iterator`s
+
+We have replaced the manual logic of getting a list of tagged services to the Symfony `tagged_iterator` argument. This
+means that the following classes have been deprecated:
+- `Sulu\\Bundle\\DocumentManagerBundle\\DependencyInjection\\Compiler\\InitializerPass`
+
+This now also means that all services tagged with the `sulu_document_manger.initializer` are now private by default.
+
 ## 2.6.3
 
 ### Change locale length
