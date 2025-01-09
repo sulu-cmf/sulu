@@ -547,7 +547,7 @@
             id="sulu_media.file_inspector.subscriber"
             class="Sulu\Bundle\MediaBundle\FileInspector\UploadFileSubscriber"
         >
-            <argument type="tagged" tag="sulu_media.file_inspector"/>
+            <argument type="tagged_iterator" tag="sulu_media.file_inspector"/>
 
             <tag name="kernel.event_subscriber"/>
         </service>

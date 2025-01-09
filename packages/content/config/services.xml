@@ -36,7 +36,7 @@
 
         <!-- ContentMerger -->
         <service id="sulu_content.content_merger" class="Sulu\Content\Application\ContentMerger\ContentMerger">
-            <argument type="tagged" tag="sulu_content.merger"/>
+            <argument type="tagged_iterator" tag="sulu_content.merger"/>
             <argument type="service" id="property_accessor"/>
         </service>
 
@@ -69,7 +69,7 @@
 
         <!-- Content Data Mapper -->
         <service id="sulu_content.content_data_mapper" class="Sulu\Content\Application\ContentDataMapper\ContentDataMapper">
-            <argument type="tagged" tag="sulu_content.data_mapper"/>
+            <argument type="tagged_iterator" tag="sulu_content.data_mapper"/>
         </service>
 
         <service id="Sulu\Content\Application\ContentDataMapper\ContentDataMapperInterface" alias="sulu_content.content_data_mapper"/>
@@ -127,7 +127,7 @@
 
         <!-- ContentNormalizer -->
         <service id="sulu_content.content_normalizer" class="Sulu\Content\Application\ContentNormalizer\ContentNormalizer">
-            <argument type="tagged" tag="sulu_content.normalizer"/>
+            <argument type="tagged_iterator" tag="sulu_content.normalizer"/>
         </service>
 
         <service id="Sulu\Content\Application\ContentNormalizer\ContentNormalizerInterface" alias="sulu_content.content_normalizer"/>

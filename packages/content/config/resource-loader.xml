@@ -7,7 +7,7 @@
         <service id="sulu_content.resource_loader_provider"
                  class="Sulu\Content\Application\ResourceLoader\ResourceLoaderProvider">
             <argument
-                type="tagged"
+                type="tagged_iterator"
                 tag="sulu_content.resource_loader"
                 default-index-method="getType"
                 index-by="type"

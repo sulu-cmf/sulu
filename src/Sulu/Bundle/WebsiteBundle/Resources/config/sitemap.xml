@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sulu_website.sitemap.pool" class="Sulu\Bundle\WebsiteBundle\Sitemap\SitemapProviderPool">
-            <argument type="tagged" tag="sulu.sitemap.provider"/>
+            <argument type="tagged_iterator" tag="sulu.sitemap.provider"/>
         </service>
 
         <service id="sulu_website.sitemap.xml_renderer" class="Sulu\Bundle\WebsiteBundle\Sitemap\XmlSitemapRenderer">

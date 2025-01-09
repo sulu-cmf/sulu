@@ -181,7 +181,7 @@
             <argument>%sulu.content.language.namespace%</argument>
             <argument type="service" id="sulu_core.webspace.request_analyzer" />
             <argument type="service" id="sulu_audience_targeting.target_group_store" on-invalid="null" />
-            <argument type="tagged" tag="sulu_content.block_visitor" />
+            <argument type="tagged_iterator" tag="sulu_content.block_visitor" />
             <tag name="sulu.content.type" alias="block"/>
             <tag name="sulu.content.export" format="1.2.xliff" translate="false" />
         </service>
