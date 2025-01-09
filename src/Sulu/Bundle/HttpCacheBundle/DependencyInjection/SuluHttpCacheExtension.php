@@ -34,6 +34,9 @@ class SuluHttpCacheExtension extends Extension implements PrependExtensionInterf
             'debug' => [
                 'enabled' => $config['debug']['enabled'],
             ],
+            'cache_control' => [
+                'ttl_header' => 'X-Reverse-Proxy-TTL',
+            ]
         ];
 
         if (\array_key_exists('noop', $config['proxy_client'])) {
