@@ -11311,16 +11311,6 @@ parameters:
 			path: src/Sulu/Bundle/DocumentManagerBundle/Document/Subscriber/SecuritySubscriber.php
 
 		-
-			message: "#^Cannot call method initialize\\(\\) on object\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/Initializer.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Initializer\\\\Initializer\\:\\:initialize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/Initializer.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\DocumentManagerBundle\\\\Initializer\\\\InitializerInterface\\:\\:initialize\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/DocumentManagerBundle/Initializer/InitializerInterface.php

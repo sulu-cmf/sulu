@@ -13,7 +13,6 @@ namespace Sulu\Bundle\DocumentManagerBundle\Initializer;
 
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Content repository initializer.
@@ -28,11 +27,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Initializer
 {
     /**
-     * @param array<string, int> $initializerMap
+     * @param iterable<string, InitializerInterface> $initializerMap
      */
     public function __construct(
-        private ContainerInterface $container,
-        private array $initializerMap = []
+        private iterable $initializerMap = []
     ) {
     }
 
@@ -40,16 +38,15 @@ class Initializer
      * Initialize the content repository, optionally purging it before-hand.
      *
      * @param bool $purge
+     *
+     * @return void
      */
     public function initialize(?OutputInterface $output = null, $purge = false)
     {
         $output = $output ?: new NullOutput();
 
-        \arsort($this->initializerMap);
-
-        foreach (\array_keys($this->initializerMap) as $initializerId) {
-            $output->writeln(\sprintf('<comment>%s</>', $initializerId));
-            $initializer = $this->container->get($initializerId);
+        foreach ($this->initializerMap as $serviceId => $initializer) {
+            $output->writeln(\sprintf('<comment>%s</>', $serviceId));
             $initializer->initialize($output, $purge);
         }
         $output->write(\PHP_EOL);

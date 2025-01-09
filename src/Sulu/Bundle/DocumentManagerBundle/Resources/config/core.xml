@@ -117,8 +117,7 @@
         </service>
 
         <service id="sulu_document_manager.initializer" class="Sulu\Bundle\DocumentManagerBundle\Initializer\Initializer" public="true">
-            <argument type="service" id="service_container" />
-            <argument type="collection" />
+            <argument type="tagged_iterator" tag="sulu_document_manager.initializer" index-by="id" />
         </service>
 
         <service id="sulu_document_manager.initializer.workspace" class="Sulu\Bundle\DocumentManagerBundle\Initializer\WorkspaceInitializer">
