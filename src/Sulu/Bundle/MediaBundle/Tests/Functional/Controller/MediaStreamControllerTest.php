@@ -141,10 +141,16 @@ class MediaStreamControllerTest extends WebsiteTestCase
         $this->client->request('GET', $media->getFormats()['small-inset']);
         $this->assertHttpStatusCode(200, $this->client->getResponse());
         $this->assertSame('image/jpeg', $this->client->getResponse()->headers->get('Content-Type'));
+        $this->assertSame('immutable, max-age=31536000, public', $this->client->getResponse()->headers->get('Cache-Control'));
+        $this->assertNull($this->client->getResponse()->headers->get('Expires'));
+        $this->assertNull($this->client->getResponse()->headers->get('Pragma'));
 
         $this->client->request('GET', $media->getFormats()['small-inset.gif']);
         $this->assertHttpStatusCode(200, $this->client->getResponse());
         $this->assertSame('image/gif', $this->client->getResponse()->headers->get('Content-Type'));
+        $this->assertSame('immutable, max-age=31536000, public', $this->client->getResponse()->headers->get('Cache-Control'));
+        $this->assertNull($this->client->getResponse()->headers->get('Expires'));
+        $this->assertNull($this->client->getResponse()->headers->get('Pragma'));
     }
 
     public function testGetImageActionSvg(): void
