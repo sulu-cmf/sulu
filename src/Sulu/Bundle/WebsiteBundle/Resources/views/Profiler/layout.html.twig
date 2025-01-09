@@ -35,6 +35,10 @@
             <b>Structure</b>
             <span>{{ collector.data('structure').template }}</span>
         </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Structure class</b>
+            <span>{{ collector.data('structure').objectClass }}</span>
+        </div>
         {% endif %}
         <div class="sf-toolbar-info-piece">
             <b>Localization</b>
@@ -59,20 +63,42 @@
 
 {% block panel %}
     {% import _self as self %}
+
+    <div class="metrics">
+        <div class="metric">
+            <span class="value">{{ collector.data('webspace').key|default('-') }}</span>
+            <span class="label">Webspace</span>
+        </div>
+        <div class="metric">
+            <span class="value">{{ collector.data('structure').template|default('-') }}</span>
+            <span class="label">Structure</span>
+        </div>
+        <div class="metric">
+            <span class="value">{{ collector.data('segment').key|default('-') }}</span>
+            <span class="label">Segment</span>
+        </div>
+        <div class="metric-group">
+            <div class="metric">
+                <span class="value">{{ collector.data('portal').key|default('-') }}</span>
+                <span class="label">Portal</span>
+            </div>
+            <div class="metric">
+                <span class="value">{{ collector.data('portal_url')|default('-') }}</span>
+                <span class="label">Url</span>
+            </div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric">
+            <span class="value">{{ collector.data('localization')|default('-') }}</span>
+            <span class="label">Localization</span>
+        </div>
+    </div>
+
     <h2>Webspace</h2>
     <table>
         <tbody>
             {% for field, value in collector.data('webspace') %}
-            <tr>
-                <th>{{ field }}</th>
-                <td>
-                {% if value is iterable %}
-                    {{ value|json_encode }}
-                {% else %}
-                    {{ value }}
-                {% endif %}
-                </td>
-            </tr>
+                {{ self.table_row(field, value) }}
             {% endfor %}
         </tbody>
     </table>
@@ -80,16 +106,7 @@
     <table>
         <tbody>
             {% for field, value in collector.data('portal') %}
-            <tr>
-                <th>{{ field }}</th>
-                <td>
-                {% if value is iterable %}
-                    {{ value|json_encode }}
-                {% else %}
-                    {{ value }}
-                {% endif %}
-                </td>
-            </tr>
+                {{ self.table_row(field, value) }}
             {% endfor %}
         </tbody>
     </table>
@@ -98,6 +115,7 @@
     <table>
         <tbody>
             {{ self.table_row('id', collector.data('structure').id) }}
+            {{ self.table_row('class', collector.data('structure').objectClass) }}
             {{ self.table_row('path', collector.data('structure').path) }}
             {{ self.table_row('nodeType', collector.data('structure').nodeType) }}
             {{ self.table_row('internal', collector.data('structure').internal ? 'yes' : 'no') }}
@@ -126,10 +144,7 @@
     <tr>
         <th>{{ field }}</th>
         <td>
-        {% if value is iterable %}
-            {{ value | json_encode }}
-        {% else %}
-            {{ value }}
-        {% endif %}
+            {{ dump(value) }}
+        </td>
     </tr>
 {% endmacro %}
