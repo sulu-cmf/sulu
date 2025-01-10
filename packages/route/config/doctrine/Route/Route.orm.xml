@@ -7,8 +7,8 @@
         table="ro_routes"
     >
         <unique-constraints>
-            <unique-constraint name="ro_routes_unique" fields="site, locale, slug" />
-            <unique-constraint name="ro_routes_resource_unique" fields="site, locale, resourceKey, resourceId" />
+            <unique-constraint name="ro_routes_unique" fields="site,locale,slug" />
+            <unique-constraint name="ro_routes_resource_unique" fields="site,locale,resourceKey,resourceId" />
         </unique-constraints>
 
         <id name="id" type="integer" column="id">

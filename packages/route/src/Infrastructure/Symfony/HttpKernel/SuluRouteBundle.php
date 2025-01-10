@@ -13,12 +13,10 @@ declare(strict_types=1);
 
 namespace Sulu\Route\Infrastructure\Symfony\HttpKernel;
 
-use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
-use Sulu\Article\Domain\Model\ArticleInterface;
 use Sulu\Route\Domain\Model\Route;
 use Sulu\Route\Domain\Repository\RouteRepositoryInterface;
+use Sulu\Route\Infrastructure\Doctrine\EventListener\RouteChangedUpdater;
 use Sulu\Route\Infrastructure\Doctrine\Repository\RouteRepository;
-use Sulu\Route\Infrastructure\Doctrine\RouteChangedUpdater;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
@@ -29,7 +27,7 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
  *
  * @codeCoverageIgnore
  */
-final class RouteBundle extends AbstractBundle
+final class SuluRouteBundle extends AbstractBundle
 {
     /**
      * @param array<string, mixed> $config
@@ -54,7 +52,8 @@ final class RouteBundle extends AbstractBundle
                 new Reference('doctrine.orm.entity_manager'),
             ]);
 
-        $services->alias(RouteRepositoryInterface::class, 'sulu_route.route_repository');
+        $services->alias(RouteRepositoryInterface::class, 'sulu_route.route_repository')
+            ->public();
     }
 
     /**

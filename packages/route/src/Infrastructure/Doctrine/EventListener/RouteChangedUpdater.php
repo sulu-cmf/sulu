@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Route\Infrastructure\Doctrine;
+namespace Sulu\Route\Infrastructure\Doctrine\EventListener;
 
-use App\Entity\Route;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\Event\OnClearEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Sulu\Route\Domain\Model\Route;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
@@ -28,8 +28,13 @@ class RouteChangedUpdater implements ResetInterface
      */
     private array $routeChanges = [];
 
-    public function preUpdate(Route $route, PreUpdateEventArgs $args): void
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
+        $route = $args->getObject();
+        if (!$route instanceof Route) {
+            return;
+        }
+
         $oldSlug = $args->getOldValue('slug');
         $newSlug = $args->getNewValue('slug');
 
@@ -53,6 +58,8 @@ class RouteChangedUpdater implements ResetInterface
 
         $connection = $args->getObjectManager()->getConnection();
 
+        $routesTableName = $args->getObjectManager()->getClassMetadata(Route::class)->getTableName();
+
         foreach ($this->routeChanges as $routeChange) {
             $oldSlug = $routeChange['oldValue'];
             $newSlug = $routeChange['newValue'];
@@ -61,9 +68,9 @@ class RouteChangedUpdater implements ResetInterface
 
             // select all child and grand routes of oldSlug
             $selectQueryBuilder = $connection->createQueryBuilder()
-                ->from('route', 'parent')
+                ->from($routesTableName, 'parent')
                 ->select('parent.id as parentId')
-                ->innerJoin('parent', 'route', 'child', 'child.parent_id = parent.id')
+                ->innerJoin('parent', $routesTableName, 'child', 'child.parent_id = parent.id')
                 ->andWhere('(parent.site = :site)')
                 ->andWhere('parent.locale = :locale')
                 ->andWhere('(parent.slug = :newSlug OR parent.slug LIKE :oldSlugSlash)') // direct child is using newSlug already updated as we are in PostFlush, grand child use oldSlugWithSlash as not yet updated
@@ -83,7 +90,7 @@ class RouteChangedUpdater implements ResetInterface
             // TODO create history for current ids
 
             // update child and grand routes
-            $updateQueryBuilder = $connection->createQueryBuilder()->update('route', 'r')
+            $updateQueryBuilder = $connection->createQueryBuilder()->update($routesTableName, 'r')
                 ->set('r.slug', 'CONCAT(:newSlug, SUBSTRING(r.slug, LENGTH(:oldSlug) + 1))')
                 ->setParameter('newSlug', $newSlug)
                 ->setParameter('oldSlug', $oldSlug)
