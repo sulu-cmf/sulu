@@ -208,7 +208,8 @@
         },
         "psr-4": {
             "Sulu\\Article\\": "packages/article/src",
-            "Sulu\\Content\\": "packages/content/src"
+            "Sulu\\Content\\": "packages/content/src",
+            "Sulu\\Route\\": "packages/route/src"
         },
         "exclude-from-classmap": [
             "src/Sulu/Component/*/Tests/",
@@ -220,6 +221,7 @@
         "psr-4": {
             "App\\": "tests/",
             "Sulu\\Article\\Tests\\": "packages/article/tests",
+            "Sulu\\Route\\Tests\\": "packages/route/tests",
             "Sulu\\Content\\Tests\\": "packages/content/tests"
         }
     },

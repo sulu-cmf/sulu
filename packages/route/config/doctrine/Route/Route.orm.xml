@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity
+        name="Sulu\Route\Domain\Model\Route"
+        table="ro_routes"
+    >
+        <unique-constraints>
+            <unique-constraint name="ro_routes_unique" fields="site, locale, slug" />
+            <unique-constraint name="ro_routes_resource_unique" fields="site, locale, resourceKey, resourceId" />
+        </unique-constraints>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="site" type="string" length="16" nullable="true"/>
+        <field name="locale" type="string" length="11"/>
+        <field name="slug" type="string"/>
+
+        <many-to-one field="parentRoute" target-entity="Sulu\Route\Domain\Model\Route">
+            <join-column name="parent_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+        </many-to-one>
+
+        <field name="resourceKey" type="string" length="32"/>
+        <field name="resourceId" type="string" length="48"/>
+    </entity>
+</doctrine-mapping>
