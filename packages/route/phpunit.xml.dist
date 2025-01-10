@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true"
          bootstrap="tests/test-bootstrap.php"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnPhpunitDeprecations="true"
 >
     <testsuites>
         <!-- Run Unit Tests before Functional Tests for better Developer Experience -->
@@ -24,7 +29,7 @@
         <ini name="date.timezone" value="UTC" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="APP_ENV" value="test" force="true"/>
-        <server name="KERNEL_CLASS" value="Sulu\Article\Tests\Application\Kernel"/>
+        <server name="KERNEL_CLASS" value="Sulu\Route\Tests\Application\Kernel"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
     </php>
 </phpunit>

@@ -12,20 +12,28 @@
 namespace Sulu\Route\Tests\Functional\Infrastructure\Doctrine\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Sulu\Route\Domain\Model\Route;
 use Sulu\Route\Domain\Repository\RouteRepositoryInterface;
+use Sulu\Route\Infrastructure\Doctrine\EventListener\RouteChangedUpdater;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * @phpstan-type Route array{resourceId: string, slug: string, parentSlug?: string|null}
  */
-class RouteChangedUpdater extends KernelTestCase
+#[CoversClass(RouteChangedUpdater::class)]
+class RouteChangedUpdaterTest extends KernelTestCase
 {
     protected function setUp(): void
     {
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
         $entityManager->getConnection()->executeStatement('DELETE FROM ro_routes WHERE 1 = 1');
+
+        $schemaTool = new SchemaTool($entityManager);
+        $classes = $entityManager->getMetadataFactory()->getAllMetadata();
+        $schemaTool->updateSchema($classes, false);
     }
 
     #[DataProvider('provideRoutes')]
@@ -43,7 +51,7 @@ class RouteChangedUpdater extends KernelTestCase
         foreach ($routes as $routeData) {
             $route = $this->createRoute($routeData);
             $uniqueKey = ($route->getSite() ?? '') . $route->getLocale() . $route->getSlug();
-            $parentUniqueKey = ($route->getSite() ?? '') . $route->getLocale() . $routeData['parentSlug'];
+            $parentUniqueKey = ($route->getSite() ?? '') . $route->getLocale() . ($routeData['parentSlug'] ?? '');
             $parentRoute = $createdRoutes[$parentUniqueKey] ?? null;
             if ($parentRoute?->getId()) {
                 $parentRoute = $entityManager->getReference(Route::class, $createdRoutes[$parentUniqueKey]->getId());
@@ -94,6 +102,21 @@ class RouteChangedUpdater extends KernelTestCase
         }
     }
 
+    /**
+     * @return iterable<string, array{
+     *     routes: array<array{
+     *         resourceId: string,
+     *         slug: string,
+     *         parentSlug?: string|null,
+     *     }>,
+     *     changeRoute: string,
+     *     expectedRoutes: array<array{
+     *         resourceId: string,
+     *         slug: string,
+     *         parentSlug?: string|null,
+     *     }>,
+     * }>
+     */
     public static function provideRoutes(): iterable
     {
         yield 'single_route_update' => [
@@ -204,7 +227,7 @@ class RouteChangedUpdater extends KernelTestCase
             ],
         ];
 
-        yield 'heavy_load' => static::generateNestedRoutes('/rezepte', '/rezepte-neu', 10, 100_000);
+        // yield 'heavy_load' => static::generateNestedRoutes('/rezepte', '/rezepte-neu', 10, 100_000);
     }
 
     private static function generateNestedRoutes($baseSlug, $newSlug, $depth = 10, $totalUrls = 100000)

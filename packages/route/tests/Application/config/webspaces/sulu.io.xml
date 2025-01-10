@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<webspace xmlns="http://schemas.sulu.io/webspace/webspace"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
+
+    <name>Sulu CMF</name>
+    <key>sulu-io</key>
+
+    <security>
+        <system>Website</system>
+    </security>
+
+    <localizations>
+        <localization language="de" default="true"/>
+        <localization language="en"/>
+    </localizations>
+
+    <theme>default</theme>
+
+    <default-templates>
+        <default-template type="homepage">default</default-template>
+        <default-template type="page">default</default-template>
+    </default-templates>
+
+    <templates>
+        <template type="search">search/search</template>
+    </templates>
+
+    <navigation>
+        <contexts>
+            <context key="main">
+                <meta>
+                    <title lang="en">Mainnavigation</title>
+                </meta>
+            </context>
+        </contexts>
+    </navigation>
+
+    <portals>
+        <portal>
+            <name>Sulu CMF AT</name>
+            <key>sulucmf_at</key>
+
+            <environments>
+                <environment type="prod">
+                    <urls>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
+                    </urls>
+                </environment>
+                <environment type="dev">
+                    <urls>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
+                    </urls>
+                </environment>
+                <environment type="test">
+                    <urls>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
+                    </urls>
+                </environment>
+            </environments>
+        </portal>
+    </portals>
+</webspace>
