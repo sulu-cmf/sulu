@@ -21,7 +21,6 @@ use Sulu\Route\Domain\Model\Route;
  *     resourceKey?: string,
  *     resourceId?: string,
  * }
- *
  */
 interface RouteRepositoryInterface
 {
