@@ -75,6 +75,11 @@ class SuluPageExtension extends Extension implements PrependExtensionInterface
                                 'detail' => 'sulu_page.get_webspace',
                             ],
                         ],
+                        'icons' => [
+                            'routes' => [
+                                'list' => 'sulu_page.get_icons',
+                            ],
+                        ],
                     ],
                     'field_type_options' => [
                         'selection' => [
@@ -283,6 +288,7 @@ class SuluPageExtension extends Extension implements PrependExtensionInterface
         $loader->load('command.xml');
         $loader->load('link-tag.xml');
         $loader->load('versioning.xml');
+        $loader->load('icon.xml');
 
         if (\array_key_exists('SuluAudienceTargetingBundle', $bundles)) {
             $loader->load('rule.xml');

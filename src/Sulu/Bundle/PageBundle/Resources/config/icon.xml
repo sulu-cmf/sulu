@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service
+            id="sulu_page.icon_controller"
+            class="Sulu\Bundle\PageBundle\Controller\IconController"
+            public="true"
+        >
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument>%sulu_admin.icon_sets%</argument>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+    </services>
+</container>

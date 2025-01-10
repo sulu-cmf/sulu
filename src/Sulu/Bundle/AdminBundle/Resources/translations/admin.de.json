@@ -168,6 +168,7 @@
     "sulu_admin.link_url": "Link URL",
     "sulu_admin.link_query": "Query String",
     "sulu_admin.link_anchor": "Link Anker",
+    "sulu_admin.single_icon_select.select": "Icon auswählen",
     "sulu_admin.mail_subject": "E-Mail Betreff",
     "sulu_admin.mail_body": "E-Mail Text",
     "sulu_admin.show_history": "Verlauf anzeigen",

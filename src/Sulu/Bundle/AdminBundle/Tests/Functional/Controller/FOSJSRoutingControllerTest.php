@@ -85,6 +85,7 @@ class FOSJSRoutingControllerTest extends SuluTestCase
             'sulu_media.post_media_preview',
             'sulu_media.put_media_format',
             'sulu_media.redirect',
+            'sulu_page.get_icons',
             'sulu_page.get_items',
             'sulu_page.get_page',
             'sulu_page.get_page_resourcelocators',

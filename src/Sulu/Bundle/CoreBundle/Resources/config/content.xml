@@ -20,6 +20,7 @@
         <parameter key="sulu.content.type.text_editor.class">Sulu\Component\Content\Types\TextEditor</parameter>
         <parameter key="sulu.content.type.resource_locator.class">Sulu\Component\Content\Types\ResourceLocator</parameter>
         <parameter key="sulu.content.type.link.class">Sulu\Component\Content\Types\Link</parameter>
+        <parameter key="sulu.content.type.single_icon_select.class">Sulu\Component\Content\Types\SingleIconSelect</parameter>
         <parameter key="sulu.content.type.block.class">Sulu\Component\Content\Types\BlockContentType</parameter>
 
         <parameter key="sulu.content.resource_locator.mapper.phpcr.class">Sulu\Component\Content\Types\ResourceLocator\Mapper\PhpcrMapper</parameter>
@@ -173,6 +174,10 @@
             <argument type="service" id="sulu_markup.link_tag.provider_pool"/>
             <tag name="sulu.content.type" alias="link"/>
             <tag name="sulu.content.export" format="1.2.xliff" translate="false" />
+        </service>
+        <service id="sulu.content.type.single_icon_select" class="%sulu.content.type.single_icon_select.class%">
+            <tag name="sulu.content.type" alias="single_icon_select"/>
+            <tag name="sulu.content.export" format="1.2.xliff" translate="true" />
         </service>
 
         <!-- complex content types -->

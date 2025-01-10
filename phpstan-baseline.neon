@@ -18436,6 +18436,21 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Content/Types/Url.php
 
 		-
+			message: "#^Method Sulu\\\\Bundle\\\\PageBundle\\\\Controller\\\\IconController\\:\\:getRequestParameter\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/PageBundle/Controller/IconController.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and string will always evaluate to false\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/PageBundle/Controller/IconController.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between true and string will always evaluate to false\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/PageBundle/Controller/IconController.php
+
+		-
 			message: "#^Call to an undefined method Sulu\\\\Component\\\\Content\\\\Compat\\\\StructureInterface\\:\\:getTitle\\(\\)\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Controller/PageController.php

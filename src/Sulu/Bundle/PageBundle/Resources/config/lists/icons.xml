@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>icons</key>
+
+    <properties>
+        <property
+            name="id"
+            visibility="no"
+            translation="sulu_admin.id"
+        />
+    </properties>
+</list>
