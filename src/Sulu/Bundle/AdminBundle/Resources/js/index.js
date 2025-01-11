@@ -114,6 +114,8 @@ import Form, {
     SetUnpublishedToolbarAction as FormSetUnpublishedToolbarAction,
     TypeToolbarAction as FormTypeToolbarAction,
     TogglerToolbarAction as FormTogglerToolbarAction,
+    UpdateFormStoreToolbarAction as FormUpdateFormStoreToolbarAction,
+    ReloadFormStoreToolbarAction as FormReloadFormStoreToolbarAction,
 } from './views/Form';
 import {navigationRegistry} from './containers/Navigation';
 import {smartContentConfigStore} from './containers/SmartContent';
@@ -335,6 +337,8 @@ function registerFormToolbarActions() {
     formToolbarActionRegistry.add('sulu_admin.set_unpublished', FormSetUnpublishedToolbarAction);
     formToolbarActionRegistry.add('sulu_admin.type', FormTypeToolbarAction);
     formToolbarActionRegistry.add('sulu_admin.toggler', FormTogglerToolbarAction);
+    formToolbarActionRegistry.add('sulu_admin.update_form_store', FormUpdateFormStoreToolbarAction);
+    formToolbarActionRegistry.add('sulu_admin.reload_form_store', FormReloadFormStoreToolbarAction);
 }
 
 function registerListToolbarActions() {
