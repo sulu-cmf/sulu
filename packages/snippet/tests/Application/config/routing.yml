@@ -1,0 +1,3 @@
+sulu_snippet_api:
+    resource: "@SuluSnippetBundle/config/routing_admin_api.yaml"
+    prefix: /admin/api

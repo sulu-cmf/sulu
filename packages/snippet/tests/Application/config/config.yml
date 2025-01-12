@@ -1,0 +1,18 @@
+sulu_snippet: {}
+
+sulu_core:
+    content:
+        structure:
+            default_type:
+                snippet: 'snippet'
+
+framework:
+    # symfony recipe default configuration:
+    workflows: null
+    messenger:
+        transports:
+        routing:
+
+twig:
+    paths:
+        - '%kernel.project_dir%/templates'
