@@ -1,9 +1,9 @@
 // @flow
+
 import React, {Component} from 'react';
 import {action, observable} from 'mobx';
 import {observer} from 'mobx-react';
 import {Button, Input, SingleSelect, DropdownButton} from '../../components';
-import {translate} from '../../utils';
 import promptInputStyles from './prompt-input.scss';
 
 type Props = {|
@@ -19,6 +19,10 @@ type Props = {|
         type: 'select',
     },
     isLoading: boolean,
+    messages: {
+        addMessage: string,
+        send: string,
+    },
     onAddMessage: (text: string) => Promise<void>,
     predefinedPrompts: ?{
         handleClick: (index: number) => void,
@@ -32,15 +36,10 @@ type Props = {|
 
 @observer
 class PromptInput extends Component<Props> {
-    @observable messageInput: string;
+    @observable messageInput: string = '';
 
-    constructor(props) {
-        super(props);
-        this.messageInput = '';
-    }
-
-    @action handleInputChange = (message) => {
-        this.messageInput = message;
+    @action handleInputChange = (message: ?string) => {
+        this.messageInput = message || '';
     };
 
     @action handleSendMessage = () => {
@@ -53,7 +52,7 @@ class PromptInput extends Component<Props> {
         }
     };
 
-    handleKeyDown = (key: string) => {
+    handleKeyPress = (key: ?string) => {
         if (key === 'Enter') {
             this.handleSendMessage();
         }
@@ -84,16 +83,23 @@ class PromptInput extends Component<Props> {
     };
 
     render() {
-        const {experts, predefinedPrompts} = this.props;
+        const {
+            experts,
+            predefinedPrompts,
+            messages: {
+                addMessage: addMessageMessage,
+                send: sendMessage,
+            },
+        } = this.props;
 
         return (
             <div className={promptInputStyles.inputContainer}>
                 <div className={promptInputStyles.predefinedPrompts}>
-                    {predefinedPrompts.length > 0 && (
+                    {predefinedPrompts !== undefined && (
                         <div>
                             {experts.type === 'select' ? (
                                 <div className={promptInputStyles.expertSelect}>
-                                    <SingleSelect onChange={experts.handleClick} value={this.props.experts.selected}>
+                                    <SingleSelect onChange={experts.handleClick} value={experts.selected}>
                                         {experts.options.map((option) => (
                                             <SingleSelect.Option key={option.id} value={option.id}>
                                                 {option.name}
@@ -109,11 +115,11 @@ class PromptInput extends Component<Props> {
                     {this.renderPredefinedPrompts()}
                 </div>
                 <div className={promptInputStyles.input}>
-                    {predefinedPrompts.length === 0 && (
+                    {predefinedPrompts === undefined && (
                         <div className={promptInputStyles.singleExpertContainer}>
                             {experts.type === 'select' ? (
                                 <div className={promptInputStyles.expertSelect}>
-                                    <SingleSelect onChange={experts.handleClick} value={this.props.experts.selected}>
+                                    <SingleSelect onChange={experts.handleClick} value={experts.selected}>
                                         {experts.options.map((option) => (
                                             <SingleSelect.Option key={option.id} value={option.id}>
                                                 {option.name}
@@ -128,8 +134,8 @@ class PromptInput extends Component<Props> {
                     )}
                     <Input
                         onChange={this.handleInputChange}
-                        onKeyPress={this.handleKeyDown}
-                        placeholder={translate('sulu_ai.add_message')}
+                        onKeyPress={this.handleKeyPress}
+                        placeholder={addMessageMessage}
                         type="text"
                         value={this.messageInput}
                     />
@@ -137,7 +143,7 @@ class PromptInput extends Component<Props> {
                         disabled={(this.messageInput?.trim() ?? '') === ''}
                         onClick={this.handleSendMessage}
                         skin="primary"
-                    >{translate('sulu_ai.send')}</Button>
+                    >{sendMessage}</Button>
                 </div>
             </div>
         );

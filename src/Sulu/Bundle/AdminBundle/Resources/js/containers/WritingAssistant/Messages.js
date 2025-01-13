@@ -7,10 +7,12 @@ import messagesStyles from './messages.scss';
 import type {MessageType} from './types';
 
 type Props = {|
+    isLoading: boolean,
     loader: ?{
         commandTitle: string,
         expert: string,
     },
+    locale: string,
     messages: Array<MessageType>,
     onCopy: (text: string) => void,
     onInsert: (text: string) => void,
@@ -27,7 +29,8 @@ class Messages extends Component<Props> {
 
     handleMessageRetryClicked = (index: number) => {
         const {onRetry, messages} = this.props;
-        onRetry(messages[index].command, messages[index].title);
+
+        onRetry(messages[index].command || '', messages[index].title || '');
     };
 
     handleMessageInsertClicked = (text: string) => {
@@ -40,16 +43,19 @@ class Messages extends Component<Props> {
         onMessageClicked(index);
     };
 
-    renderMessages = (messages, offset = 0) => {
-        return messages.map((message, index) => (
+    renderMessages = (messages: Array<MessageType>, offset: number = 0) => {
+        // $FlowFixMe
+        return messages.map((message: MessageType, index: number) => (
             <Message
-                collapsed={index > 0 ? message.collapsed : null}
-                command={message.command}
-                displayActions={message.displayActions}
+                collapsed={index > 0 ? message.collapsed : false}
+                command={message.command || ''}
+                displayActions={message.displayActions || false}
                 expert={message.expert}
                 index={index + offset}
+                isLoading={this.props.isLoading}
                 key={index}
-                onClick={index > 0 ? this.handleMessageClicked : null}
+                locale={this.props.locale}
+                onClick={index > 0 ? this.handleMessageClicked : undefined}
                 onCopy={this.handleMessageCopyClicked}
                 onInsert={this.handleMessageInsertClicked}
                 onRetry={this.handleMessageRetryClicked}
@@ -61,13 +67,19 @@ class Messages extends Component<Props> {
     };
 
     render() {
-        const {messages, loader} = this.props;
+        const {
+            messages,
+            loader,
+        } = this.props;
+
+        // $FlowFixMe
+        const loaderNode = loader ? <Loader {...loader} /> : undefined;
 
         return (
             <div className={messagesStyles.messages}>
                 {this.renderMessages([messages[0]])}
-                {messages.length > 1 || loader ? <hr className={messagesStyles.messageDivider} /> : null}
-                {loader && <Loader {...loader} />}
+                {messages.length > 1 || loader ? <hr className={messagesStyles.messageDivider} /> : undefined}
+                {loaderNode}
                 {this.renderMessages(messages.slice(1), 1)}
             </div>
         );
