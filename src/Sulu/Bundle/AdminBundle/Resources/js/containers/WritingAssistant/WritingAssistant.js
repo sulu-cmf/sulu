@@ -2,9 +2,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {action, observable, computed, toJS} from 'mobx';
-import symfonyRouting from 'fos-jsrouting/router';
 import {Requester} from '../../services';
-import {translate} from '../../utils';
 import {Overlay} from '../../components';
 import writingAssistantStyles from './writingAssistant.scss';
 import Messages from './Messages';
@@ -22,9 +20,18 @@ type Props = {|
         },
     },
     locale: string,
+    messages: {
+        addMessage: string,
+        copiedToClipboard: string,
+        initialMessage: string,
+        predefinedPrompts: string,
+        send: string,
+        writingAssistant: string,
+    },
     onConfirm: (text: string) => void,
     onDialogClose: () => void,
     type: 'text_line' | 'text_area' | 'text_editor',
+    url: string,
     value?: string,
 |};
 
@@ -47,7 +54,7 @@ export default class WritingAssistant extends React.Component<Props> {
         // push initial message
         this.messages.push(
             {
-                title: translate('sulu_ai.writing_assistant_initial_message'),
+                title: this.props.messages.initialMessage,
                 text: props.value || '',
                 type: props.type,
                 collapsed: true,
@@ -86,13 +93,8 @@ export default class WritingAssistant extends React.Component<Props> {
     @action optimizeText = async(prompt: string, title: ?string) => {
         const {
             locale,
+            url,
         } = this.props;
-
-        const url = symfonyRouting.generate('sulu_ai.writing_assistant', {
-            chatId: this.identifier || '',
-            expertUuid: this.selectedExpert,
-            locale,
-        });
 
         this.loader = {
             commandTitle: title ?? prompt,
@@ -103,6 +105,8 @@ export default class WritingAssistant extends React.Component<Props> {
             {
                 text: this.currentValue,
                 message: prompt,
+                expertUuid: this.selectedExpert,
+                locale,
             }
         ).then(action((data) => {
             this.loader = undefined;
@@ -169,12 +173,17 @@ export default class WritingAssistant extends React.Component<Props> {
     }
 
     @computed get predefinedPrompts() {
-        const {configuration} = this.props;
+        const {
+            configuration,
+            messages: {
+                predefinedPrompts: predefinedPromptsMessage,
+            },
+        } = this.props;
 
         const predefinedPrompts = configuration.experts[this.selectedExpert].options.predefinedPrompts || [];
 
         return predefinedPrompts.length > 1 ? {
-            label: translate('sulu_ai.predefined_prompts'),
+            label: predefinedPromptsMessage,
             options: predefinedPrompts.map((predefinedPrompt, index) => ({
                 id: index,
                 name: predefinedPrompt.name,
@@ -189,7 +198,9 @@ export default class WritingAssistant extends React.Component<Props> {
     };
 
     @action handleOnInsert = (text: string) => {
-        const {onConfirm} = this.props;
+        const {
+            onConfirm,
+        } = this.props;
 
         // We have to stop the propagation of the event to prevent the focus lose of the input / editor field
         // $FlowFixMe
@@ -198,8 +209,14 @@ export default class WritingAssistant extends React.Component<Props> {
     };
 
     @action handleOnCopy = (text: string) => {
+        const {
+            messages: {
+                copiedToClipboard: copiedToClipboardMessage,
+            },
+        } = this.props;
+
         void navigator.clipboard.writeText(text);
-        this.snackbarMessage = translate('sulu_ai.successfully_copied_to_clipboard');
+        this.snackbarMessage = copiedToClipboardMessage;
     };
 
     @action handleSnackbarCloseClick = () => {
@@ -209,6 +226,12 @@ export default class WritingAssistant extends React.Component<Props> {
     render() {
         const {
             action: Action,
+            locale,
+            messages: {
+                writingAssistant: writingAssistantMessage,
+                addMessage: addMessageMessage,
+                send: sendMessage,
+            },
         } = this.props;
 
         const actionNode = Action ? (
@@ -226,14 +249,16 @@ export default class WritingAssistant extends React.Component<Props> {
                 size="small"
                 snackbarMessage={this.snackbarMessage}
                 snackbarType="success"
-                title={translate('sulu_ai.writing_assistant')}
+                title={writingAssistantMessage}
             >
                 {actionNode}
 
                 <div className={writingAssistantStyles.content}>
                     <div className={writingAssistantStyles.chat}>
                         <Messages
+                            isLoading={!!this.loader}
                             loader={this.loader}
+                            locale={locale}
                             messages={toJS(this.messages)}
                             onCopy={this.handleOnCopy}
                             onInsert={this.handleOnInsert}
@@ -243,6 +268,10 @@ export default class WritingAssistant extends React.Component<Props> {
                         <PromptInput
                             experts={this.expertsButton}
                             isLoading={!!this.loader}
+                            messages={{
+                                addMessage: addMessageMessage,
+                                send: sendMessage,
+                            }}
                             onAddMessage={this.handleAddMessage}
                             predefinedPrompts={this.predefinedPrompts}
                         />

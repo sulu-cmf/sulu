@@ -3,17 +3,18 @@
 import React, {Component, Fragment} from 'react';
 import {observable} from 'mobx';
 import {Button} from '../../components';
-import TextEditor from '../TextEditor';
+import {TextEditor} from '../../containers';
 import messageStyles from './message.scss';
 
 type Props = {|
     collapsed: boolean,
     command: string,
     displayActions: boolean,
+    expert: ?string,
     index: number,
     isLoading: boolean,
     locale: string,
-    onClick: (index: number) => void,
+    onClick?: (index: number) => void,
     onCopy: (text: string) => void,
     onInsert: (text: string) => void,
     onRetry: (index: number) => void,
@@ -100,7 +101,7 @@ class Message extends Component<Props> {
                     <TextEditor
                         adapter="ckeditor5"
                         disabled={true}
-                        locale={observable(locale)}
+                        locale={observable.box(locale)}
                         onChange={this.handleTextEditorChange}
                         value={text}
                     />

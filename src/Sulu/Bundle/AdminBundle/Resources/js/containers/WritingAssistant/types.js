@@ -7,18 +7,17 @@ export type MessageType = {|
     expert?: string,
     text: string,
     title?: string,
-    type: string,
+    type: 'text_line' | 'text_area' | 'text_editor',
 |};
 
 export type ExpertType = {|
-    description: string,
+    description?: string,
     name: string,
     options: {
-        predefinedPrompts?: {
+        predefinedPrompts?: Array<{
             name: string,
             prompt: string,
-            type: string,
-        }[],
+        }>,
     },
     uuid: string,
 |};
