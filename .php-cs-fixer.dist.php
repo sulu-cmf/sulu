@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__.'/src/CodeStyle/InternalClassFixer.php';
+require __DIR__ .'/tests/php-cs-fixer/InternalClassFixer.php';
 
 $header = <<<EOF
 This file is part of Sulu.
@@ -20,7 +20,7 @@ $config
     ->setRiskyAllowed(true)
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->registerCustomFixers([
-        new \CodeStyle\InternalClassFixer(),
+        new \InternalClassFixer(),
     ])
     ->setRules([
         '@Symfony' => true,
