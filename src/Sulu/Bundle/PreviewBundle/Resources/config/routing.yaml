@@ -1,0 +1,20 @@
+sulu_preview.start:
+    path: /start
+    controller: sulu_preview.preview_controller::startAction
+
+sulu_preview.render:
+    path: /render
+    controller: sulu_preview.preview_controller::renderAction
+
+sulu_preview.update:
+    path: /update
+    methods: [POST]
+    controller: sulu_preview.preview_controller::updateAction
+
+sulu_preview.update-context:
+    path: /update-context
+    controller: sulu_preview.preview_controller::updateContextAction
+    
+sulu_preview.stop:
+    path: /stop
+    controller: sulu_preview.preview_controller::stopAction
