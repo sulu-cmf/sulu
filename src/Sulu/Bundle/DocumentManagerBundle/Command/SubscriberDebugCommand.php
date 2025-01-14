@@ -66,7 +66,7 @@ class SubscriberDebugCommand extends Command
         }
 
         \usort($rows, function($a, $b) {
-            return $a[2] < $b[2];
+            return $b[2] <=> $a[2];
         });
 
         $table = new Table($output);
