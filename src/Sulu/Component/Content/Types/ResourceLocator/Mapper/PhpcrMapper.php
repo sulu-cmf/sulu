@@ -214,7 +214,7 @@ class PhpcrMapper implements ResourceLocatorMapperInterface
         \usort(
             $result,
             function(ResourceLocatorInformation $item1, ResourceLocatorInformation $item2) {
-                return $item1->getCreated() < $item2->getCreated();
+                return $item2->getCreated() <=> $item1->getCreated();
             }
         );
 

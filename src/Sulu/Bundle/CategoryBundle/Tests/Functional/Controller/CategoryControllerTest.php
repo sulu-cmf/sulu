@@ -199,7 +199,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -309,7 +309,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -362,7 +362,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -415,7 +415,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -471,7 +471,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -565,7 +565,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -601,7 +601,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -640,7 +640,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -709,7 +709,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -750,7 +750,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -804,7 +804,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -893,7 +893,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
@@ -945,7 +945,7 @@ class CategoryControllerTest extends SuluTestCase
         \usort(
             $categories,
             function($cat1, $cat2) {
-                return $cat1->id > $cat2->id;
+                return $cat1->id <=> $cat2->id;
             }
         );
 
