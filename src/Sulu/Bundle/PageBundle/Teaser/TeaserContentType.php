@@ -56,7 +56,7 @@ class TeaserContentType extends SimpleContentType implements PreResolvableConten
 
     protected function decodeValue($value)
     {
-        return \json_decode($value, true);
+        return $value !== null ? json_decode($value, true) : null;
     }
 
     protected function encodeValue($value)

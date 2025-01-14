@@ -209,6 +209,9 @@ class WebspaceManager implements WebspaceManagerInterface
             $currentWebspace = $this->getCurrentWebspace();
             $webspaceKey = $currentWebspace ? $currentWebspace->getKey() : $webspaceKey;
         }
+        if (null === $resourceLocator) {
+            $resourceLocator = '/';
+        }
 
         if (isset($this->portalUrlCache[$webspaceKey][$domain][$environment][$languageCode])) {
             $portalUrl = $this->portalUrlCache[$webspaceKey][$domain][$environment][$languageCode];
@@ -288,7 +291,7 @@ class WebspaceManager implements WebspaceManagerInterface
 
         $this->portalUrlCache[$webspaceKey][$domain][$environment][$languageCode] = $portalUrl;
 
-        if (!$portalUrl) {
+        if (!$portalUrl || $resourceLocator === null) {
             return null;
         }
 
