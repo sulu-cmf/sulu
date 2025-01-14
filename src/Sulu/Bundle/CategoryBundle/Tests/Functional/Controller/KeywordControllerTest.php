@@ -93,7 +93,7 @@ class KeywordControllerTest extends SuluTestCase
         $this->assertEquals(2, $response->total);
 
         \usort($response->_embedded->category_keywords, function($key1, $key2) {
-            return $key1->id > $key2->id;
+            return $key1->id <=> $key2->id;
         });
 
         $this->assertEquals('keyword1', $response->_embedded->category_keywords[0]->keyword);

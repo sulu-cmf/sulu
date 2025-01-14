@@ -152,6 +152,7 @@ class PagesSitemapProviderTest extends TestCase
             $this->createContent('/test-1'),
             $this->createContent('/test-2', false, RedirectType::NONE, [], 'de', [], (new \DateTime())->modify('+1 day')->format('c')),
             $this->createContent('/test-3', false, RedirectType::NONE, [], 'de', [], (new \DateTime())->modify('-3 day')->format('c')),
+            $this->createContent('/test-4', false, RedirectType::NONE, [], 'de', [], ''),
         ];
 
         $this->contentRepository->findAllByPortal(
@@ -165,13 +166,17 @@ class PagesSitemapProviderTest extends TestCase
         )->willReturn($pages);
 
         $this->accessControlManager->getUserPermissionByArray('de', 'sulu.webspaces.sulu_io', [], null)
-            ->shouldBeCalledTimes(3);
+            ->shouldBeCalledTimes(4);
 
         $result = $this->sitemapProvider->build(1, 'http', 'localhost');
 
-        $this->assertCount(3, $result);
-        for ($i = 0; $i < 3; ++$i) {
-            $pageLastMod = $pages[$i]->getData()['lastModified'] ?? $pages[$i]->getData()['changed'];
+        $this->assertCount(4, $result);
+        for ($i = 0; $i < 4; ++$i) {
+            $pageLastMod = $pages[$i]->getData()['changed'];
+
+            if (!empty($pages[$i]->getData()['lastModified'])) {
+                $pageLastMod = $pages[$i]->getData()['lastModified'];
+            }
 
             $this->assertEquals('http://localhost' . $pages[$i]->getUrl(), $result[$i]->getLoc());
             $this->assertEquals(new \DateTime($pageLastMod), $result[$i]->getLastMod());

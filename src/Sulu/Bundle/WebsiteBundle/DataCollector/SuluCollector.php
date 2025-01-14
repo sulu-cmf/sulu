@@ -13,15 +13,22 @@ namespace Sulu\Bundle\WebsiteBundle\DataCollector;
 
 use Sulu\Component\Content\Compat\StructureInterface;
 use Sulu\Component\Webspace\Analyzer\Attributes\RequestAttributes;
+use Sulu\Component\Webspace\Portal;
+use Sulu\Component\Webspace\Webspace;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 class SuluCollector extends DataCollector
 {
+    public function __construct(
+        private string $kernelEnvironment = 'dev'
+    ) {
+    }
+
     public function data($key)
     {
-        return $this->data[$key];
+        return $this->data[$key] ?? null;
     }
 
     public function collect(Request $request, Response $response, ?\Throwable $exception = null)
@@ -33,20 +40,31 @@ class SuluCollector extends DataCollector
         /** @var RequestAttributes $requestAttributes */
         $requestAttributes = $request->attributes->get('_sulu');
 
+        /** @var ?Webspace $webspace */
         $webspace = $requestAttributes->getAttribute('webspace');
+        /** @var ?Portal $portal */
         $portal = $requestAttributes->getAttribute('portal');
         $segment = $requestAttributes->getAttribute('segment');
 
         $this->data['match_type'] = $requestAttributes->getAttribute('matchType');
         $this->data['redirect'] = $requestAttributes->getAttribute('redirect');
         $this->data['portal_url'] = $requestAttributes->getAttribute('portalUrl');
+        $this->data['segment'] = $requestAttributes->getAttribute('segment');
 
         if ($webspace) {
             $this->data['webspace'] = $webspace->toArray();
+            unset($this->data['webspace']['portals']);
+            $this->flattenLocalization($this->data['webspace']['localizations']);
         }
 
         if ($portal) {
             $this->data['portal'] = $portal->toArray();
+            $this->data['portal']['environments'] = \array_combine(
+                \array_column($this->data['portal']['environments'] ?? [], 'type'),
+                $this->data['portal']['environments'] ?? [],
+            );
+            $this->flattenLocalization($this->data['portal']['localizations']);
+            $this->data['environment'] = $portal->getEnvironment($this->kernelEnvironment);
         }
 
         if ($segment) {
@@ -66,6 +84,7 @@ class SuluCollector extends DataCollector
 
                 $structure = [
                     'id' => $structureObject->getUuid(),
+                    'objectClass' => $structureObject::class,
                     'path' => $structureObject->getPath(),
                     'nodeType' => $structureObject->getNodeType(),
                     'internal' => $structureObject->getInternal(),
@@ -88,6 +107,19 @@ class SuluCollector extends DataCollector
             }
         }
         $this->data['structure'] = $structure;
+    }
+
+    /**
+     * @param array<array{language: string, default: bool}>|null $localizations
+     */
+    private function flattenLocalization(?array &$localizations): void
+    {
+        if (null === $localizations) {
+            return;
+        }
+        foreach ($localizations as &$localization) {
+            $localization = (string) $localization['language'] . ($localization['default'] ? ' (default)' : '');
+        }
     }
 
     public function getName()
