@@ -1,0 +1,55 @@
+sulu_tag.get_tag:
+    path: /tags/{id}.{_format}
+    controller: sulu_tag.tag_controller::getAction
+    methods: GET
+    format: json
+    defaults:
+        _format: json
+
+sulu_tag.get_tags:
+    path: /tags.{_format}
+    controller: sulu_tag.tag_controller::cgetAction
+    methods: GET
+    format: json|csv
+    defaults:
+        _format: json
+
+sulu_tag.post_tag:
+    path: /tags.{_format}
+    controller: sulu_tag.tag_controller::postAction
+    methods: POST
+    format: json
+    defaults:
+        _format: json
+
+sulu_tag.put_tag:
+    path: /tags/{id}.{_format}
+    controller: sulu_tag.tag_controller::putAction
+    methods: PUT
+    format: json
+    defaults:
+        _format: json
+
+sulu_tag.delete_tag:
+    path: /tags/{id}.{_format}
+    controller: sulu_tag.tag_controller::deleteAction
+    methods: DELETE
+    format: json
+    defaults:
+        _format: json
+
+sulu_tag.patch_tag:
+    path: /tags.{_format}
+    controller: sulu_tag.tag_controller::patchAction
+    methods: PATCH
+    format: json
+    defaults:
+        _format: json
+
+sulu_tag.post_tag_merge:
+    path: /tags/merge.{_format}
+    controller: sulu_tag.tag_controller::postMergeAction
+    methods: POST
+    format: json
+    defaults:
+        _format: json
