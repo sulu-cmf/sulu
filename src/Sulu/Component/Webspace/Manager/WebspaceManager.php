@@ -291,7 +291,7 @@ class WebspaceManager implements WebspaceManagerInterface
 
         $this->portalUrlCache[$webspaceKey][$domain][$environment][$languageCode] = $portalUrl;
 
-        if (!$portalUrl || $resourceLocator === null) {
+        if (!$portalUrl) {
             return null;
         }
 
