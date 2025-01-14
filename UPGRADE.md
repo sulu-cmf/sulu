@@ -70,6 +70,7 @@ sulu_media:
             secret: 'your aws s3 secret'
             bucket_name: 'your aws s3 bucket name'
             path_prefix: 'optional/path/prefix'
+            public_url: 'http://some_cdn.com'
             region: 'eu-west-1'
 ```
 
@@ -80,6 +81,7 @@ flysystem:
     storages:
         default.storage:
             adapter: 'aws'
+            public_url: 'http://some_cdn.com'
             options:
                 client: 'aws_client_service' # see service below
                 key: ''
