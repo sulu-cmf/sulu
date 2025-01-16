@@ -2896,7 +2896,7 @@ parameters:
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Tests/Functional/Controller/TargetGroupControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AudienceTargetingBundle/Tests/Functional/Controller/TargetGroupControllerTest.php
 
@@ -4371,7 +4371,7 @@ parameters:
 			path: src/Sulu/Bundle/CategoryBundle/Tests/Functional/Controller/CategoryControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/CategoryBundle/Tests/Functional/Controller/CategoryControllerTest.php
 
@@ -4676,7 +4676,7 @@ parameters:
 			path: src/Sulu/Bundle/CategoryBundle/Tests/Unit/Category/KeywordManagerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/CategoryBundle/Tests/Unit/Search/Converter/CategoryConverterTest.php
 
@@ -9191,7 +9191,7 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Tests/Functional/Controller/AccountControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/ContactBundle/Tests/Functional/Controller/AccountControllerTest.php
 
@@ -9256,7 +9256,12 @@ parameters:
 			path: src/Sulu/Bundle/ContactBundle/Tests/Functional/Controller/AdminControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, array\\|ArrayAccess given\\.$#"
+			count: 3
+			path: src/Sulu/Bundle/ContactBundle/Tests/Functional/Controller/AdminControllerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/ContactBundle/Tests/Functional/Controller/AdminControllerTest.php
 
@@ -10716,8 +10721,18 @@ parameters:
 			path: src/Sulu/Bundle/CustomUrlBundle/Tests/Functional/Controller/CustomUrlControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, array\\|ArrayAccess given\\.$#"
 			count: 4
+			path: src/Sulu/Bundle/CustomUrlBundle/Tests/Functional/Controller/CustomUrlControllerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
+			count: 4
+			path: src/Sulu/Bundle/CustomUrlBundle/Tests/Functional/Controller/CustomUrlControllerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, array\\|ArrayAccess given\\.$#"
+			count: 3
 			path: src/Sulu/Bundle/CustomUrlBundle/Tests/Functional/Controller/CustomUrlControllerTest.php
 
 		-
@@ -15116,7 +15131,7 @@ parameters:
 			path: src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/AdminControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/AdminControllerTest.php
 
@@ -20836,7 +20851,12 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Compat/StructureBridgeSerializationTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, array\\|ArrayAccess given\\.$#"
+			count: 2
+			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Compat/StructureBridgeSerializationTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Compat/StructureBridgeSerializationTest.php
 
@@ -21291,12 +21311,22 @@ parameters:
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Controller/PageControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, array\\|ArrayAccess given\\.$#"
+			count: 14
+			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Controller/PageControllerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 7
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Controller/PageControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, array\\|ArrayAccess given\\.$#"
+			count: 5
+			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Controller/PageControllerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 4
 			path: src/Sulu/Bundle/PageBundle/Tests/Functional/Controller/PageControllerTest.php
 
@@ -25196,7 +25226,7 @@ parameters:
 			path: src/Sulu/Bundle/SearchBundle/Tests/Resources/TestBundle/EventListener/StructureMetadataLoadListener.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/SearchBundle/Tests/Unit/Search/Converter/StructureConverterTest.php
 
@@ -26736,7 +26766,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Tests/Functional/Controller/RoleControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/SecurityBundle/Tests/Functional/Controller/RoleControllerTest.php
 
@@ -28596,12 +28626,12 @@ parameters:
 			path: src/Sulu/Bundle/SnippetBundle/Tests/Functional/Controller/SnippetControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SnippetBundle/Tests/Functional/Controller/SnippetControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SnippetBundle/Tests/Functional/Controller/SnippetControllerTest.php
 
@@ -29561,7 +29591,7 @@ parameters:
 			path: src/Sulu/Bundle/TagBundle/Tests/Functional/Controller/TagControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
 			count: 2
 			path: src/Sulu/Bundle/TagBundle/Tests/Unit/Search/TagsConverterTest.php
 
@@ -30016,7 +30046,12 @@ parameters:
 			path: src/Sulu/Bundle/TrashBundle/Tests/Functional/UserInterface/Controller/Admin/TrashItemControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$array of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, mixed given\\.$#"
+			count: 1
+			path: src/Sulu/Bundle/TrashBundle/Tests/Functional/UserInterface/Controller/Admin/TrashItemControllerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, array\\|ArrayAccess given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/TrashBundle/Tests/Functional/UserInterface/Controller/Admin/TrashItemControllerTest.php
 
@@ -31731,7 +31766,7 @@ parameters:
 			path: src/Sulu/Bundle/WebsiteBundle/Tests/Functional/Navigation/NavigationMapperTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess, Sulu\\\\Bundle\\\\WebsiteBundle\\\\Navigation\\\\NavigationItem given\\.$#"
+			message: "#^Parameter \\#2 \\$array of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess\\<\\(int\\|string\\), mixed\\>, Sulu\\\\Bundle\\\\WebsiteBundle\\\\Navigation\\\\NavigationItem given\\.$#"
 			count: 4
 			path: src/Sulu/Bundle/WebsiteBundle/Tests/Functional/Navigation/NavigationMapperTest.php
 
