@@ -166,7 +166,7 @@
         "jackalope/jackalope-jackrabbit": "< 1.4.4 || >= 2.0.0",
         "jms/serializer-bundle": "3.9.0 || 4.1.0",
         "php-http/discovery": "< 1.8.0",
-        "rokka/imagine-vips": "<0.20 || >0.31",
+        "rokka/imagine-vips": "< 0.20 || >= 0.41",
         "scheb/2fa-backup-code": "< 6.0 || >= 7.0",
         "scheb/2fa-bundle": "< 6.0 || >= 7.0",
         "scheb/2fa-email": "< 6.0 || >= 7.0",
