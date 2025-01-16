@@ -25,6 +25,7 @@ parameters:
         - %currentWorkingDirectory%/*/Tests/Application/var/*
         - %currentWorkingDirectory%/*/Tests/app/cache/*
         - %currentWorkingDirectory%/*/Tests/app/var/*
+        - %currentWorkingDirectory%/packages/*/tests*
         # RestController extends FOSRestController which was removed in friendsofsymfony/rest-bundle:3.0
         - %currentWorkingDirectory%/src/Sulu/Component/Rest/RestController.php
         # SwiftMailer was removed and con not be analyzed by phpstan anymore

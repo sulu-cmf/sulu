@@ -40266,11 +40266,6 @@ parameters:
 			path: src/Sulu/Component/Content/Types/ResourceLocator/Mapper/PhpcrMapper.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function usort expects callable\\(Sulu\\\\Component\\\\Content\\\\Types\\\\ResourceLocator\\\\ResourceLocatorInformation, Sulu\\\\Component\\\\Content\\\\Types\\\\ResourceLocator\\\\ResourceLocatorInformation\\)\\: int, Closure\\(Sulu\\\\Component\\\\Content\\\\Types\\\\ResourceLocator\\\\ResourceLocatorInformation, Sulu\\\\Component\\\\Content\\\\Types\\\\ResourceLocator\\\\ResourceLocatorInformation\\)\\: bool given\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Types/ResourceLocator/Mapper/PhpcrMapper.php
-
-		-
 			message: "#^Parameter \\#2 \\$created of class Sulu\\\\Component\\\\Content\\\\Types\\\\ResourceLocator\\\\ResourceLocatorInformation constructor expects DateTime\\|null, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Types/ResourceLocator/Mapper/PhpcrMapper.php
