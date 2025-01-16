@@ -1,0 +1,75 @@
+{% use "@SuluWebsite/Extension/blocks.html.twig" %}
+
+{% include "@SuluWebsite/Extension/seo.html.twig" with {
+    "seo": extension.seo|default([]),
+    "content": content|default([]),
+    "localizations": localizations|default([]),
+    "shadowBaseLocale": shadowBaseLocale|default(),
+} %}
+
+{% apply spaceless %}
+    {% set audience = meta.default.audience ?? "all" %}
+    {% set author = meta.default.author ?? null %}
+    {% set copyright = meta.default.copyright ?? null %}
+    {% set distribution = meta.default.distribution ?? "global" %}
+    {% set publisher = meta.default.publisher ?? null %}
+
+    {% set language = meta.default.language ?? app.request.locale|split("_")[0] %}
+    {% set url = meta.default.url ?? app.request.uri %}
+
+    {% set title = meta.default.title ?? extension.seo.title|default(content.title|default()) %}
+    {% set description = meta.default.description ?? extension.seo.description|default() %}
+
+    {% set imageFormat = meta.default.imageFormat ?? "sulu-400x400-inset" %}
+    {% set fallbackImage = meta.default.fallbackImage|default() %}
+
+    {% set defaultTags = {
+        "audience": audience,
+        "author": author,
+        "copyright": copyright,
+        "distribution": distribution,
+        "image": block("determineImage"),
+        "language": language,
+        "publisher": publisher,
+    } %}
+
+    {% set imageFormat = meta.facebook.imageFormat ?? imageFormat %}
+    {% set fallbackImage = meta.facebook.fallbackImage|default(meta.default.fallbackImage|default()) %}
+
+    {% set facebookTags = {
+        "og:url": meta.facebook.url ?? url,
+        "og:type": meta.facebook.type ?? "website",
+        "og:title": meta.facebook.title ?? title,
+        "og:description": meta.facebook.description ?? description,
+        "og:image": block("determineImage")
+    } %}
+
+    {% set imageFormat = meta.twitter.imageFormat ?? imageFormat %}
+    {% set fallbackImage = meta.twitter.fallbackImage|default(meta.default.fallbackImage|default()) %}
+
+    {% set twitterTags = {
+        "twitter:card": meta.twitter.card ?? "summary",
+        "twitter:url": meta.twitter.url ?? url,
+        "twitter:title": meta.twitter.title ?? title,
+        "twitter:description": meta.twitter.description ?? description,
+        "twitter:image": block("determineImage")
+    } %}
+{% endapply %}
+
+{% block defaultTags %}
+    {% for name, content in defaultTags|filter(value => value) %}
+        <meta name="{{ name }}" content="{{ content }}">
+    {% endfor %}
+{% endblock %}
+
+{% block facebookTags %}
+    {% for name, content in facebookTags|filter(value => value) %}
+        <meta name="{{ name }}" content="{{ content }}">
+    {% endfor %}
+{% endblock %}
+
+{% block twitterTags %}
+    {% for name, content in twitterTags|filter(value => value) %}
+        <meta name="{{ name }}" content="{{ content }}">
+    {% endfor %}
+{% endblock %}

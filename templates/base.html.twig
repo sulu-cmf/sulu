@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block meta %}
-        {% include "@SuluWebsite/Extension/seo.html.twig" with {
+        {% include "@SuluWebsite/Extension/seo_meta.html.twig" with {
             "seo": extension.seo|default([]),
             "content": content|default([]),
             "localizations": localizations|default([]),
