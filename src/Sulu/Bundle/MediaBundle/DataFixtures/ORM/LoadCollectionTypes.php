@@ -19,9 +19,13 @@ use Doctrine\Persistence\ObjectManager;
 use Sulu\Bundle\MediaBundle\Entity\CollectionType;
 use Sulu\Component\Media\SystemCollections\SystemCollectionManagerInterface;
 
+/**
+ * @internal This is an internal class which should not be used by a project.
+ *           Instead Create your own fixtures file instead.
+ */
 class LoadCollectionTypes extends AbstractFixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // set id manually
         $metadata = $manager->getClassMetaData(CollectionType::class);
