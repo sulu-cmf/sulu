@@ -31,7 +31,7 @@ return RectorConfig::configure()
     ->withSkipPath('*/tests/Resources/cache')
     ->withSkipPath('*/node_modules')
     ->withPHPStanConfigs([
-        __DIR__ . '/phpstan.neon',
+        __DIR__ . '/phpstan.dist.neon',
     ])
     ->withSymfonyContainerXml(__DIR__ . '/var/cache/admin/dev/App_KernelDevDebugContainer.xml')
     // ->withImportNames(importShortClasses: false)

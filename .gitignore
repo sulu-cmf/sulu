@@ -41,7 +41,7 @@ phpunit.xml
 .phpunit.cache
 
 # phpstan
-/phpstan.neon
+phpstan.neon
 
 # IDEs
 /.idea
