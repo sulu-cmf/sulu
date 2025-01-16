@@ -246,7 +246,7 @@ final class InternalClassFixer extends AbstractFixer implements WhitespacesAware
         $lines = $docBlock->getLines();
         $originalIndent = WhitespacesAnalyzer::detectIndent($tokens, $docBlockIndex);
         $lineEnd = $this->whitespacesConfig->getLineEnding();
-        \array_splice($lines, -1, 0, $originalIndent . ' * @' . $annotation . $lineEnd);
+        \array_splice($lines, -1, 0, $originalIndent . ' * @' . $annotation . ' This is an internal class which should not be used by a project.' . $lineEnd);
 
         return $lines;
     }
