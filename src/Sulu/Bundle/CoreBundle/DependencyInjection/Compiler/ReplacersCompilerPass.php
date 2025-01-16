@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Compiles replacers.xml into a container parameter.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class ReplacersCompilerPass implements CompilerPassInterface
 {

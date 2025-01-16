@@ -18,6 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Get all snippets from compiler.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class SnippetAreaCompilerPass implements CompilerPassInterface
 {

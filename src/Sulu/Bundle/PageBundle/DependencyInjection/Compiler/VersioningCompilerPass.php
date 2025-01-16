@@ -14,6 +14,9 @@ namespace Sulu\Bundle\PageBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class VersioningCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

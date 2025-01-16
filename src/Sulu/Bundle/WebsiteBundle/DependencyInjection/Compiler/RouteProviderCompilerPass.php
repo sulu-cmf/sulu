@@ -20,6 +20,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * CompilerPass, which instantiates the route provider only when the required dependencies exist.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class RouteProviderCompilerPass implements CompilerPassInterface
 {

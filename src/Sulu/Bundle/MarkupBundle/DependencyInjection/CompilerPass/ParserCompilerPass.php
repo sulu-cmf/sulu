@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Collects all parsers for markup.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class ParserCompilerPass implements CompilerPassInterface
 {

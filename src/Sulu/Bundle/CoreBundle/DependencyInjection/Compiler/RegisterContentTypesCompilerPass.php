@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Add tagged content types to the content manager.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class RegisterContentTypesCompilerPass implements CompilerPassInterface
 {

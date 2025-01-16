@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Appends csv-handler to fos-rest view-handler.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class CsvHandlerCompilerPass implements CompilerPassInterface
 {

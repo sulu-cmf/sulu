@@ -16,6 +16,9 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class S3Kernel extends Kernel implements CompilerPassInterface
 {
     public function registerContainerConfiguration(LoaderInterface $loader): void

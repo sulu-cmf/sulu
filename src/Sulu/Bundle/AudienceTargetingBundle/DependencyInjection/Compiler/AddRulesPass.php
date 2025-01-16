@@ -15,6 +15,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class AddRulesPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

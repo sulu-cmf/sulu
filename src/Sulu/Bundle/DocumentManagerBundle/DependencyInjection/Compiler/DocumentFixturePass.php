@@ -16,6 +16,9 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class DocumentFixturePass implements CompilerPassInterface
 {
     public const TAG_NAME = 'sulu.document_manager_fixture';

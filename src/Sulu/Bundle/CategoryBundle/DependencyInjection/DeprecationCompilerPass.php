@@ -19,6 +19,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * This is necessary to avoid BC breaks since these values are set dynamically by the PersistenceBundle.
  *
  * @deprecated This is here only for BC reasons and will be removed in 2.0
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class DeprecationCompilerPass implements CompilerPassInterface
 {
