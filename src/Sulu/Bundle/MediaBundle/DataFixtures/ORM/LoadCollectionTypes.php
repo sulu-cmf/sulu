@@ -57,7 +57,7 @@ class LoadCollectionTypes extends AbstractFixture implements OrderedFixtureInter
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 3;
     }

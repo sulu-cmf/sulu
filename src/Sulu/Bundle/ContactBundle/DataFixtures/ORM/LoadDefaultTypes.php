@@ -182,7 +182,7 @@ class LoadDefaultTypes extends AbstractFixture implements OrderedFixtureInterfac
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 2;
     }

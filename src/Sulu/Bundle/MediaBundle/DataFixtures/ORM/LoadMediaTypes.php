@@ -68,7 +68,7 @@ class LoadMediaTypes extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 4;
     }
