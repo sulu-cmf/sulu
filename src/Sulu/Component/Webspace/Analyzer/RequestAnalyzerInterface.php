@@ -56,11 +56,15 @@ interface RequestAnalyzerInterface
      * Analyzes the current request, and saves the values for portal, language, country and segment for further usage.
      *
      * @param Request $request The request to analyze
+     *
+     * @return void
      */
     public function analyze(Request $request);
 
     /**
      * Validates the data written on the given request and throws exceptions in case something is wrong or missing.
+     *
+     * @return void
      */
     public function validate(Request $request);
 

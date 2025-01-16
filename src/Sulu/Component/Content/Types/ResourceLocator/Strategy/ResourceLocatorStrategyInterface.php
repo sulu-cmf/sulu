@@ -117,6 +117,8 @@ interface ResourceLocatorStrategyInterface
      * @param string $id of resource locator node
      * @param string $languageCode
      * @param string $segmentKey
+     *
+     * @return void
      */
     public function deleteById($id, $languageCode, $segmentKey = null);
 

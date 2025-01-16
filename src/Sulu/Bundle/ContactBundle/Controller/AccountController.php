@@ -608,7 +608,7 @@ class AccountController extends AbstractRestController implements ClassResourceI
      *
      * @throws EntityNotFoundException
      */
-    private function setParent($parentData, AccountInterface $account)
+    private function setParent($parentData, AccountInterface $account): void
     {
         if (null != $parentData && isset($parentData['id']) && 'null' !== $parentData['id'] && '' !== $parentData['id']) {
             $parent = $this->accountRepository->findAccountById($parentData['id']);

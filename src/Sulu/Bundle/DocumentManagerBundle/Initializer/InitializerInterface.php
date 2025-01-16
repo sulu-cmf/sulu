@@ -21,5 +21,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 interface InitializerInterface
 {
+    /**
+     * @return void
+     */
     public function initialize(OutputInterface $output, $purge = false);
 }

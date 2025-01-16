@@ -40,6 +40,8 @@ interface ContentTypeInterface
      * @param string $webspaceKey
      * @param string $languageCode
      * @param string|null $segmentKey
+     *
+     * @return bool
      */
     public function hasValue(
         NodeInterface $node,
@@ -56,6 +58,8 @@ interface ContentTypeInterface
      * @param string $webspaceKey
      * @param string $languageCode
      * @param string|null $segmentKey
+     *
+     * @return void
      */
     public function write(
         NodeInterface $node,
@@ -72,6 +76,8 @@ interface ContentTypeInterface
      * @param string $webspaceKey
      * @param string $languageCode
      * @param string|null $segmentKey
+     *
+     * @return void
      */
     public function remove(
         NodeInterface $node,
