@@ -32,7 +32,7 @@ class Collaboration
      * @param string $username
      * @param string $fullName
      * @param string $resourceKey
-     * @param mixed $id
+     * @param string|int|null $id
      */
     public function __construct(
         private $connectionId,
@@ -46,31 +46,49 @@ class Collaboration
         $this->changed = \time();
     }
 
+    /**
+     * @return string
+     */
     public function getConnectionId()
     {
         return $this->connectionId;
     }
 
+    /**
+     * @return string
+     */
     public function getResourceKey()
     {
         return $this->resourceKey;
     }
 
+    /**
+     * @return string|int|null
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return int
+     */
     public function getStarted()
     {
         return $this->started;
     }
 
+    /**
+     * @return int
+     */
     public function getChanged()
     {
         return $this->changed;
     }
 
+    /**
+     * @return void
+     */
     public function updateTime()
     {
         $this->changed = \time();

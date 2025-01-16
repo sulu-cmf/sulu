@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Sulu.
  *
@@ -252,7 +254,7 @@ class UpdateBuildCommand extends Command
         return 0;
     }
 
-    private function getLocalFile(string $path)
+    private function getLocalFile(string $path): string
     {
         if (!\file_exists($this->projectDir . $path)) {
             return '';
@@ -261,7 +263,7 @@ class UpdateBuildCommand extends Command
         return \file_get_contents($this->projectDir . $path);
     }
 
-    private function getRemoteFile(string $remoteRepository, string $path)
+    private function getRemoteFile(string $remoteRepository, string $path): string
     {
         $path = \str_replace(\DIRECTORY_SEPARATOR, '/', $path);
 
@@ -274,10 +276,13 @@ class UpdateBuildCommand extends Command
         }
     }
 
-    private function hash($content)
+    private function hash(string $content): string
     {
+        /** @var string $replacedContent */
+        $replacedContent = \preg_replace('/\s+/', '', $content);
+
         // we remove all whitespaces as the developer could change the indention or/and the line breaks of this files
-        return \hash('sha256', \preg_replace('/\s+/', '', $content));
+        return \hash('sha256', $replacedContent);
     }
 
     private function writeFile(string $path, string $content): void
@@ -300,7 +305,7 @@ class UpdateBuildCommand extends Command
 
         $jsonArray = \array_replace_recursive($mainJsonArray, $additionalJsonArray);
 
-        return \json_encode($jsonArray, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
+        return \json_encode($jsonArray, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR);
     }
 
     private function doManualBuild(SymfonyStyle $ui): int
@@ -345,8 +350,8 @@ class UpdateBuildCommand extends Command
             'node_modules',
         ];
 
+        /** @var array{dependencies: array<string, string>}|null $packageJson */
         $packageJson = \json_decode($this->getLocalFile(static::ASSETS_DIR . 'package.json'), true);
-
         if (!$packageJson) {
             throw new \Exception(\sprintf('Could not parse "%s" file', static::ASSETS_DIR . 'package.json'));
         }
@@ -379,7 +384,7 @@ class UpdateBuildCommand extends Command
         }
     }
 
-    private function runProcess(SymfonyStyle $ui, $command): int
+    private function runProcess(SymfonyStyle $ui, string $command): ?int
     {
         $process = Process::fromShellCommandline($command, $this->projectDir . static::ASSETS_DIR);
         $process->setTimeout(3600);

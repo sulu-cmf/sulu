@@ -31,6 +31,9 @@ class FormMetadata extends PropertiesMetadata
      */
     private $schema;
 
+    /**
+     * @return void
+     */
     public function setKey(string $key)
     {
         $this->key = $key;
@@ -41,6 +44,9 @@ class FormMetadata extends PropertiesMetadata
         return $this->key;
     }
 
+    /**
+     * @return void
+     */
     public function setSchema(SchemaMetadata $schema)
     {
         $this->schema = $schema;
