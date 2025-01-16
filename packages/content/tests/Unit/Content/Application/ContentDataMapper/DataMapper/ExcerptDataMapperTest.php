@@ -31,12 +31,12 @@ class ExcerptDataMapperTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @var ObjectProphecy|TagFactoryInterface
+     * @var ObjectProphecy<TagFactoryInterface>
      */
     private $tagFactory;
 
     /**
-     * @var ObjectProphecy|CategoryFactoryInterface
+     * @var ObjectProphecy<CategoryFactoryInterface>
      */
     private $categoryFactory;
 

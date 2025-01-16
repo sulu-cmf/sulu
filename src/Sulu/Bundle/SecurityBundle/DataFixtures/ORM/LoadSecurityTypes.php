@@ -20,6 +20,11 @@ use Sulu\Bundle\SecurityBundle\Entity\SecurityType;
  * Load security-types from xml to database.
  *
  * @deprecated
+ *
+ * @final
+ *
+ * @internal This is an internal class which should not be used by a project.
+ *            Instead Create your own fixtures file instead.
  */
 class LoadSecurityTypes implements FixtureInterface, OrderedFixtureInterface
 {
@@ -28,7 +33,7 @@ class LoadSecurityTypes implements FixtureInterface, OrderedFixtureInterface
     ) {
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // get already present
         $qb = $manager->createQueryBuilder();
@@ -79,7 +84,7 @@ class LoadSecurityTypes implements FixtureInterface, OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 5;
     }

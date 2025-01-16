@@ -18,9 +18,15 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
 use Sulu\Bundle\MediaBundle\Entity\MediaType;
 
+/**
+ * @final
+ *
+ * @internal This is an internal class which should not be used by a project.
+ *           Instead Create your own fixtures file instead.
+ */
 class LoadMediaTypes extends AbstractFixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // set id manually
         $metadata = $manager->getClassMetaData(MediaType::class);
@@ -62,7 +68,7 @@ class LoadMediaTypes extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 4;
     }

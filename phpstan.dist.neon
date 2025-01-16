@@ -7,7 +7,6 @@ includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/phpstan/phpstan-webmozart-assert/extension.neon
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
 
 parameters:
     phpVersion: 80200
@@ -31,8 +30,6 @@ parameters:
         - %currentWorkingDirectory%/*/Tests/app/var/*
         # RestController extends FOSRestController which was removed in friendsofsymfony/rest-bundle:3.0
         - %currentWorkingDirectory%/src/Sulu/Component/Rest/RestController.php
-        # SwiftMailer was removed and con not be analyzed by phpstan anymore
-        - %currentWorkingDirectory%/src/Sulu/Bundle/SecurityBundle/Tests/Functional/Controller/LegacyResettingControllerTest.php
     symfony:
         containerXmlPath: %currentWorkingDirectory%/var/cache/admin/dev/App_KernelDevDebugContainer.xml
         consoleApplicationLoader: tests/phpstan/console-application.php

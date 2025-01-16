@@ -25,6 +25,9 @@ use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Content\Infrastructure\Sulu\Admin\ContentViewBuilderFactoryInterface;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 
+/**
+ * @final
+ */
 class ExampleAdmin extends Admin
 {
     public const SECURITY_CONTEXT = 'sulu.example.examples';

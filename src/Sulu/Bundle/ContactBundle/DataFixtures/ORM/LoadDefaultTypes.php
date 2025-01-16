@@ -23,9 +23,15 @@ use Sulu\Bundle\ContactBundle\Entity\PhoneType;
 use Sulu\Bundle\ContactBundle\Entity\SocialMediaProfileType;
 use Sulu\Bundle\ContactBundle\Entity\UrlType;
 
+/**
+ * @final
+ *
+ * @internal This is an internal class which should not be used by a project.
+ *           Instead Create your own fixtures file instead.
+ */
 class LoadDefaultTypes extends AbstractFixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // Phone types.
         $metadata = $manager->getClassMetaData(PhoneType::class);
@@ -176,7 +182,7 @@ class LoadDefaultTypes extends AbstractFixture implements OrderedFixtureInterfac
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 2;
     }
