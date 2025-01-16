@@ -118,7 +118,7 @@ class CsvHandler
         }
 
         foreach ($row as $key => $value) {
-            if ($value instanceof \DateTime) {
+            if ($value instanceof \DateTimeInterface) {
                 $row[$key] = $value->format(\DateTime::RFC3339);
             } elseif (\is_bool($value)) {
                 $row[$key] = true === $value ? 1 : 0;
