@@ -527,7 +527,7 @@ class BlockCollection<T: string, U: {type: T}> extends React.Component<Props<T, 
                     },
                     {
                         label: translate('sulu_admin.cut'),
-                        icon: 'su-cut',
+                        icon: 'su-scissors',
                         handleClick: this.handleCutSelectedBlocks,
                     },
                     {
