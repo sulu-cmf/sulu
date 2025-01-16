@@ -14,6 +14,9 @@ namespace Sulu\Component\Route;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class RouteDefaultOptionsCompilerPass implements CompilerPassInterface
 {
     /**

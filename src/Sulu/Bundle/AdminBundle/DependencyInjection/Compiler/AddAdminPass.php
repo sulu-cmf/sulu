@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Add all admin-services with the tag "sulu.admin" to the AdminPool-Service.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class AddAdminPass implements CompilerPassInterface
 {

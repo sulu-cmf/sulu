@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Adds tagged services to the LocalizationManager.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class RegisterLocalizationProvidersPass implements CompilerPassInterface
 {

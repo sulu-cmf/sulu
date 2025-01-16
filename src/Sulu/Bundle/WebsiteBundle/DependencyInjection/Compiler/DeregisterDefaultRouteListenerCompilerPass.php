@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Removes the `kernel.event_subscriber` tag from the default route listener. This is necessary because it is decorated
  * by the `sulu_website.router_listener` service, which adds the analyzing of the request done by Sulu to this listener.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class DeregisterDefaultRouteListenerCompilerPass implements CompilerPassInterface
 {

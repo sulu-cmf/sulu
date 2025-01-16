@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Collects route-generator by configured mappings.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class RouteGeneratorCompilerPass implements CompilerPassInterface
 {

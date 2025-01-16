@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Removes all the services, which are not registered for the current context.
  * Register your services for one context using the sulu.context tag.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class RemoveForeignContextServicesPass implements CompilerPassInterface
 {

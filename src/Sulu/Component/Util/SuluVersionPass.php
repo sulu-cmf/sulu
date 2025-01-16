@@ -17,6 +17,8 @@ use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Read versions from composer.lock and composer.json.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class SuluVersionPass implements CompilerPassInterface
 {

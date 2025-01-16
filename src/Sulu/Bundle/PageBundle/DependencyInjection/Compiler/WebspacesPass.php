@@ -17,6 +17,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class WebspacesPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

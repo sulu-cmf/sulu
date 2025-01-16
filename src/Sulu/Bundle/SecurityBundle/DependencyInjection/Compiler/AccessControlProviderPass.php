@@ -14,6 +14,9 @@ namespace Sulu\Bundle\SecurityBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class AccessControlProviderPass implements CompilerPassInterface
 {
     public const ACCESS_CONTROL_TAG = 'sulu.access_control';

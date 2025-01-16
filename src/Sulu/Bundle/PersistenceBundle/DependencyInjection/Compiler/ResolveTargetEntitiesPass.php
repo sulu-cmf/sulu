@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Resolves given target entities (interfaces) with container parameters.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class ResolveTargetEntitiesPass implements CompilerPassInterface
 {

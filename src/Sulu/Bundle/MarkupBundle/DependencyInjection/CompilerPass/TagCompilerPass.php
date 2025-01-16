@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Collects all tags for markup.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class TagCompilerPass implements CompilerPassInterface
 {

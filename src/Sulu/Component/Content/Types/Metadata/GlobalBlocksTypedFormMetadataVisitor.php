@@ -23,6 +23,9 @@ use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\TypedFormMetadataVisitorInterf
 use Sulu\Bundle\AdminBundle\Metadata\MetadataProviderRegistry;
 use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\SchemaMetadata;
 
+/**
+ * @internal this is an internal class which should not be used by a project
+ */
 class GlobalBlocksTypedFormMetadataVisitor implements TypedFormMetadataVisitorInterface, FormMetadataVisitorInterface
 {
     public function __construct(
