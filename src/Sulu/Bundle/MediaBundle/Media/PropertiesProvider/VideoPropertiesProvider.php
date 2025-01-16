@@ -44,7 +44,7 @@ class VideoPropertiesProvider implements MediaPropertiesProviderInterface
                 }
             } catch (\InvalidArgumentException $e) {
                 // @ignoreException Exception is thrown if the video stream could not be obtained
-            } catch (\RuntimeException $e) { // @phpstan-ignore-line
+            } catch (\RuntimeException $e) {
                 // @ignoreException Exception is thrown if the dimension could not be extracted
             }
         } catch (ExecutableNotFoundException $e) {

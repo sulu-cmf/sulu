@@ -40,6 +40,9 @@ phpunit.xml
 .phpunit.result.cache
 .phpunit.cache
 
+# phpstan
+phpstan.neon
+
 # IDEs
 /.idea
 *.iml
