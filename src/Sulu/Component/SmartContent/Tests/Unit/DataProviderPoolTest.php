@@ -29,7 +29,7 @@ class DataProviderPoolTest extends TestCase
 
     public static function createDataProvider(): DataProviderInterface
     {
-        return new class () implements DataProviderInterface {
+        return new class() implements DataProviderInterface {
             public function getConfiguration(): ProviderConfigurationInterface
             {
                 return new ProviderConfiguration();

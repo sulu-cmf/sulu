@@ -34,6 +34,6 @@ class WebspaceCustomUrlProviderTest extends TestCase
 
         $result = $provider->getUrls($webspace->reveal(), 'prod');
 
-        $this->assertEquals([new Url('1.sulu.lo', 'prod'), new Url('1.sulu.lo/2', 'prod')], $result);
+        $this->assertEquals([new Url('1.sulu.lo'), new Url('1.sulu.lo/2')], $result);
     }
 }

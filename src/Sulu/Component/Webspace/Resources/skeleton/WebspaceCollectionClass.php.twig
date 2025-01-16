@@ -99,8 +99,7 @@ class {{ cache_class }} extends {{ base_class }}
 {% for environment in portal.environments %}
 
         // add environment
-        $environment = new Environment();
-        $environment->setType('{{ environment.type }}');
+        $environment = new Environment('{{ environment.type }}');
 {% for url in environment.urls %}
 
         // add environment url

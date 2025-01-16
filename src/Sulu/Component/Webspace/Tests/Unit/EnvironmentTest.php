@@ -37,11 +37,9 @@ class EnvironmentTest extends TestCase
             ],
         ];
 
-        // Testing that the environment of the url is overridden when adding it to the environment object
-        $url = new Url('sulu.io', 'I should be overwritten');
+        $url = new Url('sulu.io');
 
-        $environment = new Environment();
-        $environment->setType($expected['type']);
+        $environment = new Environment($expected['type']);
 
         $environment->addUrl($url);
 
@@ -79,7 +77,7 @@ class EnvironmentTest extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('addUrlProvider')]
     public function testAddUrl(array $urls, Url $expectedMainUrl): void
     {
-        $environment = new Environment();
+        $environment = new Environment('prod');
         foreach ($urls as $url) {
             $environment->addUrl($url);
         }
@@ -101,7 +99,7 @@ class EnvironmentTest extends TestCase
      */
     private static function getUrl($isMain = false)
     {
-        $url = new Url('test', 'test');
+        $url = new Url('test');
         $url->setMain($isMain);
 
         return $url;

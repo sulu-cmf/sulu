@@ -39,13 +39,25 @@ class Environment
      */
     private $mainUrl;
 
+    public function __construct(?string $type = null)
+    {
+        if (null === $type) {
+            @trigger_deprecation('sulu/sulu', '2.5', 'Not passing the type of the environment is deprecated.');
+        } else {
+            $this->type = $type;
+        }
+    }
+
     /**
-     * Sets the tye of this environment.
+     * Sets the type of the environment.
      *
      * @param string $type
+     *
+     * @deprecated
      */
     public function setType($type)
     {
+        @trigger_deprecation('sulu/sulu', '2.5', 'Using the setter to set the type of the environment is deprecated. Use the constructor instead.');
         $this->type = $type;
     }
 
