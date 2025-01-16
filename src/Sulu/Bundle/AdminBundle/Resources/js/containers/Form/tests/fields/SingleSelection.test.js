@@ -661,6 +661,30 @@ test('Should throw an error if "resource_store_properties_to_request" schema opt
     )).toThrow('"resource_store_properties_to_request"');
 });
 
+test('Should throw an error if "form_options_to_request" schema option is not an array', () => {
+    const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('test'), 'test'));
+    const fieldTypeOptions = {
+        default_type: 'list_overlay',
+        resource_key: 'accounts',
+        types: {
+            list_overlay: {},
+        },
+    };
+
+    const schemaOptions = {
+        form_options_to_request: {name: 'form_options_to_request', value: 'not-an-array'},
+    };
+
+    expect(() => shallow(
+        <SingleSelection
+            {...fieldTypeDefaultProps}
+            fieldTypeOptions={fieldTypeOptions}
+            formInspector={formInspector}
+            schemaOptions={schemaOptions}
+        />
+    )).toThrow('"form_options_to_request"');
+});
+
 test('Throw an error if item_disabled_condition schema option is not a string', () => {
     const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('test'), 'test'));
 
@@ -769,6 +793,7 @@ test('Pass correct props with schema-options type to SingleItemSelection', () =>
     const options = {
         segment: 'developer',
         webspace: 'sulu',
+        'otherOptionKey': 'value-from-form-options',
     };
 
     const value = 3;
@@ -832,6 +857,15 @@ test('Pass correct props with schema-options type to SingleItemSelection', () =>
                 },
             ],
         },
+        form_options_to_request: {
+            name: 'form_options_to_request',
+            value: [
+                {
+                    name: 'optionKey',
+                    value: 'otherOptionKey',
+                },
+            ],
+        },
     };
 
     const formInspector = new FormInspector(new ResourceFormStore(new ResourceStore('test'), 'test', options));
@@ -859,6 +893,7 @@ test('Pass correct props with schema-options type to SingleItemSelection', () =>
             'ghost-content': true,
             rootKey: 'testRootKey',
             dynamicKey: 'value-returned-by-form-inspector',
+            optionKey: 'value-from-form-options',
         },
         disabled: true,
         disabledIds: [],
@@ -872,6 +907,7 @@ test('Pass correct props with schema-options type to SingleItemSelection', () =>
             types: 'test',
             rootKey: 'testRootKey',
             dynamicKey: 'value-returned-by-form-inspector',
+            optionKey: 'value-from-form-options',
         },
         overlayTitle: 'sulu_contact.overlay_title',
         resourceKey: 'accounts',
@@ -942,6 +978,89 @@ test('Should update props of SingleItemSelection when value of "resource_store_p
     });
     expect(singleSelection.find(SingleSelectionComponent).props().listOptions).toEqual({
         dynamicKey: 'second-value',
+    });
+});
+
+test('Should keep form options when value of "resource_store_properties_to_request" property is changed', () => {
+    const value = 3;
+
+    const fieldTypeOptions = {
+        default_type: 'list_overlay',
+        resource_key: 'accounts',
+        types: {
+            list_overlay: {
+                adapter: 'table',
+                display_properties: ['name'],
+                empty_text: 'sulu_contact.nothing',
+                icon: 'su-account',
+                overlay_title: 'sulu_contact.overlay_title',
+            },
+        },
+    };
+
+    const schemaOptions = {
+        resource_store_properties_to_request: {
+            name: 'resource_store_properties_to_request',
+            value: [
+                {
+                    name: 'dynamicKey',
+                    value: 'otherPropertyName',
+                },
+            ],
+        },
+        form_options_to_request: {
+            name: 'form_options_to_request',
+            value: [
+                {
+                    name: 'optionKey',
+                    value: 'otherOptionKey',
+                },
+            ],
+        },
+    };
+
+    const formInspector = new FormInspector(
+        new ResourceFormStore(new ResourceStore('test'),
+            'test',
+            {'otherOptionKey': 'value-from-form-options'}
+        )
+    );
+
+    const formInspectorValues = {'/otherPropertyName': 'first-value'};
+    formInspector.getValueByPath.mockImplementation((path) => formInspectorValues[path]);
+
+    const singleSelection = shallow(
+        <SingleSelection
+            {...fieldTypeDefaultProps}
+            disabled={true}
+            fieldTypeOptions={fieldTypeOptions}
+            formInspector={formInspector}
+            schemaOptions={schemaOptions}
+            value={value}
+        />
+    );
+
+    expect(formInspector.addFinishFieldHandler).toHaveBeenCalled();
+    expect(singleSelection.find(SingleSelectionComponent).props().detailOptions).toEqual({
+        dynamicKey: 'first-value',
+        optionKey: 'value-from-form-options',
+    });
+    expect(singleSelection.find(SingleSelectionComponent).props().listOptions).toEqual({
+        dynamicKey: 'first-value',
+        optionKey: 'value-from-form-options',
+    });
+
+    formInspectorValues['/otherPropertyName'] = 'second-value';
+    const finishFieldHandler = formInspector.addFinishFieldHandler.mock.calls[0][0];
+    finishFieldHandler('/otherPropertyName');
+
+    expect(singleSelection.find(SingleSelectionComponent).props().detailOptions).toEqual({
+        dynamicKey: 'second-value',
+        optionKey: 'value-from-form-options',
+    });
+    expect(singleSelection.find(SingleSelectionComponent).props().listOptions).toEqual({
+        dynamicKey: 'second-value',
+        optionKey: 'value-from-form-options',
     });
 });
 
