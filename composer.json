@@ -137,7 +137,7 @@
         "phpunit/phpunit": "^10.5 || ^11.5",
         "psr/event-dispatcher": "^1.0",
         "rector/rector": "^2.0",
-        "rokka/imagine-vips": "0.20 - 0.31",
+        "rokka/imagine-vips": "0.20 - 0.40",
         "scheb/2fa-backup-code": "^6.0 || ^7.0",
         "scheb/2fa-bundle": "^6.0 || ^7.0",
         "scheb/2fa-email": "^6.0 || ^7.0",
