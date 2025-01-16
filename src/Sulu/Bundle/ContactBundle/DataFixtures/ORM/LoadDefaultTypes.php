@@ -24,6 +24,8 @@ use Sulu\Bundle\ContactBundle\Entity\SocialMediaProfileType;
 use Sulu\Bundle\ContactBundle\Entity\UrlType;
 
 /**
+ * @final
+ *
  * @internal This is an internal class which should not be used by a project.
  *           Instead Create your own fixtures file instead.
  */

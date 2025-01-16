@@ -19,6 +19,8 @@ use Doctrine\Persistence\ObjectManager;
 use Sulu\Bundle\MediaBundle\Entity\MediaType;
 
 /**
+ * @final
+ *
  * @internal This is an internal class which should not be used by a project.
  *           Instead Create your own fixtures file instead.
  */
