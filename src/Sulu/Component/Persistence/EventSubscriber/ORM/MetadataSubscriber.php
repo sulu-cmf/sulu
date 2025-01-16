@@ -55,7 +55,7 @@ class MetadataSubscriber
         }
     }
 
-    private function process(ClassMetadataInfo $metadata)
+    private function process(ClassMetadataInfo|ClassMetadata $metadata)
     {
         foreach ($this->objects as $application => $classes) {
             foreach ($classes as $class) {
@@ -71,7 +71,7 @@ class MetadataSubscriber
     }
 
     private function setAssociationMappings(
-        ClassMetadataInfo $metadata,
+        ClassMetadataInfo|ClassMetadata $metadata,
         Configuration $configuration,
         ReflectionService $reflectionService
     ) {
