@@ -12,6 +12,8 @@
     "excerptTitle":null,
     "ghostLocale": "en",
     "id": "@integer@",
+    "lastModified": null,
+    "lastModifiedEnabled": false,
     "locale": null,
     "mainWebspace": null,
     "published": null,
