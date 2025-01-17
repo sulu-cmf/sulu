@@ -92,7 +92,7 @@ class RouteChangedUpdater implements ResetInterface
 
             // update child and grand routes
             $updateQueryBuilder = $connection->createQueryBuilder()->update($routesTableName, 'r')
-                ->set('slug', 'CONCAT(:newSlug, SUBSTRING(r.slug, LENGTH(:oldSlug) + 1))')
+                ->set('slug', 'CONCAT(:newSlug, SUBSTRING(slug, LENGTH(:oldSlug) + 1))')
                 ->setParameter('newSlug', $newSlug)
                 ->setParameter('oldSlug', $oldSlug)
                 ->where('parent_id IN (:parentIds)')
