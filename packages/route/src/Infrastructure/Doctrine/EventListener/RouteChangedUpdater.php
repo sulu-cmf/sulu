@@ -24,7 +24,7 @@ use Symfony\Contracts\Service\ResetInterface;
 class RouteChangedUpdater implements ResetInterface
 {
     /**
-     * @var array<int, array{old: string, new: string, locale: string, site: string}>
+     * @var array<int, array{oldValue: string, newValue: string, locale: string, site: string}>
      */
     private array $routeChanges = [];
 
@@ -86,7 +86,7 @@ class RouteChangedUpdater implements ResetInterface
                 continue;
             }
 
-            \array_unique($parentIds); // DISTINCT and GROUP BY a lot slower as make it unique in PHP itself
+            $parentIds = \array_unique($parentIds); // DISTINCT and GROUP BY a lot slower as make it unique in PHP itself
 
             // TODO create history for current ids
 
