@@ -1,0 +1,35 @@
+sulu_snippet.get_snippets:
+    path: /snippets.{_format}
+    methods: GET
+    controller: sulu_snippet.admin_snippet_controller::cgetAction
+    format: json
+
+sulu_snippet.get_snippet:
+    path: /snippets/{id}.{_format}
+    methods: GET
+    controller: sulu_snippet.admin_snippet_controller::getAction
+    format: json
+
+sulu_snippet.post_snippet:
+    path: /snippets.{_format}
+    methods: POST
+    controller: sulu_snippet.admin_snippet_controller::postAction
+    format: json
+
+sulu_snippet.put_snippet:
+    path: /snippets/{id}.{_format}
+    methods: PUT
+    controller: sulu_snippet.admin_snippet_controller::putAction
+    format: json
+
+sulu_snippet.delete_snippet:
+    path: /snippets/{id}.{_format}
+    methods: DELETE
+    controller: sulu_snippet.admin_snippet_controller::deleteAction
+    format: json
+
+sulu_snippet.post_snippet_trigger:
+    path: /snippets/{id}.{_format}
+    methods: POST
+    controller: sulu_snippet.admin_snippet_controller::postTriggerAction
+    format: json
