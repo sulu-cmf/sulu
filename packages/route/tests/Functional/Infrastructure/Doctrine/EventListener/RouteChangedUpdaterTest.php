@@ -21,7 +21,7 @@ use Sulu\Route\Infrastructure\Doctrine\EventListener\RouteChangedUpdater;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * @phpstan-type Route array{resourceId: string, slug: string, parentSlug?: string|null}
+ * @phpstan-type RouteData array{resourceId: string, slug: string, parentSlug?: string|null}
  */
 #[CoversClass(RouteChangedUpdater::class)]
 class RouteChangedUpdaterTest extends KernelTestCase
@@ -36,6 +36,10 @@ class RouteChangedUpdaterTest extends KernelTestCase
         $schemaTool->updateSchema($classes, false);
     }
 
+    /**
+     * @param RouteData[] $routes
+     * @param RouteData[] $expectedRoutes
+     */
     #[DataProvider('provideRoutes')]
     public function testUpdateRoute(
         array $routes,
@@ -104,17 +108,9 @@ class RouteChangedUpdaterTest extends KernelTestCase
 
     /**
      * @return iterable<string, array{
-     *     routes: array<array{
-     *         resourceId: string,
-     *         slug: string,
-     *         parentSlug?: string|null,
-     *     }>,
+     *     routes: RouteData[],
      *     changeRoute: string,
-     *     expectedRoutes: array<array{
-     *         resourceId: string,
-     *         slug: string,
-     *         parentSlug?: string|null,
-     *     }>,
+     *     expectedRoutes: RouteData[],
      * }>
      */
     public static function provideRoutes(): iterable
@@ -299,6 +295,9 @@ class RouteChangedUpdaterTest extends KernelTestCase
         ];
     }
 
+    /**
+     * @param RouteData $route
+     */
     private function createRoute(array $route): Route
     {
         return new Route(
