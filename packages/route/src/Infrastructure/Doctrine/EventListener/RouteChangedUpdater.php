@@ -79,7 +79,8 @@ class RouteChangedUpdater implements ResetInterface
                 ->setParameter('locale', $locale)
                 ->setParameter('site', $site);
 
-            $parentIds = \array_map(fn ($row) => $row['parentId'], $selectQueryBuilder->executeQuery()->fetchAllAssociative());
+            $parentIds = \array_map(fn ($row) => $row['parentId'] ?? null, $selectQueryBuilder->executeQuery()->fetchAllAssociative());
+            $parentIds = \array_filter($parentIds);
 
             if (0 === \count($parentIds)) {
                 continue;
@@ -91,10 +92,10 @@ class RouteChangedUpdater implements ResetInterface
 
             // update child and grand routes
             $updateQueryBuilder = $connection->createQueryBuilder()->update($routesTableName, 'r')
-                ->set('r.slug', 'CONCAT(:newSlug, SUBSTRING(r.slug, LENGTH(:oldSlug) + 1))')
+                ->set('slug', 'CONCAT(:newSlug, SUBSTRING(r.slug, LENGTH(:oldSlug) + 1))')
                 ->setParameter('newSlug', $newSlug)
                 ->setParameter('oldSlug', $oldSlug)
-                ->where('r.parent_id IN (:parentIds)')
+                ->where('parent_id IN (:parentIds)')
                 ->setParameter('parentIds', $parentIds, ArrayParameterType::INTEGER);
 
             $updateQueryBuilder->executeStatement();
