@@ -30,7 +30,18 @@ Removed deprecated functions and properties:
 - `Sulu\Component\Webspace\Portal::getXDefaultLocalization`
 - `Sulu\Component\Webspace\Portal::setXDefaultLocalization`
 - `Sulu\Component\Localization\Localization::isXDefault`
+- `Sulu\Bundle\ContactBundle\Controller\AccountController::$contactEntityKey`
+- `Sulu\Bundle\ContactBundle\Controller\AccountController::$entityKey`
+- `Sulu\Bundle\WebsiteBundle\Controller\AnalyticsController::$entityKey`
+- `Sulu\Bundle\CategoryBundle\Controller\CategoryController::$entityKey`
+- `Sulu\Bundle\MediaBundle\Controller\CollectionController::$entityKey`
 - `Sulu\Bundle\MediaBundle\Controller\MediaController::$entityKey`
+- `Sulu\Bundle\PageBundle\Controller\PageController::$entityKey`
+- `Sulu\Bundle\TagBundle\Controller\TagController::$entityKey`
+- `Sulu\Bundle\SecurityBundle\Controller\UserController::$entityKey`
+- `Sulu\Bundle\ContactBundle\Controller\ContactTitleController::$entityKey`
+- `Sulu\Bundle\ContactBundle\Controller\ContactController::$entityKey`
+- `Sulu\Bundle\ContactBundle\Controller\PositionController::$entityKey`
 
 Removed unused arguments:
 

@@ -42,11 +42,6 @@ class TagController extends AbstractRestController implements ClassResourceInter
 {
     protected static $entityName = \Sulu\Bundle\TagBundle\Entity\Tag::class;
 
-    /**
-     * @deprecated Use the TagInterface::RESOURCE_KEY constant instead
-     */
-    protected static $entityKey = 'tags';
-
     protected $unsortable = [];
 
     protected $bundlePrefix = 'tags.';

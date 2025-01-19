@@ -44,11 +44,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class RoleController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
 {
-    /**
-     * @deprecated Use the RoleInterface::RESOURCE_KEY constant instead
-     */
-    protected static $entityKey = 'roles';
-
     public const ENTITY_NAME_PERMISSION = Permission::class;
 
     protected $bundlePrefix = 'security.roles.';

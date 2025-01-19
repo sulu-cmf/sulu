@@ -35,15 +35,6 @@ class ContactTitleController extends AbstractRestController implements ClassReso
 {
     protected static $entityName = ContactTitle::class;
 
-    /**
-     * @var string
-     *
-     * @deprecated
-     *
-     * @see ContactTitle::RESOURCE_KEY
-     */
-    protected static $entityKey = ContactTitle::RESOURCE_KEY;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         private ContactTitleRepository $contactTitleRepository,
