@@ -19,6 +19,7 @@ use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Sulu\Component\DocumentManager\Version;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\ListBuilder\ListRestHelperInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 use Sulu\Component\Security\Authorization\AccessControl\SecuredObjectControllerInterface;

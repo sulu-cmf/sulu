@@ -32,6 +32,7 @@ use Sulu\Component\Hash\RequestHashChecker;
 use Sulu\Component\Rest\Exception\ReferencingResourcesFoundException;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\ListRestHelper;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\Form\FormFactory;
