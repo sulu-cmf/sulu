@@ -25,8 +25,8 @@ use Sulu\Bundle\CategoryBundle\Exception\KeywordNotUniqueException;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -108,14 +108,12 @@ class KeywordController extends AbstractRestController implements ClassResourceI
 
         $listResponse = $listBuilder->execute();
 
-        $list = new ListRepresentation(
+        $list = new PaginatedRepresentation(
             $listResponse,
             self::$entityKey,
-            'sulu_category.get_category_keywords',
-            \array_merge(['categoryId' => $categoryId], $request->query->all()),
-            $listBuilder->getCurrentPage(),
-            $listBuilder->getLimit(),
-            $listBuilder->count()
+            (int) $listBuilder->getCurrentPage(),
+            (int) $listBuilder->getLimit(),
+            (int) $listBuilder->count()
         );
 
         return $this->handleView($this->view($list, 200));

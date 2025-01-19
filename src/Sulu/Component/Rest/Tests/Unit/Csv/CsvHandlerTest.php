@@ -18,7 +18,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Component\Rest\Csv\CsvHandler;
 use Sulu\Component\Rest\Csv\ObjectNotSupportedException;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Serializer\ArraySerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -44,7 +44,7 @@ class CsvHandlerTest extends TestCase
 
     public function testListRepresentation(): void
     {
-        $listRepresentation = $this->prophesize(ListRepresentation::class);
+        $listRepresentation = $this->prophesize(PaginatedRepresentation::class);
         $listRepresentation->getRel()->willReturn('contacts');
         $listRepresentation->getData()->willReturn(
             [
@@ -130,7 +130,7 @@ class CsvHandlerTest extends TestCase
 
     public function testListRepresentationDifferentConfig(): void
     {
-        $listRepresentation = $this->prophesize(ListRepresentation::class);
+        $listRepresentation = $this->prophesize(PaginatedRepresentation::class);
         $listRepresentation->getRel()->willReturn('contacts');
         $listRepresentation->getData()->willReturn(
             [
@@ -173,7 +173,7 @@ class CsvHandlerTest extends TestCase
 
     public function testListRepresentationWithArray(): void
     {
-        $listRepresentation = $this->prophesize(ListRepresentation::class);
+        $listRepresentation = $this->prophesize(PaginatedRepresentation::class);
         $listRepresentation->getRel()->willReturn('contacts');
         $listRepresentation->getData()->willReturn(
             [
@@ -216,7 +216,7 @@ class CsvHandlerTest extends TestCase
 
     public function testListRepresentationEmpty(): void
     {
-        $listRepresentation = $this->prophesize(ListRepresentation::class);
+        $listRepresentation = $this->prophesize(PaginatedRepresentation::class);
         $listRepresentation->getRel()->willReturn('contacts');
         $listRepresentation->getData()->willReturn([]);
 

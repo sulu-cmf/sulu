@@ -42,8 +42,8 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineConcatenati
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -158,14 +158,12 @@ class AccountController extends AbstractRestController implements ClassResourceI
                 }
             }
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $values,
                 'account_contacts',
-                'sulu_contact.get_account_addresses',
-                \array_merge(['id' => $id], $request->query->all()),
-                $listBuilder->getCurrentPage(),
-                $listBuilder->getLimit(),
-                $listBuilder->count()
+                (int) $listBuilder->getCurrentPage(),
+                (int) $listBuilder->getLimit(),
+                (int) $listBuilder->count()
             );
         } else {
             $locale = $this->getUser()->getLocale();
@@ -196,14 +194,12 @@ class AccountController extends AbstractRestController implements ClassResourceI
 
             $values = $listBuilder->execute();
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $values,
                 'addresses',
-                'sulu_contact.get_account_addresses',
-                \array_merge(['id' => $id], $request->query->all()),
-                $listBuilder->getCurrentPage(),
-                $listBuilder->getLimit(),
-                $listBuilder->count()
+                (int) $listBuilder->getCurrentPage(),
+                (int) $listBuilder->getLimit(),
+                (int) $listBuilder->count()
             );
         } else {
             $addresses = $this->entityManager->getRepository(self::$addressEntityName)->findByAccountId($id);
@@ -361,14 +357,12 @@ class AccountController extends AbstractRestController implements ClassResourceI
             $listResponse = $listBuilder->execute();
             $listResponse = $this->addLogos($listResponse, $locale);
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $listResponse,
                 AccountInterface::RESOURCE_KEY,
-                'sulu_contact.get_accounts',
-                $request->query->all(),
-                $listBuilder->getCurrentPage(),
-                $listBuilder->getLimit(),
-                $listBuilder->count()
+                (int) $listBuilder->getCurrentPage(),
+                (int) $listBuilder->getLimit(),
+                (int) $listBuilder->count()
             );
             $view = $this->view($list, 200);
         } else {

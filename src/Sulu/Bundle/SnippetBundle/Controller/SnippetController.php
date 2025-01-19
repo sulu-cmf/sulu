@@ -31,8 +31,8 @@ use Sulu\Component\DocumentManager\MetadataFactoryInterface;
 use Sulu\Component\Hash\RequestHashChecker;
 use Sulu\Component\Rest\Exception\ReferencingResourcesFoundException;
 use Sulu\Component\Rest\Exception\RestException;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelper;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\Form\FormFactory;
@@ -119,14 +119,12 @@ class SnippetController implements SecuredControllerInterface, ClassResourceInte
             );
         }
 
-        $data = new ListRepresentation(
+        $data = new PaginatedRepresentation(
             $snippets,
             SnippetDocument::RESOURCE_KEY,
-            'sulu_snippet.get_snippets',
-            $request->query->all(),
-            $this->listRestHelper->getPage(),
-            $this->listRestHelper->getLimit(),
-            $total
+            (int) $this->listRestHelper->getPage(),
+            (int) $this->listRestHelper->getLimit(),
+            (int) $total
         );
 
         $view = View::create($data);

@@ -24,8 +24,8 @@ use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelperInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Security\Authorization\AccessControl\SecuredObjectControllerInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
@@ -224,14 +224,12 @@ class CollectionController extends AbstractRestController implements ClassResour
 
             $all = $this->collectionManager->getCount();
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $collections,
                 CollectionInterface::RESOURCE_KEY,
-                'sulu_media.get_collections',
-                $request->query->all(),
-                $this->listRestHelper->getPage(),
-                $this->listRestHelper->getLimit(),
-                $all
+                (int) $this->listRestHelper->getPage(),
+                (int) $this->listRestHelper->getLimit(),
+                (int) $all
             );
 
             $view = $this->view($list, 200);
