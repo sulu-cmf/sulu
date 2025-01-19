@@ -23,6 +23,7 @@ Removed classes / services:
 - `Sulu\\Bundle\\MediaBundle\\Media\\Storage\\S3Storage`
 - `Sulu\\Bundle\\MediaBundle\\DependencyInjection\\S3ClientCompilerPass` (internal)
 - `Sulu\\Bundle\\AdminBundle\\Command\\DownloadBuildCommand`
+- `Sulu\\Component\\Rest\\ListBuilder\\ListRepresentation`
 
 Removed deprecated functions and properties:
 
