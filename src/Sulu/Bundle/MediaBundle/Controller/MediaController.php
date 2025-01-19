@@ -33,8 +33,8 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListBuilderInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
@@ -172,7 +172,7 @@ class MediaController extends AbstractMediaController implements
     /**
      * @deprecated
      */
-    private function getListRepresentation(Request $request): ListRepresentation
+    private function getListRepresentation(Request $request): PaginatedRepresentation
     {
         $locale = $this->getRequestParameter($request, 'locale', true);
         $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors('media');
@@ -221,14 +221,12 @@ class MediaController extends AbstractMediaController implements
             $listResponse = \array_values($result);
         }
 
-        return new ListRepresentation(
+        return new PaginatedRepresentation(
             $listResponse,
             MediaInterface::RESOURCE_KEY,
-            'sulu_media.cget_media',
-            $request->query->all(),
-            $listBuilder->getCurrentPage(),
-            $listBuilder->getLimit(),
-            $listBuilder->count()
+            (int) $listBuilder->getCurrentPage(),
+            (int) $listBuilder->getLimit(),
+            (int) $listBuilder->count()
         );
     }
 

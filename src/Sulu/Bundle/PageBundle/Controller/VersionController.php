@@ -18,7 +18,6 @@ use Sulu\Component\Content\Document\Behavior\SecurityBehavior;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Sulu\Component\DocumentManager\Version;
 use Sulu\Component\Rest\AbstractRestController;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\ListRestHelperInterface;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
@@ -93,18 +92,12 @@ class VersionController extends AbstractRestController implements
             ];
         }
 
-        $versionCollection = new ListRepresentation(
+        $versionCollection = new PaginatedRepresentation(
             $versionData,
             'page_versions',
-            'sulu_page.get_page_versions',
-            [
-                'id' => $id,
-                'locale' => $locale,
-                'webspace' => $request->get('webspace'),
-            ],
-            $this->listRestHelper->getPage(),
-            $limit,
-            $total
+            (int) $this->listRestHelper->getPage(),
+            (int) $limit,
+            (int) $total
         );
 
         return $this->handleView($this->view($versionCollection));

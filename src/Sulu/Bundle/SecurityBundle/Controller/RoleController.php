@@ -29,8 +29,8 @@ use Sulu\Component\Rest\Exception\InvalidArgumentException;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\Authentication\RoleInterface;
 use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
@@ -104,14 +104,12 @@ class RoleController extends AbstractRestController implements ClassResourceInte
 
             $this->restHelper->initializeListBuilder($listBuilder, $this->getFieldDescriptors());
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $listBuilder->execute(),
                 RoleInterface::RESOURCE_KEY,
-                'sulu_security.get_roles',
-                $request->query->all(),
-                $listBuilder->getCurrentPage(),
-                $listBuilder->getLimit(),
-                $listBuilder->count()
+                (int) $listBuilder->getCurrentPage(),
+                (int) $listBuilder->getLimit(),
+                (int) $listBuilder->count()
             );
         } else {
             $filter = [];

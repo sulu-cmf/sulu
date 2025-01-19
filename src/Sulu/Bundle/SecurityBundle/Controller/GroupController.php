@@ -21,7 +21,7 @@ use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\Authentication\RoleInterface;
 use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
@@ -78,14 +78,12 @@ class GroupController extends AbstractRestController implements ClassResourceInt
 
             $this->restHelper->initializeListBuilder($listBuilder, $this->fieldDescriptors);
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $listBuilder->execute(),
                 static::$entityKey,
-                'sulu_security.get_groups',
-                $request->query->all(),
-                $listBuilder->getCurrentPage(),
-                $listBuilder->getLimit(),
-                $listBuilder->count()
+                (int) $listBuilder->getCurrentPage(),
+                (int) $listBuilder->getLimit(),
+                (int) $listBuilder->count()
             );
         } else {
             $list = new CollectionRepresentation(

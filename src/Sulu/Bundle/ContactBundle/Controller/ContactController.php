@@ -31,8 +31,8 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineConcatenati
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
@@ -241,7 +241,7 @@ class ContactController extends AbstractRestController implements ClassResourceI
      *
      * @param string $locale
      *
-     * @return ListRepresentation
+     * @return PaginatedRepresentation
      */
     private function getList(Request $request, $locale)
     {
@@ -257,14 +257,12 @@ class ContactController extends AbstractRestController implements ClassResourceI
 
         $listResponse = $this->prepareListResponse($listBuilder, $locale);
 
-        return new ListRepresentation(
+        return new PaginatedRepresentation(
             $listResponse,
             ContactInterface::RESOURCE_KEY,
-            'sulu_contact.get_contacts',
-            $request->query->all(),
-            $listBuilder->getCurrentPage(),
-            $listBuilder->getLimit(),
-            $listBuilder->count()
+            (int) $listBuilder->getCurrentPage(),
+            (int) $listBuilder->getLimit(),
+            (int) $listBuilder->count()
         );
     }
 

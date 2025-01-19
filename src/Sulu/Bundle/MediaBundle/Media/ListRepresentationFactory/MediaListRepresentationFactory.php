@@ -14,7 +14,8 @@ namespace Sulu\Bundle\MediaBundle\Media\ListRepresentationFactory;
 use Sulu\Bundle\MediaBundle\Media\FormatManager\FormatManagerInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilder;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
+use Sulu\Component\Rest\ListBuilder\RepresentationInterface;
 
 class MediaListRepresentationFactory
 {
@@ -30,7 +31,7 @@ class MediaListRepresentationFactory
         string $rel,
         string $route,
         array $parameters
-    ): ListRepresentation {
+    ): RepresentationInterface {
         $listBuilder->setParameter('locale', $locale);
         $listResponse = $listBuilder->execute();
 
@@ -74,11 +75,9 @@ class MediaListRepresentationFactory
             $listResponse = \array_values($result);
         }
 
-        return new ListRepresentation(
+        return new PaginatedRepresentation(
             $listResponse,
             $rel,
-            $route,
-            $parameters,
             $listBuilder->getCurrentPage(),
             $listBuilder->getLimit(),
             $listBuilder->count()

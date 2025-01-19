@@ -24,7 +24,6 @@ use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
@@ -276,14 +275,12 @@ class UserController extends AbstractRestController implements ClassResourceInte
 
             $this->restHelper->initializeListBuilder($listBuilder, $this->getFieldDescriptors());
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $listBuilder->execute(),
                 UserInterface::RESOURCE_KEY,
-                'sulu_security.get_users',
-                $request->query->all(),
-                $listBuilder->getCurrentPage(),
-                $listBuilder->getLimit(),
-                $listBuilder->count()
+                (int) $listBuilder->getCurrentPage(),
+                (int) $listBuilder->getLimit(),
+                (int) $listBuilder->count()
             );
             $view = $this->view($list, 200);
         } else {

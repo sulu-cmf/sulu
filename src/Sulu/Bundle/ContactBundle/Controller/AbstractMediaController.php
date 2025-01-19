@@ -27,8 +27,8 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -279,7 +279,7 @@ abstract class AbstractMediaController extends AbstractRestController
      * @param Request $request
      * @param string $locale
      *
-     * @return ListRepresentation
+     * @return PaginatedRepresentation
      */
     private function getListRepresentation($entityName, $routeName, $contactId, $request, $locale)
     {
@@ -292,14 +292,12 @@ abstract class AbstractMediaController extends AbstractRestController
         $listResponse = $this->addThumbnails($listResponse, $locale);
         $listResponse = $this->addUrls($listResponse, $locale);
 
-        return new ListRepresentation(
+        return new PaginatedRepresentation(
             $listResponse,
             static::$mediaEntityKey,
-            $routeName,
-            \array_merge(['contactId' => $contactId], $request->query->all()),
-            $listBuilder->getCurrentPage(),
-            $listBuilder->getLimit(),
-            $listBuilder->count()
+            (int) $listBuilder->getCurrentPage(),
+            (int) $listBuilder->getLimit(),
+            (int) $listBuilder->count()
         );
     }
 

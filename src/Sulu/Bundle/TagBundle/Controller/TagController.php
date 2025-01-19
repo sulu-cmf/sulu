@@ -27,8 +27,8 @@ use Sulu\Component\Rest\Exception\MissingArgumentException;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -104,14 +104,12 @@ class TagController extends AbstractRestController implements ClassResourceInter
                 $listBuilder->limit(\count($names));
             }
 
-            $list = new ListRepresentation(
+            $list = new PaginatedRepresentation(
                 $listBuilder->execute(),
                 TagInterface::RESOURCE_KEY,
-                'sulu_tag.get_tags',
-                $request->query->all(),
-                $listBuilder->getCurrentPage(),
-                $listBuilder->getLimit(),
-                $listBuilder->count()
+                (int) $listBuilder->getCurrentPage(),
+                (int) $listBuilder->getLimit(),
+                (int) $listBuilder->count()
             );
             $view = $this->view($list, 200);
         } else {

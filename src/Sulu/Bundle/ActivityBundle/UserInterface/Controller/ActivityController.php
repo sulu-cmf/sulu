@@ -23,8 +23,8 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescri
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListBuilderInterface;
-use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
@@ -128,14 +128,12 @@ class ActivityController extends AbstractRestController implements ClassResource
             $activities
         );
 
-        $listRepresentation = new ListRepresentation(
+        $listRepresentation = new PaginatedRepresentation(
             $activities,
             ActivityInterface::RESOURCE_KEY,
-            'sulu_activity.get_activities',
-            $request->query->all(),
-            $listBuilder->getCurrentPage(),
-            $listBuilder->getLimit(),
-            $listBuilder->count()
+            (int) $listBuilder->getCurrentPage(),
+            (int) $listBuilder->getLimit(),
+            (int) $listBuilder->count()
         );
 
         return $this->handleView(
