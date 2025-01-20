@@ -32,7 +32,6 @@ use Webmozart\Assert\Assert;
  * configuration from the webspaces into account.
  *
  * @implements UserProviderInterface<UserInterface>
- * @implements PasswordUpgraderInterface<User>
  */
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
@@ -51,16 +50,6 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
                 )
             );
         }
-    }
-
-    /**
-     * For Symfony <= 5.4.
-     *
-     * @return UserInterface
-     */
-    public function loadUserByUsername($username)
-    {
-        return $this->loadUserByIdentifier($username);
     }
 
     public function loadUserByIdentifier(string $identifier): UserInterface
