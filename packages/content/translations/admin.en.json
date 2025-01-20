@@ -3,6 +3,8 @@
     "sulu_content.excerpt": "Excerpt & Taxonomies",
     "sulu_content.content": "Content",
     "sulu_content.published": "Published on",
+    "sulu_content.last_modified_enabled": "Enable last modified date",
+    "sulu_content.last_modified_date": "Last modified date",
     "sulu_content.author": "Author",
     "sulu_content.authored_date": "Authored Date",
     "sulu_content.shadow_page": "Shadow page",
