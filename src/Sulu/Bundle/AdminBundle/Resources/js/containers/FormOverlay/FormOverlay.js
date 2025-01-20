@@ -18,6 +18,7 @@ type Props = {|
     formStore: FormStoreInterface | ResourceFormStore,
     onClose: () => void,
     onConfirm: () => void,
+    onFieldFinish?: (dataPath: string, schemaPath: string) => void,
     open: boolean,
     size?: Size,
     title: string,
@@ -89,6 +90,14 @@ class FormOverlay extends React.Component<Props> {
         this.formErrors.pop();
     };
 
+    handleFieldFinish = (dataPath: string, schemaPath: string) => {
+        const {onFieldFinish} = this.props;
+
+        if (onFieldFinish) {
+            onFieldFinish(dataPath, schemaPath);
+        }
+    };
+
     setFormRef = (formRef: ?ElementRef<typeof Form>) => {
         this.formRef = formRef;
     };
@@ -121,6 +130,7 @@ class FormOverlay extends React.Component<Props> {
                 <div className={formOverlayStyles.form}>
                     <Form
                         onError={this.handleFormError}
+                        onFieldFinish={this.handleFieldFinish}
                         onSubmit={this.handleFormSubmit}
                         ref={this.setFormRef}
                         store={formStore}

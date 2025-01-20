@@ -10,10 +10,8 @@ import translatorStyles from './translator.scss';
 import Input from './Input';
 
 type Props = {|
-    action?: React$ComponentType<{|
-        context: Object,
-        source: string,
-    |}>,
+    action?: React$ComponentType<Object>,
+    actionProps?: Object,
     locale: string,
     messages: {|
         detected: string,
@@ -157,6 +155,7 @@ export default class Translator extends React.Component<Props> {
 
         const actionNode = Action ? (
             <Action
+                {...(this.props.actionProps || {})}
                 context={toJS(this.lastResponse)}
                 source="translator"
             />

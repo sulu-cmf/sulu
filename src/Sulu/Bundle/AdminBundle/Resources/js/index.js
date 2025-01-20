@@ -124,6 +124,7 @@ import FormOverlayList from './views/FormOverlayList';
 import {initializeJexl} from './utils/jexl';
 import {ExternalLinkTypeOverlay, LinkTypeOverlay} from './containers/Link';
 import linkTypeRegistry from './containers/Link/registries/linkTypeRegistry';
+import AiApplication from './containers/AiApplication';
 
 configure({enforceActions: 'observed'});
 
@@ -439,6 +440,26 @@ function startAdmin() {
         applicationElement
     );
 }
+
+initializer.addUpdateConfigHook('sulu_ai', (config: Object, initialized: boolean) => {
+    if (initialized) {
+        return;
+    }
+
+    const div = document.createElement('div');
+    div.id = 'su-ai-application';
+    document.body?.appendChild(div);
+
+    if (!config['writing_assistant'].enabled && !config['translation'].enabled && !config['feedback'].enabled) {
+        return;
+    }
+
+    render(<AiApplication
+        feedback={config['feedback']}
+        translation={config['translation']}
+        writingAssistant={config['writing_assistant']}
+    />, div);
+});
 
 export {
     startAdmin,

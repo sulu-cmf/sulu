@@ -10,10 +10,8 @@ import PromptInput from './PromptInput';
 import type {ExpertType, MessageType} from './types';
 
 type Props = {|
-    action?: React$ComponentType<{|
-        context: Object,
-        source: string,
-    |}>,
+    action?: React$ComponentType<Object>,
+    actionProps?: Object,
     configuration: {
         experts: {
             [string]: ExpertType,
@@ -236,6 +234,7 @@ export default class WritingAssistant extends React.Component<Props> {
 
         const actionNode = Action ? (
             <Action
+                {...(this.props.actionProps || {})}
                 context={toJS(this.lastResponse)}
                 source="writing_assistant"
             />
