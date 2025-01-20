@@ -39,6 +39,7 @@
     </parameters>
 
     <services>
+        <service id="sulu_security.encoder_factory" alias="security.password_hasher_factory" />
         <service id="sulu_security.resetting_controller"
                  class="Sulu\Bundle\SecurityBundle\Controller\ResettingController"
                  public="true">

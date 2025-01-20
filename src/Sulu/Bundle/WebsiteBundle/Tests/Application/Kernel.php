@@ -43,12 +43,6 @@ class Kernel extends SuluTestKernel
         $loader->load(__DIR__ . '/config/config_' . $context . '.yml');
         if ('' !== $this->appContext) {
             $loader->load(__DIR__ . '/config/config_' . $this->appContext . '.yml');
-
-            if ('with_security' === $this->appContext
-                && \version_compare(Kernel::VERSION, '6.0.0', '<')
-            ) {
-                $loader->load(__DIR__ . '/config/config_with_security-5-4.yml');
-            }
         }
     }
 

@@ -25,6 +25,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 /**
  * Responsible for loading the user from the database for the Symfony security system. Takes also the security system
  * configuration from the webspaces into account.
+ *
+ * @implements UserProviderInterface<UserInterface>
  */
 class UserProvider implements UserProviderInterface
 {
@@ -32,16 +34,6 @@ class UserProvider implements UserProviderInterface
         private UserRepositoryInterface $userRepository,
         private SystemStoreInterface $systemStore,
     ) {
-    }
-
-    /**
-     * For Symfony <= 5.4.
-     *
-     * @return UserInterface
-     */
-    public function loadUserByUsername($username)
-    {
-        return $this->loadUserByIdentifier($username);
     }
 
     public function loadUserByIdentifier(string $identifier): UserInterface

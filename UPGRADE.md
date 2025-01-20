@@ -2,6 +2,9 @@
 
 ## 3.0.0
 
+## Minimum Symfony version 6.4
+The minimum Symfony version for Sulu is 6.4.
+
 ### Changed Media Format HTTP Response Headers
 
 Removed `Pragma` & `Expires` HTTP headers, as the `Cache-Control` header is enough.

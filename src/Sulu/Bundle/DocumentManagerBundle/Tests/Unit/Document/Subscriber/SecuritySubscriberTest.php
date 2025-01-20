@@ -77,25 +77,6 @@ class SecuritySubscriberTest extends TestCase
         $this->securitySubscriber->setDefaultUser($event->reveal());
     }
 
-    public function testSetDefaultUserWithAnonymousToken(): void
-    {
-        if (!\class_exists(AnonymousToken::class)) {
-            $this->markTestSkipped('The AnonymousToken is only available on Symfony 5.4');
-        }
-
-        $event = $this->prophesize(ConfigureOptionsEvent::class);
-
-        $optionsResolver = $this->prophesize(OptionsResolver::class);
-        $event->getOptions()->willReturn($optionsResolver->reveal());
-
-        $anonymousToken = $this->prophesize(AnonymousToken::class);
-        $this->tokenStorage->getToken()->willReturn($anonymousToken->reveal());
-
-        $optionsResolver->setDefault('user', null)->shouldBeCalled()->willReturn($optionsResolver->reveal());
-
-        $this->securitySubscriber->setDefaultUser($event->reveal());
-    }
-
     public function testSetDefaultUserWithNonSuluUser(): void
     {
         $event = $this->prophesize(ConfigureOptionsEvent::class);
