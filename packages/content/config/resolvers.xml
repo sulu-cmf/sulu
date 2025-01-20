@@ -88,5 +88,17 @@
 
             <tag name="sulu_content.property_resolver"/>
         </service>
+
+        <service id="sulu_content.date_property_resolver"
+                 class="Sulu\Content\Application\PropertyResolver\Resolver\DatePropertyResolver">
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
+
+        <service id="sulu_content.datetime_property_resolver"
+                 class="Sulu\Content\Application\PropertyResolver\Resolver\DateTimePropertyResolver">
+
+            <tag name="sulu_content.property_resolver"/>
+        </service>
     </services>
 </container>
