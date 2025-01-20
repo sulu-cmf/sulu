@@ -35,7 +35,7 @@ class Article implements ArticleInterface
     public function __construct(
         ?string $uuid = null
     ) {
-        $this->uuid = $uuid ?: Uuid::v7()->__toString();
+        $this->uuid = $uuid ?: Uuid::v7()->toRfc4122();
     }
 
     public function getId(): string // TODO should be replaced by uuid

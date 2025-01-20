@@ -93,7 +93,7 @@ class ReferenceTest extends TestCase
 
     public function testEqualsTrue(): void
     {
-        $uuid = Uuid::v7()->__toString();
+        $uuid = Uuid::v7()->toRfc4122();
         $reference1 = $this->createReference();
         $reference1->setResourceKey('media');
         $reference1->setResourceId('1');
@@ -118,8 +118,8 @@ class ReferenceTest extends TestCase
 
     public function testEqualsFalse(): void
     {
-        $uuid = Uuid::v7()->__toString();
-        $uuid2 = Uuid::v7()->__toString();
+        $uuid = Uuid::v7()->toRfc4122();
+        $uuid2 = Uuid::v7()->toRfc4122();
         $reference1 = $this->createReference();
         $reference1->setReferenceResourceId($uuid);
         $reference2 = $this->createReference();
