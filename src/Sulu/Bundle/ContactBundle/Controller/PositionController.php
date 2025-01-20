@@ -35,15 +35,6 @@ class PositionController extends AbstractRestController implements ClassResource
 {
     protected static $entityName = Position::class;
 
-    /**
-     * @var string
-     *
-     * @deprecated
-     *
-     * @see Position::RESOURCE_KEY
-     */
-    protected static $entityKey = Position::RESOURCE_KEY;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         private PositionRepository $positionRepository,

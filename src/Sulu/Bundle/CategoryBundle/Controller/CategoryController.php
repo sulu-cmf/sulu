@@ -41,11 +41,6 @@ class CategoryController extends AbstractRestController implements ClassResource
     use RequestParametersTrait;
 
     /**
-     * @deprecated Use the CategoryInterface::RESOURCE_KEY constant instead
-     */
-    protected static $entityKey = 'categories';
-
-    /**
      * @param class-string $categoryClass
      */
     public function __construct(

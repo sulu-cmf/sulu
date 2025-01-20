@@ -49,13 +49,6 @@ class CollectionController extends AbstractRestController implements ClassResour
      */
     protected static $entityName = \Sulu\Bundle\MediaBundle\Entity\Collection::class;
 
-    /**
-     * @var string
-     *
-     * @deprecated Use CollectionInterface::RESOURCE_KEY instead
-     */
-    protected static $entityKey = CollectionInterface::RESOURCE_KEY;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,

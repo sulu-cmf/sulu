@@ -59,13 +59,6 @@ class PageController extends AbstractRestController implements ClassResourceInte
 
     public const WEBSPACE_NODES_ALL = 'all';
 
-    /**
-     * @deprecated Use the BasePageDocument::RESOURCE_KEY constant instead
-     *
-     * @var string
-     */
-    protected static $relationName = BasePageDocument::RESOURCE_KEY;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,

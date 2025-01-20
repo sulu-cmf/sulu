@@ -39,11 +39,6 @@ class UserController extends AbstractRestController implements ClassResourceInte
 {
     use RequestParametersTrait;
 
-    /**
-     * @deprecated Use the UserInterface::RESOURCE_KEY constant instead
-     */
-    protected static $entityKey = 'users';
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         private RestHelperInterface $restHelper,

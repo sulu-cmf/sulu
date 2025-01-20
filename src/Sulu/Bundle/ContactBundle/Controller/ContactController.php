@@ -45,15 +45,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class ContactController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
 {
-    /**
-     * @deprecated
-     *
-     * @see ContactInterface::RESOURCE_KEY
-     *
-     * @var string
-     */
-    protected static $entityKey = ContactInterface::RESOURCE_KEY;
-
     protected static $accountContactEntityName = \Sulu\Bundle\ContactBundle\Entity\AccountContact::class;
 
     protected static $positionEntityName = \Sulu\Bundle\ContactBundle\Entity\Position::class;
