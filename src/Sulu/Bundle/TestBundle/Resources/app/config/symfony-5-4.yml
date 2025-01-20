@@ -1,6 +1,0 @@
-framework:
-    session:
-        storage_id: session.storage.mock_file
-        handler_id: ~
-
-    lock: 'flock://%kernel.project_dir%/var/lock'

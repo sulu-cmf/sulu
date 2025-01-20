@@ -36,18 +36,14 @@ use Sulu\Component\Security\Authentication\SaltGenerator;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager implements UserManagerInterface
 {
     use RelationTrait;
 
-    /**
-     * @param PasswordHasherFactoryInterface|EncoderFactoryInterface|null $passwordHasherFactory
-     */
     public function __construct(
         protected ObjectManager $em,
-        private $passwordHasherFactory,
+        private ?PasswordHasherFactoryInterface $passwordHasherFactory,
         private RoleRepositoryInterface $roleRepository,
         private GroupRepository $groupRepository,
         protected ContactManager $contactManager,
@@ -630,16 +626,7 @@ class UserManager implements UserManagerInterface
             );
         }
 
-        if ($this->passwordHasherFactory instanceof EncoderFactoryInterface) {
-            // @deprecated symfony 5.4 backward compatibility bridge
-            $encoder = $this->passwordHasherFactory->getEncoder($user);
-
-            return $encoder->encodePassword($password, $salt);
-        }
-
-        $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
-
-        return $hasher->hash($password);
+        return $this->passwordHasherFactory->getPasswordHasher($user)->hash($password);
     }
 
     /**
