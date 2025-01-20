@@ -1,0 +1,13 @@
+.messages {
+    flex-shrink: 2;
+    overflow-y: auto;
+    height: calc(100vh - 402px);
+    border-radius: 3px;
+    padding: 20px 50px;
+}
+
+.message-divider {
+    margin-bottom: 16px;
+    border: 0;
+    border-top: #ccc solid 1px;
+}

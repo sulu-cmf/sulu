@@ -20,7 +20,7 @@ type Props = {
     children: Node,
     confirmDisabled: boolean,
     confirmLoading: boolean,
-    confirmText: string,
+    confirmText?: string,
     onClose: () => void,
     onConfirm?: () => void,
     onSnackbarClick?: () => void,

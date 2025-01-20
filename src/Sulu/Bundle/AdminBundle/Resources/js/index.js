@@ -114,6 +114,8 @@ import Form, {
     SetUnpublishedToolbarAction as FormSetUnpublishedToolbarAction,
     TypeToolbarAction as FormTypeToolbarAction,
     TogglerToolbarAction as FormTogglerToolbarAction,
+    UpdateFormStoreToolbarAction as FormUpdateFormStoreToolbarAction,
+    ReloadFormStoreToolbarAction as FormReloadFormStoreToolbarAction,
 } from './views/Form';
 import {navigationRegistry} from './containers/Navigation';
 import {smartContentConfigStore} from './containers/SmartContent';
@@ -122,6 +124,7 @@ import FormOverlayList from './views/FormOverlayList';
 import {initializeJexl} from './utils/jexl';
 import {ExternalLinkTypeOverlay, LinkTypeOverlay} from './containers/Link';
 import linkTypeRegistry from './containers/Link/registries/linkTypeRegistry';
+import AiApplication from './containers/AiApplication';
 
 configure({enforceActions: 'observed'});
 
@@ -335,6 +338,8 @@ function registerFormToolbarActions() {
     formToolbarActionRegistry.add('sulu_admin.set_unpublished', FormSetUnpublishedToolbarAction);
     formToolbarActionRegistry.add('sulu_admin.type', FormTypeToolbarAction);
     formToolbarActionRegistry.add('sulu_admin.toggler', FormTogglerToolbarAction);
+    formToolbarActionRegistry.add('sulu_admin.update_form_store', FormUpdateFormStoreToolbarAction);
+    formToolbarActionRegistry.add('sulu_admin.reload_form_store', FormReloadFormStoreToolbarAction);
 }
 
 function registerListToolbarActions() {
@@ -435,6 +440,26 @@ function startAdmin() {
         applicationElement
     );
 }
+
+initializer.addUpdateConfigHook('sulu_ai', (config: Object, initialized: boolean) => {
+    if (initialized) {
+        return;
+    }
+
+    const div = document.createElement('div');
+    div.id = 'su-ai-application';
+    document.body?.appendChild(div);
+
+    if (!config['writing_assistant'].enabled && !config['translation'].enabled && !config['feedback'].enabled) {
+        return;
+    }
+
+    render(<AiApplication
+        feedback={config['feedback']}
+        translation={config['translation']}
+        writingAssistant={config['writing_assistant']}
+    />, div);
+});
 
 export {
     startAdmin,

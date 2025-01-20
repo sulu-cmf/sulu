@@ -7,13 +7,15 @@ import CopyLocaleToolbarAction from './toolbarActions/CopyLocaleToolbarAction';
 import DeleteDraftToolbarAction from './toolbarActions/DeleteDraftToolbarAction';
 import DeleteToolbarAction from './toolbarActions/DeleteToolbarAction';
 import DropdownToolbarAction from './toolbarActions/DropdownToolbarAction';
+import PublishToolbarAction from './toolbarActions/PublishToolbarAction';
+import ReloadFormStoreToolbarAction from './toolbarActions/ReloadFormStoreToolbarAction';
 import SaveWithPublishingToolbarAction from './toolbarActions/SaveWithPublishingToolbarAction';
 import SaveWithFormDialogToolbarAction from './toolbarActions/SaveWithFormDialogToolbarAction';
 import SaveToolbarAction from './toolbarActions/SaveToolbarAction';
-import PublishToolbarAction from './toolbarActions/PublishToolbarAction';
 import SetUnpublishedToolbarAction from './toolbarActions/SetUnpublishedToolbarAction';
 import TypeToolbarAction from './toolbarActions/TypeToolbarAction';
 import TogglerToolbarAction from './toolbarActions/TogglerToolbarAction';
+import UpdateFormStoreToolbarAction from './toolbarActions/UpdateFormStoreToolbarAction';
 
 export default Form;
 
@@ -25,11 +27,13 @@ export {
     DeleteDraftToolbarAction,
     DeleteToolbarAction,
     DropdownToolbarAction,
+    PublishToolbarAction,
+    ReloadFormStoreToolbarAction,
     SaveWithPublishingToolbarAction,
     SaveToolbarAction,
-    PublishToolbarAction,
     SaveWithFormDialogToolbarAction,
     SetUnpublishedToolbarAction,
     TypeToolbarAction,
     TogglerToolbarAction,
+    UpdateFormStoreToolbarAction,
 };
