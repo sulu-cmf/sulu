@@ -28,11 +28,6 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
-/**
- * User.
- *
- * @ExclusionPolicy("all")
- */
 #[ExclusionPolicy('all')]
 class User extends ApiEntity implements UserInterface, EquatableInterface, AuditableInterface, PasswordAuthenticatedUserInterface, LegacyPasswordAuthenticatedUserInterface
 {
@@ -280,8 +275,6 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
      *
      * @deprecated The salt functionality was deprecated in Sulu 2.5 and will be removed in Sulu 3.0
      *             Modern password algorithm do not longer require a salt.
-     *
-     * @return string
      */
     public function getSalt(): ?string
     {

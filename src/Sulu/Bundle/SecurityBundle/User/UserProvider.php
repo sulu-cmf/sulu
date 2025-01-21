@@ -11,8 +11,8 @@
 
 namespace Sulu\Bundle\SecurityBundle\User;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
-use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Bundle\SecurityBundle\System\SystemStoreInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
@@ -24,6 +24,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * Responsible for loading the user from the database for the Symfony security system. Takes also the security system
@@ -34,8 +35,18 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     public function __construct(
         private UserRepositoryInterface $userRepository,
         private SystemStoreInterface $systemStore,
-        private ManagerRegistry $doctrine,
+        private ?EntityManagerInterface $entityManager,
     ) {
+        if (null === $this->entityManager) {
+            @trigger_deprecation(
+                'sulu/sulu',
+                '2.5',
+                \sprintf(
+                    'The usage of the "%s" without setting "$entityManager" is deprecated and will not longer work in Sulu 3.0.',
+                    self::class
+                )
+            );
+        }
     }
 
     /**
@@ -112,6 +123,8 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     {
         $user->setPassword($newHashedPassword);
 
-        $this->doctrine->getManager()->flush();
+        Assert::notNull($this->entityManager, 'Entity manager is required for upgradePassword method.');
+
+        $this->entityManager->flush();
     }
 }

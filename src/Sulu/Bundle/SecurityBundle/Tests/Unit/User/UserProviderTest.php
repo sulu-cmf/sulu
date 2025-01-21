@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\SecurityBundle\Tests\Unit\User;
 
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -38,6 +39,11 @@ class UserProviderTest extends TestCase
     private $systemStore;
 
     /**
+     * @var ObjectProphecy<EntityManagerInterface>
+     */
+    private $entityManager;
+
+    /**
      * @var UserProvider
      */
     private $userProvider;
@@ -51,7 +57,8 @@ class UserProviderTest extends TestCase
     {
         $this->userRepository = $this->prophesize(UserRepositoryInterface::class);
         $this->systemStore = $this->prophesize(SystemStoreInterface::class);
-        $this->userProvider = new UserProvider($this->userRepository->reveal(), $this->systemStore->reveal());
+        $this->entityManager = $this->prophesize(EntityManagerInterface::class);
+        $this->userProvider = new UserProvider($this->userRepository->reveal(), $this->systemStore->reveal(), $this->entityManager->reveal());
 
         $this->user = new User();
         $this->user->setUsername('sulu');
@@ -107,5 +114,11 @@ class UserProviderTest extends TestCase
         $this->expectException(DisabledException::class);
         $this->user->setEnabled(false);
         $this->userProvider->refreshUser($this->user);
+    }
+
+    public function testUpgradePassword(): void
+    {
+        $this->userProvider->upgradePassword($this->user, 'hashedPass');
+        $this->assertEquals('hashedPass', $this->user->getPassword());
     }
 }
