@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\SecurityBundle\User;
 
 use Doctrine\ORM\NoResultException;
+use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Bundle\SecurityBundle\System\SystemStoreInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
@@ -19,6 +20,8 @@ use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Exception\LockedException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -26,11 +29,12 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  * Responsible for loading the user from the database for the Symfony security system. Takes also the security system
  * configuration from the webspaces into account.
  */
-class UserProvider implements UserProviderInterface
+class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,
         private SystemStoreInterface $systemStore,
+        private ManagerRegistry $doctrine,
     ) {
     }
 
@@ -102,5 +106,12 @@ class UserProvider implements UserProviderInterface
     public function supportsClass($class)
     {
         return \is_subclass_of($class, UserInterface::class);
+    }
+
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        $user->setPassword($newHashedPassword);
+
+        $this->doctrine->getManager()->flush();
     }
 }

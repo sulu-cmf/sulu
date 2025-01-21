@@ -25,6 +25,7 @@ use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 /**
@@ -32,7 +33,8 @@ use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
  *
  * @ExclusionPolicy("all")
  */
-class User extends ApiEntity implements UserInterface, EquatableInterface, AuditableInterface, PasswordAuthenticatedUserInterface
+#[ExclusionPolicy('all')]
+class User extends ApiEntity implements UserInterface, EquatableInterface, AuditableInterface, PasswordAuthenticatedUserInterface, LegacyPasswordAuthenticatedUserInterface
 {
     use AuditableTrait;
     use TwoFactorTrait;
@@ -281,7 +283,7 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
      *
      * @return string
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return $this->salt;
     }

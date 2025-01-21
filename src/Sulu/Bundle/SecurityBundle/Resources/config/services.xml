@@ -258,6 +258,7 @@
         <service id="sulu_security.user_provider" class="Sulu\Bundle\SecurityBundle\User\UserProvider">
             <argument type="service" id="sulu_security.user_repository"/>
             <argument type="service" id="sulu_security.system_store"/>
+            <argument type="service" id="doctrine"/>
         </service>
 
         <service id="sulu_security.build.user" class="%sulu_security.build.user.class%">
