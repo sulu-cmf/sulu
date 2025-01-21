@@ -230,6 +230,7 @@ class SuluCoreExtension extends Extension implements PrependExtensionInterface
                                 'phpcr_migrations' => [],
                                 'system_collections' => [],
                                 'security' => [],
+                                'search_init' => [],
                             ],
                         ],
                         'maintain' => [
