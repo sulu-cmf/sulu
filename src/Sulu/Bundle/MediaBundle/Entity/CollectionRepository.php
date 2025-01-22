@@ -53,10 +53,10 @@ class CollectionRepository extends NestedTreeRepository implements CollectionRep
                      LEFT JOIN n.children AS collectionChildren
                      LEFT JOIN collectionParent.meta AS parentMeta
                  WHERE n.id = :id',
-            $this->_entityName
+            $this->getClassName()
         );
 
-        $query = new Query($this->_em);
+        $query = new Query($this->getEntityManager());
         $query->setDQL($dql);
         $query->setParameter('id', $id);
         $result = $query->getResult();
@@ -239,11 +239,11 @@ class CollectionRepository extends NestedTreeRepository implements CollectionRep
                         LEFT JOIN n.defaultMeta AS defaultMeta
                  WHERE p.id = :id AND p.lft > n.lft AND p.rgt < n.rgt
                  ORDER BY n.lft',
-                $this->_entityName,
-                $this->_entityName
+                $this->getClassName(),
+                $this->getClassName()
             );
 
-            $query = new Query($this->_em);
+            $query = new Query($this->getEntityManager());
             $query->setDQL($sql);
             $query->setParameter('id', $id);
 
@@ -274,7 +274,7 @@ class CollectionRepository extends NestedTreeRepository implements CollectionRep
     {
         $subQueryBuilder = $this->createQueryBuilder('subCollection')
             ->select('subCollection.id')
-            ->leftJoin($this->_entityName, 'c', Join::WITH, 'c.id = :id')
+            ->leftJoin($this->getClassName(), 'c', Join::WITH, 'c.id = :id')
             ->andWhere('subCollection.lft <= c.lft AND subCollection.rgt > c.lft');
 
         $queryBuilder = $this->createQueryBuilder('collection')
@@ -387,7 +387,7 @@ class CollectionRepository extends NestedTreeRepository implements CollectionRep
 
     public function findIdByMediaId(int $mediaId): ?int
     {
-        $queryBuilder = $this->_em->createQueryBuilder()
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder()
             ->from(MediaInterface::class, 'media')
             ->select('IDENTITY(media.collection)')
             ->where('media.id = :mediaId')
@@ -409,7 +409,7 @@ class CollectionRepository extends NestedTreeRepository implements CollectionRep
     {
         $queryBuilder = $this->createQueryBuilder('subCollection')
             ->select('subCollection.id')
-            ->from($this->_entityName, 'collection')
+            ->from($this->getClassName(), 'collection')
             ->andWhere('collection.id = :id')
             ->andWhere('subCollection.lft > collection.lft AND subCollection.rgt < collection.rgt')
             ->setParameter('id', $id);
