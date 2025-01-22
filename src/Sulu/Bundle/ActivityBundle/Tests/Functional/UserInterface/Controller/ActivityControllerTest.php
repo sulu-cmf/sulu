@@ -18,10 +18,10 @@ use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Bundle\SecurityBundle\Entity\Role;
 use Sulu\Bundle\SecurityBundle\Entity\UserRole;
-use Sulu\Bundle\TestBundle\Kernel\SuluKernelBrowser;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\Security\Authorization\AccessControl\SecuredEntityInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class ActivityControllerTest extends SuluTestCase
 {
@@ -29,7 +29,7 @@ class ActivityControllerTest extends SuluTestCase
     public const NOT_GRANTED_CONTEXT = 'sulu.context.not_granted';
 
     /**
-     * @var SuluKernelBrowser
+     * @var KernelBrowser
      */
     private $client;
 
@@ -78,7 +78,6 @@ class ActivityControllerTest extends SuluTestCase
 
     public function setUp(): void
     {
-        /** @var SuluKernelBrowser $client */
         $client = $this->createAuthenticatedClient();
 
         $this->client = $client;
