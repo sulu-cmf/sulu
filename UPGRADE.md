@@ -4,14 +4,14 @@
 
 ### User getSalt method return types changed
 
-To support upgrade of `Legacy` passwords hashes from Sulu 1.6, the Sulu `User::getSalt` method requires the following changes if you have overwritten it:
+To support the upgrade of `Legacy` password hashes from Sulu 1.6, the `User::getSalt` method requires the following changes if you have overwritten it:
 
 ```diff
 -public function getSalt();
 +public function getSalt(): ?string;
 ```
 
-If migrating from an old Sulu 1.6 project you can configure a legacy hasher to seamlessly upgrade the Users password:
+If migrating from an old Sulu 1.6 project, you can configure a legacy hasher to seamlessly upgrade the user's password:
 
 <details>
 <summary>Example Password Upgrade configuration:</summary>
