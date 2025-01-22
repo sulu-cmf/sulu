@@ -121,6 +121,10 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
+        if (!$user instanceof UserInterface) {
+            return;
+        }
+
         $user->setPassword($newHashedPassword);
 
         Assert::notNull($this->entityManager, 'Entity manager is required for upgradePassword method.');
