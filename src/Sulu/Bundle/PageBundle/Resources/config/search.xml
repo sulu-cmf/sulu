@@ -41,6 +41,13 @@
             <tag name="sulu_document_manager.event_subscriber" />
         </service>
 
+        <service id="sulu_page.search.event_subscriber.shadow_structure" class="Sulu\Bundle\PageBundle\Search\EventSubscriber\ShadowStructureSubscriber">
+            <argument type="service" id="sulu_document_manager.document_manager" />
+            <argument type="service" id="sulu_document_manager.document_inspector" />
+            <argument type="service" id="massive_search.search_manager" />
+            <tag name="sulu_document_manager.event_subscriber" />
+        </service>
+
         <service id="sulu_search.event_listener.hit" class="%sulu_search.event_listener.hit.class%">
             <argument type="service" id="sulu_core.webspace.request_analyzer" />
             <tag name="kernel.event_listener" event="massive_search.hit" method="onHit" />
