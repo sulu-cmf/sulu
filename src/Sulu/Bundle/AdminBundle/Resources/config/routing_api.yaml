@@ -1,0 +1,15 @@
+sulu_admin.put_collaborations:
+    path: /collaborations.{_format}
+    controller: sulu_admin.collaboration_controller::cputAction
+    methods: PUT
+    format: json|csv
+    defaults:
+        _format: json
+
+sulu_admin.delete_collaborations:
+    path: /collaborations.{_format}
+    controller: sulu_admin.collaboration_controller::cdeleteAction
+    methods: DELETE
+    format: json|csv
+    defaults:
+        _format: json

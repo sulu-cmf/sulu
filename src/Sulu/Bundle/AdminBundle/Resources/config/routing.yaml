@@ -1,0 +1,22 @@
+sulu_admin:
+    path: /
+    controller: sulu_admin.admin_controller::indexAction
+
+sulu_admin.config:
+    path: /admin/config
+    controller: sulu_admin.admin_controller::configAction
+
+sulu_admin.metadata:
+    path: /metadata/{type}/{key}
+    controller: sulu_admin.admin_controller::metadataAction
+
+sulu_admin.translation:
+    path: /translations
+    controller: sulu_admin.admin_controller::translationsAction
+
+sulu_admin.login_check:
+    path: /login
+
+sulu_admin.logout:
+    path: /logout
+
