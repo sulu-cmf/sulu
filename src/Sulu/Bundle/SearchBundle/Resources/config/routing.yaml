@@ -1,0 +1,10 @@
+sulu_search_indexes:
+    path: /indexes
+    controller: sulu_search.controller.search::indexesAction
+    format: json
+
+sulu_search_search:
+    path: /query
+    controller: sulu_search.controller.search::searchAction
+    format: json
+
