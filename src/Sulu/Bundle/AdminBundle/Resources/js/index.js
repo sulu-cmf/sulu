@@ -2,7 +2,7 @@
 import {createHashHistory} from 'history';
 import log from 'loglevel';
 import React from 'react';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import {configure} from 'mobx';
 import ResizeObserver from 'resize-observer-polyfill';
 import Requester from './services/Requester';
@@ -416,9 +416,10 @@ function startAdmin() {
         throw new Error('DOM element with ID "id" was not found!');
     }
 
-    render(
-        <Application appVersion={Config.appVersion} router={router} suluVersion={Config.suluVersion} />,
-        applicationElement
+    const root = createRoot(applicationElement);
+
+    root.render(
+        <Application appVersion={Config.appVersion} router={router} suluVersion={Config.suluVersion} />
     );
 }
 

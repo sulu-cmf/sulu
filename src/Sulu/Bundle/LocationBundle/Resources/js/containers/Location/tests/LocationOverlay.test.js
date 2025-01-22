@@ -183,7 +183,7 @@ test('Should pass correct props to the map, marker and input fields after auto-c
     );
 
     const mockedMap = {setView: jest.fn(), on: jest.fn()};
-    locationOverlay.find(MapContainer).props().whenCreated(mockedMap);
+    locationOverlay.find(MapContainer).props().ref(mockedMap);
 
     const autoCompleteResult = {
         latitude: 10,
@@ -269,7 +269,7 @@ test('Should pass correct props to the map and input fields after map was zoomed
             handler({zoom: 10});
         }
     })};
-    locationOverlay.find(MapContainer).props().whenCreated(mockedMap);
+    locationOverlay.find(MapContainer).props().ref(mockedMap);
     locationOverlay.update();
 
     expect(locationOverlay.find(Number).at(2).props().value).toEqual(10); // zoom
@@ -304,7 +304,7 @@ test('Should call onConfirm callback when the Overlay is confirmed after map was
             handler({zoom: 10});
         }
     })};
-    locationOverlay.find(MapContainer).props().whenCreated(mockedMap);
+    locationOverlay.find(MapContainer).props().ref(mockedMap);
 
     locationOverlay.find(Overlay).props().onConfirm();
 
@@ -332,7 +332,7 @@ test('Should pass correct props to the map, marker and input fields when marker 
     );
 
     const mockedMap = {setView: jest.fn(), on: jest.fn()};
-    locationOverlay.find(MapContainer).props().whenCreated(mockedMap);
+    locationOverlay.find(MapContainer).props().ref(mockedMap);
 
     locationOverlay.find(Marker).props().eventHandlers.drag({latlng: {lng: 11, lat: 22}});
     locationOverlay.update();
@@ -454,7 +454,7 @@ test('Should pass correct props to the map, marker and input fields after reset'
     );
 
     const mockedMap = {setView: jest.fn(), on: jest.fn()};
-    locationOverlay.find(MapContainer).props().whenCreated(mockedMap);
+    locationOverlay.find(MapContainer).props().ref(mockedMap);
 
     locationOverlay.find(Overlay).props().actions[0].onClick();
     locationOverlay.update();
@@ -513,7 +513,7 @@ test('Should pass correct props to the map, marker and input fields after input 
     );
 
     const mockedMap = {setView: jest.fn(), on: jest.fn()};
-    locationOverlay.find(MapContainer).props().whenCreated(mockedMap);
+    locationOverlay.find(MapContainer).props().ref(mockedMap);
 
     locationOverlay.find(Number).at(0).props().onChange(10); // lat
     locationOverlay.find(Number).at(1).props().onChange(20); // long

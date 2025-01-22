@@ -241,7 +241,7 @@ test('Should update view of map when value prop is changed', () => {
     );
 
     const mockedMap = {setView: jest.fn()};
-    location.find(MapContainer).props().whenCreated(mockedMap);
+    location.find(MapContainer).props().ref(mockedMap);
 
     expect(mockedMap.setView).not.toBeCalled();
 

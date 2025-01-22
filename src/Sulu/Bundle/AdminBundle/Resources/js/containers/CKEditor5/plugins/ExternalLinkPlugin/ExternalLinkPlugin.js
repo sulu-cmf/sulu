@@ -6,7 +6,7 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import ContextualBalloon from '@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon';
 import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
-import {render, unmountComponentAtNode} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import {translate} from '../../../../utils';
 import {addLinkConversion, findModelItemInSelection, findViewLinkItemInSelection} from '../../utils';
 import LinkBalloonView from '../../LinkBalloonView';
@@ -65,7 +65,8 @@ export default class ExternalLinkPlugin extends Plugin {
 
         const locale = this.editor.config.get('sulu.locale');
 
-        render(
+        this.externalLinkOverlayElementRoot = createRoot(this.externalLinkOverlayElement);
+        this.externalLinkOverlayElementRoot.render(
             (
                 <Observer>
                     {() => (
@@ -86,8 +87,7 @@ export default class ExternalLinkPlugin extends Plugin {
                         />
                     )}
                 </Observer>
-            ),
-            this.externalLinkOverlayElement
+            )
         );
 
         this.editor.commands.add(
@@ -210,8 +210,9 @@ export default class ExternalLinkPlugin extends Plugin {
     };
 
     destroy() {
-        unmountComponentAtNode(this.externalLinkOverlayElement);
+        this.externalLinkOverlayElementRoot.unmount();
         this.externalLinkOverlayElement.remove();
         this.externalLinkOverlayElement = undefined;
+        this.externalLinkOverlayElementRoot = undefined;
     }
 }

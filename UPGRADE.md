@@ -135,6 +135,9 @@ The JavaScript dependencies of the Sulu administration interface were updated to
  - `postcss-nested`: `^5.0.6`
  - `postcss-simple-vars`: `^6.0.3`
  - `autoprefixer`: `^10.4.7`
+ - `react`: `^18.0.0`
+ - `react-leafleat`: `^4.0.0`
+
 
 If you have integrated custom JavaScript components into the administration interface,
 you might need to adjust your components to be compatible with the updated dependencies.

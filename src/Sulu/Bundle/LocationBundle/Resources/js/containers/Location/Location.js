@@ -107,9 +107,9 @@ class Location extends React.Component<Props> {
                         doubleClickZoom={false}
                         dragging={false}
                         keyboard={false}
+                        ref={this.setLeafletMap}
                         scrollWheelZoom={false}
                         tap={false}
-                        whenCreated={this.setLeafletMap}
                         zoom={value.zoom}
                         zoomControl={false}
                     >
