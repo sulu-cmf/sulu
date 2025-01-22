@@ -36,16 +36,6 @@ use Symfony\Component\Workflow\WorkflowInterface as SymfonyWorkflowInterface;
 class ContentWorkflow implements ContentWorkflowInterface
 {
     /**
-     * @var DimensionContentRepositoryInterface
-     */
-    private $dimensionContentRepository;
-
-    /**
-     * @var ContentMergerInterface
-     */
-    private $contentMerger;
-
-    /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
@@ -56,13 +46,11 @@ class ContentWorkflow implements ContentWorkflowInterface
     private $workflowRegistry;
 
     public function __construct(
-        DimensionContentRepositoryInterface $dimensionContentRepository,
-        ContentMergerInterface $contentMerger,
+        private DimensionContentRepositoryInterface $dimensionContentRepository,
+        private ContentMergerInterface $contentMerger,
         ?Registry $workflowRegistry = null,
         ?EventDispatcherInterface $eventDispatcher = null
     ) {
-        $this->dimensionContentRepository = $dimensionContentRepository;
-        $this->contentMerger = $contentMerger;
         $this->eventDispatcher = $eventDispatcher ?: new EventDispatcher();
         // TODO: get public workflow registry from outside
         $this->workflowRegistry = $workflowRegistry ?: new Registry();

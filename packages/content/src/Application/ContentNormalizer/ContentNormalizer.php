@@ -22,11 +22,6 @@ use Symfony\Component\Serializer\Serializer;
 class ContentNormalizer implements ContentNormalizerInterface
 {
     /**
-     * @var iterable<NormalizerInterface>
-     */
-    private $normalizers;
-
-    /**
      * @var SymfonyNormalizerInterface
      */
     private $serializer;
@@ -35,10 +30,9 @@ class ContentNormalizer implements ContentNormalizerInterface
      * @param iterable<NormalizerInterface> $normalizers
      */
     public function __construct(
-        iterable $normalizers,
+        private iterable $normalizers,
         ?SymfonyNormalizerInterface $serializer = null
     ) {
-        $this->normalizers = $normalizers;
         $this->serializer = $serializer ?: $this->createSerializer();
     }
 

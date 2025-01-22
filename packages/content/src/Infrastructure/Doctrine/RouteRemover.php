@@ -28,31 +28,13 @@ use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 class RouteRemover implements EventSubscriber
 {
     /**
-     * @var ContentMetadataInspectorInterface
-     */
-    private $contentMetadataInspector;
-
-    /**
-     * @var RouteRepositoryInterface
-     */
-    private $routeRepository;
-
-    /**
-     * @var array<string|int, array{resource_key: string, entityClass?: string}>
-     */
-    private $routeMappings;
-
-    /**
      * @param array<string|int, array{resource_key: string, entityClass?: string}> $routeMappings
      */
     public function __construct(
-        ContentMetadataInspectorInterface $contentMetadataInspector,
-        RouteRepositoryInterface $routeRepository,
-        array $routeMappings
+        private ContentMetadataInspectorInterface $contentMetadataInspector,
+        private RouteRepositoryInterface $routeRepository,
+        private array $routeMappings,
     ) {
-        $this->routeRepository = $routeRepository;
-        $this->contentMetadataInspector = $contentMetadataInspector;
-        $this->routeMappings = $routeMappings;
     }
 
     public function getSubscribedEvents()

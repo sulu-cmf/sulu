@@ -20,18 +20,12 @@ use Sulu\Content\Domain\Model\WebspaceInterface;
 class WebspaceDataMapper implements DataMapperInterface
 {
     /**
-     * @var WebspaceManagerInterface
-     */
-    private $webspaceManager;
-
-    /**
      * @var string|null
      */
     private $defaultWebspaceKey;
 
-    public function __construct(WebspaceManagerInterface $webspaceManager)
+    public function __construct(private WebspaceManagerInterface $webspaceManager)
     {
-        $this->webspaceManager = $webspaceManager;
     }
 
     public function map(

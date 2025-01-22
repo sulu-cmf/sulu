@@ -42,7 +42,7 @@ trait ResolveContentTrait
                 'locale' => $locale,
                 'stage' => $stage,
             ]);
-        } catch (ContentNotFoundException $exception) {
+        } catch (ContentNotFoundException) {
             return null;
         }
 

@@ -254,7 +254,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $this->expectExceptionMessage(\sprintf(
             'Expected to get "%s" from ContentResolver but "%s" given.',
             TemplateInterface::class,
-            \get_class($resolvedDimensionContent->reveal())
+            $resolvedDimensionContent->reveal()::class
         ));
 
         $entityManager = $this->prophesize(EntityManagerInterface::class);
@@ -298,7 +298,7 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $this->expectExceptionMessage(\sprintf(
             'Expected to get "%s" from ContentResolver but "%s" given.',
             TemplateInterface::class,
-            \get_class($dimensionContent->reveal())
+            $dimensionContent->reveal()::class
         ));
 
         $entityManager = $this->prophesize(EntityManagerInterface::class);

@@ -19,20 +19,10 @@ use Sulu\Content\Domain\Model\TemplateInterface;
 
 class ContentStructureBridgeFactory
 {
-    /**
-     * @var StructureMetadataFactoryInterface
-     */
-    protected $structureMetadataFactory;
-
-    /**
-     * @var LegacyPropertyFactory
-     */
-    private $propertyFactory;
-
-    public function __construct(StructureMetadataFactoryInterface $structureMetadataFactory, LegacyPropertyFactory $propertyFactory)
-    {
-        $this->structureMetadataFactory = $structureMetadataFactory;
-        $this->propertyFactory = $propertyFactory;
+    public function __construct(
+        protected StructureMetadataFactoryInterface $structureMetadataFactory,
+        private LegacyPropertyFactory $propertyFactory,
+    ) {
     }
 
     /**

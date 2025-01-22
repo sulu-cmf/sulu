@@ -19,16 +19,10 @@ use Sulu\Content\Domain\Model\DimensionContentCollectionInterface;
 class ContentDataMapper implements ContentDataMapperInterface
 {
     /**
-     * @var iterable<DataMapperInterface>
-     */
-    private $dataMappers;
-
-    /**
      * @param iterable<DataMapperInterface> $dataMappers
      */
-    public function __construct(iterable $dataMappers)
+    public function __construct(private iterable $dataMappers)
     {
-        $this->dataMappers = $dataMappers;
     }
 
     public function map(

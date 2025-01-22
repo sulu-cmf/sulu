@@ -35,45 +35,15 @@ use Sulu\Content\Domain\Model\WorkflowInterface;
 class ContentViewBuilderFactory implements ContentViewBuilderFactoryInterface
 {
     /**
-     * @var ViewBuilderFactoryInterface
-     */
-    private $viewBuilderFactory;
-
-    /**
-     * @var PreviewObjectProviderRegistryInterface
-     */
-    private $objectProviderRegistry;
-
-    /**
-     * @var ContentMetadataInspectorInterface
-     */
-    private $contentMetadataInspector;
-
-    /**
-     * @var SecurityCheckerInterface
-     */
-    private $securityChecker;
-
-    /**
-     * @var array<string, array{instanceOf: class-string}>
-     */
-    private $settingsForms;
-
-    /**
      * @param array<string, array{instanceOf: class-string}> $settingsForms
      */
     public function __construct(
-        ViewBuilderFactoryInterface $viewBuilderFactory,
-        PreviewObjectProviderRegistryInterface $objectProviderRegistry,
-        ContentMetadataInspectorInterface $contentMetadataInspector,
-        SecurityCheckerInterface $securityChecker,
-        array $settingsForms
+        private ViewBuilderFactoryInterface $viewBuilderFactory,
+        private PreviewObjectProviderRegistryInterface $objectProviderRegistry,
+        private ContentMetadataInspectorInterface $contentMetadataInspector,
+        private SecurityCheckerInterface $securityChecker,
+        private array $settingsForms,
     ) {
-        $this->viewBuilderFactory = $viewBuilderFactory;
-        $this->objectProviderRegistry = $objectProviderRegistry;
-        $this->contentMetadataInspector = $contentMetadataInspector;
-        $this->securityChecker = $securityChecker;
-        $this->settingsForms = $settingsForms;
     }
 
     public function getDefaultToolbarActions(

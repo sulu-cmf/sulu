@@ -23,36 +23,12 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
 
 class ContentCopier implements ContentCopierInterface
 {
-    /**
-     * @var ContentAggregatorInterface
-     */
-    private $contentAggregator;
-
-    /**
-     * @var ContentMergerInterface
-     */
-    private $contentMerger;
-
-    /**
-     * @var ContentPersisterInterface
-     */
-    private $contentPersister;
-
-    /**
-     * @var ContentNormalizerInterface
-     */
-    private $contentNormalizer;
-
     public function __construct(
-        ContentAggregatorInterface $contentAggregator,
-        ContentMergerInterface $contentMerger,
-        ContentPersisterInterface $contentPersister,
-        ContentNormalizerInterface $contentNormalizer
+        private ContentAggregatorInterface $contentAggregator,
+        private ContentMergerInterface $contentMerger,
+        private ContentPersisterInterface $contentPersister,
+        private ContentNormalizerInterface $contentNormalizer,
     ) {
-        $this->contentAggregator = $contentAggregator;
-        $this->contentMerger = $contentMerger;
-        $this->contentPersister = $contentPersister;
-        $this->contentNormalizer = $contentNormalizer;
     }
 
     public function copy(

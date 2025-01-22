@@ -20,20 +20,10 @@ use Sulu\Content\Domain\Model\ExcerptInterface;
 
 class ExcerptDataMapper implements DataMapperInterface
 {
-    /**
-     * @var TagFactoryInterface
-     */
-    private $tagFactory;
-
-    /**
-     * @var CategoryFactoryInterface
-     */
-    private $categoryFactory;
-
-    public function __construct(TagFactoryInterface $tagFactory, CategoryFactoryInterface $categoryFactory)
-    {
-        $this->tagFactory = $tagFactory;
-        $this->categoryFactory = $categoryFactory;
+    public function __construct(
+        private TagFactoryInterface $tagFactory,
+        private CategoryFactoryInterface $categoryFactory,
+    ) {
     }
 
     public function map(
