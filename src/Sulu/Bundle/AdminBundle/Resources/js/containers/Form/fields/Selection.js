@@ -56,6 +56,9 @@ class Selection extends React.Component<Props> {
                 resource_store_properties_to_request: {
                     value: unvalidatedResourceStorePropertiesToRequest = [],
                 } = {},
+                form_options_to_request: {
+                    value: unvalidatedFormOptionsToRequest = [],
+                } = {},
             },
         } = this.props;
 
@@ -75,9 +78,16 @@ class Selection extends React.Component<Props> {
         // $FlowFixMe: flow does not recognize that isArrayLike(value) means that value is an array
         const resourceStorePropertiesToRequest: Array | IObservableArray = unvalidatedResourceStorePropertiesToRequest;
 
+        if (!isArrayLike(unvalidatedFormOptionsToRequest)) {
+            throw new Error('The "form_options_to_request" schemaOption must be an array!');
+        }
+        // $FlowFixMe: flow does not recognize that isArrayLike(value) means that value is an array
+        const formOptionsToRequest: Array | IObservableArray = unvalidatedFormOptionsToRequest;
+
         this.requestOptions = this.buildRequestOptions(
             requestParameters,
             resourceStorePropertiesToRequest,
+            formOptionsToRequest,
             formInspector
         );
 
@@ -91,6 +101,7 @@ class Selection extends React.Component<Props> {
                 const newRequestOptions = this.buildRequestOptions(
                     requestParameters,
                     resourceStorePropertiesToRequest,
+                    formOptionsToRequest,
                     formInspector
                 );
 
@@ -279,6 +290,7 @@ class Selection extends React.Component<Props> {
     buildRequestOptions(
         requestParameters: Array<SchemaOption>,
         resourceStorePropertiesToRequest: Array<SchemaOption>,
+        formOptionsToRequest: Array<SchemaOption>,
         formInspector: FormInspector
     ) {
         const requestOptions = {};
@@ -291,6 +303,14 @@ class Selection extends React.Component<Props> {
             const {name: parameterName, value: propertyName} = propertyToRequest;
             const propertyPath = typeof propertyName === 'string' ? propertyName : parameterName;
             requestOptions[parameterName] = toJS(formInspector.getValueByPath('/' + propertyPath));
+        });
+
+        formOptionsToRequest.forEach((optionToRequest) => {
+            const {name: parameterName, value: optionName} = optionToRequest;
+            const optionKey = typeof optionName === 'string' ? optionName : parameterName;
+            if (formInspector.options && optionKey in formInspector.options) {
+                requestOptions[parameterName] = toJS(formInspector.options[optionKey]);
+            }
         });
 
         return requestOptions;
