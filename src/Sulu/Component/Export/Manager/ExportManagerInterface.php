@@ -23,6 +23,8 @@ interface ExportManagerInterface
      * @param string $contentTypeName
      * @param string $format
      * @param mixed[] $options
+     *
+     * @return void
      */
     public function add($contentTypeName, $format, $options);
 

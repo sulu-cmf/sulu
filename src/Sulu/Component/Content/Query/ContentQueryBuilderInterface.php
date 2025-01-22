@@ -27,7 +27,7 @@ interface ContentQueryBuilderInterface
     public function build($webspaceKey, $locales);
 
     /**
-     * initialize query builder.
+     * @return void
      */
     public function init(array $options);
 

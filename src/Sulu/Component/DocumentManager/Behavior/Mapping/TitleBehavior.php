@@ -27,6 +27,8 @@ interface TitleBehavior
      * Set the title.
      *
      * @param string $title
+     *
+     * @return void
      */
     public function setTitle($title);
 }

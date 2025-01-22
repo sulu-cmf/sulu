@@ -23,7 +23,7 @@ use Sulu\Component\Content\Types\ResourceLocator\ResourceLocatorInformation;
 interface ResourceLocatorMapperInterface
 {
     /**
-     * Saves the route for the given document.
+     * @return void
      */
     public function save(ResourceSegmentBehavior $document);
 

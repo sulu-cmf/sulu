@@ -39,6 +39,8 @@ interface ContactManagerInterface
      *
      * @param string $entity
      * @param AddressRelationEntity $address
+     *
+     * @return void
      */
     public function removeAddressRelation($entity, $address);
 
@@ -55,6 +57,8 @@ interface ContactManagerInterface
      * sets the first element to main, if none is set.
      *
      * @param Collection<AddressRelationEntity> $arrayCollection
+     *
+     * @return void
      */
     public function setMainForCollection($arrayCollection);
 
@@ -64,6 +68,7 @@ interface ContactManagerInterface
      * @param Collection<AddressRelationEntity> $arrayCollection
      *
      * @return bool returns true if a element was unset
+     * @return void
      */
     public function unsetMain($arrayCollection);
 
@@ -71,6 +76,8 @@ interface ContactManagerInterface
      * sets main email, based on emails that are set on entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function setMainEmail($entity);
 
@@ -78,6 +85,8 @@ interface ContactManagerInterface
      * sets main fax, based on faxes that are set on entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function setMainFax($entity);
 
@@ -85,6 +94,8 @@ interface ContactManagerInterface
      * sets main url, based on urls that are set on entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function setMainUrl($entity);
 
@@ -92,6 +103,8 @@ interface ContactManagerInterface
      * sets main phone, based on phones that are set on entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function setMainPhone($entity);
 

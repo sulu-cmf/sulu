@@ -26,11 +26,15 @@ interface SessionManagerInterface
      * @param string $nodePath The path of the node to manipulate
      * @param string $propertyName The name of the property to set
      * @param mixed $value The value to set
+     *
+     * @return void
      */
     public function setNodeProperty($nodePath, $propertyName, $value);
 
     /**
      * Flushes the data for all sessions.
+     *
+     * @return void
      */
     public function flush();
 }

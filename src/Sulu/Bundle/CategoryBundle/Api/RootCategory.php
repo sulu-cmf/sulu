@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 class RootCategory
 {
     /**
-     * @var int
+     * @var string
      */
     private $id = 'root';
 
@@ -37,6 +37,9 @@ class RootCategory
         $this->categories = $categories;
     }
 
+    /**
+     * @return Category[]
+     */
     public function getCategories()
     {
         return $this->categories;
@@ -47,6 +50,8 @@ class RootCategory
      *
      * @VirtualProperty
      * @SerializedName("_embedded")
+     *
+     * @return array{collections: Category[]}
      */
     public function getEmbedded(): array
     {
