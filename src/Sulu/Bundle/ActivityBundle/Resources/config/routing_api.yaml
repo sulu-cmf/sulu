@@ -1,0 +1,7 @@
+sulu_activity.get_activities:
+    path: /activities.{_format}
+    controller: sulu_activity.activity_controller::cgetAction
+    methods: GET
+    format: json|csv
+    defaults:
+        _format: json
