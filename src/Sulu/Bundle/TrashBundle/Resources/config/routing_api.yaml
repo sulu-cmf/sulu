@@ -1,0 +1,31 @@
+sulu_trash.get_trash-items:
+    path: /trash-items.{_format}
+    methods: GET
+    controller: sulu_trash.trash_item_controller::cgetAction
+    format: json|csv
+    defaults:
+        _format: json
+
+sulu_trash.get_trash-item:
+    path: /trash-items/{id}.{_format}
+    methods: GET
+    controller: sulu_trash.trash_item_controller::getAction
+    format: json|csv
+    defaults:
+        _format: json
+
+sulu_trash.delete_trash-item:
+    path: /trash-items/{id}.{_format}
+    methods: DELETE
+    controller: sulu_trash.trash_item_controller::deleteAction
+    format: json|csv
+    defaults:
+        _format: json
+
+sulu_trash.post_trash-item_trigger:
+    path: /trash-items/{id}.{_format}
+    methods: POST
+    controller: sulu_trash.trash_item_controller::postTriggerAction
+    format: json|csv
+    defaults:
+        _format: json
