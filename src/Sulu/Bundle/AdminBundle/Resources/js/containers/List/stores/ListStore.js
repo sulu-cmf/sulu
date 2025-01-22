@@ -623,6 +623,66 @@ export default class ListStore {
         });
     };
 
+    updateSelectionIds(newSelectionIds: Array<string | number>) {
+        const oldSelectionIds = this.selectionIds;
+
+        if (oldSelectionIds === newSelectionIds) {
+            return;
+        }
+
+        const removedValues = oldSelectionIds.filter((x) => !newSelectionIds.includes(x));
+        const addedValues = newSelectionIds.filter((x) => !oldSelectionIds.includes(x));
+        const notLoadedIds = [];
+
+        removedValues.forEach((oldId: string | number) => {
+            this.deselectById(oldId);
+        });
+
+        addedValues.forEach((newId: string | number) => {
+            const row = this.findById(newId);
+
+            if (!row) {
+                notLoadedIds.push(newId);
+
+                return;
+            }
+
+            this.select(row);
+        });
+
+        if (!notLoadedIds.length) {
+            return;
+        }
+
+        const observableOptions = {};
+
+        for (const key in this.observableOptions) {
+            observableOptions[key] = this.observableOptions[key].get();
+        }
+
+        this.setDataLoading(true);
+        const options = {...observableOptions, ...this.options};
+
+        options.selectedIds = newSelectionIds.join(',');
+
+        this.loadingStrategy.load(
+            this.resourceKey,
+            options
+        ).then(action(() => {
+            this.setDataLoading(false);
+
+            newSelectionIds
+                .map((selectionId) => this.findById(selectionId))
+                .forEach((selectionRow) => {
+                    if (!selectionRow) {
+                        return;
+                    }
+
+                    this.select(selectionRow);
+                });
+        }));
+    }
+
     @action setDataLoading(dataLoading: boolean) {
         this.dataLoading = dataLoading;
     }

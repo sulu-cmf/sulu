@@ -179,6 +179,24 @@ class Selection extends React.Component<Props> {
         }
     }
 
+    componentDidUpdate(prevProps: Props) {
+        this.updateListStoreSelection(prevProps);
+    }
+
+    updateListStoreSelection(prevProps: Props) {
+        if (prevProps.value === this.props.value) {
+            return;
+        }
+
+        const listStore = this.listStore;
+
+        if (!listStore) {
+            return;
+        }
+
+        listStore.updateSelectionIds(toJS(this.props.value) || []);
+    }
+
     componentWillUnmount() {
         if (this.changeListDisposer) {
             this.changeListDisposer();
