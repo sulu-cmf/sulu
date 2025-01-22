@@ -1,0 +1,7 @@
+sulu_preview.public_preview:
+    path: "/{token}"
+    controller: sulu_preview.public_preview_controller::renderAction
+
+sulu_preview.public_render:
+    path: "/{token}/render"
+    controller: sulu_preview.public_preview_controller::renderAction

@@ -1,0 +1,13 @@
+sulu_preview.get_preview-link:
+    path: /admin/api/preview-links/{resourceId}.{_format}
+    methods: GET
+    controller: sulu_preview.preview_link_controller::getAction
+    format: json|csv
+    defaults:
+        _format: json
+
+sulu_preview.post_preview_link_trigger:
+    path: /preview-links/{resourceId}.{_format}
+    controller: sulu_preview.preview_link_controller::postTriggerAction
+    methods: POST
+    format: json
