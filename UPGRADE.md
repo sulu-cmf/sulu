@@ -1,5 +1,16 @@
 # Upgrade
 
+## 2.5.23
+
+### User entity method return types changed
+
+The sulu `User` entity requires the following changes:
+
+```diff
+-public function getSalt();
++public function getSalt(): ?string;
+```
+
 ## 2.5.20
 
 ### Stricter Image Format Url Handling

@@ -119,6 +119,6 @@ class UserProviderTest extends TestCase
     public function testUpgradePassword(): void
     {
         $this->userProvider->upgradePassword($this->user, 'hashedPass');
-        $this->assertEquals('hashedPass', $this->user->getPassword());
+        $this->assertSame('hashedPass', $this->user->getPassword());
     }
 }
