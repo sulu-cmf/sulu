@@ -374,7 +374,7 @@ class ResettingController
         if ('' === $password) {
             throw new MissingPasswordException();
         }
-        $user->setPassword($this->encodePassword($user, $password, $user->getSalt()));
+        $user->setPassword($this->encodePassword($user, $password, $user->getSalt() ?? ''));
         $this->entityManager->persist($user);
 
         $this->domainEventCollector->collect(new UserPasswordResettedEvent($user));
