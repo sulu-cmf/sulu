@@ -13,6 +13,7 @@ namespace Sulu\Bundle\SecurityBundle\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
+use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Bundle\SecurityBundle\System\SystemStoreInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
@@ -29,6 +30,8 @@ use Webmozart\Assert\Assert;
 /**
  * Responsible for loading the user from the database for the Symfony security system. Takes also the security system
  * configuration from the webspaces into account.
+ *
+ * @implements UserProviderInterface<UserInterface>
  */
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
@@ -121,7 +124,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof User) {
             return;
         }
 
