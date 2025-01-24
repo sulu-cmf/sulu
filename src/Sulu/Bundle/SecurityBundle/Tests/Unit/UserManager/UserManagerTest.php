@@ -17,7 +17,6 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\ContactBundle\Contact\ContactManager;
-use Sulu\Bundle\SecurityBundle\Entity\GroupRepository;
 use Sulu\Bundle\SecurityBundle\UserManager\UserManager;
 use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
 use Sulu\Component\Security\Authentication\SaltGenerator;

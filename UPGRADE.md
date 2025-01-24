@@ -7,17 +7,20 @@ This includes the following services:
 - `sulu_security.group_repository`
 - `sulu_security.group_controller`
 
-And the parameters:
+These unused parameters have been removed:
 - `sulu_security.group_repository.class`
 - `sulu_security.entity_group.class`
+- `sulu_security.entity.group`
 
-And the resource routes:
+The resource routes has been removed:
 ```diff
 - sulu_security.groups:
 -    type: rest
 -    name_prefix: sulu_security.
 -    resource: sulu_security.group_controller
 ```
+
+The `se_user_groups` and `se_groups` table were removed from the database.
 
 ### Changed Media Format HTTP Response Headers
 

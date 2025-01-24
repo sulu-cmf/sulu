@@ -12,7 +12,6 @@
 namespace Sulu\Component\Security\Authentication;
 
 use Doctrine\Common\Collections\Collection;
-use Sulu\Bundle\SecurityBundle\Entity\Group;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Bundle\SecurityBundle\Entity\SecurityType;
 use Sulu\Bundle\SecurityBundle\Entity\UserRole;

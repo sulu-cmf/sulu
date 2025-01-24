@@ -32,7 +32,6 @@
         <parameter key="sulu_security.user_repository_factory.class">Sulu\Component\Security\Authentication\UserRepositoryFactory</parameter>
         <parameter key="sulu_security.build.user.class">Sulu\Bundle\SecurityBundle\Build\UserBuilder</parameter>
         <parameter key="sulu_security.entity.role">Sulu\Bundle\SecurityBundle\Entity\Role</parameter>
-        <parameter key="sulu_security.entity.group">Sulu\Bundle\SecurityBundle\Entity\Group</parameter>
         <parameter key="sulu_security.entity.user_setting">Sulu\Bundle\SecurityBundle\Entity\UserSetting</parameter>
         <parameter key="sulu_security.profile_controller.class">Sulu\Bundle\SecurityBundle\Controller\ProfileController</parameter>
     </parameters>
