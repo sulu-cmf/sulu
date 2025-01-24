@@ -4,6 +4,7 @@ import React, {Component, Fragment} from 'react';
 import {observable} from 'mobx';
 import {Button} from '../../components';
 import {TextEditor} from '../../containers';
+import {translate} from '../../utils';
 import messageStyles from './message.scss';
 
 type Props = {|
@@ -160,7 +161,7 @@ class Message extends Component<Props> {
                                 onClick={this.handleOnInsert}
                                 size="small"
                                 skin="secondary"
-                            >Insert</Button>
+                            >{translate('sulu_admin.writing_assistant_insert')}</Button>
                             <Button
                                 disabled={isLoading}
                                 icon="su-sync"

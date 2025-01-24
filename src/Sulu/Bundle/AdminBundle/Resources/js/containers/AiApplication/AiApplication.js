@@ -218,7 +218,7 @@ export default class AiApplication extends Component<Props> {
             return 50;
         }
 
-        return 0;
+        return 5;
     }
 
     @action handleWritingAssistantOpen = () => {

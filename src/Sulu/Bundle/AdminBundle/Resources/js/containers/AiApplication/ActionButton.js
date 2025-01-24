@@ -11,10 +11,6 @@ type Props = {|
 |};
 
 export default class ActionButton extends Component<Props> {
-    handleClick = (event: MouseEvent) => {
-        event.stopPropagation();
-    };
-
     render() {
         const {
             onClick,

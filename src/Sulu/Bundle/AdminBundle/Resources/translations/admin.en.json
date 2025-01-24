@@ -240,6 +240,7 @@
     "sulu_admin.%count%_blocks_cut": "{count} {count, plural, =1 {block} other {blocks}} cut to clipboard.",
     "sulu_admin.%count%_blocks_pasted": "{count} {count, plural, =1 {block} other {blocks}} pasted.",
     "sulu_admin.writing_assistant_title": "Writing Assistant",
+    "sulu_admin.writing_assistant_insert": "Insert",
     "sulu_admin.writing_assistant_prompt_placeholder": "How can sulu help you?",
     "sulu_admin.writing_assistant_copied_to_clipboard": "Successfully copied to clipboard",
     "sulu_admin.writing_assistant_initial_message": "Selected Text",

@@ -10,6 +10,10 @@ jest.mock('../../../containers', () => ({
     TextEditor: jest.fn(({value}) => <div data-testid="text-editor">{value}</div>),
 }));
 
+jest.mock('../../../utils/Translator', () => ({
+    translate: jest.fn((key) => key),
+}));
+
 describe('Message Component', () => {
     const defaultProps = {
         expert: 'Test Expert',
@@ -43,7 +47,7 @@ describe('Message Component', () => {
     test('renders the actions buttons if displayActions is true', () => {
         render(<Message {...defaultProps} />);
 
-        expect(screen.getByText('Insert')).toBeInTheDocument();
+        expect(screen.getByText('sulu_admin.writing_assistant_insert')).toBeInTheDocument();
         expect(screen.getAllByRole('button', {name: /su-sync/i})[0]).toBeInTheDocument();
         expect(screen.getAllByRole('button', {name: /su-copy/i})[0]).toBeInTheDocument();
     });
@@ -51,7 +55,7 @@ describe('Message Component', () => {
     test('does not render actions buttons if displayActions is false', () => {
         render(<Message {...defaultProps} displayActions={false} />);
 
-        expect(screen.queryByText('Insert')).not.toBeInTheDocument();
+        expect(screen.queryByText('sulu_admin.writing_assistant_insert')).not.toBeInTheDocument();
         expect(screen.queryAllByRole('button', {name: /su-sync/i})[0]).toBeUndefined();
         expect(screen.queryAllByRole('button', {name: /su-copy/i})[0]).toBeUndefined();
     });
@@ -83,7 +87,7 @@ describe('Message Component', () => {
     test('calls onInsert when the insert button is clicked', async() => {
         render(<Message {...defaultProps} />);
 
-        await userEvent.click(screen.getByText('Insert'));
+        await userEvent.click(screen.getByText('sulu_admin.writing_assistant_insert'));
 
         expect(defaultProps.onInsert).toHaveBeenCalledWith(defaultProps.text);
     });

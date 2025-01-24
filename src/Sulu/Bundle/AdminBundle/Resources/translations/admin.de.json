@@ -240,6 +240,7 @@
     "sulu_admin.%count%_blocks_cut": "{count} {count, plural, =1 {Block} other {Blöcke}} zur Zwischenablage ausgeschnitten.",
     "sulu_admin.%count%_blocks_pasted": "{count} {count, plural, =1 {Block} other {Blöcke}} eingefügt.",
     "sulu_admin.writing_assistant_title": "Schreibassistent",
+    "sulu_admin.writing_assistant_insert": "Einsetzen",
     "sulu_admin.writing_assistant_prompt_placeholder": "Wie kann sulu dir helfen?",
     "sulu_admin.writing_assistant_copied_to_clipboard": "Erfolgreich in die Zwischenablage kopiert",
     "sulu_admin.writing_assistant_initial_message": "Ausgewählter Text",
