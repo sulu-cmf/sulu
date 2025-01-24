@@ -12,6 +12,7 @@
 namespace Sulu\Route\Infrastructure\Doctrine\EventListener;
 
 use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\Event\OnClearEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -69,17 +70,17 @@ class RouteChangedUpdater implements ResetInterface
             // select all child and grand routes of oldSlug
             $selectQueryBuilder = $connection->createQueryBuilder()
                 ->from($routesTableName, 'parent')
-                ->select('parent.id as parentId')
+                ->select('parent.id AS parent_id')
                 ->innerJoin('parent', $routesTableName, 'child', 'child.parent_id = parent.id')
                 ->andWhere('(parent.site = :site)')
                 ->andWhere('parent.locale = :locale')
                 ->andWhere('(parent.slug = :newSlug OR parent.slug LIKE :oldSlugSlash)') // direct child is using newSlug already updated as we are in PostFlush, grand child use oldSlugWithSlash as not yet updated
-                ->setParameter('newSlug', $newSlug)
-                ->setParameter('oldSlugSlash', $oldSlug . '/%')
+                ->setParameter('newSlug', $newSlug, ParameterType::STRING)
+                ->setParameter('oldSlugSlash', $oldSlug . '/%', ParameterType::STRING)
                 ->setParameter('locale', $locale)
                 ->setParameter('site', $site);
 
-            $parentIds = \array_map(fn ($row) => $row['parentId'] ?? null, $selectQueryBuilder->executeQuery()->fetchAllAssociative());
+            $parentIds = \array_map(fn ($row) => $row[0] ?? null, $selectQueryBuilder->executeQuery()->fetchAllNumeric());
             $parentIds = \array_filter($parentIds);
 
             if (0 === \count($parentIds)) {
@@ -93,8 +94,8 @@ class RouteChangedUpdater implements ResetInterface
             // update child and grand routes
             $updateQueryBuilder = $connection->createQueryBuilder()->update($routesTableName, 'r')
                 ->set('slug', 'CONCAT(:newSlug, SUBSTRING(slug, LENGTH(:oldSlug) + 1))')
-                ->setParameter('newSlug', $newSlug)
-                ->setParameter('oldSlug', $oldSlug)
+                ->setParameter('newSlug', $newSlug, ParameterType::STRING)
+                ->setParameter('oldSlug', $oldSlug, ParameterType::STRING)
                 ->where('parent_id IN (:parentIds)')
                 ->setParameter('parentIds', $parentIds, ArrayParameterType::INTEGER);
 
