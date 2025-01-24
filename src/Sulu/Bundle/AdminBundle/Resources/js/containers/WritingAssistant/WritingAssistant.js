@@ -33,6 +33,9 @@ type Props = {|
     value?: string,
 |};
 
+/**
+ * @internal
+ */
 @observer
 export default class WritingAssistant extends React.Component<Props> {
     @observable messages: Array<MessageType> = [];

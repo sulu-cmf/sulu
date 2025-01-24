@@ -16,6 +16,9 @@ type Props = {|
     skin: 'white' | 'gray',
 |};
 
+/**
+ * @internal
+ */
 export default class FeatureBadge extends Component<Props> {
     handleClick = (event: MouseEvent) => {
         event.stopPropagation();

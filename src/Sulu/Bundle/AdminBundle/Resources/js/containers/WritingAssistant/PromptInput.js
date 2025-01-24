@@ -34,6 +34,9 @@ type Props = {|
     },
 |};
 
+/**
+ * @internal
+ */
 @observer
 class PromptInput extends Component<Props> {
     @observable messageInput: string = '';

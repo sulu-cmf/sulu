@@ -8,6 +8,10 @@ type Props = {|
     text: string,
     type: 'text_line' | 'text_area' | 'text_editor',
 |};
+
+/**
+ * @internal
+ */
 export default class Input extends React.Component<Props> {
     handleChange = (value: ?string) => {
         const {

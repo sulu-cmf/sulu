@@ -20,6 +20,9 @@ type Props = {|
     onRetry: (prompt: string, title: string) => void,
 |};
 
+/**
+ * @internal
+ */
 @observer
 class Messages extends Component<Props> {
     handleMessageCopyClicked = (text: string) => {

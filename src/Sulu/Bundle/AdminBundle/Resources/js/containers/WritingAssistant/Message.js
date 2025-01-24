@@ -26,6 +26,9 @@ type Props = {|
 
 const MAX_LENGTH = 80;
 
+/**
+ * @internal
+ */
 class Message extends Component<Props> {
     handleOnRetry = () => {
         const {

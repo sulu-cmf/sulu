@@ -39,6 +39,9 @@ type Props = {|
     },
 |};
 
+/**
+ * @internal
+ */
 @observer
 export default class AiApplication extends Component<Props> {
     @observable selectedComponent: {

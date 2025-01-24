@@ -10,6 +10,9 @@ type Props = {|
     onClick: () => void,
 |};
 
+/**
+ * @internal
+ */
 export default class ActionButton extends Component<Props> {
     render() {
         const {

@@ -16,6 +16,9 @@ type Props = {|
     url: string,
 |};
 
+/**
+ * @internal
+ */
 @observer
 class ActionOverlay extends Component<Props> {
     @observable open = false;

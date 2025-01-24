@@ -10,6 +10,9 @@ type Props = {|
     expert: string,
 |};
 
+/**
+ * @internal
+ */
 class Loader extends Component<Props> {
     render() {
         const {
