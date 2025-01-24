@@ -20,7 +20,19 @@ The resource routes has been removed:
 -    resource: sulu_security.group_controller
 ```
 
-The `se_user_groups` and `se_groups` table were removed from the database.
+The `se_user_groups` and `se_groups` table were removed from the database:
+```sql
+ALTER TABLE se_group_roles DROP FOREIGN KEY FK_9713F725937C91EA;
+ALTER TABLE se_group_roles DROP FOREIGN KEY FK_9713F725A1FA6DDA;
+ALTER TABLE se_groups DROP FOREIGN KEY FK_231E44EC30D07CD5;
+ALTER TABLE se_groups DROP FOREIGN KEY FK_231E44ECBF274AB0;
+ALTER TABLE se_groups DROP FOREIGN KEY FK_231E44ECDBF11E1D;
+ALTER TABLE se_user_groups DROP FOREIGN KEY FK_E43ED0C8347E6F4;
+ALTER TABLE se_user_groups DROP FOREIGN KEY FK_E43ED0C8937C91EA;
+DROP TABLE se_group_roles;
+DROP TABLE se_groups;
+DROP TABLE se_user_groups;
+```
 
 ### Changed Media Format HTTP Response Headers
 
