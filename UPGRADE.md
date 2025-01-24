@@ -2,6 +2,23 @@
 
 ## 3.0.0
 
+### Groups and User Groups have been removed
+This includes the following services:
+- `sulu_security.group_repository`
+- `sulu_security.group_controller`
+
+And the parameters:
+- `sulu_security.group_repository.class`
+- `sulu_security.entity_group.class`
+
+And the resource routes:
+```diff
+- sulu_security.groups:
+-    type: rest
+-    name_prefix: sulu_security.
+-    resource: sulu_security.group_controller
+```
+
 ### Changed Media Format HTTP Response Headers
 
 Removed `Pragma` & `Expires` HTTP headers, as the `Cache-Control` header is enough.
@@ -48,6 +65,7 @@ Removed deprecated functions and properties:
 Removed unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
+- `Sulu\\Bundle\\SecurityBundle\\UserManager\\UserManager::__construct` `$groupRepository` (4th argument) removed
 
 ### Piwik replaced with Matomo script
 

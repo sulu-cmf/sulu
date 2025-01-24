@@ -23,8 +23,6 @@ use Sulu\Bundle\SecurityBundle\Domain\Event\UserLockedEvent;
 use Sulu\Bundle\SecurityBundle\Domain\Event\UserModifiedEvent;
 use Sulu\Bundle\SecurityBundle\Domain\Event\UserRemovedEvent;
 use Sulu\Bundle\SecurityBundle\Domain\Event\UserUnlockedEvent;
-use Sulu\Bundle\SecurityBundle\Entity\GroupRepository;
-use Sulu\Bundle\SecurityBundle\Entity\UserGroup;
 use Sulu\Bundle\SecurityBundle\Entity\UserRole;
 use Sulu\Bundle\SecurityBundle\Security\Exception\EmailNotUniqueException;
 use Sulu\Bundle\SecurityBundle\Security\Exception\MissingPasswordException;
@@ -49,7 +47,6 @@ class UserManager implements UserManagerInterface
         protected ObjectManager $em,
         private $passwordHasherFactory,
         private RoleRepositoryInterface $roleRepository,
-        private GroupRepository $groupRepository,
         protected ContactManager $contactManager,
         private SaltGenerator $saltGenerator,
         protected UserRepositoryInterface $userRepository,
@@ -180,12 +177,6 @@ class UserManager implements UserManagerInterface
 
             if (!$patch || null !== $this->getProperty($data, 'userRoles')) {
                 if (!$this->processUserRoles($user, $this->getProperty($data, 'userRoles') ?: [])) {
-                    throw new \Exception('Could not update dependencies!');
-                }
-            }
-
-            if (!$patch || null !== $this->getProperty($data, 'userGroups')) {
-                if (!$this->processUserGroups($user, $this->getProperty($data, 'userGroups') ?: [])) {
                     throw new \Exception('Could not update dependencies!');
                 }
             }
@@ -426,51 +417,6 @@ class UserManager implements UserManagerInterface
     }
 
     /**
-     * Process all user groups from request.
-     *
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     *
-     * @param mixed $userGroups
-     *
-     * @return bool True if the processing was successful, otherwise false
-     */
-    protected function processUserGroups(UserInterface $user, $userGroups)
-    {
-        $get = function($entity) {
-            /* @var UserInterface $entity */
-            return $entity->getId();
-        };
-
-        $delete = function($userGroup) use ($user) {
-            $user->removeUserGroup($userGroup);
-            $this->em->remove($userGroup);
-        };
-
-        $update = function($userGroup, $userGroupData) {
-            return $this->updateUserGroup($userGroup, $userGroupData);
-        };
-
-        $add = function($userGroup) use ($user) {
-            return $this->addUserGroup($user, $userGroup);
-        };
-
-        $entities = $user->getUserGroups();
-
-        $result = $this->processSubEntities(
-            $entities,
-            $userGroups,
-            $get,
-            $add,
-            $update,
-            $delete
-        );
-
-        $this->resetIndexOfSubentites($entities);
-
-        return $result;
-    }
-
-    /**
      * Updates an existing UserRole with the given data.
      *
      * @return bool
@@ -528,57 +474,6 @@ class UserManager implements UserManagerInterface
             $this->em->persist($userRole);
 
             $user->addUserRole($userRole);
-        }
-
-        return true;
-    }
-
-    /**
-     * Adds a new UserGroup to the given user.
-     *
-     * @return bool
-     *
-     * @throws EntityNotFoundException
-     */
-    private function addUserGroup(UserInterface $user, $userGroupData)
-    {
-        $group = $this->groupRepository->findGroupById($userGroupData['group']['id']);
-
-        if (!$group) {
-            throw new EntityNotFoundException($this->groupRepository->getClassName(), $userGroupData['group']['id']);
-        }
-
-        $userGroup = new UserGroup();
-        $userGroup->setUser($user);
-        $userGroup->setGroup($group);
-        $userGroup->setLocale(\json_encode($userGroupData['locales']));
-        $this->em->persist($userGroup);
-
-        $user->addUserGroup($userGroup);
-
-        return true;
-    }
-
-    /**
-     * Updates an existing UserGroup with the given data.
-     *
-     * @return bool
-     *
-     * @throws EntityNotFoundException
-     */
-    private function updateUserGroup(UserGroup $userGroup, $userGroupData)
-    {
-        $group = $this->groupRepository->findGroupById($userGroupData['group']['id']);
-
-        if (!$group) {
-            throw new EntityNotFoundException($this->groupRepository->getClassName(), $userGroup['group']['id']);
-        }
-
-        $userGroup->setGroup($group);
-        if (\array_key_exists('locales', $userGroupData)) {
-            $userGroup->setLocale(\json_encode($userGroupData['locales']));
-        } else {
-            $userGroup->setLocale($userGroupData['locale']);
         }
 
         return true;

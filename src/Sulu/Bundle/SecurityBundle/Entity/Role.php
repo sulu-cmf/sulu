@@ -64,14 +64,6 @@ class Role implements RoleInterface
     private $userRoles;
 
     /**
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     *
-     * @var Collection<int, Group>
-     */
-    #[Exclude]
-    private $groups;
-
-    /**
      * @var Collection<string, RoleSettingInterface>
      */
     private $settings;
@@ -88,7 +80,6 @@ class Role implements RoleInterface
     {
         $this->permissions = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
-        $this->groups = new ArrayCollection();
         $this->settings = new ArrayCollection();
     }
 
@@ -210,23 +201,6 @@ class Role implements RoleInterface
     public function getUserRoles()
     {
         return $this->userRoles;
-    }
-
-    public function addGroup(Group $groups)
-    {
-        $this->groups[] = $groups;
-
-        return $this;
-    }
-
-    public function removeGroup(Group $groups)
-    {
-        $this->groups->removeElement($groups);
-    }
-
-    public function getGroups()
-    {
-        return $this->groups;
     }
 
     /**

@@ -15,7 +15,6 @@ use Doctrine\ORM\EntityManager;
 use Sulu\Bundle\ContactBundle\Entity\Contact;
 use Sulu\Bundle\ContactBundle\Entity\Email;
 use Sulu\Bundle\ContactBundle\Entity\EmailType;
-use Sulu\Bundle\SecurityBundle\Entity\Group;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Bundle\SecurityBundle\Entity\Role;
 use Sulu\Bundle\SecurityBundle\Entity\User;
@@ -129,21 +128,6 @@ class UserRepositoryTest extends SuluTestCase
         $permission2->setRole($role2);
         $permission2->setContext('Context 2');
         $this->em->persist($permission2);
-
-        // user groups
-        $group1 = new Group();
-        $group1->setName('Group1');
-        $group1->setLft(0);
-        $group1->setRgt(0);
-        $group1->setDepth(0);
-        $this->em->persist($group1);
-
-        $group2 = new Group();
-        $group2->setName('Group2');
-        $group2->setLft(0);
-        $group2->setRgt(0);
-        $group2->setDepth(0);
-        $this->em->persist($group2);
 
         $this->em->flush();
     }

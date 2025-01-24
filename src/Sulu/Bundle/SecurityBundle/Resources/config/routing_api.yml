@@ -9,11 +9,6 @@ sulu_security.role_settings:
     parent: sulu_security.roles
     resource: sulu_security.role_setting_controller
 
-sulu_security.groups:
-    type: rest
-    name_prefix: sulu_security.
-    resource: sulu_security.group_controller
-
 sulu_security.users:
     type: rest
     name_prefix: sulu_security.

@@ -45,7 +45,6 @@
         </one-to-one>
 
         <one-to-many field="userRoles" target-entity="Sulu\Bundle\SecurityBundle\Entity\UserRole" mapped-by="user"/>
-        <one-to-many field="userGroups" target-entity="Sulu\Bundle\SecurityBundle\Entity\UserGroup" mapped-by="user"/>
         <one-to-many field="userSettings" target-entity="Sulu\Bundle\SecurityBundle\Entity\UserSetting" mapped-by="user"/>
 
     </mapped-superclass>

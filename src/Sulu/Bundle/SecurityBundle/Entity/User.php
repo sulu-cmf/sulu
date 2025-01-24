@@ -134,14 +134,6 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
     protected $userRoles;
 
     /**
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     *
-     * @var Collection|UserGroup[]
-     */
-    #[Expose]
-    protected $userGroups;
-
-    /**
      * @var Collection|UserSetting[]
      */
     protected $userSettings;
@@ -154,7 +146,6 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
         $this->apiKey = \md5(\uniqid());
 
         $this->userRoles = new ArrayCollection();
-        $this->userGroups = new ArrayCollection();
         $this->userSettings = new ArrayCollection();
     }
 
@@ -573,42 +564,6 @@ class User extends ApiEntity implements UserInterface, EquatableInterface, Audit
         }
 
         return $roles;
-    }
-
-    /**
-     * Add userGroups.
-     *
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     *
-     * @return self
-     */
-    public function addUserGroup(UserGroup $userGroups)
-    {
-        $this->userGroups[] = $userGroups;
-
-        return $this;
-    }
-
-    /**
-     * Remove userGroups.
-     *
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     */
-    public function removeUserGroup(UserGroup $userGroups)
-    {
-        $this->userGroups->removeElement($userGroups);
-    }
-
-    /**
-     * Get userGroups.
-     *
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     *
-     * @return ArrayCollection
-     */
-    public function getUserGroups()
-    {
-        return $this->userGroups;
     }
 
     /**

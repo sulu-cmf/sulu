@@ -73,16 +73,6 @@ class UserControllerTest extends SuluTestCase
     private $user3;
 
     /**
-     * @var Group
-     */
-    private $group1;
-
-    /**
-     * @var Group
-     */
-    private $group2;
-
-    /**
      * @var KernelBrowser
      */
     private $client;
@@ -223,23 +213,6 @@ class UserControllerTest extends SuluTestCase
         $permission2->setContext('Context 2');
         $this->em->persist($permission2);
 
-        // user groups
-        $group1 = new Group();
-        $group1->setName('Group1');
-        $group1->setLft(0);
-        $group1->setRgt(0);
-        $group1->setDepth(0);
-        $this->em->persist($group1);
-        $this->group1 = $group1;
-
-        $group2 = new Group();
-        $group2->setName('Group2');
-        $group2->setLft(0);
-        $group2->setRgt(0);
-        $group2->setDepth(0);
-        $this->em->persist($group2);
-        $this->group2 = $group2;
-
         $this->em->flush();
         $this->em->clear();
     }
@@ -306,20 +279,6 @@ class UserControllerTest extends SuluTestCase
                         'locales' => ['en'],
                     ],
                 ],
-                'userGroups' => [
-                    [
-                        'group' => [
-                            'id' => $this->group1->getId(),
-                        ],
-                        'locales' => ['de', 'en'],
-                    ],
-                    [
-                        'group' => [
-                            'id' => $this->group2->getId(),
-                        ],
-                        'locales' => ['en'],
-                    ],
-                ],
             ]
         );
 
@@ -334,11 +293,6 @@ class UserControllerTest extends SuluTestCase
         $this->assertEquals('en', $response->userRoles[0]->locales[1]);
         $this->assertEquals('Role2', $response->userRoles[1]->role->name);
         $this->assertEquals('en', $response->userRoles[1]->locales[0]);
-        $this->assertEquals('Group1', $response->userGroups[0]->group->name);
-        $this->assertEquals('de', $response->userGroups[0]->locales[0]);
-        $this->assertEquals('en', $response->userGroups[0]->locales[1]);
-        $this->assertEquals('Group2', $response->userGroups[1]->group->name);
-        $this->assertEquals('en', $response->userGroups[1]->locales[0]);
 
         $this->client->jsonRequest(
             'GET',
@@ -360,11 +314,6 @@ class UserControllerTest extends SuluTestCase
         $this->assertEquals('en', $response->userRoles[0]->locales[1]);
         $this->assertEquals('Role2', $response->userRoles[1]->role->name);
         $this->assertEquals('en', $response->userRoles[1]->locales[0]);
-        $this->assertEquals('Group1', $response->userGroups[0]->group->name);
-        $this->assertEquals('de', $response->userGroups[0]->locales[0]);
-        $this->assertEquals('en', $response->userGroups[0]->locales[1]);
-        $this->assertEquals('Group2', $response->userGroups[1]->group->name);
-        $this->assertEquals('en', $response->userGroups[1]->locales[0]);
     }
 
     public function testPostWithEntireContactObject(): void
@@ -576,20 +525,6 @@ class UserControllerTest extends SuluTestCase
                         'locales' => ['en'],
                     ],
                 ],
-                'userGroups' => [
-                    [
-                        'group' => [
-                            'id' => $this->group1->getId(),
-                        ],
-                        'locales' => ['de', 'en'],
-                    ],
-                    [
-                        'group' => [
-                            'id' => $this->group2->getId(),
-                        ],
-                        'locales' => ['en'],
-                    ],
-                ],
             ]
         );
 
@@ -604,12 +539,6 @@ class UserControllerTest extends SuluTestCase
         $this->assertEquals('en', $response->userRoles[0]->locales[1]);
         $this->assertEquals('Role2', $response->userRoles[1]->role->name);
         $this->assertEquals('en', $response->userRoles[1]->locales[0]);
-
-        $this->assertEquals('Group1', $response->userGroups[0]->group->name);
-        $this->assertEquals('de', $response->userGroups[0]->locales[0]);
-        $this->assertEquals('en', $response->userGroups[0]->locales[1]);
-        $this->assertEquals('Group2', $response->userGroups[1]->group->name);
-        $this->assertEquals('en', $response->userGroups[1]->locales[0]);
 
         /** @var ActivityInterface $activity */
         $activity = $this->activityRepository->findOneBy(['type' => 'modified']);
@@ -631,12 +560,6 @@ class UserControllerTest extends SuluTestCase
         $this->assertEquals('en', $response->userRoles[0]->locales[1]);
         $this->assertEquals('Role2', $response->userRoles[1]->role->name);
         $this->assertEquals('en', $response->userRoles[1]->locales[0]);
-
-        $this->assertEquals('Group1', $response->userGroups[0]->group->name);
-        $this->assertEquals('de', $response->userGroups[0]->locales[0]);
-        $this->assertEquals('en', $response->userGroups[0]->locales[1]);
-        $this->assertEquals('Group2', $response->userGroups[1]->group->name);
-        $this->assertEquals('en', $response->userGroups[1]->locales[0]);
     }
 
     public function testPostNonUniqueUserame(): void
