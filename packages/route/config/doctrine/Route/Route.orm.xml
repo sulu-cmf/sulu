@@ -17,7 +17,7 @@
 
         <field name="site" type="string" length="16" nullable="true"/>
         <field name="locale" type="string" length="11"/>
-        <field name="slug" type="string"/>
+        <field name="slug" type="string" length="164"/>
 
         <many-to-one field="parentRoute" target-entity="Sulu\Route\Domain\Model\Route">
             <join-column name="parent_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
