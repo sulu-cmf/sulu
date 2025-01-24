@@ -116,7 +116,7 @@ describe('WritingAssistant Component', () => {
             expect(screen.getByText('Optimized text')).toBeInTheDocument();
         });
 
-        const insertButton = screen.getByText('Insert');
+        const insertButton = screen.getByText('sulu_admin.writing_assistant_insert');
         await userEvent.click(insertButton);
 
         expect(defaultProps.onConfirm).toHaveBeenCalledWith('Optimized text');
