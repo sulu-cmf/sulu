@@ -31,6 +31,9 @@ use Sulu\Snippet\Domain\Model\SnippetInterface;
 use Sulu\Snippet\Domain\Repository\SnippetRepositoryInterface;
 use Sulu\Snippet\Infrastructure\Doctrine\Repository\SnippetRepository;
 use Sulu\Snippet\Infrastructure\Sulu\Admin\SnippetAdmin;
+use Sulu\Snippet\Infrastructure\Sulu\Content\PropertyResolver\SingleSnippetSelectionPropertyResolver;
+use Sulu\Snippet\Infrastructure\Sulu\Content\PropertyResolver\SnippetSelectionPropertyResolver;
+use Sulu\Snippet\Infrastructure\Sulu\Content\ResourceLoader\SnippetResourceLoader;
 use Sulu\Snippet\Infrastructure\Sulu\Content\SingleSnippetSelectionContentType;
 use Sulu\Snippet\Infrastructure\Sulu\Content\SnippetDataProvider;
 use Sulu\Snippet\Infrastructure\Sulu\Content\SnippetSelectionContentType;
@@ -182,11 +185,33 @@ final class SuluSnippetBundle extends AbstractBundle
             ])
             ->tag('sulu.context', ['context' => 'admin']);
 
+        // PropertyResolver services
+        $services->set('sulu_snippet.snippet_reference_store')
+            ->class(ReferenceStore::class)
+            ->tag('sulu_website.reference_store', ['alias' => SnippetInterface::RESOURCE_KEY]);
+
+        $services->set('sulu_snippet.single_snippet_selection_property_resolver')
+            ->class(SingleSnippetSelectionPropertyResolver::class)
+            ->tag('sulu_content.property_resolver');
+
+        $services->set('sulu_snippet.snippet_selection_property_resolver')
+            ->class(SnippetSelectionPropertyResolver::class)
+            ->tag('sulu_content.property_resolver');
+
+        // ResourceLoader services
+        $services->set('sulu_snippet.snippet_resource_loader')
+            ->class(SnippetResourceLoader::class)
+            ->args([
+                new Reference('sulu_snippet.snippet_repository'),
+            ])
+            ->tag('sulu_content.resource_loader', ['type' => SnippetResourceLoader::RESOURCE_LOADER_KEY]);
+
         // Content services
         $services->set('sulu_snippet.snippet_reference_store')
             ->class(ReferenceStore::class)
             ->tag('sulu_website.reference_store', ['alias' => SnippetInterface::RESOURCE_KEY]);
 
+        // TODO remove this
         $services->set('sulu_snippet.content_types.single_snippet_selection')
             ->class(SingleSnippetSelectionContentType::class)
             ->args([
@@ -196,6 +221,7 @@ final class SuluSnippetBundle extends AbstractBundle
             ])
             ->tag('sulu.content.type', ['alias' => 'single_snippet_selection']);
 
+        // TODO remove this
         $services->set('sulu_snippet.content_types.snippet_selection')
             ->class(SnippetSelectionContentType::class)
             ->args([
