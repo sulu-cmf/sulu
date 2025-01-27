@@ -139,25 +139,7 @@ abstract class AbstractListBuilder implements ListBuilderInterface
         );
     }
 
-    /**
-     * @deprecated use setSelectFields instead
-     */
-    public function setFields($fieldDescriptors)
-    {
-        $this->selectFields = $fieldDescriptors;
-    }
-
     public function addSelectField(FieldDescriptorInterface $fieldDescriptor)
-    {
-        $this->selectFields[$fieldDescriptor->getName()] = $fieldDescriptor;
-
-        return $this;
-    }
-
-    /**
-     * @deprecated use addSelectField instead
-     */
-    public function addField(FieldDescriptorInterface $fieldDescriptor)
     {
         $this->selectFields[$fieldDescriptor->getName()] = $fieldDescriptor;
 
@@ -174,14 +156,6 @@ abstract class AbstractListBuilder implements ListBuilderInterface
     }
 
     public function hasSelectField($name)
-    {
-        return \array_key_exists($name, $this->selectFields);
-    }
-
-    /**
-     * @deprecated use hasSelectField instead
-     */
-    public function hasField($name)
     {
         return \array_key_exists($name, $this->selectFields);
     }
@@ -299,15 +273,6 @@ abstract class AbstractListBuilder implements ListBuilderInterface
     public function where(FieldDescriptorInterface $fieldDescriptor, $value, $comparator = self::WHERE_COMPARATOR_EQUAL)
     {
         $this->expressions[] = $this->createWhereExpression($fieldDescriptor, $value, $comparator);
-        $this->addFieldDescriptor($fieldDescriptor);
-    }
-
-    /**
-     * @deprecated use where instead
-     */
-    public function whereNot(FieldDescriptorInterface $fieldDescriptor, $value)
-    {
-        $this->expressions[] = $this->createWhereExpression($fieldDescriptor, $value, self::WHERE_COMPARATOR_UNEQUAL);
         $this->addFieldDescriptor($fieldDescriptor);
     }
 

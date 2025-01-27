@@ -42,6 +42,7 @@ use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineConcatenati
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineJoinDescriptor;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
+use Sulu\Component\Rest\ListBuilder\ListBuilderInterface;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
@@ -393,7 +394,15 @@ class AccountController extends AbstractRestController implements ClassResourceI
         }
 
         if (\json_decode($request->get('hasEmail', ''))) {
-            $listBuilder->whereNot($this->getFieldDescriptors()['mainEmail'], null);
+            /** @var FieldDescriptorInterface $fieldDescriptor */
+            $fieldDescriptor = $this->getFieldDescriptors()['mainEmail'];
+
+            // mainEmail != null
+            $listBuilder->where(
+                fieldDescriptor: $fieldDescriptor,
+                value: null,
+                comparator: ListBuilderInterface::WHERE_COMPARATOR_UNEQUAL,
+            );
         }
     }
 
