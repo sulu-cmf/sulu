@@ -13,6 +13,7 @@ namespace Sulu\Route\Infrastructure\Doctrine\EventListener;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\ParameterType;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\Event\OnClearEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -25,7 +26,7 @@ use Symfony\Contracts\Service\ResetInterface;
 class RouteChangedUpdater implements ResetInterface
 {
     /**
-     * @var array<int, array{oldValue: string, newValue: string, locale: string, site: string}>
+     * @var array<int, array{oldValue: string, newValue: string, locale: string, site: string|null}>
      */
     private array $routeChanges = [];
 
@@ -72,15 +73,18 @@ class RouteChangedUpdater implements ResetInterface
                 ->from($routesTableName, 'parent')
                 ->select('parent.id AS parent_id')
                 ->innerJoin('parent', $routesTableName, 'child', 'child.parent_id = parent.id')
-                ->andWhere('(parent.site = :site)')
+                ->andWhere(\is_string($site) ? 'parent.site = :site' : 'parent.site IS NULL')
                 ->andWhere('parent.locale = :locale')
                 ->andWhere('(parent.slug = :newSlug OR parent.slug LIKE :oldSlugSlash)') // direct child is using newSlug already updated as we are in PostFlush, grand child use oldSlugWithSlash as not yet updated
                 ->setParameter('newSlug', $newSlug, ParameterType::STRING)
                 ->setParameter('oldSlugSlash', $oldSlug . '/%', ParameterType::STRING)
-                ->setParameter('locale', $locale)
-                ->setParameter('site', $site);
+                ->setParameter('locale', $locale, ParameterType::STRING);
 
-            $parentIds = \array_map(fn ($row) => $row[0] ?? null, $selectQueryBuilder->executeQuery()->fetchAllNumeric());
+            if (\is_string($site)) {
+                $selectQueryBuilder->setParameter('site', $site, ParameterType::STRING);
+            }
+
+            $parentIds = \array_map(fn ($row) => $row[0], $selectQueryBuilder->executeQuery()->fetchAllNumeric());
             $parentIds = \array_filter($parentIds);
 
             if (0 === \count($parentIds)) {
@@ -91,11 +95,16 @@ class RouteChangedUpdater implements ResetInterface
 
             // TODO create history for current ids
 
+            $newSlugCast = '';
+            if ($connection->getDatabasePlatform() instanceof PostgreSQLPlatform) {
+                $newSlugCast = '::text'; // concat seems not directly supported by dbal and parameter $1 (newSlug) is not cast to text correctly. So manually cast it here.
+            }
+
             // update child and grand routes
-            $updateQueryBuilder = $connection->createQueryBuilder()->update($routesTableName, 'r')
-                ->set('slug', 'CONCAT(:newSlug, SUBSTRING(slug, LENGTH(:oldSlug) + 1))')
+            $updateQueryBuilder = $connection->createQueryBuilder()
+                ->update($routesTableName, 'r')
+                ->set('slug', 'CONCAT(:newSlug' . $newSlugCast . ', SUBSTRING(slug, ' . (\strlen($oldSlug) + 1) . '))')
                 ->setParameter('newSlug', $newSlug, ParameterType::STRING)
-                ->setParameter('oldSlug', $oldSlug, ParameterType::STRING)
                 ->where('parent_id IN (:parentIds)')
                 ->setParameter('parentIds', $parentIds, ArrayParameterType::INTEGER);
 
