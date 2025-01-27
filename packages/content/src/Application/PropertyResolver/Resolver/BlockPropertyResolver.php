@@ -94,6 +94,13 @@ class BlockPropertyResolver implements PropertyResolverInterface
             );
         }
 
+        $minOccurs = $metadata->getMinOccurs();
+        $maxOccurs = $metadata->getMaxOccurs();
+
+        if (1 === $minOccurs && 1 === $maxOccurs && \count($contentViews) > 0) {
+            $contentViews = $contentViews[0]->getContent();
+        }
+
         return ContentView::create($contentViews, [...$returnedParams]);
     }
 
