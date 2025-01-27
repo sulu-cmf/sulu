@@ -51,23 +51,11 @@ interface ListBuilderInterface
     public function setSelectFields($fieldDescriptors);
 
     /**
-     * @deprecated use setSelectFields instead
-     */
-    public function setFields($fieldDescriptors);
-
-    /**
      * Adds a field descriptor to the ListBuilder, which is then used to retrieve and return the list.
      *
      * @return ListBuilderInterface
      */
     public function addSelectField(FieldDescriptorInterface $fieldDescriptor);
-
-    /**
-     * @deprecated use addSelectField instead
-     *
-     * @return ListBuilderInterface
-     */
-    public function addField(FieldDescriptorInterface $fieldDescriptor);
 
     /**
      * Gets a field descriptor used by the ListBuilder to retrieve and return the list.
@@ -86,11 +74,6 @@ interface ListBuilderInterface
      * @return bool
      */
     public function hasSelectField($name);
-
-    /**
-     * @deprecated use hasSelectField instead
-     */
-    public function hasField($name);
 
     /**
      * Adds a field descriptor, which will be used for search.
@@ -206,7 +189,7 @@ interface ListBuilderInterface
      * Defines a constraint for the rows to return.
      *
      * @param FieldDescriptorInterface $fieldDescriptor The FieldDescriptor which is checked
-     * @param string $value The value the FieldDescriptor should have
+     * @param ?string $value The value the FieldDescriptor should have
      * @param string $comparator The comparator use to compare the values
      *
      * @return ListBuilderInterface
@@ -216,13 +199,6 @@ interface ListBuilderInterface
         $value,
         $comparator = self::WHERE_COMPARATOR_EQUAL
     );
-
-    /**
-     * @deprecated use where instead
-     *
-     * @return ListBuilderInterface
-     */
-    public function whereNot(FieldDescriptorInterface $fieldDescriptor, $value);
 
     /**
      * Defines GROUP BY.
