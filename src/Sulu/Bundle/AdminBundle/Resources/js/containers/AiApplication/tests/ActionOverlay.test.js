@@ -73,14 +73,14 @@ describe('ActionOverlay', () => {
 
     it('renders the button with the correct title', () => {
         render(<ActionOverlay {...defaultProps} />);
-        expect(screen.getByText('sulu_admin.ai_action_button')).toBeInTheDocument();
+        expect(screen.getByText('sulu_admin.feedback')).toBeInTheDocument();
     });
 
     it('opens the form overlay when the button is clicked', async() => {
         render(<ActionOverlay {...defaultProps} />);
         await userEvent.click(screen.getByRole('button'));
         expect(MemoryFormStoreFactory.createFromFormKey).toHaveBeenCalledWith('testFormKey');
-        expect(screen.getByText('sulu_admin.ai_action_title')).toBeInTheDocument();
+        expect(screen.getByText('sulu_admin.send_feedback')).toBeInTheDocument();
     });
 
     it('handles form close', async() => {

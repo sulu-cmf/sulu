@@ -71,7 +71,7 @@ class ActionOverlay extends Component<Props> {
             <>
                 <ActionButton
                     messages={{
-                        title: translate('sulu_admin.ai_action_button'),
+                        title: translate('sulu_admin.feedback'),
                     }}
                     onClick={this.handleOpen}
                 />
@@ -79,14 +79,14 @@ class ActionOverlay extends Component<Props> {
                 <FormOverlay
                     confirmDisabled={!this.valid}
                     confirmLoading={this.saving}
-                    confirmText={translate('sulu_admin.ai_action_confirm')}
+                    confirmText={translate('sulu_admin.send')}
                     formStore={this.formStore}
                     onClose={this.handleClose}
                     onConfirm={this.handleConfirm}
                     onFieldFinish={this.handleFieldFinish}
                     open={this.open}
                     size="small"
-                    title={translate('sulu_admin.ai_action_title')}
+                    title={translate('sulu_admin.send_feedback')}
                 />
             </>
         );

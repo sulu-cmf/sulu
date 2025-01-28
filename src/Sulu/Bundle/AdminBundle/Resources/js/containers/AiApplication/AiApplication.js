@@ -290,8 +290,8 @@ export default class AiApplication extends Component<Props> {
                 {!this.writingAssistantOpen && !this.translateOpen && (
                     <FeatureBadge
                         messages={{
-                            translate: translate('sulu_admin.translator_title'),
-                            writingAssistant: translate('sulu_admin.writing_assistant_title'),
+                            translate: translate('sulu_admin.translator'),
+                            writingAssistant: translate('sulu_admin.writing_assistant'),
                         }}
                         onTranslateClick={translationEnabled ? this.handleTranslateOpen : undefined}
                         onWritingAssistantClick={writingAssistantEnabled ? this.handleWritingAssistantOpen : undefined}
@@ -309,11 +309,11 @@ export default class AiApplication extends Component<Props> {
                         locale={locale}
                         messages={{
                             addMessage: translate('sulu_admin.writing_assistant_prompt_placeholder'),
-                            copiedToClipboard: translate('sulu_admin.writing_assistant_copied_to_clipboard'),
-                            initialMessage: translate('sulu_admin.writing_assistant_initial_message'),
-                            predefinedPrompts: translate('sulu_admin.writing_assistant_predefined_prompts'),
-                            send: translate('sulu_admin.writing_assistant_send'),
-                            writingAssistant: translate('sulu_admin.writing_assistant_title'),
+                            copiedToClipboard: translate('sulu_admin.sucessfully_copied_to_clipboard'),
+                            initialMessage: translate('sulu_admin.selected_text'),
+                            predefinedPrompts: translate('sulu_admin.predefined_prompts'),
+                            send: translate('sulu_admin.send'),
+                            writingAssistant: translate('sulu_admin.writing_assistant'),
                         }}
                         onConfirm={this.handleWritingAssistantConfirm}
                         onDialogClose={this.handleWritingAssistantClose}
@@ -331,9 +331,9 @@ export default class AiApplication extends Component<Props> {
                         }}
                         locale={locale}
                         messages={{
-                            title: translate('sulu_admin.translator_title'),
-                            insert: translate('sulu_admin.translator_insert'),
-                            detected: translate('sulu_admin.translator_detected'),
+                            title: translate('sulu_admin.translator'),
+                            insert: translate('sulu_admin.insert'),
+                            detected: translate('sulu_admin.detected'),
                             errorTranslatingText: translate('sulu_admin.translator_error'),
                         }}
                         onConfirm={this.handleTranslateConfirm}

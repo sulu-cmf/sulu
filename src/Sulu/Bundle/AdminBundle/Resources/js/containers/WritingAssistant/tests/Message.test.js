@@ -47,7 +47,7 @@ describe('Message Component', () => {
     test('renders the actions buttons if displayActions is true', () => {
         render(<Message {...defaultProps} />);
 
-        expect(screen.getByText('sulu_admin.writing_assistant_insert')).toBeInTheDocument();
+        expect(screen.getByText('sulu_admin.insert')).toBeInTheDocument();
         expect(screen.getAllByRole('button', {name: /su-sync/i})[0]).toBeInTheDocument();
         expect(screen.getAllByRole('button', {name: /su-copy/i})[0]).toBeInTheDocument();
     });
@@ -55,7 +55,7 @@ describe('Message Component', () => {
     test('does not render actions buttons if displayActions is false', () => {
         render(<Message {...defaultProps} displayActions={false} />);
 
-        expect(screen.queryByText('sulu_admin.writing_assistant_insert')).not.toBeInTheDocument();
+        expect(screen.queryByText('sulu_admin.insert')).not.toBeInTheDocument();
         expect(screen.queryAllByRole('button', {name: /su-sync/i})[0]).toBeUndefined();
         expect(screen.queryAllByRole('button', {name: /su-copy/i})[0]).toBeUndefined();
     });
@@ -87,7 +87,7 @@ describe('Message Component', () => {
     test('calls onInsert when the insert button is clicked', async() => {
         render(<Message {...defaultProps} />);
 
-        await userEvent.click(screen.getByText('sulu_admin.writing_assistant_insert'));
+        await userEvent.click(screen.getByText('sulu_admin.insert'));
 
         expect(defaultProps.onInsert).toHaveBeenCalledWith(defaultProps.text);
     });

@@ -92,8 +92,8 @@ describe('AiApplication', () => {
         fireEvent(document, event);
 
         // Now, hasFocus should be true and FeatureBadge should be rendered
-        expect(screen.getByTitle('sulu_admin.translator_title')).toBeInTheDocument();
-        expect(screen.getByTitle('sulu_admin.writing_assistant_title')).toBeInTheDocument();
+        expect(screen.getByTitle('sulu_admin.translator')).toBeInTheDocument();
+        expect(screen.getByTitle('sulu_admin.writing_assistant')).toBeInTheDocument();
     });
 
     test('handles scroll and resize events', () => {
@@ -197,8 +197,8 @@ describe('AiApplication', () => {
         fireEvent(document, clickEvent);
 
         // Check if hasFocus is set to false
-        expect(screen.getByTitle('sulu_admin.translator_title')).toBeInTheDocument();
-        expect(screen.getByTitle('sulu_admin.writing_assistant_title')).toBeInTheDocument();
+        expect(screen.getByTitle('sulu_admin.translator')).toBeInTheDocument();
+        expect(screen.getByTitle('sulu_admin.writing_assistant')).toBeInTheDocument();
     });
 
     test('handles writing assistant close', () => {

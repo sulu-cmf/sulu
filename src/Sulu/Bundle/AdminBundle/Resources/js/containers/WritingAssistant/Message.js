@@ -99,25 +99,25 @@ class Message extends Component<Props> {
             return this.trimText(text);
         }
 
-        if (type === 'text_editor' && !collapsed) {
-            return (
-                <div className={messageStyles.textEditor}>
-                    <TextEditor
-                        adapter="ckeditor5"
-                        disabled={true}
-                        locale={observable.box(locale)}
-                        onChange={this.handleTextEditorChange}
-                        value={text}
-                    />
-                </div>
-            );
+        if (type !== 'text_editor') {
+            return text;
         }
 
-        return text;
+        return (
+            <div className={messageStyles.textEditor}>
+                <TextEditor
+                    adapter="ckeditor5"
+                    disabled={true}
+                    locale={observable.box(locale)}
+                    onChange={this.handleTextEditorChange}
+                    value={text}
+                />
+            </div>
+        );
     };
 
     handleTextEditorChange = () => {
-        // do nothing
+        // do nothing as text editor is always disabled
     };
 
     render() {
@@ -164,7 +164,7 @@ class Message extends Component<Props> {
                                 onClick={this.handleOnInsert}
                                 size="small"
                                 skin="secondary"
-                            >{translate('sulu_admin.writing_assistant_insert')}</Button>
+                            >{translate('sulu_admin.insert')}</Button>
                             <Button
                                 disabled={isLoading}
                                 icon="su-sync"

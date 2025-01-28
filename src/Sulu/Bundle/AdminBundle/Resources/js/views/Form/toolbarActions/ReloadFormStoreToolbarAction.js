@@ -11,6 +11,9 @@ import {ResourceStore} from '../../../stores';
 import AbstractFormToolbarAction from './AbstractFormToolbarAction';
 import type {ResourceFormStore} from '../../../containers';
 
+/**
+ * @experimental We can not yet give BC Promise for this new component in Sulu 2.6.
+ */
 export default class ReloadFormStoreToolbarAction extends AbstractFormToolbarAction {
     @observable loading = false;
     @observable showDialog = false;
