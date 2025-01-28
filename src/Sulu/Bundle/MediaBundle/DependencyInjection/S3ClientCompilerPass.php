@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Prepares arguments for S3-Client.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 class S3ClientCompilerPass implements CompilerPassInterface
 {

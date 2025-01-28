@@ -23,6 +23,8 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 /**
  * This abstract class contains all the shared logic to load image formats.
+ *
+ * @internal this is an internal class which should not be used by a project
  */
 abstract class AbstractImageFormatCompilerPass implements CompilerPassInterface
 {
