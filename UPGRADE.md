@@ -44,6 +44,8 @@ Removed deprecated functions and properties:
 - `Sulu\Bundle\ContactBundle\Controller\ContactTitleController::$entityKey`
 - `Sulu\Bundle\ContactBundle\Controller\ContactController::$entityKey`
 - `Sulu\Bundle\ContactBundle\Controller\PositionController::$entityKey`
+- `Sulu\Component\Cache\Memoize::memoize()`
+- `Sulu\Component\Cache\MemoizeInterface::memoize()`
 
 Removed unused arguments:
 
