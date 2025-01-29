@@ -2,6 +2,31 @@
 
 ## 2.6.7
 
+### Doctrine incompatibility with Symfony 6.3
+
+Latest releases of different Doctrine packages have issues with Symfony 6.3.* Doctrine bridge.
+
+For all projects which still run on Symfony 6.0 - 6.3, we recommend to update to Symfony 6.4.
+Else an update of Doctrine packages alone will end in errors like:
+
+> No mapping file found named 'TrashItem.orm.xml' for class 'Sulu\Bundle\TrashBundle\Domain\Model\TrashItem'
+> No mapping file found named 'Collection.orm.xml' for class 'Sulu\Bundle\MediaBundle\Entity\Collection'.
+
+To upgrade Symfony go into your `composer.json` and adopt the required Symfony version:
+
+```diff
+     "extra": {
+         "symfony": {
+             "allow-contrib": true,
+-            "require": "6.3.*"
++            "require": "6.4.*"
+         }
+     }
+```
+
+And run `composer update` to update all your dependencies. Keep in mind to check the different packages `UPGRADE.md`
+files for further changes.
+
 ### User getSalt method return types changed
 
 To support the upgrade of `Legacy` password hashes from Sulu 1.6, the `User::getSalt` method requires the following changes if you have overwritten it:
