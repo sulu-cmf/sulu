@@ -81,7 +81,7 @@ class PortalInformation implements ArrayableInterface
         ?Localization $localization = null,
         $url = null,
         $redirect = null,
-        $main = false,
+        bool $main = false,
         $urlExpression = null,
         $priority = 0
     ) {
