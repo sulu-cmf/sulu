@@ -24,4 +24,10 @@ interface AuthorInterface
     public function getAuthored(): ?\DateTimeImmutable;
 
     public function setAuthored(?\DateTimeImmutable $authored): void;
+
+    public function getLastModifiedEnabled(): ?bool;
+
+    public function getLastModified(): ?\DateTimeImmutable;
+
+    public function setLastModified(?\DateTimeImmutable $lastModified): void;
 }
