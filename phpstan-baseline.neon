@@ -27776,17 +27776,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Twig/UserTwigExtension.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\PasswordAuthenticatedUserInterface\\:\\:setPassword\\(\\)\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/User/UserProvider.php
-
-		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\:\\:getId\\(\\)\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/SecurityBundle/User/UserProvider.php
-
-		-
-			message: "#^Class Sulu\\\\Bundle\\\\SecurityBundle\\\\User\\\\UserProvider implements generic interface Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserProviderInterface but does not specify its types\\: TUser$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/User/UserProvider.php
 
