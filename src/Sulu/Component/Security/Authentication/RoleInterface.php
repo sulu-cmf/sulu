@@ -169,20 +169,6 @@ interface RoleInterface extends AuditableInterface, SecurityIdentityInterface
     public function getGroups();
 
     /**
-     * Set securityType.
-     *
-     * @return RoleInterface
-     */
-    public function setSecurityType(?SecurityType $securityType = null);
-
-    /**
-     * Get securityType.
-     *
-     * @return SecurityType|null
-     */
-    public function getSecurityType();
-
-    /**
      * Returns setting by name.
      *
      * @param string $key

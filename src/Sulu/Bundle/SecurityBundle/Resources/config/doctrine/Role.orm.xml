@@ -17,13 +17,6 @@
             </options>
         </field>
 
-        <many-to-one field="securityType" target-entity="Sulu\Bundle\SecurityBundle\Entity\SecurityType"
-                     inversed-by="roles">
-            <join-columns>
-                <join-column name="idSecurityTypes" referenced-column-name="id" on-delete="SET NULL" nullable="true"/>
-            </join-columns>
-        </many-to-one>
-
         <one-to-many field="permissions" target-entity="Sulu\Bundle\SecurityBundle\Entity\Permission" mapped-by="role">
             <cascade>
                 <cascade-persist/>

@@ -180,11 +180,6 @@ class RoleController extends AbstractRestController implements ClassResourceInte
                 }
             }
 
-            $securityTypeData = $request->request->all('securityType');
-            if ($this->checkSecurityTypeData($securityTypeData)) {
-                $this->setSecurityType($role, $securityTypeData);
-            }
-
             try {
                 $this->entityManager->persist($role);
                 $this->eventCollector->collect(new RoleCreatedEvent($role, $request->request->all()));
@@ -214,6 +209,7 @@ class RoleController extends AbstractRestController implements ClassResourceInte
     {
         /** @var RoleInterface $role */
         $role = $this->roleRepository->findRoleById($id);
+
         $name = $request->request->get('name');
         $key = $request->request->get('key');
         $system = $request->request->get('system');
@@ -228,13 +224,6 @@ class RoleController extends AbstractRestController implements ClassResourceInte
 
                 if (!$this->processPermissions($role, $request->request->all('permissions'))) {
                     throw new RestException('Could not update dependencies!');
-                }
-
-                $securityTypeData = $request->request->all('securityType');
-                if ($this->checkSecurityTypeData($securityTypeData)) {
-                    $this->setSecurityType($role, $securityTypeData);
-                } else {
-                    $role->setSecurityType(null);
                 }
 
                 $this->eventCollector->collect(new RoleModifiedEvent($role, $request->request->all()));
@@ -394,44 +383,7 @@ class RoleController extends AbstractRestController implements ClassResourceInte
             }
         }
 
-        $securityType = $role->getSecurityType();
-        if ($securityType) {
-            $roleData['securityType'] = [
-                'id' => $securityType->getId(),
-                'name' => $securityType->getName(),
-            ];
-        }
-
         return $roleData;
-    }
-
-    /**
-     * Checks if the data of the security type is correct.
-     *
-     * @return bool
-     */
-    private function checkSecurityTypeData($securityTypeData)
-    {
-        return null != $securityTypeData && null != $securityTypeData['id'] && '' != $securityTypeData['id'];
-    }
-
-    /**
-     * Sets the securityType from the given data to the role.
-     *
-     * @param RoleInterface $role
-     *
-     * @throws EntityNotFoundException
-     */
-    private function setSecurityType($role, $securityTypeData)
-    {
-        $securityType = $this->entityManager
-            ->getRepository(\Sulu\Bundle\SecurityBundle\Entity\SecurityType::class)
-            ->findSecurityTypeById($securityTypeData['id']);
-
-        if (!$securityType) {
-            throw new EntityNotFoundException(\Sulu\Bundle\SecurityBundle\Entity\SecurityType::class, $securityTypeData['id']);
-        }
-        $role->setSecurityType($securityType);
     }
 
     public function getSecurityContext()

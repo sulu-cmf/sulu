@@ -2,6 +2,19 @@
 
 ## 3.0.0
 
+### Removed `SecurityType`
+Removed the `Sulu\Bundle\SecurityBundle\Entity\SecurityType` class and its fixtures. This also includes database migrations:
+
+```sql
+ALTER TABLE se_roles DROP FOREIGN KEY FK_13B749A0D02106C0;
+DROP TABLE se_security_types;
+DROP INDEX IDX_13B749A0D02106C0 ON se_roles;
+ALTER TABLE se_roles DROP idSecurityTypes;
+```
+
+And the container parameters has been removed:
+- `sulu_security.security_types.fixture`
+
 ### Changed Media Format HTTP Response Headers
 
 Removed `Pragma` & `Expires` HTTP headers, as the `Cache-Control` header is enough.
@@ -14,7 +27,6 @@ Removed classes / services:
 
 - `Sulu/Bundle/MarkupBundle/Listener/SwiftMailerListener`
 - `Sulu\Bundle\DocumentManagerBundle\Slugifier\Urlizer`
-- `Sulu\\Bundle\\SecurityBundle\\DataFixtures\\ORM\\LoadSecurityTypes`
 - `Sulu\Component\Rest\Listing\ListQueryBuilder`
 - `Sulu\Component\Rest\Listing\ListRepository`
 - `Sulu\Component\Rest\Listing\ListRestHelper`
@@ -48,9 +60,6 @@ Removed deprecated functions and properties:
 Removed unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
-
-Removed container parameters:
-- `sulu_security.security_types.fixture`
 
 ### Piwik replaced with Matomo script
 

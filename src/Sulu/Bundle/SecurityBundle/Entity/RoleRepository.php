@@ -29,9 +29,7 @@ class RoleRepository extends EntityRepository implements RoleRepositoryInterface
         try {
             $queryBuilder = $this->createQueryBuilder('role')
                 ->leftJoin('role.permissions', 'permissions')
-                ->leftJoin('role.securityType', 'securityType')
                 ->addSelect('permissions')
-                ->addSelect('securityType')
                 ->where('role.id=:roleId')
                 ->setParameter('roleId', $id);
 
@@ -47,9 +45,7 @@ class RoleRepository extends EntityRepository implements RoleRepositoryInterface
         try {
             $queryBuilder = $this->createQueryBuilder('role')
                 ->leftJoin('role.permissions', 'permissions')
-                ->leftJoin('role.securityType', 'securityType')
                 ->addSelect('permissions')
-                ->addSelect('securityType')
                 ->where('role.name=:roleName')
                 ->andWhere('role.system=:roleSystem');
 
