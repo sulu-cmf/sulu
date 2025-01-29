@@ -39,6 +39,12 @@ yarn.lock
 phpunit.xml
 .phpunit.result.cache
 
+# exclude var dirs of packages
+/packages/*/tests/Application/var
+/packages/*/tests/Application/.env.*.local
+/src/Sulu/Bundle/*/Tests/Application/var
+/src/Sulu/Bundle/*/Tests/Application/.env.*.local
+
 # IDEs
 /.idea
 *.iml
