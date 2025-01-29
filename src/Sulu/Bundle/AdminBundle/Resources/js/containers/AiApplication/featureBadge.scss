@@ -1,0 +1,60 @@
+.container {
+    display: inline-block;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px 15px 15px 0;
+    padding: 0 5px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    height: 30px;
+    max-height: 30px;
+    border: none;
+    position: relative;
+    transition: background-color .3s ease;
+
+    &--white {
+        background-color: #fff;
+    }
+
+    &--gray {
+        background-color: #f5f5f5;
+    }
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: #102a46;
+    transition: color .3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+        color: #48adc3;
+    }
+}
+
+.divider {
+    width: 1px;
+    height: 16px;
+    background-color: #e5e7eb;
+    margin: 0 2px;
+}
+
+.content::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 5px;
+    height: 5px;
+    background-color: inherit;
+}
