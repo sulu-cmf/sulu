@@ -14,6 +14,7 @@ Removed classes / services:
 
 - `Sulu/Bundle/MarkupBundle/Listener/SwiftMailerListener`
 - `Sulu\Bundle\DocumentManagerBundle\Slugifier\Urlizer`
+- `Sulu\\Bundle\\CategoryBundle\\DependencyInjection\\DeprecationCompilerPass`
 - `Sulu\Component\Rest\Listing\ListQueryBuilder`
 - `Sulu\Component\Rest\Listing\ListRepository`
 - `Sulu\Component\Rest\Listing\ListRestHelper`
