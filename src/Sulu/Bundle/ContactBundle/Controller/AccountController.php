@@ -404,11 +404,11 @@ class AccountController extends AbstractRestController implements ClassResourceI
      */
     protected function applyRequestParameters(Request $request, $listBuilder)
     {
-        if (\json_decode($request->get('hasNoParent', null))) {
+        if (\json_decode($request->get('hasNoParent', ''))) {
             $listBuilder->where($this->getFieldDescriptorForNoParent(), null);
         }
 
-        if (\json_decode($request->get('hasEmail', null))) {
+        if (\json_decode($request->get('hasEmail', ''))) {
             $listBuilder->whereNot($this->getFieldDescriptors()['mainEmail'], null);
         }
     }
