@@ -31,7 +31,7 @@ use Webmozart\Assert\Assert;
  * Responsible for loading the user from the database for the Symfony security system. Takes also the security system
  * configuration from the webspaces into account.
  *
- * @implements UserProviderInterface<UserInterface>
+ * @implements PasswordUpgraderInterface<User>
  */
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
