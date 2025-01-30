@@ -200,7 +200,7 @@ class ReferenceRepositoryTest extends SuluTestCase
         static::purgeDatabase();
 
         $referenceResourceKey = 'pages';
-        $referenceResourceId = Uuid::v7()->__toString();
+        $referenceResourceId = Uuid::v7()->toRfc4122();
         $referenceLocale = 'en';
 
         $reference1 = $this->createReference();
@@ -244,7 +244,7 @@ class ReferenceRepositoryTest extends SuluTestCase
         static::purgeDatabase();
 
         $referenceResourceKey = 'article';
-        $referenceResourceId = Uuid::v7()->__toString();
+        $referenceResourceId = Uuid::v7()->toRfc4122();
         $referenceLocale = 'de';
 
         $reference1 = $this->createReference();
@@ -284,7 +284,7 @@ class ReferenceRepositoryTest extends SuluTestCase
         static::purgeDatabase();
 
         $referenceResourceKey = 'article';
-        $referenceResourceId = Uuid::v7()->__toString();
+        $referenceResourceId = Uuid::v7()->toRfc4122();
         $referenceLocale = 'de';
 
         $reference1 = $this->createReference();
@@ -316,7 +316,7 @@ class ReferenceRepositoryTest extends SuluTestCase
             'media',
             '1',
             'pages',
-            Uuid::v7()->__toString(),
+            Uuid::v7()->toRfc4122(),
             'en',
             'Page Title',
             'default',

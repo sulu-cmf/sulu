@@ -80,9 +80,9 @@ class TagsSubscriberTest extends TestCase
 
     public function setUp(): void
     {
-        $this->uuid1 = Uuid::v7()->__toString();
-        $this->uuid2 = Uuid::v7()->__toString();
-        $this->currentStructureUuid = Uuid::v7()->__toString();
+        $this->uuid1 = Uuid::v7()->toRfc4122();
+        $this->uuid2 = Uuid::v7()->toRfc4122();
+        $this->currentStructureUuid = Uuid::v7()->toRfc4122();
 
         $testReferenceStore = $this->prophesize(ReferenceStoreInterface::class);
         $testReferenceStore->getAll()->willReturn(['1', '2']);

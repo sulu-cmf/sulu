@@ -46,10 +46,10 @@ class AuhenticationFailureListener implements EventSubscriberInterface
 
             if ($this->passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
                 $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
-                $hasher->hash(Uuid::v7()->__toString());
+                $hasher->hash(Uuid::v7()->toRfc4122());
             } else {
                 $encoder = $this->passwordHasherFactory->getEncoder($user);
-                $encoder->encodePassword(Uuid::v7()->__toString(), 'dummy-salt');
+                $encoder->encodePassword(Uuid::v7()->toRfc4122(), 'dummy-salt');
             }
         }
     }
