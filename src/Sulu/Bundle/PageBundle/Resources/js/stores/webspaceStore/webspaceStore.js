@@ -1,6 +1,5 @@
 // @flow
 import {action, computed, observable} from 'mobx';
-import log from 'loglevel';
 import type {Webspace} from './types';
 
 class WebspaceStore {
@@ -28,26 +27,6 @@ class WebspaceStore {
         }
 
         return webspace;
-    }
-
-    // @deprecated
-    loadWebspaces(): Promise<Array<Webspace>> {
-        log.warn(
-            'The "loadWebspaces" method is deprecated since 2.1 and will be removed. ' +
-            'Use the "grantedWebspaces" property instead.'
-        );
-
-        return Promise.resolve(this.grantedWebspaces);
-    }
-
-    // @deprecated
-    loadWebspace(webspaceKey: string): Promise<Webspace> {
-        log.warn(
-            'The "loadWebspace" method is deprecated since 2.1 and will be removed. ' +
-            'Use the "getWebspace" method instead.'
-        );
-
-        return Promise.resolve(this.getWebspace(webspaceKey));
     }
 }
 
