@@ -391,7 +391,7 @@ class AccessControlManager implements AccessControlManagerInterface
      */
     private function getAccessControlProvider(?string $type)
     {
-        if ($type === null) {
+        if (null === $type) {
             return null;
         }
 
