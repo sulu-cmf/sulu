@@ -113,10 +113,6 @@ class AccessControlManager implements AccessControlManagerInterface
             return null;
         }
 
-        if (!$identifier) {
-            return null;
-        }
-
         return $accessControlProvider->getPermissions($type, $identifier, $system);
     }
 
