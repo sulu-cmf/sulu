@@ -14,9 +14,12 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\PHPUnit\PHPUnit100\Rector\Class_\StaticDataProviderClassMethodRector;
+use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
+use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonySetList;
+use Symfony\Component\Uid\Uuid;
 
 return RectorConfig::configure()
     ->withRootFiles()
@@ -43,5 +46,9 @@ return RectorConfig::configure()
         // LevelSetList::UP_TO_PHP_80,
     ])
     ->withRules([
-        StaticDataProviderClassMethodRector::class, // prepare for PHPUnit >= 10
-    ]);
+        StaticDataProviderClassMethodRector::class,
+    ])
+    ->withConfiguredRule(RenameMethodRector::class, [
+        new MethodCallRename(Uuid::class, '__toString', 'toRfc4122'),
+    ])
+;
