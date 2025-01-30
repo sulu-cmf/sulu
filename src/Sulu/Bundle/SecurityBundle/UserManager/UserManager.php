@@ -168,9 +168,7 @@ class UserManager implements UserManagerInterface
                 if ($this->isValidPassword($password)) {
                     $salt = $this->generateSalt();
                     $user->setSalt($salt);
-                    $user->setPassword(
-                        $this->encodePassword($user, $password, $salt)
-                    );
+                    $user->setPassword($this->encodePassword($user, $password));
                 }
             }
 
@@ -612,13 +610,8 @@ class UserManager implements UserManagerInterface
 
     /**
      * Encodes the given password, for the given passwort, with he given salt and returns the result.
-     *
-     * @param string $password
-     * @param string $salt
-     *
-     * @return string
      */
-    private function encodePassword(UserInterface $user, $password, $salt)
+    private function encodePassword(UserInterface $user, string $password): string
     {
         if (!$this->passwordHasherFactory) {
             throw new \InvalidArgumentException(

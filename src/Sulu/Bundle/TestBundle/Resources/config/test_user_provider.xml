@@ -10,7 +10,7 @@
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="sulu.repository.contact"/>
             <argument type="service" id="sulu.repository.user"/>
-            <argument type="service" id="sulu_security.encoder_factory"/>
+            <argument type="service" id="security.password_hasher_factory"/>
             <argument type="service" id="sulu_security.user_provider"/>
             <tag name="kernel.reset" method="reset"/>
         </service>

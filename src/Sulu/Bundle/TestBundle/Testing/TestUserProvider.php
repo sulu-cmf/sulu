@@ -100,13 +100,8 @@ class TestUserProvider implements UserProviderInterface, ResetInterface
         $user->setEmail(self::TEST_USER_USERNAME . '@example.localhost');
         $user->setSalt('');
 
-        if ($this->passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
-            $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
-            $password = $hasher->hash('test');
-        } else {
-            $encoder = $this->passwordHasherFactory->getEncoder($user);
-            $password = $encoder->encodePassword('test', $user->getSalt());
-        }
+        $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
+        $password = $hasher->hash('test');
 
         $user->setPassword($password);
         $user->setLocale('en');

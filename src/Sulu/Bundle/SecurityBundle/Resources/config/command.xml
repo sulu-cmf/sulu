@@ -28,7 +28,7 @@
             <argument type="service" id="sulu.repository.contact"/>
             <argument type="service" id="sulu.core.localization_manager"/>
             <argument type="service" id="sulu_security.salt_generator"/>
-            <argument type="service" id="sulu_security.encoder_factory"/>
+            <argument type="service" id="security.password_hasher_factory"/>
             <argument>%sulu_core.locales%</argument>
 
             <tag name="console.command" />

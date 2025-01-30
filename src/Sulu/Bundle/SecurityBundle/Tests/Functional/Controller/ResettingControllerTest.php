@@ -414,14 +414,9 @@ class ResettingControllerTest extends SuluTestCase
         $activity = $this->activityRepository->findOneBy(['type' => 'password_resetted']);
         $this->assertSame((string) $this->users[2]->getId(), $activity->getResourceId());
 
-        $passwordHasherFactory = $this->getContainer()->get('sulu_security.encoder_factory');
-        if ($passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
-            $hasher = $passwordHasherFactory->getPasswordHasher($user);
-            $password = $hasher->hash($newPassword);
-        } else {
-            $encoder = $passwordHasherFactory->getEncoder($user);
-            $password = $encoder->encodePassword($newPassword, $user->getSalt());
-        }
+        $passwordHasherFactory = $this->getContainer()->get('security.password_hasher_factory');
+        $hasher = $passwordHasherFactory->getPasswordHasher($user);
+        $password = $hasher->hash($newPassword);
 
         $this->assertEquals($password, $user->getPassword());
         $this->assertNull($user->getPasswordResetToken());

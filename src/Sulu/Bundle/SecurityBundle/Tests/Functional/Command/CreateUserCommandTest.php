@@ -41,7 +41,7 @@ class CreateUserCommandTest extends SuluTestCase
             $this->getContainer()->get('sulu.repository.contact'),
             $this->getContainer()->get('sulu.core.localization_manager'),
             $this->getContainer()->get('sulu_security.salt_generator'),
-            $this->getContainer()->get('sulu_security.encoder_factory'),
+            $this->getContainer()->get('security.password_hasher_factory'),
             $this->getContainer()->getParameter('sulu_core.locales')
         );
         $this->command->setApplication($application);

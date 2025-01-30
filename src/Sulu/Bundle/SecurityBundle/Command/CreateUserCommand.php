@@ -118,7 +118,7 @@ class CreateUserCommand extends Command
         $user->setContact($contact);
         $user->setUsername($username);
         $user->setSalt($this->generateSalt());
-        $user->setPassword($this->encodePassword($user, $password, $user->getSalt()));
+        $user->setPassword($this->encodePassword($user, $password));
         $user->setLocale($locale);
         $user->setEmail($email);
 
@@ -290,17 +290,9 @@ class CreateUserCommand extends Command
     /**
      * Encodes the given password, for the given password, with he given salt and returns the result.
      */
-    private function encodePassword($user, $password, $salt)
+    private function encodePassword($user, string $password): string
     {
-        if ($this->passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
-            $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
-            $password = $hasher->hash($password);
-        } else {
-            $encoder = $this->passwordHasherFactory->getEncoder($user);
-            $password = $encoder->encodePassword($password, $salt);
-        }
-
-        return $password;
+        return $this->passwordHasherFactory->getPasswordHasher($user)->hash($password);
     }
 
     /**

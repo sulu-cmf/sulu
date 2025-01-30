@@ -38,7 +38,6 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
@@ -58,9 +57,6 @@ class ResettingController
      */
     private $logger;
 
-    /**
-     * @param PasswordHasherFactoryInterface|EncoderFactoryInterface $passwordHasherFactory
-     */
     public function __construct(
         protected ValidatorInterface $validator,
         protected TranslatorInterface $translator,
@@ -69,7 +65,7 @@ class ResettingController
         protected TokenStorageInterface $tokenStorage,
         protected EventDispatcherInterface $dispatcher,
         protected MailerInterface $mailer,
-        protected $passwordHasherFactory,
+        protected PasswordHasherFactoryInterface $passwordHasherFactory,
         protected UserRepositoryInterface $userRepository,
         private UrlGeneratorInterface $router,
         private EntityManagerInterface $entityManager,
@@ -363,7 +359,7 @@ class ResettingController
         if ('' === $password) {
             throw new MissingPasswordException();
         }
-        $user->setPassword($this->encodePassword($user, $password, $user->getSalt() ?? ''));
+        $user->setPassword($this->encodePassword($user, $password));
         $this->entityManager->persist($user);
 
         $this->domainEventCollector->collect(new UserPasswordResettedEvent($user));
@@ -423,22 +419,11 @@ class ResettingController
     }
 
     /**
-     * Returns an encoded password gor a given one.
-     *
-     * @param string $password
-     * @param string $salt
+     * Returns an encoded password for a given one.
      */
-    private function encodePassword(UserInterface $user, $password, $salt)
+    private function encodePassword(UserInterface $user, string $password): string
     {
-        if ($this->passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
-            $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
-            $password = $hasher->hash($password);
-        } else {
-            $encoder = $this->passwordHasherFactory->getEncoder($user);
-            $password = $encoder->encodePassword($password, $salt);
-        }
-
-        return $password;
+        return $this->passwordHasherFactory->getPasswordHasher($user)->hash($password);
     }
 
     /**

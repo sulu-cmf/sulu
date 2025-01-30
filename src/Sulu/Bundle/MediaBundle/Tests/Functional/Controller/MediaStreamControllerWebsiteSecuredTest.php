@@ -77,14 +77,9 @@ class MediaStreamControllerWebsiteSecuredTest extends WebsiteTestCase
         $allowedUser->setContact($allowedContact);
         $allowedUser->setSalt('');
 
-        $passwordHasherFactory = self::getContainer()->get('sulu_security.encoder_factory');
-        if ($passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
-            $hasher = $passwordHasherFactory->getPasswordHasher($allowedUser);
-            $password = $hasher->hash($allowedUser->getUsername());
-        } else {
-            $encoder = $passwordHasherFactory->getEncoder($allowedUser);
-            $password = $encoder->encodePassword($allowedUser->getUsername(), $allowedUser->getSalt());
-        }
+        $passwordHasherFactory = self::getContainer()->get('security.password_hasher_factory');
+        $hasher = $passwordHasherFactory->getPasswordHasher($allowedUser);
+        $password = $hasher->hash($allowedUser->getUsername());
 
         $allowedUser->setPassword($password);
         $allowedUser->setLocale('en');

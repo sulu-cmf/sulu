@@ -49,14 +49,9 @@ class CacheControllerTest extends SuluTestCase
         $user->setLocale('en');
         $user->setSalt('');
 
-        $passwordHasherFactory = self::getContainer()->get('sulu_security.encoder_factory');
-        if ($passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
-            $hasher = $passwordHasherFactory->getPasswordHasher($user);
-            $password = $hasher->hash('cache-user');
-        } else {
-            $encoder = $passwordHasherFactory->getEncoder($user);
-            $password = $encoder->encodePassword('cache-user', $user->getSalt());
-        }
+        $passwordHasherFactory = self::getContainer()->get('security.password_hasher_factory');
+        $hasher = $passwordHasherFactory->getPasswordHasher($user);
+        $password = $hasher->hash('cache-user');
 
         $user->setPassword($password);
         $entityManager->persist($user);
