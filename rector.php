@@ -49,6 +49,6 @@ return RectorConfig::configure()
         StaticDataProviderClassMethodRector::class,
     ])
     ->withConfiguredRule(RenameMethodRector::class, [
-        new MethodCallRename(Uuid::class, '__toString', 'rfc4122'),
+        new MethodCallRename(Uuid::class, '__toString', 'toRfc4122'),
     ])
 ;
