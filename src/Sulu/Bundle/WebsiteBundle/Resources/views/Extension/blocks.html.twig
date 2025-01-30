@@ -1,0 +1,12 @@
+{%- block determineImage -%}
+    {%- set fallbackImage = fallbackImage|default() -%}
+
+    {%- set image = extension.excerpt.images[0].formats[imageFormat]|default() -%}
+    {%- set image = image|default(fallbackImage) -%}
+
+    {%- if image is not empty -%}
+        {%- set image = absolute_url(asset(image)) -%}
+    {%- endif -%}
+
+    {{- image|default() -}}
+{%- endblock -%}
