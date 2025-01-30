@@ -110,7 +110,11 @@ class AccessControlManager implements AccessControlManagerInterface
         $accessControlProvider = $this->getAccessControlProvider($type);
 
         if (!$accessControlProvider) {
-            return;
+            return null;
+        }
+
+        if (!$identifier) {
+            return null;
         }
 
         return $accessControlProvider->getPermissions($type, $identifier, $system);
@@ -385,21 +389,31 @@ class AccessControlManager implements AccessControlManagerInterface
     /**
      * Returns the AccessControlProvider, which supports the given type.
      *
-     * @param string $type The type the AccessControlProvider should support
+     * @param string|null $type The type the AccessControlProvider should support
      *
-     * @return AccessControlProviderInterface
+     * @return AccessControlProviderInterface|null
      */
-    private function getAccessControlProvider($type)
+    private function getAccessControlProvider(?string $type)
     {
+        if ($type === null) {
+            return null;
+        }
+
         foreach ($this->accessControlProviders as $accessControlProvider) {
             if ($accessControlProvider->supports($type)) {
                 return $accessControlProvider;
             }
         }
+
+        return null;
     }
 
-    private function getDescendantProvider(string $type): ?DescendantProviderInterface
+    private function getDescendantProvider(?string $type): ?DescendantProviderInterface
     {
+        if (null === $type) {
+            return null;
+        }
+
         foreach ($this->descendantProviders as $descendantProvider) {
             if ($descendantProvider->supportsDescendantType($type)) {
                 return $descendantProvider;
