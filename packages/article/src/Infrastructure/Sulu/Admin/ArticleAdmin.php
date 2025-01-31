@@ -42,36 +42,12 @@ class ArticleAdmin extends Admin
 
     public const EDIT_TABS_VIEW = 'sulu_article.article.edit_tabs';
 
-    /**
-     * @var ViewBuilderFactoryInterface
-     */
-    private $viewBuilderFactory;
-
-    /**
-     * @var ContentViewBuilderFactoryInterface
-     */
-    private $contentViewBuilderFactory;
-
-    /**
-     * @var SecurityCheckerInterface
-     */
-    private $securityChecker;
-
-    /**
-     * @var LocalizationManagerInterface
-     */
-    private $localizationManager;
-
     public function __construct(
-        ViewBuilderFactoryInterface $viewBuilderFactory,
-        ContentViewBuilderFactoryInterface $contentViewBuilderFactory,
-        SecurityCheckerInterface $securityChecker,
-        LocalizationManagerInterface $localizationManager
+        private ViewBuilderFactoryInterface $viewBuilderFactory,
+        private ContentViewBuilderFactoryInterface $contentViewBuilderFactory,
+        private SecurityCheckerInterface $securityChecker,
+        private LocalizationManagerInterface $localizationManager,
     ) {
-        $this->viewBuilderFactory = $viewBuilderFactory;
-        $this->contentViewBuilderFactory = $contentViewBuilderFactory;
-        $this->securityChecker = $securityChecker;
-        $this->localizationManager = $localizationManager;
     }
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void

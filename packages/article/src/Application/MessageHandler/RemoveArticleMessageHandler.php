@@ -22,14 +22,8 @@ use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
  */
 final class RemoveArticleMessageHandler
 {
-    /**
-     * @var ArticleRepositoryInterface
-     */
-    private $articleRepository;
-
-    public function __construct(ArticleRepositoryInterface $articleRepository)
+    public function __construct(private ArticleRepositoryInterface $articleRepository)
     {
-        $this->articleRepository = $articleRepository;
     }
 
     public function __invoke(RemoveArticleMessage $message): void

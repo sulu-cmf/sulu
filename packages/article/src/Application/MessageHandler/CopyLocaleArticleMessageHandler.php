@@ -24,22 +24,10 @@ use Sulu\Content\Domain\Model\DimensionContentInterface;
  */
 final class CopyLocaleArticleMessageHandler
 {
-    /**
-     * @var ArticleRepositoryInterface
-     */
-    private $articleRepository;
-
-    /**
-     * @var ContentCopierInterface
-     */
-    private $contentCopier;
-
     public function __construct(
-        ArticleRepositoryInterface $articleRepository,
-        ContentCopierInterface $contentCopier
+        private ArticleRepositoryInterface $articleRepository,
+        private ContentCopierInterface $contentCopier,
     ) {
-        $this->articleRepository = $articleRepository;
-        $this->contentCopier = $contentCopier;
     }
 
     public function __invoke(CopyLocaleArticleMessage $message): void
