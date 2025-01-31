@@ -28,7 +28,7 @@ class CsvHandlerCompilerPass implements CompilerPassInterface
                 return;
             }
 
-            $id = $container->getAlias($id);
+            $id = (string) $container->getAlias($id);
         }
 
         $definition = $container->getDefinition($id);

@@ -146,11 +146,6 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/FormOverlayListViewBuilder.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\FormOverlayListViewBuilder\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/FormOverlayListViewBuilder.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\FormOverlayListViewBuilder\\:\\:setRequestParameters\\(\\) has parameter \\$requestParameters with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/FormOverlayListViewBuilder.php
@@ -182,11 +177,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\FormViewBuilder\\:\\:addRouterAttributesToFormMetadata\\(\\) has parameter \\$routerAttributesToFormMetadata with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/FormViewBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\FormViewBuilder\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/FormViewBuilder.php
 
@@ -241,11 +231,6 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ListViewBuilder.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ListViewBuilder\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/ListViewBuilder.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ListViewBuilderInterface\\:\\:addRequestParameters\\(\\) has parameter \\$requestParameters with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ListViewBuilderInterface.php
@@ -262,11 +247,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\PreviewFormViewBuilder\\:\\:addRouterAttributesToFormMetadata\\(\\) has parameter \\$routerAttributesToFormMetadata with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/PreviewFormViewBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\PreviewFormViewBuilder\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/PreviewFormViewBuilder.php
 
@@ -296,17 +276,7 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ResourceTabViewBuilder.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ResourceTabViewBuilder\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/ResourceTabViewBuilder.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\TabViewBuilder\\:\\:addRouterAttributesToBlacklistToView\\(\\) has parameter \\$routerAttributesToBlacklist with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/TabViewBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\TabViewBuilder\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/TabViewBuilder.php
 
@@ -316,12 +286,7 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ToolbarAction.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ToolbarAction\\:\\:getOptions\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/ToolbarAction.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ToolbarAction\\:\\:getType\\(\\) has no return type specified\\.$#"
+			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ToolbarAction\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ToolbarAction.php
 
@@ -337,11 +302,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\View\\:\\:getOption\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/View.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\View\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/View.php
 
@@ -366,16 +326,6 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/View.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ViewBuilder\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/ViewBuilder.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ViewBuilderInterface\\:\\:setOption\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Admin/View/ViewBuilderInterface.php
-
-		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ViewRegistry\\:\\:mergeViewOptions\\(\\) has parameter \\$views with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ViewRegistry.php
@@ -384,31 +334,6 @@ parameters:
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\ViewRegistry\\:\\:mergeViewOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Admin/View/ViewRegistry.php
-
-		-
-			message: "#^Cannot access offset 'require' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\DownloadLanguageCommand\\:\\:downloadLanguage\\(\\) has parameter \\$language with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\DownloadLanguageCommand\\:\\:downloadLanguage\\(\\) has parameter \\$output with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\DownloadLanguageCommand\\:\\:downloadLanguage\\(\\) has parameter \\$project with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\DownloadLanguageCommand\\:\\:downloadLanguage\\(\\) has parameter \\$translationBaseUrl with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\DownloadLanguageCommand\\:\\:downloadLanguage\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -421,39 +346,9 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 3
 			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method Symfony\\\\Component\\\\Filesystem\\\\Filesystem\\:\\:dumpFile\\(\\) expects resource\\|string, string\\|false given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/DownloadLanguageCommand.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Cannot access offset 'dependencies' on mixed\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
 
 		-
 			message: "#^Do not throw the \\\\Exception base class\\. Instead, extend the \\\\Exception base class\\. More info\\: http\\://bit\\.ly/subtypeexception$#"
@@ -461,37 +356,7 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:getLocalFile\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:getRemoteFile\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:hash\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:hash\\(\\) has parameter \\$content with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:mergeJsonStrings\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:runProcess\\(\\) has parameter \\$command with no type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:runProcess\\(\\) should return int but returns int\\|null\\.$#"
+			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Command\\\\UpdateBuildCommand\\:\\:getLocalFile\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
 
@@ -506,29 +371,14 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function strtolower expects string, mixed given\\.$#"
 			count: 6
-			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, mixed given\\.$#"
-			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
 
 		-
 			message: "#^Parameter \\#2 \\.\\.\\.\\$replacements of function array_replace_recursive expects array, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Command/UpdateBuildCommand.php
-
-		-
-			message: "#^Binary operation \"\\*\" between string and 1000 results in an error\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Controller/AdminController.php
 
 		-
 			message: "#^Cannot call method getContact\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null\\.$#"
@@ -547,11 +397,6 @@ parameters:
 
 		-
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Controller\\\\AdminController\\:\\:__construct\\(\\) has parameter \\$contactManager with generic interface Sulu\\\\Bundle\\\\ContactBundle\\\\Contact\\\\ContactManagerInterface but does not specify its types\\: DoctrineEntity, ApiEntity, AddressRelationEntity$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Controller/AdminController.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Controller\\\\AdminController\\:\\:indexAction\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Controller/AdminController.php
 
@@ -676,36 +521,6 @@ parameters:
 			path: src/Sulu/Bundle/AdminBundle/DependencyInjection/SuluAdminExtension.php
 
 		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Entity\\\\Collaboration\\:\\:getChanged\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Entity/Collaboration.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Entity\\\\Collaboration\\:\\:getConnectionId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Entity/Collaboration.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Entity\\\\Collaboration\\:\\:getId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Entity/Collaboration.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Entity\\\\Collaboration\\:\\:getResourceKey\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Entity/Collaboration.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Entity\\\\Collaboration\\:\\:getStarted\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Entity/Collaboration.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\Entity\\\\Collaboration\\:\\:updateTime\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Entity/Collaboration.php
-
-		-
 			message: "#^Property Sulu\\\\Bundle\\\\AdminBundle\\\\Entity\\\\Collaboration\\:\\:\\$fullName is never read, only written\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Entity/Collaboration.php
@@ -759,16 +574,6 @@ parameters:
 			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\FieldType\\\\FieldTypeOptionRegistryInterface\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/FieldType/FieldTypeOptionRegistryInterface.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\FormMetadata\\\\FormMetadata\\:\\:setKey\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/FormMetadata/FormMetadata.php
-
-		-
-			message: "#^Method Sulu\\\\Bundle\\\\AdminBundle\\\\FormMetadata\\\\FormMetadata\\:\\:setSchema\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/FormMetadata/FormMetadata.php
 
 		-
 			message: "#^Cannot access offset 'attributes' on mixed\\.$#"
@@ -1677,11 +1482,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Sulu/Bundle/AdminBundle/Tests/Unit/Controller/AdminControllerTest.php
-
-		-
-			message: "#^Parameter \\#23 \\$collaborationInterval of class Sulu\\\\Bundle\\\\AdminBundle\\\\Controller\\\\AdminController constructor expects string, int given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/AdminBundle/Tests/Unit/Controller/AdminControllerTest.php
 
@@ -37811,11 +37611,6 @@ parameters:
 			path: src/Sulu/Component/Content/Metadata/ItemMetadata.php
 
 		-
-			message: "#^Property Sulu\\\\Component\\\\Content\\\\Metadata\\\\ItemMetadata\\:\\:\\$disabledCondition \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Metadata/ItemMetadata.php
-
-		-
 			message: "#^Property Sulu\\\\Component\\\\Content\\\\Metadata\\\\ItemMetadata\\:\\:\\$parameters type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Metadata/ItemMetadata.php
@@ -37827,11 +37622,6 @@ parameters:
 
 		-
 			message: "#^Property Sulu\\\\Component\\\\Content\\\\Metadata\\\\ItemMetadata\\:\\:\\$titles type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Sulu/Component/Content/Metadata/ItemMetadata.php
-
-		-
-			message: "#^Property Sulu\\\\Component\\\\Content\\\\Metadata\\\\ItemMetadata\\:\\:\\$visibleCondition \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: src/Sulu/Component/Content/Metadata/ItemMetadata.php
 

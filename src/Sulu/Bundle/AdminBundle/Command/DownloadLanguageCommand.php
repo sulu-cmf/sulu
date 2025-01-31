@@ -19,6 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Webmozart\Assert\Assert;
 
 class DownloadLanguageCommand extends Command
 {
@@ -83,7 +84,12 @@ class DownloadLanguageCommand extends Command
             return;
         }
 
-        $composerJson = \json_decode(\file_get_contents($this->projectDir . \DIRECTORY_SEPARATOR . 'composer.json'), true);
+        /** @var array{require: array<string, string>} $composerJson */
+        $composerJson = \json_decode(
+            \file_get_contents($this->projectDir . \DIRECTORY_SEPARATOR . 'composer.json'),
+            true,
+            flags: \JSON_THROW_ON_ERROR
+        );
         $packages = \array_keys($composerJson['require']);
         $suluPackages = \array_filter($packages, function($package) {
             return 0 === \strpos($package, 'sulu/');
@@ -95,10 +101,10 @@ class DownloadLanguageCommand extends Command
             . \DIRECTORY_SEPARATOR
             . 'admin.' . $language . '.json';
 
+        $translations = [];
         if (\file_exists($translationsFile)) {
             $translations = \json_decode(\file_get_contents($translationsFile), true);
-        } else {
-            $translations = [];
+            Assert::isArray($translations, 'Unable to read translations file into array: ' . $translationsFile);
         }
 
         $packages = [];
@@ -125,11 +131,15 @@ class DownloadLanguageCommand extends Command
 
         $this->filesystem->mkdir(\dirname($translationsFile));
 
-        $this->filesystem->dumpFile($translationsFile, \json_encode($translations));
+        $this->filesystem->dumpFile($translationsFile, \json_encode($translations, flags: \JSON_THROW_ON_ERROR));
     }
 
-    private function downloadLanguage($output, $language, $project, $translationBaseUrl): array
-    {
+    private function downloadLanguage(
+        OutputInterface $output,
+        string $language,
+        string $project,
+        string $translationBaseUrl,
+    ): array {
         $output->writeln('<info>Starting download for the "' . $project . '" project in "' . $language . '"</info>');
         $response = $this->httpClient->request(
             'GET',
