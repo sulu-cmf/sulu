@@ -13,7 +13,6 @@ namespace Sulu\Bundle\WebsiteBundle\Twig\Core;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * Twig extension providing generally useful utilities which are available
@@ -24,32 +23,8 @@ class UtilTwigExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('sulu_util_multisort', 'Sulu\Component\Util\SortUtils::multisort'),
-            new TwigFilter('sulu_util_filter', 'Sulu\Component\Util\ArrayUtils::filter'),
-            new TwigFilter('sulu_util_domain_info', [$this, 'extract']),
+            new TwigFilter('sulu_util_multisort', [\Sulu\Component\Util\SortUtils::class, 'multisort']),
+            new TwigFilter('sulu_util_filter', [\Sulu\Component\Util\ArrayUtils::class, 'filter']),
         ];
-    }
-
-    public function getFunctions()
-    {
-        return [
-            new TwigFunction('sulu_util_domain_info', [$this, 'extract']),
-        ];
-    }
-
-    /**
-     * @deprecated The "sulu_util_domain_info" is deprecated and will be removed with Sulu 3.0.
-     */
-    public function extract($url, $mode = null)
-    {
-        @trigger_deprecation('sulu/sulu', '2.3', 'The "sulu_util_domain_info" is deprecated and will be removed with Sulu 3.0.');
-
-        if (\function_exists('tld_extract')) {
-            return tld_extract($url, $mode);
-        }
-
-        throw new \LogicException(
-            'The "sulu_util_domain_info" requires "layershifter/tld-extract" package to be installed.'
-        );
     }
 }
