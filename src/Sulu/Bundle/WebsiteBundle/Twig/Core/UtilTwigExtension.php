@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\WebsiteBundle\Twig\Core;
 
+use Twig\DeprecatedCallableInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -26,14 +27,22 @@ class UtilTwigExtension extends AbstractExtension
         return [
             new TwigFilter('sulu_util_multisort', 'Sulu\Component\Util\SortUtils::multisort'),
             new TwigFilter('sulu_util_filter', 'Sulu\Component\Util\ArrayUtils::filter'),
-            new TwigFilter('sulu_util_domain_info', [$this, 'extract']),
+            new TwigFilter(
+                'sulu_util_domain_info',
+                [$this, 'extract'],
+                ['deprecation_info' => new DeprecatedCallableInfo(package: 'sulu/sulu', version: 2.3)],
+            ),
         ];
     }
 
     public function getFunctions()
     {
         return [
-            new TwigFunction('sulu_util_domain_info', [$this, 'extract']),
+            new TwigFunction(
+                'sulu_util_domain_info',
+                [$this, 'extract'],
+                ['deprecation_info' => new DeprecatedCallableInfo(package: 'sulu/sulu', version: 2.3)],
+            ),
         ];
     }
 
@@ -42,6 +51,7 @@ class UtilTwigExtension extends AbstractExtension
      */
     public function extract($url, $mode = null)
     {
+        return 'hallo';
         @trigger_deprecation('sulu/sulu', '2.3', 'The "sulu_util_domain_info" is deprecated and will be removed with Sulu 3.0.');
 
         if (\function_exists('tld_extract')) {
