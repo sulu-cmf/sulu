@@ -5,11 +5,15 @@
 
     <parameters>
         <parameter key="sulu_search.build.index.class">Sulu\Bundle\SearchBundle\Build\IndexBuilder</parameter>
+        <parameter key="sulu_search.build.init.class">Sulu\Bundle\SearchBundle\Build\InitBuilder</parameter>
     </parameters>
 
     <services>
         <!-- build command -->
         <service id="sulu_search.build.index" class="%sulu_search.build.index.class%">
+            <tag name="massive_build.builder"/>
+        </service>
+        <service id="sulu_search.build.init" class="%sulu_search.build.init.class%">
             <tag name="massive_build.builder"/>
         </service>
     </services>
