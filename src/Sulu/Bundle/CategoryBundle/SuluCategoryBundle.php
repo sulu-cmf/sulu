@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\CategoryBundle;
 
-use Sulu\Bundle\CategoryBundle\DependencyInjection\DeprecationCompilerPass;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryMetaInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryTranslationInterface;
@@ -43,7 +42,5 @@ class SuluCategoryBundle extends Bundle
             ],
             $container
         );
-
-        $container->addCompilerPass(new DeprecationCompilerPass());
     }
 }
