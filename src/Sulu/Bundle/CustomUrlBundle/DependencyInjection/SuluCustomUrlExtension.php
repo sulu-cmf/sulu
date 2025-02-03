@@ -31,7 +31,7 @@ class SuluCustomUrlExtension extends Extension implements PrependExtensionInterf
     /**
      * @return void
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $bundles = $container->getParameter('kernel.bundles');
 
@@ -49,7 +49,7 @@ class SuluCustomUrlExtension extends Extension implements PrependExtensionInterf
     /**
      * @return void
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('sulu_admin')) {
             $container->prependExtensionConfig(

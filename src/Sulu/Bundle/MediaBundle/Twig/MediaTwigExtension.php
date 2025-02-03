@@ -27,7 +27,7 @@ class MediaTwigExtension extends AbstractExtension
     {
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('sulu_resolve_media', [$this, 'resolveMediaFunction']),
