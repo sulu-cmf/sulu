@@ -13,14 +13,17 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Domain\Model;
 
+use Sulu\Route\Domain\Model\Route;
+
 interface RoutableInterface
 {
     public static function getResourceKey(): string;
 
-    /**
-     * @return int|string
-     */
-    public function getResourceId();
+    public function getResourceId(): int|string;
 
     public function getLocale(): ?string;
+
+    public function setRoute(Route $route): void;
+
+    public function getRoute(): ?Route;
 }

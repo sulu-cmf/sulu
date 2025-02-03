@@ -36,7 +36,7 @@
         "doctrine/cache": "^1.12.1 || ^2.0",
         "doctrine/collections": "^1.6 || ^2.0",
         "doctrine/data-fixtures": "^1.4 || ^2.0",
-        "doctrine/dbal": "^3.3",
+        "doctrine/dbal": "^3.6",
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-fixtures-bundle": "^3.4 || ^4.0",
         "doctrine/inflector": "^1.4.1 || ^2.0.1",
@@ -208,7 +208,8 @@
         },
         "psr-4": {
             "Sulu\\Article\\": "packages/article/src",
-            "Sulu\\Content\\": "packages/content/src"
+            "Sulu\\Content\\": "packages/content/src",
+            "Sulu\\Route\\": "packages/route/src"
         },
         "exclude-from-classmap": [
             "src/Sulu/Component/*/Tests/",
@@ -220,6 +221,7 @@
         "psr-4": {
             "App\\": "tests/",
             "Sulu\\Article\\Tests\\": "packages/article/tests",
+            "Sulu\\Route\\Tests\\": "packages/route/tests",
             "Sulu\\Content\\Tests\\": "packages/content/tests"
         }
     },

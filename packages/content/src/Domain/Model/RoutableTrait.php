@@ -13,12 +13,30 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Domain\Model;
 
+use Sulu\Route\Domain\Model\Route;
+
 trait RoutableTrait
 {
-    public function getResourceId()
+    private ?Route $route;
+
+    abstract public static function getResourceKey(): string;
+
+    public function getResourceId(): int|string
     {
         return $this->getResource()->getId();
     }
 
+    abstract public function getLocale(): ?string;
+
     abstract public function getResource(): ContentRichEntityInterface;
+
+    public function setRoute(Route $route): void
+    {
+        $this->route = $route;
+    }
+
+    public function getRoute(): ?Route
+    {
+        return $this->route;
+    }
 }

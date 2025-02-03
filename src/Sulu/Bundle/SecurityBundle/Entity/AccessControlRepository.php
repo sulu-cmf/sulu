@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\SecurityBundle\Entity;
 
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\NoResultException;
 use Sulu\Component\Persistence\Repository\ORM\EntityRepository;
 use Sulu\Component\Security\Authentication\RoleInterface;
@@ -87,7 +87,7 @@ class AccessControlRepository extends EntityRepository implements AccessControlR
             ->andWhere('accessControl.role IN (' . $systemRoleQueryBuilder->getDQL() . ')')
             ->setParameter('system', $system)
             ->setParameter('entityClass', $entityClass)
-            ->setParameter('entityIds', $entityIds, Connection::PARAM_STR_ARRAY)
+            ->setParameter('entityIds', $entityIds, ArrayParameterType::STRING)
         ;
 
         $idsWithPermissions = \array_column($queryBuilder->getQuery()->getArrayResult(), 'id');
