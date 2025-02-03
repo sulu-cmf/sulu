@@ -21,11 +21,13 @@ class DatePropertyResolver implements PropertyResolverInterface
 
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        if (null != $data) {
+        if (null != $data && \is_string($data)) {
             $data = \DateTime::createFromFormat(static::FORMAT, $data);
         }
 
-        return ContentView::create($data, []);
+        $value = $data instanceof \DateTime ? $data->format(static::FORMAT) : null;
+
+        return ContentView::create($value, []);
     }
 
     public static function getType(): string
