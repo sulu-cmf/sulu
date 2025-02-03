@@ -19,7 +19,7 @@ use Sulu\Bundle\AdminBundle\Metadata\SchemaMetadata\SchemaMetadata;
 
 class SchemaHandler implements SubscribingHandlerInterface
 {
-    public static function getSubscribingMethods()
+    public static function getSubscribingMethods(): array
     {
         return [
             [

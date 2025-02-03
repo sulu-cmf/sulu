@@ -22,7 +22,7 @@ use Sulu\Component\DocumentManager\Collection\ChildrenCollection;
  */
 class ChildrenCollectionHandler implements SubscribingHandlerInterface
 {
-    public static function getSubscribingMethods()
+    public static function getSubscribingMethods(): array
     {
         return [
             [

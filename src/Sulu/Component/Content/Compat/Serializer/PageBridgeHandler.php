@@ -32,7 +32,7 @@ class PageBridgeHandler implements SubscribingHandlerInterface
     ) {
     }
 
-    public static function getSubscribingMethods()
+    public static function getSubscribingMethods(): array
     {
         return [
             [
