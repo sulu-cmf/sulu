@@ -53,7 +53,7 @@ class PreviewKernel extends Kernel
     protected function getContainerClass(): string
     {
         // use parent class to normalize the generated container class.
-        return $this->generateContainerClass(\get_parent_class());
+        return $this->generateContainerClass(parent::class);
     }
 
     public function getProjectDir(): string

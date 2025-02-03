@@ -26081,7 +26081,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/Controller/PermissionController.php
 
 		-
-			message: "#^Parameter \\#2 \\$identifier of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManagerInterface\\:\\:getPermissions\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$identifier of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManagerInterface\\:\\:getPermissions\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/Controller/PermissionController.php
 
@@ -26931,7 +26931,7 @@ parameters:
 			path: src/Sulu/Bundle/SecurityBundle/EventListener/PermissionInheritanceSubscriber.php
 
 		-
-			message: "#^Parameter \\#2 \\$identifier of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManagerInterface\\:\\:getPermissions\\(\\) expects string, int\\<min, \\-1\\>\\|int\\<1, max\\>\\|string given\\.$#"
+			message: "#^Parameter \\#2 \\$identifier of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManagerInterface\\:\\:getPermissions\\(\\) expects string\\|null, int\\<min, \\-1\\>\\|int\\<1, max\\>\\|string given\\.$#"
 			count: 1
 			path: src/Sulu/Bundle/SecurityBundle/EventListener/PermissionInheritanceSubscriber.php
 
@@ -47506,17 +47506,12 @@ parameters:
 			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManager\\:\\:getAccessControlProvider\\(\\) should return Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlProviderInterface but return statement is missing\\.$#"
-			count: 1
-			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
-
-		-
 			message: "#^Method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManager\\:\\:getPermissions\\(\\) has parameter \\$system with no type specified\\.$#"
 			count: 1
 			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
 
 		-
-			message: "#^Method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManager\\:\\:getPermissions\\(\\) should return array but empty return statement found\\.$#"
+			message: "#^Method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManager\\:\\:getPermissions\\(\\) should return array but returns null\\.$#"
 			count: 1
 			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
 
@@ -47611,12 +47606,17 @@ parameters:
 			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
+			message: "#^Parameter \\#1 \\$type of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlProviderInterface\\:\\:getPermissions\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
 			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
 
 		-
 			message: "#^Parameter \\#2 \\$identifier of class Sulu\\\\Component\\\\Security\\\\Event\\\\PermissionUpdateEvent constructor expects string, int\\|string given\\.$#"
+			count: 1
+			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
+
+		-
+			message: "#^Parameter \\#2 \\$identifier of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlProviderInterface\\:\\:getPermissions\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/Sulu/Component/Security/Authorization/AccessControl/AccessControlManager.php
 
@@ -47786,7 +47786,7 @@ parameters:
 			path: src/Sulu/Component/Security/Serializer/Subscriber/SecuredEntitySubscriber.php
 
 		-
-			message: "#^Parameter \\#2 \\$identifier of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManagerInterface\\:\\:getPermissions\\(\\) expects string, int given\\.$#"
+			message: "#^Parameter \\#2 \\$identifier of method Sulu\\\\Component\\\\Security\\\\Authorization\\\\AccessControl\\\\AccessControlManagerInterface\\:\\:getPermissions\\(\\) expects string\\|null, int given\\.$#"
 			count: 1
 			path: src/Sulu/Component/Security/Serializer/Subscriber/SecuredEntitySubscriber.php
 
