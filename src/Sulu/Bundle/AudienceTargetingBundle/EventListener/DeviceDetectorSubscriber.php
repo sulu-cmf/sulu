@@ -28,7 +28,7 @@ class DeviceDetectorSubscriber implements EventSubscriberInterface
         $this->deviceDetector = $deviceDetector;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => [

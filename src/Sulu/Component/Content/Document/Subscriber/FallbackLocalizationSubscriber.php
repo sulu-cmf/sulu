@@ -34,7 +34,7 @@ class FallbackLocalizationSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             // needs to happen after the node and document has been initially registered

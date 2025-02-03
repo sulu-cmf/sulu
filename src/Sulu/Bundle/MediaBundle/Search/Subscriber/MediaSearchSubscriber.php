@@ -50,7 +50,7 @@ class MediaSearchSubscriber implements EventSubscriberInterface
         $this->logger = $logger ?: new NullLogger();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             SearchEvents::PRE_INDEX => 'handlePreIndex',

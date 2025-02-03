@@ -29,7 +29,7 @@ class DropdownToolbarActionSubscriber implements EventSubscriberInterface
         $this->translator = $translator;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [

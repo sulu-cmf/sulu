@@ -23,7 +23,7 @@ use Sulu\Bundle\WebsiteBundle\Entity\AnalyticsInterface;
  */
 class AnalyticsSerializeEventSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [

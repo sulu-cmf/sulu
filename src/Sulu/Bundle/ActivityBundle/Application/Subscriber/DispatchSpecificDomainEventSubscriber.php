@@ -22,7 +22,7 @@ class DispatchSpecificDomainEventSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DomainEvent::class => ['dispatchDomainEventWithSpecificEventName', 0],

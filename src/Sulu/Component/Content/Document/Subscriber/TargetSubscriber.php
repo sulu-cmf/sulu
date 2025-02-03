@@ -23,7 +23,7 @@ class TargetSubscriber implements EventSubscriberInterface
 {
     public const DOCUMENT_TARGET_FIELD = 'content';
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::METADATA_LOAD => 'handleMetadataLoad',

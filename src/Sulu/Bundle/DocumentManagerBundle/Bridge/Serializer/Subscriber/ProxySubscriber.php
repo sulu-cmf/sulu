@@ -22,7 +22,7 @@ use Sulu\Component\DocumentManager\ClassNameInflector;
  */
 class ProxySubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [

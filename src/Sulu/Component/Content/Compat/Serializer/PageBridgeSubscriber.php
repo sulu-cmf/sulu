@@ -22,7 +22,7 @@ use Sulu\Component\Content\Compat\Structure\PageBridge;
  */
 class PageBridgeSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [

@@ -34,7 +34,7 @@ class FindSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::FIND => ['handleFind', 500],

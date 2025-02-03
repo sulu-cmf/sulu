@@ -41,7 +41,7 @@ class PageTreeRouteSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             // should be called before the live resource-segment will be updated

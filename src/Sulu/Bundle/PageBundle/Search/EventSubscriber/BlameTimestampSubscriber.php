@@ -35,7 +35,7 @@ class BlameTimestampSubscriber implements EventSubscriberInterface
     {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             SearchEvents::PRE_INDEX => 'handleBlameTimestamp',

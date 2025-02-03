@@ -25,7 +25,7 @@ use Sulu\Component\Content\Document\WorkflowStage;
  */
 class WorkflowStageSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [

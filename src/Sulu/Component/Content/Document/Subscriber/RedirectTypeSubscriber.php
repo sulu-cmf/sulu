@@ -26,7 +26,7 @@ class RedirectTypeSubscriber implements EventSubscriberInterface
 
     public const EXTERNAL_FIELD = 'external';
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::METADATA_LOAD => 'handleMetadataLoad',

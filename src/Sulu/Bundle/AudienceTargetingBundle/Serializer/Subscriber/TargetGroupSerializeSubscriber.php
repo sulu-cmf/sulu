@@ -22,7 +22,7 @@ use Sulu\Bundle\AudienceTargetingBundle\Entity\TargetGroupWebspaceInterface;
  */
 class TargetGroupSerializeSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [

@@ -23,7 +23,7 @@ use Sulu\Component\Content\Document\RedirectType;
  */
 class RedirectTypeSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [

@@ -21,7 +21,7 @@ use Sulu\Component\Content\Document\Extension\ExtensionContainer;
  */
 class ExtensionContainerSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [
