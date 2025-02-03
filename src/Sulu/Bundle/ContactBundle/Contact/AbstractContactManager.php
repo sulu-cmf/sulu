@@ -346,6 +346,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * clears all relational data from entity and deletes it.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deleteAllRelations($entity)
     {
@@ -362,6 +364,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * deletes all notes that are assigned to entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deleteNotes($entity)
     {
@@ -374,6 +378,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * deletes all phones that are assigned to entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deletePhones($entity)
     {
@@ -386,6 +392,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * deletes all faxes that are assigned to entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deleteFaxes($entity)
     {
@@ -398,6 +406,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * Deletes all social media profiles that are assigned to entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deleteSocialMediaProfiles($entity)
     {
@@ -410,6 +420,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * deletes all urls that are assigned to entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deleteUrls($entity)
     {
@@ -422,6 +434,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * deletes all addresses that are assigned to entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deleteAddresses($entity)
     {
@@ -438,6 +452,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * deletes all emails that are assigned to entity.
      *
      * @param DoctrineEntity $entity
+     *
+     * @return void
      */
     public function deleteEmails($entity)
     {
@@ -448,6 +464,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
 
     /**
      * @param Collection $arrayCollection
+     *
+     * @return void
      */
     protected function deleteAllEntitiesOfCollection($arrayCollection)
     {
@@ -535,6 +553,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * @param DoctrineEntity $entity
      * @param bool $force Forces function to return an address if any address is defined
      *                    if no delivery address is defined it will first return the main address then any
+     *
+     * @return Address|null
      */
     public function getAddressByCondition($entity, callable $conditionCallback, $force = false)
     {
@@ -568,6 +588,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      *
      * @param DoctrineEntity $contact
      * @param array $data
+     *
+     * @return void
      */
     public function addNewContactRelations($contact, $data)
     {
@@ -1066,6 +1088,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * @param DoctrineEntity $contact
      * @param array $faxData
      *
+     * @return void
+     *
      * @throws EntityIdAlreadySetException
      * @throws EntityNotFoundException
      */
@@ -1164,6 +1188,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
     /**
      * @param DoctrineEntity $contact
      * @param array $socialMediaProfileData
+     *
+     * @return void
      *
      * @throws EntityIdAlreadySetException
      * @throws EntityNotFoundException
@@ -1719,6 +1745,8 @@ abstract class AbstractContactManager implements ContactManagerInterface
      * Sets main address.
      *
      * @param Collection<int, AddressRelationEntity> $addresses
+     *
+     * @return void
      */
     protected function checkAndSetMainAddress($addresses)
     {
