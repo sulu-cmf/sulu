@@ -51,9 +51,9 @@
             id="sulu_admin.form_metadata_provider"
             class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\FormMetadataProvider"
         >
-            <argument type="tagged" tag="sulu_admin.form_metadata_loader"/>
-            <argument type="tagged" tag="sulu_admin.form_metadata_visitor"/>
-            <argument type="tagged" tag="sulu_admin.typed_form_metadata_visitor"/>
+            <argument type="tagged_iterator" tag="sulu_admin.form_metadata_loader"/>
+            <argument type="tagged_iterator" tag="sulu_admin.form_metadata_visitor"/>
+            <argument type="tagged_iterator" tag="sulu_admin.typed_form_metadata_visitor"/>
             <argument>%sulu_core.fallback_locale%</argument>
 
             <tag name="sulu_admin.metadata_provider" type="form" />
@@ -92,8 +92,8 @@
             id="sulu_admin.list_metadata_provider"
             class="Sulu\Bundle\AdminBundle\Metadata\ListMetadata\ListMetadataProvider"
         >
-            <argument type="tagged" tag="sulu_admin.list_metadata_loader"/>
-            <argument type="tagged" tag="sulu_admin.list_metadata_visitor"/>
+            <argument type="tagged_iterator" tag="sulu_admin.list_metadata_loader"/>
+            <argument type="tagged_iterator" tag="sulu_admin.list_metadata_visitor"/>
 
             <tag name="sulu_admin.metadata_provider" type="list" />
         </service>
@@ -274,7 +274,7 @@
 
         <service id="sulu_admin.field_metadata_validator.chain"
                  class="Sulu\Bundle\AdminBundle\Metadata\FormMetadata\Validation\ChainFieldMetadataValidator">
-            <argument type="tagged" tag="sulu_admin.field_metadata_validator"/>
+            <argument type="tagged_iterator" tag="sulu_admin.field_metadata_validator"/>
         </service>
 
         <service id="sulu_admin.field_metadata_validator.types_property"

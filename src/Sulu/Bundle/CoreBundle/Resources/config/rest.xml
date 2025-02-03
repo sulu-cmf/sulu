@@ -36,7 +36,7 @@
             class="Sulu\Component\Rest\ListBuilder\Filter\FilterTypeRegistry"
         >
             <argument
-                type="tagged"
+                type="tagged_iterator"
                 tag="sulu_core.list_builder_filter_type"
                 index-by="alias"
                 default-index-method="getDefaultIndexName"
