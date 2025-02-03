@@ -31,7 +31,7 @@ abstract class AbstractImageFormatCompilerPass implements CompilerPassInterface
      */
     private $globalOptions;
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $this->globalOptions = $container->getParameter('sulu_media.format_manager.default_imagine_options');
 

@@ -19,7 +19,7 @@ class AddMetadataProviderPass implements CompilerPassInterface
 {
     public const TAG = 'sulu_admin.metadata_provider';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $pool = $container->getDefinition('sulu_admin.metadata_provider_registry');
 

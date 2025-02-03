@@ -23,7 +23,7 @@ class DocumentFixturePass implements CompilerPassInterface
     /**
      * @return void
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $id => $tags) {
             $definition = $container->getDefinition($id);

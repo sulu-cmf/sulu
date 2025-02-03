@@ -20,7 +20,7 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class SuluVersionPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $dir = \realpath($container->getParameter('kernel.project_dir'));
 

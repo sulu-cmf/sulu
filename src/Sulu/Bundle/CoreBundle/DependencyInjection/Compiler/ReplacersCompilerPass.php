@@ -39,7 +39,7 @@ class ReplacersCompilerPass implements CompilerPassInterface
      *
      * @api
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $this->loader = $container->get('sulu.content.path_cleaner.replacer_loader');
 

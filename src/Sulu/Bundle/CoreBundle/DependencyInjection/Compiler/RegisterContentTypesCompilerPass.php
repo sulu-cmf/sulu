@@ -21,7 +21,7 @@ class RegisterContentTypesCompilerPass implements CompilerPassInterface
 {
     public const CONTENT_TYPE_TAG = 'sulu.content.type';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('sulu.content.type_manager')) {
             return;

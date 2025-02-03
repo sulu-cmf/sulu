@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class CsvHandlerCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $id = 'fos_rest.view_handler';
         if (!$container->hasDefinition($id)) {

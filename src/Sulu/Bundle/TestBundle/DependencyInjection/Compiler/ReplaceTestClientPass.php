@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ReplaceTestClientPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if ($container->hasDefinition('test.client')) {
             $container->getDefinition('test.client')->setClass(SuluKernelBrowser::class);

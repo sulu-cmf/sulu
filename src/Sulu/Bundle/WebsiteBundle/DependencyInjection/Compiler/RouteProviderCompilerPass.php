@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class RouteProviderCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (SuluKernel::CONTEXT_WEBSITE === $container->getParameter('sulu.context')) {
             $container->setDefinition(
