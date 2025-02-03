@@ -22,7 +22,7 @@ use Symfony\Component\Console\Input\InputOption;
 #[AsCommand(name: 'sulu:build')]
 class SuluBuildCommand extends BuildCommand
 {
-    public function configure()
+    public function configure(): void
     {
         parent::configure();
         $this->addOption('destroy', null, InputOption::VALUE_NONE, 'Destroy existing data');

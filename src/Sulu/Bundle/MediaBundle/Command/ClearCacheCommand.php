@@ -26,7 +26,7 @@ class ClearCacheCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addArgument('cache', InputArgument::OPTIONAL, 'Optional alias to clear the specific cache')

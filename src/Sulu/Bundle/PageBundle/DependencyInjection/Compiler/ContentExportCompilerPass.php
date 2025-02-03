@@ -24,7 +24,7 @@ class ContentExportCompilerPass implements CompilerPassInterface
 
     public const STRUCTURE_EXTENSION_TAG = 'sulu.content.export';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(self::CONTENT_EXPORT_SERVICE_ID)) {
             return;

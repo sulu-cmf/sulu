@@ -22,7 +22,7 @@ class StoreActivitySubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             DomainEvent::class => ['storeActivity', -256],

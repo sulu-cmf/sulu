@@ -33,7 +33,7 @@ class QuerySubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::QUERY_CREATE => ['handleCreate', 500],

@@ -30,7 +30,7 @@ class TagCompilerPass implements CompilerPassInterface
 
     public const TYPE_ATTRIBUTE = 'type';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(self::SERVICE_ID)) {
             return;

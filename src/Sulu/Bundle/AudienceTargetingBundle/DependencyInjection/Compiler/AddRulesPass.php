@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class AddRulesPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $ruleCollection = $container->getDefinition('sulu_audience_targeting.rules_collection');
         $taggedServices = $container->findTaggedServiceIds('sulu.audience_target_rule');

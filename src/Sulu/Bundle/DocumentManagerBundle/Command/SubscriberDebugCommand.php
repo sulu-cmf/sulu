@@ -31,7 +31,7 @@ class SubscriberDebugCommand extends Command
         parent::__construct();
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->addArgument('event_name', InputArgument::OPTIONAL, 'Event name, without the sulu_document_manager. prefix');
     }

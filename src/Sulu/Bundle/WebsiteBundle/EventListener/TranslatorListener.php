@@ -48,7 +48,7 @@ class TranslatorListener implements EventSubscriberInterface
         $this->translator->setLocale($localization->getLocale(Localization::LCID));
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             // Set the translator locale in `de_AT` format instead of `de-at`

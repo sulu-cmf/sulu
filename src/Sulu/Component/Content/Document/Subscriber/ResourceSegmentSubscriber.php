@@ -47,7 +47,7 @@ class ResourceSegmentSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             // persist should happen before content is mapped

@@ -56,7 +56,7 @@ class VersionSubscriber implements EventSubscriberInterface
         $this->versionManager = $this->defaultSession->getWorkspace()->getVersionManager();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::PERSIST => [

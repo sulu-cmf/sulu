@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class AliasForSecurityEncoderCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if ($container->hasAlias('security.encoder_factory')) {
             // @deprecated Symfony 5.4 backward compatibility bridge

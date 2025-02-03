@@ -31,7 +31,7 @@ class SuluDocumentManagerExtension extends Extension implements PrependExtension
     /**
      * @return void
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         $preview = $container->hasParameter('sulu.preview') ? $container->getParameter('sulu.preview') : false;
         $context = $container->getParameter('sulu.context');
@@ -122,7 +122,7 @@ class SuluDocumentManagerExtension extends Extension implements PrependExtension
     /**
      * @return void
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');

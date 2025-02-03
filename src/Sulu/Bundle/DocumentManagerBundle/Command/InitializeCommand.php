@@ -37,7 +37,7 @@ class InitializeCommand extends Command
         $this->questionHelper = $questionHelper ?: new QuestionHelper();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addOption('purge', null, InputOption::VALUE_NONE, 'Purge the content repository before initialization.')

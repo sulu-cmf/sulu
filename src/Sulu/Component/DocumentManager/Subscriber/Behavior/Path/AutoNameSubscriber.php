@@ -52,7 +52,7 @@ class AutoNameSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::CONFIGURE_OPTIONS => 'configureOptions',

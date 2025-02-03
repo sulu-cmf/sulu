@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'sulu:content:types:dump', description: 'Dumps all ContentTypes registered in the system')]
 class ContentTypesDumpCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDefinition([

@@ -26,7 +26,7 @@ class RouteGeneratorCompilerPass implements CompilerPassInterface
 
     public const PARAMETER_NAME = 'sulu_route.mappings';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(self::SERVICE_ID) || !$container->hasParameter(self::PARAMETER_NAME)) {
             return;

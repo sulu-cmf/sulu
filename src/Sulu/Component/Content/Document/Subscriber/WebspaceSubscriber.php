@@ -31,7 +31,7 @@ class WebspaceSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::COPY => ['deleteUnavailableLocales', 256],

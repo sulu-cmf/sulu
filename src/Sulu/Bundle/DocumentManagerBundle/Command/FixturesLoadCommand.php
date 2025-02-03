@@ -40,7 +40,7 @@ class FixturesLoadCommand extends Command
         $this->fixtures = $fixtures ?: new \ArrayObject([]);
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addOption('group', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'The group which should be loaded.')

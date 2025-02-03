@@ -20,7 +20,7 @@ class NavigationContextSubscriber implements EventSubscriberInterface
 {
     public const FIELD = 'navContexts';
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::METADATA_LOAD => 'handleMetadataLoad',

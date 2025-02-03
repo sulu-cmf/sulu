@@ -28,7 +28,7 @@ class RefreshSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::REFRESH => 'refreshDocument',

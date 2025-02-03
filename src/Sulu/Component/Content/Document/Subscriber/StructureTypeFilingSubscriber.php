@@ -21,7 +21,7 @@ use Sulu\Component\DocumentManager\Subscriber\Behavior\Path\AbstractFilingSubscr
  */
 class StructureTypeFilingSubscriber extends AbstractFilingSubscriber
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::PERSIST => ['handlePersist', 485],

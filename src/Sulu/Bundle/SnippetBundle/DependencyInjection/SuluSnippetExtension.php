@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class SuluSnippetExtension extends Extension implements PrependExtensionInterface
 {
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('sulu_admin')) {
             $container->prependExtensionConfig(
@@ -176,7 +176,7 @@ class SuluSnippetExtension extends Extension implements PrependExtensionInterfac
         }
     }
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         /** @var array<string, class-string> $bundles */
         $bundles = $container->getParameter('kernel.bundles');

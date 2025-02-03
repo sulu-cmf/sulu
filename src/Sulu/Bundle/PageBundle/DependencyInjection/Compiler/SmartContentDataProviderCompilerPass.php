@@ -24,7 +24,7 @@ class SmartContentDataProviderCompilerPass implements CompilerPassInterface
 
     public const STRUCTURE_EXTENSION_TAG = 'sulu.smart_content.data_provider';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(self::POOL_SERVICE_ID)) {
             return;

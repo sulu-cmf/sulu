@@ -36,7 +36,7 @@ class DownloadLanguageCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('languages', InputArgument::IS_ARRAY, 'The languages to download', $this->defaultLanguages)
             ->addOption(
