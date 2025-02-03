@@ -14,12 +14,15 @@ declare(strict_types=1);
 namespace Sulu\Content\Application\ContentResolver;
 
 use Sulu\Content\Application\ContentResolver\Resolver\ResolverInterface;
-use Sulu\Content\Application\ContentResolver\Resolver\TemplateResolver;
+use Sulu\Content\Application\ContentResolver\Resolver\SettingsResolver;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Content\Application\ResourceLoader\ResourceLoaderProvider;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 
+/**
+ * @phpstan-import-type SettingsData from SettingsResolver
+ */
 class ContentResolver implements ContentResolverInterface
 {
     /**
@@ -33,9 +36,10 @@ class ContentResolver implements ContentResolverInterface
 
     /**
      * @return array{
-     *      resource: object,
-     *      content: mixed,
-     *      view: mixed[]
+     *     resource: object,
+     *     content: mixed[],
+     *     extension: mixed[],
+     *     view: mixed[]
      *  }
      */
     public function resolve(DimensionContentInterface $dimensionContent): array
@@ -43,25 +47,34 @@ class ContentResolver implements ContentResolverInterface
         $contentViews = [];
         foreach ($this->contentResolvers as $resolverKey => $contentResolver) {
             $contentView = $contentResolver->resolve($dimensionContent);
-
-            if ($contentResolver instanceof TemplateResolver) {
-                /** @var mixed[] $content */
-                $content = $contentView->getContent();
-                $contentViews = \array_merge($contentViews, $content);
-                continue;
-            }
-
             $contentViews[$resolverKey] = $contentView;
         }
         $resolvedContent = $this->resolveContentViews($contentViews);
         $resolvedResources = $this->loadAndResolveResources($resolvedContent['resolvableResources'], $dimensionContent->getLocale());
         $content = $this->replaceResolvableResourcesWithResolvedValues($resolvedContent['content'], $resolvedResources);
 
-        return [
+        /** @var mixed[] $templateData */
+        $templateData = $content['template'];
+        unset($content['template']);
+
+        /** @var mixed[] $templateView */
+        $templateView = $resolvedContent['view']['template'];
+        unset($resolvedContent['view']['template']);
+
+        /** @var SettingsData $settingsData */
+        $settingsData = $content['settings'] ?? [];
+        unset($content['settings']);
+        unset($resolvedContent['view']['settings']);
+
+        /** @var mixed[] $extensionData */
+        $extensionData = $content;
+
+        return \array_merge([
             'resource' => $dimensionContent->getResource(),
-            'content' => $content,
-            'view' => $resolvedContent['view'],
-        ];
+            'content' => $templateData,
+            'extension' => $extensionData,
+            'view' => $templateView,
+        ], $settingsData);
     }
 
     /**

@@ -89,12 +89,12 @@ class ExcerptResolverTest extends TestCase
                 ]
             );
 
-        $templateResolver = new ExcerptResolver(
+        $excerptResolver = new ExcerptResolver(
             $formMetadataProvider->reveal(),
             $metadataResolver->reveal()
         );
 
-        $contentView = $templateResolver->resolve($dimensionContent);
+        $contentView = $excerptResolver->resolve($dimensionContent);
 
         $this->assertInstanceOf(ContentView::class, $contentView);
         $content = $contentView->getContent();

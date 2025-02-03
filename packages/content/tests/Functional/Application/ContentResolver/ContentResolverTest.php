@@ -99,6 +99,8 @@ class ContentResolverTest extends SuluTestCase
 
         /** @var mixed[] $content */
         $content = $result['content'];
+        $excerpt = $result['extension']['excerpt'];
+        $seo = $result['extension']['seo'];
 
         self::assertSame('Lorem Ipsum', $content['title']);
         self::assertSame('/lorem-ipsum', $content['url']);
@@ -119,16 +121,20 @@ class ContentResolverTest extends SuluTestCase
         self::assertSame('example@sulu.io', $content['email']);
         self::assertSame('https://sulu.io', $content['external_url']);
         self::assertSame('Lorem Ipsum dolor sit amet', $content['text_area']);
-        self::assertSame('excerpt-title-1', $content['excerpt']['excerptTitle']);
-        self::assertSame('excerpt-more-1', $content['excerpt']['excerptMore']);
-        self::assertSame('excerpt-description-1', $content['excerpt']['excerptDescription']);
-        self::assertSame('seo-title-1', $content['seo']['seoTitle']);
-        self::assertSame('seo-description-1', $content['seo']['seoDescription']);
-        self::assertSame('seo-keywords-1', $content['seo']['seoKeywords']);
-        self::assertSame('https://sulu.io', $content['seo']['seoCanonicalUrl']);
-        self::assertTrue($content['seo']['seoNoIndex']);
-        self::assertTrue($content['seo']['seoNoFollow']);
-        self::assertTrue($content['seo']['seoHideInSitemap']);
+
+        // Excerpt
+        self::assertSame('excerpt-title-1', $excerpt['title']);
+        self::assertSame('excerpt-more-1', $excerpt['more']);
+        self::assertSame('excerpt-description-1', $excerpt['description']);
+
+        // Seo
+        self::assertSame('seo-title-1', $seo['title']);
+        self::assertSame('seo-description-1', $seo['description']);
+        self::assertSame('seo-keywords-1', $seo['keywords']);
+        self::assertSame('https://sulu.io', $seo['canonicalUrl']);
+        self::assertTrue($seo['noIndex']);
+        self::assertTrue($seo['noFollow']);
+        self::assertTrue($seo['hideInSitemap']);
     }
 
     public function testResolveMedias(): void
@@ -359,13 +365,13 @@ class ContentResolverTest extends SuluTestCase
         $content = $result['content'];
 
         /** @var mixed[] $excerpt */
-        $excerpt = $content['excerpt'];
+        $excerpt = $result['extension']['excerpt'];
 
         $tagSelection = $content['tag_selection'];
         self::assertIsArray($tagSelection);
         self::assertSame('tag-1', $tagSelection[0]);
 
-        $excerptTags = $excerpt['excerptTags'];
+        $excerptTags = $excerpt['tags'];
         self::assertIsArray($excerptTags);
         self::assertSame('tag-1', $excerptTags[0]);
         self::assertSame('tag-2', $excerptTags[1]);

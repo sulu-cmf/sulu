@@ -22,7 +22,7 @@ use Sulu\Content\Application\MetadataResolver\MetadataResolver;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
 
-class ExcerptResolver implements ResolverInterface
+readonly class ExcerptResolver implements ResolverInterface
 {
     public function __construct(
         private MetadataProviderInterface $formMetadataProvider,
@@ -41,15 +41,25 @@ class ExcerptResolver implements ResolverInterface
 
         /** @var FormMetadata $formMetadata */
         $formMetadata = $this->formMetadataProvider->getMetadata($this->getFormKey(), $locale, []);
+        $resolvedItems = $this->metadataResolver->resolveItems($formMetadata->getItems(), $this->getExcerptData($dimensionContent), $locale);
 
-        return ContentView::create(
-            $this->metadataResolver->resolveItems(
-                $formMetadata->getItems(),
-                $this->getExcerptData($dimensionContent),
-                $locale
-            ),
-            []
-        );
+        return ContentView::create($this->normalizeResolvedItems($resolvedItems), []);
+    }
+
+    /**
+     * @param mixed[] $resolvedItems
+     *
+     * @return mixed[]
+     */
+    protected function normalizeResolvedItems(array $resolvedItems): array
+    {
+        $result = [];
+        foreach ($resolvedItems as $key => $item) {
+            $normalizedKey = \str_starts_with((string) $key, 'excerpt') ? \lcfirst(\substr((string) $key, \strlen('excerpt'))) : $key;
+            $result[$normalizedKey] = $item;
+        }
+
+        return $result;
     }
 
     protected function getFormKey(): string

@@ -36,7 +36,16 @@ use Sulu\Content\Domain\Model\WorkflowTrait;
 /**
  * @implements DimensionContentInterface<Example>
  */
-class ExampleDimensionContent implements DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, AuthorInterface, WebspaceInterface, ShadowInterface
+class ExampleDimensionContent implements
+    DimensionContentInterface,
+    ExcerptInterface,
+    SeoInterface,
+    TemplateInterface,
+    RoutableInterface,
+    WorkflowInterface,
+    AuthorInterface,
+    WebspaceInterface,
+    ShadowInterface
 {
     use AuthorTrait;
     use DimensionContentTrait;
