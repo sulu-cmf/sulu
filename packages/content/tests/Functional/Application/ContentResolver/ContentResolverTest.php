@@ -19,6 +19,7 @@ use Sulu\Bundle\MediaBundle\Api\Media;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Application\ContentResolver\ContentResolverInterface;
+use Sulu\Content\Application\PropertyResolver\Resolver\DateTimePropertyResolver;
 use Sulu\Content\Tests\Functional\Traits\CreateCategoryTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateMediaTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateTagTrait;
@@ -68,7 +69,7 @@ class ContentResolverTest extends SuluTestCase
                         'color' => '#ff0000',
                         'time' => '13:37',
                         'date' => '2020-01-01',
-                        'datetime' => '2020-01-01 13:37:00',
+                        'datetime' => '2020-01-01T13:37:00',
                         'email' => 'example@sulu.io',
                         'external_url' => 'https://sulu.io',
                         'text_area' => 'Lorem Ipsum dolor sit amet',
@@ -111,7 +112,10 @@ class ContentResolverTest extends SuluTestCase
         self::assertSame('#ff0000', $content['color']);
         self::assertSame('13:37', $content['time']);
         self::assertSame('2020-01-01', $content['date']);
-        self::assertSame('2020-01-01 13:37:00', $content['datetime']);
+
+        /** @var \DateTime|null $dateTime */
+        $dateTime = $content['datetime'];
+        self::assertSame(\DateTime::createFromFormat(DateTimePropertyResolver::FORMAT, '2020-01-01T13:37:00')->getTimestamp(), $dateTime->getTimestamp());
         self::assertSame('example@sulu.io', $content['email']);
         self::assertSame('https://sulu.io', $content['external_url']);
         self::assertSame('Lorem Ipsum dolor sit amet', $content['text_area']);
