@@ -57,7 +57,7 @@ readonly class SeoResolver implements ResolverInterface
     {
         $result = [];
         foreach ($resolvedItems as $key => $item) {
-            $normalizedKey = \lcfirst(\substr($key, \strlen('seo')));
+            $normalizedKey = \lcfirst(\substr((string) $key, \strlen('seo')));
             $result[$normalizedKey] = $item;
         }
 

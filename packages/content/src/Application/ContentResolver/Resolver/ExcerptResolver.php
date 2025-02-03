@@ -55,7 +55,7 @@ readonly class ExcerptResolver implements ResolverInterface
     {
         $result = [];
         foreach ($resolvedItems as $key => $item) {
-            $normalizedKey = \lcfirst(\substr($key, \strlen('excerpt')));
+            $normalizedKey = \str_starts_with((string) $key, 'excerpt') ? \lcfirst(\substr((string) $key, \strlen('excerpt'))) : $key;
             $result[$normalizedKey] = $item;
         }
 
