@@ -32,14 +32,14 @@ class LastLoginListener implements EventSubscriberInterface
      *
      * @return array
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             SecurityEvents::INTERACTIVE_LOGIN => 'onSecurityInteractiveLogin',
         ];
     }
 
-    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
     {
         $user = $event->getAuthenticationToken()->getUser();
         $this->updateLastLogin($user);
@@ -50,7 +50,7 @@ class LastLoginListener implements EventSubscriberInterface
      *
      * @param UserInterface $user
      */
-    protected function updateLastLogin($user)
+    protected function updateLastLogin($user): void
     {
         if ($user instanceof SuluUserInterface) {
             $user->setLastLogin(new \DateTime());

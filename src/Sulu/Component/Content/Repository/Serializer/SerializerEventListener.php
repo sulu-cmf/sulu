@@ -36,7 +36,7 @@ class SerializerEventListener implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             [
@@ -50,7 +50,7 @@ class SerializerEventListener implements EventSubscriberInterface
     /**
      * Add data for serialization of content objects.
      */
-    public function onPostSerialize(ObjectEvent $event)
+    public function onPostSerialize(ObjectEvent $event): void
     {
         /** @var Content $content */
         $content = $event->getObject();

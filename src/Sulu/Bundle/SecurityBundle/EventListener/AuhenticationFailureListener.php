@@ -31,14 +31,14 @@ class AuhenticationFailureListener implements EventSubscriberInterface
     {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             AuthenticationFailureEvent::class => 'onLoginFailure',
         ];
     }
 
-    public function onLoginFailure(AuthenticationFailureEvent $event)
+    public function onLoginFailure(AuthenticationFailureEvent $event): void
     {
         $previousException = $event->getAuthenticationException()->getPrevious();
         if ($previousException instanceof UsernameNotFoundException) {

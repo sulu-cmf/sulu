@@ -21,7 +21,7 @@ class SegmentCacheListener implements EventSubscriberInterface
 
     public const SEGMENT_HEADER = 'X-Sulu-Segment';
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             Events::PRE_HANDLE => ['preHandle', 512],
@@ -29,7 +29,7 @@ class SegmentCacheListener implements EventSubscriberInterface
         ];
     }
 
-    public function preHandle(CacheEvent $cacheEvent)
+    public function preHandle(CacheEvent $cacheEvent): void
     {
         $request = $cacheEvent->getRequest();
 
@@ -38,7 +38,7 @@ class SegmentCacheListener implements EventSubscriberInterface
         $request->headers->set(static::SEGMENT_HEADER, (string) $segment);
     }
 
-    public function postHandle(CacheEvent $cacheEvent)
+    public function postHandle(CacheEvent $cacheEvent): void
     {
         $response = $cacheEvent->getResponse();
 
