@@ -27,6 +27,10 @@ $disabledColor: $silver;
     input:checked + span {
         background: $secondaryColor;
     }
+
+    input:focus-visible + span {
+        outline-color: $secondaryColor;
+    }
 }
 
 .checkbox.small {
@@ -67,5 +71,10 @@ $disabledColor: $silver;
     input:disabled:checked + span {
         background: $disabledColor;
         color: $white;
+    }
+
+    input:focus-visible + span {
+        outline-width: 2px;
+        outline-style: solid;
     }
 }

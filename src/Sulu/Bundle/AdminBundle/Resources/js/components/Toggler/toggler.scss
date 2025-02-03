@@ -58,4 +58,9 @@ $transitionDuration: 200ms;
             background-color: transparent;
         }
     }
+
+    input:focus-visible + span {
+        outline-width: 2px;
+        outline-style: solid;
+    }
 }
