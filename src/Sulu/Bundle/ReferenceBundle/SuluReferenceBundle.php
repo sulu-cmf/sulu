@@ -20,10 +20,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuluReferenceBundle extends Bundle
+final class SuluReferenceBundle extends Bundle
 {
     use PersistenceBundleTrait;
 
+    /**
+     * @internal
+     */
     public function build(ContainerBuilder $container): void
     {
         $this->buildPersistence(
@@ -34,6 +37,9 @@ class SuluReferenceBundle extends Bundle
         );
     }
 
+    /**
+     * @internal
+     */
     public function getContainerExtension(): ExtensionInterface
     {
         return new SuluReferenceExtension();

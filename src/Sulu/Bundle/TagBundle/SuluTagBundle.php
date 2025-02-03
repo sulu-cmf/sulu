@@ -16,12 +16,7 @@ use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * Entry-point of tag-bundle.
- *
- * @final
- */
-class SuluTagBundle extends Bundle
+final class SuluTagBundle extends Bundle
 {
     use PersistenceBundleTrait;
 

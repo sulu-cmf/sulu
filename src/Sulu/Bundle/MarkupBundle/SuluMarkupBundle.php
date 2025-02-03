@@ -19,10 +19,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Integrates markup into symfony.
- *
- * @final
  */
-class SuluMarkupBundle extends Bundle
+final class SuluMarkupBundle extends Bundle
 {
     /**
      * @internal

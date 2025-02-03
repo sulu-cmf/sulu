@@ -20,10 +20,7 @@ use Sulu\Component\Util\SuluVersionPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluWebsiteBundle extends Bundle
+final class SuluWebsiteBundle extends Bundle
 {
     use PersistenceBundleTrait;
 

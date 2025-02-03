@@ -22,10 +22,7 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluCoreBundle extends Bundle
+final class SuluCoreBundle extends Bundle
 {
     /**
      * @internal

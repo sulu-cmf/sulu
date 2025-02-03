@@ -21,10 +21,7 @@ use Sulu\Bundle\PersistenceBundle\PersistenceBundleTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluMediaBundle extends Bundle
+final class SuluMediaBundle extends Bundle
 {
     use PersistenceBundleTrait;
 

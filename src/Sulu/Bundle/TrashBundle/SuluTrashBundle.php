@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuluTrashBundle extends Bundle
+final class SuluTrashBundle extends Bundle
 {
     use PersistenceBundleTrait;
 

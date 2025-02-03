@@ -17,10 +17,7 @@ use Sulu\Bundle\AdminBundle\DependencyInjection\Compiler\ExposeResourceRoutesPas
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluAdminBundle extends Bundle
+final class SuluAdminBundle extends Bundle
 {
     /**
      * @internal

@@ -16,10 +16,7 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluPersistenceBundle extends Bundle
+final class SuluPersistenceBundle extends Bundle
 {
     /**
      * @internal

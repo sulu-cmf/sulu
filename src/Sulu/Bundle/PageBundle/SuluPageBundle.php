@@ -20,10 +20,7 @@ use Sulu\Component\Symfony\CompilerPass\TaggedServiceCollectorCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluPageBundle extends Bundle
+final class SuluPageBundle extends Bundle
 {
     /**
      * @internal

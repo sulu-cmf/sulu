@@ -18,10 +18,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuluActivityBundle extends Bundle
+final class SuluActivityBundle extends Bundle
 {
     use PersistenceBundleTrait;
 
+    /**
+     * @internal
+     */
     public function build(ContainerBuilder $container): void
     {
         $this->buildPersistence(
@@ -32,6 +35,9 @@ class SuluActivityBundle extends Bundle
         );
     }
 
+    /**
+     * @internal
+     */
     public function getContainerExtension(): ExtensionInterface
     {
         return new SuluActivityExtension();

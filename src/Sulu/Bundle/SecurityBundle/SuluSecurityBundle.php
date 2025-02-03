@@ -22,10 +22,7 @@ use Sulu\Component\Security\Authorization\AccessControl\AccessControlInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluSecurityBundle extends Bundle
+final class SuluSecurityBundle extends Bundle
 {
     use PersistenceBundleTrait;
 
