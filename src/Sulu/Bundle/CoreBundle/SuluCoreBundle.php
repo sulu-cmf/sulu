@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 final class SuluCoreBundle extends Bundle
 {
     /**
-     * @internal
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
      */
     public function build(ContainerBuilder $container): void
     {

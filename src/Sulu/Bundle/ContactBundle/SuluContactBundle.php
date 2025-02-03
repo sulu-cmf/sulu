@@ -22,7 +22,7 @@ final class SuluContactBundle extends Bundle
     use PersistenceBundleTrait;
 
     /**
-     * @internal
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
      */
     public function build(ContainerBuilder $container): void
     {
