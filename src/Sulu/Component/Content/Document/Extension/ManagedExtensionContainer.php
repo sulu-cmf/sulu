@@ -75,12 +75,12 @@ class ManagedExtensionContainer extends ExtensionContainer
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetExists($extensionName)
+    public function offsetExists($extensionName): bool
     {
         return $this->extensionManager->hasExtension($this->structureType, $extensionName);
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $result = [];
 

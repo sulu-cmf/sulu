@@ -36,13 +36,13 @@ class ExtensionContainer implements \ArrayAccess, \Iterator
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->data;
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -58,13 +58,13 @@ class ExtensionContainer implements \ArrayAccess, \Iterator
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($extensionName, $data)
+    public function offsetSet($extensionName, $data): void
     {
         $this->data[$extensionName] = $data;
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetUnset($extensionName)
+    public function offsetUnset($extensionName): void
     {
         unset($this->data[$extensionName]);
     }
@@ -94,7 +94,7 @@ class ExtensionContainer implements \ArrayAccess, \Iterator
     }
 
     #[\ReturnTypeWillChange]
-    public function valid()
+    public function valid(): bool
     {
         return null !== isset($this->data);
     }
