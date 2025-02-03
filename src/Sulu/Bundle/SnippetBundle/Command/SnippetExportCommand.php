@@ -28,7 +28,7 @@ class SnippetExportCommand extends Command
         parent::__construct();
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->addArgument('target', InputArgument::REQUIRED, 'Target for export (e.g. export_de.xliff)');
         $this->addArgument('locale', InputArgument::REQUIRED, 'Locale to export (e.g. de, en)');

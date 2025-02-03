@@ -34,7 +34,7 @@ class MovePageTreeCommand extends Command
         parent::__construct();
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->addArgument('source-segment', InputArgument::REQUIRED)
             ->addArgument('destination-segment', InputArgument::REQUIRED)

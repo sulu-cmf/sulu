@@ -28,7 +28,7 @@ class WebspaceExportCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('target', InputArgument::REQUIRED, 'export.xliff')
             ->addArgument('webspace', InputArgument::REQUIRED)

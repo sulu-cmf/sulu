@@ -37,7 +37,7 @@ class ValidatePagesCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('webspaceKey', InputArgument::REQUIRED, 'Which webspace to search');
     }

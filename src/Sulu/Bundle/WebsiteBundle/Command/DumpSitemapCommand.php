@@ -83,7 +83,7 @@ class DumpSitemapCommand extends Command
         $this->defaultHost = $defaultHost;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addOption('https', null, InputOption::VALUE_NONE, 'Use https scheme for url generation.')
             ->addOption('clear', null, InputOption::VALUE_NONE, 'Delete all file before start.');

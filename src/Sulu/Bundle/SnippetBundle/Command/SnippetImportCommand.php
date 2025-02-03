@@ -37,7 +37,7 @@ class SnippetImportCommand extends Command
         $this->logger = $logger ?: new NullLogger();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('file', InputArgument::REQUIRED, 'test.xliff')
             ->addArgument('locale', InputArgument::REQUIRED)

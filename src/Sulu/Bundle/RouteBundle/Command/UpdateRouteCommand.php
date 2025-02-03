@@ -34,7 +34,7 @@ class UpdateRouteCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('entity', InputArgument::REQUIRED)
             ->addArgument('locale', InputArgument::REQUIRED)
