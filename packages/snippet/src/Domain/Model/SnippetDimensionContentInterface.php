@@ -11,7 +11,9 @@
 
 namespace Sulu\Snippet\Domain\Model;
 
+use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Content\Domain\Model\ExcerptInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
 
@@ -20,7 +22,7 @@ use Sulu\Content\Domain\Model\WorkflowInterface;
  *
  * @extends DimensionContentInterface<SnippetInterface>
  */
-interface SnippetDimensionContentInterface extends DimensionContentInterface, TemplateInterface, WorkflowInterface
+interface SnippetDimensionContentInterface extends DimensionContentInterface, TemplateInterface, WorkflowInterface, ExcerptInterface
 {
     public function getTitle(): ?string;
 }
