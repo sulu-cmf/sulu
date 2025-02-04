@@ -73,6 +73,10 @@ class PhpcrAccessControlProvider implements AccessControlProviderInterface
 
     public function supports($type)
     {
+        if (null === $type) {
+            return false;
+        }
+
         try {
             $class = new \ReflectionClass($type);
         } catch (\ReflectionException $e) {
