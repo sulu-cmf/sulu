@@ -43,9 +43,9 @@ final class MetadataLoader
         $tableName = $metadata->getTableName();
 
         if ($reflection->implementsInterface(DimensionContentInterface::class)) {
-            $this->addField($metadata, 'stage', 'string', ['length' => 16, 'nullable' => false]);
-            $this->addField($metadata, 'locale', 'string', ['length' => 7, 'nullable' => true]);
-            $this->addField($metadata, 'ghostLocale', 'string', ['length' => 7, 'nullable' => true]);
+            $this->addField($metadata, 'stage', 'string', ['length' => 15, 'nullable' => false]);
+            $this->addField($metadata, 'locale', 'string', ['length' => 15, 'nullable' => true]);
+            $this->addField($metadata, 'ghostLocale', 'string', ['length' => 15, 'nullable' => true]);
             $this->addField($metadata, 'availableLocales', 'json', ['nullable' => true, 'options' => ['jsonb' => true]]);
             $this->addIndex($metadata, 'dimension', ['stage', 'locale']);
             $this->addIndex($metadata, 'locale', ['locale']);
@@ -53,12 +53,12 @@ final class MetadataLoader
         }
 
         if ($reflection->implementsInterface(ShadowInterface::class)) {
-            $this->addField($metadata, 'shadowLocale', 'string', ['length' => 7, 'nullable' => true]);
+            $this->addField($metadata, 'shadowLocale', 'string', ['length' => 15, 'nullable' => true]);
             $this->addField($metadata, 'shadowLocales', 'json', ['nullable' => true, 'options' => ['jsonb' => true]]);
         }
 
         if ($reflection->implementsInterface(TemplateInterface::class)) {
-            $this->addField($metadata, 'templateKey', 'string', ['length' => 32]);
+            $this->addField($metadata, 'templateKey', 'string', ['length' => 31]);
             $this->addField($metadata, 'templateData', 'json', ['nullable' => false, 'options' => ['jsonb' => true]]);
 
             $this->addIndex($metadata, 'template_key', ['templateKey']);
@@ -76,7 +76,7 @@ final class MetadataLoader
 
         if ($reflection->implementsInterface(ExcerptInterface::class)) {
             $this->addField($metadata, 'excerptTitle');
-            $this->addField($metadata, 'excerptMore', 'string', ['length' => 64]);
+            $this->addField($metadata, 'excerptMore', 'string', ['length' => 63]);
             $this->addField($metadata, 'excerptDescription', 'text');
             $this->addField($metadata, 'excerptImageId', 'integer', [
                 'columnName' => 'excerptImageId',
@@ -115,7 +115,7 @@ final class MetadataLoader
         }
 
         if ($reflection->implementsInterface(WorkflowInterface::class)) {
-            $this->addField($metadata, 'workflowPlace', 'string', ['length' => 32, 'nullable' => true]);
+            $this->addField($metadata, 'workflowPlace', 'string', ['length' => 31, 'nullable' => true]);
             $this->addField($metadata, 'workflowPublished', 'datetime_immutable', ['nullable' => true]);
 
             $this->addIndex($metadata, 'workflow_place', ['workflowPlace']);
