@@ -28,7 +28,7 @@ class SnippetSelectionPropertyResolver implements PropertyResolverInterface
             !\is_array($data)
             || !\array_is_list($data)
         ) {
-            return ContentView::create([], $params);
+            return ContentView::create([], \array_merge(['ids' => []], $params));
         }
 
         /** @var string $resourceLoaderKey */
