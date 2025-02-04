@@ -15,6 +15,7 @@ namespace Sulu\Content\Application\ContentDataMapper\DataMapper;
 
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\SeoInterface;
+use Webmozart\Assert\Assert;
 
 class SeoDataMapper implements DataMapperInterface
 {
@@ -35,12 +36,39 @@ class SeoDataMapper implements DataMapperInterface
      */
     private function setSeoData(SeoInterface $dimensionContent, array $data): void
     {
-        $dimensionContent->setSeoTitle($data['seoTitle'] ?? null); // @phpstan-ignore-line TODO where validate this?
-        $dimensionContent->setSeoDescription($data['seoDescription'] ?? null);
-        $dimensionContent->setSeoKeywords($data['seoKeywords'] ?? null);
-        $dimensionContent->setSeoCanonicalUrl($data['seoCanonicalUrl'] ?? null);
-        $dimensionContent->setSeoHideInSitemap($data['seoHideInSitemap'] ?? false);
-        $dimensionContent->setSeoNoFollow($data['seoNoFollow'] ?? false);
-        $dimensionContent->setSeoNoIndex($data['seoNoIndex'] ?? false);
+        if (\array_key_exists('seoTitle', $data)) {
+            Assert::nullOrString($data['seoTitle']);
+            $dimensionContent->setSeoTitle($data['seoTitle']);
+        }
+
+        if (\array_key_exists('seoDescription', $data)) {
+            Assert::nullOrString($data['seoDescription']);
+            $dimensionContent->setSeoDescription($data['seoDescription']);
+        }
+
+        if (\array_key_exists('seoKeywords', $data)) {
+            Assert::nullOrString($data['seoKeywords']);
+            $dimensionContent->setSeoKeywords($data['seoKeywords']);
+        }
+
+        if (\array_key_exists('seoCanonicalUrl', $data)) {
+            Assert::nullOrString($data['seoCanonicalUrl']);
+            $dimensionContent->setSeoCanonicalUrl($data['seoCanonicalUrl']);
+        }
+
+        if (\array_key_exists('seoHideInSitemap', $data)) {
+            Assert::boolean($data['seoHideInSitemap']);
+            $dimensionContent->setSeoHideInSitemap($data['seoHideInSitemap']);
+        }
+
+        if (\array_key_exists('seoNoFollow', $data)) {
+            Assert::boolean($data['seoNoFollow']);
+            $dimensionContent->setSeoNoFollow($data['seoNoFollow']);
+        }
+
+        if (\array_key_exists('seoNoIndex', $data)) {
+            Assert::boolean($data['seoNoIndex']);
+            $dimensionContent->setSeoNoIndex($data['seoNoIndex']);
+        }
     }
 }
