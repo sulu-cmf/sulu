@@ -115,7 +115,7 @@ final class MetadataLoader
         }
 
         if ($reflection->implementsInterface(WorkflowInterface::class)) {
-            $this->addField($metadata, 'workflowPlace', 'string', ['length' => 32, 'nullable' => true]);
+            $this->addField($metadata, 'workflowPlace', 'string', ['length' => 31, 'nullable' => true]);
             $this->addField($metadata, 'workflowPublished', 'datetime_immutable', ['nullable' => true]);
 
             $this->addIndex($metadata, 'workflow_place', ['workflowPlace']);
