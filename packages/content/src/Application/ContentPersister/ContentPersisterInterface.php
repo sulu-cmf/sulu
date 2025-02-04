@@ -22,7 +22,7 @@ interface ContentPersisterInterface
      * @template T of DimensionContentInterface
      *
      * @param ContentRichEntityInterface<T> $contentRichEntity
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      * @param mixed[] $dimensionAttributes
      *
      * @return T
