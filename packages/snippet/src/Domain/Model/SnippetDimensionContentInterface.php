@@ -11,7 +11,6 @@
 
 namespace Sulu\Snippet\Domain\Model;
 
-use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;

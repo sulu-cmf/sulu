@@ -1,0 +1,18 @@
+{
+    "_embedded": {
+        "snippets": [
+            {
+                "changed": "@datetime@",
+                "changer": "Max Mustermann",
+                "created": "@datetime@",
+                "creator": "Max Mustermann",
+                "id": "@string@",
+                "title": "Test Snippet 2"
+            }
+        ]
+    },
+    "limit": 10,
+    "total": 1,
+    "page": 1,
+    "pages": 1
+}
