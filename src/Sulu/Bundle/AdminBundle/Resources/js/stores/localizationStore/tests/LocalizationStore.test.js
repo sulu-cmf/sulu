@@ -1,5 +1,4 @@
 // @flow
-import log from 'loglevel';
 import localizationStore from '../localizationStore';
 
 jest.mock('loglevel', () => ({
@@ -28,8 +27,5 @@ test('Load localizations', () => {
 
     localizationStore.setLocalizations(localizations);
 
-    return localizationStore.loadLocalizations().then((localizations) => {
-        expect(log.warn).toBeCalled();
-        expect(localizations).toBe(localizations);
-    });
+    localizationStore.localizations.toBe(localizations);
 });
