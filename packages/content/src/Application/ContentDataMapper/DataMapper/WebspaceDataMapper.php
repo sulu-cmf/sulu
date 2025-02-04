@@ -16,6 +16,7 @@ namespace Sulu\Content\Application\ContentDataMapper\DataMapper;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\WebspaceInterface;
+use Webmozart\Assert\Assert;
 
 class WebspaceDataMapper implements DataMapperInterface
 {
@@ -54,6 +55,7 @@ class WebspaceDataMapper implements DataMapperInterface
         // TODO allow to configure another webspace with `<tag name="sulu_content.default_main_webspace" value="example" />`
         //      on the template itself which will be injected with ["type" => ["template-key" => "webspace-key"]] into this service.
         if (\array_key_exists('mainWebspace', $data)) {
+            Assert::nullOrString($data['mainWebspace']);
             $dimensionContent->setMainWebspace($data['mainWebspace']);
         }
 
