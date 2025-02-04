@@ -49,6 +49,6 @@ if ($_SERVER['APP_DEBUG']) {
 \assert(\is_string($_SERVER['APP_ENV']));
 \assert(!isset($suluContext) || \is_string($suluContext));
 
-$kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG'], $suluContext ?? Kernel::CONTEXT_ADMIN,);
+$kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG'], $suluContext ?? Kernel::CONTEXT_ADMIN);
 $application = new Application($kernel);
 $application->run($input);

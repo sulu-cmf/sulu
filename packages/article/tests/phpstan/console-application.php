@@ -20,4 +20,5 @@ $kernel = new Kernel(
     (bool) $_SERVER['APP_DEBUG'],
     Kernel::CONTEXT_ADMIN,
 );
+
 return new Application($kernel);
