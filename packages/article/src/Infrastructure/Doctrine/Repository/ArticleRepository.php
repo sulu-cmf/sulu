@@ -224,7 +224,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 
         $uuid = $filters['uuid'] ?? null;
         if (null !== $uuid) {
-            Assert::string($uuid);
+            Assert::string($uuid); // @phpstan-ignore-line
             $queryBuilder->andWhere('article.uuid = :uuid')
                 ->setParameter('uuid', $uuid);
         }
