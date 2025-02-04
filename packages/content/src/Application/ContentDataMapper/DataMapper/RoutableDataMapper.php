@@ -47,12 +47,20 @@ class RoutableDataMapper implements DataMapperInterface
     private $conflictResolver;
 
     /**
-     * @var array<string, array<mixed>>
+     * @var array<string, array{
+     *     resource_key: string,
+     *     entityClass?: string,
+     *     options: array<string, mixed>
+     * }>
      */
     private $routeMappings;
 
     /**
-     * @param array<string, array<mixed>> $routeMappings
+     * @param array<string, array{
+     *     resource_key: string,
+     *     entityClass?: string,
+     *     options: array<string, mixed>
+     * }> $routeMappings
      */
     public function __construct(
         StructureMetadataFactoryInterface $factory,
