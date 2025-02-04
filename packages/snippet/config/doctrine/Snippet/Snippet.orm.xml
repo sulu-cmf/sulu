@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass
+        name="Sulu\Snippet\Domain\Model\Snippet"
+        table="sn_snippets"
+    >
+        <id name="uuid" type="string" column="uuid">
+            <generator strategy="NONE"/>
+        </id>
+
+        <one-to-many field="dimensionContents" target-entity="Sulu\Snippet\Domain\Model\SnippetDimensionContentInterface" mapped-by="snippet">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+    </mapped-superclass>
+</doctrine-mapping>
