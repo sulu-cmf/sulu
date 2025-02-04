@@ -46,6 +46,8 @@ class Permission
 
     /**
      * @var string|null
+     *
+     * @deprecated since version 2.6
      */
     #[Expose]
     private $module;
@@ -135,6 +137,8 @@ class Permission
      *
      * @param string $module
      *
+     * @deprecated since version 2.6
+     *
      * @return Permission
      */
     public function setModule($module)
@@ -146,6 +150,8 @@ class Permission
 
     /**
      * Get module.
+     *
+     * @deprecated since version 2.6
      *
      * @return string|null
      */
