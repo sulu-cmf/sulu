@@ -151,7 +151,7 @@ class ContentResolver implements ContentResolverInterface
                 }
 
                 $result['content'][$name][$key] = $entry;
-                $result['view'][$name][$key] = [];
+                $result['view'][$name][$key] = $view;
             }
 
             $result['resolvableResources'] = $resolvableResources;
