@@ -39,7 +39,21 @@ class SnippetSelectionContentType extends SimpleContentType implements PreResolv
     public function getContentData(PropertyInterface $property)
     {
         $value = $property->getValue();
-        if (null === $value || !\is_array($value) || 0 === \count($value)) {
+        if (!\is_array($value) || !\array_is_list($value)) {
+            return [];
+        }
+
+        /** @var string[] $uuids */
+        $uuids = [];
+        foreach ($value as $uuid) {
+            if (!\is_string($uuid)) {
+                return [];
+            }
+
+            $uuids[] = $uuid;
+        }
+
+        if (0 === \count($value)) {
             return [];
         }
 
@@ -50,7 +64,7 @@ class SnippetSelectionContentType extends SimpleContentType implements PreResolv
 
         $snippet = $this->snippetRepository->findBy(
             filters: \array_merge(
-                ['uuids' => $value],
+                ['uuids' => $uuids],
                 $dimensionAttributes,
             ),
             selects: [
@@ -60,7 +74,7 @@ class SnippetSelectionContentType extends SimpleContentType implements PreResolv
         $result = [];
         foreach ($snippet as $snippet) {
             $dimensionContent = $this->contentManager->resolve($snippet, $dimensionAttributes);
-            $result[\array_search($snippet->getUuid(), $value, false)] = $this->contentManager->normalize($dimensionContent);
+            $result[\array_search($snippet->getUuid(), $uuids, false)] = $this->contentManager->normalize($dimensionContent);
         }
 
         \ksort($result);
