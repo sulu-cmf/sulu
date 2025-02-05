@@ -1,0 +1,27 @@
+{
+    "availableLocales": [
+        "en",
+        "de"
+    ],
+    "description": "<p>Test Snippet 2</p>",
+    "excerptCategories": [],
+    "excerptDescription": "Excerpt Description 2",
+    "excerptIcon": null,
+    "excerptImage": null,
+    "excerptMore": "Excerpt More 2",
+    "excerptTags": [
+        "Tag 3",
+        "Tag 4"
+    ],
+    "excerptTitle": "Excerpt Title 2",
+    "ghostLocale": "en",
+    "id": "@string@",
+    "image": null,
+    "locale": "en",
+    "published": null,
+    "publishedState": false,
+    "stage": "draft",
+    "template": "snippet",
+    "title": "Test Snippet 2",
+    "workflowPlace": "unpublished"
+}

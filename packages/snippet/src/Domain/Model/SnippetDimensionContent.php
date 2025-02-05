@@ -15,6 +15,7 @@ namespace Sulu\Snippet\Domain\Model;
 
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\DimensionContentTrait;
+use Sulu\Content\Domain\Model\ExcerptTrait;
 use Sulu\Content\Domain\Model\TemplateTrait;
 //use Sulu\Content\Domain\Model\WebspaceTrait;
 use Sulu\Content\Domain\Model\WorkflowTrait;
@@ -29,6 +30,7 @@ class SnippetDimensionContent implements SnippetDimensionContentInterface
         setTemplateData as parentSetTemplateData;
     }
     use WorkflowTrait;
+    use ExcerptTrait;
 
     /**
      * @var int

@@ -29,16 +29,6 @@
             <tag name="sulu.search.field" role="title"/>
         </property>
 
-        <property name="url" type="route">
-            <meta>
-                <title lang="en">Resourcelocator</title>
-                <title lang="de">Adresse</title>
-            </meta>
-
-            <tag name="sulu.rlp"/>
-            <tag name="sulu.search.field" role="url"/>
-        </property>
-
         <property name="description" type="text_area">
             <meta>
                 <title lang="en">Description</title>

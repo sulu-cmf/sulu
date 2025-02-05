@@ -27,7 +27,7 @@ class SingleCategorySelectionPropertyResolver implements PropertyResolverInterfa
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
         if (!\is_int($data)) {
-            return ContentView::create([], $params);
+            return ContentView::create(null, \array_merge(['id' => null], $params));
         }
 
         /** @var string $resourceLoaderKey */
@@ -36,7 +36,7 @@ class SingleCategorySelectionPropertyResolver implements PropertyResolverInterfa
         return ContentView::createResolvable(
             $data,
             $resourceLoaderKey,
-            $params,
+            \array_merge(['id' => $data], $params),
         );
     }
 

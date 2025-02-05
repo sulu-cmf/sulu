@@ -1,0 +1,19 @@
+{
+    "availableLocales": ["en"],
+    "excerptCategories": [],
+    "excerptDescription": null,
+    "excerptIcon": null,
+    "excerptImage": null,
+    "excerptMore": null,
+    "excerptTags": [],
+    "excerptTitle":null,
+    "ghostLocale": "en",
+    "id": "@string@",
+    "locale": null,
+    "published": null,
+    "publishedState": false,
+    "stage": "draft",
+    "template": null,
+    "title": null,
+    "workflowPlace": null
+}

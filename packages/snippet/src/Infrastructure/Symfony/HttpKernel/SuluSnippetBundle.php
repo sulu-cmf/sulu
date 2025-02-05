@@ -328,7 +328,7 @@ final class SuluSnippetBundle extends AbstractBundle
                             'SuluSnippet' => [
                                 'type' => 'xml',
                                 'prefix' => 'Sulu\Snippet\Domain\Model',
-                                'dir' => \dirname(__DIR__, 4) . '/config/doctrine/snippet',
+                                'dir' => \dirname(__DIR__, 4) . '/config/doctrine/Snippet',
                                 'alias' => 'SuluSnippet',
                                 'is_bundle' => false,
                                 'mapping' => true,
