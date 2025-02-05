@@ -7,6 +7,10 @@
     animation: skeleton-loading 1.5s infinite;
 }
 
+.skeleton-loader:first-child {
+    margin-top: 10px;
+}
+
 .short {
     width: 60%;
 }
