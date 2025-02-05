@@ -341,6 +341,8 @@ class AccountManager extends AbstractContactManager implements DataProviderRepos
      * Deletes (not just removes) all bank-accounts which are assigned to a contact.
      *
      * @param AccountInterface $entity
+     *
+     * @return void
      */
     public function deleteBankAccounts($entity)
     {

@@ -80,6 +80,8 @@ trait RelationTrait
      * @param callable $compare Compare function, which defines if data matches the entity
      * @param array $matchedEntry
      * @param string $matchedKey
+     *
+     * @return void
      */
     protected function findMatchByCallback($entity, $requestEntities, callable $compare, &$matchedEntry, &$matchedKey)
     {

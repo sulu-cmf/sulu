@@ -448,7 +448,7 @@ class ContactManager extends AbstractContactManager implements DataProviderRepos
      * @param ContactInterface $contact
      * @param ContactAddress $contactAddress
      *
-     * @return mixed|void
+     * @return void
      *
      * @throws \Exception
      */
