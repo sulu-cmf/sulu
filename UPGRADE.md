@@ -253,6 +253,11 @@ See also the Symfony Password Upgrade Documentation [here](https://symfony.com/d
 
 </details>
 
+
+### Deprecations
+
+- `Sulu\Bundle\SecurityBundle\Entity\Permission::module` and its setters and getters (define in your own project)
+
 ## 2.6.4
 
 ### Stricter Image Format Url Handling

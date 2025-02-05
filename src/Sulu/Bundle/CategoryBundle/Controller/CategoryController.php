@@ -84,7 +84,7 @@ class CategoryController extends AbstractRestController implements ClassResource
 
         if ('true' == $request->get('flat')) {
             $rootId = ($rootKey) ? $this->categoryManager->findByKey($rootKey)->getId() : null;
-            $expandedIds = \array_filter(\explode(',', $request->get('expandedIds', $request->get('selectedIds'))));
+            $expandedIds = \array_filter(\explode(',', $request->get('expandedIds', $request->get('selectedIds', ''))));
             $defaultSort = !$request->query->has('sortBy');
             $list = $this->getListRepresentation(
                 $request,
