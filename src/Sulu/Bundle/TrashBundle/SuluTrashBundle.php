@@ -20,10 +20,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuluTrashBundle extends Bundle
+final class SuluTrashBundle extends Bundle
 {
     use PersistenceBundleTrait;
 
+    /**
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
+     */
     public function build(ContainerBuilder $container): void
     {
         $this->buildPersistence(
@@ -34,6 +37,9 @@ class SuluTrashBundle extends Bundle
         );
     }
 
+    /**
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
+     */
     public function getContainerExtension(): ExtensionInterface
     {
         return new SuluTrashExtension();

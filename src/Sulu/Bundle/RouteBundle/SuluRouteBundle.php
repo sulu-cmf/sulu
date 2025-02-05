@@ -22,13 +22,14 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Entry point of sulu-route-bundle.
- *
- * @final
  */
-class SuluRouteBundle extends Bundle
+final class SuluRouteBundle extends Bundle
 {
     use PersistenceBundleTrait;
 
+    /**
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
+     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

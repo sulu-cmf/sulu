@@ -15,13 +15,10 @@ use Sulu\Bundle\TestBundle\DependencyInjection\Compiler\ReplaceTestClientPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @final
- */
-class SuluTestBundle extends Bundle
+final class SuluTestBundle extends Bundle
 {
     /**
-     * @internal
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
      */
     public function build(ContainerBuilder $container): void
     {
@@ -31,7 +28,7 @@ class SuluTestBundle extends Bundle
     }
 
     /**
-     * @internal
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
      */
     public static function getConfigDir(): string
     {

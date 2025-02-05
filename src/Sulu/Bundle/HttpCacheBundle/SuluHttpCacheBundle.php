@@ -13,6 +13,6 @@ namespace Sulu\Bundle\HttpCacheBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuluHttpCacheBundle extends Bundle
+final class SuluHttpCacheBundle extends Bundle
 {
 }
