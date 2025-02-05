@@ -388,7 +388,6 @@ class RoleController extends AbstractRestController implements ClassResourceInte
                 $roleData['permissions'][] = [
                     'id' => $permission->getId(),
                     'context' => $permission->getContext(),
-                    'module' => $permission->getModule(),
                     'permissions' => $this->maskConverter->convertPermissionsToArray($permission->getPermissions()),
                 ];
             }
