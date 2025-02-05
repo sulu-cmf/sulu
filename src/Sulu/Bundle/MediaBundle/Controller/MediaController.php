@@ -148,7 +148,7 @@ class MediaController extends AbstractMediaController implements
         } else {
             /** @var UserInterface $user */
             $user = $this->getUser();
-            $types = \array_filter(\explode(',', $request->get('types')));
+            $types = \array_filter(\explode(',', $request->get('types', '')));
             $collectionId = $request->get('collection');
             $collectionId = $collectionId ? (int) $collectionId : null;
             $locale = $this->getRequestParameter($request, 'locale', true);

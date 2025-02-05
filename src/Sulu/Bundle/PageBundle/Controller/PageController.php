@@ -399,7 +399,7 @@ class PageController extends AbstractRestController implements ClassResourceInte
 
     public function cgetAction(Request $request)
     {
-        $ids = \preg_split('/[,]/', $request->get('ids'), -1, \PREG_SPLIT_NO_EMPTY);
+        $ids = \preg_split('/[,]/', $request->get('ids', ''), -1, \PREG_SPLIT_NO_EMPTY);
         $parent = $request->get('parentId');
         $properties = \array_filter(\explode(',', $request->get('fields', 'title,published')));
         $excludeGhosts = $this->getBooleanRequestParameter($request, 'exclude-ghosts', false, false);

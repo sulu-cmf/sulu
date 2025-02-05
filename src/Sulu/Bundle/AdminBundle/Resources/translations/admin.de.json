@@ -238,5 +238,17 @@
     "sulu_admin.%count%_blocks_duplicated": "{count} {count, plural, =1 {Block} other {Blöcke}} dupliziert.",
     "sulu_admin.%count%_blocks_removed": "{count} {count, plural, =1 {Block} other {Blöcke}} gelöscht.",
     "sulu_admin.%count%_blocks_cut": "{count} {count, plural, =1 {Block} other {Blöcke}} zur Zwischenablage ausgeschnitten.",
-    "sulu_admin.%count%_blocks_pasted": "{count} {count, plural, =1 {Block} other {Blöcke}} eingefügt."
+    "sulu_admin.%count%_blocks_pasted": "{count} {count, plural, =1 {Block} other {Blöcke}} eingefügt.",
+    "sulu_admin.writing_assistant": "Schreibassistent",
+    "sulu_admin.insert": "Einfügen",
+    "sulu_admin.writing_assistant_prompt_placeholder": "Wie kann Sulu dir helfen?",
+    "sulu_admin.sucessfully_copied_to_clipboard": "Erfolgreich in die Zwischenablage kopiert",
+    "sulu_admin.selected_text": "Ausgewählter Text",
+    "sulu_admin.predefined_prompts": "Vordefinierte Prompts",
+    "sulu_admin.translator": "Übersetzer",
+    "sulu_admin.detected": "Erkannt",
+    "sulu_admin.translator_error": "Fehler beim Übersetzen",
+    "sulu_admin.send_feedback": "Feedback senden",
+    "sulu_admin.feedback": "Feedback",
+    "sulu_admin.send": "Senden"
 }

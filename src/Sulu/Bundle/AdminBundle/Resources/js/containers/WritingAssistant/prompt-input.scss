@@ -1,0 +1,49 @@
+.predefined-prompts-dropdown {
+    max-width: 20vh;
+}
+
+.input-container {
+    background-color: white;
+    padding: 20px 50px;
+}
+
+.expert-select {
+    flex-grow: 1;
+    flex-basis: 0;
+    border-right: 1px solid #ccc;
+    padding-right: 8px;
+    min-width: 10vh;
+}
+
+.single-expert {
+    flex-grow: 1;
+    flex-basis: 0;
+    border-right: 1px solid #ccc;
+    padding-right: 8px;
+    min-width: 10vh;
+    line-height: 30px;
+}
+
+.single-expert-container {
+    white-space: nowrap;
+}
+
+.input {
+    display: flex;
+    gap: 8px;
+}
+
+.predefined-prompts {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin: 8px 0;
+    justify-content: left;
+    flex-wrap: wrap;
+
+    button {
+        flex-grow: 1;
+        flex-basis: 0;
+        min-width: 80px;
+    }
+}
