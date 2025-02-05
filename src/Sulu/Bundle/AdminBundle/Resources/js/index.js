@@ -446,11 +446,15 @@ initializer.addUpdateConfigHook('sulu_ai', (config: Object, initialized: boolean
         return;
     }
 
+    if (undefined === config){
+        return;
+    }
+
     const div = document.createElement('div');
     div.id = 'su-ai-application';
     document.body?.appendChild(div);
 
-    if (!config['writing_assistant'].enabled && !config['translation'].enabled && !config['feedback'].enabled) {
+    if (!config['writing_assistant']?.enabled && !config['translation']?.enabled && !config['feedback']?.enabled) {
         return;
     }
 
