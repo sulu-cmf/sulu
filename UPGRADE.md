@@ -2,6 +2,12 @@
 
 ## 3.0.0
 
+### Removing deprecated twig functions
+- `sulu_meta_alternate` (use `sulu_seo` instead)
+- `sulu_meta_seo` (use `sulu_seo` instead)
+
+This also includes the container services: `sulu_website.twig.meta` and the parameter `%sulu_website.twig.meta.class%`
+
 ### Changed Media Format HTTP Response Headers
 
 Removed `Pragma` & `Expires` HTTP headers, as the `Cache-Control` header is enough.
