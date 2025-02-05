@@ -293,7 +293,6 @@ class RoleControllerTest extends SuluTestCase
                 [
                     'id' => $this->permission1->getId(),
                     'context' => 'portal1',
-                    'module' => null,
                     'permissions' => [
                         'view' => true,
                         'add' => true,
@@ -307,7 +306,6 @@ class RoleControllerTest extends SuluTestCase
                 [
                     'id' => $this->permission2->getId(),
                     'context' => 'portal2',
-                    'module' => null,
                     'permissions' => [
                         'view' => false,
                         'add' => false,
@@ -320,7 +318,6 @@ class RoleControllerTest extends SuluTestCase
                 ],
                 [
                     'context' => 'portal3',
-                    'module' => null,
                     'permissions' => [
                         'view' => false,
                         'add' => false,

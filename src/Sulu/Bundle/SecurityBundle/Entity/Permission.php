@@ -45,12 +45,6 @@ class Permission
     private $role;
 
     /**
-     * @var string|null
-     */
-    #[Expose]
-    private $module;
-
-    /**
      * Set context.
      *
      * @param string $context
@@ -128,30 +122,6 @@ class Permission
     public function getRole()
     {
         return $this->role;
-    }
-
-    /**
-     * Set module.
-     *
-     * @param string $module
-     *
-     * @return Permission
-     */
-    public function setModule($module)
-    {
-        $this->module = $module;
-
-        return $this;
-    }
-
-    /**
-     * Get module.
-     *
-     * @return string|null
-     */
-    public function getModule()
-    {
-        return $this->module;
     }
 
     public function __toString()

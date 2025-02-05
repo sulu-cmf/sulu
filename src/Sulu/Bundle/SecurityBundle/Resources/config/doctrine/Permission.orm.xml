@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="Sulu\Bundle\SecurityBundle\Entity\Permission" table="se_permissions">
         <unique-constraints>
-            <unique-constraint columns="context,module,idRoles"/>
+            <unique-constraint columns="context,idRoles"/>
         </unique-constraints>
 
         <id name="id" type="integer" column="id">
@@ -12,7 +12,6 @@
         </id>
 
         <field name="context" type="string" column="context" length="191"/>
-        <field name="module" type="string" column="module" nullable="true" length="60"/>
         <field name="permissions" type="smallint" column="permissions"/>
 
         <many-to-one field="role" target-entity="Sulu\Component\Security\Authentication\RoleInterface" inversed-by="permissions">
