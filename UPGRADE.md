@@ -45,6 +45,9 @@ Removed deprecated functions and properties:
 - `Sulu\Bundle\ContactBundle\Controller\ContactController::$entityKey`
 - `Sulu\Bundle\ContactBundle\Controller\PositionController::$entityKey`
 
+- `Sulu\\Bundle\\WebsiteBundle\\Controller\\RedirectController::redirectWebspaceAction`
+- `Sulu\\Bundle\\WebsiteBundle\\Controller\\WebsiteController::getRequest`
+
 Removed unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed

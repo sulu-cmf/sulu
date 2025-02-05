@@ -33,26 +33,6 @@ class RedirectController
     }
 
     /**
-     * Creates a redirect for configured webspaces.
-     *
-     * @return RedirectResponse
-     *
-     * @deprecated since 1.6 will be removed with 2.0. Replaced by ExceptionListener::redirectPartialMatch
-     */
-    public function redirectWebspaceAction(Request $request)
-    {
-        @trigger_deprecation('sulu/sulu', '1.6', __METHOD__ . '() is deprecated and will be removed in 2.0. Replaced by ExceptionListener::redirectPartialMatch.');
-
-        $url = $this->resolveRedirectUrl(
-            $request->get('redirect'),
-            $request->getUri(),
-            $request->get('_sulu')->getAttribute('resourceLocatorPrefix')
-        );
-
-        return new RedirectResponse($url, 301, ['Cache-Control' => 'private']);
-    }
-
-    /**
      * Creates a redirect for *.html to * (without html).
      *
      * @return RedirectResponse

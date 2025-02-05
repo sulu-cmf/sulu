@@ -43,7 +43,7 @@ abstract class WebsiteController extends AbstractController
         $partial = false
     ) {
         /** @var Request $request */
-        $request = $this->getRequest();
+        $request = $this->container->get('request_stack')->getCurrentRequest();
 
         // extract format twig file
         if (!$preview) {
@@ -153,18 +153,6 @@ abstract class WebsiteController extends AbstractController
         $parameters['previewContentReplacer'] = Preview::CONTENT_REPLACER;
 
         return $this->renderView('@SuluWebsite/Preview/preview.html.twig', $parameters);
-    }
-
-    /**
-     * Returns the current request from the request stack.
-     *
-     * @return Request
-     *
-     * @deprecated will be remove with 2.0
-     */
-    public function getRequest()
-    {
-        return $this->container->get('request_stack')->getCurrentRequest();
     }
 
     protected function getCacheTimeLifeEnhancer(): ?CacheLifetimeEnhancerInterface

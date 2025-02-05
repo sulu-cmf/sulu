@@ -53,59 +53,6 @@ class RedirectControllerTest extends TestCase
         return $request->reveal();
     }
 
-    public static function provideRedirectAction()
-    {
-        return [
-            ['http://sulu.lo/articles?foo=bar', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo/en/articles?foo=bar'],
-            ['http://sulu.lo/articles?foo=bar&bar=boo', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo/en/articles?foo=bar&bar=boo'],
-            ['http://sulu.lo/articles/?foo=bar', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo/en/articles?foo=bar'],
-            ['http://sulu.lo/articles/?foo=bar&bar=boo', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo/en/articles?foo=bar&bar=boo'],
-            ['http://sulu.lo/en/articles/?foo=bar', 'sulu.lo', null, 'http://sulu.lo/en/articles?foo=bar'],
-            ['http://sulu.lo/en/articles/?foo=bar&bar=boo', 'sulu.lo', null, 'http://sulu.lo/en/articles?foo=bar&bar=boo'],
-            ['sulu.lo:8001/', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo:8001/en'],
-            ['sulu.lo:8001/#foobar', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo:8001/en#foobar'],
-            ['sulu.lo:8001/articles#foobar', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo:8001/en/articles#foobar'],
-            ['sulu-redirect.lo/', 'sulu-redirect.lo', 'sulu.lo', 'http://sulu.lo'],
-            ['sulu-redirect.lo/', 'sulu-redirect.lo', 'sulu.lo', 'http://sulu.lo'],
-            ['http://sulu.lo:8002/', 'sulu.lo', 'sulu.lo/en', 'http://sulu.lo:8002/en'],
-            ['http://sulu.lo/articles', 'sulu.lo/en', 'sulu.lo/de', 'http://sulu.lo/de/articles'],
-            ['http://sulu.lo/events', 'sulu.lo/events', 'sulu.lo/events/de', 'http://sulu.lo/events/de', '/events'],
-            ['http://sulu.lo/events/articles', 'sulu.lo/events', 'sulu.lo/events/de', 'http://sulu.lo/events/de/articles', '/events'],
-        ];
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('provideRedirectAction')]
-    public function testRedirectAction($requestUri, $portalUrl, $redirectUrl, $expectedTargetUrl, $prefix = ''): void
-    {
-        $request = $this->getRequestMock($requestUri, $portalUrl, $redirectUrl, $prefix);
-
-        $response = $this->controller->redirectWebspaceAction($request);
-
-        $this->assertEquals(301, $response->getStatusCode());
-        $this->assertEquals($expectedTargetUrl, $response->getTargetUrl());
-    }
-
-    public static function provideRedirectWebspaceAction()
-    {
-        return [
-            ['sulu.lo/de', 'http://sulu.lo', 'http://sulu.lo/de'],
-            ['http://sulu.lo/de', 'http://sulu.lo', 'http://sulu.lo/de'],
-            ['http://sulu.lo', 'http://sulu.lo/de/test', 'http://sulu.lo/de/test'],
-            ['sulu.lo/de', 'http://sulu.lo?test1=value1', 'http://sulu.lo/de?test1=value1'],
-        ];
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('provideRedirectWebspaceAction')]
-    public function testRedirectWebspaceAction($uri, $redirectUri, $expectedTargetUrl): void
-    {
-        $request = $this->getRequestMock($redirectUri, null, $uri);
-
-        $response = $this->controller->redirectWebspaceAction($request);
-
-        $this->assertEquals(301, $response->getStatusCode());
-        $this->assertEquals($expectedTargetUrl, $response->getTargetUrl());
-    }
-
     public static function provideRedirectToRouteAction()
     {
         return [
