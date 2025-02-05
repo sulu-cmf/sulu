@@ -34,18 +34,24 @@ class SettingsFormMetadataVisitor implements FormMetadataVisitorInterface
 
     public function visitFormMetadata(FormMetadata $formMetadata, string $locale, array $metadataOptions = []): void
     {
-        if ('content_settings' === $formMetadata->getKey()) {
-            foreach ($metadataOptions['forms'] ?? [] as $form) {
-                /** @var FormMetadata|null $subFormMetadata */
-                $subFormMetadata = $this->xmlFormMetadataLoader->getMetadata($form, $locale, $metadataOptions);
+        if ('content_settings' !== $formMetadata->getKey()) {
+            return;
+        }
 
-                if (!$subFormMetadata || !($subFormMetadata instanceof FormMetadata)) {
-                    continue;
-                }
+        $forms = $metadataOptions['forms'] ?? [];
+        \assert(\is_iterable($forms));
 
-                $formMetadata->setItems(\array_merge($formMetadata->getItems(), $subFormMetadata->getItems()));
-                $formMetadata->setSchema($formMetadata->getSchema()->merge($subFormMetadata->getSchema()));
+        foreach ($forms as $form) {
+            \assert(\is_string($form));
+
+            $subFormMetadata = $this->xmlFormMetadataLoader->getMetadata($form, $locale, $metadataOptions);
+
+            if (!$subFormMetadata instanceof FormMetadata) {
+                continue;
             }
+
+            $formMetadata->setItems(\array_merge($formMetadata->getItems(), $subFormMetadata->getItems()));
+            $formMetadata->setSchema($formMetadata->getSchema()->merge($subFormMetadata->getSchema()));
         }
     }
 }

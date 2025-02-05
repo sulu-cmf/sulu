@@ -120,7 +120,7 @@ class DimensionContentQueryEnhancer
         if (\is_subclass_of($dimensionContentClassName, ExcerptInterface::class)) {
             $categoryIds = $filters['categoryIds'] ?? null;
             if ($categoryIds) {
-                Assert::isArray($categoryIds);
+                Assert::isArray($categoryIds); // @phpstan-ignore staticMethod.alreadyNarrowedType
 
                 $this->addJoinFilter(
                     $queryBuilder,
@@ -135,7 +135,7 @@ class DimensionContentQueryEnhancer
 
             $categoryKeys = $filters['categoryKeys'] ?? null;
             if ($categoryKeys) {
-                Assert::isArray($categoryKeys);
+                Assert::isArray($categoryKeys); // @phpstan-ignore staticMethod.alreadyNarrowedType
 
                 $this->addJoinFilter(
                     $queryBuilder,
@@ -150,7 +150,7 @@ class DimensionContentQueryEnhancer
 
             $tagIds = $filters['tagIds'] ?? null;
             if ($tagIds) {
-                Assert::isArray($tagIds);
+                Assert::isArray($tagIds); // @phpstan-ignore staticMethod.alreadyNarrowedType
 
                 $this->addJoinFilter(
                     $queryBuilder,
@@ -165,7 +165,7 @@ class DimensionContentQueryEnhancer
 
             $tagNames = $filters['tagNames'] ?? null;
             if ($tagNames) {
-                Assert::isArray($tagNames);
+                Assert::isArray($tagNames); // @phpstan-ignore staticMethod.alreadyNarrowedType
 
                 $this->addJoinFilter(
                     $queryBuilder,
@@ -182,7 +182,7 @@ class DimensionContentQueryEnhancer
         if (\is_subclass_of($dimensionContentClassName, TemplateInterface::class)) {
             $templateKeys = $filters['templateKeys'] ?? null;
             if ($templateKeys) {
-                Assert::isArray($templateKeys);
+                Assert::isArray($templateKeys); // @phpstan-ignore staticMethod.alreadyNarrowedType
 
                 $queryBuilder->andWhere('filterDimensionContent.templateKey IN (:templateKeys)')
                     ->setParameter('templateKeys', $templateKeys);

@@ -205,7 +205,7 @@ final class MetadataLoader
 
     /**
      * @param ClassMetadataInfo<object> $metadata
-     * @param mixed[] $mapping
+     * @param array<string, mixed> $mapping
      */
     private function addField(ClassMetadataInfo $metadata, string $name, string $type = 'string', array $mapping = []): void
     {
@@ -228,7 +228,7 @@ final class MetadataLoader
 
     /**
      * @param ClassMetadataInfo<object> $metadata
-     * @param string[] $fields
+     * @param list<string> $fields
      */
     private function addIndex(ClassMetadataInfo $metadata, string $name, array $fields): void
     {
