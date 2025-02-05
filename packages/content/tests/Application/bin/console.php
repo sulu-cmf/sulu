@@ -20,7 +20,7 @@ if (false === \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
     echo 'Warning: The console should be invoked via the CLI version of PHP, not the ' . \PHP_SAPI . ' SAPI' . \PHP_EOL;
 }
 
-require __DIR__ . '/../../../vendor/autoload.php';
+require __DIR__ . '/../../../../../vendor/autoload.php';
 
 if (!\class_exists(Application::class)) {
     throw new RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
@@ -28,6 +28,7 @@ if (!\class_exists(Application::class)) {
 
 $input = new ArgvInput();
 if (null !== $env = $input->getParameterOption(['--env', '-e'], null, true)) {
+    \assert(\is_string($env));
     \putenv('APP_ENV=' . $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $env);
 }
 
@@ -44,6 +45,9 @@ if ($_SERVER['APP_DEBUG']) {
         Debug::enable();
     }
 }
+
+\assert(\is_string($_SERVER['APP_ENV']));
+\assert(!isset($suluContext) || \is_string($suluContext));
 
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG'], $suluContext ?? Kernel::CONTEXT_ADMIN);
 $application = new Application($kernel);

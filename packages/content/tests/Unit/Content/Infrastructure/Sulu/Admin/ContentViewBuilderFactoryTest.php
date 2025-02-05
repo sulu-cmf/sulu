@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Sulu\Bundle\AdminBundle\Admin\View\FormViewBuilderInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\PreviewFormViewBuilderInterface;
+use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactory;
 use Sulu\Bundle\PreviewBundle\Preview\Object\PreviewObjectProviderInterface;
 use Sulu\Bundle\PreviewBundle\Preview\Object\PreviewObjectProviderRegistry;
@@ -322,6 +323,7 @@ class ContentViewBuilderFactoryTest extends TestCase
         $this->assertCount(\count($expectedToolbarActions), $views);
 
         foreach ($views as $index => $viewBuilder) {
+            /** @var ToolbarAction[] $toolbarActions */
             $toolbarActions = $viewBuilder->getView()->getOption('toolbarActions');
             $toolbarActionTypes = \array_map(function($toolbarAction) {
                 return $toolbarAction->getType();
@@ -458,6 +460,7 @@ class ContentViewBuilderFactoryTest extends TestCase
         $this->assertCount(\count($expectedToolbarActions), $views);
 
         foreach ($views as $index => $viewBuilder) {
+            /** @var ToolbarAction[] $toolbarActions */
             $toolbarActions = $viewBuilder->getView()->getOption('toolbarActions');
             $toolbarActionTypes = \array_map(function($toolbarAction) {
                 return $toolbarAction->getType();

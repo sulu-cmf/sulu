@@ -57,7 +57,6 @@ class ContentStructureBridgeTest extends TestCase
         $structure = $this->createStructureBridge($content->reveal());
 
         $result = $structure->getDocument();
-        $this->assertInstanceOf(ContentDocument::class, $result);
         $this->assertSame($content->reveal(), $result->getContent());
         $this->assertSame('en', $result->getLocale());
     }

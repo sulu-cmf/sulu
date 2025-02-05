@@ -32,6 +32,7 @@ use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridgeFactory;
 use Sulu\Content\Infrastructure\Sulu\Structure\StructureMetadataNotFoundException;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionContent;
+use Webmozart\Assert\Assert;
 
 class ContentRouteDefaultsProviderTest extends TestCase
 {
@@ -396,8 +397,14 @@ class ContentRouteDefaultsProviderTest extends TestCase
         $query->getSingleResult()->willReturn($contentRichEntity);
 
         $contentResolver->aggregate($contentRichEntity, ['locale' => 'en', 'stage' => 'live'])
-            ->will(function($arguments) {
-                throw new ContentNotFoundException($arguments[0], $arguments[1]);
+            ->will(function(array $arguments) {
+                $entity = $arguments[0] ?? null;
+                $attributes = $arguments[1] ?? null;
+
+                Assert::isInstanceOf($entity, ContentRichEntityInterface::class);
+                Assert::isArray($attributes);
+
+                throw new ContentNotFoundException($entity, $attributes);
             });
 
         $this->assertEmpty($contentRouteDefaultsProvider->getByEntity(Example::class, '123-123-123', 'en'));

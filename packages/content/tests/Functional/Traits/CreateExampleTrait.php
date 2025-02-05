@@ -38,7 +38,7 @@ trait CreateExampleTrait
      *     locale?: ?string,
      *     stage?: ?string,
      *     templateKey?: ?string,
-     *     templateData?: mixed[],
+     *     templateData?: array<string, mixed>,
      *     excerptCategories?: CategoryInterface[],
      *     excerptTags?: TagInterface[],
      *     author?: ?ContactInterface,

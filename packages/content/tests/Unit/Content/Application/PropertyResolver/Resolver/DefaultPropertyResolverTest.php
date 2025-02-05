@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Unit\Content\Application\PropertyResolver\Resolver;
 
 use PHPUnit\Framework\TestCase;
-use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\PropertyResolver\Resolver\DefaultPropertyResolver;
 
 class DefaultPropertyResolverTest extends TestCase
@@ -24,7 +23,6 @@ class DefaultPropertyResolverTest extends TestCase
         $defaultPropertyResolver = new DefaultPropertyResolver();
         $result = $defaultPropertyResolver->resolve('data', 'locale', ['params' => 'value']);
 
-        $this->assertInstanceOf(ContentView::class, $result);
         $this->assertSame('data', $result->getContent());
         $this->assertSame([], $result->getView());
     }

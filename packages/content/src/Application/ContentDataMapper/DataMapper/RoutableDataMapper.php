@@ -50,7 +50,8 @@ class RoutableDataMapper implements DataMapperInterface
      * @var array<string, array{
      *     resource_key: string,
      *     entityClass?: string,
-     *     options: array<string, mixed>
+     *     options: array<string, mixed>,
+     *     generator: string,
      * }>
      */
     private $routeMappings;
@@ -59,7 +60,8 @@ class RoutableDataMapper implements DataMapperInterface
      * @param array<string, array{
      *     resource_key: string,
      *     entityClass?: string,
-     *     options: array<string, mixed>
+     *     options: array<string, mixed>,
+     *     generator: string,
      * }> $routeMappings
      */
     public function __construct(

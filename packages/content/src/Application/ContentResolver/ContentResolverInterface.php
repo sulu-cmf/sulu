@@ -26,7 +26,8 @@ interface ContentResolverInterface
      * @return array{
      *     resource: object,
      *     content: mixed,
-     *     view: mixed[]
+     *     view: mixed[],
+     *     extension: array<string, array<string, mixed>>,
      * }
      */
     public function resolve(DimensionContentInterface $dimensionContent): array;

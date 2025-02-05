@@ -63,7 +63,7 @@ class WebspaceDataMapperTest extends TestCase
 
         $authorMapper = $this->createWebspaceDataMapperInstance();
         $authorMapper->map($unlocalizedDimensionContent->reveal(), $localizedDimensionContent->reveal(), $data);
-        $this->assertTrue(true); // Avoid risky test as this is an early return test
+        $this->assertTrue(true); // Avoid risky test as this is an early return test // @phpstan-ignore method.alreadyNarrowedType
     }
 
     public function testMapWebspaceNoData(): void

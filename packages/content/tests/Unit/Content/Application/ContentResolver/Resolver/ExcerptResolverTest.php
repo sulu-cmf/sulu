@@ -96,7 +96,6 @@ class ExcerptResolverTest extends TestCase
 
         $contentView = $excerptResolver->resolve($dimensionContent);
 
-        $this->assertInstanceOf(ContentView::class, $contentView);
         $content = $contentView->getContent();
         $this->assertIsArray($content);
         $this->assertCount(1, $content);

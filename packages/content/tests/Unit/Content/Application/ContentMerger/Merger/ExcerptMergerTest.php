@@ -86,12 +86,14 @@ class ExcerptMergerTest extends TestCase
         $target->setExcerptTitle('Excerpt Title')->shouldBeCalled();
         $target->setExcerptDescription('Excerpt Description')->shouldBeCalled();
         $target->setExcerptMore('Excerpt More')->shouldBeCalled();
-        $target->setExcerptTags(Argument::that(function($tags) {
+        $target->setExcerptTags(Argument::that(function(array $tags) {
+            /** @var TagInterface[] $tags */
             return \array_map(function(TagInterface $tag) {
                 return $tag->getId();
             }, $tags) === [1, 2];
         }))->shouldBeCalled();
-        $target->setExcerptCategories(Argument::that(function($categories) {
+        $target->setExcerptCategories(Argument::that(function(array $categories) {
+            /** @var CategoryInterface[] $categories */
             return \array_map(function(CategoryInterface $category) {
                 return $category->getId();
             }, $categories) === [3, 4];

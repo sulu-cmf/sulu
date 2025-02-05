@@ -69,7 +69,6 @@ class ContentStructureBridgeFactoryTest extends TestCase
 
         $result = $contentStructureBridgeFactory->getBridge($object, 'content-id', 'de');
 
-        $this->assertInstanceOf(ContentStructureBridge::class, $result);
         $this->assertSame($object, $result->getContent());
         $this->assertSame('content-id', $result->getUuid());
         $this->assertSame('de', $result->getLanguageCode());

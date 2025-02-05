@@ -22,7 +22,7 @@ use Sulu\Content\Tests\Application\ExampleTestBundle\Entity\ExampleDimensionCont
 class DimensionContentCollectionTest extends TestCase
 {
     /**
-     * @param ExampleDimensionContent[] $dimensionContents
+     * @param array<int, ExampleDimensionContent> $dimensionContents
      * @param mixed[] $dimensionAttributes
      *
      * @return DimensionContentCollectionInterface<ExampleDimensionContent>

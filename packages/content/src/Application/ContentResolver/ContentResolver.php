@@ -34,14 +34,6 @@ class ContentResolver implements ContentResolverInterface
     ) {
     }
 
-    /**
-     * @return array{
-     *     resource: object,
-     *     content: array<string, mixed>,
-     *     extension: array<string, array<string, mixed>>,
-     *     view: array<string, mixed>,
-     *  }
-     */
     public function resolve(DimensionContentInterface $dimensionContent): array
     {
         $contentViews = [];

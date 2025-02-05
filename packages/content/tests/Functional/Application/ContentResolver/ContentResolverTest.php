@@ -94,13 +94,15 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
-        $excerpt = $result['extension']['excerpt'];
-        $seo = $result['extension']['seo'];
+
+        $excerpt = $result['extension']['excerpt'] ?? null;
+        $seo = $result['extension']['seo'] ?? null;
+
+        self::assertIsArray($excerpt);
+        self::assertIsArray($seo);
 
         self::assertSame('Lorem Ipsum', $content['title']);
         self::assertSame('/lorem-ipsum', $content['url']);
@@ -115,9 +117,9 @@ class ContentResolverTest extends SuluTestCase
         self::assertSame('13:37', $content['time']);
         self::assertSame('2020-01-01', $content['date']);
 
-        /** @var \DateTime|null $dateTime */
+        /** @var \DateTimeInterface|null $dateTime */
         $dateTime = $content['datetime'];
-        self::assertSame(\DateTime::createFromFormat(DateTimePropertyResolver::FORMAT, '2020-01-01T13:37:00')->getTimestamp(), $dateTime->getTimestamp());
+        self::assertSame(1577882220 /* 2020-01-01T13:37:00 */, $dateTime?->getTimestamp());
         self::assertSame('example@sulu.io', $content['email']);
         self::assertSame('https://sulu.io', $content['external_url']);
         self::assertSame('Lorem Ipsum dolor sit amet', $content['text_area']);
@@ -182,10 +184,8 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
         $mediaSelection = $content['media_selection'];
@@ -251,10 +251,8 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
         $contentSelection = $content['collection_selection'];
@@ -302,10 +300,8 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
         $categorySelection = $content['category_selection'];
@@ -358,13 +354,10 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
-        /** @var mixed[] $excerpt */
         $excerpt = $result['extension']['excerpt'];
 
         $tagSelection = $content['tag_selection'];

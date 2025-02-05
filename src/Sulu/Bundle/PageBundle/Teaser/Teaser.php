@@ -25,7 +25,7 @@ class Teaser
      * @param string $moreText
      * @param string $url
      * @param int $mediaId
-     * @param array $attributes
+     * @param array<string, mixed> $attributes
      */
     public function __construct(
         private $id,
@@ -123,7 +123,7 @@ class Teaser
     /**
      * Returns attributes.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAttributes()
     {

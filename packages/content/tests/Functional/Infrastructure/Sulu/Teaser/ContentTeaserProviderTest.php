@@ -162,9 +162,19 @@ class ContentTeaserProviderTest extends WebsiteTestCase
     }
 
     /**
-     * @param Teaser[] $teasers
+     * @param array<Teaser> $teasers
      *
-     * @return array<string, mixed>
+     * @return array<string, array{
+     *     id: int|string,
+     *     type: string,
+     *     locale: string,
+     *     url: string,
+     *     title: string,
+     *     description: string,
+     *     moreText: string,
+     *     mediaId: int|null,
+     *     attributes: array<string, mixed>,
+     * }>
      */
     private function mapTeasers(array $teasers): array
     {

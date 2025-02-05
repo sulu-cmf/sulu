@@ -37,9 +37,14 @@ class ExampleRepository
     /**
      * Withs represents additional selects which can be load to join and select specific sub entities.
      * They are used by groups.
+     *
+     * @var string
      */
     public const SELECT_EXAMPLE_CONTENT = 'with-example-content';
 
+    /**
+     * @var string
+     */
     public const SELECT_EXAMPLE_TRANSLATION = 'with-example-translation';
 
     /**
@@ -281,28 +286,28 @@ class ExampleRepository
 
         $id = $filters['id'] ?? null;
         if (null !== $id) {
-            Assert::integer($id);
+            Assert::integer($id); // @phpstan-ignore staticMethod.alreadyNarrowedType
             $queryBuilder->andWhere('example.id = :id')
                 ->setParameter('id', $id);
         }
 
         $ids = $filters['ids'] ?? null;
         if (null !== $ids) {
-            Assert::isArray($ids);
+            Assert::isArray($ids); // @phpstan-ignore staticMethod.alreadyNarrowedType
             $queryBuilder->andWhere('example.id IN(:ids)')
                 ->setParameter('ids', $ids);
         }
 
         $limit = $filters['limit'] ?? null;
         if (null !== $limit) {
-            Assert::integer($limit);
+            Assert::integer($limit); // @phpstan-ignore staticMethod.alreadyNarrowedType
             $queryBuilder->setMaxResults($limit);
         }
 
         $page = $filters['page'] ?? null;
         if (null !== $page) {
+            Assert::integer($page); // @phpstan-ignore staticMethod.alreadyNarrowedType
             Assert::notNull($limit);
-            Assert::integer($page);
             $offset = (int) ($limit * ($page - 1));
             $queryBuilder->setFirstResult($offset);
         }
@@ -323,6 +328,7 @@ class ExampleRepository
         }
 
         if ($selects['with-example-content'] ?? null) {
+            /** @var array<string, bool> $contentSelects */
             $contentSelects = $selects['with-example-content'];
 
             $queryBuilder->leftJoin(
