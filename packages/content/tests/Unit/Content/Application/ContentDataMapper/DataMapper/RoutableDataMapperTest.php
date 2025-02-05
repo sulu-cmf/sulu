@@ -65,7 +65,12 @@ class RoutableDataMapperTest extends TestCase
     }
 
     /**
-     * @param array<string, array<mixed>> $resourceKeyMappings
+     * @param array<string, array{
+     *     resource_key: string,
+     *     entityClass?: string,
+     *     options: array<string, mixed>,
+     *     generator: string,
+     * }> $resourceKeyMappings
      */
     protected function createRouteDataMapperInstance(
         ?array $resourceKeyMappings = null
@@ -73,12 +78,12 @@ class RoutableDataMapperTest extends TestCase
         if (!\is_array($resourceKeyMappings)) {
             $resourceKeyMappings = [
                 'examples' => [
-                    'generator' => 'schema',
+                    'resource_key' => 'examples',
+                    'entityClass' => Example::class,
                     'options' => [
                         'route_schema' => '/{object["title"]}',
                     ],
-                    'resource_key' => 'examples',
-                    'entityClass' => Example::class,
+                    'generator' => 'schema',
                 ],
             ];
         }
@@ -547,12 +552,12 @@ class RoutableDataMapperTest extends TestCase
 
         $mapper = $this->createRouteDataMapperInstance([
             'examples' => [
-                'generator' => 'schema',
+                'resource_key' => 'examples',
+                'entityClass' => Example::class,
                 'options' => [
                     'route_schema' => 'custom/{object["_localizedObject"].getTitle()}-{object["_unlocalizedObject"].getResourceId()}',
                 ],
-                'resource_key' => 'examples',
-                'entityClass' => Example::class,
+                'generator' => 'schema',
             ],
         ]);
         $mapper->map($unlocalizedDimensionContent, $localizedDimensionContent, $data);

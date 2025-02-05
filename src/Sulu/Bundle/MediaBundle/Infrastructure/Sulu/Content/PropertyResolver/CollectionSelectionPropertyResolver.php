@@ -33,13 +33,16 @@ class CollectionSelectionPropertyResolver implements PropertyResolverInterface
             return ContentView::create([], ['ids' => [], ...$params]);
         }
 
+        /** @var int[] $ids */
+        $ids = $data;
+
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? CollectionResourceLoader::getKey();
 
         return ContentView::createResolvables(
-            $data,
+            $ids,
             $resourceLoaderKey,
-            ['ids' => $data, ...$params],
+            ['ids' => $ids, ...$params],
         );
     }
 

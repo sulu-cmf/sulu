@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Integration;
 
+use Sulu\Bundle\TestBundle\Testing\AssertSnapshotTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Content\Tests\Traits\AssertSnapshotTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 /**

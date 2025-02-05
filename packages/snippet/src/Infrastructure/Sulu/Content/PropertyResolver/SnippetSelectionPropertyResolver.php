@@ -31,14 +31,23 @@ class SnippetSelectionPropertyResolver implements PropertyResolverInterface
             return ContentView::create([], $params);
         }
 
+        $identifiers = [];
+        foreach ($data as $identifier) {
+            if (!\is_string($identifier)) {
+                return ContentView::create([], $params);
+            }
+
+            $identifiers[] = $identifier;
+        }
+
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? SnippetResourceLoader::getKey();
 
         return ContentView::createResolvables(
-            $data,
+            $identifiers,
             $resourceLoaderKey,
             [
-                'ids' => $data,
+                'ids' => $identifiers,
                 ...$params,
             ],
         );

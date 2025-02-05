@@ -173,9 +173,10 @@ class ContentRouteDefaultsProvider implements RouteDefaultsProviderInterface
             return null; // @codeCoverageIgnore
         }
 
-        if (!\is_array($cacheLifetime)
-            || !isset($cacheLifetime['type'])
+        if (!isset($cacheLifetime['type'])
             || !isset($cacheLifetime['value'])
+            || !\is_string($cacheLifetime['type'])
+            || !(\is_string($cacheLifetime['value']) || \is_int($cacheLifetime['value']))
             || !$this->cacheLifetimeResolver->supports($cacheLifetime['type'], $cacheLifetime['value'])
         ) {
             // TODO FIXME add test case for this

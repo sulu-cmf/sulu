@@ -119,16 +119,16 @@ class BlockPropertyResolverTest extends TestCase
         ];
 
         $content = $this->resolver->resolve($data, $locale, $params);
-        $this->assertInstanceOf(ContentView::class, $content);
         /** @var ContentView[] $innerContent */
         $innerContent = $content->getContent();
         $this->assertCount(1, $innerContent);
-        /** @var mixed[] $blockData */
+        /** @var array<string, mixed> $blockData */
         $blockData = $innerContent[0]->getContent();
         $this->assertSame('text_block', $blockData['type']);
         $this->assertInstanceOf(ContentView::class, $blockData['title']);
         $this->assertSame('Sulu', $blockData['title']->getContent());
         $this->assertSame([], $blockData['title']->getView());
+        $this->assertInstanceOf(ContentView::class, $blockData['description']);
         $this->assertSame('Sulu is awesome', $blockData['description']->getContent());
         $this->assertSame([], $blockData['description']->getView());
 
@@ -168,8 +168,7 @@ class BlockPropertyResolverTest extends TestCase
         ];
 
         $content = $this->resolver->resolve($data, $locale, $params);
-        $this->assertInstanceOf(ContentView::class, $content);
-        /** @var ContentView[] $innerContent */
+        /** @var array<string, mixed> $innerContent */
         $innerContent = $content->getContent();
         // title / description / type
         $this->assertCount(3, $innerContent);
@@ -177,6 +176,7 @@ class BlockPropertyResolverTest extends TestCase
         $this->assertInstanceOf(ContentView::class, $innerContent['title']);
         $this->assertSame('Sulu', $innerContent['title']->getContent());
         $this->assertSame([], $innerContent['title']->getView());
+        $this->assertInstanceOf(ContentView::class, $innerContent['description']);
         $this->assertSame('Sulu is awesome', $innerContent['description']->getContent());
         $this->assertSame([], $innerContent['description']->getView());
 

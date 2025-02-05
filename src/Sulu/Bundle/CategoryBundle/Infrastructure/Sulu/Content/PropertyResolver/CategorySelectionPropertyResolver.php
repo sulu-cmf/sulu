@@ -33,13 +33,16 @@ class CategorySelectionPropertyResolver implements PropertyResolverInterface
             return ContentView::create([], ['ids' => [], ...$params]);
         }
 
+        /** @var int[] $ids */
+        $ids = $data;
+
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? CategoryResourceLoader::getKey();
 
         return ContentView::createResolvables(
-            $data,
+            $ids,
             $resourceLoaderKey,
-            ['ids' => $data, ...$params],
+            ['ids' => $ids, ...$params],
         );
     }
 

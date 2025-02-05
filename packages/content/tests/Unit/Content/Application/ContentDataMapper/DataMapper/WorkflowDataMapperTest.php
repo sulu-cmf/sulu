@@ -40,7 +40,7 @@ class WorkflowDataMapperTest extends TestCase
         $workflowMapper = $this->createWorkflowDataMapperInstance();
         $workflowMapper->map($unlocalizedDimensionContent->reveal(), $localizedDimensionContent->reveal(), $data);
 
-        $this->assertTrue(true); // Avoid risky test as this is an early return test
+        $this->assertTrue(true); // Avoid risky test as this is an early return test // @phpstan-ignore method.alreadyNarrowedType
     }
 
     public function testMapNoData(): void

@@ -225,9 +225,9 @@ abstract class ContentTeaserProvider implements TeaserProviderInterface
 
     /**
      * @param B $dimensionContent
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      *
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     protected function getAttributes(DimensionContentInterface $dimensionContent, array $data): array
     {

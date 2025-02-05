@@ -43,7 +43,7 @@ class ShadowDataMapperTest extends TestCase
         $shadowMapper = $this->createShadowDataMapperInstance();
         $shadowMapper->map($unlocalizedDimensionContent->reveal(), $localizedDimensionContent->reveal(), $data);
 
-        $this->assertTrue(true); // nothing called in this case
+        $this->assertTrue(true); // nothing called in this case // @phpstan-ignore method.alreadyNarrowedType
     }
 
     public function testMapShadowNoData(): void

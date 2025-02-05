@@ -21,7 +21,7 @@ use Sulu\Component\Localization\Provider\LocalizationProviderInterface;
 interface LocalizationManagerInterface
 {
     /**
-     * @return Localization[]
+     * @return array<string, Localization>
      */
     public function getLocalizations(): array;
 

@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\Teaser;
 
 use Sulu\Bundle\PageBundle\Teaser\Teaser;
+use Sulu\Bundle\TestBundle\Testing\AssertSnapshotTrait;
 use Sulu\Bundle\TestBundle\Testing\WebsiteTestCase;
 use Sulu\Content\Tests\Application\ExampleTestBundle\Teaser\ExampleTeaserProvider;
-use Sulu\Content\Tests\Traits\AssertSnapshotTrait;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
 
 class ContentTeaserProviderTest extends WebsiteTestCase
@@ -162,9 +162,19 @@ class ContentTeaserProviderTest extends WebsiteTestCase
     }
 
     /**
-     * @param Teaser[] $teasers
+     * @param array<Teaser> $teasers
      *
-     * @return array<string, mixed>
+     * @return array<array{
+     *     id: int|string,
+     *     type: string,
+     *     locale: string,
+     *     url: string,
+     *     title: string,
+     *     description: string,
+     *     moreText: string,
+     *     mediaId: int|null,
+     *     attributes: array<string, mixed>,
+     * }>
      */
     private function mapTeasers(array $teasers): array
     {

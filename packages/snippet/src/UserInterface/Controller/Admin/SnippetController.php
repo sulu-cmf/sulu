@@ -200,7 +200,7 @@ final class SnippetController
     }
 
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     private function getData(Request $request): array
     {

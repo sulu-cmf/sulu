@@ -20,6 +20,7 @@ use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Domain\Exception\ContentNotFoundException;
 use Sulu\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Webmozart\Assert\Assert;
 
 class ContentIndexer implements ContentIndexerInterface
 {
@@ -64,6 +65,9 @@ class ContentIndexer implements ContentIndexerInterface
     {
         $locale = $dimensionAttributes['locale'] ?? null;
         $stage = $dimensionAttributes['stage'] ?? null;
+
+        Assert::nullOrString($locale);
+        Assert::nullOrString($stage);
 
         $search = $this->searchManager->createSearch(\sprintf('__id:"%s"', $id))
             ->indexes($this->getIndexes($resourceKey, $stage));

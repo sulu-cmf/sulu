@@ -285,12 +285,14 @@ class FileVersion implements AuditableInterface
 
     /**
      * @param StorageOptions $storageOptions
+     *
+     * @return FileVersion
      */
     public function setStorageOptions(array $storageOptions)
     {
         $serializedText = \json_encode($storageOptions);
         if (false === $serializedText) {
-            return;
+            return $this;
         }
 
         $this->storageOptions = $serializedText;

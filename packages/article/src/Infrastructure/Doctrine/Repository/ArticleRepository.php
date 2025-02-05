@@ -224,28 +224,28 @@ class ArticleRepository implements ArticleRepositoryInterface
 
         $uuid = $filters['uuid'] ?? null;
         if (null !== $uuid) {
-            Assert::string($uuid);
+            Assert::string($uuid); // @phpstan-ignore staticMethod.alreadyNarrowedType
             $queryBuilder->andWhere('article.uuid = :uuid')
                 ->setParameter('uuid', $uuid);
         }
 
         $uuids = $filters['uuids'] ?? null;
         if (null !== $uuids) {
-            Assert::isArray($uuids);
+            Assert::isArray($uuids); // @phpstan-ignore staticMethod.alreadyNarrowedType
             $queryBuilder->andWhere('article.uuid IN(:uuids)')
                 ->setParameter('uuids', $uuids);
         }
 
         $limit = $filters['limit'] ?? null;
         if (null !== $limit) {
-            Assert::integer($limit);
+            Assert::integer($limit); // @phpstan-ignore staticMethod.alreadyNarrowedType
             $queryBuilder->setMaxResults($limit);
         }
 
         $page = $filters['page'] ?? null;
         if (null !== $page) {
+            Assert::integer($page); // @phpstan-ignore staticMethod.alreadyNarrowedType
             Assert::notNull($limit);
-            Assert::integer($page);
             $offset = (int) ($limit * ($page - 1));
             $queryBuilder->setFirstResult($offset);
         }

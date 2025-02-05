@@ -26,7 +26,7 @@ interface ContentCopierInterface
      * @param mixed[] $sourceDimensionAttributes
      * @param ContentRichEntityInterface<T> $targetContentRichEntity
      * @param mixed[] $targetDimensionAttributes
-     * @param array{data?: mixed[], ignoredAttributes?: string[]} $options the "data" allows given custom data to the target and "ignoredAttributes" avoids specific attributes to be copied
+     * @param array{data?: array<string, mixed>, ignoredAttributes?: string[]} $options the "data" allows given custom data to the target and "ignoredAttributes" avoids specific attributes to be copied
      *
      * @return T
      */
@@ -44,7 +44,7 @@ interface ContentCopierInterface
      * @param DimensionContentCollectionInterface<T> $dimensionContentCollection
      * @param ContentRichEntityInterface<T> $targetContentRichEntity
      * @param mixed[] $targetDimensionAttributes
-     * @param array{data?: mixed[], ignoredAttributes?: string[]} $options the "data" allows given custom data to the target and "ignoredAttributes" avoids specific attributes to be copied
+     * @param array{data?: array<string, mixed>, ignoredAttributes?: string[]} $options the "data" allows given custom data to the target and "ignoredAttributes" avoids specific attributes to be copied
      *
      * @return T
      */
@@ -61,7 +61,7 @@ interface ContentCopierInterface
      * @param T $dimensionContent
      * @param ContentRichEntityInterface<T> $targetContentRichEntity
      * @param mixed[] $targetDimensionAttributes
-     * @param array{data?: mixed[], ignoredAttributes?: string[]} $options the "data" allows given custom data to the target and "ignoredAttributes" avoids specific attributes to be copied
+     * @param array{data?: array<string, mixed>, ignoredAttributes?: string[]} $options the "data" allows given custom data to the target and "ignoredAttributes" avoids specific attributes to be copied
      *
      * @return T
      */

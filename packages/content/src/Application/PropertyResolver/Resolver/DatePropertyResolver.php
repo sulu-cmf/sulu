@@ -15,19 +15,24 @@ namespace Sulu\Content\Application\PropertyResolver\Resolver;
 
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 
-class DatePropertyResolver implements PropertyResolverInterface
+final class DatePropertyResolver implements PropertyResolverInterface
 {
     public const FORMAT = 'Y-m-d';
 
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        if (null != $data && \is_string($data)) {
-            $data = \DateTime::createFromFormat(static::FORMAT, $data);
+        if (!\is_string($data)) {
+            return ContentView::create(null, [...$params]);
         }
 
-        $value = $data instanceof \DateTime ? $data->format(static::FORMAT) : null;
+        $date = \DateTimeImmutable::createFromFormat(static::FORMAT, $data);
 
-        return ContentView::create($value, []);
+        return ContentView::create(
+            $date instanceof \DateTimeInterface
+                ? $date->format(static::FORMAT)
+                : null,
+            [...$params],
+        );
     }
 
     public static function getType(): string

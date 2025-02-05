@@ -32,7 +32,7 @@ interface ContentManagerInterface
      * @template T of DimensionContentInterface
      *
      * @param ContentRichEntityInterface<T> $contentRichEntity
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      * @param mixed[] $dimensionAttributes
      *
      * @return T
@@ -44,7 +44,7 @@ interface ContentManagerInterface
      *
      * @param T $dimensionContent
      *
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function normalize(DimensionContentInterface $dimensionContent): array;
 

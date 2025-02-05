@@ -23,6 +23,7 @@ class TemplateNormalizer implements NormalizerInterface
             return $normalizedData;
         }
 
+        /** @var array<string, mixed> $normalizedData */
         $normalizedData = \array_merge($normalizedData['templateData'], $normalizedData); // @phpstan-ignore-line TODO check whats going on here
         unset($normalizedData['templateData']);
 

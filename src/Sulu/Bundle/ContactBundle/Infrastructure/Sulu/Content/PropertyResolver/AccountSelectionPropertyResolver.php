@@ -33,14 +33,17 @@ class AccountSelectionPropertyResolver implements PropertyResolverInterface
             return ContentView::create([], ['ids' => [], ...$params]);
         }
 
+        /** @var int[] $ids */
+        $ids = $data;
+
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? AccountResourceLoader::getKey();
 
         return ContentView::createResolvables(
-            $data,
+            $ids,
             $resourceLoaderKey,
             [
-                'ids' => $data,
+                'ids' => $ids,
                 ...$params,
             ],
         );

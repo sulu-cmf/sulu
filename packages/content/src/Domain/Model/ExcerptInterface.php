@@ -66,7 +66,7 @@ interface ExcerptInterface
     public function getExcerptImage(): ?array;
 
     /**
-     * @param array{id: int}|null $excerptImage
+     * @param array{id?: int}|null $excerptImage
      */
     public function setExcerptImage(?array $excerptImage): void;
 
@@ -76,7 +76,7 @@ interface ExcerptInterface
     public function getExcerptIcon(): ?array;
 
     /**
-     * @param array{id: int}|null $excerptIcon
+     * @param array{id?: int}|null $excerptIcon
      */
     public function setExcerptIcon(?array $excerptIcon): void;
 }

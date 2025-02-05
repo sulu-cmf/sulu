@@ -54,7 +54,7 @@ class MetadataResolver
     }
 
     /**
-     * @param mixed[] $params
+     * @param array<string, mixed> $params
      */
     private function resolveProperty(string $type, mixed $data, string $locale, array $params = []): ContentView
     {

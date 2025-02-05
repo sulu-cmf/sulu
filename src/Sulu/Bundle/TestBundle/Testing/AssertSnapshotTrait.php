@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Content\Tests\Traits;
+namespace Sulu\Bundle\TestBundle\Testing;
 
 use Coduo\PHPMatcher\PHPUnit\PHPMatcherAssertions;
 use Symfony\Component\HttpFoundation\Response;

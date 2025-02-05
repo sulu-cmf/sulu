@@ -17,6 +17,7 @@ use Sulu\Content\Domain\Factory\CategoryFactoryInterface;
 use Sulu\Content\Domain\Factory\TagFactoryInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
+use Webmozart\Assert\Assert;
 
 class ExcerptDataMapper implements DataMapperInterface
 {
@@ -49,31 +50,42 @@ class ExcerptDataMapper implements DataMapperInterface
     }
 
     /**
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     private function setExcerptData(ExcerptInterface $dimensionContent, array $data): void
     {
         if (\array_key_exists('excerptTitle', $data)) {
+            Assert::nullOrString($data['excerptTitle']);
             $dimensionContent->setExcerptTitle($data['excerptTitle']);
         }
         if (\array_key_exists('excerptDescription', $data)) {
+            Assert::nullOrString($data['excerptDescription']);
             $dimensionContent->setExcerptDescription($data['excerptDescription']);
         }
         if (\array_key_exists('excerptMore', $data)) {
+            Assert::nullOrString($data['excerptMore']);
             $dimensionContent->setExcerptMore($data['excerptMore']);
         }
         if (\array_key_exists('excerptImage', $data)) {
-            $dimensionContent->setExcerptImage($data['excerptImage']);
+            Assert::nullOrIsArray($data['excerptImage']);
+            Assert::nullOrInteger($data['excerptImage']['id'] ?? null);
+            $dimensionContent->setExcerptImage($data['excerptImage']); // @phpstan-ignore argument.type
         }
         if (\array_key_exists('excerptIcon', $data)) {
-            $dimensionContent->setExcerptIcon($data['excerptIcon']);
+            Assert::nullOrIsArray($data['excerptIcon']);
+            Assert::nullOrInteger($data['excerptIcon']['id'] ?? null);
+            $dimensionContent->setExcerptIcon($data['excerptIcon']); // @phpstan-ignore argument.type
         }
         if (\array_key_exists('excerptTags', $data)) {
-            $dimensionContent->setExcerptTags($this->tagFactory->create($data['excerptTags'] ?: []));
+            Assert::isArray($data['excerptTags']);
+            Assert::allString($data['excerptTags']);
+            $dimensionContent->setExcerptTags($this->tagFactory->create($data['excerptTags']));
         }
         if (\array_key_exists('excerptCategories', $data)) {
+            Assert::isArray($data['excerptCategories']);
+            Assert::allInteger($data['excerptCategories']);
             $dimensionContent->setExcerptCategories(
-                $this->categoryFactory->create($data['excerptCategories'] ?: [])
+                $this->categoryFactory->create($data['excerptCategories'])
             );
         }
     }

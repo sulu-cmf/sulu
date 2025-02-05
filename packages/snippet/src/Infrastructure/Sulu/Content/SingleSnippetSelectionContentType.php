@@ -44,7 +44,7 @@ class SingleSnippetSelectionContentType extends SimpleContentType implements Pre
     public function getContentData(PropertyInterface $property)
     {
         $uuid = $property->getValue();
-        if (null === $uuid) {
+        if (!\is_string($uuid)) {
             return null;
         }
 

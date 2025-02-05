@@ -173,7 +173,7 @@ trait ExcerptTrait
     }
 
     /**
-     * @param array{id: int}|null $excerptImage
+     * @param array{id?: int}|null $excerptImage
      */
     public function setExcerptImage(?array $excerptImage): void
     {
@@ -195,7 +195,7 @@ trait ExcerptTrait
     }
 
     /**
-     * @param array{id: int}|null $excerptIcon
+     * @param array{id?: int}|null $excerptIcon
      */
     public function setExcerptIcon(?array $excerptIcon): void
     {

@@ -21,9 +21,9 @@ interface NormalizerInterface
     public function getIgnoredAttributes(object $object): array;
 
     /**
-     * @param mixed[] $normalizedData
+     * @param array<string, mixed> $normalizedData
      *
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function enhance(object $object, array $normalizedData): array;
 }

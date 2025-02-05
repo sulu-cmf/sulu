@@ -32,6 +32,8 @@ use Sulu\Content\Domain\Model\SeoInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
 
 /**
+ * @final
+ *
  * @template B of DimensionContentInterface
  * @template T of ContentRichEntityInterface<B>
  */

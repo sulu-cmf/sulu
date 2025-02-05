@@ -17,7 +17,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\RouteBundle\Entity\Route;
 use Sulu\Content\Application\ContentDataMapper\ContentDataMapper;
-use Sulu\Content\Application\ContentDataMapper\ContentDataMapperInterface;
 use Sulu\Content\Domain\Model\DimensionContentCollection;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
@@ -35,7 +34,6 @@ trait CreateExampleTrait
     protected static function createExample(array $dataSet = [], array $options = []): Example
     {
         $entityManager = static::getEntityManager();
-        /** @var ContentDataMapperInterface $contentDataMapper */
         $contentDataMapper = new ContentDataMapper([
             static::getContainer()->get('sulu_content.template_data_mapper'),
             static::getContainer()->get('sulu_content.excerpt_data_mapper'),
@@ -54,9 +52,11 @@ trait CreateExampleTrait
 
         $slugger = new AsciiSlugger();
 
-        $fillWithdefaultData = function(array $data) use ($slugger): array {
+        /** @var (callable(array<string, mixed>): non-empty-array<string, mixed>) $fillWithDefaultData */
+        $fillWithDefaultData = function(array $data) use ($slugger): array { // @phpstan-ignore varTag.nativeType
             // the example default template has the following required fields
             $data['title'] = $data['title'] ?? 'Test Example';
+            Assert::string($data['title']);
             $data['url'] = $data['url'] ?? '/' . $slugger->slug($data['title'])->toString();
             $data['description'] = $data['description'] ?? null;
             $data['image'] = $data['image'] ?? null;
@@ -67,7 +67,6 @@ trait CreateExampleTrait
         };
 
         // the following is always defined see also: https://github.com/phpstan/phpstan/issues/4343
-        /** @var ExampleDimensionContent $draftUnlocalizedDimension */
         $draftUnlocalizedDimension = null;
 
         if (\count($dataSet)) {
@@ -76,12 +75,11 @@ trait CreateExampleTrait
             $entityManager->persist($draftUnlocalizedDimension);
         }
 
-        /** @var ExampleDimensionContent $liveUnlocalizedDimension */
         $liveUnlocalizedDimension = null;
         $createdPublishedUnlocalizedDimension = false;
 
         foreach ($dataSet as $locale => $data) {
-            // draft data
+            /** @var array<string, mixed> $draftData */
             $draftData = $data['draft'] ?? $data['live'] ?? [];
             $liveData = $data['live'] ?? null;
 
@@ -100,7 +98,7 @@ trait CreateExampleTrait
             $contentDataMapper->map(
                 $draftDimensionContentCollection,
                 $draftDimensionContentCollection->getDimensionAttributes(),
-                $fillWithdefaultData($draftData)
+                $fillWithDefaultData($draftData)
             );
             $draftLocalizedDimension->setWorkflowPlace(WorkflowInterface::WORKFLOW_PLACE_DRAFT);
 
@@ -133,7 +131,7 @@ trait CreateExampleTrait
 
                 // map data
                 $liveDimensionContentCollection = new DimensionContentCollection(
-                    [$liveUnlocalizedDimension, $liveLocalizedDimension],
+                    \array_filter([$liveUnlocalizedDimension, $liveLocalizedDimension]),
                     ['stage' => DimensionContentInterface::STAGE_LIVE, 'locale' => $locale],
                     ExampleDimensionContent::class
                 );
@@ -141,7 +139,7 @@ trait CreateExampleTrait
                 $contentDataMapper->map(
                     $liveDimensionContentCollection,
                     $liveDimensionContentCollection->getDimensionAttributes(),
-                    $fillWithdefaultData($liveData)
+                    $fillWithDefaultData($liveData)
                 );
 
                 if ($options['create_route'] ?? false) {

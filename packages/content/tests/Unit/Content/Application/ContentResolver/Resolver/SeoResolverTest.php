@@ -87,7 +87,6 @@ class SeoResolverTest extends TestCase
 
         $contentView = $templateResolver->resolve($dimensionContent);
 
-        $this->assertInstanceOf(ContentView::class, $contentView);
         $content = $contentView->getContent();
         $this->assertIsArray($content);
         $this->assertCount(1, $content);

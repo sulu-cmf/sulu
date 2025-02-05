@@ -19,7 +19,7 @@ use Sulu\Snippet\Domain\Model\SnippetInterface;
 interface SnippetMapperInterface
 {
     /**
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     public function mapSnippetData(SnippetInterface $snippet, array $data): void;
 }
