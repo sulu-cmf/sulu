@@ -21,7 +21,10 @@ class TeaserSelectionPropertyResolver implements PropertyResolverInterface
 {
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
-        $returnedParams = ['presentsAs' => $data['presentsAs'] ?? null, ...$params];
+        $returnedParams = [
+            ...(\is_array($data) && isset($data['presentsAs']) && \is_string($data['presentsAs']) ? ['presentsAs' => $data['presentsAs']] : []),
+            ...$params,
+        ];
         unset($returnedParams['metadata']);
 
         if (
@@ -32,14 +35,19 @@ class TeaserSelectionPropertyResolver implements PropertyResolverInterface
             return ContentView::create($data, $returnedParams);
         }
 
-        /** @var string $resourceLoaderKey */
-        $resourceLoaderKey = $params['resourceLoader'] ?? TeaserResourceLoader::getKey();
+        $resourceLoaderKey = isset($params['resourceLoader']) && \is_string($params['resourceLoader']) ? $params['resourceLoader'] : TeaserResourceLoader::getKey();
 
         $contentViews = [];
         foreach ($data['items'] as $item) {
-            if (!\is_array($item) || !\array_key_exists('id', $item) || !\array_key_exists('type', $item)) {
+            if (!\is_array($item)
+                || !\array_key_exists('id', $item)
+                || !\array_key_exists('type', $item)
+                || !\is_string($item['id'])
+                || !\is_string($item['type'])
+            ) {
                 continue;
             }
+
             $type = $item['type'];
             $id = $item['id'];
 
