@@ -41,7 +41,7 @@ class ContactAccountSelectionPropertyResolver implements PropertyResolverInterfa
 
         /** @var string $contactResourceLoaderKey */
         $contactResourceLoaderKey = $params['contactResourceLoader'] ?? ContactResourceLoader::getKey();
-        /** @var string $contactResourceLoaderKey */
+        /** @var string $accountResourceLoaderKey */
         $accountResourceLoaderKey = $params['accountResourceLoader'] ?? AccountResourceLoader::getKey();
 
         $resolvableResources = [];

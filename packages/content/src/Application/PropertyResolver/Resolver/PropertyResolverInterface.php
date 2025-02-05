@@ -18,7 +18,7 @@ use Sulu\Content\Application\ContentResolver\Value\ContentView;
 interface PropertyResolverInterface
 {
     /**
-     * @param mixed[] $params
+     * @param array<string, mixed> $params
      */
     public function resolve(mixed $data, string $locale, array $params = []): ContentView;
 

@@ -523,7 +523,7 @@ class Media extends ApiWrapper
     }
 
     /**
-     * @param array $storageOptions
+     * @param array<string, string|null> $storageOptions
      *
      * @return $this
      */
