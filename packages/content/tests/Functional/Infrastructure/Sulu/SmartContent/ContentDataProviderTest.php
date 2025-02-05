@@ -333,11 +333,11 @@ class ContentDataProviderTest extends SuluTestCase
 
     public function testResolveDataItemsSnapshot(): void
     {
-        /** @var int $limit */
+        /** @var int|null $limit */
         $limit = null;
-        /** @var int $page */
+        /** @var int|null $page */
         $page = null;
-        /** @var int $pageSize */
+        /** @var int|null $pageSize */
         $pageSize = null;
 
         $dataProviderResult = $this->contentDataProvider->resolveDataItems(
@@ -361,11 +361,11 @@ class ContentDataProviderTest extends SuluTestCase
 
     public function testResolveResourceItemsSnapshot(): void
     {
-        /** @var int $limit */
+        /** @var int|null $limit */
         $limit = null;
-        /** @var int $page */
+        /** @var int|null $page */
         $page = null;
-        /** @var int $pageSize */
+        /** @var int|null $pageSize */
         $pageSize = null;
 
         $dataProviderResult = $this->contentDataProvider->resolveResourceItems(
