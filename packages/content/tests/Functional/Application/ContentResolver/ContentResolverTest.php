@@ -118,7 +118,7 @@ class ContentResolverTest extends SuluTestCase
 
         /** @var \DateTimeInterface|null $dateTime */
         $dateTime = $content['datetime'];
-        self::assertSame(1577882220 /* 2020-01-01T13:37:00 */, $dateTime?->getTimestamp());
+        self::assertSame(1577885820 /* 2020-01-01T13:37:00 */, $dateTime?->getTimestamp());
         self::assertSame('example@sulu.io', $content['email']);
         self::assertSame('https://sulu.io', $content['external_url']);
         self::assertSame('Lorem Ipsum dolor sit amet', $content['text_area']);
