@@ -28,27 +28,6 @@ class Memoize implements MemoizeInterface, ResetInterface
     {
     }
 
-    public function memoize($compute, $lifeTime = null)
-    {
-        // used to get information of the caller
-        // returns a callstack (0 is current function, 1 is caller function)
-        $callers = \debug_backtrace();
-
-        if (
-            !isset($callers[1])
-            || !isset($callers[1]['class'])
-            || !isset($callers[1]['function'])
-            || !isset($callers[1]['args'])
-        ) {
-            throw new \InvalidArgumentException();
-        }
-
-        // build cache key
-        $id = \sprintf('%s::%s', $callers[1]['class'], $callers[1]['function']);
-
-        return $this->memoizeById($id, $callers[1]['args'], $compute, $lifeTime);
-    }
-
     public function memoizeById($id, $arguments, $compute, $lifeTime = null)
     {
         // determine lifetime
