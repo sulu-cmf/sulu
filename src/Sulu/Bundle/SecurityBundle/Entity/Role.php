@@ -47,11 +47,6 @@ class Role implements RoleInterface
     private $system;
 
     /**
-     * @var SecurityType|null
-     */
-    private $securityType;
-
-    /**
      * @var Collection<int, Permission>
      */
     #[Groups(['fullRole'])]
@@ -164,18 +159,6 @@ class Role implements RoleInterface
     public function getSystem()
     {
         return $this->system;
-    }
-
-    public function setSecurityType(?SecurityType $securityType = null)
-    {
-        $this->securityType = $securityType;
-
-        return $this;
-    }
-
-    public function getSecurityType()
-    {
-        return $this->securityType;
     }
 
     public function addPermission(Permission $permissions)

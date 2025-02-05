@@ -316,12 +316,6 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="sulu_security.fixtures.security_types" class="Sulu\Bundle\SecurityBundle\DataFixtures\ORM\LoadSecurityTypes">
-            <argument>%sulu_security.security_types.fixture%</argument>
-
-            <tag name="doctrine.fixture.orm"/>
-        </service>
-
         <service id="sulu_security.login_failure_listener"
                  class="Sulu\Bundle\SecurityBundle\EventListener\AuhenticationFailureListener">
             <argument type="service" id="sulu_security.encoder_factory"/>

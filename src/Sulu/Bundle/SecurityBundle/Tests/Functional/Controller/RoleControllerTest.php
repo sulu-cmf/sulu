@@ -44,16 +44,6 @@ class RoleControllerTest extends SuluTestCase
     private $role3;
 
     /**
-     * @var SecurityType
-     */
-    protected $securityType1;
-
-    /**
-     * @var SecurityType
-     */
-    protected $securityType2;
-
-    /**
      * @var Permission
      */
     private $permission1;
@@ -80,19 +70,10 @@ class RoleControllerTest extends SuluTestCase
         $this->activityRepository = $this->em->getRepository(ActivityInterface::class);
         $this->purgeDatabase();
 
-        $this->securityType1 = new SecurityType();
-        $this->securityType1->setName('Security Type 1');
-        $this->em->persist($this->securityType1);
-
-        $this->securityType2 = new SecurityType();
-        $this->securityType2->setName('Security Type 2');
-        $this->em->persist($this->securityType2);
-
         $role1 = new Role();
         $role1->setName('Sulu Administrator');
         $role1->setKey('sulu_administrator');
         $role1->setSystem('Sulu');
-        $role1->setSecurityType($this->securityType1);
         $this->em->persist($role1);
         $this->role1 = $role1;
 
@@ -183,7 +164,6 @@ class RoleControllerTest extends SuluTestCase
         $this->assertEquals(false, $response->permissions[1]->permissions->archive);
         $this->assertEquals(false, $response->permissions[1]->permissions->live);
         $this->assertEquals(true, $response->permissions[1]->permissions->security);
-        $this->assertEquals('Security Type 1', $response->securityType->name);
     }
 
     public function testPost(): void
@@ -221,9 +201,6 @@ class RoleControllerTest extends SuluTestCase
                         ],
                     ],
                 ],
-                'securityType' => [
-                    'id' => $this->securityType2->getId(),
-                ],
             ]
         );
 
@@ -251,7 +228,6 @@ class RoleControllerTest extends SuluTestCase
         $this->assertEquals(false, $response->permissions[1]->permissions->archive);
         $this->assertEquals(false, $response->permissions[1]->permissions->live);
         $this->assertEquals(false, $response->permissions[1]->permissions->security);
-        $this->assertEquals('Security Type 2', $response->securityType->name);
 
         $this->client->jsonRequest(
             'GET',
@@ -280,7 +256,6 @@ class RoleControllerTest extends SuluTestCase
         $this->assertEquals(false, $response->permissions[1]->permissions->archive);
         $this->assertEquals(false, $response->permissions[1]->permissions->live);
         $this->assertEquals(false, $response->permissions[1]->permissions->security);
-        $this->assertEquals('Security Type 2', $response->securityType->name);
     }
 
     public function testPut(): void
@@ -332,9 +307,6 @@ class RoleControllerTest extends SuluTestCase
                     ],
                 ],
             ],
-            'securityType' => [
-                'id' => $this->securityType2->getId(),
-            ],
         ];
 
         $this->client->jsonRequest(
@@ -353,7 +325,6 @@ class RoleControllerTest extends SuluTestCase
         $this->assertSame('ROLE_SULU_PORTAL_MANAGER', $response['identifier']);
         unset($response['identifier']);
         $response['permissions'] = SortUtils::multisort($response['permissions'], '[id]');
-        $expectedData['securityType']['name'] = $this->securityType2->getName();
         unset($response['permissions'][2]['id']);
 
         /** @var ActivityInterface $activity */
@@ -371,75 +342,9 @@ class RoleControllerTest extends SuluTestCase
         $this->assertSame('ROLE_SULU_PORTAL_MANAGER', $response['identifier']);
         unset($response['identifier']);
         $response['permissions'] = SortUtils::multisort($response['permissions'], '[id]');
-        $expectedData['securityType']['name'] = $this->securityType2->getName();
         unset($response['permissions'][2]['id']);
 
         $this->assertSame($expectedData, $response);
-    }
-
-    public function testPutRemoveSecurityType(): void
-    {
-        $putData = [
-            'name' => 'Portal Manager',
-            'system' => 'Sulu',
-            'permissions' => [
-                [
-                    'id' => $this->permission1->getId(),
-                    'context' => 'portal1',
-                    'permissions' => [
-                        'view' => true,
-                        'add' => true,
-                        'edit' => true,
-                        'delete' => true,
-                        'archive' => false,
-                        'live' => false,
-                        'security' => false,
-                    ],
-                ],
-                [
-                    'id' => $this->permission2->getId(),
-                    'context' => 'portal2',
-                    'permissions' => [
-                        'view' => false,
-                        'add' => false,
-                        'edit' => false,
-                        'delete' => false,
-                        'archive' => true,
-                        'live' => true,
-                        'security' => true,
-                    ],
-                ],
-                [
-                    'context' => 'portal3',
-                    'permissions' => [
-                        'view' => false,
-                        'add' => false,
-                        'edit' => false,
-                        'delete' => false,
-                        'archive' => true,
-                        'live' => true,
-                        'security' => true,
-                    ],
-                ],
-            ],
-        ];
-
-        $this->client->jsonRequest(
-            'PUT',
-            '/api/roles/' . $this->role1->getId(),
-            $putData
-        );
-
-        $response = \json_decode($this->client->getResponse()->getContent(), true, \JSON_THROW_ON_ERROR);
-        $this->assertArrayNotHasKey('securityType', $response);
-
-        $this->client->jsonRequest(
-            'GET',
-            '/api/roles/' . $this->role1->getId()
-        );
-
-        $response = \json_decode($this->client->getResponse()->getContent(), true, \JSON_THROW_ON_ERROR);
-        $this->assertArrayNotHasKey('securityType', $response);
     }
 
     public function testPutNotExisting(): void
