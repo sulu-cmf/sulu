@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of Sulu.
  *
@@ -11,22 +9,22 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Sulu\Bundle\SnippetBundle\Tests\Unit\Infrastructure\Sulu\Content\PropertyResolver;
+namespace Sulu\Bundle\CategoryBundle\Tests\Unit\Infrastructure\Sulu\Content\PropertyResolver;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\CategoryBundle\Infrastructure\Sulu\Content\PropertyResolver\SingleCategorySelectionPropertyResolver;
 use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
-use Sulu\Snippet\Infrastructure\Sulu\Content\PropertyResolver\SingleSnippetSelectionPropertyResolver;
 
-#[CoversClass(SingleSnippetSelectionPropertyResolver::class)]
-class SingleSnippetSelectionPropertyResolverTest extends TestCase
+#[CoversClass(SingleCategorySelectionPropertyResolver::class)]
+class SingleCategorySelectionPropertyResolverTest extends TestCase
 {
-    private SingleSnippetSelectionPropertyResolver $resolver;
+    private SingleCategorySelectionPropertyResolver $resolver;
 
     public function setUp(): void
     {
-        $this->resolver = new SingleSnippetSelectionPropertyResolver();
+        $this->resolver = new SingleCategorySelectionPropertyResolver();
     }
 
     public function testResolveNull(): void
@@ -53,7 +51,7 @@ class SingleSnippetSelectionPropertyResolverTest extends TestCase
     {
         $contentView = $this->resolver->resolve($data, 'en');
 
-        $this->assertNull($contentView->getContent());
+        $this->assertSame(null, $contentView->getContent());
         $this->assertSame(['id' => null], $contentView->getView());
     }
 
@@ -64,25 +62,21 @@ class SingleSnippetSelectionPropertyResolverTest extends TestCase
     {
         yield 'null' => [null];
         yield 'smart_content' => [['source' => '123']];
-        yield 'single_int_value' => [1];
+        yield 'single_string_value' => ['1'];
         yield 'object' => [(object) [1, 2]];
-        yield 'ids_list' => [['ids' => [1, 2]]];
-        yield 'id_list' => [['id' => [1, 2]]];
     }
 
     #[DataProvider('provideResolvableData')]
-    public function testResolveResolvableData(string $data): void
+    public function testResolveResolvableData(int $data): void
     {
         $contentView = $this->resolver->resolve($data, 'en');
 
-        $content = $contentView->getContent();
-        $this->assertInstanceOf(ResolvableResource::class, $content);
-        $this->assertSame($data, $content->getId());
-        $this->assertSame('snippet', $content->getResourceLoaderKey());
+        $resolvable = $contentView->getContent();
+        $this->assertInstanceOf(ResolvableResource::class, $resolvable);
+        $this->assertSame($data, $resolvable->getId());
+        $this->assertSame('category', $resolvable->getResourceLoaderKey());
 
-        $this->assertSame([
-            'id' => $data,
-        ], $contentView->getView());
+        $this->assertSame(['id' => $data], $contentView->getView());
     }
 
     /**
@@ -90,16 +84,16 @@ class SingleSnippetSelectionPropertyResolverTest extends TestCase
      */
     public static function provideResolvableData(): iterable
     {
-        yield 'string_id' => ['1'];
+        yield 'int' => [1];
     }
 
     public function testCustomResourceLoader(): void
     {
-        $contentView = $this->resolver->resolve('1', 'en', ['resourceLoader' => 'custom_snippet']);
+        $contentView = $this->resolver->resolve(1, 'en', ['resourceLoader' => 'custom_category']);
 
-        $content = $contentView->getContent();
-        $this->assertInstanceOf(ResolvableResource::class, $content);
-        $this->assertSame('1', $content->getId());
-        $this->assertSame('custom_snippet', $content->getResourceLoaderKey());
+        $resolvable = $contentView->getContent();
+        $this->assertInstanceOf(ResolvableResource::class, $resolvable);
+        $this->assertSame(1, $resolvable->getId());
+        $this->assertSame('custom_category', $resolvable->getResourceLoaderKey());
     }
 }

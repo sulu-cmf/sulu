@@ -25,7 +25,7 @@ class SingleSnippetSelectionPropertyResolver implements PropertyResolverInterfac
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
         if (!\is_string($data)) {
-            return ContentView::create([], \array_merge(['id' => null], $params));
+            return ContentView::create(null, \array_merge(['id' => null], $params));
         }
 
         /** @var string $resourceLoaderKey */
