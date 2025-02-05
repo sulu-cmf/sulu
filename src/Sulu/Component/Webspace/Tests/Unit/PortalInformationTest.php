@@ -45,7 +45,13 @@ class PortalInformationTest extends TestCase
 
     public function setUp(): void
     {
-        $this->portalInformation = new PortalInformation(null, null, null, null, null);
+        $this->portalInformation = new PortalInformation(
+            type: null,
+            webspace: null,
+            portal: null,
+            localization: null,
+            url: null,
+        );
         $this->webspace = $this->prophesize(Webspace::class);
         $this->portal = $this->prophesize(Portal::class);
         $this->localization = $this->prophesize(Localization::class);

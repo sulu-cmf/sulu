@@ -93,7 +93,6 @@ class WebspaceCollectionTest extends TestCase
             $portal,
             $localizationEnUs,
             'www.portal1.com',
-            $segmentSummer
         );
 
         $portalInformations['dev']['portal1.lo'] = new PortalInformation(
@@ -102,7 +101,6 @@ class WebspaceCollectionTest extends TestCase
             $portal,
             $localizationEnUs,
             'portal1.lo',
-            $segmentSummer
         );
 
         $this->webspaceCollection = new WebspaceCollection(['default' => $webspace]);
@@ -184,7 +182,6 @@ class WebspaceCollectionTest extends TestCase
         $this->assertEquals('default', $portalInformation['webspace']);
         $this->assertEquals('portal1', $portalInformation['portal']);
         $this->assertEquals('en_us', $portalInformation['localization']['localization']);
-        $this->assertEquals('s', $portalInformation['segment']);
         $this->assertEquals('www.portal1.com', $portalInformation['url']);
 
         $portalInformation = $collectionArray['portalInformations']['dev']['portal1.lo'];
@@ -193,7 +190,6 @@ class WebspaceCollectionTest extends TestCase
         $this->assertEquals('default', $portalInformation['webspace']);
         $this->assertEquals('portal1', $portalInformation['portal']);
         $this->assertEquals('en_us', $portalInformation['localization']['localization']);
-        $this->assertEquals('s', $portalInformation['segment']);
         $this->assertEquals('portal1.lo', $portalInformation['url']);
     }
 

@@ -44,10 +44,14 @@ Removed deprecated functions and properties:
 - `Sulu\Bundle\ContactBundle\Controller\ContactTitleController::$entityKey`
 - `Sulu\Bundle\ContactBundle\Controller\ContactController::$entityKey`
 - `Sulu\Bundle\ContactBundle\Controller\PositionController::$entityKey`
+- `Sulu\Component\Webspace\PortalInformation::getSegment()`
+- `Sulu\Component\Webspace\PortalInformation::setSegment()`
 
 Removed unused arguments:
 
 - `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
+- `Sulu\Component\Webspace\Analyzer\Attributes\WebsiteRequestProcessor::__construct` `$contentMapper` (2nd argument) removed
+- `Sulu\Component\Webspace\PortalInformation::__construct` `$segment` (6th argument) removed
 
 ### Piwik replaced with Matomo script
 

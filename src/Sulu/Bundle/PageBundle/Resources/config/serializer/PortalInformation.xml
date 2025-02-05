@@ -4,7 +4,6 @@
         <virtual-property method="getWebspaceKey" name="webspaceKey" type="string" expose="true"/>
         <virtual-property method="getPortalKey" name="portalKey" type="string" expose="true"/>
         <virtual-property method="getLocale" name="locale" type="string" expose="true"/>
-        <virtual-property method="getSegmentKey" name="segmentKey" type="string" expose="true"/>
 
         <property name="url" type="string" expose="true"/>
         <property name="type" type="integer" expose="true"/>

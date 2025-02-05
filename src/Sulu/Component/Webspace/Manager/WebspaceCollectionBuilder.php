@@ -163,7 +163,6 @@ class WebspaceCollectionBuilder
                 null,
                 $urlAddress,
                 null,
-                null,
                 false,
                 $urlAddress,
                 1
@@ -189,7 +188,6 @@ class WebspaceCollectionBuilder
             $portal,
             null,
             $urlAddress,
-            null,
             $urlRedirect,
             $url->isMain(),
             $url->getUrl(),
@@ -216,7 +214,6 @@ class WebspaceCollectionBuilder
             $portal,
             $localization,
             $urlResult,
-            null,
             null,
             $url->isMain(),
             $url->getUrl(),
@@ -253,7 +250,6 @@ class WebspaceCollectionBuilder
                 $portal,
                 null,
                 $urlResult,
-                null,
                 $urlRedirect,
                 false, // partial matches cannot be main
                 $url->getUrl(),

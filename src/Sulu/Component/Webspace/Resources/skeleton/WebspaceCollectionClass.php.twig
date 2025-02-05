@@ -129,40 +129,25 @@ class {{ cache_class }} extends {{ base_class }}
 {% for environmentKey, environment in collection.portalInformations %}
 {% for portalInformation in environment %}
         $portalInformationRefs['{{ environmentKey }}']['{{ portalInformation.url }}'] = new PortalInformation(
-            {{ portalInformation.type }},
-            $webspaceRefs['{{ portalInformation.webspace }}'],
+            type: {{ portalInformation.type }},
+            webspace: $webspaceRefs['{{ portalInformation.webspace }}'],
 {% if portalInformation.portal %}
-            $portalRefs['{{ portalInformation.portal }}'],
-{% else %}
-            null,
+            portal: $portalRefs['{{ portalInformation.portal }}'],
 {% endif %}
 {% if portalInformation.localization %}
-            $localizationRefs['{{ portalInformation.webspace }}_{{ portalInformation.localization.localization }}'],
-{% else %}
-            null,
+            localization: $localizationRefs['{{ portalInformation.webspace }}_{{ portalInformation.localization.localization }}'],
 {% endif %}
-            '{{ portalInformation.url }}',
-{% if portalInformation.segment %}
-            $segmentRefs['{{ portalInformation.webspace }}_{{ portalInformation.segment }}'],
-{% else %}
-            null,
-{% endif %}
+            url: '{{ portalInformation.url }}',
 {% if portalInformation.redirect %}
-            '{{ portalInformation.redirect }}',
-{% else %}
-            null,
+            redirect: '{{ portalInformation.redirect }}',
 {% endif %}
 {% if portalInformation.main %}
-            true,
-{% else %}
-            false,
+            main: true,
 {% endif %}
 {% if portalInformation.urlExpression %}
-            '{{ portalInformation.urlExpression }}',
-{% else %}
-            null,
+            urlExpression: '{{ portalInformation.urlExpression }}',
 {% endif %}
-            {{ portalInformation.priority }}
+            priority: {{ portalInformation.priority }}
         );
 
 {% endfor %}

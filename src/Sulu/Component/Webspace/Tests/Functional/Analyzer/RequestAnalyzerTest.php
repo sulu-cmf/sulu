@@ -35,10 +35,9 @@ class RequestAnalyzerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var RequestAnalyzer
-     */
-    private $requestAnalyzer;
+    private Webspace $webspace;
+    private Portal $portal;
+    private RequestAnalyzer $requestAnalyzer;
 
     /**
      * @var ObjectProphecy<WebspaceManagerInterface>
@@ -52,6 +51,12 @@ class RequestAnalyzerTest extends TestCase
 
     public function setUp(): void
     {
+        $this->webspace = new Webspace();
+        $this->webspace->setKey('sulu');
+
+        $this->portal = new Portal();
+        $this->portal->setKey('sulu');
+
         $this->webspaceManager = $this->prophesize(WebspaceManagerInterface::class);
         $this->requestStack = $this->prophesize(RequestStack::class);
 
@@ -67,8 +72,17 @@ class RequestAnalyzerTest extends TestCase
         );
     }
 
-    protected function prepareWebspaceManager($portalInformation)
+    protected function prepareWebspaceManager(array $config)
     {
+        $portalInformation = new PortalInformation(
+            type: $config['match_type'],
+            webspace: $this->webspace,
+            portal: $this->portal,
+            localization: new Localization('de', 'at'),
+            url: $config['portal_url'],
+            redirect: $config['redirect']
+        );
+
         $this->webspaceManager->findPortalInformationsByUrl(Argument::any(), Argument::any())
             ->willReturn([$portalInformation]);
         $this->webspaceManager->getPortalInformations(Argument::any())->willReturn([]);
@@ -177,23 +191,7 @@ class RequestAnalyzerTest extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('provideAnalyze')]
     public function testAnalyze($config, $expected = []): void
     {
-        $webspace = new Webspace();
-        $webspace->setKey('sulu');
-
-        $portal = new Portal();
-        $portal->setKey('sulu');
-
-        $portalInformation = new PortalInformation(
-            $config['match_type'],
-            $webspace,
-            $portal,
-            new Localization('de', 'at'),
-            $config['portal_url'],
-            null,
-            $config['redirect']
-        );
-
-        $this->prepareWebspaceManager($portalInformation);
+        $this->prepareWebspaceManager($config);
 
         $request = new Request(['get' => 1], ['post' => 1], [], [], [], ['REQUEST_URI' => $config['path_info']]);
         $request->headers->set('HOST', 'sulu.lo');
@@ -216,23 +214,7 @@ class RequestAnalyzerTest extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('provideAnalyzeWithFormat')]
     public function testAnalyzeWithFormat($config, $expected = []): void
     {
-        $webspace = new Webspace();
-        $webspace->setKey('sulu');
-
-        $portal = new Portal();
-        $portal->setKey('sulu');
-
-        $portalInformation = new PortalInformation(
-            $config['match_type'],
-            $webspace,
-            $portal,
-            new Localization('de', 'at'),
-            $config['portal_url'],
-            null,
-            $config['redirect']
-        );
-
-        $this->prepareWebspaceManager($portalInformation);
+        $this->prepareWebspaceManager($config);
 
         $request = new Request(['get' => 1], ['post' => 1], [], [], [], ['REQUEST_URI' => $config['path_info']]);
         $request->headers->set('HOST', 'sulu.lo');
@@ -274,23 +256,7 @@ class RequestAnalyzerTest extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('provideAnalyze')]
     public function testAnalyzeCurrentRequest($config, $expected = []): void
     {
-        $webspace = new Webspace();
-        $webspace->setKey('sulu');
-
-        $portal = new Portal();
-        $portal->setKey('sulu');
-
-        $portalInformation = new PortalInformation(
-            $config['match_type'],
-            $webspace,
-            $portal,
-            new Localization('de', 'at'),
-            $config['portal_url'],
-            null,
-            $config['redirect']
-        );
-
-        $this->prepareWebspaceManager($portalInformation);
+        $this->prepareWebspaceManager($config);
 
         $request = new Request(['get' => 1], ['post' => 1], [], [], [], ['REQUEST_URI' => $config['path_info']]);
         $request->headers->set('HOST', 'sulu.lo');

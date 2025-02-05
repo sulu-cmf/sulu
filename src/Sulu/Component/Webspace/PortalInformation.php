@@ -48,15 +48,6 @@ class PortalInformation implements ArrayableInterface
     private $localization;
 
     /**
-     * The segment for this portal information.
-     *
-     * @deprecated Is not set anymore since https://github.com/sulu/sulu/pull/5277
-     *
-     * @var Segment
-     */
-    private $segment;
-
-    /**
      * The url for this portal information.
      *
      * @var string
@@ -89,9 +80,8 @@ class PortalInformation implements ArrayableInterface
         ?Portal $portal = null,
         ?Localization $localization = null,
         $url = null,
-        ?Segment $segment = null,
         $redirect = null,
-        $main = false,
+        bool $main = false,
         $urlExpression = null,
         $priority = 0
     ) {
@@ -104,10 +94,6 @@ class PortalInformation implements ArrayableInterface
         $this->setMain($main);
         $this->setUrlExpression($urlExpression);
         $this->setPriority($priority);
-
-        if ($segment) {
-            $this->setSegment($segment);
-        }
     }
 
     /**
@@ -194,55 +180,6 @@ class PortalInformation implements ArrayableInterface
     public function getRedirect()
     {
         return $this->redirect;
-    }
-
-    /**
-     * Sets the segment for the PortalInformation.
-     *
-     * @deprecated Is not set anymore since https://github.com/sulu/sulu/pull/5277
-     *
-     * @param Segment $segment
-     */
-    public function setSegment($segment)
-    {
-        @trigger_deprecation(
-            'sulu/sulu',
-            '2.2',
-            'Segment on the PortalInformation will be removed and should not be used anymore.'
-        );
-        $this->segment = $segment;
-    }
-
-    /**
-     * Returns the segment for the PortalInformation.
-     *
-     * @deprecated Is not set anymore since https://github.com/sulu/sulu/pull/5277
-     *
-     * @return Segment
-     */
-    public function getSegment()
-    {
-        @trigger_deprecation(
-            'sulu/sulu',
-            '2.2',
-            'Segment on the PortalInformation will be removed and should not be used anymore.'
-        );
-
-        return $this->segment;
-    }
-
-    /**
-     * @deprecated Is not set anymore since https://github.com/sulu/sulu/pull/5277
-     */
-    public function getSegmentKey()
-    {
-        @trigger_deprecation(
-            'sulu/sulu',
-            '2.2',
-            'Segment on the PortalInformation will be removed and should not be used anymore.'
-        );
-
-        return $this->segment ? $this->segment->getKey() : null;
     }
 
     /**
@@ -428,11 +365,6 @@ class PortalInformation implements ArrayableInterface
         }
 
         $result['redirect'] = $this->getRedirect();
-
-        $segment = $this->getSegment();
-        if ($segment) {
-            $result['segment'] = $segment->getKey();
-        }
 
         $urlExpression = $this->getUrlExpression();
         if ($urlExpression) {
