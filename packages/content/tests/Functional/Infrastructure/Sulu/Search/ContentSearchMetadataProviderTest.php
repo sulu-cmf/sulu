@@ -101,9 +101,9 @@ class ContentSearchMetadataProviderTest extends SuluTestCase
 
     public function testGetAllMetadata(): void
     {
+        /** @var mixed[] $allMetadata */
         $allMetadata = $this->searchMetadataProvider->getAllMetadata();
 
-        $this->assertIsArray($allMetadata);
         foreach ($allMetadata as $metadata) {
             $this->assertInstanceOf(ClassMetadata::class, $metadata);
         }

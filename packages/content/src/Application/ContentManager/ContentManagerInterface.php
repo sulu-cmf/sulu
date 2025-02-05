@@ -44,7 +44,7 @@ interface ContentManagerInterface
      *
      * @param T $dimensionContent
      *
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function normalize(DimensionContentInterface $dimensionContent): array;
 

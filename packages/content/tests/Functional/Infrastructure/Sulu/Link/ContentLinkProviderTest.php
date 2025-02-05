@@ -137,7 +137,11 @@ class ContentLinkProviderTest extends WebsiteTestCase
     /**
      * @param LinkItem[] $links
      *
-     * @return array<string, mixed>
+     * @return array<array{
+     *     id: string,
+     *     url: string,
+     *     title: string,
+     * }>
      */
     private function mapLinks(array $links): array
     {

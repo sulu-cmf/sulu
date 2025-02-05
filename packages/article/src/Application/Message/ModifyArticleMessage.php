@@ -26,7 +26,7 @@ class ModifyArticleMessage
     private $identifier;
 
     /**
-     * @var mixed[]
+     * @var array<string, mixed>
      */
     private $data;
 
@@ -34,7 +34,7 @@ class ModifyArticleMessage
      * @param array{
      *     uuid?: string
      * } $identifier
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     public function __construct(array $identifier, array $data)
     {
@@ -55,7 +55,7 @@ class ModifyArticleMessage
     }
 
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function getData(): array
     {

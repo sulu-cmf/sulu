@@ -19,7 +19,7 @@ use Webmozart\Assert\Assert;
 class CreateSnippetMessage
 {
     /**
-     * @var mixed[]
+     * @var array<string, mixed>
      */
     private $data;
 
@@ -29,7 +29,7 @@ class CreateSnippetMessage
     private $uuid;
 
     /**
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     public function __construct(array $data)
     {
@@ -48,7 +48,7 @@ class CreateSnippetMessage
     }
 
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function getData(): array
     {

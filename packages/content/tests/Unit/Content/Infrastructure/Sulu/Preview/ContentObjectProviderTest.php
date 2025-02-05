@@ -235,7 +235,7 @@ class ContentObjectProviderTest extends TestCase
     }
 
     /**
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     public function testSetValues(
         string $locale = 'de',
@@ -274,7 +274,7 @@ class ContentObjectProviderTest extends TestCase
     }
 
     /**
-     * @param mixed[] $context
+     * @param array<string, mixed> $context
      */
     public function testSetContext(string $locale = 'de', array $context = ['template' => 'overview']): void
     {

@@ -164,7 +164,7 @@ class ContentTeaserProviderTest extends WebsiteTestCase
     /**
      * @param array<Teaser> $teasers
      *
-     * @return array<string, array{
+     * @return array<array{
      *     id: int|string,
      *     type: string,
      *     locale: string,

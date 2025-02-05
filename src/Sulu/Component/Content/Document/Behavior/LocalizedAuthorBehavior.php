@@ -19,14 +19,14 @@ interface LocalizedAuthorBehavior extends LocalizedBlameBehavior
     /**
      * Returns author-date.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getAuthored();
 
     /**
      * Set author-date.
      *
-     * @param \DateTime $authored
+     * @param \DateTimeInterface $authored
      */
     public function setAuthored($authored);
 

@@ -75,7 +75,7 @@ class DimensionContentRepository implements DimensionContentRepositoryInterface
             [DimensionContentQueryEnhancer::GROUP_SELECT_CONTENT_ADMIN => true]
         );
 
-        /** @var T[] $dimensionContents */
+        /** @var array<int, T> $dimensionContents */
         $dimensionContents = $queryBuilder->getQuery()->getResult();
 
         return new DimensionContentCollection(

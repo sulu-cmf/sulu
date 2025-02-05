@@ -109,7 +109,7 @@ class ContentObjectProvider implements PreviewObjectProviderInterface
     /**
      * @param B $object
      * @param string $locale
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     public function setValues($object, $locale, array $data): void
     {
@@ -124,7 +124,7 @@ class ContentObjectProvider implements PreviewObjectProviderInterface
     /**
      * @param B $object
      * @param string $locale
-     * @param mixed[] $context
+     * @param array<string, mixed> $context
      *
      * @return B
      */
@@ -132,6 +132,7 @@ class ContentObjectProvider implements PreviewObjectProviderInterface
     {
         if ($object instanceof TemplateInterface) {
             if (\array_key_exists('template', $context)) {
+                \assert(\is_string($context['template']));
                 $object->setTemplateKey($context['template']);
             }
         }

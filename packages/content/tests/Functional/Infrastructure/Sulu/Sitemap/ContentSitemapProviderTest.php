@@ -30,7 +30,10 @@ class ContentSitemapProviderTest extends SuluTestCase
     use CreateExampleTrait;
     use SetGetPrivatePropertyTrait;
 
+    /** @var string */
     public const SCHEME = 'https';
+
+    /** @var string */
     public const HOST = 'localhost';
 
     /**
@@ -145,8 +148,6 @@ class ContentSitemapProviderTest extends SuluTestCase
     {
         $sitemap = $this->contentSitemapProvider->createSitemap(static::SCHEME, static::HOST);
 
-        $this->assertNotNull($sitemap);
-        $this->assertSame(Sitemap::class, $sitemap::class);
         $this->assertSame($this->contentSitemapProvider->getAlias(), $sitemap->getAlias());
         $this->assertSame($this->contentSitemapProvider->getMaxPage(static::SCHEME, static::HOST), $sitemap->getMaxPage());
     }
