@@ -34,9 +34,6 @@ class StructureWarmer implements CacheWarmerInterface
         // warmup the pages
         $this->structureManager->getStructures(Structure::TYPE_PAGE);
 
-        // warm up the snippets
-        $this->structureManager->getStructures(Structure::TYPE_SNIPPET);
-
         return [];
     }
 

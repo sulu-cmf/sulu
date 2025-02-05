@@ -200,7 +200,7 @@ final class ArticleController
     }
 
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     private function getData(Request $request): array
     {
@@ -214,7 +214,7 @@ final class ArticleController
 
     private function getLocale(Request $request): string
     {
-        return $request->query->getAlnum('locale', $request->getLocale());
+        return $request->query->getString('locale', $request->getLocale());
     }
 
     private function handleAction(Request $request, string $uuid): ?ArticleInterface // @phpstan-ignore-line

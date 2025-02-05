@@ -1,0 +1,14 @@
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+.chat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    z-index: 2;
+    box-sizing: border-box;
+}

@@ -87,9 +87,9 @@ class OpenIdSingleSignOnAdapter implements SingleSignOnAdapterInterface
         ?string $codeVerifier = null,
         ?string $codeChallengeMethod = null,
     ): array {
-        $state ??= Uuid::v7()->__toString();
+        $state ??= Uuid::v7()->toRfc4122();
         $attributes['state'] = $state;
-        $nonce ??= Uuid::v7()->__toString();
+        $nonce ??= Uuid::v7()->toRfc4122();
 
         $query = [
             'response_type' => 'code',
@@ -241,7 +241,7 @@ class OpenIdSingleSignOnAdapter implements SingleSignOnAdapterInterface
             $user = $this->userRepository->createNew();
             $user->setEmail($email);
             $user->setUsername($email);
-            $user->setPassword(Uuid::v7()->__toString()); // create a random password as a password is required
+            $user->setPassword(Uuid::v7()->toRfc4122()); // create a random password as a password is required
             $user->setSalt(\base64_encode(\random_bytes(32))); // copied from sulu SaltGenerator
             $user->setEnabled(true);
 

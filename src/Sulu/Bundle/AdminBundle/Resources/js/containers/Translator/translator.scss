@@ -1,0 +1,61 @@
+.translator {
+    display: flex;
+    margin: 40px 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+
+    &:first-child {
+        border-right: 1px solid #ccc;
+    }
+}
+
+.select {
+    max-width: 50%;
+    height: 37px;
+    padding-top: 10px;
+}
+
+.input {
+    margin-top: 10px;
+    width: 100%;
+    height: 200px;
+    resize: vertical;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.textarea {
+    resize: none;
+    outline: none;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    padding: 10px;
+}
+
+.texteditor {
+    :global(.ck-editor__top) {
+        display: none;
+    }
+
+    :global(.ck-editor__editable),
+    :global(.ck.ck-editor .ck.ck-content.ck-focused) {
+        border: 0 !important;
+        height: 200px;
+    }
+
+    :global(.ck.ck-editor .ck.ck-content) {
+        height: 199px;
+    }
+
+    :global(.ck.disabled) {
+        pointer-events: all !important;
+    }
+}

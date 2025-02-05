@@ -119,18 +119,66 @@ class BlockPropertyResolverTest extends TestCase
         ];
 
         $content = $this->resolver->resolve($data, $locale, $params);
-        $this->assertInstanceOf(ContentView::class, $content);
         /** @var ContentView[] $innerContent */
         $innerContent = $content->getContent();
         $this->assertCount(1, $innerContent);
-        /** @var mixed[] $blockData */
+        /** @var array<string, mixed> $blockData */
         $blockData = $innerContent[0]->getContent();
         $this->assertSame('text_block', $blockData['type']);
         $this->assertInstanceOf(ContentView::class, $blockData['title']);
         $this->assertSame('Sulu', $blockData['title']->getContent());
         $this->assertSame([], $blockData['title']->getView());
+        $this->assertInstanceOf(ContentView::class, $blockData['description']);
         $this->assertSame('Sulu is awesome', $blockData['description']->getContent());
         $this->assertSame([], $blockData['description']->getView());
+
+        $this->assertSame([], $content->getView());
+    }
+
+    public function testResolveMinMaxOccursOne(): void
+    {
+        $data = [
+            [
+                'type' => 'text_block',
+                'title' => 'Sulu',
+                'description' => 'Sulu is awesome',
+            ],
+        ];
+        $locale = 'en';
+
+        $formMetadata = new FormMetadata();
+        $formMetadata->setName('text_block');
+        $formMetadata->setKey('text_block');
+        $blockFieldMetadata = new FieldMetadata('text_block');
+        $blockFieldMetadata->addType($formMetadata);
+        $blockFieldMetadata->setMinOccurs(1);
+        $blockFieldMetadata->setMaxOccurs(1);
+
+        $tileFieldMetadata = new FieldMetadata('title');
+        $tileFieldMetadata->setType('text_line');
+
+        $descriptionFieldMetadata = new FieldMetadata('description');
+        $descriptionFieldMetadata->setType('text_area');
+
+        $formMetadata->addItem($tileFieldMetadata);
+        $formMetadata->addItem($descriptionFieldMetadata);
+
+        $params = [
+            'metadata' => $blockFieldMetadata,
+        ];
+
+        $content = $this->resolver->resolve($data, $locale, $params);
+        /** @var array<string, mixed> $innerContent */
+        $innerContent = $content->getContent();
+        // title / description / type
+        $this->assertCount(3, $innerContent);
+        $this->assertSame('text_block', $innerContent['type']);
+        $this->assertInstanceOf(ContentView::class, $innerContent['title']);
+        $this->assertSame('Sulu', $innerContent['title']->getContent());
+        $this->assertSame([], $innerContent['title']->getView());
+        $this->assertInstanceOf(ContentView::class, $innerContent['description']);
+        $this->assertSame('Sulu is awesome', $innerContent['description']->getContent());
+        $this->assertSame([], $innerContent['description']->getView());
 
         $this->assertSame([], $content->getView());
     }

@@ -52,7 +52,7 @@ interface DataProviderInterface
      *     websiteCategoriesOperator?: 'or'|'and',
      *     limitResult?: int,
      * } $filters Contains the filter configuration
-     * @param PropertyParameter[] $propertyParameter Contains the parameter of resolved property
+     * @param array<string, PropertyParameter> $propertyParameter Contains the parameter of resolved property
      * @param mixed[] $options Options like webspace or locale
      * @param int|null $limit Indicates maximum size of result set
      * @param int $page Indicates page of result set
@@ -88,7 +88,7 @@ interface DataProviderInterface
      *      websiteCategoriesOperator?: 'or'|'and',
      *      limitResult?: int,
      *  } $filters Contains the filter configuration
-     * @param PropertyParameter[] $propertyParameter Contains the parameter of resolved property
+     * @param array<string, PropertyParameter> $propertyParameter Contains the parameter of resolved property
      * @param mixed[] $options Options like webspace or locale
      * @param int|null $limit Indicates maximum size of result set
      * @param int $page Indicates page of result set

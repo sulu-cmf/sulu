@@ -15,12 +15,12 @@ namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\SmartContent;
 
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
+use Sulu\Bundle\TestBundle\Testing\AssertSnapshotTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\SmartContent\ArrayAccessItem;
 use Sulu\Component\SmartContent\DataProviderResult;
 use Sulu\Component\SmartContent\ResourceItemInterface;
 use Sulu\Content\Infrastructure\Sulu\SmartContent\Provider\ContentDataProvider;
-use Sulu\Content\Tests\Traits\AssertSnapshotTrait;
 use Sulu\Content\Tests\Traits\CreateCategoryTrait;
 use Sulu\Content\Tests\Traits\CreateExampleTrait;
 use Sulu\Content\Tests\Traits\CreateTagTrait;
@@ -333,11 +333,11 @@ class ContentDataProviderTest extends SuluTestCase
 
     public function testResolveDataItemsSnapshot(): void
     {
-        /** @var int $limit */
+        /** @var int|null $limit */
         $limit = null;
-        /** @var int $page */
+        /** @var int|null $page */
         $page = null;
-        /** @var int $pageSize */
+        /** @var int|null $pageSize */
         $pageSize = null;
 
         $dataProviderResult = $this->contentDataProvider->resolveDataItems(
@@ -361,11 +361,11 @@ class ContentDataProviderTest extends SuluTestCase
 
     public function testResolveResourceItemsSnapshot(): void
     {
-        /** @var int $limit */
+        /** @var int|null $limit */
         $limit = null;
-        /** @var int $page */
+        /** @var int|null $page */
         $page = null;
-        /** @var int $pageSize */
+        /** @var int|null $pageSize */
         $pageSize = null;
 
         $dataProviderResult = $this->contentDataProvider->resolveResourceItems(

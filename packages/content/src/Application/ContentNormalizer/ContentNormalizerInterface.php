@@ -16,7 +16,7 @@ namespace Sulu\Content\Application\ContentNormalizer;
 interface ContentNormalizerInterface
 {
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function normalize(object $object): array;
 }

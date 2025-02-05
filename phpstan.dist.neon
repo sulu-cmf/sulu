@@ -15,6 +15,10 @@ parameters:
     level: max
     parallel:
         processTimeout: 300.0
+    ignoreErrors:
+        -
+            message: '#Cannot access offset .+ on mixed.#' # TODO we should match against a whole array not every single item
+            path: packages/content/tests/Functional/Application/ContentResolver/ContentResolverTest.php
     excludePaths:
         - %currentWorkingDirectory%/node_modules/*
         - %currentWorkingDirectory%/var/*
@@ -25,7 +29,8 @@ parameters:
         - %currentWorkingDirectory%/*/tests/Application/Kernel.php
         - %currentWorkingDirectory%/*/tests/Application/assets/*
         - %currentWorkingDirectory%/*/Tests/Application/var/*
-        - %currentWorkingDirectory%/packages/content/tests/Unit/Mocks//*
+        - %currentWorkingDirectory%/packages/*/tests/Application/var/*
+        - %currentWorkingDirectory%/packages/content/tests/Unit/Mocks/*
         - %currentWorkingDirectory%/*/Tests/app/cache/*
         - %currentWorkingDirectory%/*/Tests/app/var/*
         # RestController extends FOSRestController which was removed in friendsofsymfony/rest-bundle:3.0

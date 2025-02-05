@@ -11,7 +11,6 @@
 
 namespace Sulu\Bundle\CategoryBundle;
 
-use Sulu\Bundle\CategoryBundle\DependencyInjection\DeprecationCompilerPass;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryMetaInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryTranslationInterface;
@@ -20,17 +19,12 @@ use Sulu\Bundle\PersistenceBundle\PersistenceBundleTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * Entry point for the SuluCategoryBundle.
- *
- * @final
- */
-class SuluCategoryBundle extends Bundle
+final class SuluCategoryBundle extends Bundle
 {
     use PersistenceBundleTrait;
 
     /**
-     * @internal
+     * @internal this method is not part of the public API and should only be called by the Symfony framework classes
      */
     public function build(ContainerBuilder $container): void
     {
@@ -43,7 +37,5 @@ class SuluCategoryBundle extends Bundle
             ],
             $container
         );
-
-        $container->addCompilerPass(new DeprecationCompilerPass());
     }
 }

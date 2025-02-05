@@ -13,6 +13,6 @@ namespace Sulu\Bundle\HashBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuluHashBundle extends Bundle
+final class SuluHashBundle extends Bundle
 {
 }

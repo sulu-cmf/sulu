@@ -340,7 +340,7 @@ class ContentDataProviderRepository implements DataProviderRepositoryInterface
     /**
      * Extension point to filter for types.
      *
-     * @param mixed[] $types
+     * @param array<string> $types
      *
      * @return array<string, mixed> parameters for query
      */

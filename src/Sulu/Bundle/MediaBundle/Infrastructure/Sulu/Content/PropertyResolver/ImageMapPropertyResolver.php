@@ -90,7 +90,7 @@ class ImageMapPropertyResolver implements PropertyResolverInterface // TODO we m
     }
 
     /**
-     * @param non-empty-array<array<mixed>> $hotspots
+     * @param non-empty-list<mixed> $hotspots
      * @param array<string, mixed> $params
      */
     private function resolveHotspots(array $hotspots, string $locale, array $params): ContentView

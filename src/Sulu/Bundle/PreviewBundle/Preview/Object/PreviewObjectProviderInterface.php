@@ -35,6 +35,7 @@ interface PreviewObjectProviderInterface
      * Set given data to the object.
      *
      * @param string $locale
+     * @param array<string, mixed> $data
      */
     public function setValues($object, $locale, array $data);
 
@@ -42,6 +43,7 @@ interface PreviewObjectProviderInterface
      * Set given context to the object.
      *
      * @param string $locale
+     * @param array<string, mixed> $context
      *
      * @return mixed New object which will be saved for the session
      */

@@ -1,0 +1,34 @@
+.feedback-container {
+    position: absolute;
+    top: 81px;
+    right: 50px;
+    z-index: 5;
+}
+
+.feedback-tab {
+    padding: 5px 10px;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+    align-items: center;
+    font-size: 14px;
+    transition: all .3s ease;
+    background-color: #102a46;
+    color: white;
+    width: 130px;
+    text-align: center;
+    height: 30px;
+
+    &:hover {
+        background-color: #52b6ca;
+    }
+}
+
+.feedback-icon {
+    margin-bottom: 5px;
+    margin-right: 5px;
+
+    svg {
+        margin-bottom: -3px;
+        transform: rotate(90deg);
+    }
+}

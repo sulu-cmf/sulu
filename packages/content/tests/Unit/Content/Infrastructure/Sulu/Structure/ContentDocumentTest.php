@@ -14,7 +14,11 @@ declare(strict_types=1);
 namespace Sulu\Content\Tests\Unit\Content\Infrastructure\Sulu\Structure;
 
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\ContactBundle\Entity\Contact;
+use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Sulu\Component\Persistence\Model\UserBlameInterface;
+use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Content\Domain\Model\ExcerptInterface;
 use Sulu\Content\Domain\Model\SeoInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
@@ -169,5 +173,84 @@ class ContentDocumentTest extends TestCase
         $structure = $document->getStructure();
 
         $this->assertNull($structure);
+    }
+
+    public function testGetLastModified(): void
+    {
+        $content = $this->prophesize(TemplateInterface::class);
+        $content->willImplement(AuthorInterface::class);
+        $content->getLastModifiedEnabled()->willReturn(true);
+        $authored = new \DateTimeImmutable('2020-01-01');
+        $lastModified = new \DateTimeImmutable('2022-01-01');
+        $content->getLastModified()->willReturn($lastModified);
+        $content->getAuthored()->willReturn($authored);
+        $document = $this->createContentDocument($content->reveal());
+
+        $this->assertTrue($document->getLastModifiedEnabled());
+        $this->assertSame($lastModified, $document->getLastModified());
+        $this->assertSame($authored, $document->getAuthored());
+    }
+
+    public function testSetLastModified(): void
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $lastModified = new \DateTimeImmutable('2020-01-01');
+        $document = $this->createContentDocument();
+
+        $document->setLastModified($lastModified);
+    }
+
+    public function testSetAuthored(): void
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $authored = new \DateTime('2020-01-01');
+        $document = $this->createContentDocument();
+
+        $document->setAuthored($authored);
+    }
+
+    public function testSetAuthor(): void
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $document = $this->createContentDocument();
+
+        $document->setAuthor(null);
+    }
+
+    public function testGetAuthor(): void
+    {
+        $content = $this->prophesize(TemplateInterface::class);
+        $content->willImplement(AuthorInterface::class);
+        $author = new Contact();
+        $content->getAuthor()->willReturn($author);
+        $document = $this->createContentDocument($content->reveal());
+
+        $this->assertSame($author, $document->getAuthor());
+    }
+
+    public function testGetUser(): void
+    {
+        $content = $this->prophesize(TemplateInterface::class);
+        $content->willImplement(UserBlameInterface::class);
+        $user = new User();
+        $content->getCreator()->willReturn($user);
+        $content->getChanger()->willReturn($user);
+        $document = $this->createContentDocument($content->reveal());
+
+        $this->assertSame($user, $document->getCreator());
+        $this->assertSame($user, $document->getChanger());
+    }
+
+    public function testLocalizedAuthorNull(): void
+    {
+        $content = $this->prophesize(TemplateInterface::class);
+        $document = $this->createContentDocument($content->reveal());
+
+        $this->assertNull($document->getLastModifiedEnabled());
+        $this->assertNull($document->getLastModified());
+        $this->assertNull($document->getAuthored());
+        $this->assertNull($document->getAuthor());
+        $this->assertNull($document->getCreator());
+        $this->assertNull($document->getChanger());
     }
 }

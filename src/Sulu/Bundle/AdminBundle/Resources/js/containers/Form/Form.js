@@ -15,6 +15,7 @@ import type {ChangeContext, FormStoreInterface} from './types';
 
 type Props = {|
     onError?: (errors: Object) => void,
+    onFieldFinish?: (dataPath: string, schemaPath: string) => void,
     onMissingTypeCancel?: () => void,
     onSubmit: (action: ?string | {[string]: any}) => ?Promise<Object>,
     onSuccess?: () => void,
@@ -136,10 +137,14 @@ class Form extends React.Component<Props> {
             'Finished editing field with dataPath "' + dataPath + '" and schemaPath "' + schemaPath + '"',
             toJS(this.formInspector.getValueByPath(dataPath))
         );
-        const {store} = this.props;
+        const {store, onFieldFinish} = this.props;
 
         store.validate();
         this.formInspector.finishField(dataPath, schemaPath);
+
+        if (onFieldFinish) {
+            onFieldFinish(dataPath, schemaPath);
+        }
     };
 
     render() {

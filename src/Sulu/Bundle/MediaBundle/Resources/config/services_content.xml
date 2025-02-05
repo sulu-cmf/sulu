@@ -19,6 +19,10 @@
             <argument type="service" id="logger"/>
             <argument>%kernel.debug%</argument>
 
+            <call method="setMetadataResolver">
+                <argument type="service" id="sulu_content.metadata_resolver"/>
+            </call>
+
             <tag name="sulu_content.property_resolver"/>
         </service>
 

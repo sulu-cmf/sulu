@@ -8,7 +8,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="title" type="string" column="title" length="64" nullable="true"/>
+        <field name="title" type="string" column="title" length="191" nullable="true"/>
 
         <many-to-one field="example" target-entity="Sulu\Content\Tests\Application\ExampleTestBundle\Entity\Example" inversed-by="dimensionContents">
             <join-columns>

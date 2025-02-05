@@ -13,6 +13,23 @@
                 <title>sulu_content.author</title>
             </meta>
             <properties>
+                <property name="lastModifiedEnabled" type="checkbox" colspan="6">
+                    <meta>
+                        <title>sulu_content.last_modified_enabled</title>
+                    </meta>
+
+                    <params>
+                        <param name="type" value="toggler"/>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="lastModified" type="datetime" colspan="6" disabledCondition="!lastModifiedEnabled">
+                    <meta>
+                        <title>sulu_content.last_modified_date</title>
+                    </meta>
+                </property>
+
                 <property name="authored" type="datetime" colspan="6">
                     <meta>
                         <title>sulu_content.authored_date</title>

@@ -29,7 +29,7 @@ if ($_SERVER['APP_DEBUG']) {
 
 $suluContext = SuluKernel::CONTEXT_WEBSITE;
 
-if (\preg_match('/^\/admin(\/|$)/', $_SERVER['REQUEST_URI'])) {
+if (\preg_match('/^\/admin(\/|$)/', $_SERVER['REQUEST_URI'])) { // @phpstan-ignore argument.type
     $suluContext = SuluKernel::CONTEXT_ADMIN;
 }
 

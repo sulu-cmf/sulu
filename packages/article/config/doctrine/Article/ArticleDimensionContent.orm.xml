@@ -10,7 +10,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="title" type="string" column="title" length="64" nullable="true"/>
+        <field name="title" type="string" column="title" length="191" nullable="true"/>
 
         <many-to-one field="article" target-entity="Sulu\Article\Domain\Model\ArticleInterface" inversed-by="dimensionContents">
             <join-columns>

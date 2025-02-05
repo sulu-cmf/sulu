@@ -14,12 +14,15 @@ declare(strict_types=1);
 namespace Sulu\Content\Application\ContentResolver;
 
 use Sulu\Content\Application\ContentResolver\Resolver\ResolverInterface;
-use Sulu\Content\Application\ContentResolver\Resolver\TemplateResolver;
+use Sulu\Content\Application\ContentResolver\Resolver\SettingsResolver;
 use Sulu\Content\Application\ContentResolver\Value\ContentView;
 use Sulu\Content\Application\ContentResolver\Value\ResolvableResource;
 use Sulu\Content\Application\ResourceLoader\ResourceLoaderProvider;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 
+/**
+ * @phpstan-import-type SettingsData from SettingsResolver
+ */
 class ContentResolver implements ContentResolverInterface
 {
     /**
@@ -31,52 +34,55 @@ class ContentResolver implements ContentResolverInterface
     ) {
     }
 
-    /**
-     * @return array{
-     *      resource: object,
-     *      content: mixed,
-     *      view: mixed[]
-     *  }
-     */
     public function resolve(DimensionContentInterface $dimensionContent): array
     {
         $contentViews = [];
         foreach ($this->contentResolvers as $resolverKey => $contentResolver) {
             $contentView = $contentResolver->resolve($dimensionContent);
-
-            if ($contentResolver instanceof TemplateResolver) {
-                /** @var mixed[] $content */
-                $content = $contentView->getContent();
-                $contentViews = \array_merge($contentViews, $content);
-                continue;
-            }
-
             $contentViews[$resolverKey] = $contentView;
         }
         $resolvedContent = $this->resolveContentViews($contentViews);
         $resolvedResources = $this->loadAndResolveResources($resolvedContent['resolvableResources'], $dimensionContent->getLocale());
         $content = $this->replaceResolvableResourcesWithResolvedValues($resolvedContent['content'], $resolvedResources);
 
-        return [
+        /** @var array<string, mixed> $templateData */
+        $templateData = $content['template'];
+        unset($content['template']);
+
+        /** @var array<string, mixed> $templateView */
+        $templateView = $resolvedContent['view']['template'];
+        unset($resolvedContent['view']['template']);
+
+        /** @var SettingsData $settingsData */
+        $settingsData = $content['settings'] ?? [];
+        unset($content['settings']);
+        unset($resolvedContent['view']['settings']);
+
+        /** @var array<string, array<string, mixed>> $extensionData */
+        $extensionData = $content;
+
+        return \array_merge([
             'resource' => $dimensionContent->getResource(),
-            'content' => $content,
-            'view' => $resolvedContent['view'],
-        ];
+            'content' => $templateData,
+            'extension' => $extensionData,
+            'view' => $templateView,
+        ], $settingsData);
     }
 
     /**
      * @param ContentView[] $contentViews
      *
      * @return array{
-     *     content: mixed[],
-     *     view: mixed[],
-     *     resolvableResources: array<string, array<ResolvableResource>>
-     *     }
+     *     content: array<string, mixed>,
+     *     view: array<string, mixed>,
+     *     resolvableResources: array<string, array<ResolvableResource>>,
+     * }
      */
     private function resolveContentViews(array $contentViews): array
     {
         $content = [];
         $view = [];
+        /** @var array<string, array<ResolvableResource>> $resolvableResources */
         $resolvableResources = [];
 
         foreach ($contentViews as $name => $contentView) {
@@ -95,10 +101,10 @@ class ContentResolver implements ContentResolverInterface
 
     /**
      * @return array{
-     *     content: mixed[],
-     *     view: mixed[],
+     *     content: array<string, mixed>,
+     *     view: array<string, mixed>,
      *     resolvableResources: array<string, array<ResolvableResource>>
-     *     }
+     * }
      */
     private function resolveContentView(ContentView $contentView, string $name): array
     {
@@ -138,7 +144,7 @@ class ContentResolver implements ContentResolverInterface
                 }
 
                 $result['content'][$name][$key] = $entry;
-                $result['view'][$name][$key] = [];
+                $result['view'][$name][$key] = $view;
             }
 
             $result['resolvableResources'] = $resolvableResources;

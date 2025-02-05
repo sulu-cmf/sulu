@@ -27,6 +27,7 @@ Removed classes / services:
 
 - `Sulu/Bundle/MarkupBundle/Listener/SwiftMailerListener`
 - `Sulu\Bundle\DocumentManagerBundle\Slugifier\Urlizer`
+- `Sulu\\Bundle\\CategoryBundle\\DependencyInjection\\DeprecationCompilerPass`
 - `Sulu\Component\Rest\Listing\ListQueryBuilder`
 - `Sulu\Component\Rest\Listing\ListRepository`
 - `Sulu\Component\Rest\Listing\ListRestHelper`
@@ -202,6 +203,73 @@ sulu_media:
 ```
 
 This will only create the service `sulu_media.storage` as the alias to `sulu_media.storage.*` services has been removed.
+
+## 2.6.7
+
+### Doctrine incompatibility with Symfony 6.3
+
+Latest releases of different Doctrine packages have issues with Symfony 6.3.* Doctrine bridge.
+
+For all projects which still run on Symfony 6.0 - 6.3, we recommend to update to Symfony 6.4.
+Else an update of Doctrine packages alone will end in errors like:
+
+> No mapping file found named 'TrashItem.orm.xml' for class 'Sulu\Bundle\TrashBundle\Domain\Model\TrashItem'
+> No mapping file found named 'Collection.orm.xml' for class 'Sulu\Bundle\MediaBundle\Entity\Collection'.
+
+To upgrade Symfony go into your `composer.json` and adopt the required Symfony version:
+
+```diff
+     "extra": {
+         "symfony": {
+             "allow-contrib": true,
+-            "require": "6.3.*"
++            "require": "6.4.*"
+         }
+     }
+```
+
+And run `composer update` to update all your dependencies. Keep in mind to check the different packages `UPGRADE.md`
+files for further changes.
+
+### User getSalt method return types changed
+
+To support the upgrade of `Legacy` password hashes from Sulu 1.6, the `User::getSalt` method requires the following changes if you have overwritten it:
+
+```diff
+-public function getSalt();
++public function getSalt(): ?string;
+```
+
+If migrating from an old Sulu 1.6 project, you can configure a legacy hasher to seamlessly upgrade the user's password:
+
+<details>
+<summary>Example Password Upgrade configuration:</summary>
+
+```yaml
+# config/packages/security.yaml
+security:
+    # ...
+    password_hashers:
+        legacy:
+            algorithm: sha512
+            iterations: 5000
+            encode_as_base64: false
+
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+            algorithm: bcrypt
+            migrate_from:
+                - legacy
+    # ...
+```
+
+See also the Symfony Password Upgrade Documentation [here](https://symfony.com/doc/6.4/security/passwords.html#upgrade-the-password).
+
+</details>
+
+
+### Deprecations
+
+- `Sulu\Bundle\SecurityBundle\Entity\Permission::module` and its setters and getters (define in your own project)
 
 ## 2.6.4
 
@@ -605,6 +673,68 @@ sulu_website:
 
 In the previous version the `SnippetController` would return the entire content of the snippet in the `cgetAction`. Now
 it respects the list of fields provided in the query parameter and only returns those.
+
+## 2.5.23
+
+### Doctrine incompatibility with Symfony 6.3
+
+Latest releases of different Doctrine packages have issues with Symfony 6.3.* Doctrine bridge.
+
+For all projects which still run on Symfony 6.0 - 6.3, we recommend to update to Symfony 6.4.
+Else an update of Doctrine packages alone will end in errors like:
+
+> No mapping file found named 'TrashItem.orm.xml' for class 'Sulu\Bundle\TrashBundle\Domain\Model\TrashItem'
+> No mapping file found named 'Collection.orm.xml' for class 'Sulu\Bundle\MediaBundle\Entity\Collection'.
+
+To upgrade Symfony go into your `composer.json` and adopt the required Symfony version:
+
+```diff
+     "extra": {
+         "symfony": {
+             "allow-contrib": true,
+-            "require": "6.3.*"
++            "require": "6.4.*"
+         }
+     }
+```
+
+And run `composer update` to update all your dependencies. Keep in mind to check the different packages `UPGRADE.md`
+files for further changes.
+
+### User getSalt method return types changed
+
+To support the upgrade of `Legacy` password hashes from Sulu 1.6, the `User::getSalt` method requires the following changes if you have overwritten it:
+
+```diff
+-public function getSalt();
++public function getSalt(): ?string;
+```
+
+If migrating from an old Sulu 1.6 project, you can configure a legacy password hasher to seamlessly upgrade the user's password:
+
+<details>
+<summary>Example Password Upgrade configuration:</summary>
+
+```yaml
+# config/packages/security.yaml
+security:
+    # ...
+    password_hashers:
+        legacy:
+            algorithm: sha512
+            iterations: 5000
+            encode_as_base64: false
+
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+            algorithm: bcrypt
+            migrate_from:
+                - legacy
+    # ...
+```
+
+See also the Symfony Password Upgrade Documentation [here](https://symfony.com/doc/6.4/security/passwords.html#upgrade-the-password).
+
+</details>
 
 ## 2.5.20
 

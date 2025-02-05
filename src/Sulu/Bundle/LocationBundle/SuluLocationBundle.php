@@ -13,6 +13,6 @@ namespace Sulu\Bundle\LocationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuluLocationBundle extends Bundle
+final class SuluLocationBundle extends Bundle
 {
 }

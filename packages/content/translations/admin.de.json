@@ -3,6 +3,8 @@
     "sulu_content.excerpt": "Auszug & Taxonomien",
     "sulu_content.content": "Inhalt",
     "sulu_content.published": "Veröffentlicht am",
+    "sulu_content.last_modified_enabled": "Aktualisierungsdatum aktivieren",
+    "sulu_content.last_modified_date": "Datum der Aktualisierung",
     "sulu_content.author": "Autor",
     "sulu_content.authored_date": "Verfasst am",
     "sulu_content.shadow_page": "Shadow Seite",

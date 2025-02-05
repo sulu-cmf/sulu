@@ -68,7 +68,7 @@ class ContentResolverTest extends SuluTestCase
                         'color' => '#ff0000',
                         'time' => '13:37',
                         'date' => '2020-01-01',
-                        'datetime' => '2020-01-01 13:37:00',
+                        'datetime' => '2020-01-01T13:37:00',
                         'email' => 'example@sulu.io',
                         'external_url' => 'https://sulu.io',
                         'text_area' => 'Lorem Ipsum dolor sit amet',
@@ -93,11 +93,15 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
+
+        $excerpt = $result['extension']['excerpt'] ?? null;
+        $seo = $result['extension']['seo'] ?? null;
+
+        self::assertIsArray($excerpt);
+        self::assertIsArray($seo);
 
         self::assertSame('Lorem Ipsum', $content['title']);
         self::assertSame('/lorem-ipsum', $content['url']);
@@ -111,20 +115,27 @@ class ContentResolverTest extends SuluTestCase
         self::assertSame('#ff0000', $content['color']);
         self::assertSame('13:37', $content['time']);
         self::assertSame('2020-01-01', $content['date']);
-        self::assertSame('2020-01-01 13:37:00', $content['datetime']);
+
+        /** @var \DateTimeInterface|null $dateTime */
+        $dateTime = $content['datetime'];
+        self::assertSame(1577885820 /* 2020-01-01T13:37:00 */, $dateTime?->getTimestamp());
         self::assertSame('example@sulu.io', $content['email']);
         self::assertSame('https://sulu.io', $content['external_url']);
         self::assertSame('Lorem Ipsum dolor sit amet', $content['text_area']);
-        self::assertSame('excerpt-title-1', $content['excerpt']['excerptTitle']);
-        self::assertSame('excerpt-more-1', $content['excerpt']['excerptMore']);
-        self::assertSame('excerpt-description-1', $content['excerpt']['excerptDescription']);
-        self::assertSame('seo-title-1', $content['seo']['seoTitle']);
-        self::assertSame('seo-description-1', $content['seo']['seoDescription']);
-        self::assertSame('seo-keywords-1', $content['seo']['seoKeywords']);
-        self::assertSame('https://sulu.io', $content['seo']['seoCanonicalUrl']);
-        self::assertTrue($content['seo']['seoNoIndex']);
-        self::assertTrue($content['seo']['seoNoFollow']);
-        self::assertTrue($content['seo']['seoHideInSitemap']);
+
+        // Excerpt
+        self::assertSame('excerpt-title-1', $excerpt['title']);
+        self::assertSame('excerpt-more-1', $excerpt['more']);
+        self::assertSame('excerpt-description-1', $excerpt['description']);
+
+        // Seo
+        self::assertSame('seo-title-1', $seo['title']);
+        self::assertSame('seo-description-1', $seo['description']);
+        self::assertSame('seo-keywords-1', $seo['keywords']);
+        self::assertSame('https://sulu.io', $seo['canonicalUrl']);
+        self::assertTrue($seo['noIndex']);
+        self::assertTrue($seo['noFollow']);
+        self::assertTrue($seo['hideInSitemap']);
     }
 
     public function testResolveMedias(): void
@@ -172,10 +183,8 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
         $mediaSelection = $content['media_selection'];
@@ -241,10 +250,8 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
         $contentSelection = $content['collection_selection'];
@@ -292,10 +299,8 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
         $categorySelection = $content['category_selection'];
@@ -348,20 +353,17 @@ class ContentResolverTest extends SuluTestCase
         static::getEntityManager()->flush();
 
         $dimensionContent = $this->contentAggregator->aggregate($example1, ['locale' => 'en', 'stage' => 'live']);
-        /** @var mixed[] $result */
         $result = $this->contentResolver->resolve($dimensionContent);
 
-        /** @var mixed[] $content */
         $content = $result['content'];
 
-        /** @var mixed[] $excerpt */
-        $excerpt = $content['excerpt'];
+        $excerpt = $result['extension']['excerpt'];
 
         $tagSelection = $content['tag_selection'];
         self::assertIsArray($tagSelection);
         self::assertSame('tag-1', $tagSelection[0]);
 
-        $excerptTags = $excerpt['excerptTags'];
+        $excerptTags = $excerpt['tags'];
         self::assertIsArray($excerptTags);
         self::assertSame('tag-1', $excerptTags[0]);
         self::assertSame('tag-2', $excerptTags[1]);

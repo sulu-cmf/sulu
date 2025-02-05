@@ -34,7 +34,7 @@ class DimensionContentCollectionFactoryTest extends TestCase
      * @template T of DimensionContentInterface
      *
      * @param mixed[] $dimensionAttributes
-     * @param T[] $existDimensionContents
+     * @param array<int, T> $existDimensionContents
      */
     protected function createDimensionContentCollectionFactoryInstance(
         array $dimensionAttributes,

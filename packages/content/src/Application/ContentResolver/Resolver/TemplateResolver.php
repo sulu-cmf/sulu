@@ -20,7 +20,7 @@ use Sulu\Content\Application\MetadataResolver\MetadataResolver;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
 
-class TemplateResolver implements ResolverInterface
+readonly class TemplateResolver implements ResolverInterface
 {
     public function __construct(
         private MetadataProviderInterface $formMetadataProvider,

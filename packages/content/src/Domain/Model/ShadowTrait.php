@@ -21,7 +21,7 @@ trait ShadowTrait
     protected $shadowLocale;
 
     /**
-     * @var string[]|null
+     * @var array<string, string>|null
      */
     protected $shadowLocales;
 
@@ -67,7 +67,7 @@ trait ShadowTrait
     }
 
     /**
-     * @internal should only be set by content bundle services not from outside
+     * @internal should only be called by content bundle services not from outside
      */
     public function getShadowLocales(): ?array
     {
@@ -75,7 +75,7 @@ trait ShadowTrait
     }
 
     /**
-     * @internal should only be set by content bundle services not from outside
+     * @internal should only be called by content bundle services not from outside
      *
      * @return string[]
      */

@@ -19,7 +19,7 @@ use Sulu\Article\Domain\Model\ArticleInterface;
 interface ArticleMapperInterface
 {
     /**
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     public function mapArticleData(ArticleInterface $article, array $data): void;
 }

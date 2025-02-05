@@ -32,19 +32,24 @@ class MediaSelectionPropertyResolver implements PropertyResolverInterface
 
         if (!\is_array($data)
             || !isset($data['ids'])
+            || !\is_array($data['ids'])
+            || 0 === \count($data['ids'])
             || !\array_is_list($data['ids'])
         ) {
             return ContentView::create([], ['ids' => [], 'displayOption' => $displayOption, ...$params]);
         }
 
+        /** @var int[] $ids */
+        $ids = $data['ids'];
+
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? MediaResourceLoader::getKey();
 
         return ContentView::createResolvables(
-            $data['ids'],
+            $ids,
             $resourceLoaderKey,
             [
-                'ids' => $data['ids'],
+                'ids' => $ids,
                 'displayOption' => $displayOption,
                 ...$params,
             ],

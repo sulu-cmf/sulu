@@ -16,6 +16,7 @@ namespace Sulu\Content\Application\ContentDataMapper\DataMapper;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
+use Webmozart\Assert\Assert;
 
 class TemplateDataMapper implements DataMapperInterface
 {
@@ -81,13 +82,13 @@ class TemplateDataMapper implements DataMapperInterface
     }
 
     /**
-     * @param mixed[] $data
-     * @param mixed[] $unlocalizedData
-     * @param mixed[] $localizedData
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $unlocalizedData
+     * @param array<string, mixed> $localizedData
      *
      * @return array{
-     *      0: mixed[],
-     *      1: mixed[],
+     *      0: array<string, mixed>,
+     *      1: array<string, mixed>,
      *      2: bool,
      * }
      */
@@ -115,6 +116,8 @@ class TemplateDataMapper implements DataMapperInterface
             if (\is_float($name)) {
                 $name = (string) $name;
             }
+
+            Assert::string($name); // TODO may remove this line for better performance
 
             $value = $property->isLocalized() ? $defaultLocalizedData[$name] ?? null : $defaultLocalizedData[$name] ?? null;
             if (\array_key_exists($name, $data)) { // values not explicitly given need to stay untouched for e.g. for shadow pages urls

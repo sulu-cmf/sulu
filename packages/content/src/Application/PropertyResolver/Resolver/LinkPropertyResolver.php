@@ -19,24 +19,14 @@ use Sulu\Content\Application\ResourceLoader\Loader\LinkResourceLoader;
 
 class LinkPropertyResolver implements PropertyResolverInterface
 {
-    /**
-     * @param array{
-     *    rel?: string,
-     *    href: string,
-     *    query?: string,
-     *    title?: string,
-     *    anchor?: string,
-     *    target?: string,
-     *    provider?: string
-     * }|mixed $data
-     * @param mixed[] $params
-     */
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
         if (
             !\is_array($data)
             || !\array_key_exists('href', $data)
             || !\array_key_exists('provider', $data)
+            || !\is_string($data['href'])
+            || !\is_string($data['provider'])
         ) {
             return ContentView::create($data, [...$params]);
         }
@@ -58,10 +48,10 @@ class LinkPropertyResolver implements PropertyResolverInterface
                 }
 
                 $url = $linkItem->getUrl();
-                if (isset($data['query'])) {
+                if (isset($data['query']) && \is_string($data['query'])) {
                     $url = \sprintf('%s?%s', $url, \ltrim($data['query'], '?'));
                 }
-                if (isset($data['anchor'])) {
+                if (isset($data['anchor']) && \is_string($data['anchor'])) {
                     $url = \sprintf('%s#%s', $url, \ltrim($data['anchor'], '#'));
                 }
 

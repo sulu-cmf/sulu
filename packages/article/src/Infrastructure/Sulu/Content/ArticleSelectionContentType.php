@@ -39,7 +39,21 @@ class ArticleSelectionContentType extends SimpleContentType implements PreResolv
     public function getContentData(PropertyInterface $property)
     {
         $value = $property->getValue();
-        if (null === $value || !\is_array($value) || 0 === \count($value)) {
+        if (!\is_array($value) || !\array_is_list($value)) {
+            return [];
+        }
+
+        /** @var string[] $uuids */
+        $uuids = [];
+        foreach ($value as $uuid) {
+            if (!\is_string($uuid)) {
+                return [];
+            }
+
+            $uuids[] = $uuid;
+        }
+
+        if (0 === \count($value)) {
             return [];
         }
 
@@ -50,7 +64,7 @@ class ArticleSelectionContentType extends SimpleContentType implements PreResolv
 
         $article = $this->articleRepository->findBy(
             filters: \array_merge(
-                ['uuids' => $value],
+                ['uuids' => $uuids],
                 $dimensionAttributes,
             ),
             selects: [
@@ -60,7 +74,7 @@ class ArticleSelectionContentType extends SimpleContentType implements PreResolv
         $result = [];
         foreach ($article as $article) {
             $dimensionContent = $this->contentManager->resolve($article, $dimensionAttributes);
-            $result[\array_search($article->getUuid(), $value, false)] = $this->contentManager->normalize($dimensionContent);
+            $result[\array_search($article->getUuid(), $uuids, false)] = $this->contentManager->normalize($dimensionContent);
         }
 
         \ksort($result);

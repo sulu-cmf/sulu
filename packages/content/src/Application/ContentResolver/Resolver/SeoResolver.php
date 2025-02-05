@@ -20,7 +20,7 @@ use Sulu\Content\Application\MetadataResolver\MetadataResolver;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\SeoInterface;
 
-class SeoResolver implements ResolverInterface
+readonly class SeoResolver implements ResolverInterface
 {
     public function __construct(
         private MetadataProviderInterface $formMetadataProvider,
@@ -43,15 +43,25 @@ class SeoResolver implements ResolverInterface
         $items = \array_filter($formMetadata->getItems(), function($item) {
             return !\in_array($item->getType(), $this->excludedPropertyTypes(), true);
         });
+        $resolvedItems = $this->metadataResolver->resolveItems($items, $this->getSeoData($dimensionContent), $locale);
 
-        return ContentView::create(
-            $this->metadataResolver->resolveItems(
-                $items,
-                $this->getSeoData($dimensionContent),
-                $locale
-            ),
-            []
-        );
+        return ContentView::create($this->normalizeResolvedItems($resolvedItems), []);
+    }
+
+    /**
+     * @param mixed[] $resolvedItems
+     *
+     * @return mixed[]
+     */
+    protected function normalizeResolvedItems(array $resolvedItems): array
+    {
+        $result = [];
+        foreach ($resolvedItems as $key => $item) {
+            $normalizedKey = \lcfirst(\substr((string) $key, \strlen('seo')));
+            $result[$normalizedKey] = $item;
+        }
+
+        return $result;
     }
 
     protected function getFormKey(): string

@@ -75,7 +75,7 @@ class ContentPublishTaskHandler implements AutomationTaskHandlerInterface
      */
     public function handle($workload)
     {
-        if (!\is_array($workload)) {
+        if (!\is_array($workload)) { // @phpstan-ignore function.alreadyNarrowedType
             // TODO FIXME add test case for this
             return; // @codeCoverageIgnore
         }

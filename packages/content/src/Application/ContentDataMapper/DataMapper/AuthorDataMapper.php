@@ -16,6 +16,7 @@ namespace Sulu\Content\Application\ContentDataMapper\DataMapper;
 use Sulu\Content\Domain\Factory\ContactFactoryInterface;
 use Sulu\Content\Domain\Model\AuthorInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Webmozart\Assert\Assert;
 
 class AuthorDataMapper implements DataMapperInterface
 {
@@ -42,11 +43,12 @@ class AuthorDataMapper implements DataMapperInterface
     }
 
     /**
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      */
     private function setAuthorData(AuthorInterface $dimensionContent, array $data): void
     {
         if (\array_key_exists('author', $data)) {
+            Assert::nullOrInteger($data['author']);
             $dimensionContent->setAuthor(
                 $data['author']
                     ? $this->contactFactory->create($data['author'])
@@ -54,7 +56,17 @@ class AuthorDataMapper implements DataMapperInterface
             );
         }
 
+        if (\array_key_exists('lastModified', $data)) {
+            Assert::nullOrString($data['lastModified']);
+            $dimensionContent->setLastModified(
+                $data['lastModified'] && (\array_key_exists('lastModifiedEnabled', $data) && $data['lastModifiedEnabled'])
+                    ? new \DateTimeImmutable($data['lastModified'])
+                    : null
+            );
+        }
+
         if (\array_key_exists('authored', $data)) {
+            Assert::nullOrString($data['authored']);
             $dimensionContent->setAuthored(
                 $data['authored']
                     ? new \DateTimeImmutable($data['authored'])

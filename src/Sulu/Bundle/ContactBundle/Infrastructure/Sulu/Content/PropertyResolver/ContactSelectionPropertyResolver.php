@@ -33,14 +33,17 @@ class ContactSelectionPropertyResolver implements PropertyResolverInterface
             return ContentView::create([], ['ids' => [], ...$params]);
         }
 
+        /** @var int[] $ids */
+        $ids = $data;
+
         /** @var string $resourceLoaderKey */
         $resourceLoaderKey = $params['resourceLoader'] ?? ContactResourceLoader::getKey();
 
         return ContentView::createResolvables(
-            $data,
+            $ids,
             $resourceLoaderKey,
             [
-                'ids' => $data,
+                'ids' => $ids,
                 ...$params,
             ],
         );

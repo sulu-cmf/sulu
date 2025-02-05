@@ -19,7 +19,6 @@ use Sulu\Component\Content\Compat\Structure\LegacyPropertyFactory;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\Content\Metadata\StructureMetadata;
 use Sulu\Content\Domain\Model\TemplateInterface;
-use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
 use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridgeFactory;
 use Sulu\Content\Infrastructure\Sulu\Structure\StructureMetadataNotFoundException;
 use Sulu\Content\Tests\Unit\Mocks\MockWrapper;
@@ -69,7 +68,6 @@ class ContentStructureBridgeFactoryTest extends TestCase
 
         $result = $contentStructureBridgeFactory->getBridge($object, 'content-id', 'de');
 
-        $this->assertInstanceOf(ContentStructureBridge::class, $result);
         $this->assertSame($object, $result->getContent());
         $this->assertSame('content-id', $result->getUuid());
         $this->assertSame('de', $result->getLanguageCode());

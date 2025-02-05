@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sulu\Article\Tests\Functional\Integration;
 
-use Sulu\Article\Tests\Traits\AssertSnapshotTrait;
+use Sulu\Bundle\TestBundle\Testing\AssertSnapshotTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
@@ -51,6 +51,8 @@ class ArticleControllerTest extends SuluTestCase
             'published' => '2020-05-08T00:00:00+00:00', // Should be ignored
             'description' => null,
             'image' => null,
+            'lastModified' => '2022-05-08T00:00:00+00:00',
+            'lastModifiedEnabled' => true,
             'seoTitle' => 'Seo Title',
             'seoDescription' => 'Seo Description',
             'seoCanonicalUrl' => 'https://sulu.io/',
@@ -121,6 +123,8 @@ class ArticleControllerTest extends SuluTestCase
             'title' => 'Test Article',
             'url' => '/my-article',
             'images' => null,
+            'lastModified' => '2022-05-08T00:00:00+00:00',
+            'lastModifiedEnabled' => true,
             'seoTitle' => 'Seo Title',
             'seoDescription' => 'Seo Description',
             'seoCanonicalUrl' => 'https://sulu.io/',

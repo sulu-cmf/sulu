@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sulu\Content\Tests\Functional\Integration;
 
+use Sulu\Bundle\TestBundle\Testing\AssertSnapshotTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Content\Tests\Traits\AssertSnapshotTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 /**
@@ -66,6 +66,8 @@ class ExampleControllerTest extends SuluTestCase
             'excerptMedia' => null,
             'author' => null,
             'authored' => '2020-05-08T00:00:00+00:00',
+            'lastModifiedEnabled' => true,
+            'lastModified' => '2022-05-08T00:00:00+00:00',
             'mainWebspace' => 'sulu-io',
         ]) ?: null);
 
@@ -136,6 +138,8 @@ class ExampleControllerTest extends SuluTestCase
             'excerptMedia' => null,
             'mainWebspace' => 'sulu-io',
             'authored' => '2020-05-08T00:00:00+00:00',
+            'lastModifiedEnabled' => true,
+            'lastModified' => '2022-05-08T00:00:00+00:00',
         ]) ?: null);
 
         $response = $this->client->getResponse();
@@ -226,6 +230,8 @@ class ExampleControllerTest extends SuluTestCase
             'excerptMedia' => null,
             'authored' => '2020-06-09T00:00:00+00:00',
             'mainWebspace' => 'sulu-io2',
+            'lastModifiedEnabled' => true,
+            'lastModified' => '2022-05-08T00:00:00+00:00',
         ]) ?: null);
 
         $response = $this->client->getResponse();
