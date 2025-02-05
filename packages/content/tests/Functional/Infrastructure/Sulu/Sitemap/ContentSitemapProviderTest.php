@@ -16,7 +16,6 @@ namespace Sulu\Content\Tests\Functional\Infrastructure\Sulu\Sitemap;
 use Sulu\Bundle\TestBundle\Testing\AssertSnapshotTrait;
 use Sulu\Bundle\TestBundle\Testing\SetGetPrivatePropertyTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Bundle\WebsiteBundle\Sitemap\Sitemap;
 use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapAlternateLink;
 use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapUrl;
 use Sulu\Content\Infrastructure\Sulu\Sitemap\ContentSitemapProvider;

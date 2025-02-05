@@ -19,7 +19,6 @@ use Sulu\Bundle\MediaBundle\Api\Media;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Content\Application\ContentAggregator\ContentAggregatorInterface;
 use Sulu\Content\Application\ContentResolver\ContentResolverInterface;
-use Sulu\Content\Application\PropertyResolver\Resolver\DateTimePropertyResolver;
 use Sulu\Content\Tests\Functional\Traits\CreateCategoryTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateMediaTrait;
 use Sulu\Content\Tests\Functional\Traits\CreateTagTrait;

@@ -27,7 +27,6 @@ use Sulu\Component\Content\Metadata\StructureMetadata;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Content\Domain\Model\ShadowInterface;
 use Sulu\Content\Domain\Model\TemplateInterface;
-use Sulu\Content\Infrastructure\Sulu\Structure\ContentDocument;
 use Sulu\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
 
 class ContentStructureBridgeTest extends TestCase
