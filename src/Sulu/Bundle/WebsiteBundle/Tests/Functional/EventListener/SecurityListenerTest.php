@@ -17,7 +17,6 @@ use Sulu\Bundle\SecurityBundle\Entity\AccessControl;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Bundle\SecurityBundle\Entity\Role;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
-use Sulu\Bundle\WebsiteBundle\Tests\Application\Kernel;
 use Sulu\Component\Content\Document\Behavior\SecurityBehavior;
 use Sulu\Component\Content\Document\WorkflowStage;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -32,10 +31,6 @@ class SecurityListenerTest extends SuluTestCase
 
     protected function setUp(): void
     {
-        if (Kernel::VERSION_ID < 50000) { // @phpstan-ignore-line
-            $this->markTestSkipped('This test is only for Symfony 5.0 and above');
-        }
-
         $this->client = $this->createWebsiteClient(['environment' => 'test_with_security']);
         $this->purgeDatabase();
         $this->initPhpcr();

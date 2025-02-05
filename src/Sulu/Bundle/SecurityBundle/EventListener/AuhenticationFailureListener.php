@@ -44,13 +44,8 @@ class AuhenticationFailureListener implements EventSubscriberInterface
         if ($previousException instanceof UsernameNotFoundException) {
             $user = $this->userRepository->createNew();
 
-            if ($this->passwordHasherFactory instanceof PasswordHasherFactoryInterface) {
-                $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
-                $hasher->hash(Uuid::v7()->toRfc4122());
-            } else {
-                $encoder = $this->passwordHasherFactory->getEncoder($user);
-                $encoder->encodePassword(Uuid::v7()->toRfc4122(), 'dummy-salt');
-            }
+            $hasher = $this->passwordHasherFactory->getPasswordHasher($user);
+            $hasher->hash(Uuid::v7()->toRfc4122());
         }
     }
 }

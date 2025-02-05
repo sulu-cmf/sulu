@@ -49,7 +49,7 @@
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="mailer"/>
-            <argument type="service" id="sulu_security.encoder_factory"/>
+            <argument type="service" id="security.password_hasher_factory"/>
             <argument type="service" id="sulu.repository.user"/>
             <argument type="service" id="router"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
@@ -324,7 +324,7 @@
 
         <service id="sulu_security.login_failure_listener"
                  class="Sulu\Bundle\SecurityBundle\EventListener\AuhenticationFailureListener">
-            <argument type="service" id="sulu_security.encoder_factory"/>
+            <argument type="service" id="security.password_hasher_factory"/>
             <argument type="service" id="sulu.repository.user"/>
 
             <tag name="kernel.event_subscriber"/>
@@ -363,7 +363,7 @@
 
         <service id="sulu_security.user_manager" class="Sulu\Bundle\SecurityBundle\UserManager\UserManager" public="true">
             <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="sulu_security.encoder_factory" on-invalid="null"/>
+            <argument type="service" id="security.password_hasher_factory" on-invalid="null" />
             <argument type="service" id="sulu.repository.role"/>
             <argument type="service" id="sulu_security.group_repository"/>
             <argument type="service" id="sulu_contact.contact_manager"/>

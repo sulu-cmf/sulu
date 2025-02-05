@@ -2,6 +2,11 @@
 
 ## 3.0.0
 
+## Minimum Symfony version 6.4
+The minimum Symfony version for Sulu is 6.4.
+
+This also removes the `sulu_security.encoder_factory` which can be replaced with the Symfony service `security.password_hasher_factory`.
+
 ### Changed Media Format HTTP Response Headers
 
 Removed `Pragma` & `Expires` HTTP headers, as the `Cache-Control` header is enough.
