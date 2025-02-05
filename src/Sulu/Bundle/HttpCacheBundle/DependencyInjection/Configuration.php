@@ -14,19 +14,13 @@ namespace Sulu\Bundle\HttpCacheBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class Configuration implements ConfigurationInterface
+/**
+ * @internal this is not part of the public API and should only be called by the Symfony framework classes
+ */
+final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @var bool
-     */
-    private $debug;
-
-    /**
-     * @param bool $debug Whether to use the debug mode
-     */
-    public function __construct($debug)
+    public function __construct(private bool $debug)
     {
-        $this->debug = $debug;
     }
 
     public function getConfigTreeBuilder(): TreeBuilder

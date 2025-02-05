@@ -17,7 +17,10 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class Configuration implements ConfigurationInterface
+/**
+ * @internal is not part of the public API and should only be called by the Symfony framework classes
+ */
+final class Configuration implements ConfigurationInterface
 {
     public const STORAGE_GOOGLE_CLOUD = 'google_cloud';
 
