@@ -37,9 +37,9 @@ class ContentResolver implements ContentResolverInterface
     /**
      * @return array{
      *     resource: object,
-     *     content: mixed[],
-     *     extension: mixed[],
-     *     view: mixed[]
+     *     content: array<string, mixed>,
+     *     extension: array<string, array<string, mixed>>,
+     *     view: array<string, mixed>,
      *  }
      */
     public function resolve(DimensionContentInterface $dimensionContent): array
@@ -53,11 +53,11 @@ class ContentResolver implements ContentResolverInterface
         $resolvedResources = $this->loadAndResolveResources($resolvedContent['resolvableResources'], $dimensionContent->getLocale());
         $content = $this->replaceResolvableResourcesWithResolvedValues($resolvedContent['content'], $resolvedResources);
 
-        /** @var mixed[] $templateData */
+        /** @var array<string, mixed> $templateData */
         $templateData = $content['template'];
         unset($content['template']);
 
-        /** @var mixed[] $templateView */
+        /** @var array<string, mixed> $templateView */
         $templateView = $resolvedContent['view']['template'];
         unset($resolvedContent['view']['template']);
 
@@ -66,7 +66,7 @@ class ContentResolver implements ContentResolverInterface
         unset($content['settings']);
         unset($resolvedContent['view']['settings']);
 
-        /** @var mixed[] $extensionData */
+        /** @var array<string, array<string, mixed>> $extensionData */
         $extensionData = $content;
 
         return \array_merge([
@@ -81,15 +81,16 @@ class ContentResolver implements ContentResolverInterface
      * @param ContentView[] $contentViews
      *
      * @return array{
-     *     content: mixed[],
-     *     view: mixed[],
-     *     resolvableResources: array<string, array<ResolvableResource>>
-     *     }
+     *     content: array<string, mixed>,
+     *     view: array<string, mixed>,
+     *     resolvableResources: array<string, array<ResolvableResource>>,
+     * }
      */
     private function resolveContentViews(array $contentViews): array
     {
         $content = [];
         $view = [];
+        /** @var array<string, array<ResolvableResource>> $resolvableResources */
         $resolvableResources = [];
 
         foreach ($contentViews as $name => $contentView) {
@@ -108,10 +109,10 @@ class ContentResolver implements ContentResolverInterface
 
     /**
      * @return array{
-     *     content: mixed[],
-     *     view: mixed[],
+     *     content: array<string, mixed>,
+     *     view: array<string, mixed>,
      *     resolvableResources: array<string, array<ResolvableResource>>
-     *     }
+     * }
      */
     private function resolveContentView(ContentView $contentView, string $name): array
     {

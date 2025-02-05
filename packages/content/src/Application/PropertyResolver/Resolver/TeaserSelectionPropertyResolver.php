@@ -19,10 +19,6 @@ use Sulu\Content\Application\ResourceLoader\Loader\TeaserResourceLoader;
 
 class TeaserSelectionPropertyResolver implements PropertyResolverInterface
 {
-    /**
-     * @param mixed[] $data
-     * @param mixed[] $params
-     */
     public function resolve(mixed $data, string $locale, array $params = []): ContentView
     {
         $returnedParams = ['presentsAs' => $data['presentsAs'] ?? null, ...$params];

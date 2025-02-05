@@ -53,7 +53,7 @@ class ContentNormalizer implements ContentNormalizerInterface
             );
         }
 
-        /** @var mixed[] $normalizedData */
+        /** @var array<string, mixed> $normalizedData */
         $normalizedData = $this->serializer->normalize($object, null, [
             'ignored_attributes' => $ignoredAttributes,
         ]);

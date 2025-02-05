@@ -61,7 +61,7 @@ class PublishTransitionSubscriber implements EventSubscriberInterface
         $dimensionAttributes = $context[ContentWorkflowInterface::DIMENSION_ATTRIBUTES_CONTEXT_KEY] ?? null;
         $contentRichEntity = $context[ContentWorkflowInterface::CONTENT_RICH_ENTITY_CONTEXT_KEY] ?? null;
 
-        if (!$dimensionAttributes) {
+        if (!\is_array($dimensionAttributes)) {
             throw new \RuntimeException('No "dimensionAttributes" given.');
         }
 

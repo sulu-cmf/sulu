@@ -64,7 +64,7 @@ class UnpublishTransitionSubscriber implements EventSubscriberInterface
         $context = $transitionEvent->getContext();
 
         $dimensionAttributes = $context[ContentWorkflowInterface::DIMENSION_ATTRIBUTES_CONTEXT_KEY] ?? null;
-        if (!$dimensionAttributes) {
+        if (!\is_array($dimensionAttributes)) {
             throw new \RuntimeException('Transition context must contain "dimensionAttributes".');
         }
 
