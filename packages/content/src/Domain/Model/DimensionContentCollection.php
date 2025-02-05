@@ -48,7 +48,7 @@ class DimensionContentCollection implements \IteratorAggregate, DimensionContent
     /**
      * DimensionContentCollection constructor.
      *
-     * @param T[] $dimensionContents
+     * @param array<int, T> $dimensionContents
      * @param mixed[] $dimensionAttributes
      * @param class-string<T> $dimensionContentClass
      */
