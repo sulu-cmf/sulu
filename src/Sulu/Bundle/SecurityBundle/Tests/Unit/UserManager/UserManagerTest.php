@@ -17,7 +17,6 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\ContactBundle\Contact\ContactManager;
-use Sulu\Bundle\SecurityBundle\Entity\GroupRepository;
 use Sulu\Bundle\SecurityBundle\UserManager\UserManager;
 use Sulu\Component\Security\Authentication\RoleRepositoryInterface;
 use Sulu\Component\Security\Authentication\SaltGenerator;
@@ -53,11 +52,6 @@ class UserManagerTest extends TestCase
     private $roleRepository;
 
     /**
-     * @var ObjectProphecy<GroupRepository>
-     */
-    private $groupRepository;
-
-    /**
      * @var ObjectProphecy<SaltGenerator>
      */
     private $saltGenerator;
@@ -73,7 +67,6 @@ class UserManagerTest extends TestCase
         $this->userRepository = $this->prophesize(UserRepositoryInterface::class);
         $this->eventCollector = $this->prophesize(DomainEventCollectorInterface::class);
         $this->roleRepository = $this->prophesize(RoleRepositoryInterface::class);
-        $this->groupRepository = $this->prophesize(GroupRepository::class);
         $this->contactManager = $this->prophesize(ContactManager::class);
         $this->saltGenerator = $this->prophesize(SaltGenerator::class);
 
@@ -81,7 +74,6 @@ class UserManagerTest extends TestCase
             $this->objectManager->reveal(),
             null,
             $this->roleRepository->reveal(),
-            $this->groupRepository->reveal(),
             $this->contactManager->reveal(),
             $this->saltGenerator->reveal(),
             $this->userRepository->reveal(),
@@ -107,7 +99,6 @@ class UserManagerTest extends TestCase
             $this->objectManager->reveal(),
             null,
             $this->roleRepository->reveal(),
-            $this->groupRepository->reveal(),
             $this->contactManager->reveal(),
             $this->saltGenerator->reveal(),
             $this->userRepository->reveal(),

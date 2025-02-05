@@ -27,13 +27,11 @@
         <parameter key="sulu_security.phpcr_access_control_provider.class">Sulu\Component\Security\Authorization\AccessControl\PhpcrAccessControlProvider</parameter>
         <parameter key="sulu_security.doctrine_access_control_provider.class">Sulu\Component\Security\Authorization\AccessControl\DoctrineAccessControlProvider</parameter>
         <parameter key="sulu_security.permission_controller.class">Sulu\Bundle\SecurityBundle\Controller\PermissionController</parameter>
-        <parameter key="sulu_security.group_repository.class">Sulu\Bundle\SecurityBundle\Entity\GroupRepository</parameter>
         <parameter key="sulu_security.user_repository.class">Sulu\Bundle\SecurityBundle\Entity\UserRepository</parameter>
         <parameter key="sulu_security.user_setting_repository.class">Sulu\Bundle\SecurityBundle\Entity\UserSettingRepository</parameter>
         <parameter key="sulu_security.user_repository_factory.class">Sulu\Component\Security\Authentication\UserRepositoryFactory</parameter>
         <parameter key="sulu_security.build.user.class">Sulu\Bundle\SecurityBundle\Build\UserBuilder</parameter>
         <parameter key="sulu_security.entity.role">Sulu\Bundle\SecurityBundle\Entity\Role</parameter>
-        <parameter key="sulu_security.entity.group">Sulu\Bundle\SecurityBundle\Entity\Group</parameter>
         <parameter key="sulu_security.entity.user_setting">Sulu\Bundle\SecurityBundle\Entity\UserSetting</parameter>
         <parameter key="sulu_security.profile_controller.class">Sulu\Bundle\SecurityBundle\Controller\ProfileController</parameter>
     </parameters>
@@ -180,20 +178,6 @@
         </service>
 
         <service
-            id="sulu_security.group_controller"
-            class="Sulu\Bundle\SecurityBundle\Controller\GroupController"
-            public="true"
-        >
-            <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sulu_core.doctrine_rest_helper" />
-            <argument type="service" id="sulu_core.doctrine_list_builder_factory" />
-            <argument type="service" id="sulu.repository.role" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <service
             id="sulu_security.role_controller"
             class="Sulu\Bundle\SecurityBundle\Controller\RoleController"
             public="true"
@@ -236,12 +220,6 @@
             <argument>%sulu.model.user.class%</argument>
 
             <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <service id="sulu_security.group_repository" class="%sulu_security.group_repository.class%">
-            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
-
-            <argument>%sulu_security.entity.group%</argument>
         </service>
 
         <service id="sulu_security.user_setting_repository" class="%sulu_security.user_setting_repository.class%" public="true">
@@ -365,7 +343,6 @@
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="sulu_security.encoder_factory" on-invalid="null"/>
             <argument type="service" id="sulu.repository.role"/>
-            <argument type="service" id="sulu_security.group_repository"/>
             <argument type="service" id="sulu_contact.contact_manager"/>
             <argument type="service" id="sulu_security.salt_generator"/>
             <argument type="service" id="sulu.repository.user"/>

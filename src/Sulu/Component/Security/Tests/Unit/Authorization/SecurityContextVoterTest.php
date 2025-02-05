@@ -14,11 +14,9 @@ namespace Sulu\Component\Security\Tests\Unit\Authorization;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Sulu\Bundle\SecurityBundle\Entity\Group;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Bundle\SecurityBundle\Entity\Role;
 use Sulu\Bundle\SecurityBundle\Entity\User;
-use Sulu\Bundle\SecurityBundle\Entity\UserGroup;
 use Sulu\Bundle\SecurityBundle\Entity\UserRole;
 use Sulu\Component\Security\Authorization\AccessControl\AccessControlManagerInterface;
 use Sulu\Component\Security\Authorization\SecurityCondition;
@@ -59,21 +57,6 @@ class SecurityContextVoterTest extends TestCase
      * @var Permission
      */
     protected $permission;
-
-    /**
-     * @var UserGroup
-     */
-    protected $userGroup;
-
-    /**
-     * @var Group
-     */
-    protected $group;
-
-    /**
-     * @var Group
-     */
-    protected $nestedGroup;
 
     /**
      * @var ObjectProphecy<TokenInterface>

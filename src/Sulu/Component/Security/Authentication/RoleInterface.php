@@ -12,7 +12,6 @@
 namespace Sulu\Component\Security\Authentication;
 
 use Doctrine\Common\Collections\Collection;
-use Sulu\Bundle\SecurityBundle\Entity\Group;
 use Sulu\Bundle\SecurityBundle\Entity\Permission;
 use Sulu\Bundle\SecurityBundle\Entity\SecurityType;
 use Sulu\Bundle\SecurityBundle\Entity\UserRole;
@@ -140,33 +139,6 @@ interface RoleInterface extends AuditableInterface, SecurityIdentityInterface
      * @return Collection<int, UserRole>
      */
     public function getUserRoles();
-
-    /**
-     * Add groups.
-     *
-     * @return RoleInterface
-     *
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     */
-    public function addGroup(Group $groups);
-
-    /**
-     * Remove groups.
-     *
-     * @return void
-     *
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     */
-    public function removeGroup(Group $groups);
-
-    /**
-     * Get groups.
-     *
-     * @return Collection<int, Group>
-     *
-     * @deprecated The group functionality was deprecated in Sulu 2.1 and will be removed in Sulu 3.0
-     */
-    public function getGroups();
 
     /**
      * Set securityType.
