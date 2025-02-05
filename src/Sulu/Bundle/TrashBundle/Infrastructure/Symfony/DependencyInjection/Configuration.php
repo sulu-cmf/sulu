@@ -18,14 +18,15 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class Configuration implements ConfigurationInterface
+/**
+ * @internal this is not part of the public API and should only be called by the Symfony framework classes
+ */
+final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sulu_trash');
         $rootNode = $treeBuilder->getRootNode();
-        $rootNode->children()
-        ->end();
 
         $this->addObjectsSection($rootNode);
 
